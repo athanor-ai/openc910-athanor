@@ -139,9 +139,10 @@ formal miter.
 ## Audit Map
 
 The `ct_prio` row links to the routed ATH-2950 packet in
-`athanor-ai/athanor-kairos`; `ct_fifo`, `ct_rtu_rob_entry`, and
-`ct_rtu_pst_preg_entry` candidate packets are fork-local packages under
-`athanor_artifacts/`, each replayable in place. The
+`athanor-ai/athanor-kairos`; `ct_fifo` and `ct_rtu_pst_preg_entry` are
+accepted fork-local module packets under `athanor_artifacts/`, while
+`ct_rtu_rob_entry` remains a fork-local candidate package pending independent
+replay. The
 receipt verifier checks every fork-local package's hash binding and manifest:
 
 - Toolchain policy: `athanor/toolchain_policy.json`
