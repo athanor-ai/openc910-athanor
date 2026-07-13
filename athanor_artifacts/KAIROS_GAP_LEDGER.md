@@ -56,7 +56,8 @@ relate invalid gold zero to gate zero.
 Lean should prove reset relation, transition preservation, predicate
 equivalence for `DEALLOC`/`ALLOC`/`RETIRE`/`RELEASE`/`WF_ALLOC`, and visible
 output equivalence under the relation. Yosys/SAT should keep the concrete RTL
-bounded checks, PPA replay, and mutant controls.
+bounded checks, selected-flow area replay, and mutant controls. Timing/power
+remain separate axes and are not claimed by the current packets.
 
 `rtu_pst_preg_entry_candidate1` now carries the concrete SAT relation proof
 path for this obligation: passive debug wrappers, lifecycle encoding relation,
