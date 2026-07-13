@@ -1,0 +1,684 @@
+
+ /----------------------------------------------------------------------------\
+ |  yosys -- Yosys Open SYnthesis Suite                                       |
+ |  Copyright (C) 2012 - 2026  Claire Xenia Wolf <claire@yosyshq.com>         |
+ |  Distributed under an ISC-like license, type "license" to see terms        |
+ \----------------------------------------------------------------------------/
+ Yosys 0.66+181 (git sha1 afe6b18f2, Release, Clang /usr/bin/clang++ 18.1.8)
+
+-- Running command `read_verilog -formal -sv ./ct_prio_gold.v ./ct_prio_gate_candidate.v ./ct_prio_output_miter.sv; prep -top ct_prio_output_miter; flatten; async2sync; dffunmap; opt; sat -seq 8 -tempinduct -set-at 1 rst_b 0 -set-at 2 rst_b 1 -prove-asserts -verify' --
+
+1. Executing Verilog-2005 frontend: ./ct_prio_gold.v
+Parsing formal SystemVerilog input from `./ct_prio_gold.v' to AST representation.
+Generating RTLIL representation for module `\ct_prio'.
+Warning: Replacing memory \prio with list of registers. See ./ct_prio_gold.v:44
+Warning: Replacing memory \unused with list of registers. See ./ct_prio_gold.v:44
+Successfully finished Verilog frontend.
+
+2. Executing Verilog-2005 frontend: ./ct_prio_gate_candidate.v
+Parsing formal SystemVerilog input from `./ct_prio_gate_candidate.v' to AST representation.
+Generating RTLIL representation for module `\ct_prio_gate'.
+Warning: Replacing memory \unused with list of registers. See ./ct_prio_gate_candidate.v:29
+Warning: Replacing memory \prio with list of registers. See ./ct_prio_gate_candidate.v:28
+Successfully finished Verilog frontend.
+
+3. Executing Verilog-2005 frontend: ./ct_prio_output_miter.sv
+Parsing formal SystemVerilog input from `./ct_prio_output_miter.sv' to AST representation.
+Generating RTLIL representation for module `\ct_prio_output_miter'.
+Successfully finished Verilog frontend.
+
+4. Executing PREP pass.
+
+4.1. Executing HIERARCHY pass (managing design hierarchy).
+
+4.1.1. Analyzing design hierarchy..
+Top module:  \ct_prio_output_miter
+Used module:     \ct_prio_gate
+Used module:     \ct_prio
+
+4.1.2. Analyzing design hierarchy..
+Top module:  \ct_prio_output_miter
+Used module:     \ct_prio_gate
+Used module:     \ct_prio
+Removed 0 unused modules.
+Module ct_prio_output_miter directly or indirectly contains formal properties -> setting "keep" attribute.
+
+4.2. Executing PROC pass (convert processes to netlists).
+
+4.2.1. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Cleaned up 0 empty switches.
+
+4.2.2. Executing PROC_RMDEAD pass (remove dead branches from decision trees).
+Marked 2 switch rules as full_case in process $proc$./ct_prio_gate_candidate.v:24$45 in module ct_prio_gate.
+Marked 2 switch rules as full_case in process $proc$./ct_prio_gate_candidate.v:24$42 in module ct_prio_gate.
+Marked 2 switch rules as full_case in process $proc$./ct_prio_gate_candidate.v:24$35 in module ct_prio_gate.
+Marked 2 switch rules as full_case in process $proc$./ct_prio_gate_candidate.v:24$32 in module ct_prio_gate.
+Marked 1 switch rules as full_case in process $proc$./ct_prio_gold.v:41$14 in module ct_prio.
+Marked 1 switch rules as full_case in process $proc$./ct_prio_gold.v:41$4 in module ct_prio.
+Removed a total of 0 dead cases.
+
+4.2.3. Executing PROC_PRUNE pass (remove redundant assignments in processes).
+Removed 0 redundant assignments.
+Promoted 2 assignments to connections.
+
+4.2.4. Executing PROC_INIT pass (extract init attributes).
+
+4.2.5. Executing PROC_ARST pass (detect async resets in processes).
+Found async reset \rst_b in `\ct_prio_gate.$proc$./ct_prio_gate_candidate.v:24$45'.
+Found async reset \rst_b in `\ct_prio_gate.$proc$./ct_prio_gate_candidate.v:24$42'.
+Found async reset \rst_b in `\ct_prio_gate.$proc$./ct_prio_gate_candidate.v:24$35'.
+Found async reset \rst_b in `\ct_prio_gate.$proc$./ct_prio_gate_candidate.v:24$32'.
+Found async reset \rst_b in `\ct_prio.$proc$./ct_prio_gold.v:41$14'.
+Found async reset \rst_b in `\ct_prio.$proc$./ct_prio_gold.v:41$4'.
+
+4.2.6. Executing PROC_ROM pass (convert switches to ROMs).
+Converted 0 switches.
+<suppressed ~15 debug messages>
+
+4.2.7. Executing PROC_MUX pass (convert decision trees to multiplexers).
+Creating decoders for process `\ct_prio_output_miter.$proc$./ct_prio_output_miter.sv:26$52'.
+     1/1: $assert$./ct_prio_output_miter.sv:28$53_EN
+Creating decoders for process `\ct_prio_gate.$proc$./ct_prio_gate_candidate.v:24$45'.
+     1/2: $0\prio[1][1:1]
+     2/2: $0\unused[1][1:1]
+Creating decoders for process `\ct_prio_gate.$proc$./ct_prio_gate_candidate.v:24$42'.
+     1/2: $0\prio[1][0:0]
+     2/2: $0\unused[1][0:0]
+Creating decoders for process `\ct_prio_gate.$proc$./ct_prio_gate_candidate.v:24$35'.
+     1/2: $0\prio[0][1:1]
+     2/2: $0\unused[0][1:1]
+Creating decoders for process `\ct_prio_gate.$proc$./ct_prio_gate_candidate.v:24$32'.
+     1/2: $0\prio[0][0:0]
+     2/2: $0\unused[0][0:0]
+Creating decoders for process `\ct_prio.$proc$./ct_prio_gold.v:41$14'.
+     1/3: $1$splitcmplxassign$./ct_prio_gold.v:44$2[3:0]$17
+     2/3: $0\prio[1][1:0]
+     3/3: $0\unused[1][1:0]
+Creating decoders for process `\ct_prio.$proc$./ct_prio_gold.v:41$4'.
+     1/3: $1$splitcmplxassign$./ct_prio_gold.v:44$1[3:0]$7
+     2/3: $0\prio[0][1:0]
+     3/3: $0\unused[0][1:0]
+
+4.2.8. Executing PROC_DLATCH pass (convert process syncs to latches).
+
+4.2.9. Executing PROC_DFF pass (convert process syncs to FFs).
+Creating register for signal `\ct_prio_gate.\unused[1] [1]' using process `\ct_prio_gate.$proc$./ct_prio_gate_candidate.v:24$45'.
+  created $adff cell `$procdff$93' with positive edge clock and positive level reset.
+Creating register for signal `\ct_prio_gate.\prio[1] [1]' using process `\ct_prio_gate.$proc$./ct_prio_gate_candidate.v:24$45'.
+  created $adff cell `$procdff$98' with positive edge clock and positive level reset.
+Creating register for signal `\ct_prio_gate.\unused[1] [0]' using process `\ct_prio_gate.$proc$./ct_prio_gate_candidate.v:24$42'.
+  created $adff cell `$procdff$103' with positive edge clock and positive level reset.
+Creating register for signal `\ct_prio_gate.\prio[1] [0]' using process `\ct_prio_gate.$proc$./ct_prio_gate_candidate.v:24$42'.
+  created $adff cell `$procdff$108' with positive edge clock and positive level reset.
+Creating register for signal `\ct_prio_gate.\unused[0] [1]' using process `\ct_prio_gate.$proc$./ct_prio_gate_candidate.v:24$35'.
+  created $adff cell `$procdff$113' with positive edge clock and positive level reset.
+Creating register for signal `\ct_prio_gate.\prio[0] [1]' using process `\ct_prio_gate.$proc$./ct_prio_gate_candidate.v:24$35'.
+  created $adff cell `$procdff$118' with positive edge clock and positive level reset.
+Creating register for signal `\ct_prio_gate.\unused[0] [0]' using process `\ct_prio_gate.$proc$./ct_prio_gate_candidate.v:24$32'.
+  created $adff cell `$procdff$123' with positive edge clock and positive level reset.
+Creating register for signal `\ct_prio_gate.\prio[0] [0]' using process `\ct_prio_gate.$proc$./ct_prio_gate_candidate.v:24$32'.
+  created $adff cell `$procdff$128' with positive edge clock and positive level reset.
+Creating register for signal `\ct_prio.$splitcmplxassign$./ct_prio_gold.v:44$2' using process `\ct_prio.$proc$./ct_prio_gold.v:41$14'.
+  created $adff cell `$procdff$133' with positive edge clock and positive level reset.
+Creating register for signal `\ct_prio.\unused[1]' using process `\ct_prio.$proc$./ct_prio_gold.v:41$14'.
+  created $adff cell `$procdff$138' with positive edge clock and positive level reset.
+Creating register for signal `\ct_prio.\prio[1]' using process `\ct_prio.$proc$./ct_prio_gold.v:41$14'.
+  created $adff cell `$procdff$143' with positive edge clock and positive level reset.
+Creating register for signal `\ct_prio.$splitcmplxassign$./ct_prio_gold.v:44$1' using process `\ct_prio.$proc$./ct_prio_gold.v:41$4'.
+  created $adff cell `$procdff$148' with positive edge clock and positive level reset.
+Creating register for signal `\ct_prio.\unused[0]' using process `\ct_prio.$proc$./ct_prio_gold.v:41$4'.
+  created $adff cell `$procdff$153' with positive edge clock and positive level reset.
+Creating register for signal `\ct_prio.\prio[0]' using process `\ct_prio.$proc$./ct_prio_gold.v:41$4'.
+  created $adff cell `$procdff$158' with positive edge clock and positive level reset.
+
+4.2.10. Executing PROC_MEMWR pass (convert process memory writes to cells).
+
+4.2.11. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Found and cleaned up 1 empty switch in `\ct_prio_output_miter.$proc$./ct_prio_output_miter.sv:26$52'.
+Removing empty process `ct_prio_output_miter.$proc$./ct_prio_output_miter.sv:26$52'.
+Found and cleaned up 3 empty switches in `\ct_prio_gate.$proc$./ct_prio_gate_candidate.v:24$45'.
+Removing empty process `ct_prio_gate.$proc$./ct_prio_gate_candidate.v:24$45'.
+Found and cleaned up 3 empty switches in `\ct_prio_gate.$proc$./ct_prio_gate_candidate.v:24$42'.
+Removing empty process `ct_prio_gate.$proc$./ct_prio_gate_candidate.v:24$42'.
+Found and cleaned up 3 empty switches in `\ct_prio_gate.$proc$./ct_prio_gate_candidate.v:24$35'.
+Removing empty process `ct_prio_gate.$proc$./ct_prio_gate_candidate.v:24$35'.
+Found and cleaned up 3 empty switches in `\ct_prio_gate.$proc$./ct_prio_gate_candidate.v:24$32'.
+Removing empty process `ct_prio_gate.$proc$./ct_prio_gate_candidate.v:24$32'.
+Found and cleaned up 1 empty switch in `\ct_prio.$proc$./ct_prio_gold.v:41$14'.
+Removing empty process `ct_prio.$proc$./ct_prio_gold.v:41$14'.
+Found and cleaned up 1 empty switch in `\ct_prio.$proc$./ct_prio_gold.v:41$4'.
+Removing empty process `ct_prio.$proc$./ct_prio_gold.v:41$4'.
+Cleaned up 15 empty switches.
+
+4.2.12. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_prio_output_miter.
+Optimizing module ct_prio_gate.
+<suppressed ~22 debug messages>
+Optimizing module ct_prio.
+<suppressed ~12 debug messages>
+
+4.3. Executing FUTURE pass.
+
+4.4. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_prio_output_miter.
+Optimizing module ct_prio_gate.
+Optimizing module ct_prio.
+
+4.5. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_prio_output_miter..
+Finding unused cells or wires in module \ct_prio_gate..
+Finding unused cells or wires in module \ct_prio..
+Removed 28 unused cells and 83 unused wires.
+<suppressed ~35 debug messages>
+
+4.6. Executing CHECK pass (checking for obvious problems).
+Checking module ct_prio_output_miter...
+Checking module ct_prio_gate...
+Checking module ct_prio...
+Found and reported 0 problems.
+
+4.7. Executing OPT pass (performing simple optimizations).
+
+4.7.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_prio_output_miter.
+Optimizing module ct_prio_gate.
+Optimizing module ct_prio.
+
+4.7.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_prio_output_miter'.
+Computing hashes of 5 cells of `\ct_prio_output_miter'.
+Finding duplicate cells in `\ct_prio_output_miter'.
+Finding identical cells in module `\ct_prio_gate'.
+Computing hashes of 22 cells of `\ct_prio_gate'.
+Finding duplicate cells in `\ct_prio_gate'.
+Finding identical cells in module `\ct_prio'.
+Computing hashes of 25 cells of `\ct_prio'.
+Finding duplicate cells in `\ct_prio'.
+Computing hashes of 21 cells of `\ct_prio'.
+Finding duplicate cells in `\ct_prio'.
+<suppressed ~12 debug messages>
+Removed a total of 4 cells.
+
+4.7.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \ct_prio_output_miter..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \ct_prio_gate..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \ct_prio..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~22 debug messages>
+
+4.7.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \ct_prio_output_miter.
+  Optimizing cells in module \ct_prio_gate.
+  Optimizing cells in module \ct_prio.
+Performed a total of 0 changes.
+
+4.7.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_prio_output_miter'.
+Computing hashes of 5 cells of `\ct_prio_output_miter'.
+Finding duplicate cells in `\ct_prio_output_miter'.
+Finding identical cells in module `\ct_prio_gate'.
+Computing hashes of 22 cells of `\ct_prio_gate'.
+Finding duplicate cells in `\ct_prio_gate'.
+Finding identical cells in module `\ct_prio'.
+Computing hashes of 21 cells of `\ct_prio'.
+Finding duplicate cells in `\ct_prio'.
+Removed a total of 0 cells.
+
+4.7.6. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_prio_output_miter..
+Finding unused cells or wires in module \ct_prio_gate..
+Finding unused cells or wires in module \ct_prio..
+Removed 0 unused cells and 4 unused wires.
+<suppressed ~1 debug messages>
+
+4.7.7. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_prio_output_miter.
+Optimizing module ct_prio_gate.
+Optimizing module ct_prio.
+
+4.7.8. Rerunning OPT passes. (Maybe there is more to do..)
+
+4.7.9. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \ct_prio_output_miter..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \ct_prio_gate..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \ct_prio..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~22 debug messages>
+
+4.7.10. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \ct_prio_output_miter.
+  Optimizing cells in module \ct_prio_gate.
+  Optimizing cells in module \ct_prio.
+Performed a total of 0 changes.
+
+4.7.11. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_prio_output_miter'.
+Computing hashes of 5 cells of `\ct_prio_output_miter'.
+Finding duplicate cells in `\ct_prio_output_miter'.
+Finding identical cells in module `\ct_prio_gate'.
+Computing hashes of 22 cells of `\ct_prio_gate'.
+Finding duplicate cells in `\ct_prio_gate'.
+Finding identical cells in module `\ct_prio'.
+Computing hashes of 21 cells of `\ct_prio'.
+Finding duplicate cells in `\ct_prio'.
+Removed a total of 0 cells.
+
+4.7.12. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_prio_output_miter..
+Finding unused cells or wires in module \ct_prio_gate..
+Finding unused cells or wires in module \ct_prio..
+
+4.7.13. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_prio_output_miter.
+Optimizing module ct_prio_gate.
+Optimizing module ct_prio.
+
+4.7.14. Finished fast OPT passes. (There is nothing left to do.)
+
+4.8. Executing WREDUCE pass (reducing word size of cells).
+Removed top 1 bits (of 2) from port B of cell ct_prio.$eq$./ct_prio_gold.v:46$9 ($eq).
+
+4.9. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_prio_output_miter..
+Finding unused cells or wires in module \ct_prio_gate..
+Finding unused cells or wires in module \ct_prio..
+
+4.10. Executing MEMORY_COLLECT pass (generating $mem cells).
+
+4.11. Executing OPT pass (performing simple optimizations).
+
+4.11.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_prio_output_miter.
+Optimizing module ct_prio_gate.
+Optimizing module ct_prio.
+
+4.11.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_prio_output_miter'.
+Computing hashes of 5 cells of `\ct_prio_output_miter'.
+Finding duplicate cells in `\ct_prio_output_miter'.
+Finding identical cells in module `\ct_prio_gate'.
+Computing hashes of 22 cells of `\ct_prio_gate'.
+Finding duplicate cells in `\ct_prio_gate'.
+Finding identical cells in module `\ct_prio'.
+Computing hashes of 21 cells of `\ct_prio'.
+Finding duplicate cells in `\ct_prio'.
+Removed a total of 0 cells.
+
+4.11.3. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_prio_output_miter..
+Finding unused cells or wires in module \ct_prio_gate..
+Finding unused cells or wires in module \ct_prio..
+
+4.11.4. Finished fast OPT passes.
+
+4.12. Executing SORT pass.
+
+4.13. Printing statistics.
+
+=== ct_prio ===
+
+        +----------Local Count, excluding submodules.
+        | 
+       24 wires
+       38 wire bits
+        8 public wires
+       13 public wire bits
+        5 ports
+        7 port bits
+       21 cells
+        2   $adff
+        5   $and
+        2   $eq
+        2   $logic_and
+        2   $logic_not
+        4   $mux
+        1   $not
+        3   $reduce_or
+
+=== ct_prio_gate ===
+
+        +----------Local Count, excluding submodules.
+        | 
+       23 wires
+       29 wire bits
+        7 public wires
+       11 public wire bits
+        5 ports
+        7 port bits
+       22 cells
+        4   $adff
+        2   $and
+        2   $logic_and
+        2   $logic_not
+       10   $mux
+        2   $reduce_or
+
+=== ct_prio_output_miter ===
+
+        +----------Local Count, excluding submodules.
+        | 
+        8 wires
+       11 wire bits
+        6 public wires
+        9 public wire bits
+        4 ports
+        5 port bits
+        3 cells
+        1   $check
+        1   $eq
+        1   $mux
+        2 submodules
+        1   ct_prio
+        1   ct_prio_gate
+
+=== design hierarchy ===
+
+        +----------Count including submodules.
+        | 
+       46 ct_prio_output_miter
+       21 ct_prio
+       22 ct_prio_gate
+
+        +----------Count including submodules.
+        | 
+       55 wires
+       78 wire bits
+       21 public wires
+       33 public wire bits
+       14 ports
+       19 port bits
+        - memories
+        - memory bits
+        - processes
+       46 cells
+        6   $adff
+        7   $and
+        1   $check
+        3   $eq
+        4   $logic_and
+        4   $logic_not
+       15   $mux
+        1   $not
+        5   $reduce_or
+        2 submodules
+        1   ct_prio
+        1   ct_prio_gate
+
+4.14. Executing CHECK pass (checking for obvious problems).
+Checking module ct_prio...
+Checking module ct_prio_gate...
+Checking module ct_prio_output_miter...
+Found and reported 0 problems.
+
+5. Executing FLATTEN pass (flatten design).
+Deleting now unused module ct_prio.
+Deleting now unused module ct_prio_gate.
+<suppressed ~2 debug messages>
+
+6. Executing ASYNC2SYNC pass.
+Replacing ct_prio_output_miter.$flatten\gate.$procdff$98 ($adff): ARST=\gate.rst_b, D=$flatten\gate.$0\prio[1][1:1], Q=\gate.prio[1] [1]
+Replacing ct_prio_output_miter.$flatten\gate.$procdff$128 ($adff): ARST=\gate.rst_b, D=$flatten\gate.$0\prio[0][0:0], Q=\gate.prio[0] [0]
+Replacing ct_prio_output_miter.$flatten\gate.$procdff$118 ($adff): ARST=\gate.rst_b, D=$flatten\gate.$0\prio[0][1:1], Q=\gate.prio[0] [1]
+Replacing ct_prio_output_miter.$flatten\gate.$procdff$108 ($adff): ARST=\gate.rst_b, D=$flatten\gate.$0\prio[1][0:0], Q=\gate.prio[1] [0]
+Replacing ct_prio_output_miter.$flatten\gold.$procdff$158 ($adff): ARST=\gold.rst_b, D=$flatten\gold.$0\prio[0][1:0], Q=\gold.prio[0]
+Replacing ct_prio_output_miter.$flatten\gold.$procdff$143 ($adff): ARST=\gold.rst_b, D=$flatten\gold.$0\prio[1][1:0], Q=\gold.prio[1]
+
+7. Executing DFFUNMAP pass (unmap clock enable and synchronous reset from FFs).
+
+8. Executing OPT pass (performing simple optimizations).
+
+8.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_prio_output_miter.
+
+8.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_prio_output_miter'.
+Computing hashes of 65 cells of `\ct_prio_output_miter'.
+Finding duplicate cells in `\ct_prio_output_miter'.
+Removed a total of 0 cells.
+
+8.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \ct_prio_output_miter..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~40 debug messages>
+
+8.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \ct_prio_output_miter.
+Performed a total of 0 changes.
+
+8.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_prio_output_miter'.
+Computing hashes of 65 cells of `\ct_prio_output_miter'.
+Finding duplicate cells in `\ct_prio_output_miter'.
+Removed a total of 0 cells.
+
+8.6. Executing OPT_DFF pass (perform DFF optimizations).
+Adding SRST signal on $flatten\gold.$procdff$143 ($dff) from module ct_prio_output_miter (D = $flatten\gold.$0\prio[1][1:0], Q = $auto$async2sync.cc:253:execute$171, rval = 2'01).
+Adding SRST signal on $flatten\gold.$procdff$158 ($dff) from module ct_prio_output_miter (D = $flatten\gold.$0\prio[0][1:0], Q = $auto$async2sync.cc:253:execute$169, rval = 2'00).
+Adding SRST signal on $flatten\gate.$procdff$108 ($dff) from module ct_prio_output_miter (D = $flatten\gate.$0\prio[1][0:0], Q = $auto$async2sync.cc:253:execute$167, rval = 1'1).
+Adding SRST signal on $flatten\gate.$procdff$118 ($dff) from module ct_prio_output_miter (D = $flatten\gate.$0\prio[0][1:1], Q = $auto$async2sync.cc:253:execute$165, rval = 1'0).
+Adding SRST signal on $flatten\gate.$procdff$128 ($dff) from module ct_prio_output_miter (D = $flatten\gate.$0\prio[0][0:0], Q = $auto$async2sync.cc:253:execute$163, rval = 1'0).
+Adding SRST signal on $flatten\gate.$procdff$98 ($dff) from module ct_prio_output_miter (D = $flatten\gate.$0\prio[1][1:1], Q = $auto$async2sync.cc:253:execute$161, rval = 1'0).
+
+8.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_prio_output_miter..
+Removed 8 unused cells and 9 unused wires.
+<suppressed ~9 debug messages>
+
+8.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_prio_output_miter.
+
+8.9. Rerunning OPT passes. (Maybe there is more to do..)
+
+8.10. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \ct_prio_output_miter..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~34 debug messages>
+
+8.11. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \ct_prio_output_miter.
+Performed a total of 0 changes.
+
+8.12. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_prio_output_miter'.
+Computing hashes of 56 cells of `\ct_prio_output_miter'.
+Finding duplicate cells in `\ct_prio_output_miter'.
+Removed a total of 0 cells.
+
+8.13. Executing OPT_DFF pass (perform DFF optimizations).
+
+8.14. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_prio_output_miter..
+
+8.15. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_prio_output_miter.
+
+8.16. Finished fast OPT passes. (There is nothing left to do.)
+
+9. Executing SAT pass (solving SAT problems in the circuit).
+Using SAT solver `minisat`.
+
+Setting up time step 1:
+Import set-constraint for this timestep: \rst_b = 1'0
+Final constraint equation: \rst_b = 1'0
+Imported 56 cells to SAT database.
+Import set-constraint from init attribute: $auto$async2sync.cc:116:execute$177 = 1'1
+Import set-constraint from init attribute: $auto$async2sync.cc:107:execute$173 = 1'0
+Final init constraint equation: { $auto$async2sync.cc:107:execute$173 $auto$async2sync.cc:116:execute$177 } = 2'01
+
+Setting up time step 2:
+Import set-constraint for this timestep: \rst_b = 1'1
+Final constraint equation: \rst_b = 1'1
+Imported 56 cells to SAT database.
+
+Setting up time step 3:
+Final constraint equation: { } = { }
+Imported 56 cells to SAT database.
+
+Setting up time step 4:
+Final constraint equation: { } = { }
+Imported 56 cells to SAT database.
+
+Setting up time step 5:
+Final constraint equation: { } = { }
+Imported 56 cells to SAT database.
+
+Setting up time step 6:
+Final constraint equation: { } = { }
+Imported 56 cells to SAT database.
+
+Setting up time step 7:
+Final constraint equation: { } = { }
+Imported 56 cells to SAT database.
+
+Setting up time step 8:
+Final constraint equation: { } = { }
+Imported 56 cells to SAT database.
+
+Setting up time step 1:
+Final constraint equation: { } = { }
+Imported 56 cells to SAT database.
+Import proof for assert: $auto$async2sync.cc:116:execute$177 when $auto$async2sync.cc:107:execute$173.
+
+** Trying induction with length 1 **
+
+Setting up time step 9:
+Final constraint equation: { } = { }
+Imported 56 cells to SAT database.
+Import proof for assert: $auto$async2sync.cc:116:execute$177 when $auto$async2sync.cc:107:execute$173.
+
+[base case 1] Solving problem with 3598 variables and 9441 clauses..
+Base case for induction length 1 proven.
+
+Setting up time step 2:
+Final constraint equation: { } = { }
+Imported 56 cells to SAT database.
+Import proof for assert: $auto$async2sync.cc:116:execute$177 when $auto$async2sync.cc:107:execute$173.
+
+[induction step 1] Solving problem with 764 variables and 1981 clauses..
+Induction step failed. Incrementing induction length.
+
+  Time Signal Name                                      Dec       Hex           Bin
+  ---- ---------------------------------------- ----------- --------- -------------
+  init $auto$async2sync.cc:107:execute$173                0         0             0
+  init $auto$async2sync.cc:116:execute$177                0         0             0
+  init $auto$async2sync.cc:253:execute$161                0         0             0
+  init $auto$async2sync.cc:253:execute$163                0         0             0
+  init $auto$async2sync.cc:253:execute$165                1         1             1
+  init $auto$async2sync.cc:253:execute$167                0         0             0
+  init $auto$async2sync.cc:253:execute$169                1         1            01
+  init $auto$async2sync.cc:253:execute$171                1         1            01
+
+** Trying induction with length 2 **
+
+Setting up time step 10:
+Final constraint equation: { } = { }
+Imported 56 cells to SAT database.
+Import proof for assert: $auto$async2sync.cc:116:execute$177 when $auto$async2sync.cc:107:execute$173.
+
+[base case 2] Solving problem with 4034 variables and 10610 clauses..
+Base case for induction length 2 proven.
+
+Setting up time step 3:
+Final constraint equation: { } = { }
+Imported 56 cells to SAT database.
+Import proof for assert: $auto$async2sync.cc:116:execute$177 when $auto$async2sync.cc:107:execute$173.
+
+[induction step 2] Solving problem with 1231 variables and 3252 clauses..
+Induction step failed. Incrementing induction length.
+
+  Time Signal Name                                      Dec       Hex           Bin
+  ---- ---------------------------------------- ----------- --------- -------------
+  init $auto$async2sync.cc:107:execute$173                0         0             0
+  init $auto$async2sync.cc:116:execute$177                1         1             1
+  init $auto$async2sync.cc:253:execute$161                0         0             0
+  init $auto$async2sync.cc:253:execute$163                0         0             0
+  init $auto$async2sync.cc:253:execute$165                0         0             0
+  init $auto$async2sync.cc:253:execute$167                1         1             1
+  init $auto$async2sync.cc:253:execute$169                0         0            00
+  init $auto$async2sync.cc:253:execute$171                3         3            11
+
+** Trying induction with length 3 **
+
+Setting up time step 11:
+Final constraint equation: { } = { }
+Imported 56 cells to SAT database.
+Import proof for assert: $auto$async2sync.cc:116:execute$177 when $auto$async2sync.cc:107:execute$173.
+
+[base case 3] Solving problem with 4501 variables and 11881 clauses..
+Base case for induction length 3 proven.
+
+Setting up time step 4:
+Final constraint equation: { } = { }
+Imported 56 cells to SAT database.
+Import proof for assert: $auto$async2sync.cc:116:execute$177 when $auto$async2sync.cc:107:execute$173.
+
+[induction step 3] Solving problem with 1729 variables and 4625 clauses..
+Induction step failed. Incrementing induction length.
+
+  Time Signal Name                                      Dec       Hex           Bin
+  ---- ---------------------------------------- ----------- --------- -------------
+  init $auto$async2sync.cc:107:execute$173                0         0             0
+  init $auto$async2sync.cc:116:execute$177                1         1             1
+  init $auto$async2sync.cc:253:execute$161                0         0             0
+  init $auto$async2sync.cc:253:execute$163                0         0             0
+  init $auto$async2sync.cc:253:execute$165                0         0             0
+  init $auto$async2sync.cc:253:execute$167                1         1             1
+  init $auto$async2sync.cc:253:execute$169                1         1            01
+  init $auto$async2sync.cc:253:execute$171                0         0            00
+
+** Trying induction with length 4 **
+
+Setting up time step 12:
+Final constraint equation: { } = { }
+Imported 56 cells to SAT database.
+Import proof for assert: $auto$async2sync.cc:116:execute$177 when $auto$async2sync.cc:107:execute$173.
+
+[base case 4] Solving problem with 4999 variables and 13254 clauses..
+Base case for induction length 4 proven.
+
+Setting up time step 5:
+Final constraint equation: { } = { }
+Imported 56 cells to SAT database.
+Import proof for assert: $auto$async2sync.cc:116:execute$177 when $auto$async2sync.cc:107:execute$173.
+
+[induction step 4] Solving problem with 2258 variables and 6100 clauses..
+Induction step proven: SUCCESS!
+
+                  /$$$$$$      /$$$$$$$$     /$$$$$$$    
+                 /$$__  $$    | $$_____/    | $$__  $$   
+                | $$  \ $$    | $$          | $$  \ $$   
+                | $$  | $$    | $$$$$       | $$  | $$   
+                | $$  | $$    | $$__/       | $$  | $$   
+                | $$/$$ $$    | $$          | $$  | $$   
+                |  $$$$$$/ /$$| $$$$$$$$ /$$| $$$$$$$//$$
+                 \____ $$$|__/|________/|__/|_______/|__/
+                       \__/                              
+
+Warnings: 4 unique messages, 4 total
+End of script. Logfile hash: 531f152b8d, time: 0.05s, user: 0.05s, system: 0.01s, MEM: 21.88 MB peak
+Yosys 0.66+181 (git sha1 afe6b18f2, Release, Clang /usr/bin/clang++ 18.1.8)
+Time spent: 71% 1x sat (0 sec), 9% 4x read_verilog (0 sec), ...

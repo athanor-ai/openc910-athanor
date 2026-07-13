@@ -1,0 +1,1187 @@
+
+ /----------------------------------------------------------------------------\
+ |  yosys -- Yosys Open SYnthesis Suite                                       |
+ |  Copyright (C) 2012 - 2026  Claire Xenia Wolf <claire@yosyshq.com>         |
+ |  Distributed under an ISC-like license, type "license" to see terms        |
+ \----------------------------------------------------------------------------/
+ Yosys 0.66+181 (git sha1 afe6b18f2, Release, Clang /usr/bin/clang++ 18.1.8)
+
+-- Running command `read_verilog gated_clk_cell.v ct_rtu_compare_iid.v ct_rtu_rob_entry_gold.v; synth -top ct_rtu_rob_entry; dfflibmap -liberty sky130_fd_sc_hd__tt_025C_1v80.lib; abc -liberty sky130_fd_sc_hd__tt_025C_1v80.lib; stat -liberty sky130_fd_sc_hd__tt_025C_1v80.lib' --
+
+1. Executing Verilog-2005 frontend: gated_clk_cell.v
+Parsing Verilog input from `gated_clk_cell.v' to AST representation.
+Generating RTLIL representation for module `\gated_clk_cell'.
+Successfully finished Verilog frontend.
+
+2. Executing Verilog-2005 frontend: ct_rtu_compare_iid.v
+Parsing Verilog input from `ct_rtu_compare_iid.v' to AST representation.
+Generating RTLIL representation for module `\ct_rtu_compare_iid'.
+Successfully finished Verilog frontend.
+
+3. Executing Verilog-2005 frontend: ct_rtu_rob_entry_gold.v
+Parsing Verilog input from `ct_rtu_rob_entry_gold.v' to AST representation.
+Generating RTLIL representation for module `\ct_rtu_rob_entry'.
+Note: Assuming pure combinatorial block at ct_rtu_rob_entry_gold.v:266.1-280.4 in
+compliance with IEC 62142(E):2005 / IEEE Std. 1364.1(E):2002. Recommending
+use of @* instead of @(...) for better match of synthesis and simulation.
+Successfully finished Verilog frontend.
+
+4. Executing SYNTH pass.
+
+4.1. Executing HIERARCHY pass (managing design hierarchy).
+
+4.1.1. Analyzing design hierarchy..
+Top module:  \ct_rtu_rob_entry
+Used module:     \gated_clk_cell
+
+4.1.2. Analyzing design hierarchy..
+Top module:  \ct_rtu_rob_entry
+Used module:     \gated_clk_cell
+Removing unused module `\ct_rtu_compare_iid'.
+Removed 1 unused modules.
+
+4.2. Executing PROC pass (convert processes to netlists).
+
+4.2.1. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Cleaned up 0 empty switches.
+
+4.2.2. Executing PROC_RMDEAD pass (remove dead branches from decision trees).
+Marked 2 switch rules as full_case in process $proc$ct_rtu_rob_entry_gold.v:448$206 in module ct_rtu_rob_entry.
+Marked 3 switch rules as full_case in process $proc$ct_rtu_rob_entry_gold.v:406$203 in module ct_rtu_rob_entry.
+Marked 3 switch rules as full_case in process $proc$ct_rtu_rob_entry_gold.v:376$185 in module ct_rtu_rob_entry.
+Marked 3 switch rules as full_case in process $proc$ct_rtu_rob_entry_gold.v:344$174 in module ct_rtu_rob_entry.
+Marked 4 switch rules as full_case in process $proc$ct_rtu_rob_entry_gold.v:285$76 in module ct_rtu_rob_entry.
+Marked 1 switch rules as full_case in process $proc$ct_rtu_rob_entry_gold.v:266$75 in module ct_rtu_rob_entry.
+Removed a total of 0 dead cases.
+
+4.2.3. Executing PROC_PRUNE pass (remove redundant assignments in processes).
+Removed 26 redundant assignments.
+Promoted 1 assignment to connection.
+
+4.2.4. Executing PROC_INIT pass (extract init attributes).
+
+4.2.5. Executing PROC_ARST pass (detect async resets in processes).
+Found async reset \cpurst_b in `\ct_rtu_rob_entry.$proc$ct_rtu_rob_entry_gold.v:448$206'.
+Found async reset \cpurst_b in `\ct_rtu_rob_entry.$proc$ct_rtu_rob_entry_gold.v:406$203'.
+Found async reset \cpurst_b in `\ct_rtu_rob_entry.$proc$ct_rtu_rob_entry_gold.v:376$185'.
+Found async reset \cpurst_b in `\ct_rtu_rob_entry.$proc$ct_rtu_rob_entry_gold.v:344$174'.
+Found async reset \cpurst_b in `\ct_rtu_rob_entry.$proc$ct_rtu_rob_entry_gold.v:285$76'.
+
+4.2.6. Executing PROC_ROM pass (convert switches to ROMs).
+Converted 0 switches.
+<suppressed ~11 debug messages>
+
+4.2.7. Executing PROC_MUX pass (convert decision trees to multiplexers).
+Creating decoders for process `\ct_rtu_rob_entry.$proc$ct_rtu_rob_entry_gold.v:448$206'.
+     1/18: $0\vl_pred[0:0]
+     2/18: $0\vl[7:0]
+     3/18: $0\vec_dirty[0:0]
+     4/18: $0\vsetvli[0:0]
+     5/18: $0\vsew[2:0]
+     6/18: $0\vlmul[1:0]
+     7/18: $0\load[0:0]
+     8/18: $0\fp_dirty[0:0]
+     9/18: $0\inst_num[1:0]
+    10/18: $0\bkptb_inst[0:0]
+    11/18: $0\bkpta_inst[0:0]
+    12/18: $0\store[0:0]
+    13/18: $0\ras[0:0]
+    14/18: $0\pcfifo[0:0]
+    15/18: $0\bju[0:0]
+    16/18: $0\intmask[0:0]
+    17/18: $0\split[0:0]
+    18/18: $0\pc_offset[2:0]
+Creating decoders for process `\ct_rtu_rob_entry.$proc$ct_rtu_rob_entry_gold.v:406$203'.
+     1/5: $0\no_spec_mispred[0:0]
+     2/5: $0\no_spec_miss[0:0]
+     3/5: $0\no_spec_hit[0:0]
+     4/5: $0\bkptb_data[0:0]
+     5/5: $0\bkpta_data[0:0]
+Creating decoders for process `\ct_rtu_rob_entry.$proc$ct_rtu_rob_entry_gold.v:376$185'.
+     1/1: $0\cmplt[0:0]
+Creating decoders for process `\ct_rtu_rob_entry.$proc$ct_rtu_rob_entry_gold.v:344$174'.
+     1/1: $0\cmplt_cnt[1:0]
+Creating decoders for process `\ct_rtu_rob_entry.$proc$ct_rtu_rob_entry_gold.v:285$76'.
+     1/1: $0\vld[0:0]
+Creating decoders for process `\ct_rtu_rob_entry.$proc$ct_rtu_rob_entry_gold.v:266$75'.
+     1/1: $1\x_create_data[39:0]
+
+4.2.8. Executing PROC_DLATCH pass (convert process syncs to latches).
+No latch inferred for signal `\ct_rtu_rob_entry.\x_create_data' from process `\ct_rtu_rob_entry.$proc$ct_rtu_rob_entry_gold.v:266$75'.
+
+4.2.9. Executing PROC_DFF pass (convert process syncs to FFs).
+Creating register for signal `\ct_rtu_rob_entry.\bju' using process `\ct_rtu_rob_entry.$proc$ct_rtu_rob_entry_gold.v:448$206'.
+  created $adff cell `$procdff$323' with positive edge clock and positive level reset.
+Creating register for signal `\ct_rtu_rob_entry.\bkpta_inst' using process `\ct_rtu_rob_entry.$proc$ct_rtu_rob_entry_gold.v:448$206'.
+  created $adff cell `$procdff$328' with positive edge clock and positive level reset.
+Creating register for signal `\ct_rtu_rob_entry.\bkptb_inst' using process `\ct_rtu_rob_entry.$proc$ct_rtu_rob_entry_gold.v:448$206'.
+  created $adff cell `$procdff$333' with positive edge clock and positive level reset.
+Creating register for signal `\ct_rtu_rob_entry.\fp_dirty' using process `\ct_rtu_rob_entry.$proc$ct_rtu_rob_entry_gold.v:448$206'.
+  created $adff cell `$procdff$338' with positive edge clock and positive level reset.
+Creating register for signal `\ct_rtu_rob_entry.\inst_num' using process `\ct_rtu_rob_entry.$proc$ct_rtu_rob_entry_gold.v:448$206'.
+  created $adff cell `$procdff$343' with positive edge clock and positive level reset.
+Creating register for signal `\ct_rtu_rob_entry.\intmask' using process `\ct_rtu_rob_entry.$proc$ct_rtu_rob_entry_gold.v:448$206'.
+  created $adff cell `$procdff$348' with positive edge clock and positive level reset.
+Creating register for signal `\ct_rtu_rob_entry.\load' using process `\ct_rtu_rob_entry.$proc$ct_rtu_rob_entry_gold.v:448$206'.
+  created $adff cell `$procdff$353' with positive edge clock and positive level reset.
+Creating register for signal `\ct_rtu_rob_entry.\pc_offset' using process `\ct_rtu_rob_entry.$proc$ct_rtu_rob_entry_gold.v:448$206'.
+  created $adff cell `$procdff$358' with positive edge clock and positive level reset.
+Creating register for signal `\ct_rtu_rob_entry.\pcfifo' using process `\ct_rtu_rob_entry.$proc$ct_rtu_rob_entry_gold.v:448$206'.
+  created $adff cell `$procdff$363' with positive edge clock and positive level reset.
+Creating register for signal `\ct_rtu_rob_entry.\ras' using process `\ct_rtu_rob_entry.$proc$ct_rtu_rob_entry_gold.v:448$206'.
+  created $adff cell `$procdff$368' with positive edge clock and positive level reset.
+Creating register for signal `\ct_rtu_rob_entry.\split' using process `\ct_rtu_rob_entry.$proc$ct_rtu_rob_entry_gold.v:448$206'.
+  created $adff cell `$procdff$373' with positive edge clock and positive level reset.
+Creating register for signal `\ct_rtu_rob_entry.\store' using process `\ct_rtu_rob_entry.$proc$ct_rtu_rob_entry_gold.v:448$206'.
+  created $adff cell `$procdff$378' with positive edge clock and positive level reset.
+Creating register for signal `\ct_rtu_rob_entry.\vec_dirty' using process `\ct_rtu_rob_entry.$proc$ct_rtu_rob_entry_gold.v:448$206'.
+  created $adff cell `$procdff$383' with positive edge clock and positive level reset.
+Creating register for signal `\ct_rtu_rob_entry.\vl' using process `\ct_rtu_rob_entry.$proc$ct_rtu_rob_entry_gold.v:448$206'.
+  created $adff cell `$procdff$388' with positive edge clock and positive level reset.
+Creating register for signal `\ct_rtu_rob_entry.\vl_pred' using process `\ct_rtu_rob_entry.$proc$ct_rtu_rob_entry_gold.v:448$206'.
+  created $adff cell `$procdff$393' with positive edge clock and positive level reset.
+Creating register for signal `\ct_rtu_rob_entry.\vlmul' using process `\ct_rtu_rob_entry.$proc$ct_rtu_rob_entry_gold.v:448$206'.
+  created $adff cell `$procdff$398' with positive edge clock and positive level reset.
+Creating register for signal `\ct_rtu_rob_entry.\vsetvli' using process `\ct_rtu_rob_entry.$proc$ct_rtu_rob_entry_gold.v:448$206'.
+  created $adff cell `$procdff$403' with positive edge clock and positive level reset.
+Creating register for signal `\ct_rtu_rob_entry.\vsew' using process `\ct_rtu_rob_entry.$proc$ct_rtu_rob_entry_gold.v:448$206'.
+  created $adff cell `$procdff$408' with positive edge clock and positive level reset.
+Creating register for signal `\ct_rtu_rob_entry.\bkpta_data' using process `\ct_rtu_rob_entry.$proc$ct_rtu_rob_entry_gold.v:406$203'.
+  created $adff cell `$procdff$413' with positive edge clock and positive level reset.
+Creating register for signal `\ct_rtu_rob_entry.\bkptb_data' using process `\ct_rtu_rob_entry.$proc$ct_rtu_rob_entry_gold.v:406$203'.
+  created $adff cell `$procdff$418' with positive edge clock and positive level reset.
+Creating register for signal `\ct_rtu_rob_entry.\no_spec_hit' using process `\ct_rtu_rob_entry.$proc$ct_rtu_rob_entry_gold.v:406$203'.
+  created $adff cell `$procdff$423' with positive edge clock and positive level reset.
+Creating register for signal `\ct_rtu_rob_entry.\no_spec_mispred' using process `\ct_rtu_rob_entry.$proc$ct_rtu_rob_entry_gold.v:406$203'.
+  created $adff cell `$procdff$428' with positive edge clock and positive level reset.
+Creating register for signal `\ct_rtu_rob_entry.\no_spec_miss' using process `\ct_rtu_rob_entry.$proc$ct_rtu_rob_entry_gold.v:406$203'.
+  created $adff cell `$procdff$433' with positive edge clock and positive level reset.
+Creating register for signal `\ct_rtu_rob_entry.\cmplt' using process `\ct_rtu_rob_entry.$proc$ct_rtu_rob_entry_gold.v:376$185'.
+  created $adff cell `$procdff$438' with positive edge clock and positive level reset.
+Creating register for signal `\ct_rtu_rob_entry.\cmplt_cnt' using process `\ct_rtu_rob_entry.$proc$ct_rtu_rob_entry_gold.v:344$174'.
+  created $adff cell `$procdff$443' with positive edge clock and positive level reset.
+Creating register for signal `\ct_rtu_rob_entry.\vld' using process `\ct_rtu_rob_entry.$proc$ct_rtu_rob_entry_gold.v:285$76'.
+  created $adff cell `$procdff$448' with positive edge clock and positive level reset.
+
+4.2.10. Executing PROC_MEMWR pass (convert process memory writes to cells).
+
+4.2.11. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Found and cleaned up 1 empty switch in `\ct_rtu_rob_entry.$proc$ct_rtu_rob_entry_gold.v:448$206'.
+Removing empty process `ct_rtu_rob_entry.$proc$ct_rtu_rob_entry_gold.v:448$206'.
+Found and cleaned up 2 empty switches in `\ct_rtu_rob_entry.$proc$ct_rtu_rob_entry_gold.v:406$203'.
+Removing empty process `ct_rtu_rob_entry.$proc$ct_rtu_rob_entry_gold.v:406$203'.
+Found and cleaned up 2 empty switches in `\ct_rtu_rob_entry.$proc$ct_rtu_rob_entry_gold.v:376$185'.
+Removing empty process `ct_rtu_rob_entry.$proc$ct_rtu_rob_entry_gold.v:376$185'.
+Found and cleaned up 2 empty switches in `\ct_rtu_rob_entry.$proc$ct_rtu_rob_entry_gold.v:344$174'.
+Removing empty process `ct_rtu_rob_entry.$proc$ct_rtu_rob_entry_gold.v:344$174'.
+Found and cleaned up 3 empty switches in `\ct_rtu_rob_entry.$proc$ct_rtu_rob_entry_gold.v:285$76'.
+Removing empty process `ct_rtu_rob_entry.$proc$ct_rtu_rob_entry_gold.v:285$76'.
+Found and cleaned up 1 empty switch in `\ct_rtu_rob_entry.$proc$ct_rtu_rob_entry_gold.v:266$75'.
+Removing empty process `ct_rtu_rob_entry.$proc$ct_rtu_rob_entry_gold.v:266$75'.
+Cleaned up 11 empty switches.
+
+4.2.12. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_rtu_rob_entry.
+<suppressed ~56 debug messages>
+Optimizing module gated_clk_cell.
+
+4.3. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_rtu_rob_entry.
+Optimizing module gated_clk_cell.
+
+4.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_rtu_rob_entry..
+Finding unused cells or wires in module \gated_clk_cell..
+Removed 35 unused cells and 143 unused wires.
+<suppressed ~38 debug messages>
+
+4.5. Executing CHECK pass (checking for obvious problems).
+Checking module ct_rtu_rob_entry...
+Checking module gated_clk_cell...
+Found and reported 0 problems.
+
+4.6. Executing OPT pass (performing simple optimizations).
+
+4.6.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_rtu_rob_entry.
+Optimizing module gated_clk_cell.
+
+4.6.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_rtu_rob_entry'.
+Computing hashes of 190 cells of `\ct_rtu_rob_entry'.
+Finding duplicate cells in `\ct_rtu_rob_entry'.
+Computing hashes of 162 cells of `\ct_rtu_rob_entry'.
+Finding duplicate cells in `\ct_rtu_rob_entry'.
+Computing hashes of 153 cells of `\ct_rtu_rob_entry'.
+Finding duplicate cells in `\ct_rtu_rob_entry'.
+Computing hashes of 148 cells of `\ct_rtu_rob_entry'.
+Finding duplicate cells in `\ct_rtu_rob_entry'.
+<suppressed ~126 debug messages>
+Finding identical cells in module `\gated_clk_cell'.
+Computing hashes of 0 cells of `\gated_clk_cell'.
+Finding duplicate cells in `\gated_clk_cell'.
+Removed a total of 42 cells.
+
+4.6.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \ct_rtu_rob_entry..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \gated_clk_cell..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Removed 0 multiplexer ports.
+<suppressed ~92 debug messages>
+
+4.6.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \ct_rtu_rob_entry.
+  Optimizing cells in module \gated_clk_cell.
+Performed a total of 0 changes.
+
+4.6.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_rtu_rob_entry'.
+Computing hashes of 148 cells of `\ct_rtu_rob_entry'.
+Finding duplicate cells in `\ct_rtu_rob_entry'.
+Computing hashes of 147 cells of `\ct_rtu_rob_entry'.
+Finding duplicate cells in `\ct_rtu_rob_entry'.
+<suppressed ~3 debug messages>
+Finding identical cells in module `\gated_clk_cell'.
+Computing hashes of 0 cells of `\gated_clk_cell'.
+Finding duplicate cells in `\gated_clk_cell'.
+Removed a total of 1 cells.
+
+4.6.6. Executing OPT_DFF pass (perform DFF optimizations).
+
+4.6.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_rtu_rob_entry..
+Finding unused cells or wires in module \gated_clk_cell..
+Removed 0 unused cells and 43 unused wires.
+<suppressed ~1 debug messages>
+
+4.6.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_rtu_rob_entry.
+Optimizing module gated_clk_cell.
+
+4.6.9. Rerunning OPT passes. (Maybe there is more to do..)
+
+4.6.10. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \ct_rtu_rob_entry..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \gated_clk_cell..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Removed 0 multiplexer ports.
+<suppressed ~90 debug messages>
+
+4.6.11. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \ct_rtu_rob_entry.
+  Optimizing cells in module \gated_clk_cell.
+Performed a total of 0 changes.
+
+4.6.12. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_rtu_rob_entry'.
+Computing hashes of 147 cells of `\ct_rtu_rob_entry'.
+Finding duplicate cells in `\ct_rtu_rob_entry'.
+Finding identical cells in module `\gated_clk_cell'.
+Computing hashes of 0 cells of `\gated_clk_cell'.
+Finding duplicate cells in `\gated_clk_cell'.
+Removed a total of 0 cells.
+
+4.6.13. Executing OPT_DFF pass (perform DFF optimizations).
+
+4.6.14. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_rtu_rob_entry..
+Finding unused cells or wires in module \gated_clk_cell..
+
+4.6.15. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_rtu_rob_entry.
+Optimizing module gated_clk_cell.
+
+4.6.16. Finished fast OPT passes. (There is nothing left to do.)
+
+4.7. Executing FSM pass (extract and optimize FSM).
+
+4.7.1. Executing FSM_DETECT pass (finding FSMs in design).
+
+4.7.2. Executing FSM_EXTRACT pass (extracting FSM from design).
+
+4.7.3. Executing FSM_OPT pass (simple optimizations of FSMs).
+
+4.7.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_rtu_rob_entry..
+Finding unused cells or wires in module \gated_clk_cell..
+
+4.7.5. Executing FSM_OPT pass (simple optimizations of FSMs).
+
+4.7.6. Executing FSM_RECODE pass (re-assigning FSM state encoding).
+
+4.7.7. Executing FSM_INFO pass (dumping all available information on FSM cells).
+
+4.7.8. Executing FSM_MAP pass (mapping FSMs to basic logic).
+
+4.8. Executing OPT pass (performing simple optimizations).
+
+4.8.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_rtu_rob_entry.
+Optimizing module gated_clk_cell.
+
+4.8.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_rtu_rob_entry'.
+Computing hashes of 147 cells of `\ct_rtu_rob_entry'.
+Finding duplicate cells in `\ct_rtu_rob_entry'.
+Finding identical cells in module `\gated_clk_cell'.
+Computing hashes of 0 cells of `\gated_clk_cell'.
+Finding duplicate cells in `\gated_clk_cell'.
+Removed a total of 0 cells.
+
+4.8.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \ct_rtu_rob_entry..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \gated_clk_cell..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Removed 0 multiplexer ports.
+<suppressed ~90 debug messages>
+
+4.8.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \ct_rtu_rob_entry.
+  Optimizing cells in module \gated_clk_cell.
+Performed a total of 0 changes.
+
+4.8.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_rtu_rob_entry'.
+Computing hashes of 147 cells of `\ct_rtu_rob_entry'.
+Finding duplicate cells in `\ct_rtu_rob_entry'.
+Finding identical cells in module `\gated_clk_cell'.
+Computing hashes of 0 cells of `\gated_clk_cell'.
+Finding duplicate cells in `\gated_clk_cell'.
+Removed a total of 0 cells.
+
+4.8.6. Executing OPT_DFF pass (perform DFF optimizations).
+Adding EN signal on $procdff$368 ($adff) from module ct_rtu_rob_entry (D = \x_create_data [11], Q = \ras).
+Adding EN signal on $procdff$418 ($adff) from module ct_rtu_rob_entry (D = $0\bkptb_data[0:0], Q = \bkptb_data).
+Adding EN signal on $procdff$448 ($adff) from module ct_rtu_rob_entry (D = $0\vld[0:0], Q = \vld).
+Adding EN signal on $procdff$323 ($adff) from module ct_rtu_rob_entry (D = \x_create_data [9], Q = \bju).
+Adding EN signal on $procdff$358 ($adff) from module ct_rtu_rob_entry (D = \x_create_data [6:4], Q = \pc_offset).
+Adding EN signal on $procdff$408 ($adff) from module ct_rtu_rob_entry (D = \x_create_data [28:26], Q = \vsew).
+Adding EN signal on $procdff$328 ($adff) from module ct_rtu_rob_entry (D = \x_create_data [15], Q = \bkpta_inst).
+Adding EN signal on $procdff$373 ($adff) from module ct_rtu_rob_entry (D = \x_create_data [7], Q = \split).
+Adding EN signal on $procdff$428 ($adff) from module ct_rtu_rob_entry (D = $0\no_spec_mispred[0:0], Q = \no_spec_mispred).
+Adding EN signal on $procdff$333 ($adff) from module ct_rtu_rob_entry (D = \x_create_data [16], Q = \bkptb_inst).
+Adding EN signal on $procdff$393 ($adff) from module ct_rtu_rob_entry (D = \x_create_data [39], Q = \vl_pred).
+Adding EN signal on $procdff$398 ($adff) from module ct_rtu_rob_entry (D = \x_create_data [25:24], Q = \vlmul).
+Adding EN signal on $procdff$338 ($adff) from module ct_rtu_rob_entry (D = \x_create_data [19], Q = \fp_dirty).
+Adding EN signal on $procdff$363 ($adff) from module ct_rtu_rob_entry (D = \x_create_data [10], Q = \pcfifo).
+Adding EN signal on $procdff$413 ($adff) from module ct_rtu_rob_entry (D = $0\bkpta_data[0:0], Q = \bkpta_data).
+Adding EN signal on $procdff$343 ($adff) from module ct_rtu_rob_entry (D = \x_create_data [18:17], Q = \inst_num).
+Adding EN signal on $procdff$378 ($adff) from module ct_rtu_rob_entry (D = \x_create_data [12], Q = \store).
+Adding EN signal on $procdff$403 ($adff) from module ct_rtu_rob_entry (D = \x_create_data [29], Q = \vsetvli).
+Adding EN signal on $procdff$353 ($adff) from module ct_rtu_rob_entry (D = \x_create_data [20], Q = \load).
+Adding EN signal on $procdff$433 ($adff) from module ct_rtu_rob_entry (D = $0\no_spec_miss[0:0], Q = \no_spec_miss).
+Adding EN signal on $procdff$383 ($adff) from module ct_rtu_rob_entry (D = \x_create_data [30], Q = \vec_dirty).
+Adding EN signal on $procdff$438 ($adff) from module ct_rtu_rob_entry (D = $0\cmplt[0:0], Q = \cmplt).
+Adding EN signal on $procdff$423 ($adff) from module ct_rtu_rob_entry (D = $0\no_spec_hit[0:0], Q = \no_spec_hit).
+Adding EN signal on $procdff$348 ($adff) from module ct_rtu_rob_entry (D = \x_create_data [8], Q = \intmask).
+Adding EN signal on $procdff$388 ($adff) from module ct_rtu_rob_entry (D = \x_create_data [38:31], Q = \vl).
+
+4.8.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_rtu_rob_entry..
+Finding unused cells or wires in module \gated_clk_cell..
+Removed 18 unused cells and 18 unused wires.
+<suppressed ~19 debug messages>
+
+4.8.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_rtu_rob_entry.
+<suppressed ~7 debug messages>
+Optimizing module gated_clk_cell.
+
+4.8.9. Rerunning OPT passes. (Maybe there is more to do..)
+
+4.8.10. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \ct_rtu_rob_entry..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \gated_clk_cell..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Removed 0 multiplexer ports.
+<suppressed ~28 debug messages>
+
+4.8.11. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \ct_rtu_rob_entry.
+  Optimizing cells in module \gated_clk_cell.
+Performed a total of 0 changes.
+
+4.8.12. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_rtu_rob_entry'.
+Computing hashes of 136 cells of `\ct_rtu_rob_entry'.
+Finding duplicate cells in `\ct_rtu_rob_entry'.
+Computing hashes of 132 cells of `\ct_rtu_rob_entry'.
+Finding duplicate cells in `\ct_rtu_rob_entry'.
+<suppressed ~12 debug messages>
+Finding identical cells in module `\gated_clk_cell'.
+Computing hashes of 0 cells of `\gated_clk_cell'.
+Finding duplicate cells in `\gated_clk_cell'.
+Removed a total of 4 cells.
+
+4.8.13. Executing OPT_DFF pass (perform DFF optimizations).
+
+4.8.14. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_rtu_rob_entry..
+Finding unused cells or wires in module \gated_clk_cell..
+Removed 0 unused cells and 4 unused wires.
+<suppressed ~1 debug messages>
+
+4.8.15. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_rtu_rob_entry.
+Optimizing module gated_clk_cell.
+
+4.8.16. Rerunning OPT passes. (Maybe there is more to do..)
+
+4.8.17. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \ct_rtu_rob_entry..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \gated_clk_cell..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Removed 0 multiplexer ports.
+<suppressed ~28 debug messages>
+
+4.8.18. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \ct_rtu_rob_entry.
+  Optimizing cells in module \gated_clk_cell.
+Performed a total of 0 changes.
+
+4.8.19. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_rtu_rob_entry'.
+Computing hashes of 132 cells of `\ct_rtu_rob_entry'.
+Finding duplicate cells in `\ct_rtu_rob_entry'.
+Finding identical cells in module `\gated_clk_cell'.
+Computing hashes of 0 cells of `\gated_clk_cell'.
+Finding duplicate cells in `\gated_clk_cell'.
+Removed a total of 0 cells.
+
+4.8.20. Executing OPT_DFF pass (perform DFF optimizations).
+
+4.8.21. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_rtu_rob_entry..
+Finding unused cells or wires in module \gated_clk_cell..
+
+4.8.22. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_rtu_rob_entry.
+Optimizing module gated_clk_cell.
+
+4.8.23. Finished fast OPT passes. (There is nothing left to do.)
+
+4.9. Executing WREDUCE pass (reducing word size of cells).
+Removed top 1 bits (of 2) from port B of cell ct_rtu_rob_entry.$sub$ct_rtu_rob_entry_gold.v:329$162 ($sub).
+Removed top 1 bits (of 2) from port B of cell ct_rtu_rob_entry.$eq$ct_rtu_rob_entry_gold.v:365$177 ($eq).
+Removed top 1 bits (of 4) from port B of cell ct_rtu_rob_entry.$procmux$316_CMP0 ($eq).
+Removed top 2 bits (of 4) from port B of cell ct_rtu_rob_entry.$procmux$317_CMP0 ($eq).
+Removed top 3 bits (of 4) from port B of cell ct_rtu_rob_entry.$procmux$318_CMP0 ($eq).
+
+4.10. Executing PEEPOPT pass (run peephole optimizers).
+
+4.11. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_rtu_rob_entry..
+Finding unused cells or wires in module \gated_clk_cell..
+
+4.12. Executing ALUMACC pass (create $alu and $macc cells).
+Extracting $alu and $macc cells in module ct_rtu_rob_entry:
+  creating $macc model for $sub$ct_rtu_rob_entry_gold.v:331$165 ($sub).
+  creating $macc model for $sub$ct_rtu_rob_entry_gold.v:329$162 ($sub).
+  creating $alu model for $macc $sub$ct_rtu_rob_entry_gold.v:329$162.
+  creating $alu model for $macc $sub$ct_rtu_rob_entry_gold.v:331$165.
+  creating $alu model for $eq$ct_rtu_rob_entry_gold.v:367$179 ($eq): merged with $sub$ct_rtu_rob_entry_gold.v:331$165.
+  creating $alu model for $eq$ct_rtu_rob_entry_gold.v:365$177 ($eq): merged with $sub$ct_rtu_rob_entry_gold.v:329$162.
+  creating $alu cell for $sub$ct_rtu_rob_entry_gold.v:331$165, $eq$ct_rtu_rob_entry_gold.v:367$179: $auto$alumacc.cc:512:replace_alu$488
+  creating $alu cell for $sub$ct_rtu_rob_entry_gold.v:329$162, $eq$ct_rtu_rob_entry_gold.v:365$177: $auto$alumacc.cc:512:replace_alu$493
+  created 2 $alu and 0 $macc cells.
+Extracting $alu and $macc cells in module gated_clk_cell:
+  created 0 $alu and 0 $macc cells.
+
+4.13. Executing SHARE pass (SAT-based resource sharing).
+
+4.14. Executing OPT pass (performing simple optimizations).
+
+4.14.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_rtu_rob_entry.
+Optimizing module gated_clk_cell.
+
+4.14.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_rtu_rob_entry'.
+Computing hashes of 132 cells of `\ct_rtu_rob_entry'.
+Finding duplicate cells in `\ct_rtu_rob_entry'.
+Finding identical cells in module `\gated_clk_cell'.
+Computing hashes of 0 cells of `\gated_clk_cell'.
+Finding duplicate cells in `\gated_clk_cell'.
+Removed a total of 0 cells.
+
+4.14.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \ct_rtu_rob_entry..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \gated_clk_cell..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Removed 0 multiplexer ports.
+<suppressed ~28 debug messages>
+
+4.14.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \ct_rtu_rob_entry.
+  Optimizing cells in module \gated_clk_cell.
+Performed a total of 0 changes.
+
+4.14.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_rtu_rob_entry'.
+Computing hashes of 132 cells of `\ct_rtu_rob_entry'.
+Finding duplicate cells in `\ct_rtu_rob_entry'.
+Finding identical cells in module `\gated_clk_cell'.
+Computing hashes of 0 cells of `\gated_clk_cell'.
+Finding duplicate cells in `\gated_clk_cell'.
+Removed a total of 0 cells.
+
+4.14.6. Executing OPT_DFF pass (perform DFF optimizations).
+
+4.14.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_rtu_rob_entry..
+Finding unused cells or wires in module \gated_clk_cell..
+Removed 0 unused cells and 2 unused wires.
+<suppressed ~1 debug messages>
+
+4.14.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_rtu_rob_entry.
+Optimizing module gated_clk_cell.
+
+4.14.9. Rerunning OPT passes. (Maybe there is more to do..)
+
+4.14.10. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \ct_rtu_rob_entry..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \gated_clk_cell..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Removed 0 multiplexer ports.
+<suppressed ~28 debug messages>
+
+4.14.11. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \ct_rtu_rob_entry.
+  Optimizing cells in module \gated_clk_cell.
+Performed a total of 0 changes.
+
+4.14.12. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_rtu_rob_entry'.
+Computing hashes of 132 cells of `\ct_rtu_rob_entry'.
+Finding duplicate cells in `\ct_rtu_rob_entry'.
+Finding identical cells in module `\gated_clk_cell'.
+Computing hashes of 0 cells of `\gated_clk_cell'.
+Finding duplicate cells in `\gated_clk_cell'.
+Removed a total of 0 cells.
+
+4.14.13. Executing OPT_DFF pass (perform DFF optimizations).
+
+4.14.14. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_rtu_rob_entry..
+Finding unused cells or wires in module \gated_clk_cell..
+
+4.14.15. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_rtu_rob_entry.
+Optimizing module gated_clk_cell.
+
+4.14.16. Finished fast OPT passes. (There is nothing left to do.)
+
+4.15. Executing MEMORY pass.
+
+4.15.1. Executing OPT_MEM pass (optimize memories).
+Performed a total of 0 transformations.
+
+4.15.2. Executing OPT_MEM_PRIORITY pass (removing unnecessary memory write priority relations).
+Performed a total of 0 transformations.
+
+4.15.3. Executing OPT_MEM_FEEDBACK pass (finding memory read-to-write feedback paths).
+
+4.15.4. Executing MEMORY_BMUX2ROM pass (converting muxes to ROMs).
+
+4.15.5. Executing MEMORY_DFF pass (merging $dff cells to $memrd).
+
+4.15.6. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_rtu_rob_entry..
+Finding unused cells or wires in module \gated_clk_cell..
+
+4.15.7. Executing MEMORY_SHARE pass (consolidating $memrd/$memwr cells).
+
+4.15.8. Executing OPT_MEM_WIDEN pass (optimize memories where all ports are wide).
+Performed a total of 0 transformations.
+
+4.15.9. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_rtu_rob_entry..
+Finding unused cells or wires in module \gated_clk_cell..
+
+4.15.10. Executing MEMORY_COLLECT pass (generating $mem cells).
+
+4.16. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_rtu_rob_entry..
+Finding unused cells or wires in module \gated_clk_cell..
+
+4.17. Executing OPT pass (performing simple optimizations).
+
+4.17.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_rtu_rob_entry.
+<suppressed ~9 debug messages>
+Optimizing module gated_clk_cell.
+
+4.17.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_rtu_rob_entry'.
+Computing hashes of 126 cells of `\ct_rtu_rob_entry'.
+Finding duplicate cells in `\ct_rtu_rob_entry'.
+Finding identical cells in module `\gated_clk_cell'.
+Computing hashes of 0 cells of `\gated_clk_cell'.
+Finding duplicate cells in `\gated_clk_cell'.
+Removed a total of 0 cells.
+
+4.17.3. Executing OPT_DFF pass (perform DFF optimizations).
+
+4.17.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_rtu_rob_entry..
+Finding unused cells or wires in module \gated_clk_cell..
+Removed 1 unused cells and 9 unused wires.
+<suppressed ~2 debug messages>
+
+4.17.5. Finished fast OPT passes.
+
+4.18. Executing MEMORY_MAP pass (converting memories to logic and flip-flops).
+
+4.19. Executing OPT pass (performing simple optimizations).
+
+4.19.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_rtu_rob_entry.
+<suppressed ~1 debug messages>
+Optimizing module gated_clk_cell.
+
+4.19.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_rtu_rob_entry'.
+Computing hashes of 125 cells of `\ct_rtu_rob_entry'.
+Finding duplicate cells in `\ct_rtu_rob_entry'.
+Finding identical cells in module `\gated_clk_cell'.
+Computing hashes of 0 cells of `\gated_clk_cell'.
+Finding duplicate cells in `\gated_clk_cell'.
+Removed a total of 0 cells.
+
+4.19.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \ct_rtu_rob_entry..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \gated_clk_cell..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Removed 0 multiplexer ports.
+<suppressed ~20 debug messages>
+
+4.19.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \ct_rtu_rob_entry.
+  Optimizing cells in module \gated_clk_cell.
+Performed a total of 0 changes.
+
+4.19.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_rtu_rob_entry'.
+Computing hashes of 125 cells of `\ct_rtu_rob_entry'.
+Finding duplicate cells in `\ct_rtu_rob_entry'.
+Finding identical cells in module `\gated_clk_cell'.
+Computing hashes of 0 cells of `\gated_clk_cell'.
+Finding duplicate cells in `\gated_clk_cell'.
+Removed a total of 0 cells.
+
+4.19.6. Executing OPT_SHARE pass.
+
+4.19.7. Executing OPT_DFF pass (perform DFF optimizations).
+
+4.19.8. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_rtu_rob_entry..
+Finding unused cells or wires in module \gated_clk_cell..
+
+4.19.9. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_rtu_rob_entry.
+Optimizing module gated_clk_cell.
+
+4.19.10. Finished fast OPT passes. (There is nothing left to do.)
+
+4.20. Executing TECHMAP pass (map to technology primitives).
+
+4.20.1. Executing Verilog-2005 frontend: yosys/share/techmap.v
+Parsing Verilog input from `yosys/share/techmap.v' to AST representation.
+Generating RTLIL representation for module `\_90_simplemap_bool_ops'.
+Generating RTLIL representation for module `\_90_simplemap_reduce_ops'.
+Generating RTLIL representation for module `\_90_simplemap_logic_ops'.
+Generating RTLIL representation for module `\_90_simplemap_compare_ops'.
+Generating RTLIL representation for module `\_90_simplemap_various'.
+Generating RTLIL representation for module `\_90_simplemap_registers'.
+Generating RTLIL representation for module `\_90_shift_ops_shr_shl_sshl_sshr'.
+Generating RTLIL representation for module `\_90_shift_shiftx'.
+Generating RTLIL representation for module `\_90_fa'.
+Generating RTLIL representation for module `\_90_lcu_brent_kung'.
+Generating RTLIL representation for module `\_90_alu'.
+Generating RTLIL representation for module `\_90_macc'.
+Generating RTLIL representation for module `\_90_alumacc'.
+Generating RTLIL representation for module `$__div_mod_u'.
+Generating RTLIL representation for module `$__div_mod_trunc'.
+Generating RTLIL representation for module `\_90_div'.
+Generating RTLIL representation for module `\_90_mod'.
+Generating RTLIL representation for module `$__div_mod_floor'.
+Generating RTLIL representation for module `\_90_divfloor'.
+Generating RTLIL representation for module `\_90_modfloor'.
+Generating RTLIL representation for module `\_90_pow'.
+Generating RTLIL representation for module `\_90_demux'.
+Generating RTLIL representation for module `\_90_lut'.
+Generating RTLIL representation for module `$connect'.
+Generating RTLIL representation for module `$input_port'.
+Successfully finished Verilog frontend.
+
+4.20.2. Continuing TECHMAP pass.
+Using extmapper simplemap for cells of type $not.
+Using extmapper simplemap for cells of type $reduce_and.
+Using template $paramod$ba698a254f9a5947e85cbe7beae6b161eefc5386\_90_alu for cells of type $alu.
+Using template $paramod$fc972a7a46956c1788f3cb5257b53c8f1df2d0cc\_90_alu for cells of type $alu.
+Using extmapper simplemap for cells of type $adffe.
+Using extmapper simplemap for cells of type $reduce_bool.
+Using extmapper simplemap for cells of type $logic_or.
+Using extmapper simplemap for cells of type $logic_and.
+Using extmapper simplemap for cells of type $logic_not.
+Using extmapper simplemap for cells of type $and.
+Using extmapper simplemap for cells of type $or.
+Using extmapper simplemap for cells of type $mux.
+Using extmapper simplemap for cells of type $reduce_or.
+Using extmapper simplemap for cells of type $eq.
+Using extmapper simplemap for cells of type $pmux.
+Using extmapper simplemap for cells of type $adff.
+Using extmapper simplemap for cells of type $pos.
+Using template $paramod\_90_fa\WIDTH=32'00000000000000000000000000000001 for cells of type $fa.
+Using template $paramod\_90_lcu_brent_kung\WIDTH=32'00000000000000000000000000000001 for cells of type $lcu.
+Using extmapper simplemap for cells of type $xor.
+Using template $paramod\_90_fa\WIDTH=32'00000000000000000000000000000010 for cells of type $fa.
+Using template $paramod\_90_lcu_brent_kung\WIDTH=32'00000000000000000000000000000010 for cells of type $lcu.
+No more expansions possible.
+<suppressed ~506 debug messages>
+
+4.21. Executing OPT pass (performing simple optimizations).
+
+4.21.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_rtu_rob_entry.
+<suppressed ~41 debug messages>
+Optimizing module gated_clk_cell.
+
+4.21.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_rtu_rob_entry'.
+Computing hashes of 410 cells of `\ct_rtu_rob_entry'.
+Finding duplicate cells in `\ct_rtu_rob_entry'.
+Computing hashes of 405 cells of `\ct_rtu_rob_entry'.
+Finding duplicate cells in `\ct_rtu_rob_entry'.
+<suppressed ~15 debug messages>
+Finding identical cells in module `\gated_clk_cell'.
+Computing hashes of 0 cells of `\gated_clk_cell'.
+Finding duplicate cells in `\gated_clk_cell'.
+Removed a total of 5 cells.
+
+4.21.3. Executing OPT_DFF pass (perform DFF optimizations).
+
+4.21.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_rtu_rob_entry..
+Finding unused cells or wires in module \gated_clk_cell..
+Removed 1 unused cells and 101 unused wires.
+<suppressed ~2 debug messages>
+
+4.21.5. Finished fast OPT passes.
+
+4.22. Executing ABC pass (technology mapping using ABC).
+
+4.22.1. Extracting gate netlist of module `\ct_rtu_rob_entry' to `<abc-temp-dir>/input.blif'..
+
+4.22.1.1. Executed ABC.
+Extracted 361 gates and 553 wires to a netlist network with 191 inputs and 45 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: UC Berkeley, ABC 1.01 (compiled Jun 30 2026 04:50:19)
+ABC: abc 01> empty
+ABC: abc 01> source <abc-temp-dir>/abc.script
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_library <abc-temp-dir>/stdcells.genlib 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &fraig -x 
+ABC: + &put 
+ABC: + scorr 
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2 
+ABC: + dretime 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &dch -f 
+ABC: + &nf 
+ABC: + &put 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+ABC: 
+ABC: YOSYS_ABC_DONE 
+
+4.22.1.2. Re-integrating ABC results.
+ABC RESULTS:               AND cells:       97
+ABC RESULTS:            ANDNOT cells:        7
+ABC RESULTS:               MUX cells:        2
+ABC RESULTS:              NAND cells:      234
+ABC RESULTS:               NOR cells:        7
+ABC RESULTS:                OR cells:       11
+ABC RESULTS:             ORNOT cells:        3
+ABC RESULTS:              XNOR cells:        1
+ABC RESULTS:        internal signals:      317
+ABC RESULTS:           input signals:      191
+ABC RESULTS:          output signals:       45
+Removing temp directory.
+
+4.22.2. Extracting gate netlist of module `\gated_clk_cell' to `<abc-temp-dir>/input.blif'..
+
+4.22.2.1. Executed ABC.
+Extracted 0 gates and 0 wires to a netlist network with 0 inputs and 0 outputs.
+Don't call ABC as there is nothing to map.
+Removing temp directory.
+Removing global temp directory.
+
+4.23. Executing OPT pass (performing simple optimizations).
+
+4.23.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_rtu_rob_entry.
+Optimizing module gated_clk_cell.
+
+4.23.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_rtu_rob_entry'.
+Computing hashes of 405 cells of `\ct_rtu_rob_entry'.
+Finding duplicate cells in `\ct_rtu_rob_entry'.
+Finding identical cells in module `\gated_clk_cell'.
+Computing hashes of 0 cells of `\gated_clk_cell'.
+Finding duplicate cells in `\gated_clk_cell'.
+Removed a total of 0 cells.
+
+4.23.3. Executing OPT_DFF pass (perform DFF optimizations).
+
+4.23.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_rtu_rob_entry..
+Finding unused cells or wires in module \gated_clk_cell..
+Removed 0 unused cells and 532 unused wires.
+<suppressed ~12 debug messages>
+
+4.23.5. Finished fast OPT passes.
+
+4.24. Executing HIERARCHY pass (managing design hierarchy).
+Attribute `top' found on module `ct_rtu_rob_entry'. Setting top module to ct_rtu_rob_entry.
+
+4.24.1. Analyzing design hierarchy..
+Top module:  \ct_rtu_rob_entry
+Used module:     \gated_clk_cell
+
+4.24.2. Analyzing design hierarchy..
+Top module:  \ct_rtu_rob_entry
+Used module:     \gated_clk_cell
+Removed 0 unused modules.
+
+4.25. Printing statistics.
+
+=== ct_rtu_rob_entry ===
+
+        +----------Local Count, excluding submodules.
+        | 
+      391 wires
+      649 wire bits
+       63 public wires
+      320 public wire bits
+       30 ports
+      234 port bits
+      402 cells
+        7   $_ANDNOT_
+       97   $_AND_
+       38   $_DFFE_PN0P_
+        2   $_DFF_PN0_
+        2   $_MUX_
+      234   $_NAND_
+        7   $_NOR_
+        3   $_ORNOT_
+       11   $_OR_
+        1   $_XNOR_
+        3 submodules
+        3   gated_clk_cell
+
+=== gated_clk_cell ===
+
+        +----------Local Count, excluding submodules.
+        | 
+        8 wires
+        8 wire bits
+        8 public wires
+        8 public wire bits
+        7 ports
+        7 port bits
+
+=== design hierarchy ===
+
+        +----------Count including submodules.
+        | 
+      402 ct_rtu_rob_entry
+
+        +----------Count including submodules.
+        | 
+      415 wires
+      673 wire bits
+       87 public wires
+      344 public wire bits
+       51 ports
+      255 port bits
+        - memories
+        - memory bits
+        - processes
+      402 cells
+        7   $_ANDNOT_
+       97   $_AND_
+       38   $_DFFE_PN0P_
+        2   $_DFF_PN0_
+        2   $_MUX_
+      234   $_NAND_
+        7   $_NOR_
+        3   $_ORNOT_
+       11   $_OR_
+        1   $_XNOR_
+        3 submodules
+        3   gated_clk_cell
+
+4.26. Executing CHECK pass (checking for obvious problems).
+Checking module ct_rtu_rob_entry...
+Checking module gated_clk_cell...
+Found and reported 0 problems.
+
+5. Executing DFFLIBMAP pass (mapping DFF cells to sequential cells from liberty file).
+  cell sky130_fd_sc_hd__dfxtp_1 (noninv, pins=3, area=20.02) is a direct match for cell type $_DFF_P_.
+  cell sky130_fd_sc_hd__dfrtn_1 (noninv, pins=4, area=25.02) is a direct match for cell type $_DFF_NN0_.
+  cell sky130_fd_sc_hd__dfrtp_1 (noninv, pins=4, area=25.02) is a direct match for cell type $_DFF_PN0_.
+  cell sky130_fd_sc_hd__dfstp_2 (noninv, pins=4, area=26.28) is a direct match for cell type $_DFF_PN1_.
+  cell sky130_fd_sc_hd__edfxtp_1 (noninv, pins=4, area=30.03) is a direct match for cell type $_DFFE_PP_.
+  cell sky130_fd_sc_hd__dfbbn_1 (noninv, pins=6, area=32.53) is a direct match for cell type $_DFFSR_NNN_.
+  cell sky130_fd_sc_hd__dfbbp_1 (noninv, pins=6, area=32.53) is a direct match for cell type $_DFFSR_PNN_.
+  final dff cell mappings:
+    unmapped dff cell: $_DFF_N_
+    \sky130_fd_sc_hd__dfxtp_1 _DFF_P_ (.CLK( C), .D( D), .Q( Q));
+    \sky130_fd_sc_hd__dfrtn_1 _DFF_NN0_ (.CLK_N( C), .D( D), .Q( Q), .RESET_B( R));
+    unmapped dff cell: $_DFF_NN1_
+    unmapped dff cell: $_DFF_NP0_
+    unmapped dff cell: $_DFF_NP1_
+    \sky130_fd_sc_hd__dfrtp_1 _DFF_PN0_ (.CLK( C), .D( D), .Q( Q), .RESET_B( R));
+    \sky130_fd_sc_hd__dfstp_2 _DFF_PN1_ (.CLK( C), .D( D), .Q( Q), .SET_B( R));
+    unmapped dff cell: $_DFF_PP0_
+    unmapped dff cell: $_DFF_PP1_
+    unmapped dff cell: $_DFFE_NN_
+    unmapped dff cell: $_DFFE_NP_
+    unmapped dff cell: $_DFFE_PN_
+    \sky130_fd_sc_hd__edfxtp_1 _DFFE_PP_ (.CLK( C), .D( D), .DE( E), .Q( Q));
+    \sky130_fd_sc_hd__dfbbn_1 _DFFSR_NNN_ (.CLK_N( C), .D( D), .Q( Q), .Q_N(~Q), .RESET_B( R), .SET_B( S));
+    unmapped dff cell: $_DFFSR_NNP_
+    unmapped dff cell: $_DFFSR_NPN_
+    unmapped dff cell: $_DFFSR_NPP_
+    \sky130_fd_sc_hd__dfbbp_1 _DFFSR_PNN_ (.CLK( C), .D( D), .Q( Q), .Q_N(~Q), .RESET_B( R), .SET_B( S));
+    unmapped dff cell: $_DFFSR_PNP_
+    unmapped dff cell: $_DFFSR_PPN_
+    unmapped dff cell: $_DFFSR_PPP_
+
+5.1. Executing DFFLEGALIZE pass (convert FFs to types supported by the target).
+<suppressed ~24 debug messages>
+Mapping DFF cells in module `\ct_rtu_rob_entry':
+  mapped 40 $_DFF_PN0_ cells to \sky130_fd_sc_hd__dfrtp_1 cells.
+Mapping DFF cells in module `\gated_clk_cell':
+
+6. Executing ABC pass (technology mapping using ABC).
+
+6.1. Extracting gate netlist of module `\ct_rtu_rob_entry' to `<abc-temp-dir>/input.blif'..
+ABC: using cached merged SCL: /tmp/yosys-liberty-scl-cache/yosys_merged_33924531.scl (1 files)
+
+6.1.1. Executed ABC.
+Extracted 400 gates and 629 wires to a netlist network with 229 inputs and 42 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: UC Berkeley, ABC 1.01 (compiled Jun 30 2026 04:50:19)
+ABC: abc 01> empty
+ABC: abc 01> source <abc-temp-dir>/abc.script
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_scl /tmp/yosys-liberty-scl-cache/yosys_merged_33924531.scl 
+ABC: Warning: Detected 9 multi-output cells (for example, "sky130_fd_sc_hd__fa_1").
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &fraig -x 
+ABC: + &put 
+ABC: + scorr 
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2 
+ABC: + dretime 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &dch -f 
+ABC: + &nf 
+ABC: + &put 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+ABC: 
+ABC: YOSYS_ABC_DONE 
+
+6.1.2. Re-integrating ABC results.
+ABC RESULTS:   sky130_fd_sc_hd__a21oi_1 cells:        7
+ABC RESULTS:   sky130_fd_sc_hd__a222oi_1 cells:       38
+ABC RESULTS:   sky130_fd_sc_hd__a22oi_1 cells:        8
+ABC RESULTS:   sky130_fd_sc_hd__a311oi_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__a31oi_1 cells:       32
+ABC RESULTS:   sky130_fd_sc_hd__a41oi_1 cells:        2
+ABC RESULTS:   sky130_fd_sc_hd__clkinv_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__lpflow_inputiso1p_1 cells:        3
+ABC RESULTS:   sky130_fd_sc_hd__lpflow_isobufsrc_1 cells:        2
+ABC RESULTS:   sky130_fd_sc_hd__mux2i_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__nand2_1 cells:       44
+ABC RESULTS:   sky130_fd_sc_hd__nand3b_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__nand4_1 cells:        3
+ABC RESULTS:   sky130_fd_sc_hd__nor2_1 cells:       36
+ABC RESULTS:   sky130_fd_sc_hd__nor3_1 cells:        2
+ABC RESULTS:   sky130_fd_sc_hd__nor4_1 cells:        2
+ABC RESULTS:   sky130_fd_sc_hd__nor4b_1 cells:        3
+ABC RESULTS:   sky130_fd_sc_hd__o21ai_0 cells:        4
+ABC RESULTS:   sky130_fd_sc_hd__o22a_1 cells:        5
+ABC RESULTS:   sky130_fd_sc_hd__o31ai_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__or3_1 cells:        2
+ABC RESULTS:   sky130_fd_sc_hd__or3b_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__or4_1 cells:        2
+ABC RESULTS:   sky130_fd_sc_hd__or4b_1 cells:        3
+ABC RESULTS:   sky130_fd_sc_hd__xor2_1 cells:        3
+ABC RESULTS:        internal signals:      358
+ABC RESULTS:           input signals:      229
+ABC RESULTS:          output signals:       42
+Removing temp directory.
+
+6.2. Extracting gate netlist of module `\gated_clk_cell' to `<abc-temp-dir>/input.blif'..
+ABC: using cached merged SCL: /tmp/yosys-liberty-scl-cache/yosys_merged_33924531.scl (1 files)
+
+6.2.1. Executed ABC.
+Extracted 0 gates and 0 wires to a netlist network with 0 inputs and 0 outputs.
+Don't call ABC as there is nothing to map.
+Removing temp directory.
+Removing global temp directory.
+
+7. Printing statistics.
+
+=== ct_rtu_rob_entry ===
+
+        +----------Local Count, excluding submodules.
+        |        +-Local Area, excluding submodules.
+        |        | 
+      865        - wires
+     1123        - wire bits
+       63        - public wires
+      320        - public wire bits
+       30        - ports
+      234        - port bits
+      247 2.29E+03 cells
+        7   35.034   sky130_fd_sc_hd__a21oi_1
+       38  380.365   sky130_fd_sc_hd__a222oi_1
+        8   60.058   sky130_fd_sc_hd__a22oi_1
+        1    8.758   sky130_fd_sc_hd__a311oi_1
+       32  200.192   sky130_fd_sc_hd__a31oi_1
+        2   17.517   sky130_fd_sc_hd__a41oi_1
+        1    3.754   sky130_fd_sc_hd__clkinv_1
+       40  1000.96   sky130_fd_sc_hd__dfrtp_1
+        3   18.768   sky130_fd_sc_hd__lpflow_inputiso1p_1
+        2   12.512   sky130_fd_sc_hd__lpflow_isobufsrc_1
+        1    10.01   sky130_fd_sc_hd__mux2i_1
+       44  165.158   sky130_fd_sc_hd__nand2_1
+        1    7.507   sky130_fd_sc_hd__nand3b_1
+        3   18.768   sky130_fd_sc_hd__nand4_1
+       36   135.13   sky130_fd_sc_hd__nor2_1
+        2    10.01   sky130_fd_sc_hd__nor3_1
+        2   12.512   sky130_fd_sc_hd__nor4_1
+        3   26.275   sky130_fd_sc_hd__nor4b_1
+        4   20.019   sky130_fd_sc_hd__o21ai_0
+        5   43.792   sky130_fd_sc_hd__o22a_1
+        1    7.507   sky130_fd_sc_hd__o31ai_1
+        2   12.512   sky130_fd_sc_hd__or3_1
+        1    8.758   sky130_fd_sc_hd__or3b_1
+        2   15.014   sky130_fd_sc_hd__or4_1
+        3   30.029   sky130_fd_sc_hd__or4b_1
+        3   26.275   sky130_fd_sc_hd__xor2_1
+        3        - submodules
+        3        -   gated_clk_cell
+
+   Chip area for module '\ct_rtu_rob_entry': 2287.193600
+     of which used for sequential elements: 1000.960000 (43.76%)
+
+=== gated_clk_cell ===
+
+        +----------Local Count, excluding submodules.
+        |        +-Local Area, excluding submodules.
+        |        | 
+        8        - wires
+        8        - wire bits
+        8        - public wires
+        8        - public wire bits
+        7        - ports
+        7        - port bits
+
+=== design hierarchy ===
+
+        +----------Count including submodules.
+        |        +-Area including submodules.
+        |        | 
+      247 2.29E+03 ct_rtu_rob_entry
+
+        +----------Count including submodules.
+        |        +-Area including submodules.
+        |        | 
+      889        - wires
+     1147        - wire bits
+       87        - public wires
+      344        - public wire bits
+       51        - ports
+      255        - port bits
+        -        - memories
+        -        - memory bits
+        -        - processes
+      247 2.29E+03 cells
+        7   35.034   sky130_fd_sc_hd__a21oi_1
+       38  380.365   sky130_fd_sc_hd__a222oi_1
+        8   60.058   sky130_fd_sc_hd__a22oi_1
+        1    8.758   sky130_fd_sc_hd__a311oi_1
+       32  200.192   sky130_fd_sc_hd__a31oi_1
+        2   17.517   sky130_fd_sc_hd__a41oi_1
+        1    3.754   sky130_fd_sc_hd__clkinv_1
+       40  1000.96   sky130_fd_sc_hd__dfrtp_1
+        3   18.768   sky130_fd_sc_hd__lpflow_inputiso1p_1
+        2   12.512   sky130_fd_sc_hd__lpflow_isobufsrc_1
+        1    10.01   sky130_fd_sc_hd__mux2i_1
+       44  165.158   sky130_fd_sc_hd__nand2_1
+        1    7.507   sky130_fd_sc_hd__nand3b_1
+        3   18.768   sky130_fd_sc_hd__nand4_1
+       36   135.13   sky130_fd_sc_hd__nor2_1
+        2    10.01   sky130_fd_sc_hd__nor3_1
+        2   12.512   sky130_fd_sc_hd__nor4_1
+        3   26.275   sky130_fd_sc_hd__nor4b_1
+        4   20.019   sky130_fd_sc_hd__o21ai_0
+        5   43.792   sky130_fd_sc_hd__o22a_1
+        1    7.507   sky130_fd_sc_hd__o31ai_1
+        2   12.512   sky130_fd_sc_hd__or3_1
+        1    8.758   sky130_fd_sc_hd__or3b_1
+        2   15.014   sky130_fd_sc_hd__or4_1
+        3   30.029   sky130_fd_sc_hd__or4b_1
+        3   26.275   sky130_fd_sc_hd__xor2_1
+        3        - submodules
+        3        -   gated_clk_cell
+
+   Chip area for top module '\ct_rtu_rob_entry': 2287.193600
+     of which used for sequential elements: 1000.960000 (43.76%)
+
+End of script. Logfile hash: 1a2cde4d01, time: 0.38s, user: 0.19s, system: 0.03s, MEM: 45.38 MB peak
+Yosys 0.66+181 (git sha1 afe6b18f2, Release, Clang /usr/bin/clang++ 18.1.8)
+Time spent: 51% 2x abc (0 sec), 13% 1x dfflibmap (0 sec), ...

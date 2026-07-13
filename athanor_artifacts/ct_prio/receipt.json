@@ -1,0 +1,102 @@
+{
+  "ticket": "ATH-2950",
+  "created_by": "dexter",
+  "created_utc": "2026-07-13T13:30:00Z",
+  "target": {
+    "repo": "https://github.com/pulp-platform/pulp-c910",
+    "repo_head": "896e5d339480762c4f89ac8c7a7c6e11cae08379",
+    "source_path": "vendor/thead_openc910/C910_RTL_FACTORY/gen_rtl/ciu/rtl/ct_prio.v",
+    "module": "ct_prio",
+    "description": "C910 CIU priority arbiter, module-local proof/optimization packet"
+  },
+  "candidate": {
+    "module": "ct_prio_gate",
+    "origin": "kairos optimize single-proposal local run with Gemini proposer; local dev license bypass used because this workspace has no signed license file",
+    "boundary": "candidate rewrites the priority matrix update structure; visible output proof is for sel[1:0] under reset-first temporal induction"
+  },
+  "files": {
+    "gold": {
+      "path": "ct_prio_gold.v",
+      "sha256": "2cd7d0e3350c6e4e3df90953570ed95915d6b38e3398ede956df0be321eb6865"
+    },
+    "gate": {
+      "path": "ct_prio_gate_candidate.v",
+      "sha256": "54ae058d3f57a61be4f8510d4244189e848ceb8d7197348801a93ab8e531df11"
+    },
+    "output_miter": {
+      "path": "ct_prio_output_miter.sv",
+      "sha256": "82f8892627d5cdd0b8fe89e607130fb9bf549ea2a1f5dce3c1de1a8f31e39fab"
+    },
+    "mutant": {
+      "path": "ct_prio_gate_mutant.v",
+      "sha256": "fc5aab3b70ae38f5637b92bdc7f8d5540ed0da37dda3b418e4be1c63fd3fc011"
+    }
+  },
+  "tooling": {
+    "pinned_yosys": "YOSYS_BIN (caller-provided executable for oss-cad-suite-20260630 Yosys)",
+    "pinned_yosys_version": "Yosys 0.66+181 (git sha1 afe6b18f2, Release, Clang /usr/bin/clang++ 18.1.8)",
+    "liberty": "LIBERTY (caller-provided sky130_fd_sc_hd__tt_025C_1v80.lib)",
+    "cache_note": "A stale /tmp/yosys-liberty-scl-cache from another ABC build caused the first pinned area replay to fail; after clearing that derived cache, pinned gold and gate area replays completed."
+  },
+  "ppa_receipts": {
+    "kairos_selected_generic_cells": {
+      "gold": 22,
+      "gate": 20,
+      "source": "kairos optimize JSON stdout from the original run"
+    },
+    "standalone_pinned_generic_stats": {
+      "gold_cells": 19,
+      "gate_cells": 16,
+      "gold_log": "ct_prio_gold_generic.pinned.log",
+      "gate_log": "ct_prio_gate_generic.pinned.log",
+      "note": "Standalone proc/opt/memory/opt stats are not the same scoring pass as the Kairos selected generic count."
+    },
+    "standalone_pinned_sky130_area": {
+      "gold_area": 158.9024,
+      "gate_area": 93.84,
+      "gold_log": "ct_prio_gold_sky130.pinned.log",
+      "gate_log": "ct_prio_gate_sky130.pinned.log"
+    }
+  },
+  "proof_receipts": {
+    "visible_output_temporal_induction": {
+      "status": "proved",
+      "outputs": [
+        "sel[1:0]"
+      ],
+      "reset_assumption": "rst_b is 0 at time 1 and 1 at time 2",
+      "command": "read_verilog -formal -sv ct_prio_gold.v ct_prio_gate_candidate.v ct_prio_output_miter.sv; prep -top ct_prio_output_miter; flatten; async2sync; dffunmap; opt; sat -seq 8 -tempinduct -set-at 1 rst_b 0 -set-at 2 rst_b 1 -prove-asserts -verify",
+      "log": "ct_prio_output_miter_proof.pinned.log",
+      "log_sha256": "d91c98aa246b02e414367d4a0af44c2dee5461eda31aff732372698a39c77644"
+    },
+    "negative_control": {
+      "status": "failed_as_expected",
+      "mutation": "changed the gate update condition from if (sel[i] && (i != j)) to if (sel[i])",
+      "log": "ct_prio_mutant_negative.pinned.log",
+      "log_sha256": "df8116d040f8befd85865eb540a6a6f0d40f18575cac548ccfb485ce94141c29"
+    },
+    "same_state_equiv_boundary": {
+      "status": "not_fully_proven",
+      "command": "read_verilog -sv ct_prio_gold.v; rename ct_prio gold; read_verilog -sv ct_prio_gate_candidate.v; rename ct_prio_gate gate; proc; opt; memory; opt; async2sync; equiv_make gold gate equiv; hierarchy -top equiv; clean; opt; equiv_simple; equiv_induct -seq 8; equiv_status",
+      "log": "ct_prio_same_state_equiv_fail.pinned.log",
+      "log_sha256": "22883cbd9ada77514979bbb335536831e442cf548f2f51de671b16e7e77e1ba1",
+      "proven_equiv_cells": 4,
+      "unproven_equiv_cells": 2,
+      "unproven_internal_state": [
+        "prio[0][1]",
+        "prio[1][0]"
+      ],
+      "interpretation": "This backs the non-claim: the packet proves visible sel[1:0] output behavior under the reset-first miter, not full same-state internal priority-state equivalence."
+    },
+    "known_non_claims": [
+      "not full internal-state equivalence; same-state Yosys equiv left internal priority-state bits unproven",
+      "not whole-core C910 proof",
+      "not ISA-level, memory-consistency, or speculation-recovery proof",
+      "not customer-ready whole-chip proof authority"
+    ]
+  },
+  "next_independent_check": {
+    "assignee": "quan",
+    "ask": "Reproduce pinned area and output-miter proof on the exact gold/gate pair; pressure-test the output-only proof boundary and negative control."
+  }
+}
