@@ -13,7 +13,7 @@ reset-first contract. The proof path is a passive debug bridge plus a closed
 lifecycle-encoding relation proof. The same proof check rejects a broken
 candidate, and independent QA confirmed a second storage-path mutant also fails.
 
-## PPA
+## Selected Area
 
 Selected Sky130 area improves in the replay flow; timing/power are not claimed:
 

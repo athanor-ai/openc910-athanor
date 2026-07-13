@@ -68,7 +68,7 @@ added together.
 ## Evidence bar (summary)
 
 A row is promoted from candidate to accepted only with: a bounded RTL diff;
-selected-flow measurement with any missing PPA axes named; an equivalence or formal proof on the exact subject with its
+selected-flow measurement with any missing metric axes named; an equivalence or formal proof on the exact subject with its
 scope stated; a non-vacuity control that a broken candidate fails; replay hashes;
 and non-author cold review. Module-local rows are never presented as whole-core
 claims, and local wins are not summed without an integrated end-to-end receipt.

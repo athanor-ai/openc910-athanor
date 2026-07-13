@@ -162,8 +162,8 @@ Common files per fork-local package:
 - `*_gold.v` and `*_gate_candidate.v`: the bounded RTL change (original vs optimized).
 - `*_gate_mutant.v`: the deliberately-broken candidate the non-vacuity control must reject.
 - `*_miter.sv`: the equivalence / induction miter(s).
-- `*.pinned.log`: pinned selected-flow PPA and proof-replay logs.
-- `receipt.json`: the row's claim -- subject, proof method, scope, assumptions, PPA deltas, control result, and known boundaries.
+- `*.pinned.log`: pinned selected-flow measurement and proof-replay logs.
+- `receipt.json`: the row's claim -- subject, proof method, scope, assumptions, metric deltas, control result, and known boundaries.
 - `README.md`: the per-packet scope and non-claims.
 - `SHA256SUMS`: package hash binding.
 - `replay.sh`: the replay entrypoint.

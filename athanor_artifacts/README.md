@@ -7,7 +7,7 @@ Each package should include:
 - exact gold and candidate RTL used by the receipt,
 - a `receipt.json` file,
 - pinned logs for the selected proof and measurement checks, with any missing
-  PPA axes named in the package,
+  metric axes named in the package,
 - a package-local `replay.sh`, and
 - `SHA256SUMS` covering the package files.
 
