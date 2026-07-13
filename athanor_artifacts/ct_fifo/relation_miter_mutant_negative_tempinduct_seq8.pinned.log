@@ -1,0 +1,747 @@
+
+ /----------------------------------------------------------------------------\
+ |  yosys -- Yosys Open SYnthesis Suite                                       |
+ |  Copyright (C) 2012 - 2026  Claire Xenia Wolf <claire@yosyshq.com>         |
+ |  Distributed under an ISC-like license, type "license" to see terms        |
+ \----------------------------------------------------------------------------/
+ Yosys 0.66+181 (git sha1 afe6b18f2, Release, Clang /usr/bin/clang++ 18.1.8)
+
+-- Running command `read_verilog -formal -sv gated_clk_cell.v ct_fifo_gold_dbg.v ct_fifo_gate_dbg_mutant.v ct_fifo_relation_miter.sv; prep -top ct_fifo_relation_miter; flatten; async2sync; dffunmap; opt; sat -seq 8 -tempinduct -set-at 1 rst_b 0 -set-at 2 rst_b 1 -prove-asserts -verify' --
+
+1. Executing Verilog-2005 frontend: gated_clk_cell.v
+Parsing formal SystemVerilog input from `gated_clk_cell.v' to AST representation.
+Generating RTLIL representation for module `\gated_clk_cell'.
+Successfully finished Verilog frontend.
+
+2. Executing Verilog-2005 frontend: ct_fifo_gold_dbg.v
+Parsing formal SystemVerilog input from `ct_fifo_gold_dbg.v' to AST representation.
+Generating RTLIL representation for module `\ct_fifo_gold_dbg'.
+Warning: Replacing memory \fifo_entry_cont with list of registers. See ct_fifo_gold_dbg.v:150
+Successfully finished Verilog frontend.
+
+3. Executing Verilog-2005 frontend: ct_fifo_gate_dbg_mutant.v
+Parsing formal SystemVerilog input from `ct_fifo_gate_dbg_mutant.v' to AST representation.
+Generating RTLIL representation for module `\ct_fifo_gate_dbg'.
+Warning: Replacing memory \fifo_entry_cont with list of registers. See ct_fifo_gate_dbg_mutant.v:119
+Successfully finished Verilog frontend.
+
+4. Executing Verilog-2005 frontend: ct_fifo_relation_miter.sv
+Parsing formal SystemVerilog input from `ct_fifo_relation_miter.sv' to AST representation.
+Generating RTLIL representation for module `\ct_fifo_relation_miter'.
+Successfully finished Verilog frontend.
+
+5. Executing PREP pass.
+
+5.1. Executing HIERARCHY pass (managing design hierarchy).
+
+5.1.1. Analyzing design hierarchy..
+Top module:  \ct_fifo_relation_miter
+Used module:     \ct_fifo_gate_dbg
+Used module:         \gated_clk_cell
+Used module:     \ct_fifo_gold_dbg
+
+5.1.2. Analyzing design hierarchy..
+Top module:  \ct_fifo_relation_miter
+Used module:     \ct_fifo_gate_dbg
+Used module:         \gated_clk_cell
+Used module:     \ct_fifo_gold_dbg
+Removed 0 unused modules.
+Module ct_fifo_relation_miter directly or indirectly contains formal properties -> setting "keep" attribute.
+
+5.2. Executing PROC pass (convert processes to netlists).
+
+5.2.1. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Cleaned up 0 empty switches.
+
+5.2.2. Executing PROC_RMDEAD pass (remove dead branches from decision trees).
+Marked 1 switch rules as full_case in process $proc$ct_fifo_gate_dbg_mutant.v:116$55 in module ct_fifo_gate_dbg.
+Marked 2 switch rules as full_case in process $proc$ct_fifo_gate_dbg_mutant.v:96$53 in module ct_fifo_gate_dbg.
+Marked 1 switch rules as full_case in process $proc$ct_fifo_gate_dbg_mutant.v:116$51 in module ct_fifo_gate_dbg.
+Marked 2 switch rules as full_case in process $proc$ct_fifo_gate_dbg_mutant.v:96$49 in module ct_fifo_gate_dbg.
+Marked 1 switch rules as full_case in process $proc$ct_fifo_gate_dbg_mutant.v:79$37 in module ct_fifo_gate_dbg.
+Marked 1 switch rules as full_case in process $proc$ct_fifo_gate_dbg_mutant.v:71$34 in module ct_fifo_gate_dbg.
+Removed 1 dead cases from process $proc$ct_fifo_gold_dbg.v:164$29 in module ct_fifo_gold_dbg.
+Marked 1 switch rules as full_case in process $proc$ct_fifo_gold_dbg.v:164$29 in module ct_fifo_gold_dbg.
+Marked 2 switch rules as full_case in process $proc$ct_fifo_gold_dbg.v:147$27 in module ct_fifo_gold_dbg.
+Marked 2 switch rules as full_case in process $proc$ct_fifo_gold_dbg.v:147$25 in module ct_fifo_gold_dbg.
+Marked 2 switch rules as full_case in process $proc$ct_fifo_gold_dbg.v:119$23 in module ct_fifo_gold_dbg.
+Marked 2 switch rules as full_case in process $proc$ct_fifo_gold_dbg.v:119$21 in module ct_fifo_gold_dbg.
+Marked 2 switch rules as full_case in process $proc$ct_fifo_gold_dbg.v:97$8 in module ct_fifo_gold_dbg.
+Marked 1 switch rules as full_case in process $proc$ct_fifo_gold_dbg.v:89$6 in module ct_fifo_gold_dbg.
+Removed a total of 1 dead cases.
+
+5.2.3. Executing PROC_PRUNE pass (remove redundant assignments in processes).
+Removed 2 redundant assignments.
+Promoted 1 assignment to connection.
+
+5.2.4. Executing PROC_INIT pass (extract init attributes).
+
+5.2.5. Executing PROC_ARST pass (detect async resets in processes).
+Found async reset \rst_b in `\ct_fifo_gate_dbg.$proc$ct_fifo_gate_dbg_mutant.v:116$55'.
+Found async reset \rst_b in `\ct_fifo_gate_dbg.$proc$ct_fifo_gate_dbg_mutant.v:96$53'.
+Found async reset \rst_b in `\ct_fifo_gate_dbg.$proc$ct_fifo_gate_dbg_mutant.v:116$51'.
+Found async reset \rst_b in `\ct_fifo_gate_dbg.$proc$ct_fifo_gate_dbg_mutant.v:96$49'.
+Found async reset \rst_b in `\ct_fifo_gate_dbg.$proc$ct_fifo_gate_dbg_mutant.v:79$37'.
+Found async reset \rst_b in `\ct_fifo_gate_dbg.$proc$ct_fifo_gate_dbg_mutant.v:71$34'.
+Found async reset \rst_b in `\ct_fifo_gold_dbg.$proc$ct_fifo_gold_dbg.v:147$27'.
+Found async reset \rst_b in `\ct_fifo_gold_dbg.$proc$ct_fifo_gold_dbg.v:147$25'.
+Found async reset \rst_b in `\ct_fifo_gold_dbg.$proc$ct_fifo_gold_dbg.v:119$23'.
+Found async reset \rst_b in `\ct_fifo_gold_dbg.$proc$ct_fifo_gold_dbg.v:119$21'.
+Found async reset \rst_b in `\ct_fifo_gold_dbg.$proc$ct_fifo_gold_dbg.v:97$8'.
+Found async reset \rst_b in `\ct_fifo_gold_dbg.$proc$ct_fifo_gold_dbg.v:89$6'.
+
+5.2.6. Executing PROC_ROM pass (convert switches to ROMs).
+Converted 0 switches.
+<suppressed ~19 debug messages>
+
+5.2.7. Executing PROC_MUX pass (convert decision trees to multiplexers).
+Creating decoders for process `\ct_fifo_relation_miter.$proc$ct_fifo_relation_miter.sv:71$57'.
+     1/9: $assert$ct_fifo_relation_miter.sv:81$74_EN
+     2/9: $assert$ct_fifo_relation_miter.sv:80$72_EN
+     3/9: $assert$ct_fifo_relation_miter.sv:79$70_EN
+     4/9: $assert$ct_fifo_relation_miter.sv:78$68_EN
+     5/9: $assert$ct_fifo_relation_miter.sv:77$66_EN
+     6/9: $assert$ct_fifo_relation_miter.sv:76$64_EN
+     7/9: $assert$ct_fifo_relation_miter.sv:75$62_EN
+     8/9: $assert$ct_fifo_relation_miter.sv:74$60_EN
+     9/9: $assert$ct_fifo_relation_miter.sv:73$58_EN
+Creating decoders for process `\ct_fifo_gate_dbg.$proc$ct_fifo_gate_dbg_mutant.v:116$55'.
+     1/1: $0\fifo_entry_cont[1][5:0]
+Creating decoders for process `\ct_fifo_gate_dbg.$proc$ct_fifo_gate_dbg_mutant.v:96$53'.
+     1/1: $0\fifo_entry_vld[1:1]
+Creating decoders for process `\ct_fifo_gate_dbg.$proc$ct_fifo_gate_dbg_mutant.v:116$51'.
+     1/1: $0\fifo_entry_cont[0][5:0]
+Creating decoders for process `\ct_fifo_gate_dbg.$proc$ct_fifo_gate_dbg_mutant.v:96$49'.
+     1/1: $0\fifo_entry_vld[0:0]
+Creating decoders for process `\ct_fifo_gate_dbg.$proc$ct_fifo_gate_dbg_mutant.v:79$37'.
+     1/1: $0\fifo_pop_idx[0:0]
+Creating decoders for process `\ct_fifo_gate_dbg.$proc$ct_fifo_gate_dbg_mutant.v:71$34'.
+     1/1: $0\fifo_create_idx[0:0]
+Creating decoders for process `\ct_fifo_gold_dbg.$proc$ct_fifo_gold_dbg.v:164$29'.
+     1/1: $1$mem2reg_rd$\fifo_entry_cont$ct_fifo_gold_dbg.v:164$4_DATA[5:0]$31
+Creating decoders for process `\ct_fifo_gold_dbg.$proc$ct_fifo_gold_dbg.v:147$27'.
+     1/1: $0\fifo_entry_cont[1][5:0]
+Creating decoders for process `\ct_fifo_gold_dbg.$proc$ct_fifo_gold_dbg.v:147$25'.
+     1/1: $0\fifo_entry_cont[0][5:0]
+Creating decoders for process `\ct_fifo_gold_dbg.$proc$ct_fifo_gold_dbg.v:119$23'.
+     1/1: $0\fifo_entry_vld[1:1]
+Creating decoders for process `\ct_fifo_gold_dbg.$proc$ct_fifo_gold_dbg.v:119$21'.
+     1/1: $0\fifo_entry_vld[0:0]
+Creating decoders for process `\ct_fifo_gold_dbg.$proc$ct_fifo_gold_dbg.v:97$8'.
+     1/1: $0\fifo_pop_ptr[1:0]
+Creating decoders for process `\ct_fifo_gold_dbg.$proc$ct_fifo_gold_dbg.v:89$6'.
+     1/1: $0\fifo_create_ptr[1:0]
+
+5.2.8. Executing PROC_DLATCH pass (convert process syncs to latches).
+No latch inferred for signal `\ct_fifo_gold_dbg.$mem2reg_rd$\fifo_entry_cont$ct_fifo_gold_dbg.v:164$4_DATA' from process `\ct_fifo_gold_dbg.$proc$ct_fifo_gold_dbg.v:164$29'.
+
+5.2.9. Executing PROC_DFF pass (convert process syncs to FFs).
+Creating register for signal `\ct_fifo_gate_dbg.\fifo_entry_cont[1]' using process `\ct_fifo_gate_dbg.$proc$ct_fifo_gate_dbg_mutant.v:116$55'.
+  created $adff cell `$procdff$142' with positive edge clock and positive level reset.
+Creating register for signal `\ct_fifo_gate_dbg.\fifo_entry_vld [1]' using process `\ct_fifo_gate_dbg.$proc$ct_fifo_gate_dbg_mutant.v:96$53'.
+  created $adff cell `$procdff$147' with positive edge clock and positive level reset.
+Creating register for signal `\ct_fifo_gate_dbg.\fifo_entry_cont[0]' using process `\ct_fifo_gate_dbg.$proc$ct_fifo_gate_dbg_mutant.v:116$51'.
+  created $adff cell `$procdff$152' with positive edge clock and positive level reset.
+Creating register for signal `\ct_fifo_gate_dbg.\fifo_entry_vld [0]' using process `\ct_fifo_gate_dbg.$proc$ct_fifo_gate_dbg_mutant.v:96$49'.
+  created $adff cell `$procdff$157' with positive edge clock and positive level reset.
+Creating register for signal `\ct_fifo_gate_dbg.\fifo_pop_idx' using process `\ct_fifo_gate_dbg.$proc$ct_fifo_gate_dbg_mutant.v:79$37'.
+  created $adff cell `$procdff$162' with positive edge clock and positive level reset.
+Creating register for signal `\ct_fifo_gate_dbg.\fifo_create_idx' using process `\ct_fifo_gate_dbg.$proc$ct_fifo_gate_dbg_mutant.v:71$34'.
+  created $adff cell `$procdff$167' with positive edge clock and positive level reset.
+Creating register for signal `\ct_fifo_gold_dbg.\fifo_entry_cont[1]' using process `\ct_fifo_gold_dbg.$proc$ct_fifo_gold_dbg.v:147$27'.
+  created $adff cell `$procdff$172' with positive edge clock and positive level reset.
+Creating register for signal `\ct_fifo_gold_dbg.\fifo_entry_cont[0]' using process `\ct_fifo_gold_dbg.$proc$ct_fifo_gold_dbg.v:147$25'.
+  created $adff cell `$procdff$177' with positive edge clock and positive level reset.
+Creating register for signal `\ct_fifo_gold_dbg.\fifo_entry_vld [1]' using process `\ct_fifo_gold_dbg.$proc$ct_fifo_gold_dbg.v:119$23'.
+  created $adff cell `$procdff$182' with positive edge clock and positive level reset.
+Creating register for signal `\ct_fifo_gold_dbg.\fifo_entry_vld [0]' using process `\ct_fifo_gold_dbg.$proc$ct_fifo_gold_dbg.v:119$21'.
+  created $adff cell `$procdff$187' with positive edge clock and positive level reset.
+Creating register for signal `\ct_fifo_gold_dbg.\fifo_pop_ptr' using process `\ct_fifo_gold_dbg.$proc$ct_fifo_gold_dbg.v:97$8'.
+  created $adff cell `$procdff$192' with positive edge clock and positive level reset.
+Creating register for signal `\ct_fifo_gold_dbg.\fifo_create_ptr' using process `\ct_fifo_gold_dbg.$proc$ct_fifo_gold_dbg.v:89$6'.
+  created $adff cell `$procdff$197' with positive edge clock and positive level reset.
+
+5.2.10. Executing PROC_MEMWR pass (convert process memory writes to cells).
+
+5.2.11. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Found and cleaned up 1 empty switch in `\ct_fifo_relation_miter.$proc$ct_fifo_relation_miter.sv:71$57'.
+Removing empty process `ct_fifo_relation_miter.$proc$ct_fifo_relation_miter.sv:71$57'.
+Found and cleaned up 1 empty switch in `\ct_fifo_gate_dbg.$proc$ct_fifo_gate_dbg_mutant.v:116$55'.
+Removing empty process `ct_fifo_gate_dbg.$proc$ct_fifo_gate_dbg_mutant.v:116$55'.
+Found and cleaned up 2 empty switches in `\ct_fifo_gate_dbg.$proc$ct_fifo_gate_dbg_mutant.v:96$53'.
+Removing empty process `ct_fifo_gate_dbg.$proc$ct_fifo_gate_dbg_mutant.v:96$53'.
+Found and cleaned up 1 empty switch in `\ct_fifo_gate_dbg.$proc$ct_fifo_gate_dbg_mutant.v:116$51'.
+Removing empty process `ct_fifo_gate_dbg.$proc$ct_fifo_gate_dbg_mutant.v:116$51'.
+Found and cleaned up 2 empty switches in `\ct_fifo_gate_dbg.$proc$ct_fifo_gate_dbg_mutant.v:96$49'.
+Removing empty process `ct_fifo_gate_dbg.$proc$ct_fifo_gate_dbg_mutant.v:96$49'.
+Found and cleaned up 1 empty switch in `\ct_fifo_gate_dbg.$proc$ct_fifo_gate_dbg_mutant.v:79$37'.
+Removing empty process `ct_fifo_gate_dbg.$proc$ct_fifo_gate_dbg_mutant.v:79$37'.
+Found and cleaned up 1 empty switch in `\ct_fifo_gate_dbg.$proc$ct_fifo_gate_dbg_mutant.v:71$34'.
+Removing empty process `ct_fifo_gate_dbg.$proc$ct_fifo_gate_dbg_mutant.v:71$34'.
+Found and cleaned up 1 empty switch in `\ct_fifo_gold_dbg.$proc$ct_fifo_gold_dbg.v:164$29'.
+Removing empty process `ct_fifo_gold_dbg.$proc$ct_fifo_gold_dbg.v:164$29'.
+Found and cleaned up 1 empty switch in `\ct_fifo_gold_dbg.$proc$ct_fifo_gold_dbg.v:147$27'.
+Removing empty process `ct_fifo_gold_dbg.$proc$ct_fifo_gold_dbg.v:147$27'.
+Found and cleaned up 1 empty switch in `\ct_fifo_gold_dbg.$proc$ct_fifo_gold_dbg.v:147$25'.
+Removing empty process `ct_fifo_gold_dbg.$proc$ct_fifo_gold_dbg.v:147$25'.
+Found and cleaned up 2 empty switches in `\ct_fifo_gold_dbg.$proc$ct_fifo_gold_dbg.v:119$23'.
+Removing empty process `ct_fifo_gold_dbg.$proc$ct_fifo_gold_dbg.v:119$23'.
+Found and cleaned up 2 empty switches in `\ct_fifo_gold_dbg.$proc$ct_fifo_gold_dbg.v:119$21'.
+Removing empty process `ct_fifo_gold_dbg.$proc$ct_fifo_gold_dbg.v:119$21'.
+Found and cleaned up 2 empty switches in `\ct_fifo_gold_dbg.$proc$ct_fifo_gold_dbg.v:97$8'.
+Removing empty process `ct_fifo_gold_dbg.$proc$ct_fifo_gold_dbg.v:97$8'.
+Found and cleaned up 1 empty switch in `\ct_fifo_gold_dbg.$proc$ct_fifo_gold_dbg.v:89$6'.
+Removing empty process `ct_fifo_gold_dbg.$proc$ct_fifo_gold_dbg.v:89$6'.
+Cleaned up 19 empty switches.
+
+5.2.12. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_fifo_relation_miter.
+Optimizing module ct_fifo_gate_dbg.
+<suppressed ~12 debug messages>
+Optimizing module ct_fifo_gold_dbg.
+<suppressed ~14 debug messages>
+Optimizing module gated_clk_cell.
+
+5.3. Executing FUTURE pass.
+
+5.4. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_fifo_relation_miter.
+Optimizing module ct_fifo_gate_dbg.
+Optimizing module ct_fifo_gold_dbg.
+Optimizing module gated_clk_cell.
+
+5.5. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_fifo_relation_miter..
+Finding unused cells or wires in module \ct_fifo_gate_dbg..
+Finding unused cells or wires in module \ct_fifo_gold_dbg..
+Finding unused cells or wires in module \gated_clk_cell..
+Removed 27 unused cells and 113 unused wires.
+<suppressed ~32 debug messages>
+
+5.6. Executing CHECK pass (checking for obvious problems).
+Checking module ct_fifo_relation_miter...
+Checking module ct_fifo_gate_dbg...
+Checking module ct_fifo_gold_dbg...
+Checking module gated_clk_cell...
+Found and reported 0 problems.
+
+5.7. Executing OPT pass (performing simple optimizations).
+
+5.7.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_fifo_relation_miter.
+Optimizing module ct_fifo_gate_dbg.
+Optimizing module ct_fifo_gold_dbg.
+Optimizing module gated_clk_cell.
+
+5.7.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_fifo_relation_miter'.
+Computing hashes of 29 cells of `\ct_fifo_relation_miter'.
+Finding duplicate cells in `\ct_fifo_relation_miter'.
+Finding identical cells in module `\ct_fifo_gate_dbg'.
+Computing hashes of 30 cells of `\ct_fifo_gate_dbg'.
+Finding duplicate cells in `\ct_fifo_gate_dbg'.
+Finding identical cells in module `\ct_fifo_gold_dbg'.
+Computing hashes of 31 cells of `\ct_fifo_gold_dbg'.
+Finding duplicate cells in `\ct_fifo_gold_dbg'.
+Computing hashes of 30 cells of `\ct_fifo_gold_dbg'.
+Finding duplicate cells in `\ct_fifo_gold_dbg'.
+<suppressed ~3 debug messages>
+Finding identical cells in module `\gated_clk_cell'.
+Computing hashes of 0 cells of `\gated_clk_cell'.
+Finding duplicate cells in `\gated_clk_cell'.
+Removed a total of 1 cells.
+
+5.7.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \ct_fifo_relation_miter..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \ct_fifo_gate_dbg..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \ct_fifo_gold_dbg..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \gated_clk_cell..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Removed 0 multiplexer ports.
+<suppressed ~55 debug messages>
+
+5.7.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \ct_fifo_relation_miter.
+  Optimizing cells in module \ct_fifo_gate_dbg.
+  Optimizing cells in module \ct_fifo_gold_dbg.
+  Optimizing cells in module \gated_clk_cell.
+Performed a total of 0 changes.
+
+5.7.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_fifo_relation_miter'.
+Computing hashes of 29 cells of `\ct_fifo_relation_miter'.
+Finding duplicate cells in `\ct_fifo_relation_miter'.
+Computing hashes of 21 cells of `\ct_fifo_relation_miter'.
+Finding duplicate cells in `\ct_fifo_relation_miter'.
+<suppressed ~24 debug messages>
+Finding identical cells in module `\ct_fifo_gate_dbg'.
+Computing hashes of 30 cells of `\ct_fifo_gate_dbg'.
+Finding duplicate cells in `\ct_fifo_gate_dbg'.
+Finding identical cells in module `\ct_fifo_gold_dbg'.
+Computing hashes of 30 cells of `\ct_fifo_gold_dbg'.
+Finding duplicate cells in `\ct_fifo_gold_dbg'.
+Finding identical cells in module `\gated_clk_cell'.
+Computing hashes of 0 cells of `\gated_clk_cell'.
+Finding duplicate cells in `\gated_clk_cell'.
+Removed a total of 8 cells.
+
+5.7.6. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_fifo_relation_miter..
+Finding unused cells or wires in module \ct_fifo_gate_dbg..
+Finding unused cells or wires in module \ct_fifo_gold_dbg..
+Finding unused cells or wires in module \gated_clk_cell..
+Removed 0 unused cells and 8 unused wires.
+<suppressed ~1 debug messages>
+
+5.7.7. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_fifo_relation_miter.
+Optimizing module ct_fifo_gate_dbg.
+Optimizing module ct_fifo_gold_dbg.
+Optimizing module gated_clk_cell.
+
+5.7.8. Rerunning OPT passes. (Maybe there is more to do..)
+
+5.7.9. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \ct_fifo_relation_miter..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \ct_fifo_gate_dbg..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \ct_fifo_gold_dbg..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \gated_clk_cell..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Removed 0 multiplexer ports.
+<suppressed ~39 debug messages>
+
+5.7.10. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \ct_fifo_relation_miter.
+  Optimizing cells in module \ct_fifo_gate_dbg.
+  Optimizing cells in module \ct_fifo_gold_dbg.
+  Optimizing cells in module \gated_clk_cell.
+Performed a total of 0 changes.
+
+5.7.11. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_fifo_relation_miter'.
+Computing hashes of 21 cells of `\ct_fifo_relation_miter'.
+Finding duplicate cells in `\ct_fifo_relation_miter'.
+Finding identical cells in module `\ct_fifo_gate_dbg'.
+Computing hashes of 30 cells of `\ct_fifo_gate_dbg'.
+Finding duplicate cells in `\ct_fifo_gate_dbg'.
+Finding identical cells in module `\ct_fifo_gold_dbg'.
+Computing hashes of 30 cells of `\ct_fifo_gold_dbg'.
+Finding duplicate cells in `\ct_fifo_gold_dbg'.
+Finding identical cells in module `\gated_clk_cell'.
+Computing hashes of 0 cells of `\gated_clk_cell'.
+Finding duplicate cells in `\gated_clk_cell'.
+Removed a total of 0 cells.
+
+5.7.12. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_fifo_relation_miter..
+Finding unused cells or wires in module \ct_fifo_gate_dbg..
+Finding unused cells or wires in module \ct_fifo_gold_dbg..
+Finding unused cells or wires in module \gated_clk_cell..
+
+5.7.13. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_fifo_relation_miter.
+Optimizing module ct_fifo_gate_dbg.
+Optimizing module ct_fifo_gold_dbg.
+Optimizing module gated_clk_cell.
+
+5.7.14. Finished fast OPT passes. (There is nothing left to do.)
+
+5.8. Executing WREDUCE pass (reducing word size of cells).
+Removed top 1 bits (of 2) from port B of cell ct_fifo_gold_dbg.$add$ct_fifo_gold_dbg.v:104$12 ($add).
+Removed top 1 bits (of 2) from port A of cell ct_fifo_gold_dbg.$shl$ct_fifo_gold_dbg.v:107$13 ($shl).
+
+5.9. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_fifo_relation_miter..
+Finding unused cells or wires in module \ct_fifo_gate_dbg..
+Finding unused cells or wires in module \ct_fifo_gold_dbg..
+Finding unused cells or wires in module \gated_clk_cell..
+
+5.10. Executing MEMORY_COLLECT pass (generating $mem cells).
+
+5.11. Executing OPT pass (performing simple optimizations).
+
+5.11.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_fifo_relation_miter.
+Optimizing module ct_fifo_gate_dbg.
+Optimizing module ct_fifo_gold_dbg.
+Optimizing module gated_clk_cell.
+
+5.11.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_fifo_relation_miter'.
+Computing hashes of 21 cells of `\ct_fifo_relation_miter'.
+Finding duplicate cells in `\ct_fifo_relation_miter'.
+Finding identical cells in module `\ct_fifo_gate_dbg'.
+Computing hashes of 30 cells of `\ct_fifo_gate_dbg'.
+Finding duplicate cells in `\ct_fifo_gate_dbg'.
+Finding identical cells in module `\ct_fifo_gold_dbg'.
+Computing hashes of 30 cells of `\ct_fifo_gold_dbg'.
+Finding duplicate cells in `\ct_fifo_gold_dbg'.
+Finding identical cells in module `\gated_clk_cell'.
+Computing hashes of 0 cells of `\gated_clk_cell'.
+Finding duplicate cells in `\gated_clk_cell'.
+Removed a total of 0 cells.
+
+5.11.3. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_fifo_relation_miter..
+Finding unused cells or wires in module \ct_fifo_gate_dbg..
+Finding unused cells or wires in module \ct_fifo_gold_dbg..
+Finding unused cells or wires in module \gated_clk_cell..
+
+5.11.4. Finished fast OPT passes.
+
+5.12. Executing SORT pass.
+
+5.13. Printing statistics.
+
+=== ct_fifo_gate_dbg ===
+
+        +----------Local Count, excluding submodules.
+        | 
+       42 wires
+       92 wire bits
+       31 public wires
+       71 public wire bits
+       17 ports
+       40 port bits
+       27 cells
+        6   $adff
+        3   $and
+       11   $mux
+        4   $not
+        1   $or
+        1   $reduce_and
+        1   $reduce_or
+        3 submodules
+        3   gated_clk_cell
+
+=== ct_fifo_gold_dbg ===
+
+        +----------Local Count, excluding submodules.
+        | 
+       42 wires
+       97 wire bits
+       30 public wires
+       71 public wire bits
+       17 ports
+       40 port bits
+       27 cells
+        1   $add
+        6   $adff
+        4   $and
+        9   $mux
+        2   $not
+        1   $or
+        1   $pmux
+        1   $reduce_and
+        1   $reduce_or
+        1   $shl
+        3 submodules
+        3   gated_clk_cell
+
+=== ct_fifo_relation_miter ===
+
+        +----------Local Count, excluding submodules.
+        | 
+       36 wires
+       77 wire bits
+       26 public wires
+       67 public wire bits
+        8 ports
+       13 port bits
+       19 cells
+        9   $check
+        9   $eq
+        1   $mux
+        2 submodules
+        1   ct_fifo_gate_dbg
+        1   ct_fifo_gold_dbg
+
+=== gated_clk_cell ===
+
+        +----------Local Count, excluding submodules.
+        | 
+        8 wires
+        8 wire bits
+        8 public wires
+        8 public wire bits
+        7 ports
+        7 port bits
+
+=== design hierarchy ===
+
+        +----------Count including submodules.
+        | 
+       73 ct_fifo_relation_miter
+       27 ct_fifo_gate_dbg
+       27 ct_fifo_gold_dbg
+
+        +----------Count including submodules.
+        | 
+      168 wires
+      314 wire bits
+      135 public wires
+      257 public wire bits
+       84 ports
+      135 port bits
+        - memories
+        - memory bits
+        - processes
+       73 cells
+        1   $add
+       12   $adff
+        7   $and
+        9   $check
+        9   $eq
+       21   $mux
+        6   $not
+        2   $or
+        1   $pmux
+        2   $reduce_and
+        2   $reduce_or
+        1   $shl
+        2 submodules
+        1   ct_fifo_gate_dbg
+        1   ct_fifo_gold_dbg
+
+5.14. Executing CHECK pass (checking for obvious problems).
+Checking module ct_fifo_gate_dbg...
+Checking module ct_fifo_gold_dbg...
+Checking module ct_fifo_relation_miter...
+Checking module gated_clk_cell...
+Found and reported 0 problems.
+
+6. Executing FLATTEN pass (flatten design).
+Deleting now unused module ct_fifo_gate_dbg.
+Deleting now unused module ct_fifo_gold_dbg.
+Deleting now unused module gated_clk_cell.
+<suppressed ~8 debug messages>
+
+7. Executing ASYNC2SYNC pass.
+Replacing ct_fifo_relation_miter.$flatten\gate.$procdff$167 ($adff): ARST=\gate.rst_b, D=$flatten\gate.$0\fifo_create_idx[0:0], Q=\gate.fifo_create_idx
+Replacing ct_fifo_relation_miter.$flatten\gate.$procdff$162 ($adff): ARST=\gate.rst_b, D=$flatten\gate.$0\fifo_pop_idx[0:0], Q=\gate.fifo_pop_idx
+Replacing ct_fifo_relation_miter.$flatten\gate.$procdff$157 ($adff): ARST=\gate.rst_b, D=$flatten\gate.$0\fifo_entry_vld[0:0], Q=\gate.fifo_entry_vld [0]
+Replacing ct_fifo_relation_miter.$flatten\gate.$procdff$152 ($adff): ARST=\gate.rst_b, D=$flatten\gate.$0\fifo_entry_cont[0][5:0], Q=\gate.fifo_entry_cont[0]
+Replacing ct_fifo_relation_miter.$flatten\gate.$procdff$147 ($adff): ARST=\gate.rst_b, D=$flatten\gate.$0\fifo_entry_vld[1:1], Q=\gate.fifo_entry_vld [1]
+Replacing ct_fifo_relation_miter.$flatten\gate.$procdff$142 ($adff): ARST=\gate.rst_b, D=$flatten\gate.$0\fifo_entry_cont[1][5:0], Q=\gate.fifo_entry_cont[1]
+Replacing ct_fifo_relation_miter.$flatten\gold.$procdff$197 ($adff): ARST=\gold.rst_b, D=$flatten\gold.$0\fifo_create_ptr[1:0], Q=\gold.fifo_create_ptr
+Replacing ct_fifo_relation_miter.$flatten\gold.$procdff$192 ($adff): ARST=\gold.rst_b, D=$flatten\gold.$0\fifo_pop_ptr[1:0], Q=\gold.fifo_pop_ptr
+Replacing ct_fifo_relation_miter.$flatten\gold.$procdff$187 ($adff): ARST=\gold.rst_b, D=$flatten\gold.$0\fifo_entry_vld[0:0], Q=\gold.fifo_entry_vld [0]
+Replacing ct_fifo_relation_miter.$flatten\gold.$procdff$182 ($adff): ARST=\gold.rst_b, D=$flatten\gold.$0\fifo_entry_vld[1:1], Q=\gold.fifo_entry_vld [1]
+Replacing ct_fifo_relation_miter.$flatten\gold.$procdff$177 ($adff): ARST=\gold.rst_b, D=$flatten\gold.$0\fifo_entry_cont[0][5:0], Q=\gold.fifo_entry_cont[0]
+Replacing ct_fifo_relation_miter.$flatten\gold.$procdff$172 ($adff): ARST=\gold.rst_b, D=$flatten\gold.$0\fifo_entry_cont[1][5:0], Q=\gold.fifo_entry_cont[1]
+
+8. Executing DFFUNMAP pass (unmap clock enable and synchronous reset from FFs).
+
+9. Executing OPT pass (performing simple optimizations).
+
+9.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_fifo_relation_miter.
+
+9.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_fifo_relation_miter'.
+Computing hashes of 123 cells of `\ct_fifo_relation_miter'.
+Finding duplicate cells in `\ct_fifo_relation_miter'.
+Removed a total of 0 cells.
+
+9.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \ct_fifo_relation_miter..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~75 debug messages>
+
+9.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \ct_fifo_relation_miter.
+Performed a total of 0 changes.
+
+9.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_fifo_relation_miter'.
+Computing hashes of 123 cells of `\ct_fifo_relation_miter'.
+Finding duplicate cells in `\ct_fifo_relation_miter'.
+Removed a total of 0 cells.
+
+9.6. Executing OPT_DFF pass (perform DFF optimizations).
+Adding SRST signal on $flatten\gold.$procdff$172 ($dff) from module ct_fifo_relation_miter (D = $flatten\gold.$0\fifo_entry_cont[1][5:0], Q = $auto$async2sync.cc:253:execute$228, rval = 6'000000).
+Adding SRST signal on $flatten\gold.$procdff$177 ($dff) from module ct_fifo_relation_miter (D = $flatten\gold.$0\fifo_entry_cont[0][5:0], Q = $auto$async2sync.cc:253:execute$226, rval = 6'000000).
+Adding SRST signal on $flatten\gold.$procdff$182 ($dff) from module ct_fifo_relation_miter (D = $flatten\gold.$0\fifo_entry_vld[1:1], Q = $auto$async2sync.cc:253:execute$224, rval = 1'0).
+Adding SRST signal on $flatten\gold.$procdff$187 ($dff) from module ct_fifo_relation_miter (D = $flatten\gold.$0\fifo_entry_vld[0:0], Q = $auto$async2sync.cc:253:execute$222, rval = 1'0).
+Adding SRST signal on $flatten\gold.$procdff$192 ($dff) from module ct_fifo_relation_miter (D = $flatten\gold.$procmux$131_Y, Q = $auto$async2sync.cc:253:execute$220, rval = 2'00).
+Adding SRST signal on $flatten\gold.$procdff$197 ($dff) from module ct_fifo_relation_miter (D = $flatten\gold.$0\fifo_create_ptr[1:0], Q = $auto$async2sync.cc:253:execute$218, rval = 2'01).
+Adding SRST signal on $flatten\gate.$procdff$142 ($dff) from module ct_fifo_relation_miter (D = $flatten\gate.$0\fifo_entry_cont[1][5:0], Q = $auto$async2sync.cc:253:execute$216, rval = 6'000000).
+Adding SRST signal on $flatten\gate.$procdff$147 ($dff) from module ct_fifo_relation_miter (D = $flatten\gate.$0\fifo_entry_vld[1:1], Q = $auto$async2sync.cc:253:execute$214, rval = 1'0).
+Adding SRST signal on $flatten\gate.$procdff$152 ($dff) from module ct_fifo_relation_miter (D = $flatten\gate.$0\fifo_entry_cont[0][5:0], Q = $auto$async2sync.cc:253:execute$212, rval = 6'000000).
+Adding SRST signal on $flatten\gate.$procdff$157 ($dff) from module ct_fifo_relation_miter (D = $flatten\gate.$0\fifo_entry_vld[0:0], Q = $auto$async2sync.cc:253:execute$210, rval = 1'0).
+Adding SRST signal on $flatten\gate.$procdff$162 ($dff) from module ct_fifo_relation_miter (D = $flatten\gate.$0\fifo_pop_idx[0:0], Q = $auto$async2sync.cc:253:execute$208, rval = 1'0).
+Adding SRST signal on $flatten\gate.$procdff$167 ($dff) from module ct_fifo_relation_miter (D = $flatten\gate.$0\fifo_create_idx[0:0], Q = $auto$async2sync.cc:253:execute$206, rval = 1'0).
+
+9.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_fifo_relation_miter..
+Removed 33 unused cells and 35 unused wires.
+<suppressed ~38 debug messages>
+
+9.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_fifo_relation_miter.
+
+9.9. Rerunning OPT passes. (Maybe there is more to do..)
+
+9.10. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \ct_fifo_relation_miter..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~62 debug messages>
+
+9.11. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \ct_fifo_relation_miter.
+Performed a total of 0 changes.
+
+9.12. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_fifo_relation_miter'.
+Computing hashes of 92 cells of `\ct_fifo_relation_miter'.
+Finding duplicate cells in `\ct_fifo_relation_miter'.
+Removed a total of 0 cells.
+
+9.13. Executing OPT_DFF pass (perform DFF optimizations).
+
+9.14. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_fifo_relation_miter..
+
+9.15. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_fifo_relation_miter.
+
+9.16. Finished fast OPT passes. (There is nothing left to do.)
+
+10. Executing SAT pass (solving SAT problems in the circuit).
+Using SAT solver `minisat`.
+
+Setting up time step 1:
+Import set-constraint for this timestep: \rst_b = 1'0
+Final constraint equation: \rst_b = 1'0
+Imported 92 cells to SAT database.
+No constraints for initial state found.
+
+
+Setting up time step 2:
+Import set-constraint for this timestep: \rst_b = 1'1
+Final constraint equation: \rst_b = 1'1
+Imported 92 cells to SAT database.
+
+Setting up time step 3:
+Final constraint equation: { } = { }
+Imported 92 cells to SAT database.
+
+Setting up time step 4:
+Final constraint equation: { } = { }
+Imported 92 cells to SAT database.
+
+Setting up time step 5:
+Final constraint equation: { } = { }
+Imported 92 cells to SAT database.
+
+Setting up time step 6:
+Final constraint equation: { } = { }
+Imported 92 cells to SAT database.
+
+Setting up time step 7:
+Final constraint equation: { } = { }
+Imported 92 cells to SAT database.
+
+Setting up time step 8:
+Final constraint equation: { } = { }
+Imported 92 cells to SAT database.
+
+Setting up time step 1:
+Final constraint equation: { } = { }
+Imported 92 cells to SAT database.
+Import proof for assert: $eq$ct_fifo_relation_miter.sv:73$59_Y when $assert$ct_fifo_relation_miter.sv:73$58_EN.
+Import proof for assert: $eq$ct_fifo_relation_miter.sv:74$61_Y when $assert$ct_fifo_relation_miter.sv:73$58_EN.
+Import proof for assert: $eq$ct_fifo_relation_miter.sv:75$63_Y when $assert$ct_fifo_relation_miter.sv:73$58_EN.
+Import proof for assert: $eq$ct_fifo_relation_miter.sv:76$65_Y when $assert$ct_fifo_relation_miter.sv:73$58_EN.
+Import proof for assert: $eq$ct_fifo_relation_miter.sv:77$67_Y when $assert$ct_fifo_relation_miter.sv:73$58_EN.
+Import proof for assert: $eq$ct_fifo_relation_miter.sv:78$69_Y when $assert$ct_fifo_relation_miter.sv:73$58_EN.
+Import proof for assert: $eq$ct_fifo_relation_miter.sv:79$71_Y when $assert$ct_fifo_relation_miter.sv:73$58_EN.
+Import proof for assert: $eq$ct_fifo_relation_miter.sv:80$73_Y when $assert$ct_fifo_relation_miter.sv:73$58_EN.
+Import proof for assert: $eq$ct_fifo_relation_miter.sv:81$75_Y when $assert$ct_fifo_relation_miter.sv:73$58_EN.
+
+** Trying induction with length 1 **
+
+Setting up time step 9:
+Final constraint equation: { } = { }
+Imported 92 cells to SAT database.
+Import proof for assert: $eq$ct_fifo_relation_miter.sv:73$59_Y when $assert$ct_fifo_relation_miter.sv:73$58_EN.
+Import proof for assert: $eq$ct_fifo_relation_miter.sv:74$61_Y when $assert$ct_fifo_relation_miter.sv:73$58_EN.
+Import proof for assert: $eq$ct_fifo_relation_miter.sv:75$63_Y when $assert$ct_fifo_relation_miter.sv:73$58_EN.
+Import proof for assert: $eq$ct_fifo_relation_miter.sv:76$65_Y when $assert$ct_fifo_relation_miter.sv:73$58_EN.
+Import proof for assert: $eq$ct_fifo_relation_miter.sv:77$67_Y when $assert$ct_fifo_relation_miter.sv:73$58_EN.
+Import proof for assert: $eq$ct_fifo_relation_miter.sv:78$69_Y when $assert$ct_fifo_relation_miter.sv:73$58_EN.
+Import proof for assert: $eq$ct_fifo_relation_miter.sv:79$71_Y when $assert$ct_fifo_relation_miter.sv:73$58_EN.
+Import proof for assert: $eq$ct_fifo_relation_miter.sv:80$73_Y when $assert$ct_fifo_relation_miter.sv:73$58_EN.
+Import proof for assert: $eq$ct_fifo_relation_miter.sv:81$75_Y when $assert$ct_fifo_relation_miter.sv:73$58_EN.
+
+[base case 1] Solving problem with 9445 variables and 25246 clauses..
+SAT temporal induction proof finished - model found for base case: FAIL!
+
+   ______                   ___       ___       _ _            _ _ 
+  (_____ \                 / __)     / __)     (_) |          | | |
+   _____) )___ ___   ___ _| |__    _| |__ _____ _| | _____  __| | |
+  |  ____/ ___) _ \ / _ (_   __)  (_   __|____ | | || ___ |/ _  |_|
+  | |   | |  | |_| | |_| || |       | |  / ___ | | || ____( (_| |_ 
+  |_|   |_|   \___/ \___/ |_|       |_|  \_____|_|\_)_____)\____|_|
+
+
+  Time Signal Name                                      Dec       Hex           Bin
+  ---- ---------------------------------------- ----------- --------- -------------
+  init $auto$async2sync.cc:253:execute$206                0         0             0
+  init $auto$async2sync.cc:253:execute$208                0         0             0
+  init $auto$async2sync.cc:253:execute$210                0         0             0
+  init $auto$async2sync.cc:253:execute$212                0         0        000000
+  init $auto$async2sync.cc:253:execute$214                0         0             0
+  init $auto$async2sync.cc:253:execute$216                0         0        000000
+  init $auto$async2sync.cc:253:execute$218                0         0            00
+  init $auto$async2sync.cc:253:execute$220                0         0            00
+  init $auto$async2sync.cc:253:execute$222                0         0             0
+  init $auto$async2sync.cc:253:execute$224                0         0             0
+  init $auto$async2sync.cc:253:execute$226                0         0        000000
+  init $auto$async2sync.cc:253:execute$228                0         0        000000
+  ---- ---------------------------------------- ----------- --------- -------------
+     1 \rst_b                                             0         0             0
+  ---- ---------------------------------------- ----------- --------- -------------
+     2 \rst_b                                             1         1             1
+  ---- ---------------------------------------- ----------- --------- -------------
+     3 \rst_b                                             0         0             0
+  ---- ---------------------------------------- ----------- --------- -------------
+     4 \rst_b                                             1         1             1
+  ---- ---------------------------------------- ----------- --------- -------------
+     5 \rst_b                                             1         1             1
+  ---- ---------------------------------------- ----------- --------- -------------
+     6 \rst_b                                             1         1             1
+  ---- ---------------------------------------- ----------- --------- -------------
+     7 \rst_b                                             1         1             1
+  ---- ---------------------------------------- ----------- --------- -------------
+     8 \rst_b                                             1         1             1
+  ---- ---------------------------------------- ----------- --------- -------------
+     9 \rst_b                                             1         1             1
+
+ERROR: Called with -verify and proof did fail!

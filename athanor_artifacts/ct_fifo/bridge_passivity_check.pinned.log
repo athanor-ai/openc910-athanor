@@ -1,0 +1,16 @@
+PASS: gold_dbg is passive instrumentation only
+PASS: gate_dbg is passive instrumentation only
+PASS: selftest rejected non-passive gold_dbg logic edit
+FAIL: gold_dbg has non-passive changes
+--- ct_fifo_gold.v
++++ ct_fifo_gold_dbg.v normalized
+@@ -147,7 +147,7 @@
+ endgenerate
+ 
+ assign fifo_full      = &fifo_entry_vld[DEPTH-1:0];
+-assign fifo_not_empty = |fifo_entry_vld[DEPTH-1:0];
++assign fifo_not_empty = &fifo_entry_vld[DEPTH-1:0];
+ assign fifo_empty     = ~fifo_not_empty;
+ 
+ assign fifo_pop_data_vld        = |fifo_entry_vld[DEPTH-1:0];
+PASS: gate_dbg is passive instrumentation only

@@ -1,0 +1,323 @@
+
+ /----------------------------------------------------------------------------\
+ |  yosys -- Yosys Open SYnthesis Suite                                       |
+ |  Copyright (C) 2012 - 2026  Claire Xenia Wolf <claire@yosyshq.com>         |
+ |  Distributed under an ISC-like license, type "license" to see terms        |
+ \----------------------------------------------------------------------------/
+ Yosys 0.66+181 (git sha1 afe6b18f2, Release, Clang /usr/bin/clang++ 18.1.8)
+
+-- Running command `read_verilog -sv /workdir/_tmp/ath2950_c910/ct_prio_gate_candidate.v; hierarchy -top ct_prio_gate; proc; opt; memory; opt; stat' --
+
+1. Executing Verilog-2005 frontend: /workdir/_tmp/ath2950_c910/ct_prio_gate_candidate.v
+Parsing SystemVerilog input from `/workdir/_tmp/ath2950_c910/ct_prio_gate_candidate.v' to AST representation.
+Generating RTLIL representation for module `\ct_prio_gate'.
+Warning: Replacing memory \unused with list of registers. See /workdir/_tmp/ath2950_c910/ct_prio_gate_candidate.v:29
+Warning: Replacing memory \prio with list of registers. See /workdir/_tmp/ath2950_c910/ct_prio_gate_candidate.v:28
+Successfully finished Verilog frontend.
+
+2. Executing HIERARCHY pass (managing design hierarchy).
+
+2.1. Analyzing design hierarchy..
+Top module:  \ct_prio_gate
+
+2.2. Analyzing design hierarchy..
+Top module:  \ct_prio_gate
+Removed 0 unused modules.
+
+3. Executing PROC pass (convert processes to netlists).
+
+3.1. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Cleaned up 0 empty switches.
+
+3.2. Executing PROC_RMDEAD pass (remove dead branches from decision trees).
+Marked 2 switch rules as full_case in process $proc$/workdir/_tmp/ath2950_c910/ct_prio_gate_candidate.v:24$14 in module ct_prio_gate.
+Marked 2 switch rules as full_case in process $proc$/workdir/_tmp/ath2950_c910/ct_prio_gate_candidate.v:24$11 in module ct_prio_gate.
+Marked 2 switch rules as full_case in process $proc$/workdir/_tmp/ath2950_c910/ct_prio_gate_candidate.v:24$4 in module ct_prio_gate.
+Marked 2 switch rules as full_case in process $proc$/workdir/_tmp/ath2950_c910/ct_prio_gate_candidate.v:24$1 in module ct_prio_gate.
+Removed a total of 0 dead cases.
+
+3.3. Executing PROC_PRUNE pass (remove redundant assignments in processes).
+Removed 0 redundant assignments.
+Promoted 0 assignments to connections.
+
+3.4. Executing PROC_INIT pass (extract init attributes).
+
+3.5. Executing PROC_ARST pass (detect async resets in processes).
+Found async reset \rst_b in `\ct_prio_gate.$proc$/workdir/_tmp/ath2950_c910/ct_prio_gate_candidate.v:24$14'.
+Found async reset \rst_b in `\ct_prio_gate.$proc$/workdir/_tmp/ath2950_c910/ct_prio_gate_candidate.v:24$11'.
+Found async reset \rst_b in `\ct_prio_gate.$proc$/workdir/_tmp/ath2950_c910/ct_prio_gate_candidate.v:24$4'.
+Found async reset \rst_b in `\ct_prio_gate.$proc$/workdir/_tmp/ath2950_c910/ct_prio_gate_candidate.v:24$1'.
+
+3.6. Executing PROC_ROM pass (convert switches to ROMs).
+Converted 0 switches.
+<suppressed ~12 debug messages>
+
+3.7. Executing PROC_MUX pass (convert decision trees to multiplexers).
+Creating decoders for process `\ct_prio_gate.$proc$/workdir/_tmp/ath2950_c910/ct_prio_gate_candidate.v:24$14'.
+     1/2: $0\unused[1][1:1]
+     2/2: $0\prio[1][1:1]
+Creating decoders for process `\ct_prio_gate.$proc$/workdir/_tmp/ath2950_c910/ct_prio_gate_candidate.v:24$11'.
+     1/2: $0\unused[1][0:0]
+     2/2: $0\prio[1][0:0]
+Creating decoders for process `\ct_prio_gate.$proc$/workdir/_tmp/ath2950_c910/ct_prio_gate_candidate.v:24$4'.
+     1/2: $0\unused[0][1:1]
+     2/2: $0\prio[0][1:1]
+Creating decoders for process `\ct_prio_gate.$proc$/workdir/_tmp/ath2950_c910/ct_prio_gate_candidate.v:24$1'.
+     1/2: $0\unused[0][0:0]
+     2/2: $0\prio[0][0:0]
+
+3.8. Executing PROC_DLATCH pass (convert process syncs to latches).
+
+3.9. Executing PROC_DFF pass (convert process syncs to FFs).
+Creating register for signal `\ct_prio_gate.\prio[1] [1]' using process `\ct_prio_gate.$proc$/workdir/_tmp/ath2950_c910/ct_prio_gate_candidate.v:24$14'.
+  created $adff cell `$procdff$53' with positive edge clock and positive level reset.
+Creating register for signal `\ct_prio_gate.\unused[1] [1]' using process `\ct_prio_gate.$proc$/workdir/_tmp/ath2950_c910/ct_prio_gate_candidate.v:24$14'.
+  created $adff cell `$procdff$58' with positive edge clock and positive level reset.
+Creating register for signal `\ct_prio_gate.\prio[1] [0]' using process `\ct_prio_gate.$proc$/workdir/_tmp/ath2950_c910/ct_prio_gate_candidate.v:24$11'.
+  created $adff cell `$procdff$63' with positive edge clock and positive level reset.
+Creating register for signal `\ct_prio_gate.\unused[1] [0]' using process `\ct_prio_gate.$proc$/workdir/_tmp/ath2950_c910/ct_prio_gate_candidate.v:24$11'.
+  created $adff cell `$procdff$68' with positive edge clock and positive level reset.
+Creating register for signal `\ct_prio_gate.\prio[0] [1]' using process `\ct_prio_gate.$proc$/workdir/_tmp/ath2950_c910/ct_prio_gate_candidate.v:24$4'.
+  created $adff cell `$procdff$73' with positive edge clock and positive level reset.
+Creating register for signal `\ct_prio_gate.\unused[0] [1]' using process `\ct_prio_gate.$proc$/workdir/_tmp/ath2950_c910/ct_prio_gate_candidate.v:24$4'.
+  created $adff cell `$procdff$78' with positive edge clock and positive level reset.
+Creating register for signal `\ct_prio_gate.\prio[0] [0]' using process `\ct_prio_gate.$proc$/workdir/_tmp/ath2950_c910/ct_prio_gate_candidate.v:24$1'.
+  created $adff cell `$procdff$83' with positive edge clock and positive level reset.
+Creating register for signal `\ct_prio_gate.\unused[0] [0]' using process `\ct_prio_gate.$proc$/workdir/_tmp/ath2950_c910/ct_prio_gate_candidate.v:24$1'.
+  created $adff cell `$procdff$88' with positive edge clock and positive level reset.
+
+3.10. Executing PROC_MEMWR pass (convert process memory writes to cells).
+
+3.11. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Found and cleaned up 3 empty switches in `\ct_prio_gate.$proc$/workdir/_tmp/ath2950_c910/ct_prio_gate_candidate.v:24$14'.
+Removing empty process `ct_prio_gate.$proc$/workdir/_tmp/ath2950_c910/ct_prio_gate_candidate.v:24$14'.
+Found and cleaned up 3 empty switches in `\ct_prio_gate.$proc$/workdir/_tmp/ath2950_c910/ct_prio_gate_candidate.v:24$11'.
+Removing empty process `ct_prio_gate.$proc$/workdir/_tmp/ath2950_c910/ct_prio_gate_candidate.v:24$11'.
+Found and cleaned up 3 empty switches in `\ct_prio_gate.$proc$/workdir/_tmp/ath2950_c910/ct_prio_gate_candidate.v:24$4'.
+Removing empty process `ct_prio_gate.$proc$/workdir/_tmp/ath2950_c910/ct_prio_gate_candidate.v:24$4'.
+Found and cleaned up 3 empty switches in `\ct_prio_gate.$proc$/workdir/_tmp/ath2950_c910/ct_prio_gate_candidate.v:24$1'.
+Removing empty process `ct_prio_gate.$proc$/workdir/_tmp/ath2950_c910/ct_prio_gate_candidate.v:24$1'.
+Cleaned up 12 empty switches.
+
+3.12. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_prio_gate.
+<suppressed ~22 debug messages>
+
+4. Executing OPT pass (performing simple optimizations).
+
+4.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_prio_gate.
+
+4.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_prio_gate'.
+Computing hashes of 38 cells of `\ct_prio_gate'.
+Finding duplicate cells in `\ct_prio_gate'.
+Computing hashes of 28 cells of `\ct_prio_gate'.
+Finding duplicate cells in `\ct_prio_gate'.
+<suppressed ~30 debug messages>
+Removed a total of 10 cells.
+
+4.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \ct_prio_gate..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~14 debug messages>
+
+4.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \ct_prio_gate.
+Performed a total of 0 changes.
+
+4.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_prio_gate'.
+Computing hashes of 28 cells of `\ct_prio_gate'.
+Finding duplicate cells in `\ct_prio_gate'.
+Removed a total of 0 cells.
+
+4.6. Executing OPT_DFF pass (perform DFF optimizations).
+Handling D = Q on $procdff$58 ($adff) from module ct_prio_gate (removing D path).
+Adding EN signal on $procdff$63 ($adff) from module ct_prio_gate (D = $procmux$31_Y, Q = \prio[1] [0]).
+Adding EN signal on $procdff$53 ($adff) from module ct_prio_gate (D = $procmux$24_Y, Q = \prio[1] [1]).
+Adding EN signal on $procdff$73 ($adff) from module ct_prio_gate (D = $procmux$38_Y, Q = \prio[0] [1]).
+Adding EN signal on $procdff$83 ($adff) from module ct_prio_gate (D = $procmux$45_Y, Q = \prio[0] [0]).
+Handling D = Q on $procdff$78 ($adff) from module ct_prio_gate (removing D path).
+Handling D = Q on $procdff$68 ($adff) from module ct_prio_gate (removing D path).
+Handling D = Q on $procdff$88 ($adff) from module ct_prio_gate (removing D path).
+Setting constant 1-bit at position 0 on $procdff$88 ($dlatch) from module ct_prio_gate.
+Setting constant 1-bit at position 0 on $procdff$58 ($dlatch) from module ct_prio_gate.
+Setting constant 0-bit at position 0 on $procdff$68 ($dlatch) from module ct_prio_gate.
+Setting constant 1-bit at position 0 on $procdff$78 ($dlatch) from module ct_prio_gate.
+
+4.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_prio_gate..
+Removed 6 unused cells and 52 unused wires.
+<suppressed ~7 debug messages>
+
+4.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_prio_gate.
+<suppressed ~2 debug messages>
+
+4.9. Rerunning OPT passes. (Maybe there is more to do..)
+
+4.10. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \ct_prio_gate..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~10 debug messages>
+
+4.11. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \ct_prio_gate.
+Performed a total of 0 changes.
+
+4.12. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_prio_gate'.
+Computing hashes of 22 cells of `\ct_prio_gate'.
+Finding duplicate cells in `\ct_prio_gate'.
+Computing hashes of 21 cells of `\ct_prio_gate'.
+Finding duplicate cells in `\ct_prio_gate'.
+Computing hashes of 20 cells of `\ct_prio_gate'.
+Finding duplicate cells in `\ct_prio_gate'.
+<suppressed ~6 debug messages>
+Removed a total of 2 cells.
+
+4.13. Executing OPT_DFF pass (perform DFF optimizations).
+Adding EN signal on $auto$ff.cc:337:slice$94 ($adffe) from module ct_prio_gate (D = 1'0, Q = \prio[1] [1]).
+Adding EN signal on $auto$ff.cc:337:slice$100 ($adffe) from module ct_prio_gate (D = 1'0, Q = \prio[0] [0]).
+Setting constant 0-bit at position 0 on $auto$ff.cc:337:slice$104 ($adffe) from module ct_prio_gate.
+Setting constant 0-bit at position 0 on $auto$ff.cc:337:slice$101 ($adffe) from module ct_prio_gate.
+
+4.14. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_prio_gate..
+Removed 4 unused cells and 6 unused wires.
+<suppressed ~5 debug messages>
+
+4.15. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_prio_gate.
+
+4.16. Rerunning OPT passes. (Maybe there is more to do..)
+
+4.17. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \ct_prio_gate..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~6 debug messages>
+
+4.18. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \ct_prio_gate.
+Performed a total of 0 changes.
+
+4.19. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_prio_gate'.
+Computing hashes of 16 cells of `\ct_prio_gate'.
+Finding duplicate cells in `\ct_prio_gate'.
+Removed a total of 0 cells.
+
+4.20. Executing OPT_DFF pass (perform DFF optimizations).
+
+4.21. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_prio_gate..
+
+4.22. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_prio_gate.
+
+4.23. Finished fast OPT passes. (There is nothing left to do.)
+
+5. Executing MEMORY pass.
+
+5.1. Executing OPT_MEM pass (optimize memories).
+Performed a total of 0 transformations.
+
+5.2. Executing OPT_MEM_PRIORITY pass (removing unnecessary memory write priority relations).
+Performed a total of 0 transformations.
+
+5.3. Executing OPT_MEM_FEEDBACK pass (finding memory read-to-write feedback paths).
+
+5.4. Executing MEMORY_BMUX2ROM pass (converting muxes to ROMs).
+
+5.5. Executing MEMORY_DFF pass (merging $dff cells to $memrd).
+
+5.6. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_prio_gate..
+
+5.7. Executing MEMORY_SHARE pass (consolidating $memrd/$memwr cells).
+
+5.8. Executing OPT_MEM_WIDEN pass (optimize memories where all ports are wide).
+Performed a total of 0 transformations.
+
+5.9. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_prio_gate..
+
+5.10. Executing MEMORY_COLLECT pass (generating $mem cells).
+
+5.11. Executing MEMORY_MAP pass (converting memories to logic and flip-flops).
+
+6. Executing OPT pass (performing simple optimizations).
+
+6.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_prio_gate.
+
+6.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_prio_gate'.
+Computing hashes of 16 cells of `\ct_prio_gate'.
+Finding duplicate cells in `\ct_prio_gate'.
+Removed a total of 0 cells.
+
+6.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \ct_prio_gate..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~6 debug messages>
+
+6.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \ct_prio_gate.
+Performed a total of 0 changes.
+
+6.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_prio_gate'.
+Computing hashes of 16 cells of `\ct_prio_gate'.
+Finding duplicate cells in `\ct_prio_gate'.
+Removed a total of 0 cells.
+
+6.6. Executing OPT_DFF pass (perform DFF optimizations).
+
+6.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_prio_gate..
+
+6.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_prio_gate.
+
+6.9. Finished fast OPT passes. (There is nothing left to do.)
+
+7. Printing statistics.
+
+=== ct_prio_gate ===
+
+        +----------Local Count, excluding submodules.
+        | 
+       21 wires
+       29 wire bits
+        9 public wires
+       15 public wire bits
+        5 ports
+        7 port bits
+       16 cells
+        2   $adffe
+        2   $and
+        2   $logic_and
+        2   $logic_not
+        4   $mux
+        1   $reduce_and
+        1   $reduce_bool
+        2   $reduce_or
+
+Warnings: 2 unique messages, 2 total
+End of script. Logfile hash: a3cb114279, time: 0.01s, user: 0.01s, system: 0.01s, MEM: 16.25 MB peak
+Yosys 0.66+181 (git sha1 afe6b18f2, Release, Clang /usr/bin/clang++ 18.1.8)
+Time spent: 32% 2x read_verilog (0 sec), 17% 6x opt_merge (0 sec), ...

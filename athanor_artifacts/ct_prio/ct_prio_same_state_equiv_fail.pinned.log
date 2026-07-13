@@ -1,0 +1,540 @@
+
+ /----------------------------------------------------------------------------\
+ |  yosys -- Yosys Open SYnthesis Suite                                       |
+ |  Copyright (C) 2012 - 2026  Claire Xenia Wolf <claire@yosyshq.com>         |
+ |  Distributed under an ISC-like license, type "license" to see terms        |
+ \----------------------------------------------------------------------------/
+ Yosys 0.66+181 (git sha1 afe6b18f2, Release, Clang /usr/bin/clang++ 18.1.8)
+
+-- Running command `read_verilog -sv ct_prio_gold.v; rename ct_prio gold; read_verilog -sv ct_prio_gate_candidate.v; rename ct_prio_gate gate; proc; opt; memory; opt; async2sync; equiv_make gold gate equiv; hierarchy -top equiv; clean; opt; equiv_simple; equiv_induct -seq 8; equiv_status' --
+
+1. Executing Verilog-2005 frontend: ct_prio_gold.v
+Parsing SystemVerilog input from `ct_prio_gold.v' to AST representation.
+Generating RTLIL representation for module `\ct_prio'.
+Warning: Replacing memory \prio with list of registers. See ct_prio_gold.v:44
+Warning: Replacing memory \unused with list of registers. See ct_prio_gold.v:44
+Successfully finished Verilog frontend.
+Renaming module \ct_prio to \gold.
+
+2. Executing Verilog-2005 frontend: ct_prio_gate_candidate.v
+Parsing SystemVerilog input from `ct_prio_gate_candidate.v' to AST representation.
+Generating RTLIL representation for module `\ct_prio_gate'.
+Warning: Replacing memory \unused with list of registers. See ct_prio_gate_candidate.v:29
+Warning: Replacing memory \prio with list of registers. See ct_prio_gate_candidate.v:28
+Successfully finished Verilog frontend.
+Renaming module \ct_prio_gate to \gate.
+
+3. Executing PROC pass (convert processes to netlists).
+
+3.1. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Cleaned up 0 empty switches.
+
+3.2. Executing PROC_RMDEAD pass (remove dead branches from decision trees).
+Marked 2 switch rules as full_case in process $proc$ct_prio_gate_candidate.v:24$45 in module gate.
+Marked 2 switch rules as full_case in process $proc$ct_prio_gate_candidate.v:24$42 in module gate.
+Marked 2 switch rules as full_case in process $proc$ct_prio_gate_candidate.v:24$35 in module gate.
+Marked 2 switch rules as full_case in process $proc$ct_prio_gate_candidate.v:24$32 in module gate.
+Marked 1 switch rules as full_case in process $proc$ct_prio_gold.v:41$14 in module gold.
+Marked 1 switch rules as full_case in process $proc$ct_prio_gold.v:41$4 in module gold.
+Removed a total of 0 dead cases.
+
+3.3. Executing PROC_PRUNE pass (remove redundant assignments in processes).
+Removed 0 redundant assignments.
+Promoted 2 assignments to connections.
+
+3.4. Executing PROC_INIT pass (extract init attributes).
+
+3.5. Executing PROC_ARST pass (detect async resets in processes).
+Found async reset \rst_b in `\gate.$proc$ct_prio_gate_candidate.v:24$45'.
+Found async reset \rst_b in `\gate.$proc$ct_prio_gate_candidate.v:24$42'.
+Found async reset \rst_b in `\gate.$proc$ct_prio_gate_candidate.v:24$35'.
+Found async reset \rst_b in `\gate.$proc$ct_prio_gate_candidate.v:24$32'.
+Found async reset \rst_b in `\gold.$proc$ct_prio_gold.v:41$14'.
+Found async reset \rst_b in `\gold.$proc$ct_prio_gold.v:41$4'.
+
+3.6. Executing PROC_ROM pass (convert switches to ROMs).
+Converted 0 switches.
+<suppressed ~14 debug messages>
+
+3.7. Executing PROC_MUX pass (convert decision trees to multiplexers).
+Creating decoders for process `\gate.$proc$ct_prio_gate_candidate.v:24$45'.
+     1/2: $0\prio[1][1:1]
+     2/2: $0\unused[1][1:1]
+Creating decoders for process `\gate.$proc$ct_prio_gate_candidate.v:24$42'.
+     1/2: $0\prio[1][0:0]
+     2/2: $0\unused[1][0:0]
+Creating decoders for process `\gate.$proc$ct_prio_gate_candidate.v:24$35'.
+     1/2: $0\prio[0][1:1]
+     2/2: $0\unused[0][1:1]
+Creating decoders for process `\gate.$proc$ct_prio_gate_candidate.v:24$32'.
+     1/2: $0\prio[0][0:0]
+     2/2: $0\unused[0][0:0]
+Creating decoders for process `\gold.$proc$ct_prio_gold.v:41$14'.
+     1/3: $1$splitcmplxassign$ct_prio_gold.v:44$2[3:0]$17
+     2/3: $0\prio[1][1:0]
+     3/3: $0\unused[1][1:0]
+Creating decoders for process `\gold.$proc$ct_prio_gold.v:41$4'.
+     1/3: $1$splitcmplxassign$ct_prio_gold.v:44$1[3:0]$7
+     2/3: $0\prio[0][1:0]
+     3/3: $0\unused[0][1:0]
+
+3.8. Executing PROC_DLATCH pass (convert process syncs to latches).
+
+3.9. Executing PROC_DFF pass (convert process syncs to FFs).
+Creating register for signal `\gate.\unused[1] [1]' using process `\gate.$proc$ct_prio_gate_candidate.v:24$45'.
+  created $adff cell `$procdff$88' with positive edge clock and positive level reset.
+Creating register for signal `\gate.\prio[1] [1]' using process `\gate.$proc$ct_prio_gate_candidate.v:24$45'.
+  created $adff cell `$procdff$93' with positive edge clock and positive level reset.
+Creating register for signal `\gate.\unused[1] [0]' using process `\gate.$proc$ct_prio_gate_candidate.v:24$42'.
+  created $adff cell `$procdff$98' with positive edge clock and positive level reset.
+Creating register for signal `\gate.\prio[1] [0]' using process `\gate.$proc$ct_prio_gate_candidate.v:24$42'.
+  created $adff cell `$procdff$103' with positive edge clock and positive level reset.
+Creating register for signal `\gate.\unused[0] [1]' using process `\gate.$proc$ct_prio_gate_candidate.v:24$35'.
+  created $adff cell `$procdff$108' with positive edge clock and positive level reset.
+Creating register for signal `\gate.\prio[0] [1]' using process `\gate.$proc$ct_prio_gate_candidate.v:24$35'.
+  created $adff cell `$procdff$113' with positive edge clock and positive level reset.
+Creating register for signal `\gate.\unused[0] [0]' using process `\gate.$proc$ct_prio_gate_candidate.v:24$32'.
+  created $adff cell `$procdff$118' with positive edge clock and positive level reset.
+Creating register for signal `\gate.\prio[0] [0]' using process `\gate.$proc$ct_prio_gate_candidate.v:24$32'.
+  created $adff cell `$procdff$123' with positive edge clock and positive level reset.
+Creating register for signal `\gold.$splitcmplxassign$ct_prio_gold.v:44$2' using process `\gold.$proc$ct_prio_gold.v:41$14'.
+  created $adff cell `$procdff$128' with positive edge clock and positive level reset.
+Creating register for signal `\gold.\unused[1]' using process `\gold.$proc$ct_prio_gold.v:41$14'.
+  created $adff cell `$procdff$133' with positive edge clock and positive level reset.
+Creating register for signal `\gold.\prio[1]' using process `\gold.$proc$ct_prio_gold.v:41$14'.
+  created $adff cell `$procdff$138' with positive edge clock and positive level reset.
+Creating register for signal `\gold.$splitcmplxassign$ct_prio_gold.v:44$1' using process `\gold.$proc$ct_prio_gold.v:41$4'.
+  created $adff cell `$procdff$143' with positive edge clock and positive level reset.
+Creating register for signal `\gold.\unused[0]' using process `\gold.$proc$ct_prio_gold.v:41$4'.
+  created $adff cell `$procdff$148' with positive edge clock and positive level reset.
+Creating register for signal `\gold.\prio[0]' using process `\gold.$proc$ct_prio_gold.v:41$4'.
+  created $adff cell `$procdff$153' with positive edge clock and positive level reset.
+
+3.10. Executing PROC_MEMWR pass (convert process memory writes to cells).
+
+3.11. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Found and cleaned up 3 empty switches in `\gate.$proc$ct_prio_gate_candidate.v:24$45'.
+Removing empty process `gate.$proc$ct_prio_gate_candidate.v:24$45'.
+Found and cleaned up 3 empty switches in `\gate.$proc$ct_prio_gate_candidate.v:24$42'.
+Removing empty process `gate.$proc$ct_prio_gate_candidate.v:24$42'.
+Found and cleaned up 3 empty switches in `\gate.$proc$ct_prio_gate_candidate.v:24$35'.
+Removing empty process `gate.$proc$ct_prio_gate_candidate.v:24$35'.
+Found and cleaned up 3 empty switches in `\gate.$proc$ct_prio_gate_candidate.v:24$32'.
+Removing empty process `gate.$proc$ct_prio_gate_candidate.v:24$32'.
+Found and cleaned up 1 empty switch in `\gold.$proc$ct_prio_gold.v:41$14'.
+Removing empty process `gold.$proc$ct_prio_gold.v:41$14'.
+Found and cleaned up 1 empty switch in `\gold.$proc$ct_prio_gold.v:41$4'.
+Removing empty process `gold.$proc$ct_prio_gold.v:41$4'.
+Cleaned up 14 empty switches.
+
+3.12. Executing OPT_EXPR pass (perform const folding).
+Optimizing module gate.
+<suppressed ~22 debug messages>
+Optimizing module gold.
+<suppressed ~12 debug messages>
+
+4. Executing OPT pass (performing simple optimizations).
+
+4.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module gate.
+Optimizing module gold.
+
+4.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\gate'.
+Computing hashes of 38 cells of `\gate'.
+Finding duplicate cells in `\gate'.
+Computing hashes of 28 cells of `\gate'.
+Finding duplicate cells in `\gate'.
+<suppressed ~30 debug messages>
+Finding identical cells in module `\gold'.
+Computing hashes of 37 cells of `\gold'.
+Finding duplicate cells in `\gold'.
+Computing hashes of 26 cells of `\gold'.
+Finding duplicate cells in `\gold'.
+<suppressed ~33 debug messages>
+Removed a total of 21 cells.
+
+4.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \gate..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \gold..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~20 debug messages>
+
+4.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \gate.
+  Optimizing cells in module \gold.
+Performed a total of 0 changes.
+
+4.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\gate'.
+Computing hashes of 28 cells of `\gate'.
+Finding duplicate cells in `\gate'.
+Finding identical cells in module `\gold'.
+Computing hashes of 26 cells of `\gold'.
+Finding duplicate cells in `\gold'.
+Removed a total of 0 cells.
+
+4.6. Executing OPT_DFF pass (perform DFF optimizations).
+Adding EN signal on $procdff$93 ($adff) from module gate (D = $procmux$55_Y, Q = \prio[1] [1]).
+Handling D = Q on $procdff$98 ($adff) from module gate (removing D path).
+Handling D = Q on $procdff$88 ($adff) from module gate (removing D path).
+Handling D = Q on $procdff$108 ($adff) from module gate (removing D path).
+Handling D = Q on $procdff$118 ($adff) from module gate (removing D path).
+Adding EN signal on $procdff$113 ($adff) from module gate (D = $procmux$69_Y, Q = \prio[0] [1]).
+Adding EN signal on $procdff$103 ($adff) from module gate (D = $procmux$62_Y, Q = \prio[1] [0]).
+Adding EN signal on $procdff$123 ($adff) from module gate (D = $procmux$76_Y, Q = \prio[0] [0]).
+Setting constant 1-bit at position 0 on $procdff$118 ($dlatch) from module gate.
+Setting constant 1-bit at position 0 on $procdff$108 ($dlatch) from module gate.
+Setting constant 1-bit at position 0 on $procdff$88 ($dlatch) from module gate.
+Setting constant 0-bit at position 0 on $procdff$98 ($dlatch) from module gate.
+Handling D = Q on $procdff$148 ($adff) from module gold (removing D path).
+Adding EN signal on $procdff$138 ($adff) from module gold (D = $ternary$ct_prio_gold.v:46$23_Y, Q = \prio[1]).
+Adding EN signal on $procdff$153 ($adff) from module gold (D = $ternary$ct_prio_gold.v:46$13_Y, Q = \prio[0]).
+Handling D = Q on $procdff$133 ($adff) from module gold (removing D path).
+Setting constant 0-bit at position 0 on $procdff$133 ($dlatch) from module gold.
+Setting constant 1-bit at position 1 on $procdff$133 ($dlatch) from module gold.
+Setting constant 1-bit at position 0 on $procdff$148 ($dlatch) from module gold.
+Setting constant 1-bit at position 1 on $procdff$148 ($dlatch) from module gold.
+Setting constant 1-bit at position 0 on $procdff$143 ($adff) from module gold.
+Setting constant 1-bit at position 1 on $procdff$143 ($adff) from module gold.
+Setting constant 1-bit at position 2 on $procdff$143 ($adff) from module gold.
+Setting constant 1-bit at position 3 on $procdff$143 ($adff) from module gold.
+
+4.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \gate..
+Finding unused cells or wires in module \gold..
+Removed 10 unused cells and 87 unused wires.
+<suppressed ~12 debug messages>
+
+4.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module gate.
+<suppressed ~2 debug messages>
+Optimizing module gold.
+
+4.9. Rerunning OPT passes. (Maybe there is more to do..)
+
+4.10. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \gate..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \gold..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~14 debug messages>
+
+4.11. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \gate.
+  Optimizing cells in module \gold.
+Performed a total of 0 changes.
+
+4.12. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\gate'.
+Computing hashes of 22 cells of `\gate'.
+Finding duplicate cells in `\gate'.
+Computing hashes of 21 cells of `\gate'.
+Finding duplicate cells in `\gate'.
+Computing hashes of 20 cells of `\gate'.
+Finding duplicate cells in `\gate'.
+<suppressed ~6 debug messages>
+Finding identical cells in module `\gold'.
+Computing hashes of 19 cells of `\gold'.
+Finding duplicate cells in `\gold'.
+Removed a total of 2 cells.
+
+4.13. Executing OPT_DFF pass (perform DFF optimizations).
+Adding EN signal on $auto$ff.cc:337:slice$154 ($adffe) from module gate (D = 1'0, Q = \prio[1] [1]).
+Adding EN signal on $auto$ff.cc:337:slice$165 ($adffe) from module gate (D = 1'0, Q = \prio[0] [0]).
+Setting constant 0-bit at position 0 on $auto$ff.cc:337:slice$171 ($adffe) from module gate.
+Setting constant 0-bit at position 0 on $auto$ff.cc:337:slice$168 ($adffe) from module gate.
+
+4.14. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \gate..
+Finding unused cells or wires in module \gold..
+Removed 4 unused cells and 6 unused wires.
+<suppressed ~5 debug messages>
+
+4.15. Executing OPT_EXPR pass (perform const folding).
+Optimizing module gate.
+Optimizing module gold.
+
+4.16. Rerunning OPT passes. (Maybe there is more to do..)
+
+4.17. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \gate..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \gold..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~10 debug messages>
+
+4.18. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \gate.
+  Optimizing cells in module \gold.
+Performed a total of 0 changes.
+
+4.19. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\gate'.
+Computing hashes of 16 cells of `\gate'.
+Finding duplicate cells in `\gate'.
+Finding identical cells in module `\gold'.
+Computing hashes of 19 cells of `\gold'.
+Finding duplicate cells in `\gold'.
+Removed a total of 0 cells.
+
+4.20. Executing OPT_DFF pass (perform DFF optimizations).
+
+4.21. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \gate..
+Finding unused cells or wires in module \gold..
+
+4.22. Executing OPT_EXPR pass (perform const folding).
+Optimizing module gate.
+Optimizing module gold.
+
+4.23. Finished fast OPT passes. (There is nothing left to do.)
+
+5. Executing MEMORY pass.
+
+5.1. Executing OPT_MEM pass (optimize memories).
+Performed a total of 0 transformations.
+
+5.2. Executing OPT_MEM_PRIORITY pass (removing unnecessary memory write priority relations).
+Performed a total of 0 transformations.
+
+5.3. Executing OPT_MEM_FEEDBACK pass (finding memory read-to-write feedback paths).
+
+5.4. Executing MEMORY_BMUX2ROM pass (converting muxes to ROMs).
+
+5.5. Executing MEMORY_DFF pass (merging $dff cells to $memrd).
+
+5.6. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \gate..
+Finding unused cells or wires in module \gold..
+
+5.7. Executing MEMORY_SHARE pass (consolidating $memrd/$memwr cells).
+
+5.8. Executing OPT_MEM_WIDEN pass (optimize memories where all ports are wide).
+Performed a total of 0 transformations.
+
+5.9. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \gate..
+Finding unused cells or wires in module \gold..
+
+5.10. Executing MEMORY_COLLECT pass (generating $mem cells).
+
+5.11. Executing MEMORY_MAP pass (converting memories to logic and flip-flops).
+
+6. Executing OPT pass (performing simple optimizations).
+
+6.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module gate.
+Optimizing module gold.
+
+6.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\gate'.
+Computing hashes of 16 cells of `\gate'.
+Finding duplicate cells in `\gate'.
+Finding identical cells in module `\gold'.
+Computing hashes of 19 cells of `\gold'.
+Finding duplicate cells in `\gold'.
+Removed a total of 0 cells.
+
+6.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \gate..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \gold..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~10 debug messages>
+
+6.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \gate.
+  Optimizing cells in module \gold.
+Performed a total of 0 changes.
+
+6.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\gate'.
+Computing hashes of 16 cells of `\gate'.
+Finding duplicate cells in `\gate'.
+Finding identical cells in module `\gold'.
+Computing hashes of 19 cells of `\gold'.
+Finding duplicate cells in `\gold'.
+Removed a total of 0 cells.
+
+6.6. Executing OPT_DFF pass (perform DFF optimizations).
+
+6.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \gate..
+Finding unused cells or wires in module \gold..
+
+6.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module gate.
+Optimizing module gold.
+
+6.9. Finished fast OPT passes. (There is nothing left to do.)
+
+7. Executing ASYNC2SYNC pass.
+Replacing gate.$auto$ff.cc:337:slice$155 ($adffe): ARST=\rst_b, D=$procmux$69_Y, Q=\prio[0] [1]
+Replacing gate.$auto$ff.cc:337:slice$160 ($adffe): ARST=\rst_b, D=$procmux$62_Y, Q=\prio[1] [0]
+Replacing gold.$auto$ff.cc:337:slice$167 ($adffe): ARST=\rst_b, D=$ternary$ct_prio_gold.v:46$13_Y, Q=\prio[0]
+Replacing gold.$auto$ff.cc:337:slice$166 ($adffe): ARST=\rst_b, D=$ternary$ct_prio_gold.v:46$23_Y, Q=\prio[1]
+
+8. Executing EQUIV_MAKE pass (creating equiv checking module).
+Presumably equivalent wires: prio[1]_gold (\prio[1]_gold), prio[1]_gate ({ 1'0 \prio[1]_gate [0] }) -> prio[1]
+Presumably equivalent wires: prio[0]_gold (\prio[0]_gold), prio[0]_gate ({ \prio[0]_gate [1] 1'0 }) -> prio[0]
+Presumably equivalent wires: unused[1]_gold (2'10), unused[1]_gate (2'10) -> unused[1]
+Presumably equivalent wires: unused[0]_gold (2'11), unused[0]_gate (2'11) -> unused[0]
+Presumably equivalent wires: sel_gold (\sel_gold), sel_gate (\sel_gate) -> sel
+Presumably equivalent wires: clr_gold (\clr_gold), clr_gate (\clr_gate) -> clr
+Presumably equivalent wires: valid_gold (\valid_gold), valid_gate (\valid_gate) -> valid
+Presumably equivalent wires: rst_b_gold (\rst_b_gold), rst_b_gate (\rst_b_gate) -> rst_b
+Presumably equivalent wires: clk_gold (\clk_gold), clk_gate (\clk_gate) -> clk
+Changing input B of cell $and$ct_prio_gate_candidate.v:44$48_gate ($and): { 1'0 \prio[1]_gate [0] } -> { 1'0 \prio[1] [0] }
+Changing input S of cell $procmux$59_gate ($mux): \sel_gate [0] -> \sel [0]
+Changing input A of cell $auto$opt_dff.cc:235:make_patterns_logic$162_gate ($reduce_bool): \sel_gate -> \sel
+Changing input B of cell $and$ct_prio_gate_candidate.v:44$38_gate ($and): { \prio[0]_gate [1] 1'0 } -> { \prio[0] [1] 1'0 }
+Changing input S of cell $procmux$62_gate ($mux): \sel_gate [1] -> \sel [1]
+Changing input S of cell $procmux$69_gate ($mux): \sel_gate [0] -> \sel [0]
+Changing input S of cell $procmux$66_gate ($mux): \sel_gate [1] -> \sel [1]
+Changing input B of cell $and$ct_prio_gold.v:56$24_gold ($and): \prio[0]_gold -> \prio[0]
+Changing input A of cell $and$ct_prio_gold.v:48$22_gold ($and): \prio[1]_gold -> \prio[1]
+Changing input B of cell $and$ct_prio_gold.v:56$28_gold ($and): \prio[1]_gold -> \prio[1]
+Changing input A of cell $and$ct_prio_gold.v:48$12_gold ($and): \prio[0]_gold -> \prio[0]
+Changing input B of cell $and$ct_prio_gold.v:36$3_gold ($and): \sel_gold -> \sel
+
+9. Executing HIERARCHY pass (managing design hierarchy).
+
+9.1. Analyzing design hierarchy..
+Top module:  \equiv
+
+9.2. Analyzing design hierarchy..
+Top module:  \equiv
+Removing unused module `\gate'.
+Removing unused module `\gold'.
+Removed 2 unused modules.
+Removed 4 unused cells and 2 unused wires.
+
+10. Executing OPT pass (performing simple optimizations).
+
+10.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module equiv.
+
+10.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\equiv'.
+Computing hashes of 45 cells of `\equiv'.
+Finding duplicate cells in `\equiv'.
+Removed a total of 0 cells.
+
+10.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \equiv..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~18 debug messages>
+
+10.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \equiv.
+Performed a total of 0 changes.
+
+10.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\equiv'.
+Computing hashes of 45 cells of `\equiv'.
+Finding duplicate cells in `\equiv'.
+Removed a total of 0 cells.
+
+10.6. Executing OPT_DFF pass (perform DFF optimizations).
+
+10.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \equiv..
+
+10.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module equiv.
+
+10.9. Finished fast OPT passes. (There is nothing left to do.)
+
+11. Executing EQUIV_SIMPLE pass.
+Found 6 unproven $equiv cells (3 groups) in equiv:
+ Grouping SAT models for \sel:
+  Trying to prove $equiv for \sel [0]:ezsat
+ezsat
+ failed.
+  Trying to prove $equiv for \sel [1]:ezsat
+ezsat
+ failed.
+ Grouping SAT models for \prio[0]:
+  Trying to prove $equiv for \prio[0] [0]:ezsat
+ failed.
+  Trying to prove $equiv for \prio[0] [1]:ezsat
+ezsat
+ failed.
+ Grouping SAT models for \prio[1]:
+  Trying to prove $equiv for \prio[1] [0]:ezsat
+ezsat
+ failed.
+  Trying to prove $equiv for \prio[1] [1]:ezsat
+ failed.
+Proved 0 previously unproven $equiv cells.
+
+12. Executing EQUIV_INDUCT pass.
+Found 6 unproven $equiv cells in module equiv:
+  Proving existence of base case for step 1. (790 clauses over 308 variables)
+  Proving induction step 1. (1729 clauses over 663 variables)
+  Proof for induction step failed. Extending to next time step.
+  Proving existence of base case for step 2. (1730 clauses over 663 variables)
+  Proving induction step 2. (2669 clauses over 1018 variables)
+  Proof for induction step failed. Extending to next time step.
+  Proving existence of base case for step 3. (2670 clauses over 1018 variables)
+  Proving induction step 3. (3609 clauses over 1373 variables)
+  Proof for induction step failed. Extending to next time step.
+  Proving existence of base case for step 4. (3610 clauses over 1373 variables)
+  Proving induction step 4. (4549 clauses over 1728 variables)
+  Proof for induction step failed. Extending to next time step.
+  Proving existence of base case for step 5. (4550 clauses over 1728 variables)
+  Proving induction step 5. (5489 clauses over 2083 variables)
+  Proof for induction step failed. Extending to next time step.
+  Proving existence of base case for step 6. (5490 clauses over 2083 variables)
+  Proving induction step 6. (6429 clauses over 2438 variables)
+  Proof for induction step failed. Extending to next time step.
+  Proving existence of base case for step 7. (6430 clauses over 2438 variables)
+  Proving induction step 7. (7369 clauses over 2793 variables)
+  Proof for induction step failed. Extending to next time step.
+  Proving existence of base case for step 8. (7370 clauses over 2793 variables)
+  Proving induction step 8. (8309 clauses over 3148 variables)
+  Proof for induction step failed. Trying to prove individual $equiv from workset.
+  Trying to prove $equiv for \sel [1]: success!
+  Trying to prove $equiv for \prio[1] [0]: failed.
+  Trying to prove $equiv for \prio[1] [1]: success!
+  Trying to prove $equiv for \prio[0] [0]: success!
+  Trying to prove $equiv for \prio[0] [1]: failed.
+  Trying to prove $equiv for \sel [0]: success!
+Proved 4 previously unproven $equiv cells.
+
+13. Executing EQUIV_STATUS pass.
+Found 6 $equiv cells in equiv:
+  Of those cells 4 are proven and 2 are unproven.
+  Unproven $equiv $auto$equiv_make.cc:295:find_same_wires$185: \prio[0]_gold [1] \prio[0]_gate [1]
+  Unproven $equiv $auto$equiv_make.cc:295:find_same_wires$182: \prio[1]_gold [0] \prio[1]_gate [0]
+Found a total of 2 unproven $equiv cells.
+
+Warnings: 4 unique messages, 4 total
+End of script. Logfile hash: 1b7c76f17a, time: 0.03s, user: 0.03s, system: 0.01s, MEM: 18.50 MB peak
+Yosys 0.66+181 (git sha1 afe6b18f2, Release, Clang /usr/bin/clang++ 18.1.8)
+Time spent: 37% 1x equiv_induct (0 sec), 15% 1x equiv_simple (0 sec), ...

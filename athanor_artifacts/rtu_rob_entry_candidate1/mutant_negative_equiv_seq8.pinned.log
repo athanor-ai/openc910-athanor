@@ -1,0 +1,1126 @@
+
+ /----------------------------------------------------------------------------\
+ |  yosys -- Yosys Open SYnthesis Suite                                       |
+ |  Copyright (C) 2012 - 2026  Claire Xenia Wolf <claire@yosyshq.com>         |
+ |  Distributed under an ISC-like license, type "license" to see terms        |
+ \----------------------------------------------------------------------------/
+ Yosys 0.66+181 (git sha1 afe6b18f2, Release, Clang /usr/bin/clang++ 18.1.8)
+
+-- Running command `read_verilog gated_clk_cell.v ct_rtu_compare_iid.v ct_rtu_rob_entry_gold.v; rename ct_rtu_rob_entry gold; read_verilog ct_rtu_rob_entry_mutant.v; rename ct_rtu_rob_entry gate; proc; opt; memory; opt; async2sync; equiv_make gold gate equiv; hierarchy -top equiv; flatten; clean; opt; equiv_simple; equiv_induct -seq 8; equiv_status -assert' --
+
+1. Executing Verilog-2005 frontend: gated_clk_cell.v
+Parsing Verilog input from `gated_clk_cell.v' to AST representation.
+Generating RTLIL representation for module `\gated_clk_cell'.
+Successfully finished Verilog frontend.
+
+2. Executing Verilog-2005 frontend: ct_rtu_compare_iid.v
+Parsing Verilog input from `ct_rtu_compare_iid.v' to AST representation.
+Generating RTLIL representation for module `\ct_rtu_compare_iid'.
+Successfully finished Verilog frontend.
+
+3. Executing Verilog-2005 frontend: ct_rtu_rob_entry_gold.v
+Parsing Verilog input from `ct_rtu_rob_entry_gold.v' to AST representation.
+Generating RTLIL representation for module `\ct_rtu_rob_entry'.
+Note: Assuming pure combinatorial block at ct_rtu_rob_entry_gold.v:266.1-280.4 in
+compliance with IEC 62142(E):2005 / IEEE Std. 1364.1(E):2002. Recommending
+use of @* instead of @(...) for better match of synthesis and simulation.
+Successfully finished Verilog frontend.
+Renaming module \ct_rtu_rob_entry to \gold.
+
+4. Executing Verilog-2005 frontend: ct_rtu_rob_entry_mutant.v
+Parsing Verilog input from `ct_rtu_rob_entry_mutant.v' to AST representation.
+Generating RTLIL representation for module `\ct_rtu_rob_entry'.
+Note: Assuming pure combinatorial block at ct_rtu_rob_entry_mutant.v:267.1-281.4 in
+compliance with IEC 62142(E):2005 / IEEE Std. 1364.1(E):2002. Recommending
+use of @* instead of @(...) for better match of synthesis and simulation.
+Successfully finished Verilog frontend.
+Renaming module \ct_rtu_rob_entry to \gate.
+
+5. Executing PROC pass (convert processes to netlists).
+
+5.1. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Cleaned up 0 empty switches.
+
+5.2. Executing PROC_RMDEAD pass (remove dead branches from decision trees).
+Marked 2 switch rules as full_case in process $proc$ct_rtu_rob_entry_mutant.v:440$268 in module gate.
+Marked 3 switch rules as full_case in process $proc$ct_rtu_rob_entry_mutant.v:398$265 in module gate.
+Marked 3 switch rules as full_case in process $proc$ct_rtu_rob_entry_mutant.v:368$247 in module gate.
+Marked 3 switch rules as full_case in process $proc$ct_rtu_rob_entry_mutant.v:336$236 in module gate.
+Marked 4 switch rules as full_case in process $proc$ct_rtu_rob_entry_mutant.v:286$213 in module gate.
+Marked 1 switch rules as full_case in process $proc$ct_rtu_rob_entry_mutant.v:267$212 in module gate.
+Marked 2 switch rules as full_case in process $proc$ct_rtu_rob_entry_gold.v:448$206 in module gold.
+Marked 3 switch rules as full_case in process $proc$ct_rtu_rob_entry_gold.v:406$203 in module gold.
+Marked 3 switch rules as full_case in process $proc$ct_rtu_rob_entry_gold.v:376$185 in module gold.
+Marked 3 switch rules as full_case in process $proc$ct_rtu_rob_entry_gold.v:344$174 in module gold.
+Marked 4 switch rules as full_case in process $proc$ct_rtu_rob_entry_gold.v:285$76 in module gold.
+Marked 1 switch rules as full_case in process $proc$ct_rtu_rob_entry_gold.v:266$75 in module gold.
+Removed a total of 0 dead cases.
+
+5.3. Executing PROC_PRUNE pass (remove redundant assignments in processes).
+Removed 52 redundant assignments.
+Promoted 2 assignments to connections.
+
+5.4. Executing PROC_INIT pass (extract init attributes).
+
+5.5. Executing PROC_ARST pass (detect async resets in processes).
+Found async reset \cpurst_b in `\gate.$proc$ct_rtu_rob_entry_mutant.v:440$268'.
+Found async reset \cpurst_b in `\gate.$proc$ct_rtu_rob_entry_mutant.v:398$265'.
+Found async reset \cpurst_b in `\gate.$proc$ct_rtu_rob_entry_mutant.v:368$247'.
+Found async reset \cpurst_b in `\gate.$proc$ct_rtu_rob_entry_mutant.v:336$236'.
+Found async reset \cpurst_b in `\gate.$proc$ct_rtu_rob_entry_mutant.v:286$213'.
+Found async reset \cpurst_b in `\gold.$proc$ct_rtu_rob_entry_gold.v:448$206'.
+Found async reset \cpurst_b in `\gold.$proc$ct_rtu_rob_entry_gold.v:406$203'.
+Found async reset \cpurst_b in `\gold.$proc$ct_rtu_rob_entry_gold.v:376$185'.
+Found async reset \cpurst_b in `\gold.$proc$ct_rtu_rob_entry_gold.v:344$174'.
+Found async reset \cpurst_b in `\gold.$proc$ct_rtu_rob_entry_gold.v:285$76'.
+
+5.6. Executing PROC_ROM pass (convert switches to ROMs).
+Converted 0 switches.
+<suppressed ~22 debug messages>
+
+5.7. Executing PROC_MUX pass (convert decision trees to multiplexers).
+Creating decoders for process `\gate.$proc$ct_rtu_rob_entry_mutant.v:440$268'.
+     1/18: $0\vl_pred[0:0]
+     2/18: $0\vl[7:0]
+     3/18: $0\vec_dirty[0:0]
+     4/18: $0\vsetvli[0:0]
+     5/18: $0\vsew[2:0]
+     6/18: $0\vlmul[1:0]
+     7/18: $0\load[0:0]
+     8/18: $0\fp_dirty[0:0]
+     9/18: $0\inst_num[1:0]
+    10/18: $0\bkptb_inst[0:0]
+    11/18: $0\bkpta_inst[0:0]
+    12/18: $0\store[0:0]
+    13/18: $0\ras[0:0]
+    14/18: $0\pcfifo[0:0]
+    15/18: $0\bju[0:0]
+    16/18: $0\intmask[0:0]
+    17/18: $0\split[0:0]
+    18/18: $0\pc_offset[2:0]
+Creating decoders for process `\gate.$proc$ct_rtu_rob_entry_mutant.v:398$265'.
+     1/5: $0\no_spec_mispred[0:0]
+     2/5: $0\no_spec_miss[0:0]
+     3/5: $0\no_spec_hit[0:0]
+     4/5: $0\bkptb_data[0:0]
+     5/5: $0\bkpta_data[0:0]
+Creating decoders for process `\gate.$proc$ct_rtu_rob_entry_mutant.v:368$247'.
+     1/1: $0\cmplt[0:0]
+Creating decoders for process `\gate.$proc$ct_rtu_rob_entry_mutant.v:336$236'.
+     1/1: $0\cmplt_cnt[1:0]
+Creating decoders for process `\gate.$proc$ct_rtu_rob_entry_mutant.v:286$213'.
+     1/1: $0\vld[0:0]
+Creating decoders for process `\gate.$proc$ct_rtu_rob_entry_mutant.v:267$212'.
+     1/1: $1\x_create_data[39:0]
+Creating decoders for process `\gold.$proc$ct_rtu_rob_entry_gold.v:448$206'.
+     1/18: $0\vl_pred[0:0]
+     2/18: $0\vl[7:0]
+     3/18: $0\vec_dirty[0:0]
+     4/18: $0\vsetvli[0:0]
+     5/18: $0\vsew[2:0]
+     6/18: $0\vlmul[1:0]
+     7/18: $0\load[0:0]
+     8/18: $0\fp_dirty[0:0]
+     9/18: $0\inst_num[1:0]
+    10/18: $0\bkptb_inst[0:0]
+    11/18: $0\bkpta_inst[0:0]
+    12/18: $0\store[0:0]
+    13/18: $0\ras[0:0]
+    14/18: $0\pcfifo[0:0]
+    15/18: $0\bju[0:0]
+    16/18: $0\intmask[0:0]
+    17/18: $0\split[0:0]
+    18/18: $0\pc_offset[2:0]
+Creating decoders for process `\gold.$proc$ct_rtu_rob_entry_gold.v:406$203'.
+     1/5: $0\no_spec_mispred[0:0]
+     2/5: $0\no_spec_miss[0:0]
+     3/5: $0\no_spec_hit[0:0]
+     4/5: $0\bkptb_data[0:0]
+     5/5: $0\bkpta_data[0:0]
+Creating decoders for process `\gold.$proc$ct_rtu_rob_entry_gold.v:376$185'.
+     1/1: $0\cmplt[0:0]
+Creating decoders for process `\gold.$proc$ct_rtu_rob_entry_gold.v:344$174'.
+     1/1: $0\cmplt_cnt[1:0]
+Creating decoders for process `\gold.$proc$ct_rtu_rob_entry_gold.v:285$76'.
+     1/1: $0\vld[0:0]
+Creating decoders for process `\gold.$proc$ct_rtu_rob_entry_gold.v:266$75'.
+     1/1: $1\x_create_data[39:0]
+
+5.8. Executing PROC_DLATCH pass (convert process syncs to latches).
+No latch inferred for signal `\gate.\x_create_data' from process `\gate.$proc$ct_rtu_rob_entry_mutant.v:267$212'.
+No latch inferred for signal `\gold.\x_create_data' from process `\gold.$proc$ct_rtu_rob_entry_gold.v:266$75'.
+
+5.9. Executing PROC_DFF pass (convert process syncs to FFs).
+Creating register for signal `\gate.\bju' using process `\gate.$proc$ct_rtu_rob_entry_mutant.v:440$268'.
+  created $adff cell `$procdff$496' with positive edge clock and positive level reset.
+Creating register for signal `\gate.\bkpta_inst' using process `\gate.$proc$ct_rtu_rob_entry_mutant.v:440$268'.
+  created $adff cell `$procdff$501' with positive edge clock and positive level reset.
+Creating register for signal `\gate.\bkptb_inst' using process `\gate.$proc$ct_rtu_rob_entry_mutant.v:440$268'.
+  created $adff cell `$procdff$506' with positive edge clock and positive level reset.
+Creating register for signal `\gate.\fp_dirty' using process `\gate.$proc$ct_rtu_rob_entry_mutant.v:440$268'.
+  created $adff cell `$procdff$511' with positive edge clock and positive level reset.
+Creating register for signal `\gate.\inst_num' using process `\gate.$proc$ct_rtu_rob_entry_mutant.v:440$268'.
+  created $adff cell `$procdff$516' with positive edge clock and positive level reset.
+Creating register for signal `\gate.\intmask' using process `\gate.$proc$ct_rtu_rob_entry_mutant.v:440$268'.
+  created $adff cell `$procdff$521' with positive edge clock and positive level reset.
+Creating register for signal `\gate.\load' using process `\gate.$proc$ct_rtu_rob_entry_mutant.v:440$268'.
+  created $adff cell `$procdff$526' with positive edge clock and positive level reset.
+Creating register for signal `\gate.\pc_offset' using process `\gate.$proc$ct_rtu_rob_entry_mutant.v:440$268'.
+  created $adff cell `$procdff$531' with positive edge clock and positive level reset.
+Creating register for signal `\gate.\pcfifo' using process `\gate.$proc$ct_rtu_rob_entry_mutant.v:440$268'.
+  created $adff cell `$procdff$536' with positive edge clock and positive level reset.
+Creating register for signal `\gate.\ras' using process `\gate.$proc$ct_rtu_rob_entry_mutant.v:440$268'.
+  created $adff cell `$procdff$541' with positive edge clock and positive level reset.
+Creating register for signal `\gate.\split' using process `\gate.$proc$ct_rtu_rob_entry_mutant.v:440$268'.
+  created $adff cell `$procdff$546' with positive edge clock and positive level reset.
+Creating register for signal `\gate.\store' using process `\gate.$proc$ct_rtu_rob_entry_mutant.v:440$268'.
+  created $adff cell `$procdff$551' with positive edge clock and positive level reset.
+Creating register for signal `\gate.\vec_dirty' using process `\gate.$proc$ct_rtu_rob_entry_mutant.v:440$268'.
+  created $adff cell `$procdff$556' with positive edge clock and positive level reset.
+Creating register for signal `\gate.\vl' using process `\gate.$proc$ct_rtu_rob_entry_mutant.v:440$268'.
+  created $adff cell `$procdff$561' with positive edge clock and positive level reset.
+Creating register for signal `\gate.\vl_pred' using process `\gate.$proc$ct_rtu_rob_entry_mutant.v:440$268'.
+  created $adff cell `$procdff$566' with positive edge clock and positive level reset.
+Creating register for signal `\gate.\vlmul' using process `\gate.$proc$ct_rtu_rob_entry_mutant.v:440$268'.
+  created $adff cell `$procdff$571' with positive edge clock and positive level reset.
+Creating register for signal `\gate.\vsetvli' using process `\gate.$proc$ct_rtu_rob_entry_mutant.v:440$268'.
+  created $adff cell `$procdff$576' with positive edge clock and positive level reset.
+Creating register for signal `\gate.\vsew' using process `\gate.$proc$ct_rtu_rob_entry_mutant.v:440$268'.
+  created $adff cell `$procdff$581' with positive edge clock and positive level reset.
+Creating register for signal `\gate.\bkpta_data' using process `\gate.$proc$ct_rtu_rob_entry_mutant.v:398$265'.
+  created $adff cell `$procdff$586' with positive edge clock and positive level reset.
+Creating register for signal `\gate.\bkptb_data' using process `\gate.$proc$ct_rtu_rob_entry_mutant.v:398$265'.
+  created $adff cell `$procdff$591' with positive edge clock and positive level reset.
+Creating register for signal `\gate.\no_spec_hit' using process `\gate.$proc$ct_rtu_rob_entry_mutant.v:398$265'.
+  created $adff cell `$procdff$596' with positive edge clock and positive level reset.
+Creating register for signal `\gate.\no_spec_mispred' using process `\gate.$proc$ct_rtu_rob_entry_mutant.v:398$265'.
+  created $adff cell `$procdff$601' with positive edge clock and positive level reset.
+Creating register for signal `\gate.\no_spec_miss' using process `\gate.$proc$ct_rtu_rob_entry_mutant.v:398$265'.
+  created $adff cell `$procdff$606' with positive edge clock and positive level reset.
+Creating register for signal `\gate.\cmplt' using process `\gate.$proc$ct_rtu_rob_entry_mutant.v:368$247'.
+  created $adff cell `$procdff$611' with positive edge clock and positive level reset.
+Creating register for signal `\gate.\cmplt_cnt' using process `\gate.$proc$ct_rtu_rob_entry_mutant.v:336$236'.
+  created $adff cell `$procdff$616' with positive edge clock and positive level reset.
+Creating register for signal `\gate.\vld' using process `\gate.$proc$ct_rtu_rob_entry_mutant.v:286$213'.
+  created $adff cell `$procdff$621' with positive edge clock and positive level reset.
+Creating register for signal `\gold.\bju' using process `\gold.$proc$ct_rtu_rob_entry_gold.v:448$206'.
+  created $adff cell `$procdff$626' with positive edge clock and positive level reset.
+Creating register for signal `\gold.\bkpta_inst' using process `\gold.$proc$ct_rtu_rob_entry_gold.v:448$206'.
+  created $adff cell `$procdff$631' with positive edge clock and positive level reset.
+Creating register for signal `\gold.\bkptb_inst' using process `\gold.$proc$ct_rtu_rob_entry_gold.v:448$206'.
+  created $adff cell `$procdff$636' with positive edge clock and positive level reset.
+Creating register for signal `\gold.\fp_dirty' using process `\gold.$proc$ct_rtu_rob_entry_gold.v:448$206'.
+  created $adff cell `$procdff$641' with positive edge clock and positive level reset.
+Creating register for signal `\gold.\inst_num' using process `\gold.$proc$ct_rtu_rob_entry_gold.v:448$206'.
+  created $adff cell `$procdff$646' with positive edge clock and positive level reset.
+Creating register for signal `\gold.\intmask' using process `\gold.$proc$ct_rtu_rob_entry_gold.v:448$206'.
+  created $adff cell `$procdff$651' with positive edge clock and positive level reset.
+Creating register for signal `\gold.\load' using process `\gold.$proc$ct_rtu_rob_entry_gold.v:448$206'.
+  created $adff cell `$procdff$656' with positive edge clock and positive level reset.
+Creating register for signal `\gold.\pc_offset' using process `\gold.$proc$ct_rtu_rob_entry_gold.v:448$206'.
+  created $adff cell `$procdff$661' with positive edge clock and positive level reset.
+Creating register for signal `\gold.\pcfifo' using process `\gold.$proc$ct_rtu_rob_entry_gold.v:448$206'.
+  created $adff cell `$procdff$666' with positive edge clock and positive level reset.
+Creating register for signal `\gold.\ras' using process `\gold.$proc$ct_rtu_rob_entry_gold.v:448$206'.
+  created $adff cell `$procdff$671' with positive edge clock and positive level reset.
+Creating register for signal `\gold.\split' using process `\gold.$proc$ct_rtu_rob_entry_gold.v:448$206'.
+  created $adff cell `$procdff$676' with positive edge clock and positive level reset.
+Creating register for signal `\gold.\store' using process `\gold.$proc$ct_rtu_rob_entry_gold.v:448$206'.
+  created $adff cell `$procdff$681' with positive edge clock and positive level reset.
+Creating register for signal `\gold.\vec_dirty' using process `\gold.$proc$ct_rtu_rob_entry_gold.v:448$206'.
+  created $adff cell `$procdff$686' with positive edge clock and positive level reset.
+Creating register for signal `\gold.\vl' using process `\gold.$proc$ct_rtu_rob_entry_gold.v:448$206'.
+  created $adff cell `$procdff$691' with positive edge clock and positive level reset.
+Creating register for signal `\gold.\vl_pred' using process `\gold.$proc$ct_rtu_rob_entry_gold.v:448$206'.
+  created $adff cell `$procdff$696' with positive edge clock and positive level reset.
+Creating register for signal `\gold.\vlmul' using process `\gold.$proc$ct_rtu_rob_entry_gold.v:448$206'.
+  created $adff cell `$procdff$701' with positive edge clock and positive level reset.
+Creating register for signal `\gold.\vsetvli' using process `\gold.$proc$ct_rtu_rob_entry_gold.v:448$206'.
+  created $adff cell `$procdff$706' with positive edge clock and positive level reset.
+Creating register for signal `\gold.\vsew' using process `\gold.$proc$ct_rtu_rob_entry_gold.v:448$206'.
+  created $adff cell `$procdff$711' with positive edge clock and positive level reset.
+Creating register for signal `\gold.\bkpta_data' using process `\gold.$proc$ct_rtu_rob_entry_gold.v:406$203'.
+  created $adff cell `$procdff$716' with positive edge clock and positive level reset.
+Creating register for signal `\gold.\bkptb_data' using process `\gold.$proc$ct_rtu_rob_entry_gold.v:406$203'.
+  created $adff cell `$procdff$721' with positive edge clock and positive level reset.
+Creating register for signal `\gold.\no_spec_hit' using process `\gold.$proc$ct_rtu_rob_entry_gold.v:406$203'.
+  created $adff cell `$procdff$726' with positive edge clock and positive level reset.
+Creating register for signal `\gold.\no_spec_mispred' using process `\gold.$proc$ct_rtu_rob_entry_gold.v:406$203'.
+  created $adff cell `$procdff$731' with positive edge clock and positive level reset.
+Creating register for signal `\gold.\no_spec_miss' using process `\gold.$proc$ct_rtu_rob_entry_gold.v:406$203'.
+  created $adff cell `$procdff$736' with positive edge clock and positive level reset.
+Creating register for signal `\gold.\cmplt' using process `\gold.$proc$ct_rtu_rob_entry_gold.v:376$185'.
+  created $adff cell `$procdff$741' with positive edge clock and positive level reset.
+Creating register for signal `\gold.\cmplt_cnt' using process `\gold.$proc$ct_rtu_rob_entry_gold.v:344$174'.
+  created $adff cell `$procdff$746' with positive edge clock and positive level reset.
+Creating register for signal `\gold.\vld' using process `\gold.$proc$ct_rtu_rob_entry_gold.v:285$76'.
+  created $adff cell `$procdff$751' with positive edge clock and positive level reset.
+
+5.10. Executing PROC_MEMWR pass (convert process memory writes to cells).
+
+5.11. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Found and cleaned up 1 empty switch in `\gate.$proc$ct_rtu_rob_entry_mutant.v:440$268'.
+Removing empty process `gate.$proc$ct_rtu_rob_entry_mutant.v:440$268'.
+Found and cleaned up 2 empty switches in `\gate.$proc$ct_rtu_rob_entry_mutant.v:398$265'.
+Removing empty process `gate.$proc$ct_rtu_rob_entry_mutant.v:398$265'.
+Found and cleaned up 2 empty switches in `\gate.$proc$ct_rtu_rob_entry_mutant.v:368$247'.
+Removing empty process `gate.$proc$ct_rtu_rob_entry_mutant.v:368$247'.
+Found and cleaned up 2 empty switches in `\gate.$proc$ct_rtu_rob_entry_mutant.v:336$236'.
+Removing empty process `gate.$proc$ct_rtu_rob_entry_mutant.v:336$236'.
+Found and cleaned up 3 empty switches in `\gate.$proc$ct_rtu_rob_entry_mutant.v:286$213'.
+Removing empty process `gate.$proc$ct_rtu_rob_entry_mutant.v:286$213'.
+Found and cleaned up 1 empty switch in `\gate.$proc$ct_rtu_rob_entry_mutant.v:267$212'.
+Removing empty process `gate.$proc$ct_rtu_rob_entry_mutant.v:267$212'.
+Found and cleaned up 1 empty switch in `\gold.$proc$ct_rtu_rob_entry_gold.v:448$206'.
+Removing empty process `gold.$proc$ct_rtu_rob_entry_gold.v:448$206'.
+Found and cleaned up 2 empty switches in `\gold.$proc$ct_rtu_rob_entry_gold.v:406$203'.
+Removing empty process `gold.$proc$ct_rtu_rob_entry_gold.v:406$203'.
+Found and cleaned up 2 empty switches in `\gold.$proc$ct_rtu_rob_entry_gold.v:376$185'.
+Removing empty process `gold.$proc$ct_rtu_rob_entry_gold.v:376$185'.
+Found and cleaned up 2 empty switches in `\gold.$proc$ct_rtu_rob_entry_gold.v:344$174'.
+Removing empty process `gold.$proc$ct_rtu_rob_entry_gold.v:344$174'.
+Found and cleaned up 3 empty switches in `\gold.$proc$ct_rtu_rob_entry_gold.v:285$76'.
+Removing empty process `gold.$proc$ct_rtu_rob_entry_gold.v:285$76'.
+Found and cleaned up 1 empty switch in `\gold.$proc$ct_rtu_rob_entry_gold.v:266$75'.
+Removing empty process `gold.$proc$ct_rtu_rob_entry_gold.v:266$75'.
+Cleaned up 22 empty switches.
+
+5.12. Executing OPT_EXPR pass (perform const folding).
+Optimizing module gate.
+<suppressed ~56 debug messages>
+Optimizing module gold.
+<suppressed ~56 debug messages>
+Optimizing module ct_rtu_compare_iid.
+Optimizing module gated_clk_cell.
+
+6. Executing OPT pass (performing simple optimizations).
+
+6.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module gate.
+Optimizing module gold.
+Optimizing module ct_rtu_compare_iid.
+Optimizing module gated_clk_cell.
+
+6.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\gate'.
+Computing hashes of 147 cells of `\gate'.
+Finding duplicate cells in `\gate'.
+Computing hashes of 115 cells of `\gate'.
+Finding duplicate cells in `\gate'.
+<suppressed ~96 debug messages>
+Finding identical cells in module `\gold'.
+Computing hashes of 222 cells of `\gold'.
+Finding duplicate cells in `\gold'.
+Computing hashes of 165 cells of `\gold'.
+Finding duplicate cells in `\gold'.
+Computing hashes of 156 cells of `\gold'.
+Finding duplicate cells in `\gold'.
+Computing hashes of 151 cells of `\gold'.
+Finding duplicate cells in `\gold'.
+<suppressed ~213 debug messages>
+Finding identical cells in module `\ct_rtu_compare_iid'.
+Computing hashes of 67 cells of `\ct_rtu_compare_iid'.
+Finding duplicate cells in `\ct_rtu_compare_iid'.
+Finding identical cells in module `\gated_clk_cell'.
+Computing hashes of 3 cells of `\gated_clk_cell'.
+Finding duplicate cells in `\gated_clk_cell'.
+Removed a total of 103 cells.
+
+6.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \gate..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \gold..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \ct_rtu_compare_iid..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \gated_clk_cell..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Removed 0 multiplexer ports.
+<suppressed ~184 debug messages>
+
+6.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \gate.
+  Optimizing cells in module \gold.
+  Optimizing cells in module \ct_rtu_compare_iid.
+  Optimizing cells in module \gated_clk_cell.
+Performed a total of 0 changes.
+
+6.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\gate'.
+Computing hashes of 115 cells of `\gate'.
+Finding duplicate cells in `\gate'.
+Computing hashes of 114 cells of `\gate'.
+Finding duplicate cells in `\gate'.
+<suppressed ~3 debug messages>
+Finding identical cells in module `\gold'.
+Computing hashes of 151 cells of `\gold'.
+Finding duplicate cells in `\gold'.
+Computing hashes of 150 cells of `\gold'.
+Finding duplicate cells in `\gold'.
+<suppressed ~3 debug messages>
+Finding identical cells in module `\ct_rtu_compare_iid'.
+Computing hashes of 67 cells of `\ct_rtu_compare_iid'.
+Finding duplicate cells in `\ct_rtu_compare_iid'.
+Finding identical cells in module `\gated_clk_cell'.
+Computing hashes of 3 cells of `\gated_clk_cell'.
+Finding duplicate cells in `\gated_clk_cell'.
+Removed a total of 2 cells.
+
+6.6. Executing OPT_DFF pass (perform DFF optimizations).
+Adding EN signal on $procdff$571 ($adff) from module gate (D = \x_create_data [25:24], Q = \vlmul).
+Adding EN signal on $procdff$521 ($adff) from module gate (D = \x_create_data [8], Q = \intmask).
+Adding EN signal on $procdff$551 ($adff) from module gate (D = \x_create_data [12], Q = \store).
+Adding EN signal on $procdff$611 ($adff) from module gate (D = $procmux$358_Y, Q = \cmplt).
+Adding EN signal on $procdff$576 ($adff) from module gate (D = \x_create_data [29], Q = \vsetvli).
+Adding EN signal on $procdff$606 ($adff) from module gate (D = $procmux$334_Y, Q = \no_spec_miss).
+Adding EN signal on $procdff$526 ($adff) from module gate (D = \x_create_data [20], Q = \load).
+Adding EN signal on $procdff$566 ($adff) from module gate (D = \x_create_data [39], Q = \vl_pred).
+Adding EN signal on $procdff$591 ($adff) from module gate (D = $procmux$346_Y, Q = \bkptb_data).
+Adding EN signal on $procdff$531 ($adff) from module gate (D = \x_create_data [6:4], Q = \pc_offset).
+Adding EN signal on $procdff$621 ($adff) from module gate (D = $procmux$373_Y, Q = \vld).
+Adding EN signal on $procdff$556 ($adff) from module gate (D = \x_create_data [30], Q = \vec_dirty).
+Adding EN signal on $procdff$536 ($adff) from module gate (D = \x_create_data [10], Q = \pcfifo).
+Adding EN signal on $procdff$496 ($adff) from module gate (D = \x_create_data [9], Q = \bju).
+Adding EN signal on $procdff$581 ($adff) from module gate (D = \x_create_data [28:26], Q = \vsew).
+Adding EN signal on $procdff$501 ($adff) from module gate (D = \x_create_data [15], Q = \bkpta_inst).
+Adding EN signal on $procdff$601 ($adff) from module gate (D = $procmux$328_Y, Q = \no_spec_mispred).
+Adding EN signal on $procdff$541 ($adff) from module gate (D = \x_create_data [11], Q = \ras).
+Adding EN signal on $procdff$506 ($adff) from module gate (D = \x_create_data [16], Q = \bkptb_inst).
+Adding EN signal on $procdff$561 ($adff) from module gate (D = \x_create_data [38:31], Q = \vl).
+Adding EN signal on $procdff$596 ($adff) from module gate (D = $procmux$340_Y, Q = \no_spec_hit).
+Adding EN signal on $procdff$511 ($adff) from module gate (D = \x_create_data [19], Q = \fp_dirty).
+Adding EN signal on $procdff$546 ($adff) from module gate (D = \x_create_data [7], Q = \split).
+Adding EN signal on $procdff$586 ($adff) from module gate (D = $procmux$352_Y, Q = \bkpta_data).
+Adding EN signal on $procdff$516 ($adff) from module gate (D = \x_create_data [18:17], Q = \inst_num).
+Adding EN signal on $procdff$686 ($adff) from module gold (D = \x_create_data [30], Q = \vec_dirty).
+Adding EN signal on $procdff$666 ($adff) from module gold (D = \x_create_data [10], Q = \pcfifo).
+Adding EN signal on $procdff$626 ($adff) from module gold (D = \x_create_data [9], Q = \bju).
+Adding EN signal on $procdff$711 ($adff) from module gold (D = \x_create_data [28:26], Q = \vsew).
+Adding EN signal on $procdff$631 ($adff) from module gold (D = \x_create_data [15], Q = \bkpta_inst).
+Adding EN signal on $procdff$731 ($adff) from module gold (D = $procmux$439_Y, Q = \no_spec_mispred).
+Adding EN signal on $procdff$671 ($adff) from module gold (D = \x_create_data [11], Q = \ras).
+Adding EN signal on $procdff$636 ($adff) from module gold (D = \x_create_data [16], Q = \bkptb_inst).
+Adding EN signal on $procdff$691 ($adff) from module gold (D = \x_create_data [38:31], Q = \vl).
+Adding EN signal on $procdff$726 ($adff) from module gold (D = $procmux$451_Y, Q = \no_spec_hit).
+Adding EN signal on $procdff$641 ($adff) from module gold (D = \x_create_data [19], Q = \fp_dirty).
+Adding EN signal on $procdff$676 ($adff) from module gold (D = \x_create_data [7], Q = \split).
+Adding EN signal on $procdff$716 ($adff) from module gold (D = $procmux$463_Y, Q = \bkpta_data).
+Adding EN signal on $procdff$646 ($adff) from module gold (D = \x_create_data [18:17], Q = \inst_num).
+Adding EN signal on $procdff$701 ($adff) from module gold (D = \x_create_data [25:24], Q = \vlmul).
+Adding EN signal on $procdff$651 ($adff) from module gold (D = \x_create_data [8], Q = \intmask).
+Adding EN signal on $procdff$681 ($adff) from module gold (D = \x_create_data [12], Q = \store).
+Adding EN signal on $procdff$741 ($adff) from module gold (D = $procmux$469_Y, Q = \cmplt).
+Adding EN signal on $procdff$706 ($adff) from module gold (D = \x_create_data [29], Q = \vsetvli).
+Adding EN signal on $procdff$736 ($adff) from module gold (D = $procmux$445_Y, Q = \no_spec_miss).
+Adding EN signal on $procdff$656 ($adff) from module gold (D = \x_create_data [20], Q = \load).
+Adding EN signal on $procdff$696 ($adff) from module gold (D = \x_create_data [39], Q = \vl_pred).
+Adding EN signal on $procdff$721 ($adff) from module gold (D = $procmux$457_Y, Q = \bkptb_data).
+Adding EN signal on $procdff$661 ($adff) from module gold (D = \x_create_data [6:4], Q = \pc_offset).
+Adding EN signal on $procdff$751 ($adff) from module gold (D = $procmux$484_Y, Q = \vld).
+
+6.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \gate..
+Finding unused cells or wires in module \gold..
+Finding unused cells or wires in module \ct_rtu_compare_iid..
+Finding unused cells or wires in module \gated_clk_cell..
+Removed 45 unused cells and 381 unused wires.
+<suppressed ~50 debug messages>
+
+6.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module gate.
+<suppressed ~7 debug messages>
+Optimizing module gold.
+<suppressed ~7 debug messages>
+Optimizing module ct_rtu_compare_iid.
+Optimizing module gated_clk_cell.
+
+6.9. Rerunning OPT passes. (Maybe there is more to do..)
+
+6.10. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \gate..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \gold..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \ct_rtu_compare_iid..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \gated_clk_cell..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Removed 0 multiplexer ports.
+<suppressed ~56 debug messages>
+
+6.11. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \gate.
+  Optimizing cells in module \gold.
+  Optimizing cells in module \ct_rtu_compare_iid.
+  Optimizing cells in module \gated_clk_cell.
+Performed a total of 0 changes.
+
+6.12. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\gate'.
+Computing hashes of 100 cells of `\gate'.
+Finding duplicate cells in `\gate'.
+Computing hashes of 96 cells of `\gate'.
+Finding duplicate cells in `\gate'.
+<suppressed ~12 debug messages>
+Finding identical cells in module `\gold'.
+Computing hashes of 136 cells of `\gold'.
+Finding duplicate cells in `\gold'.
+Computing hashes of 132 cells of `\gold'.
+Finding duplicate cells in `\gold'.
+<suppressed ~12 debug messages>
+Finding identical cells in module `\ct_rtu_compare_iid'.
+Computing hashes of 67 cells of `\ct_rtu_compare_iid'.
+Finding duplicate cells in `\ct_rtu_compare_iid'.
+Finding identical cells in module `\gated_clk_cell'.
+Computing hashes of 0 cells of `\gated_clk_cell'.
+Finding duplicate cells in `\gated_clk_cell'.
+Removed a total of 8 cells.
+
+6.13. Executing OPT_DFF pass (perform DFF optimizations).
+
+6.14. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \gate..
+Finding unused cells or wires in module \gold..
+Finding unused cells or wires in module \ct_rtu_compare_iid..
+Finding unused cells or wires in module \gated_clk_cell..
+Removed 0 unused cells and 8 unused wires.
+<suppressed ~2 debug messages>
+
+6.15. Executing OPT_EXPR pass (perform const folding).
+Optimizing module gate.
+Optimizing module gold.
+Optimizing module ct_rtu_compare_iid.
+Optimizing module gated_clk_cell.
+
+6.16. Rerunning OPT passes. (Maybe there is more to do..)
+
+6.17. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \gate..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \gold..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \ct_rtu_compare_iid..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \gated_clk_cell..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Removed 0 multiplexer ports.
+<suppressed ~56 debug messages>
+
+6.18. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \gate.
+  Optimizing cells in module \gold.
+  Optimizing cells in module \ct_rtu_compare_iid.
+  Optimizing cells in module \gated_clk_cell.
+Performed a total of 0 changes.
+
+6.19. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\gate'.
+Computing hashes of 96 cells of `\gate'.
+Finding duplicate cells in `\gate'.
+Finding identical cells in module `\gold'.
+Computing hashes of 132 cells of `\gold'.
+Finding duplicate cells in `\gold'.
+Finding identical cells in module `\ct_rtu_compare_iid'.
+Computing hashes of 67 cells of `\ct_rtu_compare_iid'.
+Finding duplicate cells in `\ct_rtu_compare_iid'.
+Finding identical cells in module `\gated_clk_cell'.
+Computing hashes of 0 cells of `\gated_clk_cell'.
+Finding duplicate cells in `\gated_clk_cell'.
+Removed a total of 0 cells.
+
+6.20. Executing OPT_DFF pass (perform DFF optimizations).
+
+6.21. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \gate..
+Finding unused cells or wires in module \gold..
+Finding unused cells or wires in module \ct_rtu_compare_iid..
+Finding unused cells or wires in module \gated_clk_cell..
+
+6.22. Executing OPT_EXPR pass (perform const folding).
+Optimizing module gate.
+Optimizing module gold.
+Optimizing module ct_rtu_compare_iid.
+Optimizing module gated_clk_cell.
+
+6.23. Finished fast OPT passes. (There is nothing left to do.)
+
+7. Executing MEMORY pass.
+
+7.1. Executing OPT_MEM pass (optimize memories).
+Performed a total of 0 transformations.
+
+7.2. Executing OPT_MEM_PRIORITY pass (removing unnecessary memory write priority relations).
+Performed a total of 0 transformations.
+
+7.3. Executing OPT_MEM_FEEDBACK pass (finding memory read-to-write feedback paths).
+
+7.4. Executing MEMORY_BMUX2ROM pass (converting muxes to ROMs).
+
+7.5. Executing MEMORY_DFF pass (merging $dff cells to $memrd).
+
+7.6. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \gate..
+Finding unused cells or wires in module \gold..
+Finding unused cells or wires in module \ct_rtu_compare_iid..
+Finding unused cells or wires in module \gated_clk_cell..
+
+7.7. Executing MEMORY_SHARE pass (consolidating $memrd/$memwr cells).
+
+7.8. Executing OPT_MEM_WIDEN pass (optimize memories where all ports are wide).
+Performed a total of 0 transformations.
+
+7.9. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \gate..
+Finding unused cells or wires in module \gold..
+Finding unused cells or wires in module \ct_rtu_compare_iid..
+Finding unused cells or wires in module \gated_clk_cell..
+
+7.10. Executing MEMORY_COLLECT pass (generating $mem cells).
+
+7.11. Executing MEMORY_MAP pass (converting memories to logic and flip-flops).
+
+8. Executing OPT pass (performing simple optimizations).
+
+8.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module gate.
+Optimizing module gold.
+Optimizing module ct_rtu_compare_iid.
+Optimizing module gated_clk_cell.
+
+8.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\gate'.
+Computing hashes of 96 cells of `\gate'.
+Finding duplicate cells in `\gate'.
+Finding identical cells in module `\gold'.
+Computing hashes of 132 cells of `\gold'.
+Finding duplicate cells in `\gold'.
+Finding identical cells in module `\ct_rtu_compare_iid'.
+Computing hashes of 67 cells of `\ct_rtu_compare_iid'.
+Finding duplicate cells in `\ct_rtu_compare_iid'.
+Finding identical cells in module `\gated_clk_cell'.
+Computing hashes of 0 cells of `\gated_clk_cell'.
+Finding duplicate cells in `\gated_clk_cell'.
+Removed a total of 0 cells.
+
+8.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \gate..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \gold..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \ct_rtu_compare_iid..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \gated_clk_cell..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Removed 0 multiplexer ports.
+<suppressed ~56 debug messages>
+
+8.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \gate.
+  Optimizing cells in module \gold.
+  Optimizing cells in module \ct_rtu_compare_iid.
+  Optimizing cells in module \gated_clk_cell.
+Performed a total of 0 changes.
+
+8.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\gate'.
+Computing hashes of 96 cells of `\gate'.
+Finding duplicate cells in `\gate'.
+Finding identical cells in module `\gold'.
+Computing hashes of 132 cells of `\gold'.
+Finding duplicate cells in `\gold'.
+Finding identical cells in module `\ct_rtu_compare_iid'.
+Computing hashes of 67 cells of `\ct_rtu_compare_iid'.
+Finding duplicate cells in `\ct_rtu_compare_iid'.
+Finding identical cells in module `\gated_clk_cell'.
+Computing hashes of 0 cells of `\gated_clk_cell'.
+Finding duplicate cells in `\gated_clk_cell'.
+Removed a total of 0 cells.
+
+8.6. Executing OPT_DFF pass (perform DFF optimizations).
+
+8.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \gate..
+Finding unused cells or wires in module \gold..
+Finding unused cells or wires in module \ct_rtu_compare_iid..
+Finding unused cells or wires in module \gated_clk_cell..
+
+8.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module gate.
+Optimizing module gold.
+Optimizing module ct_rtu_compare_iid.
+Optimizing module gated_clk_cell.
+
+8.9. Finished fast OPT passes. (There is nothing left to do.)
+
+9. Executing ASYNC2SYNC pass.
+Replacing gate.$auto$ff.cc:337:slice$772 ($adffe): ARST=\cpurst_b, D=\x_create_data [10], Q=\pcfifo
+Replacing gate.$auto$ff.cc:337:slice$773 ($adffe): ARST=\cpurst_b, D=\x_create_data [9], Q=\bju
+Replacing gate.$auto$ff.cc:337:slice$774 ($adffe): ARST=\cpurst_b, D=\x_create_data [28:26], Q=\vsew
+Replacing gate.$auto$ff.cc:337:slice$775 ($adffe): ARST=\cpurst_b, D=\x_create_data [15], Q=\bkpta_inst
+Replacing gate.$auto$ff.cc:337:slice$776 ($adffe): ARST=\cpurst_b, D=$0\no_spec_mispred[0:0], Q=\no_spec_mispred
+Replacing gate.$auto$ff.cc:337:slice$779 ($adffe): ARST=\cpurst_b, D=\x_create_data [11], Q=\ras
+Replacing gate.$auto$ff.cc:337:slice$780 ($adffe): ARST=\cpurst_b, D=\x_create_data [16], Q=\bkptb_inst
+Replacing gate.$auto$ff.cc:337:slice$781 ($adffe): ARST=\cpurst_b, D=\x_create_data [38:31], Q=\vl
+Replacing gate.$auto$ff.cc:337:slice$782 ($adffe): ARST=\cpurst_b, D=$0\no_spec_hit[0:0], Q=\no_spec_hit
+Replacing gate.$auto$ff.cc:337:slice$785 ($adffe): ARST=\cpurst_b, D=\x_create_data [19], Q=\fp_dirty
+Replacing gate.$auto$ff.cc:337:slice$786 ($adffe): ARST=\cpurst_b, D=\x_create_data [7], Q=\split
+Replacing gate.$auto$ff.cc:337:slice$787 ($adffe): ARST=\cpurst_b, D=$0\bkpta_data[0:0], Q=\bkpta_data
+Replacing gate.$auto$ff.cc:337:slice$790 ($adffe): ARST=\cpurst_b, D=\x_create_data [18:17], Q=\inst_num
+Replacing gate.$auto$ff.cc:337:slice$771 ($adffe): ARST=\cpurst_b, D=\x_create_data [30], Q=\vec_dirty
+Replacing gate.$auto$ff.cc:337:slice$768 ($adffe): ARST=\cpurst_b, D=$0\vld[0:0], Q=\vld
+Replacing gate.$auto$ff.cc:337:slice$767 ($adffe): ARST=\cpurst_b, D=\x_create_data [6:4], Q=\pc_offset
+Replacing gate.$auto$ff.cc:337:slice$764 ($adffe): ARST=\cpurst_b, D=$0\bkptb_data[0:0], Q=\bkptb_data
+Replacing gate.$auto$ff.cc:337:slice$763 ($adffe): ARST=\cpurst_b, D=\x_create_data [39], Q=\vl_pred
+Replacing gate.$procdff$616 ($adff): ARST=\cpurst_b, D=$0\cmplt_cnt[1:0], Q=\cmplt_cnt
+Replacing gate.$auto$ff.cc:337:slice$762 ($adffe): ARST=\cpurst_b, D=\x_create_data [20], Q=\load
+Replacing gate.$auto$ff.cc:337:slice$759 ($adffe): ARST=\cpurst_b, D=$0\no_spec_miss[0:0], Q=\no_spec_miss
+Replacing gate.$auto$ff.cc:337:slice$758 ($adffe): ARST=\cpurst_b, D=\x_create_data [29], Q=\vsetvli
+Replacing gate.$auto$ff.cc:337:slice$755 ($adffe): ARST=\cpurst_b, D=$0\cmplt[0:0], Q=\cmplt
+Replacing gate.$auto$ff.cc:337:slice$754 ($adffe): ARST=\cpurst_b, D=\x_create_data [12], Q=\store
+Replacing gate.$auto$ff.cc:337:slice$753 ($adffe): ARST=\cpurst_b, D=\x_create_data [8], Q=\intmask
+Replacing gate.$auto$ff.cc:337:slice$752 ($adffe): ARST=\cpurst_b, D=\x_create_data [25:24], Q=\vlmul
+Replacing gold.$auto$ff.cc:337:slice$827 ($adffe): ARST=\cpurst_b, D=$0\vld[0:0], Q=\vld
+Replacing gold.$auto$ff.cc:337:slice$826 ($adffe): ARST=\cpurst_b, D=\x_create_data [6:4], Q=\pc_offset
+Replacing gold.$auto$ff.cc:337:slice$823 ($adffe): ARST=\cpurst_b, D=$0\bkptb_data[0:0], Q=\bkptb_data
+Replacing gold.$auto$ff.cc:337:slice$822 ($adffe): ARST=\cpurst_b, D=\x_create_data [39], Q=\vl_pred
+Replacing gold.$auto$ff.cc:337:slice$821 ($adffe): ARST=\cpurst_b, D=\x_create_data [20], Q=\load
+Replacing gold.$auto$ff.cc:337:slice$818 ($adffe): ARST=\cpurst_b, D=$0\no_spec_miss[0:0], Q=\no_spec_miss
+Replacing gold.$auto$ff.cc:337:slice$817 ($adffe): ARST=\cpurst_b, D=\x_create_data [29], Q=\vsetvli
+Replacing gold.$auto$ff.cc:337:slice$814 ($adffe): ARST=\cpurst_b, D=$0\cmplt[0:0], Q=\cmplt
+Replacing gold.$auto$ff.cc:337:slice$813 ($adffe): ARST=\cpurst_b, D=\x_create_data [12], Q=\store
+Replacing gold.$auto$ff.cc:337:slice$812 ($adffe): ARST=\cpurst_b, D=\x_create_data [8], Q=\intmask
+Replacing gold.$auto$ff.cc:337:slice$811 ($adffe): ARST=\cpurst_b, D=\x_create_data [25:24], Q=\vlmul
+Replacing gold.$procdff$746 ($adff): ARST=\cpurst_b, D=$0\cmplt_cnt[1:0], Q=\cmplt_cnt
+Replacing gold.$auto$ff.cc:337:slice$810 ($adffe): ARST=\cpurst_b, D=\x_create_data [18:17], Q=\inst_num
+Replacing gold.$auto$ff.cc:337:slice$807 ($adffe): ARST=\cpurst_b, D=$0\bkpta_data[0:0], Q=\bkpta_data
+Replacing gold.$auto$ff.cc:337:slice$806 ($adffe): ARST=\cpurst_b, D=\x_create_data [7], Q=\split
+Replacing gold.$auto$ff.cc:337:slice$805 ($adffe): ARST=\cpurst_b, D=\x_create_data [19], Q=\fp_dirty
+Replacing gold.$auto$ff.cc:337:slice$802 ($adffe): ARST=\cpurst_b, D=$0\no_spec_hit[0:0], Q=\no_spec_hit
+Replacing gold.$auto$ff.cc:337:slice$801 ($adffe): ARST=\cpurst_b, D=\x_create_data [38:31], Q=\vl
+Replacing gold.$auto$ff.cc:337:slice$800 ($adffe): ARST=\cpurst_b, D=\x_create_data [16], Q=\bkptb_inst
+Replacing gold.$auto$ff.cc:337:slice$799 ($adffe): ARST=\cpurst_b, D=\x_create_data [11], Q=\ras
+Replacing gold.$auto$ff.cc:337:slice$796 ($adffe): ARST=\cpurst_b, D=$0\no_spec_mispred[0:0], Q=\no_spec_mispred
+Replacing gold.$auto$ff.cc:337:slice$795 ($adffe): ARST=\cpurst_b, D=\x_create_data [15], Q=\bkpta_inst
+Replacing gold.$auto$ff.cc:337:slice$794 ($adffe): ARST=\cpurst_b, D=\x_create_data [28:26], Q=\vsew
+Replacing gold.$auto$ff.cc:337:slice$793 ($adffe): ARST=\cpurst_b, D=\x_create_data [9], Q=\bju
+Replacing gold.$auto$ff.cc:337:slice$792 ($adffe): ARST=\cpurst_b, D=\x_create_data [10], Q=\pcfifo
+Replacing gold.$auto$ff.cc:337:slice$791 ($adffe): ARST=\cpurst_b, D=\x_create_data [30], Q=\vec_dirty
+
+10. Executing EQUIV_MAKE pass (creating equiv checking module).
+Presumably equivalent wires: no_spec_miss_updt_val_gold (\no_spec_miss_updt_val_gold), no_spec_miss_updt_val_gate (\no_spec_miss_updt_val_gate) -> no_spec_miss_updt_val
+Presumably equivalent wires: no_spec_mispred_updt_val_gold (\no_spec_mispred_updt_val_gold), no_spec_mispred_updt_val_gate (\no_spec_mispred_updt_val_gate) -> no_spec_mispred_updt_val
+Presumably equivalent wires: no_spec_hit_updt_val_gold (\no_spec_hit_updt_val_gold), no_spec_hit_updt_val_gate (\no_spec_hit_updt_val_gate) -> no_spec_hit_updt_val
+Presumably equivalent wires: lsu_cmplt_clk_en_gold (\lsu_cmplt_clk_en_gold), lsu_cmplt_clk_en_gate (\lsu_cmplt_clk_en_gate) -> lsu_cmplt_clk_en
+Presumably equivalent wires: lsu_cmplt_clk_gold (\lsu_cmplt_clk_gold), lsu_cmplt_clk_gate (\lsu_cmplt_clk_gate) -> lsu_cmplt_clk
+Presumably equivalent wires: entry_clk_en_gold (\entry_clk_en_gold), entry_clk_en_gate (\entry_clk_en_gate) -> entry_clk_en
+Presumably equivalent wires: entry_clk_gold (\entry_clk_gold), entry_clk_gate (\entry_clk_gate) -> entry_clk
+Presumably equivalent wires: create_clk_en_gold (\x_create_gateclk_en_gold), create_clk_en_gate (\x_create_gateclk_en_gate) -> create_clk_en
+Presumably equivalent wires: create_clk_gold (\create_clk_gold), create_clk_gate (\create_clk_gate) -> create_clk
+Presumably equivalent wires: cmplt_updt_val_gold (\cmplt_updt_val_gold), cmplt_updt_val_gate (\cmplt_updt_val_gate) -> cmplt_updt_val
+Presumably equivalent wires: cmplt_cnt_with_create_gold (\cmplt_cnt_with_create_gold), cmplt_cnt_with_create_gate (\cmplt_cnt_with_create_gate) -> cmplt_cnt_with_create
+Presumably equivalent wires: cmplt_cnt_cmplt_exist_gold (\cmplt_cnt_cmplt_exist_gold), cmplt_cnt_cmplt_exist_gate (\cmplt_cnt_cmplt_exist_gate) -> cmplt_cnt_cmplt_exist
+Presumably equivalent wires: cmplt_3_fold_inst_gold (\cmplt_3_fold_inst_gold), cmplt_3_fold_inst_gate (\cmplt_3_fold_inst_gate) -> cmplt_3_fold_inst
+Presumably equivalent wires: cmplt_2_fold_inst_gold (\cmplt_2_fold_inst_gold), cmplt_2_fold_inst_gate (\cmplt_1_fold_inst_gate) -> cmplt_2_fold_inst
+Presumably equivalent wires: cmplt_1_fold_inst_gold (\cmplt_1_fold_inst_gold), cmplt_1_fold_inst_gate (\cmplt_1_fold_inst_gate) -> cmplt_1_fold_inst
+Presumably equivalent wires: bkptb_data_updt_val_gold (\bkptb_data_updt_val_gold), bkptb_data_updt_val_gate (\bkptb_data_updt_val_gate) -> bkptb_data_updt_val
+Presumably equivalent wires: bkpta_data_updt_val_gold (\bkpta_data_updt_val_gold), bkpta_data_updt_val_gate (\bkpta_data_updt_val_gate) -> bkpta_data_updt_val
+Presumably equivalent wires: x_create_data_gold (\x_create_data_gold), x_create_data_gate (\x_create_data_gate) -> x_create_data
+Presumably equivalent wires: vsew_gold (\vsew_gold), vsew_gate (\vsew_gate) -> vsew
+Presumably equivalent wires: vsetvli_gold (\vsetvli_gold), vsetvli_gate (\vsetvli_gate) -> vsetvli
+Presumably equivalent wires: vlmul_gold (\vlmul_gold), vlmul_gate (\vlmul_gate) -> vlmul
+Presumably equivalent wires: vld_gold (\vld_gold), vld_gate (\vld_gate) -> vld
+Presumably equivalent wires: vl_pred_gold (\vl_pred_gold), vl_pred_gate (\vl_pred_gate) -> vl_pred
+Presumably equivalent wires: vl_gold (\vl_gold), vl_gate (\vl_gate) -> vl
+Presumably equivalent wires: vec_dirty_gold (\vec_dirty_gold), vec_dirty_gate (\vec_dirty_gate) -> vec_dirty
+Presumably equivalent wires: store_gold (\store_gold), store_gate (\store_gate) -> store
+Presumably equivalent wires: split_gold (\split_gold), split_gate (\split_gate) -> split
+Presumably equivalent wires: ras_gold (\ras_gold), ras_gate (\ras_gate) -> ras
+Presumably equivalent wires: pcfifo_gold (\pcfifo_gold), pcfifo_gate (\pcfifo_gate) -> pcfifo
+Presumably equivalent wires: pc_offset_gold (\pc_offset_gold), pc_offset_gate (\pc_offset_gate) -> pc_offset
+Presumably equivalent wires: no_spec_miss_gold (\no_spec_miss_gold), no_spec_miss_gate (\no_spec_miss_gate) -> no_spec_miss
+Presumably equivalent wires: no_spec_mispred_gold (\no_spec_mispred_gold), no_spec_mispred_gate (\no_spec_mispred_gate) -> no_spec_mispred
+Presumably equivalent wires: no_spec_hit_gold (\no_spec_hit_gold), no_spec_hit_gate (\no_spec_hit_gate) -> no_spec_hit
+Presumably equivalent wires: load_gold (\load_gold), load_gate (\load_gate) -> load
+Presumably equivalent wires: intmask_gold (\intmask_gold), intmask_gate (\intmask_gate) -> intmask
+Presumably equivalent wires: inst_num_gold (\inst_num_gold), inst_num_gate (\inst_num_gate) -> inst_num
+Presumably equivalent wires: fp_dirty_gold (\fp_dirty_gold), fp_dirty_gate (\fp_dirty_gate) -> fp_dirty
+Presumably equivalent wires: cmplt_cnt_gold (\cmplt_cnt_gold), cmplt_cnt_gate (\cmplt_cnt_gate) -> cmplt_cnt
+Presumably equivalent wires: cmplt_gold (\cmplt_gold), cmplt_gate (\cmplt_gate) -> cmplt
+Presumably equivalent wires: bkptb_inst_gold (\bkptb_inst_gold), bkptb_inst_gate (\bkptb_inst_gate) -> bkptb_inst
+Presumably equivalent wires: bkptb_data_gold (\bkptb_data_gold), bkptb_data_gate (\bkptb_data_gate) -> bkptb_data
+Presumably equivalent wires: bkpta_inst_gold (\bkpta_inst_gold), bkpta_inst_gate (\bkpta_inst_gate) -> bkpta_inst
+Presumably equivalent wires: bkpta_data_gold (\bkpta_data_gold), bkpta_data_gate (\bkpta_data_gate) -> bkpta_data
+Presumably equivalent wires: bju_gold (\bju_gold), bju_gate (\bju_gate) -> bju
+Presumably equivalent wires: x_read_data_gold ({ \vl_pred_gold \vl_gold \vec_dirty_gold \vsetvli_gold \vsew_gold \vlmul_gold \no_spec_mispred_gold \no_spec_miss_gold \no_spec_hit_gold \load_gold \fp_dirty_gold \inst_num_gold \bkptb_inst_gold \bkpta_inst_gold \bkptb_data_gold \bkpta_data_gold \store_gold \ras_gold \pcfifo_gold \bju_gold \intmask_gold \split_gold \pc_offset_gold \cmplt_cnt_gold \cmplt_gold \vld_gold }), x_read_data_gate ({ \vl_pred_gate \vl_gate \vec_dirty_gate \vsetvli_gate \vsew_gate \vlmul_gate \no_spec_mispred_gate \no_spec_miss_gate \no_spec_hit_gate \load_gate \fp_dirty_gate \inst_num_gate \bkptb_inst_gate \bkpta_inst_gate \bkptb_data_gate \bkpta_data_gate \store_gate \ras_gate \pcfifo_gate \bju_gate \intmask_gate \split_gate \pc_offset_gate \cmplt_cnt_gate \cmplt_gate \vld_gate }) -> x_read_data
+Presumably equivalent wires: x_pop_en_gold (\x_pop_en_gold), x_pop_en_gate (\x_pop_en_gate) -> x_pop_en
+Presumably equivalent wires: x_create_sel_gold (\x_create_sel_gold), x_create_sel_gate (\x_create_sel_gate) -> x_create_sel
+Presumably equivalent wires: x_create_gateclk_en_gold (\x_create_gateclk_en_gold), x_create_gateclk_en_gate (\x_create_gateclk_en_gate) -> x_create_gateclk_en
+Presumably equivalent wires: x_create_en_gold (\x_create_en_gold), x_create_en_gate (\x_create_en_gate) -> x_create_en
+Presumably equivalent wires: x_create_dp_en_gold (\x_create_dp_en_gold), x_create_dp_en_gate (\x_create_dp_en_gate) -> x_create_dp_en
+Presumably equivalent wires: x_cmplt_vld_gold (\x_cmplt_vld_gold), x_cmplt_vld_gate (\x_cmplt_vld_gate) -> x_cmplt_vld
+Presumably equivalent wires: x_cmplt_gateclk_vld_gold (\x_cmplt_gateclk_vld_gold), x_cmplt_gateclk_vld_gate (\x_cmplt_gateclk_vld_gate) -> x_cmplt_gateclk_vld
+Presumably equivalent wires: retire_rob_flush_gateclk_gold (\retire_rob_flush_gateclk_gold), retire_rob_flush_gateclk_gate (\retire_rob_flush_gateclk_gate) -> retire_rob_flush_gateclk
+Presumably equivalent wires: retire_rob_flush_gold (\retire_rob_flush_gold), retire_rob_flush_gate (\retire_rob_flush_gate) -> retire_rob_flush
+Presumably equivalent wires: pad_yy_icg_scan_en_gold (\pad_yy_icg_scan_en_gold), pad_yy_icg_scan_en_gate (\pad_yy_icg_scan_en_gate) -> pad_yy_icg_scan_en
+Presumably equivalent wires: lsu_rtu_wb_pipe4_no_spec_miss_gold (\lsu_rtu_wb_pipe4_no_spec_miss_gold), lsu_rtu_wb_pipe4_no_spec_miss_gate (\lsu_rtu_wb_pipe4_no_spec_miss_gate) -> lsu_rtu_wb_pipe4_no_spec_miss
+Presumably equivalent wires: lsu_rtu_wb_pipe4_no_spec_mispred_gold (\lsu_rtu_wb_pipe4_no_spec_mispred_gold), lsu_rtu_wb_pipe4_no_spec_mispred_gate (\lsu_rtu_wb_pipe4_no_spec_mispred_gate) -> lsu_rtu_wb_pipe4_no_spec_mispred
+Presumably equivalent wires: lsu_rtu_wb_pipe4_no_spec_hit_gold (\lsu_rtu_wb_pipe4_no_spec_hit_gold), lsu_rtu_wb_pipe4_no_spec_hit_gate (\lsu_rtu_wb_pipe4_no_spec_hit_gate) -> lsu_rtu_wb_pipe4_no_spec_hit
+Presumably equivalent wires: lsu_rtu_wb_pipe4_bkptb_data_gold (\lsu_rtu_wb_pipe4_bkptb_data_gold), lsu_rtu_wb_pipe4_bkptb_data_gate (\lsu_rtu_wb_pipe4_bkptb_data_gate) -> lsu_rtu_wb_pipe4_bkptb_data
+Presumably equivalent wires: lsu_rtu_wb_pipe4_bkpta_data_gold (\lsu_rtu_wb_pipe4_bkpta_data_gold), lsu_rtu_wb_pipe4_bkpta_data_gate (\lsu_rtu_wb_pipe4_bkpta_data_gate) -> lsu_rtu_wb_pipe4_bkpta_data
+Presumably equivalent wires: lsu_rtu_wb_pipe3_no_spec_miss_gold (\lsu_rtu_wb_pipe3_no_spec_miss_gold), lsu_rtu_wb_pipe3_no_spec_miss_gate (\lsu_rtu_wb_pipe3_no_spec_miss_gate) -> lsu_rtu_wb_pipe3_no_spec_miss
+Presumably equivalent wires: lsu_rtu_wb_pipe3_no_spec_mispred_gold (\lsu_rtu_wb_pipe3_no_spec_mispred_gold), lsu_rtu_wb_pipe3_no_spec_mispred_gate (\lsu_rtu_wb_pipe3_no_spec_mispred_gate) -> lsu_rtu_wb_pipe3_no_spec_mispred
+Presumably equivalent wires: lsu_rtu_wb_pipe3_no_spec_hit_gold (\lsu_rtu_wb_pipe3_no_spec_hit_gold), lsu_rtu_wb_pipe3_no_spec_hit_gate (\lsu_rtu_wb_pipe3_no_spec_hit_gate) -> lsu_rtu_wb_pipe3_no_spec_hit
+Presumably equivalent wires: lsu_rtu_wb_pipe3_bkptb_data_gold (\lsu_rtu_wb_pipe3_bkptb_data_gold), lsu_rtu_wb_pipe3_bkptb_data_gate (\lsu_rtu_wb_pipe3_bkptb_data_gate) -> lsu_rtu_wb_pipe3_bkptb_data
+Presumably equivalent wires: lsu_rtu_wb_pipe3_bkpta_data_gold (\lsu_rtu_wb_pipe3_bkpta_data_gold), lsu_rtu_wb_pipe3_bkpta_data_gate (\lsu_rtu_wb_pipe3_bkpta_data_gate) -> lsu_rtu_wb_pipe3_bkpta_data
+Presumably equivalent wires: lsu_misc_cmplt_gateclk_en_gold (\lsu_misc_cmplt_gateclk_en_gold), lsu_misc_cmplt_gateclk_en_gate (\lsu_misc_cmplt_gateclk_en_gate) -> lsu_misc_cmplt_gateclk_en
+Presumably equivalent wires: idu_rtu_rob_create3_data_gold (\idu_rtu_rob_create3_data_gold), idu_rtu_rob_create3_data_gate (\idu_rtu_rob_create3_data_gate) -> idu_rtu_rob_create3_data
+Presumably equivalent wires: idu_rtu_rob_create2_data_gold (\idu_rtu_rob_create2_data_gold), idu_rtu_rob_create2_data_gate (\idu_rtu_rob_create2_data_gate) -> idu_rtu_rob_create2_data
+Presumably equivalent wires: idu_rtu_rob_create1_data_gold (\idu_rtu_rob_create1_data_gold), idu_rtu_rob_create1_data_gate (\idu_rtu_rob_create1_data_gate) -> idu_rtu_rob_create1_data
+Presumably equivalent wires: idu_rtu_rob_create0_data_gold (\idu_rtu_rob_create0_data_gold), idu_rtu_rob_create0_data_gate (\idu_rtu_rob_create0_data_gate) -> idu_rtu_rob_create0_data
+Presumably equivalent wires: forever_cpuclk_gold (\forever_cpuclk_gold), forever_cpuclk_gate (\forever_cpuclk_gate) -> forever_cpuclk
+Presumably equivalent wires: cpurst_b_gold (\cpurst_b_gold), cpurst_b_gate (\cpurst_b_gate) -> cpurst_b
+Presumably equivalent wires: cp0_yy_clk_en_gold (\cp0_yy_clk_en_gold), cp0_yy_clk_en_gate (\cp0_yy_clk_en_gate) -> cp0_yy_clk_en
+Presumably equivalent wires: cp0_rtu_icg_en_gold (\cp0_rtu_icg_en_gold), cp0_rtu_icg_en_gate (\cp0_rtu_icg_en_gate) -> cp0_rtu_icg_en
+Changing input D of cell $auto$ff.cc:337:slice$753_gate ($sdffe): \x_create_data_gate [8] -> \x_create_data [8]
+Changing input CLK of cell $auto$ff.cc:337:slice$753_gate ($sdffe): \create_clk_gate -> \create_clk
+Changing input D of cell $auto$ff.cc:337:slice$754_gate ($sdffe): \x_create_data_gate [12] -> \x_create_data [12]
+Changing input CLK of cell $auto$ff.cc:337:slice$754_gate ($sdffe): \create_clk_gate -> \create_clk
+Changing input CLK of cell $auto$ff.cc:337:slice$755_gate ($sdffe): \entry_clk_gate -> \entry_clk
+Changing input D of cell $auto$ff.cc:337:slice$758_gate ($sdffe): \x_create_data_gate [29] -> \x_create_data [29]
+Changing input CLK of cell $auto$ff.cc:337:slice$758_gate ($sdffe): \create_clk_gate -> \create_clk
+Changing input CLK of cell $auto$ff.cc:337:slice$759_gate ($sdffe): \lsu_cmplt_clk_gate -> \lsu_cmplt_clk
+Changing input D of cell $auto$ff.cc:337:slice$762_gate ($sdffe): \x_create_data_gate [20] -> \x_create_data [20]
+Changing input CLK of cell $auto$ff.cc:337:slice$762_gate ($sdffe): \create_clk_gate -> \create_clk
+Changing input CLK of cell $procdff$616_gate ($sdff): \entry_clk_gate -> \entry_clk
+Changing input D of cell $auto$ff.cc:337:slice$763_gate ($sdffe): \x_create_data_gate [39] -> \x_create_data [39]
+Changing input CLK of cell $auto$ff.cc:337:slice$763_gate ($sdffe): \create_clk_gate -> \create_clk
+Changing input CLK of cell $auto$ff.cc:337:slice$764_gate ($sdffe): \lsu_cmplt_clk_gate -> \lsu_cmplt_clk
+Changing input D of cell $auto$ff.cc:337:slice$767_gate ($sdffe): \x_create_data_gate [6:4] -> \x_create_data [6:4]
+Changing input CLK of cell $auto$ff.cc:337:slice$767_gate ($sdffe): \create_clk_gate -> \create_clk
+Changing input CLK of cell $auto$ff.cc:337:slice$768_gate ($sdffe): \entry_clk_gate -> \entry_clk
+Changing input D of cell $auto$ff.cc:337:slice$771_gate ($sdffe): \x_create_data_gate [30] -> \x_create_data [30]
+Changing input CLK of cell $auto$ff.cc:337:slice$771_gate ($sdffe): \create_clk_gate -> \create_clk
+Changing input D of cell $auto$ff.cc:337:slice$790_gate ($sdffe): \x_create_data_gate [18:17] -> \x_create_data [18:17]
+Changing input CLK of cell $auto$ff.cc:337:slice$790_gate ($sdffe): \create_clk_gate -> \create_clk
+Changing input CLK of cell $auto$ff.cc:337:slice$787_gate ($sdffe): \lsu_cmplt_clk_gate -> \lsu_cmplt_clk
+Changing input D of cell $auto$ff.cc:337:slice$786_gate ($sdffe): \x_create_data_gate [7] -> \x_create_data [7]
+Changing input CLK of cell $auto$ff.cc:337:slice$786_gate ($sdffe): \create_clk_gate -> \create_clk
+Changing input D of cell $auto$ff.cc:337:slice$785_gate ($sdffe): \x_create_data_gate [19] -> \x_create_data [19]
+Changing input CLK of cell $auto$ff.cc:337:slice$785_gate ($sdffe): \create_clk_gate -> \create_clk
+Changing input CLK of cell $auto$ff.cc:337:slice$782_gate ($sdffe): \lsu_cmplt_clk_gate -> \lsu_cmplt_clk
+Changing input D of cell $auto$ff.cc:337:slice$781_gate ($sdffe): \x_create_data_gate [38:31] -> \x_create_data [38:31]
+Changing input CLK of cell $auto$ff.cc:337:slice$781_gate ($sdffe): \create_clk_gate -> \create_clk
+Changing input D of cell $auto$ff.cc:337:slice$780_gate ($sdffe): \x_create_data_gate [16] -> \x_create_data [16]
+Changing input CLK of cell $auto$ff.cc:337:slice$780_gate ($sdffe): \create_clk_gate -> \create_clk
+Changing input D of cell $auto$ff.cc:337:slice$779_gate ($sdffe): \x_create_data_gate [11] -> \x_create_data [11]
+Changing input CLK of cell $auto$ff.cc:337:slice$779_gate ($sdffe): \create_clk_gate -> \create_clk
+Changing input CLK of cell $auto$ff.cc:337:slice$776_gate ($sdffe): \lsu_cmplt_clk_gate -> \lsu_cmplt_clk
+Changing input D of cell $auto$ff.cc:337:slice$775_gate ($sdffe): \x_create_data_gate [15] -> \x_create_data [15]
+Changing input CLK of cell $auto$ff.cc:337:slice$775_gate ($sdffe): \create_clk_gate -> \create_clk
+Changing input D of cell $auto$ff.cc:337:slice$774_gate ($sdffe): \x_create_data_gate [28:26] -> \x_create_data [28:26]
+Changing input CLK of cell $auto$ff.cc:337:slice$774_gate ($sdffe): \create_clk_gate -> \create_clk
+Changing input D of cell $auto$ff.cc:337:slice$773_gate ($sdffe): \x_create_data_gate [9] -> \x_create_data [9]
+Changing input CLK of cell $auto$ff.cc:337:slice$773_gate ($sdffe): \create_clk_gate -> \create_clk
+Changing input D of cell $auto$ff.cc:337:slice$772_gate ($sdffe): \x_create_data_gate [10] -> \x_create_data [10]
+Changing input CLK of cell $auto$ff.cc:337:slice$772_gate ($sdffe): \create_clk_gate -> \create_clk
+Changing input B of cell $procmux$370_gate ($mux): \x_create_data_gate [0] -> \x_create_data [0]
+Changing input B of cell $procmux$364_gate ($mux): \cmplt_cnt_cmplt_exist_gate -> \cmplt_cnt_cmplt_exist
+Changing input A of cell $procmux$364_gate ($mux): \cmplt_cnt_with_create_gate -> \cmplt_cnt_with_create
+Changing input B of cell $procmux$361_gate ($mux): \x_create_data_gate [3:2] -> \x_create_data [3:2]
+Changing input A of cell $procmux$361_gate ($mux): \cmplt_cnt_gate -> \x_read_data [3:2]
+Changing input B of cell $procmux$358_gate ($mux): \cmplt_updt_val_gate -> \cmplt_updt_val
+Changing input B of cell $procmux$355_gate ($mux): \x_create_data_gate [1] -> \x_create_data [1]
+Changing input B of cell $procmux$352_gate ($mux): \bkpta_data_updt_val_gate -> \bkpta_data_updt_val
+Changing input B of cell $procmux$349_gate ($mux): \x_create_data_gate [13] -> \x_create_data [13]
+Changing input B of cell $procmux$346_gate ($mux): \bkptb_data_updt_val_gate -> \bkptb_data_updt_val
+Changing input B of cell $procmux$343_gate ($mux): \x_create_data_gate [14] -> \x_create_data [14]
+Changing input B of cell $procmux$340_gate ($mux): \no_spec_hit_updt_val_gate -> \no_spec_hit_updt_val
+Changing input B of cell $procmux$337_gate ($mux): \x_create_data_gate [21] -> \x_create_data [21]
+Changing input B of cell $procmux$334_gate ($mux): \no_spec_miss_updt_val_gate -> \no_spec_miss_updt_val
+Changing input B of cell $procmux$331_gate ($mux): \x_create_data_gate [22] -> \x_create_data [22]
+Changing input B of cell $procmux$328_gate ($mux): \no_spec_mispred_updt_val_gate -> \no_spec_mispred_updt_val
+Changing input B of cell $procmux$325_gate ($mux): \x_create_data_gate [23] -> \x_create_data [23]
+Changing input B of cell $logic_or$ct_rtu_rob_entry_mutant.v:357$244_gate ($logic_or): \cmplt_3_fold_inst_gate -> \cmplt_3_fold_inst
+Changing input A of cell $logic_and$ct_rtu_rob_entry_mutant.v:359$242_gate ($logic_and): \cmplt_1_fold_inst_gate -> \cmplt_1_fold_inst
+Changing input A of cell $eq$ct_rtu_rob_entry_mutant.v:359$241_gate ($eq): \cmplt_cnt_with_create_gate -> \cmplt_cnt_with_create
+Changing input A of cell $logic_and$ct_rtu_rob_entry_mutant.v:357$240_gate ($logic_and): \cmplt_1_fold_inst_gate -> \cmplt_1_fold_inst
+Changing input A of cell $eq$ct_rtu_rob_entry_mutant.v:357$239_gate ($eq): \cmplt_cnt_with_create_gate -> \cmplt_cnt_with_create
+Changing input A of cell $and$ct_rtu_rob_entry_mutant.v:323$228_gate ($and): { \cmplt_1_fold_inst_gate \cmplt_1_fold_inst_gate } -> { \cmplt_1_fold_inst \cmplt_1_fold_inst }
+Changing input A of cell $sub$ct_rtu_rob_entry_mutant.v:323$227_gate ($sub): \cmplt_cnt_with_create_gate -> \cmplt_cnt_with_create
+Changing input A of cell $and$ct_rtu_rob_entry_mutant.v:321$225_gate ($and): { \cmplt_1_fold_inst_gate \cmplt_1_fold_inst_gate } -> { \cmplt_1_fold_inst \cmplt_1_fold_inst }
+Changing input A of cell $sub$ct_rtu_rob_entry_mutant.v:321$224_gate ($sub): \cmplt_cnt_with_create_gate -> \cmplt_cnt_with_create
+Changing input B of cell $and$ct_rtu_rob_entry_mutant.v:319$223_gate ($and): \cmplt_cnt_with_create_gate -> \cmplt_cnt_with_create
+Changing input local_en of cell x_lsu_cmplt_gated_clk_gate (gated_clk_cell): \lsu_cmplt_clk_en_gate -> \lsu_cmplt_clk_en
+Changing input local_en of cell x_entry_gated_clk_gate (gated_clk_cell): \entry_clk_en_gate -> \entry_clk_en
+Changing input D of cell $auto$ff.cc:337:slice$752_gate ($sdffe): \x_create_data_gate [25:24] -> \x_create_data [25:24]
+Changing input CLK of cell $auto$ff.cc:337:slice$752_gate ($sdffe): \create_clk_gate -> \create_clk
+Changing input D of cell $auto$ff.cc:337:slice$792_gold ($sdffe): \x_create_data_gold [10] -> \x_create_data [10]
+Changing input CLK of cell $auto$ff.cc:337:slice$792_gold ($sdffe): \create_clk_gold -> \create_clk
+Changing input D of cell $auto$ff.cc:337:slice$793_gold ($sdffe): \x_create_data_gold [9] -> \x_create_data [9]
+Changing input CLK of cell $auto$ff.cc:337:slice$793_gold ($sdffe): \create_clk_gold -> \create_clk
+Changing input D of cell $auto$ff.cc:337:slice$794_gold ($sdffe): \x_create_data_gold [28:26] -> \x_create_data [28:26]
+Changing input CLK of cell $auto$ff.cc:337:slice$794_gold ($sdffe): \create_clk_gold -> \create_clk
+Changing input D of cell $auto$ff.cc:337:slice$795_gold ($sdffe): \x_create_data_gold [15] -> \x_create_data [15]
+Changing input CLK of cell $auto$ff.cc:337:slice$795_gold ($sdffe): \create_clk_gold -> \create_clk
+Changing input CLK of cell $auto$ff.cc:337:slice$796_gold ($sdffe): \lsu_cmplt_clk_gold -> \lsu_cmplt_clk
+Changing input D of cell $auto$ff.cc:337:slice$799_gold ($sdffe): \x_create_data_gold [11] -> \x_create_data [11]
+Changing input CLK of cell $auto$ff.cc:337:slice$799_gold ($sdffe): \create_clk_gold -> \create_clk
+Changing input D of cell $auto$ff.cc:337:slice$800_gold ($sdffe): \x_create_data_gold [16] -> \x_create_data [16]
+Changing input CLK of cell $auto$ff.cc:337:slice$800_gold ($sdffe): \create_clk_gold -> \create_clk
+Changing input D of cell $auto$ff.cc:337:slice$801_gold ($sdffe): \x_create_data_gold [38:31] -> \x_create_data [38:31]
+Changing input CLK of cell $auto$ff.cc:337:slice$801_gold ($sdffe): \create_clk_gold -> \create_clk
+Changing input CLK of cell $auto$ff.cc:337:slice$802_gold ($sdffe): \lsu_cmplt_clk_gold -> \lsu_cmplt_clk
+Changing input D of cell $auto$ff.cc:337:slice$805_gold ($sdffe): \x_create_data_gold [19] -> \x_create_data [19]
+Changing input CLK of cell $auto$ff.cc:337:slice$805_gold ($sdffe): \create_clk_gold -> \create_clk
+Changing input D of cell $auto$ff.cc:337:slice$806_gold ($sdffe): \x_create_data_gold [7] -> \x_create_data [7]
+Changing input CLK of cell $auto$ff.cc:337:slice$806_gold ($sdffe): \create_clk_gold -> \create_clk
+Changing input CLK of cell $auto$ff.cc:337:slice$807_gold ($sdffe): \lsu_cmplt_clk_gold -> \lsu_cmplt_clk
+Changing input D of cell $auto$ff.cc:337:slice$810_gold ($sdffe): \x_create_data_gold [18:17] -> \x_create_data [18:17]
+Changing input CLK of cell $auto$ff.cc:337:slice$810_gold ($sdffe): \create_clk_gold -> \create_clk
+Changing input CLK of cell $procdff$746_gold ($sdff): \entry_clk_gold -> \entry_clk
+Changing input D of cell $auto$ff.cc:337:slice$811_gold ($sdffe): \x_create_data_gold [25:24] -> \x_create_data [25:24]
+Changing input CLK of cell $auto$ff.cc:337:slice$811_gold ($sdffe): \create_clk_gold -> \create_clk
+Changing input D of cell $auto$ff.cc:337:slice$812_gold ($sdffe): \x_create_data_gold [8] -> \x_create_data [8]
+Changing input CLK of cell $auto$ff.cc:337:slice$812_gold ($sdffe): \create_clk_gold -> \create_clk
+Changing input D of cell $auto$ff.cc:337:slice$813_gold ($sdffe): \x_create_data_gold [12] -> \x_create_data [12]
+Changing input CLK of cell $auto$ff.cc:337:slice$813_gold ($sdffe): \create_clk_gold -> \create_clk
+Changing input CLK of cell $auto$ff.cc:337:slice$814_gold ($sdffe): \entry_clk_gold -> \entry_clk
+Changing input D of cell $auto$ff.cc:337:slice$817_gold ($sdffe): \x_create_data_gold [29] -> \x_create_data [29]
+Changing input CLK of cell $auto$ff.cc:337:slice$817_gold ($sdffe): \create_clk_gold -> \create_clk
+Changing input CLK of cell $auto$ff.cc:337:slice$818_gold ($sdffe): \lsu_cmplt_clk_gold -> \lsu_cmplt_clk
+Changing input D of cell $auto$ff.cc:337:slice$821_gold ($sdffe): \x_create_data_gold [20] -> \x_create_data [20]
+Changing input CLK of cell $auto$ff.cc:337:slice$821_gold ($sdffe): \create_clk_gold -> \create_clk
+Changing input D of cell $auto$ff.cc:337:slice$822_gold ($sdffe): \x_create_data_gold [39] -> \x_create_data [39]
+Changing input CLK of cell $auto$ff.cc:337:slice$822_gold ($sdffe): \create_clk_gold -> \create_clk
+Changing input CLK of cell $auto$ff.cc:337:slice$823_gold ($sdffe): \lsu_cmplt_clk_gold -> \lsu_cmplt_clk
+Changing input D of cell $auto$ff.cc:337:slice$826_gold ($sdffe): \x_create_data_gold [6:4] -> \x_create_data [6:4]
+Changing input CLK of cell $auto$ff.cc:337:slice$826_gold ($sdffe): \create_clk_gold -> \create_clk
+Changing input CLK of cell $auto$ff.cc:337:slice$827_gold ($sdffe): \entry_clk_gold -> \entry_clk
+Changing input B of cell $logic_or$ct_rtu_rob_entry_gold.v:365$182_gold ($logic_or): \cmplt_3_fold_inst_gold -> \cmplt_3_fold_inst
+Changing input A of cell $logic_and$ct_rtu_rob_entry_gold.v:367$180_gold ($logic_and): \cmplt_2_fold_inst_gold -> \cmplt_2_fold_inst
+Changing input A of cell $eq$ct_rtu_rob_entry_gold.v:367$179_gold ($eq): \cmplt_cnt_with_create_gold -> \cmplt_cnt_with_create
+Changing input A of cell $logic_and$ct_rtu_rob_entry_gold.v:365$178_gold ($logic_and): \cmplt_1_fold_inst_gold -> \cmplt_1_fold_inst
+Changing input A of cell $eq$ct_rtu_rob_entry_gold.v:365$177_gold ($eq): \cmplt_cnt_with_create_gold -> \cmplt_cnt_with_create
+Changing input B of cell $ternary$ct_rtu_rob_entry_gold.v:340$173_gold ($mux): \x_create_data_gold [3:2] -> \x_create_data [3:2]
+Changing input A of cell $ternary$ct_rtu_rob_entry_gold.v:340$173_gold ($mux): \cmplt_cnt_gold -> \x_read_data [3:2]
+Changing input A of cell $and$ct_rtu_rob_entry_gold.v:331$166_gold ($and): { \cmplt_2_fold_inst_gold \cmplt_2_fold_inst_gold } -> { \cmplt_2_fold_inst \cmplt_2_fold_inst }
+Changing input A of cell $sub$ct_rtu_rob_entry_gold.v:331$165_gold ($sub): \cmplt_cnt_with_create_gold -> \cmplt_cnt_with_create
+Changing input A of cell $and$ct_rtu_rob_entry_gold.v:329$163_gold ($and): { \cmplt_1_fold_inst_gold \cmplt_1_fold_inst_gold } -> { \cmplt_1_fold_inst \cmplt_1_fold_inst }
+Changing input A of cell $sub$ct_rtu_rob_entry_gold.v:329$162_gold ($sub): \cmplt_cnt_with_create_gold -> \cmplt_cnt_with_create
+Changing input B of cell $and$ct_rtu_rob_entry_gold.v:327$161_gold ($and): \cmplt_cnt_with_create_gold -> \cmplt_cnt_with_create
+Changing input B of cell $procmux$445_gold ($mux): \no_spec_miss_updt_val_gold -> \no_spec_miss_updt_val
+Changing input B of cell $procmux$469_gold ($mux): \cmplt_updt_val_gold -> \cmplt_updt_val
+Changing input B of cell $procmux$466_gold ($mux): \x_create_data_gold [1] -> \x_create_data [1]
+Changing input B of cell $procmux$442_gold ($mux): \x_create_data_gold [22] -> \x_create_data [22]
+Changing input B of cell $procmux$463_gold ($mux): \bkpta_data_updt_val_gold -> \bkpta_data_updt_val
+Changing input B of cell $procmux$460_gold ($mux): \x_create_data_gold [13] -> \x_create_data [13]
+Changing input B of cell $procmux$457_gold ($mux): \bkptb_data_updt_val_gold -> \bkptb_data_updt_val
+Changing input B of cell $procmux$439_gold ($mux): \no_spec_mispred_updt_val_gold -> \no_spec_mispred_updt_val
+Changing input B of cell $procmux$454_gold ($mux): \x_create_data_gold [14] -> \x_create_data [14]
+Changing input B of cell $procmux$436_gold ($mux): \x_create_data_gold [23] -> \x_create_data [23]
+Changing input B of cell $procmux$451_gold ($mux): \no_spec_hit_updt_val_gold -> \no_spec_hit_updt_val
+Changing input B of cell $procmux$481_gold ($mux): \x_create_data_gold [0] -> \x_create_data [0]
+Changing input B of cell $procmux$448_gold ($mux): \x_create_data_gold [21] -> \x_create_data [21]
+Changing input B of cell $procmux$475_gold ($mux): \cmplt_cnt_cmplt_exist_gold -> \cmplt_cnt_cmplt_exist
+Changing input A of cell $procmux$475_gold ($mux): \cmplt_cnt_with_create_gold -> \cmplt_cnt_with_create
+Changing input local_en of cell x_lsu_cmplt_gated_clk_gold (gated_clk_cell): \lsu_cmplt_clk_en_gold -> \lsu_cmplt_clk_en
+Changing input local_en of cell x_entry_gated_clk_gold (gated_clk_cell): \entry_clk_en_gold -> \entry_clk_en
+Changing input D of cell $auto$ff.cc:337:slice$791_gold ($sdffe): \x_create_data_gold [30] -> \x_create_data [30]
+Changing input CLK of cell $auto$ff.cc:337:slice$791_gold ($sdffe): \create_clk_gold -> \create_clk
+Presumably equivalent cells: x_lsu_cmplt_gated_clk_gold x_lsu_cmplt_gated_clk_gate (gated_clk_cell) -> x_lsu_cmplt_gated_clk
+Presumably equivalent cells: x_create_data_gated_clk_gold x_create_data_gated_clk_gate (gated_clk_cell) -> x_create_data_gated_clk
+Presumably equivalent cells: x_entry_gated_clk_gold x_entry_gated_clk_gate (gated_clk_cell) -> x_entry_gated_clk
+
+11. Executing HIERARCHY pass (managing design hierarchy).
+
+11.1. Analyzing design hierarchy..
+Top module:  \equiv
+Used module:     \gated_clk_cell
+
+11.2. Analyzing design hierarchy..
+Top module:  \equiv
+Used module:     \gated_clk_cell
+Removing unused module `\gate'.
+Removing unused module `\gold'.
+Removing unused module `\ct_rtu_compare_iid'.
+Removed 3 unused modules.
+
+12. Executing FLATTEN pass (flatten design).
+Deleting now unused module gated_clk_cell.
+<suppressed ~3 debug messages>
+Removed 51 unused cells and 39 unused wires.
+
+13. Executing OPT pass (performing simple optimizations).
+
+13.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module equiv.
+
+13.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\equiv'.
+Computing hashes of 365 cells of `\equiv'.
+Finding duplicate cells in `\equiv'.
+Computing hashes of 323 cells of `\equiv'.
+Finding duplicate cells in `\equiv'.
+Computing hashes of 313 cells of `\equiv'.
+Finding duplicate cells in `\equiv'.
+Computing hashes of 312 cells of `\equiv'.
+Finding duplicate cells in `\equiv'.
+Computing hashes of 311 cells of `\equiv'.
+Finding duplicate cells in `\equiv'.
+<suppressed ~162 debug messages>
+Removed a total of 54 cells.
+
+13.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \equiv..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~160 debug messages>
+
+13.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \equiv.
+Performed a total of 0 changes.
+
+13.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\equiv'.
+Computing hashes of 311 cells of `\equiv'.
+Finding duplicate cells in `\equiv'.
+Computing hashes of 283 cells of `\equiv'.
+Finding duplicate cells in `\equiv'.
+Computing hashes of 275 cells of `\equiv'.
+Finding duplicate cells in `\equiv'.
+Computing hashes of 267 cells of `\equiv'.
+Finding duplicate cells in `\equiv'.
+Computing hashes of 260 cells of `\equiv'.
+Finding duplicate cells in `\equiv'.
+Computing hashes of 259 cells of `\equiv'.
+Finding duplicate cells in `\equiv'.
+<suppressed ~156 debug messages>
+Removed a total of 52 cells.
+
+13.6. Executing OPT_DFF pass (perform DFF optimizations).
+
+13.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \equiv..
+Removed 0 unused cells and 71 unused wires.
+<suppressed ~1 debug messages>
+
+13.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module equiv.
+
+13.9. Rerunning OPT passes. (Maybe there is more to do..)
+
+13.10. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \equiv..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~80 debug messages>
+
+13.11. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \equiv.
+Performed a total of 0 changes.
+
+13.12. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\equiv'.
+Computing hashes of 259 cells of `\equiv'.
+Finding duplicate cells in `\equiv'.
+Removed a total of 0 cells.
+
+13.13. Executing OPT_DFF pass (perform DFF optimizations).
+
+13.14. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \equiv..
+
+13.15. Executing OPT_EXPR pass (perform const folding).
+Optimizing module equiv.
+
+13.16. Finished fast OPT passes. (There is nothing left to do.)
+
+14. Executing EQUIV_SIMPLE pass.
+Found 6 unproven $equiv cells (5 groups) in equiv:
+  Trying to prove $equiv for \cmplt_1_fold_inst:ezsat
+ success!
+  Trying to prove $equiv for \cmplt_2_fold_inst:ezsat
+ failed.
+  Trying to prove $equiv for \cmplt_3_fold_inst:ezsat
+ success!
+ Grouping SAT models for \cmplt_cnt_cmplt_exist:
+  Trying to prove $equiv for \cmplt_cnt_cmplt_exist [0]:ezsat
+ezsat
+ failed.
+  Trying to prove $equiv for \cmplt_cnt_cmplt_exist [1]:ezsat
+ezsat
+ failed.
+  Trying to prove $equiv for \cmplt_updt_val:ezsat
+ezsat
+ failed.
+Proved 2 previously unproven $equiv cells.
+
+15. Executing EQUIV_INDUCT pass.
+Found 4 unproven $equiv cells in module equiv:
+  Proving existence of base case for step 1. (5279 clauses over 2181 variables)
+  Proving induction step 1. (11539 clauses over 4675 variables)
+  Proof for induction step failed. Extending to next time step.
+  Proving existence of base case for step 2. (11540 clauses over 4675 variables)
+  Proving induction step 2. (17800 clauses over 7169 variables)
+  Proof for induction step failed. Extending to next time step.
+  Proving existence of base case for step 3. (17801 clauses over 7169 variables)
+  Proving induction step 3. (24061 clauses over 9663 variables)
+  Proof for induction step failed. Extending to next time step.
+  Proving existence of base case for step 4. (24062 clauses over 9663 variables)
+  Proving induction step 4. (30322 clauses over 12157 variables)
+  Proof for induction step failed. Extending to next time step.
+  Proving existence of base case for step 5. (30323 clauses over 12157 variables)
+  Proving induction step 5. (36583 clauses over 14651 variables)
+  Proof for induction step failed. Extending to next time step.
+  Proving existence of base case for step 6. (36584 clauses over 14651 variables)
+  Proving induction step 6. (42844 clauses over 17145 variables)
+  Proof for induction step failed. Extending to next time step.
+  Proving existence of base case for step 7. (42845 clauses over 17145 variables)
+  Proving induction step 7. (49105 clauses over 19639 variables)
+  Proof for induction step failed. Extending to next time step.
+  Proving existence of base case for step 8. (49106 clauses over 19639 variables)
+  Proving induction step 8. (55366 clauses over 22133 variables)
+  Proof for induction step failed. Trying to prove individual $equiv from workset.
+  Trying to prove $equiv for \cmplt_cnt_cmplt_exist [1]: failed.
+  Trying to prove $equiv for \cmplt_cnt_cmplt_exist [0]: failed.
+  Trying to prove $equiv for \cmplt_updt_val: failed.
+  Trying to prove $equiv for \cmplt_2_fold_inst: failed.
+Proved 0 previously unproven $equiv cells.
+
+16. Executing EQUIV_STATUS pass.
+Found 94 $equiv cells in equiv:
+  Of those cells 90 are proven and 4 are unproven.
+  Unproven $equiv $auto$equiv_make.cc:295:find_same_wires$949: \cmplt_2_fold_inst_gold \cmplt_1_fold_inst_gate
+  Unproven $equiv $auto$equiv_make.cc:295:find_same_wires$947: \cmplt_cnt_cmplt_exist_gold [1] \cmplt_cnt_cmplt_exist_gate [1]
+  Unproven $equiv $auto$equiv_make.cc:295:find_same_wires$946: \cmplt_cnt_cmplt_exist_gold [0] \cmplt_cnt_cmplt_exist_gate [0]
+  Unproven $equiv $auto$equiv_make.cc:295:find_same_wires$943: \cmplt_updt_val_gold \cmplt_updt_val_gate
+Found a total of 4 unproven $equiv cells.
+ERROR: Found 4 unproven $equiv cells in 'equiv_status -assert'.

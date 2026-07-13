@@ -1,0 +1,112 @@
+{
+  "artifact": "ath2950_c910_ct_fifo_candidate1",
+  "status": "module_local_visible_output_equivalence_packet",
+  "customer_ready": true,
+  "customer_ready_scope": "module-local visible-output equivalence for C910 ct_fifo only; all known_boundaries travel with the packet",
+  "repo": "pulp-platform/pulp-c910",
+  "upstream_reference": {
+    "module": "ct_fifo",
+    "source_path": "vendor/thead_openc910/C910_RTL_FACTORY/gen_rtl/ciu/rtl/ct_fifo.v",
+    "baseline_sha256": "59f387c64e92b25fa90abd549d7cae7fa1440d4927be080ea698e5e9aece3301",
+    "dependency": "gated_clk_cell.v",
+    "dependency_sha256": "6cfad397c18daabdff77e3a520ccbf964e4178197cc9a0f8dd825bbf928a91c8"
+  },
+  "candidate": {
+    "id": "ct_fifo_candidate1_one_bit_pointer_specialization",
+    "summary": "Specializes the default DEPTH=2 create/pop pointer representation from one-hot and two-bit pointer state to one-bit indices while preserving visible FIFO outputs.",
+    "candidate_sha256": "4529573b40c666018ed97df1280dee82df2b3aea7fb327963ed492ba5d844006",
+    "mutant_sha256": "5c2963165b4f674f51c5139cd69be19ad01470d01309bfead9f239044d7e698d",
+    "debug_relation_mutant_sha256": "a84a92966618f088b1c631b3e81bbff66abccb64d025a8a8c3970625d423e58b"
+  },
+  "toolchain": {
+    "yosys": "/workdir/_tools/oss-cad-suite-20260630/bin/yosys",
+    "yosys_version": "0.66+181",
+    "liberty": "sky130_fd_sc_hd__tt_025C_1v80.lib"
+  },
+  "area_receipts": {
+    "gold_sky130_area": "711.932800",
+    "gate_sky130_area": "678.150400",
+    "gold_log_sha256": "c99c40a9d6d10ad8907dc590c54c8ed16a5ecb68dee8d00b7cede60b6979d478",
+    "gate_log_sha256": "c9e10c4b83680b711ac4740ea8ada66bd9752f0fe5c1b1c0b216485a7891a8f9"
+  },
+  "proof_receipts": {
+    "exact_output_bmc_seq6": {
+      "status": "proved_bounded",
+      "outputs": [
+        "fifo_pop_data[5:0]",
+        "fifo_pop_data_vld",
+        "fifo_full",
+        "fifo_empty"
+      ],
+      "reset_contract": "rst_b=0 at step 1, rst_b=1 at step 2",
+      "log_sha256": "6351a9b570c9b76eabab2b8b03952b3c68cc9c0d821a71024b3c387f0fa9636d"
+    },
+    "exact_output_bmc_seq12": {
+      "status": "proved_bounded",
+      "outputs": [
+        "fifo_pop_data[5:0]",
+        "fifo_pop_data_vld",
+        "fifo_full",
+        "fifo_empty"
+      ],
+      "reset_contract": "rst_b=0 at step 1, rst_b=1 at step 2",
+      "log_sha256": "86cd0c716ea9e18f6ee6df6546e3d24c914eab51cef5707f4298442dc1a064e0"
+    },
+    "mutant_negative_bmc_seq6": {
+      "status": "expected_failure",
+      "mutant": "fifo_full inverted in the gate candidate",
+      "log_sha256": "9e22fe11c517d23ebf8903191f1b50e7a9cbf2d49354a428199855db600d931a"
+    },
+    "raw_exact_output_tempinduct_seq8": {
+      "status": "not_closed_timeout",
+      "interpretation": "The raw exact-output miter proves bounded base cases through induction length 104, but the induction step keeps failing and was stopped. Do not use this log as unbounded output-equivalence authority.",
+      "log_sha256": "ced18c98c69911b5d5918bd36eca7e85474291675a023d73e12c8c8c742803e2"
+    },
+    "state_exposed_relation_tempinduct_seq8": {
+      "status": "proved",
+      "interpretation": "Temporal induction closes at length 1 over state-exposed copies that assert visible outputs plus the create pointer, pop pointer, valid vector, and stored data relation.",
+      "log_sha256": "8b4924f05e90f4224e0622256674e73119defc2a5d5497d00d6f0228e7ed36ef"
+    },
+    "state_exposed_relation_mutant_negative": {
+      "status": "expected_failure",
+      "mutant": "fifo_full inverted in the state-exposed gate debug wrapper",
+      "interpretation": "The stronger relation miter rejects the broken candidate, so the relation proof shape is non-vacuous.",
+      "log_sha256": "173f19c7c8832bfb424c672e23a59ffe98d02aeef6df403f9a0f108a34aa649d"
+    },
+    "debug_wrapper_passivity": {
+      "status": "proved_by_script",
+      "interpretation": "bridge_passivity_check.py normalizes debug wrappers back to exact RTL by stripping only debug ports, declarations, and assignments. Its selftest rejects a non-passive logic edit.",
+      "script_sha256": "7aa29f7c6f380dadb75fa451857a9b49ae85ec882850b9c3f63c779e59806c4f",
+      "log_sha256": "2078da2a380af8b4af5f6518d05a8f4a2d9097059c5a6a07b3346705bcdbdf76"
+    },
+    "debug_bridge_tempinduct_seq8": {
+      "status": "not_closed_interrupted",
+      "interpretation": "A broad bridge miter between exact modules and state-exposed copies chased induction and was interrupted. The candidate should be independently replayed before promotion to a customer-facing packet.",
+      "log_sha256": "e90cea992ae83448cd4d9fbef302c784f076fc686dfdc967cea91c7f1e742dc4"
+    },
+    "debug_equiv_make_attempts": {
+      "status": "not_applicable",
+      "interpretation": "Yosys equiv_make rejects the debug-only ports, so these attempts are recorded as tool-shape diagnostics rather than proof evidence.",
+      "gold_log_sha256": "7e5b09125a3402cd699dbb24af5f62aa48b013d8a05f035dd9e03094e31af410",
+      "gate_log_sha256": "c1cc554e3a56f29649dd59b1e9862b7aa3ed5e8890af19527b845b8205e59d3e"
+    }
+  },
+  "artifact_hashes": {
+    "ct_fifo_output_miter.sv": "7a83b9186bae1deabfcb62513947f9cf26cee3c7766cb3d21ff5b7ec083d375b",
+    "ct_fifo_gold_dbg.v": "f8c63568a43d3e329704964ea4ec9850daa169f4f52f6936275e1e5c769ab369",
+    "ct_fifo_gate_dbg.v": "6727ecd2b968e4e7bd0915eb4daf86502ce839d392cd56c3f5c9c2dd5fe292e0",
+    "ct_fifo_gate_dbg_mutant.v": "a84a92966618f088b1c631b3e81bbff66abccb64d025a8a8c3970625d423e58b",
+    "ct_fifo_relation_miter.sv": "dd246428484532762bef09d5290afc26a5caa9418e81e67654788bfaaec1325b",
+    "ct_fifo_debug_bridge_miter.sv": "f42c87522a45a7af7ef1e098549831e000355864d0d4b8c28aa59a8a207438b1",
+    "bridge_passivity_check.py": "7aa29f7c6f380dadb75fa451857a9b49ae85ec882850b9c3f63c779e59806c4f"
+  },
+  "known_boundaries": [
+    "Exact gold/gate visible-output proof is bounded to seq12 in the exact miter.",
+    "The closed unbounded proof is over state-exposed copies; the exact-to-debug bridge is mechanical and biting, not a second formal miter proof.",
+    "The raw exact-output temporal-induction log remains a non-closure boundary, not the positive authority path.",
+    "No FIFO semantic correctness property is claimed.",
+    "No traffic assumptions beyond reset-first are used for the output checks.",
+    "No whole C910, BOOM, ISA, memory-consistency, speculation, or whole-chip authority is claimed."
+  ],
+  "review_ruling": "Ronald accepted the bridge-plus-relation proof shape for module-local visible-output equivalence wording on 2026-07-13. The supported wording is limited to the visible outputs under the reset-first contract and the non-claims above."
+}

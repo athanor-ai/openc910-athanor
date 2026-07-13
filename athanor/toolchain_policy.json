@@ -1,0 +1,20 @@
+{
+  "schema": "athanor.toolchain_policy.v1",
+  "scope": "OpenC910 Athanor public receipt replay",
+  "selected_tools": {
+    "yosys": {
+      "version": "Yosys 0.66+181",
+      "source": "oss-cad-suite-20260630",
+      "default_path": "/workdir/_tools/oss-cad-suite-20260630/bin/yosys"
+    },
+    "liberty": {
+      "name": "sky130_fd_sc_hd__tt_025C_1v80.lib",
+      "default_path": "/workdir/athanor-kairos-runall/src/kairos/data/liberty/sky130_fd_sc_hd__tt_025C_1v80.lib"
+    }
+  },
+  "policy": [
+    "Receipt logs must state the exact selected tool output used for claims.",
+    "Replay scripts may allow YOSYS_BIN and LIBERTY overrides, but packet receipts must name the selected toolchain.",
+    "Ambient-tool scout runs are not customer-facing proof or PPA authority."
+  ]
+}
