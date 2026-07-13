@@ -1,0 +1,117 @@
+{
+  "artifact": "ath2950_c910_rtu_pst_preg_entry_candidate1",
+  "status": "module_local_visible_output_relation_packet_pending_independent_replay",
+  "customer_ready": false,
+  "customer_ready_scope": "pending independent non-author replay; module-local visible-output equivalence for C910 ct_rtu_pst_preg_entry only if accepted",
+  "repo": "athanor-ai/openc910-athanor",
+  "upstream_reference": {
+    "module": "ct_rtu_pst_preg_entry",
+    "source_path": "C910_RTL_FACTORY/gen_rtl/rtu/rtl/ct_rtu_pst_preg_entry.v",
+    "baseline_sha256": "72cab4cbc55d44e5802b6abe5ec479fb9b0e4912c3f7356da741c90e58dff624",
+    "dependencies": {
+      "gated_clk_cell.v": "6cfad397c18daabdff77e3a520ccbf964e4178197cc9a0f8dd825bbf928a91c8",
+      "ct_rtu_expand_32.v": "4467b90f7b447790649fa18b44b6f9425a0f6eca990e2220e2482a7dd636c27e",
+      "ct_rtu_expand_96.v": "04bf6a1cf653991ca05a82732fed2a4a2e9bc160121b807792ecbbfa8ec104ec"
+    }
+  },
+  "candidate": {
+    "id": "ct_rtu_pst_preg_entry_lifecycle_onehot0_candidate1",
+    "summary": "Recode the lifecycle FSM from 5-bit one-hot to 4-bit onehot0 with WF_ALLOC represented as zero, preserving visible RTU PST entry outputs under the lifecycle encoding relation.",
+    "candidate_sha256": "e6cbb7c5e95ed80fc01516f642b49091fdf6024966c7b71d1fce4834d99fc81d",
+    "debug_gold_sha256": "2d592ee182e1f75f9096d6e039225ebf61d6a4aee727cb85d1a18bb67bbea0bb",
+    "debug_gate_sha256": "dd294eb6a7f44afc194f72334d23e36fe84d43612bbd00735af4530fe72ecad7",
+    "debug_relation_mutant_sha256": "f48173363111ee4bfaeaecca491040af32836da506b39fe6f8f4c3360961d539",
+    "state_change": "lifecycle FSM state re-encoded; same-state bit equivalence is intentionally not claimed"
+  },
+  "toolchain": {
+    "yosys": "YOSYS_BIN (caller-provided executable for oss-cad-suite-20260630 Yosys)",
+    "yosys_version": "0.66+181",
+    "liberty": "LIBERTY (caller-provided sky130_fd_sc_hd__tt_025C_1v80.lib)"
+  },
+  "area_receipts": {
+    "generic_cells": {
+      "gold_local_cells": 101,
+      "gate_local_cells": 101,
+      "gold_total_cells_with_deps": 229,
+      "gate_total_cells_with_deps": 229,
+      "gold_log_sha256": "9c287ae421c6782e29dd5f73d8f332b091b64f893b570e3ed34e611e559ec7c7",
+      "gate_log_sha256": "88cf42563da8d46651e0adfa614a2ed752a3651a56952030a7802e2983b68c42"
+    },
+    "selected_sky130_area": {
+      "gold_local_area": "2677.568000",
+      "gate_local_area": "2648.790400",
+      "gold_top_with_deps_area": "3510.867200",
+      "gate_top_with_deps_area": "3482.089600",
+      "gold_log_sha256": "7455a73bc2a3ba0c41b8a9f97ef605c751fa94bc15e380944b403728402d0eba",
+      "gate_log_sha256": "e007adc0d8e6309fd5178d2afe41184a0059f320eb92da41f94ff6ce1b000de2"
+    }
+  },
+  "proof_receipts": {
+    "exact_output_bmc_seq12": {
+      "status": "proved_bounded",
+      "outputs": [
+        "x_cur_state_dealloc",
+        "x_dreg[31:0]",
+        "x_rel_preg_expand[95:0]",
+        "x_retired_released_wb"
+      ],
+      "reset_contract": "cpurst_b=0 at step 1, cpurst_b=1 at step 2; clocks/enables held active, scan held low",
+      "log_sha256": "d44fa733370eb23f28cd56f6232483db0812672fed3bce6c6106e769c4735309"
+    },
+    "no_reset_boundary_bmc_seq6": {
+      "status": "expected_failure",
+      "interpretation": "Dropping the reset-first contract makes the exact-output miter fail, so the reset boundary is material.",
+      "log_sha256": "aea30ede380fcbbfd4abe060f4c092dcc2be39b7ba275942b929bfc8be847b0a"
+    },
+    "raw_exact_output_tempinduct_seq8": {
+      "status": "not_closed_interrupted",
+      "interpretation": "Raw exact-output induction proves bounded base cases deeply but does not close the induction step. Do not use this log as unbounded authority.",
+      "log_sha256": "bb662059682ad329621500f49fa2daa6a4896453e908392a3d3d4860969fc39c"
+    },
+    "same_state_equivalence_boundary": {
+      "status": "not_claimed_unproven",
+      "interpretation": "Same-state bit equivalence leaves lifecycle/retire-derived cells unproven because the candidate intentionally changes the lifecycle state encoding.",
+      "proven_equiv_cells": 304,
+      "unproven_equiv_cells": 6,
+      "log_sha256": "f1495d7037d0312bec373f0968e9765ec3f5a416ee9abbdbf3d6ca27e6d87173"
+    },
+    "lifecycle_encoding_relation_tempinduct_seq8": {
+      "status": "proved",
+      "interpretation": "Temporal induction closes over passive debug copies asserting lifecycle encoding relation, storage/retire state relation, and visible-output equality.",
+      "induction_depth": 1,
+      "log_sha256": "13f1c771884496ef6a00db487d6a60b0fd5c24a7f4a3207c9d307a70f76b9bfe"
+    },
+    "relation_mutant_negative": {
+      "status": "expected_failure",
+      "mutant": "gate debug copy inverts x_cur_state_dealloc",
+      "interpretation": "The relation miter rejects a broken visible-output candidate, so the relation proof shape is discriminating.",
+      "log_sha256": "668f0056f7f21de7277d3e93bf4f56e3bf823eb6356e1ae3a14b09d608e97aeb"
+    },
+    "debug_wrapper_passivity": {
+      "status": "proved_by_script",
+      "interpretation": "bridge_passivity_check.py normalizes debug wrappers back to exact RTL by stripping only dbg_* ports, declarations, and assignments. Its selftest rejects a non-passive logic edit.",
+      "script_sha256": "18d86aafb51eb7706e0abf4dba5fbb47fe2a54a0a32668ae98d6ef2e4f4d7af5",
+      "log_sha256": "1ba4463bb0cd00db354ee38b0638bd036720931a5f08923dae4c5696afa649df"
+    }
+  },
+  "artifact_hashes": {
+    "ct_rtu_pst_preg_entry_output_miter.sv": "78521788fa6392586cd2b2fb8540e498d6e7edbf13ebe6060ac2c342fcdee6a2",
+    "ct_rtu_pst_preg_entry_relation_miter.sv": "d44789b9393aa9dc8973cec54a818ed7ea51a50be688172dec07d1c58e29125f",
+    "ct_rtu_pst_preg_entry_gold_dbg.v": "2d592ee182e1f75f9096d6e039225ebf61d6a4aee727cb85d1a18bb67bbea0bb",
+    "ct_rtu_pst_preg_entry_gate_dbg.v": "dd294eb6a7f44afc194f72334d23e36fe84d43612bbd00735af4530fe72ecad7",
+    "ct_rtu_pst_preg_entry_gate_dbg_mutant.v": "f48173363111ee4bfaeaecca491040af32836da506b39fe6f8f4c3360961d539",
+    "bridge_passivity_check.py": "18d86aafb51eb7706e0abf4dba5fbb47fe2a54a0a32668ae98d6ef2e4f4d7af5"
+  },
+  "known_boundaries": [
+    "Pending independent non-author replay before customer-ready status.",
+    "The exact output miter is bounded to seq12; the unbounded positive path is the passive-debug lifecycle relation proof.",
+    "Same-state bit equivalence is explicitly not claimed because lifecycle state encoding changes.",
+    "Raw exact-output temporal induction non-closure remains a boundary artifact, not the positive authority path.",
+    "No whole RTU, whole C910, BOOM, ISA, memory-consistency, speculation, or whole-chip authority is claimed."
+  ],
+  "review_ruling": "Ronald accepted the passive-debug bridge plus lifecycle-encoding relation proof shape as promotable if packaged with exact artifacts, boundary logs, and independent replay.",
+  "next_independent_check": {
+    "assignee": "quan",
+    "ask": "Reproduce area, output BMC, reset-boundary failure, passive bridge selftest, relation induction, and relation-mutant failure on the exact package bytes. Add an independent second mutant if possible before customer-ready promotion."
+  }
+}
