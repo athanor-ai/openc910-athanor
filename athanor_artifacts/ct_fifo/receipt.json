@@ -26,8 +26,8 @@
   "area_receipts": {
     "gold_sky130_area": "711.932800",
     "gate_sky130_area": "678.150400",
-    "gold_log_sha256": "d7e71eba4591a84fbe9a058b3cdbad829d4959757a94b0eac523b90a50abcc9f",
-    "gate_log_sha256": "ffde5cdff02a1d4362774eede0d4d105e2304d3a0bbd723c493a870568498397"
+    "gold_log_sha256": "5a4f8fb6431948ec8bafb5c16202e72fa44731f25bf21d8e6215290bdf480a08",
+    "gate_log_sha256": "80073faccbdde7e96f9ccc6f16936a6b6cb24171083f0fee409c7db3fafa818f"
   },
   "proof_receipts": {
     "exact_output_bmc_seq6": {

@@ -42,8 +42,8 @@
       "gate_local_area": "2648.790400",
       "gold_top_with_deps_area": "3510.867200",
       "gate_top_with_deps_area": "3482.089600",
-      "gold_log_sha256": "7455a73bc2a3ba0c41b8a9f97ef605c751fa94bc15e380944b403728402d0eba",
-      "gate_log_sha256": "e007adc0d8e6309fd5178d2afe41184a0059f320eb92da41f94ff6ce1b000de2"
+      "gold_log_sha256": "c665910c91e8b011b117524e1db381a0586fae8cec9a895e169d2c0853edb507",
+      "gate_log_sha256": "e7b5c72cb53a8bf81d387b7ecdc4d2156264796f9d291a471b178cd61653cdf1"
     }
   },
   "proof_receipts": {

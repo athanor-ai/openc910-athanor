@@ -36,7 +36,7 @@
     "pinned_yosys": "YOSYS_BIN (caller-provided executable for oss-cad-suite-20260630 Yosys)",
     "pinned_yosys_version": "Yosys 0.66+181 (git sha1 afe6b18f2, Release, Clang /usr/bin/clang++ 18.1.8)",
     "liberty": "LIBERTY (caller-provided sky130_fd_sc_hd__tt_025C_1v80.lib)",
-    "cache_note": "A stale /tmp/yosys-liberty-scl-cache from another ABC build caused the first pinned area replay to fail; after clearing that derived cache, pinned gold and gate area replays completed."
+    "cache_note": "A stale local Yosys liberty SCL cache from another ABC build caused the first pinned area replay to fail; after clearing that derived cache, pinned gold and gate area replays completed."
   },
   "ppa_receipts": {
     "kairos_selected_generic_cells": {

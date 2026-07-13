@@ -59,9 +59,9 @@
       "gold_area": 2287.1936,
       "gate_area": 2265.9232,
       "gold_log": "gold_sky130.pinned.log",
-      "gold_log_sha256": "11b572b00cfb65aa2632f0ef1a7a1710534c40b9146e4a50a1a3db25955d2503",
+      "gold_log_sha256": "b0252c7e17b7a7268df97c58ef3a047304919b40a2d5c569a5e8935258edb01a",
       "gate_log": "gate_sky130.pinned.log",
-      "gate_log_sha256": "077fc57bbd48a81a269cdd66d9bf7e607906e335e9b0edb723a3295563ac3944"
+      "gate_log_sha256": "c2c1c7eecb5a99aad2f7f9b6c335da9a3d7151dff151a938e23b62fe1fbfd17a"
     }
   },
   "proof_receipts": {
