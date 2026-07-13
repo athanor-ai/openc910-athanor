@@ -2,7 +2,7 @@
   "artifact": "ath2950_c910_rtu_pst_preg_entry_candidate1",
   "status": "accepted_module_local_visible_output_relation_packet",
   "customer_ready": true,
-  "customer_ready_scope": "module-local visible-output equivalence for C910 ct_rtu_pst_preg_entry under reset-first via passive debug bridge plus closed lifecycle-encoding relation induction; area-only, timing not claimed",
+  "customer_ready_scope": "module-local visible-output equivalence for C910 ct_rtu_pst_preg_entry under reset-first via passive debug bridge plus closed lifecycle-encoding relation induction; area-only, timing/power not claimed",
   "repo": "athanor-ai/openc910-athanor",
   "upstream_reference": {
     "module": "ct_rtu_pst_preg_entry",
