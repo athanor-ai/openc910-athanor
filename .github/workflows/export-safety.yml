@@ -1,0 +1,30 @@
+name: export-safety
+
+# ATH-2960: fail-closed export-safety gate for this PUBLIC fork.
+# Runs the committed-tree leak scan + receipt verifier on every PR and every
+# push to main. Intended to be a REQUIRED status check (branch protection).
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  export-safety:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout (full history for committed-tree scan)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Export-safety gate (committed-tree leak scan + receipt verifier)
+        run: python3 athanor/export_safety_gate.py --ref HEAD

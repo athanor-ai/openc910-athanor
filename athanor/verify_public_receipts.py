@@ -18,9 +18,15 @@ from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 ARTIFACT_ROOT = REPO_ROOT / "athanor_artifacts"
+# Split literals so this verifier's own source never contains the forbidden
+# strings it scans for. This is a manifest-bound structural backstop; the
+# comprehensive committed-tree leak authority is ``export_safety_gate.py``
+# (ATH-2960).
 FORBIDDEN_EXPORT_STRINGS = (
     "/" + "workdir",
     "athanor-" + "kairos-runall",
+    "/" + "home/",
+    "azure" + "user",
 )
 
 
@@ -69,9 +75,32 @@ def _verify_receipt_json(package: Path) -> list[str]:
     return []
 
 
+def _manifest_bound_files(package: Path) -> list[Path]:
+    """Files the package actually SHIPS: everything in SHA256SUMS, plus the
+    manifest and receipt themselves. This deliberately EXCLUDES generated
+    working-tree artifacts (e.g. ``*.replay.log``, which embed the caller's
+    pinned tool paths) so a verifier run after ``replay.sh`` does not self-trip
+    on its own logs, while still fail-closed on every shipped artifact."""
+    files: list[Path] = []
+    sums_path = package / "SHA256SUMS"
+    if sums_path.is_file():
+        for raw in sums_path.read_text(encoding="utf-8").splitlines():
+            if not raw.strip():
+                continue
+            parts = raw.split(maxsplit=1)
+            if len(parts) == 2:
+                files.append(package / parts[1].removeprefix("./"))
+    for extra in (sums_path, package / "receipt.json", package / "README.md"):
+        if extra not in files:
+            files.append(extra)
+    return files
+
+
 def _verify_public_export_clean(package: Path) -> list[str]:
     problems: list[str] = []
-    for path in sorted(p for p in package.rglob("*") if p.is_file()):
+    for path in sorted(set(_manifest_bound_files(package))):
+        if not path.is_file():
+            continue
         try:
             data = path.read_text(encoding="utf-8")
         except UnicodeDecodeError:

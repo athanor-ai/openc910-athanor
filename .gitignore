@@ -1,0 +1,6 @@
+# ATH-2960 replay-log hygiene: replay.sh writes *.replay.log files that embed
+# the caller's pinned Yosys/Liberty tool paths. Those are a LOCAL leak surface
+# and must never be committed to this PUBLIC fork. Keep them ignored at source;
+# the export-safety gate is the committed-tree backstop.
+*.replay.log
+replay_out/
