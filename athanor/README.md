@@ -1,15 +1,17 @@
 # Athanor evidence layout (openc910-athanor)
 
-This directory and `athanor_artifacts/` hold the receipts behind every row in the
-top-level [`README.md`](../README.md). The rule is simple: a result is a
-**candidate** until it has a replayable, hash-bound package here that a
-non-author can re-run. This document defines the package format so every
-contributor's artifacts are consistent and customer-verifiable.
+This directory defines the receipt layout for fork-local Athanor evidence. The
+current accepted `ct_prio` row in the top-level [`README.md`](../README.md)
+links to the routed ATH-2950 packet in `athanor-ai/athanor-kairos`; fork-local
+packages will use the layout below as they land. The rule is simple: a result is
+a **candidate** until it has a replayable, hash-bound package or an explicitly
+linked routed packet that a non-author can re-run.
 
 ## Artifact package format
 
-Each accepted or candidate row has a package at `athanor_artifacts/<row_name>/`
-(e.g. `athanor_artifacts/ct_prio/`). A package MUST contain:
+Each accepted or candidate row will have a package at
+`athanor_artifacts/<row_name>/` (e.g. `athanor_artifacts/ct_prio/`) once the
+artifact is copied into this fork. A package MUST contain:
 
 | File | Purpose |
 | --- | --- |
@@ -41,23 +43,26 @@ read as more than it is:
 ## Replay
 
 ```
-# verify every package's hashes + manifest consistency
+# planned fork-local verifier for package hashes + manifest consistency
 python3 athanor/verify_public_receipts.py
 
-# reproduce one package from RTL
+# planned fork-local package replay from RTL
 cd athanor_artifacts/<row_name> && sh COMMANDS.md   # (commands are listed, run the ones for your toolchain)
 ```
 
-`SHA256SUMS` binds the package: `sha256sum -c SHA256SUMS` inside a package must
-pass. The verifier also checks each manifest's scope/assumption fields are
-present, so a row cannot silently drop its scope statement.
+The current `ct_prio` replay entrypoint is the routed kairos packet linked from
+the top-level README. Fork-local packages must include `SHA256SUMS` so
+`sha256sum -c SHA256SUMS` passes inside a package. The planned verifier also
+checks each manifest's scope/assumption fields are present, so a row cannot
+silently drop its scope statement.
 
 ## Toolchain
 
-The selected toolchain (pinned Yosys + Sky130 standard-cell library and their
-versions) is recorded in `athanor/toolchain_policy.json`. PPA and equivalence
-numbers are only comparable within one recorded toolchain; cross-toolchain
-numbers are not added together.
+The selected toolchain policy will be recorded in
+`athanor/toolchain_policy.json` as fork-local packages land. Until then, each
+routed packet owns its pinned toolchain record. PPA and equivalence numbers are
+only comparable within one recorded toolchain; cross-toolchain numbers are not
+added together.
 
 ## Evidence bar (summary)
 
