@@ -16,7 +16,7 @@ claim.
 
 | Topic | State |
 | --- | --- |
-| Accepted evidence | Two accepted out-of-order module-local rows: `ct_prio` (the OoO priority arbiter) and `ct_fifo` (the DEPTH=2 CIU FIFO), each with a replayable equivalence proof on its stated scope and a biting negative control. Two RTU candidates (`ct_rtu_rob_entry`, `ct_rtu_pst_preg_entry`) have landed and await independent cold replay before any promotion wording (see Gaps). |
+| Accepted evidence | Three accepted out-of-order module-local rows: `ct_prio` (the OoO priority arbiter), `ct_fifo` (the DEPTH=2 CIU FIFO), and `ct_rtu_pst_preg_entry` (RTU physical-register-status lifecycle recode), each with a replayable equivalence proof on its stated scope and a biting negative control. The RTU ROB-entry candidate (`ct_rtu_rob_entry`) has landed and awaits independent cold replay before any promotion wording (see Gaps). |
 | Tooling claim | Athanor/Kairos is used here as the optimization, measurement, filtering, replay, and evidence pipeline. Where the tool stalls on OoO-specific structure, the structural insight is human-guided; the tool supplies the receipts. This README does **not** claim autonomous discovery. |
 | Honest scope | Module-level optimization + equivalence proof on OoO-core RTL: demonstrated. Whole-core out-of-order *sequential* equivalence: research frontier, a staged Lean-backed program (see Gaps), not claimed here. |
 | Main gaps | More module-local rows across the OoO pipeline (decode / issue / rename / ALU / LSU / BIU-CIU); Lean closure of an architectural OoO invariant against the RTL; verified compound optimization across modules. |
@@ -42,7 +42,7 @@ a "compound" result must carry its own end-to-end receipt at each step.
 | --- | --- | --- | --- | --- |
 | `ct_prio` / priority-arbiter simplification | Accepted module-local artifact | Generic cells `22 -> 20`; Sky130 area `158.9 -> 93.8` (~41% on this block, verified real logic simplification, not dropped dead-logic); timing is not claimed for this row | Yosys SAT temporal (k-)induction closes on `sel[1:0]` at depth 4 (unbounded, visible-output miter under a documented reset-first assumption); negative control: a broken candidate fails the same proof; internal-state boundary log-backed | [routed packet](https://github.com/athanor-ai/athanor-kairos/tree/f905d40047076aad2d2214ffceff1a9625d7644d/artifacts/ath2950_c910_ct_prio) |
 | `ct_fifo` / DEPTH=2 pointer-representation specialization | Accepted module-local artifact | Sky130 area `711.9 -> 678.2` (~4.7% on this block); area-only, timing is not claimed for this row | Exact visible-output equivalence (`fifo_pop_data[5:0]`, `fifo_pop_data_vld`, `fifo_full`, `fifo_empty`) proved **bounded through seq12** under a reset-first contract; an *unbounded* temporal-induction closure (k=1) holds over state-exposed copies that assert those outputs plus the create/pop-pointer, valid-vector and stored-data relation, gated by a scripted self-tested passivity check that the exact->debug bridge is instrumentation-only; negative control (inverted `fifo_full`) fails both the bounded miter and the relation miter | [`athanor_artifacts/ct_fifo/`](athanor_artifacts/ct_fifo/) |
-| `ct_rtu_pst_preg_entry` / lifecycle-state recode | Candidate packet pending independent replay; `customer_ready=false` | Sky130 local area `2677.6 -> 2648.8`; top-with-deps area `3510.9 -> 3482.1`; generic cells flat. Area-only, timing is not claimed for this row | Exact visible-output BMC passes through seq12 under reset-first; no-reset check fails and records the reset boundary. Positive unbounded path is a passive-debug bridge plus lifecycle-encoding relation induction; relation mutant fails. Same-state bit equivalence is intentionally not claimed because the lifecycle state encoding changes; the `304` proven / `6` unproven split is retained only as a boundary artifact. Raw exact-output induction non-closure is also retained as a boundary artifact. | [`athanor_artifacts/rtu_pst_preg_entry_candidate1/`](athanor_artifacts/rtu_pst_preg_entry_candidate1/) |
+| `ct_rtu_pst_preg_entry` / lifecycle-state recode | Accepted module-local relation packet | Sky130 local area `2677.6 -> 2648.8`; top-with-deps area `3510.9 -> 3482.1`; generic cells flat. Area-only, timing is not claimed for this row | Exact visible-output BMC passes through seq12 under reset-first; no-reset check fails and records the reset boundary. Positive unbounded path is a passive-debug bridge plus lifecycle-encoding relation induction; the packet lifecycle mutant and an independent storage-path mutant both fail. Same-state bit equivalence is intentionally not claimed because the lifecycle state encoding changes; the `304` proven / `6` unproven split is retained only as a boundary artifact. Raw exact-output induction non-closure is also retained as a boundary artifact. | [`athanor_artifacts/rtu_pst_preg_entry_candidate1/`](athanor_artifacts/rtu_pst_preg_entry_candidate1/) |
 
 *(Further OoO-pipeline rows land here as they clear the Evidence Bar.)*
 
@@ -117,12 +117,11 @@ formal miter.
    generic-cell count (`129 -> 94`), *not* Sky130 area (`2287.2 -> 2265.9`,
    ~0.9%), so it is not presented as an area result. Still open in this
    subsystem: `ct_rtu_pst_preg_entry` (physical-status / free-list). Its first
-   candidate packet is now fork-local at
+   accepted module-local relation packet is fork-local at
    [`athanor_artifacts/rtu_pst_preg_entry_candidate1/`](athanor_artifacts/rtu_pst_preg_entry_candidate1/).
    It carries a lifecycle onehot0 state-recode, selected Sky130 area improvement,
    bounded exact-output evidence, a passive-debug bridge, closed
-   lifecycle-encoding relation induction, and a relation mutant that fails. It
-   remains a candidate until independent non-author replay reproduces the packet.
+   lifecycle-encoding relation induction, and two relation mutants that fail.
    Composing these RTU entry wins toward the full `ct_rtu_rob` still needs
    candidate-lineage and no-interference receipts. Next-tier targets are the IDU issue/dependency
    queue (`ct_idu_is_lsiq_entry`) and the LSU store queue (`ct_lsu_sq_entry`).

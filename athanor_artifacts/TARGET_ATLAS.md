@@ -10,14 +10,14 @@ receipt index, not a whole-core proof claim.
 | `ct_prio` | CIU priority arbiter | accepted module-local packet | Sky130 `158.902400 -> 93.840000` | visible `sel[1:0]` temporal induction under reset-first, biting mutant, same-state non-claim logged | [`ct_prio/`](ct_prio/) |
 | `ct_fifo` | CIU FIFO/control | accepted module-local packet | Sky130 `711.932800 -> 678.150400` | visible outputs under reset-first via bounded exact-output checks plus closed state-relation induction through passive debug wrappers; exact-output and relation mutants bite | [`ct_fifo/`](ct_fifo/) |
 | `ct_rtu_rob_entry` candidate 1 | RTU reorder-buffer entry | candidate packet, independent replay complete in Kairos PR | Sky130 `2287.193600 -> 2265.923200` | same-state Yosys equivalence `94` proven / `0` unproven, decode mutant bites | [`rtu_rob_entry_candidate1/`](rtu_rob_entry_candidate1/) |
-| `ct_rtu_pst_preg_entry` candidate 1 | RTU physical-register-status entry | package pending independent replay | Sky130 local `2677.568000 -> 2648.790400`; top-with-deps `3510.867200 -> 3482.089600` | visible outputs under reset-first via passive debug bridge plus closed lifecycle-encoding relation induction; relation mutant bites; same-state non-claim logged | [`rtu_pst_preg_entry_candidate1/`](rtu_pst_preg_entry_candidate1/) |
+| `ct_rtu_pst_preg_entry` candidate 1 | RTU physical-register-status entry | accepted module-local relation packet | Sky130 local `2677.568000 -> 2648.790400`; top-with-deps `3510.867200 -> 3482.089600` | visible outputs under reset-first via passive debug bridge plus closed lifecycle-encoding relation induction; lifecycle and storage-path relation mutants bite; same-state non-claim logged | [`rtu_pst_preg_entry_candidate1/`](rtu_pst_preg_entry_candidate1/) |
 
 ## Active RTU Campaign
 
 | target | campaign purpose | current read |
 | --- | --- | --- |
 | `ct_rtu_rob_entry` | First RTU ROB-entry local win and best-single seed for candidate-lineage receipts | Completion-fold popcount rewrite has positive selected area and same-state equivalence. Next: compose with a distinct compatible RTU/PST win. |
-| `ct_rtu_pst_preg_entry` | Changed-flop/state-encoding proof target for physical-register status entries | Candidate 1 packages the WF_ALLOC-zero lifecycle recode with a passive debug bridge, closed lifecycle-encoding relation induction, relation mutant, reset-boundary log, same-state non-claim, and selected Sky130 area improvement. Independent replay is still pending before customer-ready status. |
+| `ct_rtu_pst_preg_entry` | Changed-flop/state-encoding proof target for physical-register status entries | Candidate 1 packages the WF_ALLOC-zero lifecycle recode with a passive debug bridge, closed lifecycle-encoding relation induction, two biting relation mutants, reset-boundary log, same-state non-claim, and selected Sky130 area improvement. Accepted only as a module-local visible-output relation packet. |
 | `ct_rtu_pst_preg` | Free-list / physical-register-status subsystem composition | Needs decomposition over entry recode, allocation priority, no-duplicate free-list invariant, and composed no-interference receipts. |
 | `ct_rtu_rob` | ROB commit-order and entry composition | Needs ROB-entry candidate lineage plus commit-order invariant. Do not claim whole ROB correctness until the invariant is written and checked. |
 

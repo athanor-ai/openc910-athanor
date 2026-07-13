@@ -1,4 +1,4 @@
-# C910 RTU PST Preg Entry Candidate 1
+# C910 RTU PST Preg Entry Relation Packet
 
 This package records a module-local optimization packet for
 `ct_rtu_pst_preg_entry`, the C910 RTU physical-register-status entry.
@@ -11,7 +11,7 @@ The candidate recodes the lifecycle FSM from a 5-bit one-hot encoding to a
 The supported claim is module-local visible-output equivalence under the
 reset-first contract. The proof path is a passive debug bridge plus a closed
 lifecycle-encoding relation proof. The same proof check rejects a broken
-candidate.
+candidate, and independent QA confirmed a second storage-path mutant also fails.
 
 ## PPA
 

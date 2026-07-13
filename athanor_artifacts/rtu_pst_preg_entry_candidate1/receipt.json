@@ -1,8 +1,8 @@
 {
   "artifact": "ath2950_c910_rtu_pst_preg_entry_candidate1",
-  "status": "module_local_visible_output_relation_packet_pending_independent_replay",
-  "customer_ready": false,
-  "customer_ready_scope": "pending independent non-author replay; module-local visible-output equivalence for C910 ct_rtu_pst_preg_entry only if accepted",
+  "status": "accepted_module_local_visible_output_relation_packet",
+  "customer_ready": true,
+  "customer_ready_scope": "module-local visible-output equivalence for C910 ct_rtu_pst_preg_entry under reset-first via passive debug bridge plus closed lifecycle-encoding relation induction; area-only, timing not claimed",
   "repo": "athanor-ai/openc910-athanor",
   "upstream_reference": {
     "module": "ct_rtu_pst_preg_entry",
@@ -103,15 +103,37 @@
     "bridge_passivity_check.py": "18d86aafb51eb7706e0abf4dba5fbb47fe2a54a0a32668ae98d6ef2e4f4d7af5"
   },
   "known_boundaries": [
-    "Pending independent non-author replay before customer-ready status.",
+    "Customer-ready only for scoped module-local visible-output equivalence under reset-first via passive debug bridge plus lifecycle-encoding relation induction.",
     "The exact output miter is bounded to seq12; the unbounded positive path is the passive-debug lifecycle relation proof.",
-    "Same-state bit equivalence is explicitly not claimed because lifecycle state encoding changes.",
+    "Same-state bit equivalence is explicitly not claimed because lifecycle state encoding changes; the 304 proven / 6 unproven split is retained only as a boundary artifact.",
     "Raw exact-output temporal induction non-closure remains a boundary artifact, not the positive authority path.",
-    "No whole RTU, whole C910, BOOM, ISA, memory-consistency, speculation, or whole-chip authority is claimed."
+    "Area-only row: selected Sky130 local and top-with-deps area improve; timing and power/toggle are not claimed.",
+    "No whole RTU, whole C910, BOOM, ISA, memory-consistency, speculation, composed-optimization, or whole-chip authority is claimed."
   ],
-  "review_ruling": "Ronald accepted the passive-debug bridge plus lifecycle-encoding relation proof shape as promotable if packaged with exact artifacts, boundary logs, and independent replay.",
-  "next_independent_check": {
-    "assignee": "quan",
-    "ask": "Reproduce area, output BMC, reset-boundary failure, passive bridge selftest, relation induction, and relation-mutant failure on the exact package bytes. Add an independent second mutant if possible before customer-ready promotion."
+  "review_ruling": "Ronald cold replay and Quan adversarial QA support promotion to accepted module-local visible-output relation packet with the stated boundaries.",
+  "independent_reviews": {
+    "ronald_cold_replay": {
+      "status": "passed",
+      "source": "Slack receipt 2026-07-13 15:22 PT on openc910-athanor main 7154a19",
+      "checks": [
+        "public verifier passed",
+        "public export leak scan clean",
+        "SHA256SUMS manifest passed",
+        "public-style replay passed",
+        "passive bridge selftest bites",
+        "relation induction and packet mutant logs match receipt"
+      ]
+    },
+    "quan_adversarial_qa": {
+      "status": "passed",
+      "source": "Slack receipt 2026-07-13 15:30 PT after PST adversarial QA",
+      "checks": [
+        "gold provenance matches canonical openc910 source",
+        "lifecycle encoding relation matches 5-onehot to 4-onehot0 map with WF_ALLOC=0000",
+        "positive relation induction proves at k=1",
+        "packet lifecycle mutant bites",
+        "independent storage-path rel_preg mutant bites under the real prove invocation"
+      ]
+    }
   }
 }
