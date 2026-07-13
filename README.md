@@ -85,10 +85,11 @@ instrumentation and changes no logic. Two negative controls bite: an inverted
 relation miter, so neither proof is vacuous.
 
 Scope: module-local visible-output equivalence only. No FIFO semantic
-correctness, no full internal-state equivalence on the exact modules beyond
-seq12, and no whole-core claim. The state-exposed relation is the unbounded
-authority; the exact-to-debug bridge is mechanical and biting, not a second
-independent formal miter.
+correctness, no full internal-state equivalence on the exact modules, and no
+whole-core claim. The exact gold/gate proof is bounded visible-output
+equivalence through seq12. The state-exposed relation is the unbounded authority;
+the exact-to-debug bridge is mechanical and biting, not a second independent
+formal miter.
 
 ## What This Shows
 
