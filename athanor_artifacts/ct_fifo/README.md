@@ -31,7 +31,7 @@ This artifact does not claim FIFO semantic correctness, full internal-state equi
 Run:
 
 ```bash
-LIBERTY=/workdir/athanor-kairos-runall/src/kairos/data/liberty/sky130_fd_sc_hd__tt_025C_1v80.lib ./replay.sh
+YOSYS_BIN=/path/to/yosys LIBERTY=/path/to/sky130_fd_sc_hd__tt_025C_1v80.lib ./replay.sh
 ```
 
 The script reproduces the selected Sky130 area, the seq12 exact-output bounded proof, the biting mutants, the state-exposed relation induction, and the passive-debug bridge check.

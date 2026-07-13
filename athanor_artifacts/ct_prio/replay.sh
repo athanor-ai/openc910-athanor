@@ -2,8 +2,8 @@
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-YOSYS_BIN="${YOSYS_BIN:-/workdir/_tools/oss-cad-suite-20260630/bin/yosys}"
-LIBERTY="${LIBERTY:-/workdir/athanor-kairos-runall/src/kairos/data/liberty/sky130_fd_sc_hd__tt_025C_1v80.lib}"
+: "${YOSYS_BIN:?set YOSYS_BIN to the pinned Yosys executable}"
+: "${LIBERTY:?set LIBERTY to sky130_fd_sc_hd__tt_025C_1v80.lib}"
 
 export PATH="$(dirname "$YOSYS_BIN"):$PATH"
 cd "$ROOT"

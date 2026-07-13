@@ -10,7 +10,8 @@ This packet is a module-local proof/optimization receipt for the PULP C910
 - The selected Sky130 area replay is `158.902400 -> 93.840000`.
 - The visible-output miter proves `sel[1:0]` equivalence under the reset-first
   assumption `rst_b=0` at time 1 and `rst_b=1` at time 2.
-- The seeded mutant fails under the same miter, so the proof harness bites.
+- The seeded mutant fails under the same miter, so the proof check rejects a
+  broken candidate.
 - The same-state internal equivalence check is intentionally included as a
   boundary artifact: 4 equiv cells prove, 2 internal priority-state bits remain
   unproven.
@@ -29,10 +30,9 @@ Run:
 ./replay.sh
 ```
 
-By default the script uses:
+The script requires:
 
-- `YOSYS_BIN=/workdir/_tools/oss-cad-suite-20260630/bin/yosys`
-- `LIBERTY=/workdir/athanor-kairos-runall/src/kairos/data/liberty/sky130_fd_sc_hd__tt_025C_1v80.lib`
+- `YOSYS_BIN` pointing to the pinned Yosys executable.
+- `LIBERTY` pointing to `sky130_fd_sc_hd__tt_025C_1v80.lib`.
 
-Override those environment variables if your checkout stores the pinned tools
-or Liberty file elsewhere.
+No internal path defaults are embedded in this public package.

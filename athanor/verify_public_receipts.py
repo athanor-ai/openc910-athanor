@@ -18,6 +18,10 @@ from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 ARTIFACT_ROOT = REPO_ROOT / "athanor_artifacts"
+FORBIDDEN_EXPORT_STRINGS = (
+    "/" + "workdir",
+    "athanor-" + "kairos-runall",
+)
 
 
 def _sha256(path: Path) -> str:
@@ -65,6 +69,21 @@ def _verify_receipt_json(package: Path) -> list[str]:
     return []
 
 
+def _verify_public_export_clean(package: Path) -> list[str]:
+    problems: list[str] = []
+    for path in sorted(p for p in package.rglob("*") if p.is_file()):
+        try:
+            data = path.read_text(encoding="utf-8")
+        except UnicodeDecodeError:
+            continue
+        for forbidden in FORBIDDEN_EXPORT_STRINGS:
+            if forbidden in data:
+                problems.append(
+                    f"{path.relative_to(REPO_ROOT)} contains public-export leak: {forbidden}"
+                )
+    return problems
+
+
 def verify(root: Path = ARTIFACT_ROOT) -> list[str]:
     if not root.is_dir():
         return [f"{root.relative_to(REPO_ROOT)} is missing"]
@@ -75,6 +94,7 @@ def verify(root: Path = ARTIFACT_ROOT) -> list[str]:
     for package in packages:
         problems.extend(_verify_sums(package))
         problems.extend(_verify_receipt_json(package))
+        problems.extend(_verify_public_export_clean(package))
     return problems
 
 

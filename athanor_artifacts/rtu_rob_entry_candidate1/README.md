@@ -37,10 +37,8 @@ candidate receipt for the broader ATH-2950 OoO-core campaign.
 Run:
 
 ```bash
-LIBERTY=/workdir/athanor-kairos-runall/src/kairos/data/liberty/sky130_fd_sc_hd__tt_025C_1v80.lib ./replay.sh
+YOSYS_BIN=/path/to/yosys LIBERTY=/path/to/sky130_fd_sc_hd__tt_025C_1v80.lib ./replay.sh
 ```
 
-By default the script uses
-`/workdir/_tools/oss-cad-suite-20260630/bin/yosys`. Override `YOSYS_BIN` and
-`LIBERTY` if your checkout stores the pinned toolchain or Liberty file
-elsewhere.
+The script requires `YOSYS_BIN` and `LIBERTY`; no internal path defaults are
+embedded in this public package.

@@ -42,9 +42,9 @@
     }
   },
   "tooling": {
-    "pinned_yosys": "/workdir/_tools/oss-cad-suite-20260630/bin/yosys",
+    "pinned_yosys": "YOSYS_BIN (caller-provided executable for oss-cad-suite-20260630 Yosys)",
     "pinned_yosys_version": "Yosys 0.66+181 (git sha1 afe6b18f2, Release, Clang /usr/bin/clang++ 18.1.8)",
-    "liberty": "/workdir/athanor-kairos-runall/src/kairos/data/liberty/sky130_fd_sc_hd__tt_025C_1v80.lib"
+    "liberty": "LIBERTY (caller-provided sky130_fd_sc_hd__tt_025C_1v80.lib)"
   },
   "ppa_receipts": {
     "standalone_pinned_generic_stats": {
@@ -59,9 +59,9 @@
       "gold_area": 2287.1936,
       "gate_area": 2265.9232,
       "gold_log": "gold_sky130.pinned.log",
-      "gold_log_sha256": "6810bfa7480f524e4f2afda3b1b1957d8db1f1c1eaab27221e919e50d7615032",
+      "gold_log_sha256": "11b572b00cfb65aa2632f0ef1a7a1710534c40b9146e4a50a1a3db25955d2503",
       "gate_log": "gate_sky130.pinned.log",
-      "gate_log_sha256": "dbc2d46edb675e5e8dd249169d921d34377c61f7d894800f99c6969752d0e081"
+      "gate_log_sha256": "077fc57bbd48a81a269cdd66d9bf7e607906e335e9b0edb723a3295563ac3944"
     }
   },
   "proof_receipts": {

@@ -2,7 +2,7 @@
 
 Independent non-author QA pass (receipt.json `next_independent_check.assignee = quan`).
 Every command below was re-run on pinned Yosys `0.66+181`
-(`/workdir/_tools/oss-cad-suite-20260630/bin/yosys`); logs were regenerated, not read.
+(`yosys`); logs were regenerated, not read.
 
 ## End-to-end replay from a fresh clone
 

@@ -6,13 +6,13 @@
  \----------------------------------------------------------------------------/
  Yosys 0.66+181 (git sha1 afe6b18f2, Release, Clang /usr/bin/clang++ 18.1.8)
 
--- Running command `read_verilog -sv /workdir/_tmp/ath2950_c910/ct_prio_gate_candidate.v; synth -flatten -top ct_prio_gate; dfflibmap -liberty /workdir/athanor-kairos-runall/src/kairos/data/liberty/sky130_fd_sc_hd__tt_025C_1v80.lib; abc -liberty /workdir/athanor-kairos-runall/src/kairos/data/liberty/sky130_fd_sc_hd__tt_025C_1v80.lib; clean; stat -liberty /workdir/athanor-kairos-runall/src/kairos/data/liberty/sky130_fd_sc_hd__tt_025C_1v80.lib' --
+-- Running command `read_verilog -sv ./ct_prio_gate_candidate.v; synth -flatten -top ct_prio_gate; dfflibmap -liberty sky130_fd_sc_hd__tt_025C_1v80.lib; abc -liberty sky130_fd_sc_hd__tt_025C_1v80.lib; clean; stat -liberty sky130_fd_sc_hd__tt_025C_1v80.lib' --
 
-1. Executing Verilog-2005 frontend: /workdir/_tmp/ath2950_c910/ct_prio_gate_candidate.v
-Parsing SystemVerilog input from `/workdir/_tmp/ath2950_c910/ct_prio_gate_candidate.v' to AST representation.
+1. Executing Verilog-2005 frontend: ./ct_prio_gate_candidate.v
+Parsing SystemVerilog input from `./ct_prio_gate_candidate.v' to AST representation.
 Generating RTLIL representation for module `\ct_prio_gate'.
-Warning: Replacing memory \unused with list of registers. See /workdir/_tmp/ath2950_c910/ct_prio_gate_candidate.v:29
-Warning: Replacing memory \prio with list of registers. See /workdir/_tmp/ath2950_c910/ct_prio_gate_candidate.v:28
+Warning: Replacing memory \unused with list of registers. See ./ct_prio_gate_candidate.v:29
+Warning: Replacing memory \prio with list of registers. See ./ct_prio_gate_candidate.v:28
 Successfully finished Verilog frontend.
 
 2. Executing SYNTH pass.
@@ -32,10 +32,10 @@ Removed 0 unused modules.
 Cleaned up 0 empty switches.
 
 2.2.2. Executing PROC_RMDEAD pass (remove dead branches from decision trees).
-Marked 2 switch rules as full_case in process $proc$/workdir/_tmp/ath2950_c910/ct_prio_gate_candidate.v:24$14 in module ct_prio_gate.
-Marked 2 switch rules as full_case in process $proc$/workdir/_tmp/ath2950_c910/ct_prio_gate_candidate.v:24$11 in module ct_prio_gate.
-Marked 2 switch rules as full_case in process $proc$/workdir/_tmp/ath2950_c910/ct_prio_gate_candidate.v:24$4 in module ct_prio_gate.
-Marked 2 switch rules as full_case in process $proc$/workdir/_tmp/ath2950_c910/ct_prio_gate_candidate.v:24$1 in module ct_prio_gate.
+Marked 2 switch rules as full_case in process $proc$./ct_prio_gate_candidate.v:24$14 in module ct_prio_gate.
+Marked 2 switch rules as full_case in process $proc$./ct_prio_gate_candidate.v:24$11 in module ct_prio_gate.
+Marked 2 switch rules as full_case in process $proc$./ct_prio_gate_candidate.v:24$4 in module ct_prio_gate.
+Marked 2 switch rules as full_case in process $proc$./ct_prio_gate_candidate.v:24$1 in module ct_prio_gate.
 Removed a total of 0 dead cases.
 
 2.2.3. Executing PROC_PRUNE pass (remove redundant assignments in processes).
@@ -45,60 +45,60 @@ Promoted 0 assignments to connections.
 2.2.4. Executing PROC_INIT pass (extract init attributes).
 
 2.2.5. Executing PROC_ARST pass (detect async resets in processes).
-Found async reset \rst_b in `\ct_prio_gate.$proc$/workdir/_tmp/ath2950_c910/ct_prio_gate_candidate.v:24$14'.
-Found async reset \rst_b in `\ct_prio_gate.$proc$/workdir/_tmp/ath2950_c910/ct_prio_gate_candidate.v:24$11'.
-Found async reset \rst_b in `\ct_prio_gate.$proc$/workdir/_tmp/ath2950_c910/ct_prio_gate_candidate.v:24$4'.
-Found async reset \rst_b in `\ct_prio_gate.$proc$/workdir/_tmp/ath2950_c910/ct_prio_gate_candidate.v:24$1'.
+Found async reset \rst_b in `\ct_prio_gate.$proc$./ct_prio_gate_candidate.v:24$14'.
+Found async reset \rst_b in `\ct_prio_gate.$proc$./ct_prio_gate_candidate.v:24$11'.
+Found async reset \rst_b in `\ct_prio_gate.$proc$./ct_prio_gate_candidate.v:24$4'.
+Found async reset \rst_b in `\ct_prio_gate.$proc$./ct_prio_gate_candidate.v:24$1'.
 
 2.2.6. Executing PROC_ROM pass (convert switches to ROMs).
 Converted 0 switches.
 <suppressed ~12 debug messages>
 
 2.2.7. Executing PROC_MUX pass (convert decision trees to multiplexers).
-Creating decoders for process `\ct_prio_gate.$proc$/workdir/_tmp/ath2950_c910/ct_prio_gate_candidate.v:24$14'.
+Creating decoders for process `\ct_prio_gate.$proc$./ct_prio_gate_candidate.v:24$14'.
      1/2: $0\unused[1][1:1]
      2/2: $0\prio[1][1:1]
-Creating decoders for process `\ct_prio_gate.$proc$/workdir/_tmp/ath2950_c910/ct_prio_gate_candidate.v:24$11'.
+Creating decoders for process `\ct_prio_gate.$proc$./ct_prio_gate_candidate.v:24$11'.
      1/2: $0\unused[1][0:0]
      2/2: $0\prio[1][0:0]
-Creating decoders for process `\ct_prio_gate.$proc$/workdir/_tmp/ath2950_c910/ct_prio_gate_candidate.v:24$4'.
+Creating decoders for process `\ct_prio_gate.$proc$./ct_prio_gate_candidate.v:24$4'.
      1/2: $0\unused[0][1:1]
      2/2: $0\prio[0][1:1]
-Creating decoders for process `\ct_prio_gate.$proc$/workdir/_tmp/ath2950_c910/ct_prio_gate_candidate.v:24$1'.
+Creating decoders for process `\ct_prio_gate.$proc$./ct_prio_gate_candidate.v:24$1'.
      1/2: $0\unused[0][0:0]
      2/2: $0\prio[0][0:0]
 
 2.2.8. Executing PROC_DLATCH pass (convert process syncs to latches).
 
 2.2.9. Executing PROC_DFF pass (convert process syncs to FFs).
-Creating register for signal `\ct_prio_gate.\prio[1] [1]' using process `\ct_prio_gate.$proc$/workdir/_tmp/ath2950_c910/ct_prio_gate_candidate.v:24$14'.
+Creating register for signal `\ct_prio_gate.\prio[1] [1]' using process `\ct_prio_gate.$proc$./ct_prio_gate_candidate.v:24$14'.
   created $adff cell `$procdff$53' with positive edge clock and positive level reset.
-Creating register for signal `\ct_prio_gate.\unused[1] [1]' using process `\ct_prio_gate.$proc$/workdir/_tmp/ath2950_c910/ct_prio_gate_candidate.v:24$14'.
+Creating register for signal `\ct_prio_gate.\unused[1] [1]' using process `\ct_prio_gate.$proc$./ct_prio_gate_candidate.v:24$14'.
   created $adff cell `$procdff$58' with positive edge clock and positive level reset.
-Creating register for signal `\ct_prio_gate.\prio[1] [0]' using process `\ct_prio_gate.$proc$/workdir/_tmp/ath2950_c910/ct_prio_gate_candidate.v:24$11'.
+Creating register for signal `\ct_prio_gate.\prio[1] [0]' using process `\ct_prio_gate.$proc$./ct_prio_gate_candidate.v:24$11'.
   created $adff cell `$procdff$63' with positive edge clock and positive level reset.
-Creating register for signal `\ct_prio_gate.\unused[1] [0]' using process `\ct_prio_gate.$proc$/workdir/_tmp/ath2950_c910/ct_prio_gate_candidate.v:24$11'.
+Creating register for signal `\ct_prio_gate.\unused[1] [0]' using process `\ct_prio_gate.$proc$./ct_prio_gate_candidate.v:24$11'.
   created $adff cell `$procdff$68' with positive edge clock and positive level reset.
-Creating register for signal `\ct_prio_gate.\prio[0] [1]' using process `\ct_prio_gate.$proc$/workdir/_tmp/ath2950_c910/ct_prio_gate_candidate.v:24$4'.
+Creating register for signal `\ct_prio_gate.\prio[0] [1]' using process `\ct_prio_gate.$proc$./ct_prio_gate_candidate.v:24$4'.
   created $adff cell `$procdff$73' with positive edge clock and positive level reset.
-Creating register for signal `\ct_prio_gate.\unused[0] [1]' using process `\ct_prio_gate.$proc$/workdir/_tmp/ath2950_c910/ct_prio_gate_candidate.v:24$4'.
+Creating register for signal `\ct_prio_gate.\unused[0] [1]' using process `\ct_prio_gate.$proc$./ct_prio_gate_candidate.v:24$4'.
   created $adff cell `$procdff$78' with positive edge clock and positive level reset.
-Creating register for signal `\ct_prio_gate.\prio[0] [0]' using process `\ct_prio_gate.$proc$/workdir/_tmp/ath2950_c910/ct_prio_gate_candidate.v:24$1'.
+Creating register for signal `\ct_prio_gate.\prio[0] [0]' using process `\ct_prio_gate.$proc$./ct_prio_gate_candidate.v:24$1'.
   created $adff cell `$procdff$83' with positive edge clock and positive level reset.
-Creating register for signal `\ct_prio_gate.\unused[0] [0]' using process `\ct_prio_gate.$proc$/workdir/_tmp/ath2950_c910/ct_prio_gate_candidate.v:24$1'.
+Creating register for signal `\ct_prio_gate.\unused[0] [0]' using process `\ct_prio_gate.$proc$./ct_prio_gate_candidate.v:24$1'.
   created $adff cell `$procdff$88' with positive edge clock and positive level reset.
 
 2.2.10. Executing PROC_MEMWR pass (convert process memory writes to cells).
 
 2.2.11. Executing PROC_CLEAN pass (remove empty switches from decision trees).
-Found and cleaned up 3 empty switches in `\ct_prio_gate.$proc$/workdir/_tmp/ath2950_c910/ct_prio_gate_candidate.v:24$14'.
-Removing empty process `ct_prio_gate.$proc$/workdir/_tmp/ath2950_c910/ct_prio_gate_candidate.v:24$14'.
-Found and cleaned up 3 empty switches in `\ct_prio_gate.$proc$/workdir/_tmp/ath2950_c910/ct_prio_gate_candidate.v:24$11'.
-Removing empty process `ct_prio_gate.$proc$/workdir/_tmp/ath2950_c910/ct_prio_gate_candidate.v:24$11'.
-Found and cleaned up 3 empty switches in `\ct_prio_gate.$proc$/workdir/_tmp/ath2950_c910/ct_prio_gate_candidate.v:24$4'.
-Removing empty process `ct_prio_gate.$proc$/workdir/_tmp/ath2950_c910/ct_prio_gate_candidate.v:24$4'.
-Found and cleaned up 3 empty switches in `\ct_prio_gate.$proc$/workdir/_tmp/ath2950_c910/ct_prio_gate_candidate.v:24$1'.
-Removing empty process `ct_prio_gate.$proc$/workdir/_tmp/ath2950_c910/ct_prio_gate_candidate.v:24$1'.
+Found and cleaned up 3 empty switches in `\ct_prio_gate.$proc$./ct_prio_gate_candidate.v:24$14'.
+Removing empty process `ct_prio_gate.$proc$./ct_prio_gate_candidate.v:24$14'.
+Found and cleaned up 3 empty switches in `\ct_prio_gate.$proc$./ct_prio_gate_candidate.v:24$11'.
+Removing empty process `ct_prio_gate.$proc$./ct_prio_gate_candidate.v:24$11'.
+Found and cleaned up 3 empty switches in `\ct_prio_gate.$proc$./ct_prio_gate_candidate.v:24$4'.
+Removing empty process `ct_prio_gate.$proc$./ct_prio_gate_candidate.v:24$4'.
+Found and cleaned up 3 empty switches in `\ct_prio_gate.$proc$./ct_prio_gate_candidate.v:24$1'.
+Removing empty process `ct_prio_gate.$proc$./ct_prio_gate_candidate.v:24$1'.
 Cleaned up 12 empty switches.
 
 2.2.12. Executing OPT_EXPR pass (perform const folding).
@@ -293,7 +293,7 @@ Optimizing module ct_prio_gate.
 2.10.23. Finished fast OPT passes. (There is nothing left to do.)
 
 2.11. Executing WREDUCE pass (reducing word size of cells).
-Removed top 1 bits (of 2) from port B of cell ct_prio_gate.$and$/workdir/_tmp/ath2950_c910/ct_prio_gate_candidate.v:44$17 ($and).
+Removed top 1 bits (of 2) from port B of cell ct_prio_gate.$and$./ct_prio_gate_candidate.v:44$17 ($and).
 Removed top 1 bits (of 2) from wire ct_prio_gate.prio[1].
 
 2.12. Executing PEEPOPT pass (run peephole optimizers).
@@ -442,8 +442,8 @@ Optimizing module ct_prio_gate.
 
 2.22. Executing TECHMAP pass (map to technology primitives).
 
-2.22.1. Executing Verilog-2005 frontend: /workdir/_tools/oss-cad-suite-20260630/lib/../share/yosys/techmap.v
-Parsing Verilog input from `/workdir/_tools/oss-cad-suite-20260630/lib/../share/yosys/techmap.v' to AST representation.
+2.22.1. Executing Verilog-2005 frontend: yosys/share/techmap.v
+Parsing Verilog input from `yosys/share/techmap.v' to AST representation.
 Generating RTLIL representation for module `\_90_simplemap_bool_ops'.
 Generating RTLIL representation for module `\_90_simplemap_reduce_ops'.
 Generating RTLIL representation for module `\_90_simplemap_logic_ops'.

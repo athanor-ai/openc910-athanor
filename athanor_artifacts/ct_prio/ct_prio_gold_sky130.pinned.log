@@ -6,13 +6,13 @@
  \----------------------------------------------------------------------------/
  Yosys 0.66+181 (git sha1 afe6b18f2, Release, Clang /usr/bin/clang++ 18.1.8)
 
--- Running command `read_verilog -sv /workdir/_tmp/ath2950_c910/ct_prio_gold.v; synth -flatten -top ct_prio; dfflibmap -liberty /workdir/athanor-kairos-runall/src/kairos/data/liberty/sky130_fd_sc_hd__tt_025C_1v80.lib; abc -liberty /workdir/athanor-kairos-runall/src/kairos/data/liberty/sky130_fd_sc_hd__tt_025C_1v80.lib; clean; stat -liberty /workdir/athanor-kairos-runall/src/kairos/data/liberty/sky130_fd_sc_hd__tt_025C_1v80.lib' --
+-- Running command `read_verilog -sv ./ct_prio_gold.v; synth -flatten -top ct_prio; dfflibmap -liberty sky130_fd_sc_hd__tt_025C_1v80.lib; abc -liberty sky130_fd_sc_hd__tt_025C_1v80.lib; clean; stat -liberty sky130_fd_sc_hd__tt_025C_1v80.lib' --
 
-1. Executing Verilog-2005 frontend: /workdir/_tmp/ath2950_c910/ct_prio_gold.v
-Parsing SystemVerilog input from `/workdir/_tmp/ath2950_c910/ct_prio_gold.v' to AST representation.
+1. Executing Verilog-2005 frontend: ./ct_prio_gold.v
+Parsing SystemVerilog input from `./ct_prio_gold.v' to AST representation.
 Generating RTLIL representation for module `\ct_prio'.
-Warning: Replacing memory \prio with list of registers. See /workdir/_tmp/ath2950_c910/ct_prio_gold.v:44
-Warning: Replacing memory \unused with list of registers. See /workdir/_tmp/ath2950_c910/ct_prio_gold.v:44
+Warning: Replacing memory \prio with list of registers. See ./ct_prio_gold.v:44
+Warning: Replacing memory \unused with list of registers. See ./ct_prio_gold.v:44
 Successfully finished Verilog frontend.
 
 2. Executing SYNTH pass.
@@ -32,8 +32,8 @@ Removed 0 unused modules.
 Cleaned up 0 empty switches.
 
 2.2.2. Executing PROC_RMDEAD pass (remove dead branches from decision trees).
-Marked 1 switch rules as full_case in process $proc$/workdir/_tmp/ath2950_c910/ct_prio_gold.v:41$14 in module ct_prio.
-Marked 1 switch rules as full_case in process $proc$/workdir/_tmp/ath2950_c910/ct_prio_gold.v:41$4 in module ct_prio.
+Marked 1 switch rules as full_case in process $proc$./ct_prio_gold.v:41$14 in module ct_prio.
+Marked 1 switch rules as full_case in process $proc$./ct_prio_gold.v:41$4 in module ct_prio.
 Removed a total of 0 dead cases.
 
 2.2.3. Executing PROC_PRUNE pass (remove redundant assignments in processes).
@@ -43,46 +43,46 @@ Promoted 2 assignments to connections.
 2.2.4. Executing PROC_INIT pass (extract init attributes).
 
 2.2.5. Executing PROC_ARST pass (detect async resets in processes).
-Found async reset \rst_b in `\ct_prio.$proc$/workdir/_tmp/ath2950_c910/ct_prio_gold.v:41$14'.
-Found async reset \rst_b in `\ct_prio.$proc$/workdir/_tmp/ath2950_c910/ct_prio_gold.v:41$4'.
+Found async reset \rst_b in `\ct_prio.$proc$./ct_prio_gold.v:41$14'.
+Found async reset \rst_b in `\ct_prio.$proc$./ct_prio_gold.v:41$4'.
 
 2.2.6. Executing PROC_ROM pass (convert switches to ROMs).
 Converted 0 switches.
 <suppressed ~2 debug messages>
 
 2.2.7. Executing PROC_MUX pass (convert decision trees to multiplexers).
-Creating decoders for process `\ct_prio.$proc$/workdir/_tmp/ath2950_c910/ct_prio_gold.v:41$14'.
-     1/3: $1$splitcmplxassign$/workdir/_tmp/ath2950_c910/ct_prio_gold.v:44$2[3:0]$17
+Creating decoders for process `\ct_prio.$proc$./ct_prio_gold.v:41$14'.
+     1/3: $1$splitcmplxassign$./ct_prio_gold.v:44$2[3:0]$17
      2/3: $0\prio[1][1:0]
      3/3: $0\unused[1][1:0]
-Creating decoders for process `\ct_prio.$proc$/workdir/_tmp/ath2950_c910/ct_prio_gold.v:41$4'.
-     1/3: $1$splitcmplxassign$/workdir/_tmp/ath2950_c910/ct_prio_gold.v:44$1[3:0]$7
+Creating decoders for process `\ct_prio.$proc$./ct_prio_gold.v:41$4'.
+     1/3: $1$splitcmplxassign$./ct_prio_gold.v:44$1[3:0]$7
      2/3: $0\prio[0][1:0]
      3/3: $0\unused[0][1:0]
 
 2.2.8. Executing PROC_DLATCH pass (convert process syncs to latches).
 
 2.2.9. Executing PROC_DFF pass (convert process syncs to FFs).
-Creating register for signal `\ct_prio.$splitcmplxassign$/workdir/_tmp/ath2950_c910/ct_prio_gold.v:44$2' using process `\ct_prio.$proc$/workdir/_tmp/ath2950_c910/ct_prio_gold.v:41$14'.
+Creating register for signal `\ct_prio.$splitcmplxassign$./ct_prio_gold.v:44$2' using process `\ct_prio.$proc$./ct_prio_gold.v:41$14'.
   created $adff cell `$procdff$40' with positive edge clock and positive level reset.
-Creating register for signal `\ct_prio.\unused[1]' using process `\ct_prio.$proc$/workdir/_tmp/ath2950_c910/ct_prio_gold.v:41$14'.
+Creating register for signal `\ct_prio.\unused[1]' using process `\ct_prio.$proc$./ct_prio_gold.v:41$14'.
   created $adff cell `$procdff$45' with positive edge clock and positive level reset.
-Creating register for signal `\ct_prio.\prio[1]' using process `\ct_prio.$proc$/workdir/_tmp/ath2950_c910/ct_prio_gold.v:41$14'.
+Creating register for signal `\ct_prio.\prio[1]' using process `\ct_prio.$proc$./ct_prio_gold.v:41$14'.
   created $adff cell `$procdff$50' with positive edge clock and positive level reset.
-Creating register for signal `\ct_prio.$splitcmplxassign$/workdir/_tmp/ath2950_c910/ct_prio_gold.v:44$1' using process `\ct_prio.$proc$/workdir/_tmp/ath2950_c910/ct_prio_gold.v:41$4'.
+Creating register for signal `\ct_prio.$splitcmplxassign$./ct_prio_gold.v:44$1' using process `\ct_prio.$proc$./ct_prio_gold.v:41$4'.
   created $adff cell `$procdff$55' with positive edge clock and positive level reset.
-Creating register for signal `\ct_prio.\unused[0]' using process `\ct_prio.$proc$/workdir/_tmp/ath2950_c910/ct_prio_gold.v:41$4'.
+Creating register for signal `\ct_prio.\unused[0]' using process `\ct_prio.$proc$./ct_prio_gold.v:41$4'.
   created $adff cell `$procdff$60' with positive edge clock and positive level reset.
-Creating register for signal `\ct_prio.\prio[0]' using process `\ct_prio.$proc$/workdir/_tmp/ath2950_c910/ct_prio_gold.v:41$4'.
+Creating register for signal `\ct_prio.\prio[0]' using process `\ct_prio.$proc$./ct_prio_gold.v:41$4'.
   created $adff cell `$procdff$65' with positive edge clock and positive level reset.
 
 2.2.10. Executing PROC_MEMWR pass (convert process memory writes to cells).
 
 2.2.11. Executing PROC_CLEAN pass (remove empty switches from decision trees).
-Found and cleaned up 1 empty switch in `\ct_prio.$proc$/workdir/_tmp/ath2950_c910/ct_prio_gold.v:41$14'.
-Removing empty process `ct_prio.$proc$/workdir/_tmp/ath2950_c910/ct_prio_gold.v:41$14'.
-Found and cleaned up 1 empty switch in `\ct_prio.$proc$/workdir/_tmp/ath2950_c910/ct_prio_gold.v:41$4'.
-Removing empty process `ct_prio.$proc$/workdir/_tmp/ath2950_c910/ct_prio_gold.v:41$4'.
+Found and cleaned up 1 empty switch in `\ct_prio.$proc$./ct_prio_gold.v:41$14'.
+Removing empty process `ct_prio.$proc$./ct_prio_gold.v:41$14'.
+Found and cleaned up 1 empty switch in `\ct_prio.$proc$./ct_prio_gold.v:41$4'.
+Removing empty process `ct_prio.$proc$./ct_prio_gold.v:41$4'.
 Cleaned up 2 empty switches.
 
 2.2.12. Executing OPT_EXPR pass (perform const folding).
@@ -228,8 +228,8 @@ Finding duplicate cells in `\ct_prio'.
 Removed a total of 0 cells.
 
 2.10.6. Executing OPT_DFF pass (perform DFF optimizations).
-Adding EN signal on $procdff$50 ($adff) from module ct_prio (D = $ternary$/workdir/_tmp/ath2950_c910/ct_prio_gold.v:46$23_Y, Q = \prio[1]).
-Adding EN signal on $procdff$65 ($adff) from module ct_prio (D = $ternary$/workdir/_tmp/ath2950_c910/ct_prio_gold.v:46$13_Y, Q = \prio[0]).
+Adding EN signal on $procdff$50 ($adff) from module ct_prio (D = $ternary$./ct_prio_gold.v:46$23_Y, Q = \prio[1]).
+Adding EN signal on $procdff$65 ($adff) from module ct_prio (D = $ternary$./ct_prio_gold.v:46$13_Y, Q = \prio[0]).
 
 2.10.7. Executing OPT_CLEAN pass (remove unused cells and wires).
 Finding unused cells or wires in module \ct_prio..
@@ -270,7 +270,7 @@ Optimizing module ct_prio.
 2.10.16. Finished fast OPT passes. (There is nothing left to do.)
 
 2.11. Executing WREDUCE pass (reducing word size of cells).
-Removed top 1 bits (of 2) from port B of cell ct_prio.$eq$/workdir/_tmp/ath2950_c910/ct_prio_gold.v:46$9 ($eq).
+Removed top 1 bits (of 2) from port B of cell ct_prio.$eq$./ct_prio_gold.v:46$9 ($eq).
 
 2.12. Executing PEEPOPT pass (run peephole optimizers).
 
@@ -415,8 +415,8 @@ Optimizing module ct_prio.
 
 2.22. Executing TECHMAP pass (map to technology primitives).
 
-2.22.1. Executing Verilog-2005 frontend: /workdir/_tools/oss-cad-suite-20260630/lib/../share/yosys/techmap.v
-Parsing Verilog input from `/workdir/_tools/oss-cad-suite-20260630/lib/../share/yosys/techmap.v' to AST representation.
+2.22.1. Executing Verilog-2005 frontend: yosys/share/techmap.v
+Parsing Verilog input from `yosys/share/techmap.v' to AST representation.
 Generating RTLIL representation for module `\_90_simplemap_bool_ops'.
 Generating RTLIL representation for module `\_90_simplemap_reduce_ops'.
 Generating RTLIL representation for module `\_90_simplemap_logic_ops'.

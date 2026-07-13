@@ -19,15 +19,15 @@
     "debug_relation_mutant_sha256": "a84a92966618f088b1c631b3e81bbff66abccb64d025a8a8c3970625d423e58b"
   },
   "toolchain": {
-    "yosys": "/workdir/_tools/oss-cad-suite-20260630/bin/yosys",
+    "yosys": "YOSYS_BIN (caller-provided executable for oss-cad-suite-20260630 Yosys)",
     "yosys_version": "0.66+181",
-    "liberty": "sky130_fd_sc_hd__tt_025C_1v80.lib"
+    "liberty": "LIBERTY (caller-provided sky130_fd_sc_hd__tt_025C_1v80.lib)"
   },
   "area_receipts": {
     "gold_sky130_area": "711.932800",
     "gate_sky130_area": "678.150400",
-    "gold_log_sha256": "c99c40a9d6d10ad8907dc590c54c8ed16a5ecb68dee8d00b7cede60b6979d478",
-    "gate_log_sha256": "c9e10c4b83680b711ac4740ea8ada66bd9752f0fe5c1b1c0b216485a7891a8f9"
+    "gold_log_sha256": "d7e71eba4591a84fbe9a058b3cdbad829d4959757a94b0eac523b90a50abcc9f",
+    "gate_log_sha256": "ffde5cdff02a1d4362774eede0d4d105e2304d3a0bbd723c493a870568498397"
   },
   "proof_receipts": {
     "exact_output_bmc_seq6": {
