@@ -17,9 +17,9 @@ artifact is copied into this fork. A package MUST contain:
 | --- | --- |
 | `SOURCE_DIFF.patch` (or `*_gold.v` + `*_gate.v`) | The bounded RTL change: original vs optimized. |
 | `*_gate_mutant.v` (or `*_exposed.v`) | The deliberately-broken candidate used by the non-vacuity control. |
-| `area_*.json` / `reports/` | Selected-flow PPA (cells, area, timing) on the pinned toolchain. |
+| `area_*.json` / `reports/` | Selected-flow measurement logs on the pinned toolchain. Area-only rows must state that timing/power are not claimed. |
 | `equiv_*.ys` + `equiv_*.log` (or the induction/miter script + log) | The equivalence / temporal-induction proof and its replay. |
-| `*_manifest.json` | The row's claim: subject, proof method, scope, assumptions, PPA deltas, control result. |
+| `*_manifest.json` | The row's claim: subject, proof method, scope, assumptions, measurement deltas, control result. |
 | `COMMANDS.md` | Exact commands to reproduce the package from the RTL. |
 | `SHA256SUMS` | `sha256` of every other file in the package. The hash binding. |
 
@@ -37,7 +37,8 @@ read as more than it is:
 - `proof_method`: e.g. `yosys_sat_kinduction`, `sby_pdr`, `lean_theorem`.
 - `scope`: `visible_output_miter` vs `full_internal_state`; `module_local` vs `whole_core`.
 - `assumptions`: named (e.g. `reset_first`), each with whether removal was tested to break the proof.
-- `ppa`: before/after, with the metric and toolchain.
+- `measurement`: before/after, with the metric and toolchain. If the row is
+  area-only, timing/power non-claims must be explicit.
 - `nonvacuity`: the control (broken candidate) and that it fails the same proof.
 
 ## Replay
@@ -60,14 +61,14 @@ silently drop its scope statement.
 
 The selected toolchain policy will be recorded in
 `athanor/toolchain_policy.json` as fork-local packages land. Until then, each
-routed packet owns its pinned toolchain record. PPA and equivalence numbers are
+routed packet owns its pinned toolchain record. Measurement and equivalence numbers are
 only comparable within one recorded toolchain; cross-toolchain numbers are not
 added together.
 
 ## Evidence bar (summary)
 
 A row is promoted from candidate to accepted only with: a bounded RTL diff;
-selected-flow PPA; an equivalence or formal proof on the exact subject with its
+selected-flow measurement with any missing PPA axes named; an equivalence or formal proof on the exact subject with its
 scope stated; a non-vacuity control that a broken candidate fails; replay hashes;
 and non-author cold review. Module-local rows are never presented as whole-core
 claims, and local wins are not summed without an integrated end-to-end receipt.

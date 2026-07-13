@@ -7,7 +7,8 @@ This packet is a module-local proof/optimization receipt for the PULP C910
 ## What It Shows
 
 - Kairos produced a structural candidate for the C910 `ct_prio` block.
-- The selected Sky130 area replay is `158.902400 -> 93.840000`.
+- The selected Sky130 area replay is `158.902400 -> 93.840000`; timing and
+  power are not claimed for this row.
 - The visible-output miter proves `sel[1:0]` equivalence under the reset-first
   assumption `rst_b=0` at time 1 and `rst_b=1` at time 2.
 - The seeded mutant fails under the same miter, so the proof check rejects a

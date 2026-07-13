@@ -8,7 +8,7 @@ This artifact records a module-local proof/optimization packet for the PULP C910
 | --- | --- |
 | Module | C910 `ct_fifo`, default `DEPTH=2`, `WIDTH=6`, `PTR_W=1` |
 | Transform | Replace one-hot create pointer and two-bit pop pointer state with one-bit indices |
-| Selected Sky130 area | `711.932800` to `678.150400` |
+| Selected Sky130 area | `711.932800` to `678.150400`; timing/power not claimed |
 | Exact visible-output check | Bounded proof through seq12 under reset-first |
 | Mutant control | `fifo_full` inversion fails under the same bounded miter |
 | Relation proof | Temporal induction closes at k=1 over state-exposed copies |
@@ -34,4 +34,4 @@ Run:
 YOSYS_BIN=/path/to/yosys LIBERTY=/path/to/sky130_fd_sc_hd__tt_025C_1v80.lib ./replay.sh
 ```
 
-The script reproduces the selected Sky130 area, the seq12 exact-output bounded proof, the biting mutants, the state-exposed relation induction, and the passive-debug bridge check.
+The script reproduces the selected Sky130 area, the seq12 exact-output bounded proof, the biting mutants, the state-exposed relation induction, and the passive-debug bridge check. Timing and power are not claimed for this row.

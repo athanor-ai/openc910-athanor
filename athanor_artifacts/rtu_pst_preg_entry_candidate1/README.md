@@ -15,7 +15,7 @@ candidate, and independent QA confirmed a second storage-path mutant also fails.
 
 ## PPA
 
-Selected Sky130 area improves in the replay flow:
+Selected Sky130 area improves in the replay flow; timing/power are not claimed:
 
 - Local module: `2677.568000 -> 2648.790400`
 - Top with `ct_rtu_expand_32`, `ct_rtu_expand_96`, and `gated_clk_cell` deps:
