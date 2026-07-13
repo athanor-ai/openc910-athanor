@@ -16,7 +16,7 @@ claim.
 
 | Topic | State |
 | --- | --- |
-| Accepted evidence | First accepted out-of-order row: `ct_prio` (the OoO priority arbiter), a module-local optimization with a replayable temporal-induction equivalence proof and a biting negative control. |
+| Accepted evidence | Two accepted out-of-order module-local rows: `ct_prio` (the OoO priority arbiter) and `ct_fifo` (the DEPTH=2 CIU FIFO), each with a replayable equivalence proof on its stated scope and a biting negative control. A first RTU candidate (`ct_rtu_rob_entry`) has landed and awaits independent cold review (see Gaps). |
 | Tooling claim | Athanor/Kairos is used here as the optimization, measurement, filtering, replay, and evidence pipeline. Where the tool stalls on OoO-specific structure, the structural insight is human-guided; the tool supplies the receipts. This README does **not** claim autonomous discovery. |
 | Honest scope | Module-level optimization + equivalence proof on OoO-core RTL: demonstrated. Whole-core out-of-order *sequential* equivalence: research frontier, a staged Lean-backed program (see Gaps), not claimed here. |
 | Main gaps | More module-local rows across the OoO pipeline (decode / issue / rename / ALU / LSU / BIU-CIU); Lean closure of an architectural OoO invariant against the RTL; verified compound optimization across modules. |
@@ -41,10 +41,13 @@ a "compound" result must carry its own end-to-end receipt at each step.
 | Transform | Status | PPA signal | Correctness / activity | Receipt |
 | --- | --- | --- | --- | --- |
 | `ct_prio` / priority-arbiter simplification | Accepted module-local artifact | Generic cells `22 -> 20`; Sky130 area `158.9 -> 93.8` (~41% on this block, verified real logic simplification, not dropped dead-logic); timing is not claimed for this row | Yosys SAT temporal (k-)induction closes on `sel[1:0]` at depth 4 (unbounded, visible-output miter under a documented reset-first assumption); negative control: a broken candidate fails the same proof; internal-state boundary log-backed | [routed packet](https://github.com/athanor-ai/athanor-kairos/tree/f905d40047076aad2d2214ffceff1a9625d7644d/artifacts/ath2950_c910_ct_prio) |
+| `ct_fifo` / DEPTH=2 pointer-representation specialization | Accepted module-local artifact | Sky130 area `711.9 -> 678.2` (~4.7% on this block); area-only, timing is not claimed for this row | Exact visible-output equivalence (`fifo_pop_data[5:0]`, `fifo_pop_data_vld`, `fifo_full`, `fifo_empty`) proved **bounded through seq12** under a reset-first contract; an *unbounded* temporal-induction closure (k=1) holds over state-exposed copies that assert those outputs plus the create/pop-pointer, valid-vector and stored-data relation, gated by a scripted self-tested passivity check that the exact->debug bridge is instrumentation-only; negative control (inverted `fifo_full`) fails both the bounded miter and the relation miter | [`athanor_artifacts/ct_fifo/`](athanor_artifacts/ct_fifo/) |
 
 *(Further OoO-pipeline rows land here as they clear the Evidence Bar.)*
 
-## Latest Accepted Module-Local Discovery: `ct_prio`
+## Accepted Module-Local Rows
+
+### `ct_prio` -- priority arbiter
 
 `ct_prio` is C910's request-priority arbiter on the out-of-order issue path -- it
 selects which pending request wins each cycle. The selected-toolchain row records
@@ -59,6 +62,33 @@ confirms the proof discriminates.
 Scope: this is visible-output equivalence of the arbiter's `sel` output -- the
 block's functional contract -- not full internal-state equivalence, and not a
 whole-core proof. It is a module-local row on a real out-of-order core.
+
+### `ct_fifo` -- DEPTH=2 CIU FIFO
+
+`ct_fifo` is a small synchronous FIFO in C910's CIU. The optimization
+specializes the default `DEPTH=2` create/pop pointer representation from a
+one-hot create pointer plus two-bit pop pointer to one-bit indices, preserving
+the visible FIFO outputs. The selected-toolchain row records a Sky130 area
+reduction `711.9 -> 678.2`; this is an area-only row and timing is not claimed.
+
+Correctness has two layers, and the boundary between them is stated on purpose.
+The exact gold/gate output miter proves the visible outputs
+(`fifo_pop_data[5:0]`, `fifo_pop_data_vld`, `fifo_full`, `fifo_empty`) identical
+under a reset-first contract, but only as a *bounded* proof through seq12 -- the
+raw exact-output temporal induction did **not** close, and that non-closure is
+recorded, not hidden. The *unbounded* claim is carried by a temporal-induction
+proof (closing at k=1) over state-exposed copies that additionally assert the
+create-pointer, pop-pointer, valid-vector and stored-data relation; a scripted,
+self-tested passivity check confirms the exact->debug bridge only adds
+instrumentation and changes no logic. Two negative controls bite: an inverted
+`fifo_full` candidate fails both the bounded exact miter and the stronger
+relation miter, so neither proof is vacuous.
+
+Scope: module-local visible-output equivalence only. No FIFO semantic
+correctness, no full internal-state equivalence on the exact modules beyond
+seq12, and no whole-core claim. The state-exposed relation is the unbounded
+authority; the exact-to-debug bridge is mechanical and biting, not a second
+independent formal miter.
 
 ## What This Shows
 
@@ -75,11 +105,19 @@ whole-core proof. It is a module-local row on a real out-of-order core.
 ## Gaps And Next Work
 
 1. Module-local rows across the OoO pipeline, RTU-first: the retire/reorder unit
-   is the first ambitious subsystem -- `ct_rtu_rob_entry` (ROB entry state) and
-   `ct_rtu_pst_preg_entry` (physical-status / free-list), composing toward the
-   full `ct_rtu_rob`. Next-tier targets are the IDU issue/dependency queue
-   (`ct_idu_is_lsiq_entry`) and the LSU store queue (`ct_lsu_sq_entry`). These are
-   real sequential, high-port OoO blocks, not leaf toys.
+   is the first ambitious subsystem. A first **candidate** packet has landed for
+   `ct_rtu_rob_entry` (ROB entry state) at
+   [`athanor_artifacts/rtu_rob_entry_candidate1/`](athanor_artifacts/rtu_rob_entry_candidate1/):
+   a completion-fold popcount recode with a module-local same-state equivalence
+   proof (`equiv_induct -seq 8`, all 94 mapped cells proven, biting negative
+   control). It is labelled a candidate, not an accepted row -- it awaits an
+   independent cold-review reproduce before promotion, and its measured win is
+   generic-cell count (`129 -> 94`), *not* Sky130 area (`2287.2 -> 2265.9`,
+   ~0.9%), so it is not presented as an area result. Still open in this
+   subsystem: `ct_rtu_pst_preg_entry` (physical-status / free-list), composing
+   toward the full `ct_rtu_rob`. Next-tier targets are the IDU issue/dependency
+   queue (`ct_idu_is_lsiq_entry`) and the LSU store queue (`ct_lsu_sq_entry`).
+   These are real sequential, high-port OoO blocks, not leaf toys.
 2. Close a real OoO architectural invariant in Lean against the C910 RTL --
    rename bijection or free-list no-duplicate on the RTU state -- as a
    deductively discharged obligation, not a doc promise.
@@ -92,22 +130,27 @@ whole-core proof. It is a module-local row on a real out-of-order core.
 
 ## Audit Map
 
-The first accepted row links to the routed ATH-2950 packet in
-`athanor-ai/athanor-kairos`. Fork-local packages will use this layout as they
-land:
+The `ct_prio` row links to the routed ATH-2950 packet in
+`athanor-ai/athanor-kairos`; `ct_fifo` and the `ct_rtu_rob_entry` candidate are
+fork-local packages under `athanor_artifacts/`, each replayable in place. The
+receipt verifier checks every fork-local package's hash binding and manifest:
 
 - Toolchain policy: `athanor/toolchain_policy.json`
 - Receipt verifier: `python3 athanor/verify_public_receipts.py`
 - Artifact packages: `athanor_artifacts/`
-- Replay commands: each artifact package carries `COMMANDS.md` and `SHA256SUMS`.
+- Replay: each fork-local package carries a `replay.sh` that takes the toolchain
+  as required env vars (`YOSYS_BIN`, `LIBERTY`), plus a `SHA256SUMS` hash binding.
 
-Common receipt files per package:
+Common files per fork-local package:
 
-- `SOURCE_DIFF.patch` or gate source: the bounded RTL change.
-- `area*.json` / `reports/`: selected-flow PPA data.
-- `equiv_*.ys` and `equiv_*.log`: equivalence / induction replay.
+- `*_gold.v` and `*_gate_candidate.v`: the bounded RTL change (original vs optimized).
+- `*_gate_mutant.v`: the deliberately-broken candidate the non-vacuity control must reject.
+- `*_miter.sv`: the equivalence / induction miter(s).
+- `*.pinned.log`: pinned selected-flow PPA and proof-replay logs.
+- `receipt.json`: the row's claim -- subject, proof method, scope, assumptions, PPA deltas, control result, and known boundaries.
+- `README.md`: the per-packet scope and non-claims.
 - `SHA256SUMS`: package hash binding.
-- `COMMANDS.md`: replay commands.
+- `replay.sh`: the replay entrypoint.
 
 ## Upstream C910
 
