@@ -26,7 +26,8 @@ claim.
 Promotion requires evidence for the exact claim:
 
 1. Bounded RTL diff.
-2. Selected-flow area and timing on the recorded toolchain.
+2. Selected-flow PPA on the recorded toolchain. Area-only rows must say that
+   they are area-only; timing is required when timing is part of the claim.
 3. Equivalence or hosted formal proof on the exact subject, with its scope stated (e.g. visible-output miter vs full internal-state; any reset or environment assumption named).
 4. A non-vacuity control: a deliberately broken candidate must fail the same proof.
 5. Replayable hashes plus non-author cold review.
@@ -39,7 +40,7 @@ a "compound" result must carry its own end-to-end receipt at each step.
 
 | Transform | Status | PPA signal | Correctness / activity | Receipt |
 | --- | --- | --- | --- | --- |
-| `ct_prio` / priority-arbiter simplification | Accepted module-local artifact | Generic cells `22 -> 20`; Sky130 area `158.9 -> 93.8` (~41% on this block, verified real logic simplification, not dropped dead-logic) | Yosys SAT temporal (k-)induction closes on `sel[1:0]` at depth 4 (unbounded, visible-output miter under a documented reset-first assumption); negative control: a broken candidate fails the same proof; internal-state boundary log-backed | [`athanor_artifacts/ct_prio/`](athanor_artifacts/ct_prio/) |
+| `ct_prio` / priority-arbiter simplification | Accepted module-local artifact | Generic cells `22 -> 20`; Sky130 area `158.9 -> 93.8` (~41% on this block, verified real logic simplification, not dropped dead-logic); timing is not claimed for this row | Yosys SAT temporal (k-)induction closes on `sel[1:0]` at depth 4 (unbounded, visible-output miter under a documented reset-first assumption); negative control: a broken candidate fails the same proof; internal-state boundary log-backed | [routed packet](https://github.com/athanor-ai/athanor-kairos/tree/f905d40047076aad2d2214ffceff1a9625d7644d/artifacts/ath2950_c910_ct_prio) |
 
 *(Further OoO-pipeline rows land here as they clear the Evidence Bar.)*
 
@@ -47,12 +48,13 @@ a "compound" result must carry its own end-to-end receipt at each step.
 
 `ct_prio` is C910's request-priority arbiter on the out-of-order issue path -- it
 selects which pending request wins each cycle. The selected-toolchain row records
-a Sky130 area reduction `158.9 -> 93.8`. Correctness is carried by a Yosys SAT
-temporal-induction miter that proves the optimized block produces identical
-`sel[1:0]` output to the original (an *unbounded* proof via k-induction at depth
-4), under a reset-first assumption whose removal was tested to break the proof, so
-it is not hiding a vacuous result. A non-vacuity bite
-where a broken candidate fails the same miter confirms the proof discriminates.
+a Sky130 area reduction `158.9 -> 93.8`; timing is not claimed for this row.
+Correctness is carried by a Yosys SAT temporal-induction miter that proves the
+optimized block produces identical `sel[1:0]` output to the original (an
+*unbounded* proof via k-induction at depth 4), under a reset-first assumption
+whose removal was tested to break the proof, so it is not hiding a vacuous
+result. A non-vacuity bite where a broken candidate fails the same miter
+confirms the proof discriminates.
 
 Scope: this is visible-output equivalence of the arbiter's `sel` output -- the
 block's functional contract -- not full internal-state equivalence, and not a
@@ -90,9 +92,13 @@ whole-core proof. It is a module-local row on a real out-of-order core.
 
 ## Audit Map
 
+The first accepted row links to the routed ATH-2950 packet in
+`athanor-ai/athanor-kairos`. Fork-local packages will use this layout as they
+land:
+
 - Toolchain policy: `athanor/toolchain_policy.json`
 - Receipt verifier: `python3 athanor/verify_public_receipts.py`
-- Artifact packages: [`athanor_artifacts/`](athanor_artifacts/)
+- Artifact packages: `athanor_artifacts/`
 - Replay commands: each artifact package carries `COMMANDS.md` and `SHA256SUMS`.
 
 Common receipt files per package:
