@@ -1,6 +1,7 @@
-# C910 ct_prio Area, Timing, and Estimated-Power Candidate 1
+# C910 ct_prio Area, Timing, and Estimated-Power Packet 1
 
-Status: candidate pending independent replay.
+Status: accepted module-local metric packet; `customer_ready=true` for scoped
+area/timing/OpenSTA-estimated-power wording.
 
 This package records a more aggressive `ct_prio` priority-encoding rewrite than
 the accepted public `ct_prio` packet. The candidate collapses the live priority
@@ -63,7 +64,8 @@ LIBERTY=/path/to/sky130_fd_sc_hd__tt_025C_1v80.lib \
 
 ## Boundaries
 
-- Candidate pending independent replay by a non-author seat.
+- Customer-ready only for scoped module-local area/timing/OpenSTA-estimated-power
+  wording.
 - Module-local `ct_prio` only.
 - Visible `sel[1:0]` output behavior under reset-first is the proof subject.
 - Not full internal-state equivalence.

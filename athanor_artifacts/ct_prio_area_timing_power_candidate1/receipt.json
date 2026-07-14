@@ -1,7 +1,8 @@
 {
   "ticket": "ATH-2967",
-  "status": "candidate_independent_replay_cleared_pending_promotion",
-  "customer_ready": false,
+  "status": "accepted_module_local_area_timing_opensta_estimated_power_packet",
+  "customer_ready": true,
+  "customer_ready_scope": "module-local ct_prio same-candidate-bound selected Sky130 area, OpenSTA max data-arrival under the package SDC, and OpenSTA estimated total power under fixed global activity; visible sel[1:0] equivalence under reset-first; OpenSTA estimated power is not signoff power and not measured workload activity",
   "target": {
     "module": "ct_prio",
     "source_packet": "athanor_artifacts/ct_prio",
@@ -23,7 +24,7 @@
   },
   "files": {
     ".gitattributes": "dd189159ababdd3a2f5c2a0a7106f4a0bffd179e55e9db36e1476121f0bb8e7c",
-    "README.md": "411708733971e7e0dd68040196f544d0b664d3bc85aad4de1a3a52418a04dff6",
+    "README.md": "d23d9899b531267f6bc41161e5b6f4490124dbdeda5c8738536fc7b6e4e0b7e2",
     "ct_prio_gate_candidate.mapped.v": "cd38c2a5134b06248e151bbf8a40c1c210e8ddfb97e26585aadb7e87e18be250",
     "ct_prio_gate_candidate.v": "d87e69e67ca406bc7f0ba9cecca80a466c1b8f95ca0de36e04da37f817240ff1",
     "ct_prio_gate_proof_mutant.v": "f58bc816059e5e04c8c08ddd52094def1cb0cbb37927f4edb56f949d3a5f8bcf",
@@ -40,7 +41,7 @@
     "output_miter_proof.pinned.log": "3ddeeb6fd41495f7204690808fa31e6db315826eeaec46f64ae9f60f1b8a047f",
     "proof_mutant_negative.pinned.log": "4f3de4e26077f13be6c6d1c20b4df2258c6037547fefb8b09105d81bb5a568f1",
     "replay.sh": "3a7218c806b3293be4767d86e80c19af02841e41d84424f93814a6c0fb718d16",
-    "same_candidate_binding_receipt.json": "0220131383c93300d3225ddcec8b4a6fe3b8bf5f368462a9c22f8765f34cc95f"
+    "same_candidate_binding_receipt.json": "6cfa43d0e5f6eb184226fe0d64d61e7dbd302fc2859e93cd4c0f630081f4acc5"
   },
   "metrics": {
     "area": {
@@ -147,7 +148,7 @@
     }
   },
   "known_boundaries": [
-    "candidate independently replayed by non-author seats; customer-ready promotion is not claimed in this receipt",
+    "customer-ready only for scoped module-local area/timing/OpenSTA-estimated-power wording",
     "module-local ct_prio only",
     "visible-output behavior under reset-first is the proof subject",
     "not full internal-state equivalence",

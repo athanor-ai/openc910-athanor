@@ -1,6 +1,7 @@
-# C910 RTU PST Preg Entry Area, Timing, and Estimated-Power Candidate 1
+# C910 RTU PST Preg Entry Area, Timing, and Estimated-Power Packet 1
 
-Status: candidate pending independent replay.
+Status: accepted module-local metric packet; `customer_ready=true` for scoped
+area/timing/OpenSTA-estimated-power wording.
 
 This package extends the accepted `ct_rtu_pst_preg_entry` relation packet with
 same-candidate-bound selected area, OpenSTA max data-arrival, and OpenSTA
@@ -68,7 +69,8 @@ axes.
 
 ## Boundaries
 
-- Candidate pending independent replay by a non-author seat.
+- Customer-ready only for scoped module-local area/timing/OpenSTA-estimated-power
+  wording.
 - Module-local `ct_rtu_pst_preg_entry` only.
 - Correctness proof scope remains visible-output equivalence under reset-first
   through passive debug bridge plus lifecycle-encoding relation induction.
