@@ -234,6 +234,21 @@ def _is_metric_packet(receipt: dict[str, object]) -> bool:
     return "area_timing_opensta_estimated_power" in status or {"area", "timing", "power"} <= metric_axes
 
 
+# A customer_ready packet must declare a recognized type via its status. The
+# metric family (matched by _is_metric_packet) requires the same-candidate
+# binding. The proof/equivalence family makes no PPA optimization claim (its
+# generic cell counts are documented non-headline context, not a customer PPA
+# claim). Any OTHER customer_ready status is unrecognized and REDs: an unknown
+# type could hide an unbound PPA surface under any renamed container or axis, so
+# we fail closed on the DECLARED TYPE rather than blocklist a container/axis name
+# (a per-name skip just moves the evasion one level up). Adding a customer_ready
+# type is a deliberate, reviewed event -- extend this allowlist on purpose.
+_RECOGNIZED_NONMETRIC_STATUS_MARKERS = (
+    "visible_output_equivalence",
+    "visible_output_relation",
+)
+
+
 def _nonempty_string(value: object) -> bool:
     return isinstance(value, str) and bool(value.strip())
 
@@ -289,7 +304,29 @@ def _verify_customer_ready_authority(package: Path, receipt: dict[str, object]) 
 
 
 def _verify_same_candidate_metric_binding(package: Path, receipt: dict[str, object]) -> list[str]:
-    if not (_customer_ready(receipt) and _is_metric_packet(receipt)):
+    if not _customer_ready(receipt):
+        return []
+    if not _is_metric_packet(receipt):
+        # Fail-closed against renamed-container AND renamed-axis evasion. Both
+        # evasions dodge _is_metric_packet by dropping the metric status marker;
+        # keying the skip off a container or axis NAME (e.g. the literal "metrics"
+        # key) just moves the goalpost one level up -- a PPA surface under a
+        # renamed container such as receipt["ppa_block"] slips a name-based cure.
+        # Instead require the DECLARED TYPE: a customer_ready packet that is neither a
+        # recognized metric packet nor a recognized proof/equivalence packet REDs,
+        # so an unbound PPA surface cannot hide under any renamed key. A pure
+        # gold/gate metric-pair SHAPE check was rejected: it false-reds a real
+        # proof packet whose area_receipts.generic_cells carries documented
+        # non-headline gold/gate cell counts.
+        status = str(receipt.get("status", ""))
+        if not any(marker in status for marker in _RECOGNIZED_NONMETRIC_STATUS_MARKERS):
+            rel_receipt = (package / "receipt.json").relative_to(REPO_ROOT)
+            return [
+                f"{rel_receipt}: customer_ready packet has unrecognized status "
+                f"{status!r} -- not a recognized metric or proof/equivalence type; a "
+                f"customer PPA claim must use a recognized bound packet type "
+                f"(fail-closed against renamed-container or renamed-axis evasion)"
+            ]
         return []
     rel_receipt = (package / "receipt.json").relative_to(REPO_ROOT)
     binding_path = package / "same_candidate_binding_receipt.json"
