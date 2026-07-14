@@ -133,6 +133,43 @@ def _sums_listed(package: Path) -> set[str]:
     return listed
 
 
+def _sums_entries(package: Path) -> dict[str, str]:
+    """SHA256SUMS as ``relpath -> sha256`` with ``./`` normalized."""
+    sums_path = package / "SHA256SUMS"
+    entries: dict[str, str] = {}
+    if sums_path.is_file():
+        for raw in sums_path.read_text(encoding="utf-8").splitlines():
+            parts = raw.split(maxsplit=1)
+            if len(parts) == 2:
+                entries[parts[1].removeprefix("./")] = parts[0]
+    return entries
+
+
+def _sums_path_escapes(package: Path) -> list[str]:
+    sums_path = package / "SHA256SUMS"
+    if not sums_path.is_file():
+        return []
+    problems: list[str] = []
+    package_root = package.resolve()
+    for lineno, raw in enumerate(sums_path.read_text(encoding="utf-8").splitlines(), 1):
+        parts = raw.split(maxsplit=1)
+        if len(parts) != 2:
+            continue
+        rel = parts[1].removeprefix("./")
+        path = Path(rel)
+        if path.is_absolute():
+            problems.append(f"{sums_path.relative_to(REPO_ROOT)}:{lineno}: SHA256SUMS path must be relative")
+            continue
+        target = (package / path).resolve()
+        try:
+            target.relative_to(package_root)
+        except ValueError:
+            problems.append(
+                f"{sums_path.relative_to(REPO_ROOT)}:{lineno}: SHA256SUMS path escapes package: {rel}"
+            )
+    return problems
+
+
 def _verify_manifest_complete(package: Path) -> list[str]:
     """Every committed artifact in the package MUST be bound by SHA256SUMS.
     ``_verify_sums`` checks listed->present (hash match); this checks the
@@ -158,6 +195,16 @@ def _verify_manifest_complete(package: Path) -> list[str]:
     return problems
 
 
+def _load_json(path: Path) -> tuple[dict[str, object] | None, list[str]]:
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except json.JSONDecodeError as exc:
+        return None, [f"{path.relative_to(REPO_ROOT)} JSON parse failed: {exc}"]
+    if not isinstance(data, dict):
+        return None, [f"{path.relative_to(REPO_ROOT)} must contain a JSON object"]
+    return data, []
+
+
 def _verify_replay(package: Path) -> list[str]:
     """A package that ships a receipt.json (a reproducible claim) MUST ship a
     self-checking replay.sh: present and containing at least one ``grep -q``
@@ -174,6 +221,163 @@ def _verify_replay(package: Path) -> list[str]:
             f"produces logs but does not self-verify the claimed result"
         ]
     return []
+
+
+def _customer_ready(receipt: dict[str, object]) -> bool:
+    return receipt.get("customer_ready") is True
+
+
+def _is_metric_packet(receipt: dict[str, object]) -> bool:
+    status = str(receipt.get("status", ""))
+    metrics = receipt.get("metrics", {})
+    metric_axes = set(metrics) if isinstance(metrics, dict) else set()
+    return "area_timing_opensta_estimated_power" in status or {"area", "timing", "power"} <= metric_axes
+
+
+def _nonempty_string(value: object) -> bool:
+    return isinstance(value, str) and bool(value.strip())
+
+
+def _verify_customer_ready_authority(package: Path, receipt: dict[str, object]) -> list[str]:
+    """Customer-ready packets must carry an auditable authority block whose
+    candidate hashes are bound by the package SHA manifest. The SDK-side Lean
+    validator recomputes theorem liveness; this fork-side leg proves the
+    receipt's declared candidate binding points at bytes the package actually
+    ships."""
+    if not _customer_ready(receipt):
+        return []
+    rel_receipt = (package / "receipt.json").relative_to(REPO_ROOT)
+    authority = receipt.get("lean_authority")
+    fallback = receipt.get("lean_fallback")
+    has_authority = isinstance(authority, dict)
+    has_fallback = isinstance(fallback, dict)
+    if has_authority == has_fallback:
+        return [
+            f"{rel_receipt}: customer_ready must carry exactly one of lean_authority or lean_fallback"
+        ]
+    block = authority if has_authority else fallback
+    assert isinstance(block, dict)
+    problems: list[str] = []
+    for key in ("reason", "strongest_evidence", "scope_boundary") if has_fallback else ():
+        if not _nonempty_string(block.get(key)):
+            problems.append(f"{rel_receipt}: lean_fallback missing nonempty {key}")
+    binding = block.get("candidate_binding")
+    if not isinstance(binding, dict):
+        problems.append(f"{rel_receipt}: customer_ready authority block missing candidate_binding")
+        return problems
+    entries = _sums_entries(package)
+    bound_hashes = set(entries.values())
+    for key in ("gold_sha256", "gate_sha256"):
+        value = binding.get(key)
+        if not _nonempty_string(value):
+            problems.append(f"{rel_receipt}: candidate_binding missing nonempty {key}")
+        elif value not in bound_hashes:
+            problems.append(
+                f"{rel_receipt}: candidate_binding.{key}={value} is not bound by SHA256SUMS"
+            )
+    candidate = receipt.get("candidate", {})
+    if not isinstance(candidate, dict) or not _nonempty_string(candidate.get("candidate_sha256")):
+        problems.append(f"{rel_receipt}: customer_ready authority packet missing candidate.candidate_sha256")
+        return problems
+    gate = binding.get("gate_sha256")
+    if gate != candidate["candidate_sha256"]:
+        problems.append(
+            f"{rel_receipt}: candidate_binding.gate_sha256={gate} does not match "
+            f"candidate.candidate_sha256={candidate['candidate_sha256']}"
+        )
+    return problems
+
+
+def _verify_same_candidate_metric_binding(package: Path, receipt: dict[str, object]) -> list[str]:
+    if not (_customer_ready(receipt) and _is_metric_packet(receipt)):
+        return []
+    rel_receipt = (package / "receipt.json").relative_to(REPO_ROOT)
+    binding_path = package / "same_candidate_binding_receipt.json"
+    if not binding_path.is_file():
+        return [f"{rel_receipt}: customer_ready metric packet missing same_candidate_binding_receipt.json"]
+    binding, errors = _load_json(binding_path)
+    if errors:
+        return errors
+    assert binding is not None
+    problems: list[str] = []
+    rel_binding = binding_path.relative_to(REPO_ROOT)
+    receipt_candidate = receipt.get("candidate")
+    binding_candidate = binding.get("candidate")
+    if not isinstance(receipt_candidate, dict):
+        problems.append(f"{rel_receipt}: metric packet missing candidate object")
+        return problems
+    if not isinstance(binding_candidate, dict):
+        problems.append(f"{rel_binding}: missing candidate object")
+        return problems
+    for key in ("candidate_sha256", "mapped_netlist_sha256", "selected_flow"):
+        if not _nonempty_string(receipt_candidate.get(key)):
+            problems.append(f"{rel_receipt}: candidate missing nonempty {key}")
+        if binding_candidate.get(key) != receipt_candidate.get(key):
+            problems.append(
+                f"{rel_binding}: candidate.{key}={binding_candidate.get(key)!r} does not match "
+                f"receipt candidate.{key}={receipt_candidate.get(key)!r}"
+            )
+    axes = binding.get("axes")
+    if not isinstance(axes, dict):
+        return problems + [f"{rel_binding}: missing axes object"]
+    entries = _sums_entries(package)
+    bound_hashes = set(entries.values())
+    mapped_sha = binding_candidate.get("mapped_netlist_sha256")
+    if not _nonempty_string(mapped_sha) or mapped_sha not in bound_hashes:
+        problems.append(f"{rel_binding}: candidate.mapped_netlist_sha256 is not bound by SHA256SUMS")
+    for axis_name in ("area", "timing", "power"):
+        axis = axes.get(axis_name)
+        if not isinstance(axis, dict):
+            problems.append(f"{rel_binding}: missing {axis_name} axis")
+            continue
+        for key in ("candidate_sha256", "mapped_netlist_sha256", "selected_flow"):
+            if axis.get(key) != binding_candidate.get(key):
+                problems.append(
+                    f"{rel_binding}: {axis_name}.{key}={axis.get(key)!r} does not match "
+                    f"candidate.{key}={binding_candidate.get(key)!r}"
+                )
+        for key in ("instrument", "instrument_version"):
+            if not _nonempty_string(axis.get(key)):
+                problems.append(f"{rel_binding}: {axis_name} missing nonempty {key}")
+        metric = axis.get("metric")
+        if not isinstance(metric, dict) or not metric:
+            problems.append(f"{rel_binding}: {axis_name} missing metric object")
+        negative = axis.get("negative_control")
+        if not isinstance(negative, dict):
+            problems.append(f"{rel_binding}: {axis_name} missing negative_control")
+            continue
+        if negative.get("axis_reds") is not True:
+            problems.append(f"{rel_binding}: {axis_name}.negative_control.axis_reds must be true")
+        if not _nonempty_string(negative.get("regressed_candidate_sha256")):
+            problems.append(f"{rel_binding}: {axis_name}.negative_control missing regressed_candidate_sha256")
+        elif negative.get("regressed_candidate_sha256") == binding_candidate.get("candidate_sha256"):
+            problems.append(
+                f"{rel_binding}: {axis_name}.negative_control.regressed_candidate_sha256 "
+                "must differ from the accepted candidate_sha256"
+            )
+        elif negative["regressed_candidate_sha256"] not in entries.values():
+            problems.append(
+                f"{rel_binding}: {axis_name}.negative_control.regressed_candidate_sha256="
+                f"{negative['regressed_candidate_sha256']} is not bound by SHA256SUMS"
+            )
+        log_ref = negative.get("log_ref")
+        if not _nonempty_string(log_ref):
+            problems.append(f"{rel_binding}: {axis_name}.negative_control missing log_ref")
+        elif str(log_ref).removeprefix("./") not in entries:
+            problems.append(
+                f"{rel_binding}: {axis_name}.negative_control.log_ref={log_ref!r} "
+                "is not bound by SHA256SUMS"
+            )
+    power_axis = axes.get("power")
+    if isinstance(power_axis, dict):
+        metric = power_axis.get("metric")
+        boundary = metric.get("methodology_boundary") if isinstance(metric, dict) else None
+        if not (_nonempty_string(boundary) and "not signoff" in boundary and "not measured workload" in boundary):
+            problems.append(
+                f"{rel_binding}: power.metric.methodology_boundary must qualify "
+                "OpenSTA power as not signoff and not measured workload"
+            )
+    return problems
 
 
 def _receipt_area_claims(obj: object, key_path: str = "") -> list[tuple[str, float]]:
@@ -247,6 +451,20 @@ def _verify_receipt_bound_to_logs(package: Path) -> list[str]:
     return problems
 
 
+def _verify_customer_ready_receipt(package: Path) -> list[str]:
+    receipt_path = package / "receipt.json"
+    if not receipt_path.is_file():
+        return []
+    receipt, errors = _load_json(receipt_path)
+    if errors:
+        return []  # parse failure already flagged by _verify_receipt_json
+    assert receipt is not None
+    problems: list[str] = []
+    problems.extend(_verify_customer_ready_authority(package, receipt))
+    problems.extend(_verify_same_candidate_metric_binding(package, receipt))
+    return problems
+
+
 def verify(root: Path = ARTIFACT_ROOT) -> list[str]:
     # A capture-track fork (e.g. riscv-boom-athanor) legitimately has no proof
     # packages yet -- "no artifacts yet" is not a failure. Fail-closed means
@@ -268,10 +486,12 @@ def verify(root: Path = ARTIFACT_ROOT) -> list[str]:
         return []
     for package in packages:
         problems.extend(_verify_sums(package))
+        problems.extend(_sums_path_escapes(package))
         problems.extend(_verify_manifest_complete(package))
         problems.extend(_verify_receipt_json(package))
         problems.extend(_verify_replay(package))
         problems.extend(_verify_receipt_bound_to_logs(package))
+        problems.extend(_verify_customer_ready_receipt(package))
         problems.extend(_verify_public_export_clean(package))
     return problems
 
