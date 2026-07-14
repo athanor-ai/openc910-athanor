@@ -40,9 +40,9 @@ limitations under the License.
 
 
 
-`define YEAR1 4'b0010    
-`define YEAR0 4'b0001    
-`define MONTH 4'b1010    
+`define YEAR1 4'b0010
+`define YEAR0 4'b0001
+`define MONTH 4'b1010
 
 
 
@@ -158,7 +158,7 @@ limitations under the License.
 
 `ifdef PMP
   `define PMP_REGION_8
-  
+
 `endif
 
 
@@ -190,7 +190,7 @@ limitations under the License.
 
 
   `define LBUF
-  
+
 
 
 
@@ -241,9 +241,9 @@ limitations under the License.
 
 `ifdef MULTI_PROCESSING
   `define PROCESSOR_1
-  
-  
- 
+
+
+
 `endif
 
 
@@ -251,13 +251,13 @@ limitations under the License.
 
 `define PLIC
 `ifdef PLIC
-  `define PLIC_INT_NUM   144   
-  `define PLIC_ID_NUM    10    
-                               
-  `define PLIC_PRIO_BIT  5     
-  `define MAX_HART_NUM   32    
-                               
-                               
+  `define PLIC_INT_NUM   144
+  `define PLIC_ID_NUM    10
+
+  `define PLIC_PRIO_BIT  5
+  `define MAX_HART_NUM   32
+
+
 `endif
 
 
@@ -281,34 +281,34 @@ limitations under the License.
 `define HPCP
 
 `ifdef HPCP
- 
- 
+
+
   `define HPCP_CNT_NUM_16
- 
-`endif  
+
+`endif
 
 `ifdef HPCP_CNT_NUM_4
   `define HPCP_CNT_GROUP0
-`endif 
+`endif
 
 `ifdef HPCP_CNT_NUM_8
   `define HPCP_CNT_GROUP0
   `define HPCP_CNT_GROUP1
-`endif 
+`endif
 
 `ifdef HPCP_CNT_NUM_16
   `define HPCP_CNT_GROUP0
   `define HPCP_CNT_GROUP1
   `define HPCP_CNT_GROUP2
-`endif 
+`endif
 
 
 `ifdef HPCP_CNT_NUM_29
-  `define HPCP_CNT_GROUP0 
-  `define HPCP_CNT_GROUP1 
-  `define HPCP_CNT_GROUP2 
-  `define HPCP_CNT_GROUP3 
-`endif 
+  `define HPCP_CNT_GROUP0
+  `define HPCP_CNT_GROUP1
+  `define HPCP_CNT_GROUP2
+  `define HPCP_CNT_GROUP3
+`endif
 
 
 
@@ -332,25 +332,25 @@ limitations under the License.
 `ifdef L2_CACHE_8WAY
   `ifdef L2_CACHE_128K
     `define L2C_TAG_INDEX_WIDTH   7
-    `define L2C_TAG_DATA_WIDTH    26  
+    `define L2C_TAG_DATA_WIDTH    26
     `define L2C_DATA_INDEX_WIDTH  10
   `endif
-  
+
   `ifdef L2_CACHE_256K
     `define L2C_TAG_INDEX_WIDTH   8
-    `define L2C_TAG_DATA_WIDTH    25  
+    `define L2C_TAG_DATA_WIDTH    25
     `define L2C_DATA_INDEX_WIDTH  11
   `endif
-  
+
   `ifdef L2_CACHE_512K
     `define L2C_TAG_INDEX_WIDTH   9
-    `define L2C_TAG_DATA_WIDTH    24  
+    `define L2C_TAG_DATA_WIDTH    24
     `define L2C_DATA_INDEX_WIDTH  12
   `endif
-  
+
   `ifdef L2_CACHE_1M
     `define L2C_TAG_INDEX_WIDTH   10
-    `define L2C_TAG_DATA_WIDTH    23  
+    `define L2C_TAG_DATA_WIDTH    23
     `define L2C_DATA_INDEX_WIDTH  13
   `endif
 
@@ -376,25 +376,25 @@ limitations under the License.
 `ifdef L2_CACHE_16WAY
   `ifdef L2_CACHE_128K
     `define L2C_TAG_INDEX_WIDTH   6
-    `define L2C_TAG_DATA_WIDTH    27   
+    `define L2C_TAG_DATA_WIDTH    27
     `define L2C_DATA_INDEX_WIDTH  10
   `endif
-  
+
   `ifdef L2_CACHE_256K
-    `define L2C_TAG_INDEX_WIDTH   7 
-    `define L2C_TAG_DATA_WIDTH    26   
-    `define L2C_DATA_INDEX_WIDTH  11 
+    `define L2C_TAG_INDEX_WIDTH   7
+    `define L2C_TAG_DATA_WIDTH    26
+    `define L2C_DATA_INDEX_WIDTH  11
   `endif
-  
+
   `ifdef L2_CACHE_512K
     `define L2C_TAG_INDEX_WIDTH   8
-    `define L2C_TAG_DATA_WIDTH    25   
+    `define L2C_TAG_DATA_WIDTH    25
     `define L2C_DATA_INDEX_WIDTH  12
   `endif
-  
+
   `ifdef L2_CACHE_1M
     `define L2C_TAG_INDEX_WIDTH   9
-    `define L2C_TAG_DATA_WIDTH    24    
+    `define L2C_TAG_DATA_WIDTH    24
     `define L2C_DATA_INDEX_WIDTH  13
   `endif
 
@@ -468,4 +468,3 @@ limitations under the License.
 `define SAB_DEPTH  24
 `define SAB_RDEPTH 16
 `define SAB_WDEPTH 8
-
