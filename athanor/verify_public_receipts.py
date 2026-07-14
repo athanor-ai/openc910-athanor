@@ -351,6 +351,88 @@ def verify(root: Path = ARTIFACT_ROOT) -> list[str]:
     return problems
 
 
+def _self_test() -> int:
+    """Adversarial self-test (machine-checkable in CI). Each leg otherwise only runs
+    over clean real packets and would pass regardless, so a mutation that neuters a
+    leg is invisible to CI. This builds a known-GOOD packet (must pass), then confirms
+    EACH leg REDS on its specific tamper. Exit 0 iff the good packet passes AND every
+    tamper is caught -- so a neutered leg reds the gate itself."""
+    import tempfile
+
+    def build(root: Path) -> Path:
+        d = root / "athanor_artifacts" / "selftest_pkg"
+        d.mkdir(parents=True)
+        (d / "gold.v").write_text("module g; endmodule\n", encoding="utf-8")
+        (d / "proof.log").write_text("Chip area for module 'g': 123.456000\n", encoding="utf-8")
+        (d / "replay.sh").write_text("#!/usr/bin/env bash\ngrep -q 'Chip area' proof.log\n", encoding="utf-8")
+        (d / "README.md").write_text("selftest\n", encoding="utf-8")
+        _write_receipt(d, {
+            "customer_ready": True,
+            "area_receipts": {"sky130": {"gold_area": 123.456}},
+            "lean_fallback": {"reason": "r", "strongest_evidence": "e", "scope_boundary": "s"},
+        })
+        return d
+
+    failures: list[str] = []
+    with tempfile.TemporaryDirectory(dir=str(REPO_ROOT)) as td:
+        root = Path(td)
+        build(root)
+        probs = verify(root / "athanor_artifacts")
+        if probs:
+            failures.append(f"GOOD packet unexpectedly reds: {probs}")
+
+    def check(name: str, mutate, signature: str) -> None:
+        with tempfile.TemporaryDirectory(dir=str(REPO_ROOT)) as td:
+            root = Path(td)
+            d = build(root)
+            mutate(d)
+            probs = verify(root / "athanor_artifacts")
+            if not any(signature in p for p in probs):
+                failures.append(f"{name}: tamper NOT caught (no '{signature}') -- got {probs}")
+
+    faked = "de" * 32
+    check("manifest-completeness",
+          lambda d: (d / "sneaked.txt").write_text("unbound\n"),
+          "NOT bound by SHA256SUMS")
+    check("replay-self-check",
+          lambda d: (d / "replay.sh").write_text("#!/usr/bin/env bash\necho no assertion\n"),
+          "does not self-verify")
+    check("receipt-to-log-binding",
+          lambda d: _write_receipt(d, {"customer_ready": True,
+              "area_receipts": {"sky130": {"gold_area": 999.999}},
+              "lean_fallback": {"reason": "r", "strongest_evidence": "e", "scope_boundary": "s"}}),
+          "not appear in any SHA-bound pinned log")
+    check("lean-gate-missing-block",
+          lambda d: _write_receipt(d, {"customer_ready": True,
+              "area_receipts": {"sky130": {"gold_area": 123.456}}}),
+          "requires exactly one of lean_authority")
+    check("link-3-faked-candidate",
+          lambda d: _write_receipt(d, {"customer_ready": True,
+              "area_receipts": {"sky130": {"gold_area": 123.456}},
+              "lean_authority": {"theorem": "T", "target": "t", "obligation": "o", "mutant_bite": "m",
+                                 "candidate_binding": {"gold_sha256": faked, "gate_sha256": faked}}}),
+          "link-3 fail")
+
+    if failures:
+        for f in failures:
+            print(f"SELF-TEST FAIL: {f}", file=sys.stderr)
+        return 1
+    print("OK: self-test -- good packet passes and all 5 leg tampers are caught")
+    return 0
+
+
+def _write_receipt(package: Path, receipt: dict[str, Any]) -> None:
+    """Write receipt.json + (re)bind SHA256SUMS over every present non-SHA256SUMS
+    file, so a self-test tamper isolates its target leg instead of tripping the
+    hash check."""
+    (package / "receipt.json").write_text(json.dumps(receipt, indent=2) + "\n", encoding="utf-8")
+    lines = []
+    for fp in sorted(package.rglob("*")):
+        if fp.is_file() and fp.name != "SHA256SUMS":
+            lines.append(f"{_sha256(fp)}  ./{fp.relative_to(package).as_posix()}")
+    (package / "SHA256SUMS").write_text("\n".join(lines) + "\n", encoding="utf-8")
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument(
@@ -359,7 +441,15 @@ def main(argv: list[str] | None = None) -> int:
         default=ARTIFACT_ROOT,
         help="artifact package root, default: athanor_artifacts",
     )
+    parser.add_argument(
+        "--self-test",
+        action="store_true",
+        help="adversarial self-test: confirm each leg reds on its tamper (CI regression guard)",
+    )
     args = parser.parse_args(argv)
+
+    if args.self_test:
+        return _self_test()
 
     problems = verify(args.artifact_root)
     if problems:

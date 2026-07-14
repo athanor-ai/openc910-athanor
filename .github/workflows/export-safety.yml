@@ -56,6 +56,14 @@ jobs:
         if: github.event_name == 'pull_request' || github.event_name == 'push'
         run: python3 athanor/verify_public_receipts.py
 
+      # Regression guard: the integrity legs above only run over clean real packets
+      # and would pass regardless, so a mutation that neuters a leg would be invisible.
+      # The self-test builds a good packet + confirms EACH leg reds on its tamper, so a
+      # neutered leg reds the gate itself (the check must bite in CI, not just pass clean).
+      - name: Public receipt verifier self-test (each leg reds on its tamper)
+        if: github.event_name == 'pull_request' || github.event_name == 'push'
+        run: python3 athanor/verify_public_receipts.py --self-test
+
       # PR body + review/issue comments are public surfaces the committed-tree
       # scan cannot see. Scan them with the SAME BLOCK_ALWAYS set (single source
       # of truth: export_safety_gate.py --scan-text). Runs on PR events AND on
