@@ -6,10 +6,14 @@ Each package should include:
 
 - exact gold and candidate RTL used by the receipt,
 - a `receipt.json` file,
-- pinned logs for the selected proof and measurement checks, with any missing
-  metric axes named in the package,
+- pinned logs for the selected proof and measurement checks,
 - a package-local `replay.sh`, and
 - `SHA256SUMS` covering the package files.
+
+Packages that back promoted metric-result rows must bind area, timing, and
+power/toggle evidence to the same candidate and selected flow. Proof-only or
+screening packages can remain here, but they do not become public result rows
+until that metric-closure package exists.
 
 Run:
 
