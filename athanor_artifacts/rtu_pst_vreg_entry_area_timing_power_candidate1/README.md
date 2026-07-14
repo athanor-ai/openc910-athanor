@@ -1,6 +1,6 @@
 # C910 RTU PST Vreg Entry Area, Timing, and Estimated-Power Candidate 1
 
-Status: candidate pending independent replay.
+Status: candidate with independent replay cleared; `customer_ready=false`.
 
 This package records a same-candidate-bound metric packet for
 `ct_rtu_pst_vreg_entry`. The candidate recodes the lifecycle FSM from the
@@ -67,7 +67,8 @@ axes.
 
 ## Boundaries
 
-- Candidate pending independent replay by a non-author seat.
+- Independent replay cleared by non-author seats; customer-ready promotion is
+  not claimed in this package.
 - Module-local `ct_rtu_pst_vreg_entry` only.
 - Correctness proof scope remains visible-output equivalence under reset-first
   through passive debug bridge plus lifecycle-encoding relation induction.
