@@ -1,0 +1,1394 @@
+
+ /----------------------------------------------------------------------------\
+ |  yosys -- Yosys Open SYnthesis Suite                                       |
+ |  Copyright (C) 2012 - 2026  Claire Xenia Wolf <claire@yosyshq.com>         |
+ |  Distributed under an ISC-like license, type "license" to see terms        |
+ \----------------------------------------------------------------------------/
+ Yosys 0.66+181 (git sha1 afe6b18f2, Release, Clang /usr/bin/clang++ 18.1.8)
+
+-- Running command `read_verilog -sv C910_RTL_FACTORY/gen_rtl/cpu/rtl/cpu_cfig.h C910_RTL_FACTORY/gen_rtl/clk/rtl/gated_clk_cell.v C910_RTL_FACTORY/gen_rtl/rtu/rtl/ct_rtu_expand_8.v C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_vb_addr_entry.v ./ct_lsu_vb_gold.v; synth -flatten -top ct_lsu_vb; dfflibmap -liberty sky130_fd_sc_hd__tt_025C_1v80.lib; abc -liberty sky130_fd_sc_hd__tt_025C_1v80.lib; clean; stat -liberty sky130_fd_sc_hd__tt_025C_1v80.lib; write_verilog -noattr ./ct_lsu_vb_gold.mapped.v' --
+
+1. Executing Verilog-2005 frontend: C910_RTL_FACTORY/gen_rtl/cpu/rtl/cpu_cfig.h
+Parsing SystemVerilog input from `C910_RTL_FACTORY/gen_rtl/cpu/rtl/cpu_cfig.h' to AST representation.
+Successfully finished Verilog frontend.
+
+2. Executing Verilog-2005 frontend: C910_RTL_FACTORY/gen_rtl/clk/rtl/gated_clk_cell.v
+Parsing SystemVerilog input from `C910_RTL_FACTORY/gen_rtl/clk/rtl/gated_clk_cell.v' to AST representation.
+Generating RTLIL representation for module `\gated_clk_cell'.
+Successfully finished Verilog frontend.
+
+3. Executing Verilog-2005 frontend: C910_RTL_FACTORY/gen_rtl/rtu/rtl/ct_rtu_expand_8.v
+Parsing SystemVerilog input from `C910_RTL_FACTORY/gen_rtl/rtu/rtl/ct_rtu_expand_8.v' to AST representation.
+Generating RTLIL representation for module `\ct_rtu_expand_8'.
+Successfully finished Verilog frontend.
+
+4. Executing Verilog-2005 frontend: C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_vb_addr_entry.v
+Parsing SystemVerilog input from `C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_vb_addr_entry.v' to AST representation.
+Generating RTLIL representation for module `\ct_lsu_vb_addr_entry'.
+Successfully finished Verilog frontend.
+
+5. Executing Verilog-2005 frontend: ./ct_lsu_vb_gold.v
+Parsing SystemVerilog input from `./ct_lsu_vb_gold.v' to AST representation.
+Generating RTLIL representation for module `\ct_lsu_vb'.
+Note: Assuming pure combinatorial block at ./ct_lsu_vb_gold.v:820.1-831.4 in
+compliance with IEC 62142(E):2005 / IEEE Std. 1364.1(E):2002. Recommending
+use of @* instead of @(...) for better match of synthesis and simulation.
+Note: Assuming pure combinatorial block at ./ct_lsu_vb_gold.v:974.1-1078.4 in
+compliance with IEC 62142(E):2005 / IEEE Std. 1364.1(E):2002. Recommending
+use of @* instead of @(...) for better match of synthesis and simulation.
+Note: Assuming pure combinatorial block at ./ct_lsu_vb_gold.v:1088.1-1099.4 in
+compliance with IEC 62142(E):2005 / IEEE Std. 1364.1(E):2002. Recommending
+use of @* instead of @(...) for better match of synthesis and simulation.
+Note: Assuming pure combinatorial block at ./ct_lsu_vb_gold.v:1369.1-1379.4 in
+compliance with IEC 62142(E):2005 / IEEE Std. 1364.1(E):2002. Recommending
+use of @* instead of @(...) for better match of synthesis and simulation.
+Note: Assuming pure combinatorial block at ./ct_lsu_vb_gold.v:1427.1-1437.4 in
+compliance with IEC 62142(E):2005 / IEEE Std. 1364.1(E):2002. Recommending
+use of @* instead of @(...) for better match of synthesis and simulation.
+Note: Assuming pure combinatorial block at ./ct_lsu_vb_gold.v:1455.1-1466.4 in
+compliance with IEC 62142(E):2005 / IEEE Std. 1364.1(E):2002. Recommending
+use of @* instead of @(...) for better match of synthesis and simulation.
+Note: Assuming pure combinatorial block at ./ct_lsu_vb_gold.v:1491.1-1504.4 in
+compliance with IEC 62142(E):2005 / IEEE Std. 1364.1(E):2002. Recommending
+use of @* instead of @(...) for better match of synthesis and simulation.
+Note: Assuming pure combinatorial block at ./ct_lsu_vb_gold.v:1603.1-1614.4 in
+compliance with IEC 62142(E):2005 / IEEE Std. 1364.1(E):2002. Recommending
+use of @* instead of @(...) for better match of synthesis and simulation.
+Successfully finished Verilog frontend.
+
+6. Executing SYNTH pass.
+
+6.1. Executing HIERARCHY pass (managing design hierarchy).
+
+6.1.1. Analyzing design hierarchy..
+Top module:  \ct_lsu_vb
+Used module:     \ct_rtu_expand_8
+Used module:     \ct_lsu_vb_addr_entry
+Used module:         \gated_clk_cell
+
+6.1.2. Analyzing design hierarchy..
+Top module:  \ct_lsu_vb
+Used module:     \ct_rtu_expand_8
+Used module:     \ct_lsu_vb_addr_entry
+Used module:         \gated_clk_cell
+Removed 0 unused modules.
+
+6.2. Executing PROC pass (convert processes to netlists).
+
+6.2.1. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Cleaned up 0 empty switches.
+
+6.2.2. Executing PROC_RMDEAD pass (remove dead branches from decision trees).
+Marked 1 switch rules as full_case in process $proc$./ct_lsu_vb_gold.v:1603$295 in module ct_lsu_vb.
+Marked 2 switch rules as full_case in process $proc$./ct_lsu_vb_gold.v:1544$270 in module ct_lsu_vb.
+Marked 1 switch rules as full_case in process $proc$./ct_lsu_vb_gold.v:1533$268 in module ct_lsu_vb.
+Marked 2 switch rules as full_case in process $proc$./ct_lsu_vb_gold.v:1520$266 in module ct_lsu_vb.
+Marked 1 switch rules as full_case in process $proc$./ct_lsu_vb_gold.v:1491$262 in module ct_lsu_vb.
+Marked 1 switch rules as full_case in process $proc$./ct_lsu_vb_gold.v:1455$256 in module ct_lsu_vb.
+Marked 1 switch rules as full_case in process $proc$./ct_lsu_vb_gold.v:1427$242 in module ct_lsu_vb.
+Marked 1 switch rules as full_case in process $proc$./ct_lsu_vb_gold.v:1369$225 in module ct_lsu_vb.
+Marked 1 switch rules as full_case in process $proc$./ct_lsu_vb_gold.v:1088$109 in module ct_lsu_vb.
+Marked 21 switch rules as full_case in process $proc$./ct_lsu_vb_gold.v:974$94 in module ct_lsu_vb.
+Marked 1 switch rules as full_case in process $proc$./ct_lsu_vb_gold.v:964$92 in module ct_lsu_vb.
+Marked 1 switch rules as full_case in process $proc$./ct_lsu_vb_gold.v:942$90 in module ct_lsu_vb.
+Marked 1 switch rules as full_case in process $proc$./ct_lsu_vb_gold.v:925$88 in module ct_lsu_vb.
+Marked 2 switch rules as full_case in process $proc$./ct_lsu_vb_gold.v:912$86 in module ct_lsu_vb.
+Marked 2 switch rules as full_case in process $proc$./ct_lsu_vb_gold.v:901$84 in module ct_lsu_vb.
+Marked 1 switch rules as full_case in process $proc$./ct_lsu_vb_gold.v:889$82 in module ct_lsu_vb.
+Marked 1 switch rules as full_case in process $proc$./ct_lsu_vb_gold.v:820$53 in module ct_lsu_vb.
+Marked 1 switch rules as full_case in process $proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_vb_addr_entry.v:397$26 in module ct_lsu_vb_addr_entry.
+Marked 3 switch rules as full_case in process $proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_vb_addr_entry.v:384$24 in module ct_lsu_vb_addr_entry.
+Marked 2 switch rules as full_case in process $proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_vb_addr_entry.v:373$22 in module ct_lsu_vb_addr_entry.
+Marked 2 switch rules as full_case in process $proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_vb_addr_entry.v:362$20 in module ct_lsu_vb_addr_entry.
+Marked 3 switch rules as full_case in process $proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_vb_addr_entry.v:322$18 in module ct_lsu_vb_addr_entry.
+Marked 4 switch rules as full_case in process $proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_vb_addr_entry.v:305$16 in module ct_lsu_vb_addr_entry.
+Marked 2 switch rules as full_case in process $proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_vb_addr_entry.v:292$14 in module ct_lsu_vb_addr_entry.
+Removed a total of 0 dead cases.
+
+6.2.3. Executing PROC_PRUNE pass (remove redundant assignments in processes).
+Removed 3 redundant assignments.
+Promoted 8 assignments to connections.
+
+6.2.4. Executing PROC_INIT pass (extract init attributes).
+
+6.2.5. Executing PROC_ARST pass (detect async resets in processes).
+Found async reset \cpurst_b in `\ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:1544$270'.
+Found async reset \cpurst_b in `\ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:1533$268'.
+Found async reset \cpurst_b in `\ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:1520$266'.
+Found async reset \cpurst_b in `\ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:964$92'.
+Found async reset \cpurst_b in `\ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:942$90'.
+Found async reset \cpurst_b in `\ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:925$88'.
+Found async reset \cpurst_b in `\ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:912$86'.
+Found async reset \cpurst_b in `\ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:901$84'.
+Found async reset \cpurst_b in `\ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:889$82'.
+Found async reset \cpurst_b in `\ct_lsu_vb_addr_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_vb_addr_entry.v:397$26'.
+Found async reset \cpurst_b in `\ct_lsu_vb_addr_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_vb_addr_entry.v:384$24'.
+Found async reset \cpurst_b in `\ct_lsu_vb_addr_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_vb_addr_entry.v:373$22'.
+Found async reset \cpurst_b in `\ct_lsu_vb_addr_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_vb_addr_entry.v:362$20'.
+Found async reset \cpurst_b in `\ct_lsu_vb_addr_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_vb_addr_entry.v:322$18'.
+Found async reset \cpurst_b in `\ct_lsu_vb_addr_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_vb_addr_entry.v:305$16'.
+Found async reset \cpurst_b in `\ct_lsu_vb_addr_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_vb_addr_entry.v:292$14'.
+
+6.2.6. Executing PROC_ROM pass (convert switches to ROMs).
+Converted 0 switches.
+<suppressed ~55 debug messages>
+
+6.2.7. Executing PROC_MUX pass (convert decision trees to multiplexers).
+Creating decoders for process `\ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:1603$295'.
+     1/2: $1\vb_addr_b_resp_ptr[1:0] [1]
+     2/2: $1\vb_addr_b_resp_ptr[1:0] [0]
+Creating decoders for process `\ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:1544$270'.
+     1/1: $0\vb_wd_sm_data_bias[3:0]
+Creating decoders for process `\ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:1533$268'.
+     1/1: $0\vb_wd_sm_data_id[2:0]
+Creating decoders for process `\ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:1520$266'.
+     1/1: $0\vb_wd_sm_vld[0:0]
+Creating decoders for process `\ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:1491$262'.
+     1/1: $1\vb_biu_aw_req_snoop[2:0]
+Creating decoders for process `\ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:1455$256'.
+     1/2: $1\vb_biu_aw_addr_ptr[1:0] [1]
+     2/2: $1\vb_biu_aw_addr_ptr[1:0] [0]
+Creating decoders for process `\ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:1427$242'.
+     1/3: $1\vb_data_biu_req_ptr[2:0] [2]
+     2/3: $1\vb_data_biu_req_ptr[2:0] [0]
+     3/3: $1\vb_data_biu_req_ptr[2:0] [1]
+Creating decoders for process `\ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:1369$225'.
+     1/3: $1\vb_data_create_ptr[2:0] [2]
+     2/3: $1\vb_data_create_ptr[2:0] [0]
+     3/3: $1\vb_data_create_ptr[2:0] [1]
+Creating decoders for process `\ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:1088$109'.
+     1/2: $1\vb_rcl_sm_req_addr_ptr[1:0] [1]
+     2/2: $1\vb_rcl_sm_req_addr_ptr[1:0] [0]
+Creating decoders for process `\ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:974$94'.
+     1/21: $21\vb_rcl_sm_next_state[3:0]
+     2/21: $20\vb_rcl_sm_next_state[3:0]
+     3/21: $19\vb_rcl_sm_next_state[3:0]
+     4/21: $18\vb_rcl_sm_next_state[3:0]
+     5/21: $17\vb_rcl_sm_next_state[3:0]
+     6/21: $16\vb_rcl_sm_next_state[3:0]
+     7/21: $15\vb_rcl_sm_next_state[3:0]
+     8/21: $14\vb_rcl_sm_next_state[3:0]
+     9/21: $13\vb_rcl_sm_next_state[3:0]
+    10/21: $12\vb_rcl_sm_next_state[3:0]
+    11/21: $11\vb_rcl_sm_next_state[3:0]
+    12/21: $10\vb_rcl_sm_next_state[3:0]
+    13/21: $9\vb_rcl_sm_next_state[3:0]
+    14/21: $8\vb_rcl_sm_next_state[3:0]
+    15/21: $7\vb_rcl_sm_next_state[3:0]
+    16/21: $6\vb_rcl_sm_next_state[3:0]
+    17/21: $5\vb_rcl_sm_next_state[3:0]
+    18/21: $4\vb_rcl_sm_next_state[3:0]
+    19/21: $3\vb_rcl_sm_next_state[3:0]
+    20/21: $2\vb_rcl_sm_next_state[3:0]
+    21/21: $1\vb_rcl_sm_next_state[3:0]
+Creating decoders for process `\ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:964$92'.
+     1/1: $0\vb_rcl_sm_data_id[2:0]
+Creating decoders for process `\ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:942$90'.
+     1/2: $0\vb_rcl_sm_dcache_way[0:0]
+     2/2: $0\vb_rcl_sm_dcache_dirty[0:0]
+Creating decoders for process `\ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:925$88'.
+     1/2: $0\vb_rcl_sm_addr_tto6[33:0]
+     2/2: $0\vb_rcl_sm_addr_id[1:0]
+Creating decoders for process `\ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:912$86'.
+     1/1: $0\vb_dcache_arb_st_req[0:0]
+Creating decoders for process `\ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:901$84'.
+     1/1: $0\vb_dcache_arb_ld_req[0:0]
+Creating decoders for process `\ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:889$82'.
+     1/1: $0\vb_rcl_sm_state[3:0]
+Creating decoders for process `\ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:820$53'.
+     1/2: $1\vb_addr_create_ptr[1:0] [1]
+     2/2: $1\vb_addr_create_ptr[1:0] [0]
+Creating decoders for process `\ct_lsu_vb_addr_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_vb_addr_entry.v:397$26'.
+     1/1: $0\vb_addr_entry_db_id[2:0]
+Creating decoders for process `\ct_lsu_vb_addr_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_vb_addr_entry.v:384$24'.
+     1/1: $0\vb_addr_entry_data_req_success[0:0]
+Creating decoders for process `\ct_lsu_vb_addr_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_vb_addr_entry.v:373$22'.
+     1/1: $0\vb_addr_entry_rcl_done[0:0]
+Creating decoders for process `\ct_lsu_vb_addr_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_vb_addr_entry.v:362$20'.
+     1/1: $0\vb_addr_entry_rcl_sm_req_success[0:0]
+Creating decoders for process `\ct_lsu_vb_addr_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_vb_addr_entry.v:322$18'.
+     1/6: $0\vb_addr_entry_wmb_create[0:0]
+     2/6: $0\vb_addr_entry_source_id[2:0]
+     3/6: $0\vb_addr_entry_set_way_mode[0:0]
+     4/6: $0\vb_addr_entry_lfb_create[0:0]
+     5/6: $0\vb_addr_entry_inv[0:0]
+     6/6: $0\vb_addr_entry_addr_tto6[7:0]
+Creating decoders for process `\ct_lsu_vb_addr_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_vb_addr_entry.v:305$16'.
+     1/1: $0\vb_addr_entry_addr_tto6[33:8]
+Creating decoders for process `\ct_lsu_vb_addr_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_vb_addr_entry.v:292$14'.
+     1/1: $0\vb_addr_entry_vld[0:0]
+
+6.2.8. Executing PROC_DLATCH pass (convert process syncs to latches).
+No latch inferred for signal `\ct_lsu_vb.\vb_addr_b_resp_ptr' from process `\ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:1603$295'.
+No latch inferred for signal `\ct_lsu_vb.\vb_biu_aw_req_snoop' from process `\ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:1491$262'.
+No latch inferred for signal `\ct_lsu_vb.\vb_biu_aw_addr_ptr' from process `\ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:1455$256'.
+No latch inferred for signal `\ct_lsu_vb.\vb_data_biu_req_ptr' from process `\ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:1427$242'.
+No latch inferred for signal `\ct_lsu_vb.\vb_data_create_ptr' from process `\ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:1369$225'.
+No latch inferred for signal `\ct_lsu_vb.\vb_rcl_sm_req_addr_ptr' from process `\ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:1088$109'.
+No latch inferred for signal `\ct_lsu_vb.\vb_rcl_sm_next_state' from process `\ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:974$94'.
+No latch inferred for signal `\ct_lsu_vb.\vb_addr_create_ptr' from process `\ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:820$53'.
+
+6.2.9. Executing PROC_DFF pass (convert process syncs to FFs).
+Creating register for signal `\ct_lsu_vb.\vb_wd_sm_data_bias' using process `\ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:1544$270'.
+  created $adff cell `$procdff$847' with positive edge clock and positive level reset.
+Creating register for signal `\ct_lsu_vb.\vb_wd_sm_data_id' using process `\ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:1533$268'.
+  created $adff cell `$procdff$852' with positive edge clock and positive level reset.
+Creating register for signal `\ct_lsu_vb.\vb_wd_sm_vld' using process `\ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:1520$266'.
+  created $adff cell `$procdff$857' with positive edge clock and positive level reset.
+Creating register for signal `\ct_lsu_vb.\vb_rcl_sm_data_id' using process `\ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:964$92'.
+  created $adff cell `$procdff$862' with positive edge clock and positive level reset.
+Creating register for signal `\ct_lsu_vb.\vb_rcl_sm_dcache_dirty' using process `\ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:942$90'.
+  created $adff cell `$procdff$867' with positive edge clock and positive level reset.
+Creating register for signal `\ct_lsu_vb.\vb_rcl_sm_dcache_way' using process `\ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:942$90'.
+  created $adff cell `$procdff$872' with positive edge clock and positive level reset.
+Creating register for signal `\ct_lsu_vb.\vb_rcl_sm_addr_id' using process `\ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:925$88'.
+  created $adff cell `$procdff$877' with positive edge clock and positive level reset.
+Creating register for signal `\ct_lsu_vb.\vb_rcl_sm_addr_tto6' using process `\ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:925$88'.
+  created $adff cell `$procdff$882' with positive edge clock and positive level reset.
+Creating register for signal `\ct_lsu_vb.\vb_dcache_arb_st_req' using process `\ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:912$86'.
+  created $adff cell `$procdff$887' with positive edge clock and positive level reset.
+Creating register for signal `\ct_lsu_vb.\vb_dcache_arb_ld_req' using process `\ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:901$84'.
+  created $adff cell `$procdff$892' with positive edge clock and positive level reset.
+Creating register for signal `\ct_lsu_vb.\vb_rcl_sm_state' using process `\ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:889$82'.
+  created $adff cell `$procdff$897' with positive edge clock and positive level reset.
+Creating register for signal `\ct_lsu_vb_addr_entry.\vb_addr_entry_db_id' using process `\ct_lsu_vb_addr_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_vb_addr_entry.v:397$26'.
+  created $adff cell `$procdff$902' with positive edge clock and positive level reset.
+Creating register for signal `\ct_lsu_vb_addr_entry.\vb_addr_entry_data_req_success' using process `\ct_lsu_vb_addr_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_vb_addr_entry.v:384$24'.
+  created $adff cell `$procdff$907' with positive edge clock and positive level reset.
+Creating register for signal `\ct_lsu_vb_addr_entry.\vb_addr_entry_rcl_done' using process `\ct_lsu_vb_addr_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_vb_addr_entry.v:373$22'.
+  created $adff cell `$procdff$912' with positive edge clock and positive level reset.
+Creating register for signal `\ct_lsu_vb_addr_entry.\vb_addr_entry_rcl_sm_req_success' using process `\ct_lsu_vb_addr_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_vb_addr_entry.v:362$20'.
+  created $adff cell `$procdff$917' with positive edge clock and positive level reset.
+Creating register for signal `\ct_lsu_vb_addr_entry.\vb_addr_entry_addr_tto6 [7:0]' using process `\ct_lsu_vb_addr_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_vb_addr_entry.v:322$18'.
+  created $adff cell `$procdff$922' with positive edge clock and positive level reset.
+Creating register for signal `\ct_lsu_vb_addr_entry.\vb_addr_entry_inv' using process `\ct_lsu_vb_addr_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_vb_addr_entry.v:322$18'.
+  created $adff cell `$procdff$927' with positive edge clock and positive level reset.
+Creating register for signal `\ct_lsu_vb_addr_entry.\vb_addr_entry_lfb_create' using process `\ct_lsu_vb_addr_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_vb_addr_entry.v:322$18'.
+  created $adff cell `$procdff$932' with positive edge clock and positive level reset.
+Creating register for signal `\ct_lsu_vb_addr_entry.\vb_addr_entry_set_way_mode' using process `\ct_lsu_vb_addr_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_vb_addr_entry.v:322$18'.
+  created $adff cell `$procdff$937' with positive edge clock and positive level reset.
+Creating register for signal `\ct_lsu_vb_addr_entry.\vb_addr_entry_source_id' using process `\ct_lsu_vb_addr_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_vb_addr_entry.v:322$18'.
+  created $adff cell `$procdff$942' with positive edge clock and positive level reset.
+Creating register for signal `\ct_lsu_vb_addr_entry.\vb_addr_entry_wmb_create' using process `\ct_lsu_vb_addr_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_vb_addr_entry.v:322$18'.
+  created $adff cell `$procdff$947' with positive edge clock and positive level reset.
+Creating register for signal `\ct_lsu_vb_addr_entry.\vb_addr_entry_addr_tto6 [33:8]' using process `\ct_lsu_vb_addr_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_vb_addr_entry.v:305$16'.
+  created $adff cell `$procdff$952' with positive edge clock and positive level reset.
+Creating register for signal `\ct_lsu_vb_addr_entry.\vb_addr_entry_vld' using process `\ct_lsu_vb_addr_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_vb_addr_entry.v:292$14'.
+  created $adff cell `$procdff$957' with positive edge clock and positive level reset.
+
+6.2.10. Executing PROC_MEMWR pass (convert process memory writes to cells).
+
+6.2.11. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Found and cleaned up 1 empty switch in `\ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:1603$295'.
+Removing empty process `ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:1603$295'.
+Found and cleaned up 2 empty switches in `\ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:1544$270'.
+Removing empty process `ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:1544$270'.
+Found and cleaned up 1 empty switch in `\ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:1533$268'.
+Removing empty process `ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:1533$268'.
+Found and cleaned up 2 empty switches in `\ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:1520$266'.
+Removing empty process `ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:1520$266'.
+Found and cleaned up 1 empty switch in `\ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:1491$262'.
+Removing empty process `ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:1491$262'.
+Found and cleaned up 1 empty switch in `\ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:1455$256'.
+Removing empty process `ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:1455$256'.
+Found and cleaned up 1 empty switch in `\ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:1427$242'.
+Removing empty process `ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:1427$242'.
+Found and cleaned up 1 empty switch in `\ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:1369$225'.
+Removing empty process `ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:1369$225'.
+Found and cleaned up 1 empty switch in `\ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:1088$109'.
+Removing empty process `ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:1088$109'.
+Found and cleaned up 21 empty switches in `\ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:974$94'.
+Removing empty process `ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:974$94'.
+Found and cleaned up 1 empty switch in `\ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:964$92'.
+Removing empty process `ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:964$92'.
+Found and cleaned up 1 empty switch in `\ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:942$90'.
+Removing empty process `ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:942$90'.
+Found and cleaned up 1 empty switch in `\ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:925$88'.
+Removing empty process `ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:925$88'.
+Found and cleaned up 1 empty switch in `\ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:912$86'.
+Removing empty process `ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:912$86'.
+Found and cleaned up 1 empty switch in `\ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:901$84'.
+Removing empty process `ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:901$84'.
+Removing empty process `ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:889$82'.
+Found and cleaned up 1 empty switch in `\ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:820$53'.
+Removing empty process `ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:820$53'.
+Found and cleaned up 1 empty switch in `\ct_lsu_vb_addr_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_vb_addr_entry.v:397$26'.
+Removing empty process `ct_lsu_vb_addr_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_vb_addr_entry.v:397$26'.
+Found and cleaned up 3 empty switches in `\ct_lsu_vb_addr_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_vb_addr_entry.v:384$24'.
+Removing empty process `ct_lsu_vb_addr_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_vb_addr_entry.v:384$24'.
+Found and cleaned up 2 empty switches in `\ct_lsu_vb_addr_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_vb_addr_entry.v:373$22'.
+Removing empty process `ct_lsu_vb_addr_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_vb_addr_entry.v:373$22'.
+Found and cleaned up 2 empty switches in `\ct_lsu_vb_addr_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_vb_addr_entry.v:362$20'.
+Removing empty process `ct_lsu_vb_addr_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_vb_addr_entry.v:362$20'.
+Found and cleaned up 3 empty switches in `\ct_lsu_vb_addr_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_vb_addr_entry.v:322$18'.
+Removing empty process `ct_lsu_vb_addr_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_vb_addr_entry.v:322$18'.
+Found and cleaned up 4 empty switches in `\ct_lsu_vb_addr_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_vb_addr_entry.v:305$16'.
+Removing empty process `ct_lsu_vb_addr_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_vb_addr_entry.v:305$16'.
+Found and cleaned up 2 empty switches in `\ct_lsu_vb_addr_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_vb_addr_entry.v:292$14'.
+Removing empty process `ct_lsu_vb_addr_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_vb_addr_entry.v:292$14'.
+Cleaned up 55 empty switches.
+
+6.2.12. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_lsu_vb.
+<suppressed ~42 debug messages>
+Optimizing module ct_lsu_vb_addr_entry.
+<suppressed ~24 debug messages>
+Optimizing module ct_rtu_expand_8.
+<suppressed ~1 debug messages>
+Optimizing module gated_clk_cell.
+
+6.3. Executing CHECK pass (checking for obvious problems).
+Checking module ct_lsu_vb...
+Checking module ct_lsu_vb_addr_entry...
+Checking module ct_rtu_expand_8...
+Checking module gated_clk_cell...
+Found and reported 0 problems.
+
+6.4. Executing FLATTEN pass (flatten design).
+Deleting now unused module ct_lsu_vb_addr_entry.
+Deleting now unused module ct_rtu_expand_8.
+Deleting now unused module gated_clk_cell.
+<suppressed ~10 debug messages>
+
+6.5. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_lsu_vb.
+<suppressed ~9 debug messages>
+
+6.6. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_lsu_vb..
+Removed 93 unused cells and 543 unused wires.
+<suppressed ~125 debug messages>
+
+6.7. Executing CHECK pass (checking for obvious problems).
+Checking module ct_lsu_vb...
+Found and reported 0 problems.
+
+6.8. Executing OPT pass (performing simple optimizations).
+
+6.8.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_lsu_vb.
+
+6.8.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_lsu_vb'.
+Computing hashes of 568 cells of `\ct_lsu_vb'.
+Finding duplicate cells in `\ct_lsu_vb'.
+Computing hashes of 517 cells of `\ct_lsu_vb'.
+Finding duplicate cells in `\ct_lsu_vb'.
+Computing hashes of 515 cells of `\ct_lsu_vb'.
+Finding duplicate cells in `\ct_lsu_vb'.
+<suppressed ~159 debug messages>
+Removed a total of 53 cells.
+
+6.8.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \ct_lsu_vb..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+    dead port 2/2 on $mux $procmux$723.
+    dead port 2/2 on $mux $procmux$709.
+    dead port 2/2 on $mux $procmux$696.
+    dead port 2/2 on $mux $procmux$684.
+    dead port 2/2 on $mux $procmux$673.
+    dead port 1/2 on $mux $procmux$671.
+    dead port 2/2 on $mux $procmux$659.
+    dead port 1/2 on $mux $procmux$657.
+    dead port 1/2 on $mux $procmux$654.
+    dead port 2/2 on $mux $procmux$642.
+    dead port 1/2 on $mux $procmux$640.
+    dead port 1/2 on $mux $procmux$637.
+    dead port 2/2 on $mux $procmux$634.
+    dead port 2/2 on $mux $procmux$622.
+    dead port 1/2 on $mux $procmux$620.
+    dead port 1/2 on $mux $procmux$617.
+    dead port 2/2 on $mux $procmux$614.
+    dead port 1/2 on $mux $procmux$612.
+    dead port 2/2 on $mux $procmux$599.
+    dead port 1/2 on $mux $procmux$597.
+    dead port 1/2 on $mux $procmux$594.
+    dead port 2/2 on $mux $procmux$591.
+    dead port 1/2 on $mux $procmux$589.
+    dead port 2/2 on $mux $procmux$586.
+    dead port 2/2 on $mux $procmux$573.
+    dead port 1/2 on $mux $procmux$571.
+    dead port 1/2 on $mux $procmux$568.
+    dead port 2/2 on $mux $procmux$565.
+    dead port 1/2 on $mux $procmux$563.
+    dead port 2/2 on $mux $procmux$560.
+    dead port 2/2 on $mux $procmux$557.
+    dead port 2/2 on $mux $procmux$544.
+    dead port 1/2 on $mux $procmux$542.
+    dead port 1/2 on $mux $procmux$539.
+    dead port 1/2 on $mux $procmux$536.
+    dead port 2/2 on $mux $procmux$524.
+    dead port 1/2 on $mux $procmux$522.
+    dead port 1/2 on $mux $procmux$519.
+    dead port 1/2 on $mux $procmux$516.
+    dead port 1/2 on $mux $procmux$513.
+    dead port 2/2 on $mux $procmux$501.
+    dead port 1/2 on $mux $procmux$499.
+    dead port 1/2 on $mux $procmux$496.
+    dead port 1/2 on $mux $procmux$493.
+    dead port 1/2 on $mux $procmux$490.
+    dead port 1/2 on $mux $procmux$487.
+    dead port 2/2 on $mux $procmux$475.
+    dead port 1/2 on $mux $procmux$473.
+    dead port 1/2 on $mux $procmux$470.
+    dead port 1/2 on $mux $procmux$467.
+    dead port 1/2 on $mux $procmux$464.
+    dead port 1/2 on $mux $procmux$461.
+    dead port 2/2 on $mux $procmux$458.
+    dead port 2/2 on $mux $procmux$446.
+    dead port 2/2 on $mux $procmux$436.
+    dead port 1/2 on $mux $procmux$434.
+    dead port 2/2 on $mux $procmux$423.
+    dead port 2/2 on $mux $procmux$414.
+    dead port 2/2 on $mux $procmux$406.
+    dead port 2/2 on $mux $procmux$399.
+Removed 60 multiplexer ports.
+<suppressed ~241 debug messages>
+
+6.8.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \ct_lsu_vb.
+    New ctrl vector for $pmux cell $procmux$352: { $procmux$353_CMP $auto$opt_reduce.cc:135:opt_pmux$969 $procmux$356_CMP }
+  Optimizing cells in module \ct_lsu_vb.
+Performed a total of 1 changes.
+
+6.8.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_lsu_vb'.
+Computing hashes of 456 cells of `\ct_lsu_vb'.
+Finding duplicate cells in `\ct_lsu_vb'.
+Computing hashes of 454 cells of `\ct_lsu_vb'.
+Finding duplicate cells in `\ct_lsu_vb'.
+<suppressed ~6 debug messages>
+Removed a total of 2 cells.
+
+6.8.6. Executing OPT_DFF pass (perform DFF optimizations).
+
+6.8.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_lsu_vb..
+Removed 0 unused cells and 112 unused wires.
+<suppressed ~1 debug messages>
+
+6.8.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_lsu_vb.
+
+6.8.9. Rerunning OPT passes. (Maybe there is more to do..)
+
+6.8.10. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \ct_lsu_vb..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~183 debug messages>
+
+6.8.11. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \ct_lsu_vb.
+Performed a total of 0 changes.
+
+6.8.12. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_lsu_vb'.
+Computing hashes of 454 cells of `\ct_lsu_vb'.
+Finding duplicate cells in `\ct_lsu_vb'.
+Removed a total of 0 cells.
+
+6.8.13. Executing OPT_DFF pass (perform DFF optimizations).
+
+6.8.14. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_lsu_vb..
+
+6.8.15. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_lsu_vb.
+
+6.8.16. Finished fast OPT passes. (There is nothing left to do.)
+
+6.9. Executing FSM pass (extract and optimize FSM).
+
+6.9.1. Executing FSM_DETECT pass (finding FSMs in design).
+Not marking ct_lsu_vb.x_ct_lsu_vb_addr_entry_0.vb_addr_entry_db_id as FSM state register:
+    Users of register don't seem to benefit from recoding.
+Not marking ct_lsu_vb.x_ct_lsu_vb_addr_entry_1.vb_addr_entry_db_id as FSM state register:
+    Users of register don't seem to benefit from recoding.
+Not marking ct_lsu_vb.vb_rcl_sm_state as FSM state register:
+    Register is connected to module port.
+    Users of register don't seem to benefit from recoding.
+Not marking ct_lsu_vb.vb_rcl_sm_data_id as FSM state register:
+    Register is connected to module port.
+    Users of register don't seem to benefit from recoding.
+Not marking ct_lsu_vb.vb_rcl_sm_addr_id as FSM state register:
+    Register is connected to module port.
+    Users of register don't seem to benefit from recoding.
+
+6.9.2. Executing FSM_EXTRACT pass (extracting FSM from design).
+
+6.9.3. Executing FSM_OPT pass (simple optimizations of FSMs).
+
+6.9.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_lsu_vb..
+
+6.9.5. Executing FSM_OPT pass (simple optimizations of FSMs).
+
+6.9.6. Executing FSM_RECODE pass (re-assigning FSM state encoding).
+
+6.9.7. Executing FSM_INFO pass (dumping all available information on FSM cells).
+
+6.9.8. Executing FSM_MAP pass (mapping FSMs to basic logic).
+
+6.10. Executing OPT pass (performing simple optimizations).
+
+6.10.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_lsu_vb.
+
+6.10.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_lsu_vb'.
+Computing hashes of 454 cells of `\ct_lsu_vb'.
+Finding duplicate cells in `\ct_lsu_vb'.
+Removed a total of 0 cells.
+
+6.10.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \ct_lsu_vb..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~183 debug messages>
+
+6.10.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \ct_lsu_vb.
+Performed a total of 0 changes.
+
+6.10.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_lsu_vb'.
+Computing hashes of 454 cells of `\ct_lsu_vb'.
+Finding duplicate cells in `\ct_lsu_vb'.
+Removed a total of 0 cells.
+
+6.10.6. Executing OPT_DFF pass (perform DFF optimizations).
+Adding EN signal on $flatten\x_ct_lsu_vb_addr_entry_1.$procdff$922 ($adff) from module ct_lsu_vb (D = $flatten\x_ct_lsu_vb_addr_entry_1.$0\vb_addr_entry_addr_tto6[7:0], Q = \x_ct_lsu_vb_addr_entry_1.vb_addr_entry_addr_tto6 [7:0]).
+Adding EN signal on $flatten\x_ct_lsu_vb_addr_entry_1.$procdff$952 ($adff) from module ct_lsu_vb (D = $flatten\x_ct_lsu_vb_addr_entry_1.$0\vb_addr_entry_addr_tto6[33:8], Q = \x_ct_lsu_vb_addr_entry_1.vb_addr_entry_addr_tto6 [33:8]).
+Adding EN signal on $flatten\x_ct_lsu_vb_addr_entry_1.$procdff$917 ($adff) from module ct_lsu_vb (D = $flatten\x_ct_lsu_vb_addr_entry_1.$0\vb_addr_entry_rcl_sm_req_success[0:0], Q = \x_ct_lsu_vb_addr_entry_1.vb_addr_entry_rcl_sm_req_success).
+Adding EN signal on $flatten\x_ct_lsu_vb_addr_entry_1.$procdff$907 ($adff) from module ct_lsu_vb (D = $flatten\x_ct_lsu_vb_addr_entry_1.$0\vb_addr_entry_data_req_success[0:0], Q = \x_ct_lsu_vb_addr_entry_1.vb_addr_entry_data_req_success).
+Adding EN signal on $flatten\x_ct_lsu_vb_addr_entry_1.$procdff$902 ($adff) from module ct_lsu_vb (D = \vb_data_create_ptr, Q = \x_ct_lsu_vb_addr_entry_1.vb_addr_entry_db_id).
+Adding EN signal on $flatten\x_ct_lsu_vb_addr_entry_1.$procdff$912 ($adff) from module ct_lsu_vb (D = $flatten\x_ct_lsu_vb_addr_entry_1.$0\vb_addr_entry_rcl_done[0:0], Q = \x_ct_lsu_vb_addr_entry_1.vb_addr_entry_rcl_done).
+Adding EN signal on $flatten\x_ct_lsu_vb_addr_entry_1.$procdff$942 ($adff) from module ct_lsu_vb (D = $flatten\x_ct_lsu_vb_addr_entry_1.$0\vb_addr_entry_source_id[2:0], Q = \x_ct_lsu_vb_addr_entry_1.vb_addr_entry_source_id).
+Adding EN signal on $flatten\x_ct_lsu_vb_addr_entry_0.$procdff$937 ($adff) from module ct_lsu_vb (D = $flatten\x_ct_lsu_vb_addr_entry_0.$0\vb_addr_entry_set_way_mode[0:0], Q = \x_ct_lsu_vb_addr_entry_0.vb_addr_entry_set_way_mode).
+Adding EN signal on $flatten\x_ct_lsu_vb_addr_entry_0.$procdff$957 ($adff) from module ct_lsu_vb (D = $flatten\x_ct_lsu_vb_addr_entry_0.$0\vb_addr_entry_vld[0:0], Q = \x_ct_lsu_vb_addr_entry_0.vb_addr_entry_vld).
+Adding EN signal on $flatten\x_ct_lsu_vb_addr_entry_0.$procdff$932 ($adff) from module ct_lsu_vb (D = $flatten\x_ct_lsu_vb_addr_entry_0.$0\vb_addr_entry_lfb_create[0:0], Q = \x_ct_lsu_vb_addr_entry_0.vb_addr_entry_lfb_create).
+Adding EN signal on $flatten\x_ct_lsu_vb_addr_entry_0.$procdff$927 ($adff) from module ct_lsu_vb (D = $flatten\x_ct_lsu_vb_addr_entry_0.$0\vb_addr_entry_inv[0:0], Q = \x_ct_lsu_vb_addr_entry_0.vb_addr_entry_inv).
+Adding EN signal on $flatten\x_ct_lsu_vb_addr_entry_0.$procdff$947 ($adff) from module ct_lsu_vb (D = $flatten\x_ct_lsu_vb_addr_entry_0.$0\vb_addr_entry_wmb_create[0:0], Q = \x_ct_lsu_vb_addr_entry_0.vb_addr_entry_wmb_create).
+Adding EN signal on $flatten\x_ct_lsu_vb_addr_entry_0.$procdff$922 ($adff) from module ct_lsu_vb (D = $flatten\x_ct_lsu_vb_addr_entry_0.$0\vb_addr_entry_addr_tto6[7:0], Q = \x_ct_lsu_vb_addr_entry_0.vb_addr_entry_addr_tto6 [7:0]).
+Adding EN signal on $flatten\x_ct_lsu_vb_addr_entry_0.$procdff$917 ($adff) from module ct_lsu_vb (D = $flatten\x_ct_lsu_vb_addr_entry_0.$0\vb_addr_entry_rcl_sm_req_success[0:0], Q = \x_ct_lsu_vb_addr_entry_0.vb_addr_entry_rcl_sm_req_success).
+Adding EN signal on $flatten\x_ct_lsu_vb_addr_entry_0.$procdff$912 ($adff) from module ct_lsu_vb (D = $flatten\x_ct_lsu_vb_addr_entry_0.$0\vb_addr_entry_rcl_done[0:0], Q = \x_ct_lsu_vb_addr_entry_0.vb_addr_entry_rcl_done).
+Adding EN signal on $flatten\x_ct_lsu_vb_addr_entry_0.$procdff$942 ($adff) from module ct_lsu_vb (D = $flatten\x_ct_lsu_vb_addr_entry_0.$0\vb_addr_entry_source_id[2:0], Q = \x_ct_lsu_vb_addr_entry_0.vb_addr_entry_source_id).
+Adding EN signal on $flatten\x_ct_lsu_vb_addr_entry_0.$procdff$907 ($adff) from module ct_lsu_vb (D = $flatten\x_ct_lsu_vb_addr_entry_0.$0\vb_addr_entry_data_req_success[0:0], Q = \x_ct_lsu_vb_addr_entry_0.vb_addr_entry_data_req_success).
+Adding EN signal on $flatten\x_ct_lsu_vb_addr_entry_0.$procdff$952 ($adff) from module ct_lsu_vb (D = $flatten\x_ct_lsu_vb_addr_entry_0.$0\vb_addr_entry_addr_tto6[33:8], Q = \x_ct_lsu_vb_addr_entry_0.vb_addr_entry_addr_tto6 [33:8]).
+Adding EN signal on $flatten\x_ct_lsu_vb_addr_entry_0.$procdff$902 ($adff) from module ct_lsu_vb (D = \vb_data_create_ptr, Q = \x_ct_lsu_vb_addr_entry_0.vb_addr_entry_db_id).
+Adding EN signal on $flatten\x_ct_lsu_vb_addr_entry_1.$procdff$937 ($adff) from module ct_lsu_vb (D = $flatten\x_ct_lsu_vb_addr_entry_1.$0\vb_addr_entry_set_way_mode[0:0], Q = \x_ct_lsu_vb_addr_entry_1.vb_addr_entry_set_way_mode).
+Adding EN signal on $flatten\x_ct_lsu_vb_addr_entry_1.$procdff$957 ($adff) from module ct_lsu_vb (D = $flatten\x_ct_lsu_vb_addr_entry_1.$0\vb_addr_entry_vld[0:0], Q = \x_ct_lsu_vb_addr_entry_1.vb_addr_entry_vld).
+Adding EN signal on $flatten\x_ct_lsu_vb_addr_entry_1.$procdff$932 ($adff) from module ct_lsu_vb (D = $flatten\x_ct_lsu_vb_addr_entry_1.$0\vb_addr_entry_lfb_create[0:0], Q = \x_ct_lsu_vb_addr_entry_1.vb_addr_entry_lfb_create).
+Adding EN signal on $procdff$847 ($adff) from module ct_lsu_vb (D = $0\vb_wd_sm_data_bias[3:0], Q = \vb_wd_sm_data_bias).
+Adding EN signal on $flatten\x_ct_lsu_vb_addr_entry_1.$procdff$947 ($adff) from module ct_lsu_vb (D = $flatten\x_ct_lsu_vb_addr_entry_1.$0\vb_addr_entry_wmb_create[0:0], Q = \x_ct_lsu_vb_addr_entry_1.vb_addr_entry_wmb_create).
+Adding EN signal on $procdff$882 ($adff) from module ct_lsu_vb (D = \vb_rcl_sm_req_addr_tto6, Q = \vb_rcl_sm_addr_tto6).
+Adding EN signal on $procdff$852 ($adff) from module ct_lsu_vb (D = \vb_data_entry_wd_sm_req, Q = \vb_wd_sm_data_id).
+Adding EN signal on $flatten\x_ct_lsu_vb_addr_entry_1.$procdff$927 ($adff) from module ct_lsu_vb (D = $flatten\x_ct_lsu_vb_addr_entry_1.$0\vb_addr_entry_inv[0:0], Q = \x_ct_lsu_vb_addr_entry_1.vb_addr_entry_inv).
+Adding EN signal on $procdff$857 ($adff) from module ct_lsu_vb (D = $0\vb_wd_sm_vld[0:0], Q = \vb_wd_sm_vld).
+Adding EN signal on $procdff$862 ($adff) from module ct_lsu_vb (D = \vb_data_create_ptr, Q = \vb_rcl_sm_data_id).
+Adding EN signal on $procdff$867 ($adff) from module ct_lsu_vb (D = \vb_rcl_sm_reg_set_dcache_dirty, Q = \vb_rcl_sm_dcache_dirty).
+Adding EN signal on $procdff$872 ($adff) from module ct_lsu_vb (D = \vb_rcl_sm_reg_set_dcache_way, Q = \vb_rcl_sm_dcache_way).
+Adding EN signal on $procdff$877 ($adff) from module ct_lsu_vb (D = \vb_rcl_sm_req_addr_ptr, Q = \vb_rcl_sm_addr_id).
+
+6.10.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_lsu_vb..
+Removed 8 unused cells and 8 unused wires.
+<suppressed ~9 debug messages>
+
+6.10.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_lsu_vb.
+<suppressed ~24 debug messages>
+
+6.10.9. Rerunning OPT passes. (Maybe there is more to do..)
+
+6.10.10. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \ct_lsu_vb..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~163 debug messages>
+
+6.10.11. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \ct_lsu_vb.
+Performed a total of 0 changes.
+
+6.10.12. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_lsu_vb'.
+Computing hashes of 470 cells of `\ct_lsu_vb'.
+Finding duplicate cells in `\ct_lsu_vb'.
+Computing hashes of 460 cells of `\ct_lsu_vb'.
+Finding duplicate cells in `\ct_lsu_vb'.
+<suppressed ~30 debug messages>
+Removed a total of 10 cells.
+
+6.10.13. Executing OPT_DFF pass (perform DFF optimizations).
+
+6.10.14. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_lsu_vb..
+Removed 0 unused cells and 10 unused wires.
+<suppressed ~1 debug messages>
+
+6.10.15. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_lsu_vb.
+
+6.10.16. Rerunning OPT passes. (Maybe there is more to do..)
+
+6.10.17. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \ct_lsu_vb..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~163 debug messages>
+
+6.10.18. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \ct_lsu_vb.
+Performed a total of 0 changes.
+
+6.10.19. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_lsu_vb'.
+Computing hashes of 460 cells of `\ct_lsu_vb'.
+Finding duplicate cells in `\ct_lsu_vb'.
+Removed a total of 0 cells.
+
+6.10.20. Executing OPT_DFF pass (perform DFF optimizations).
+
+6.10.21. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_lsu_vb..
+
+6.10.22. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_lsu_vb.
+
+6.10.23. Finished fast OPT passes. (There is nothing left to do.)
+
+6.11. Executing WREDUCE pass (reducing word size of cells).
+Removed top 1 bits (of 2) from port B of cell ct_lsu_vb.$and$./ct_lsu_vb_gold.v:1450$251 ($and).
+Removed top 1 bits (of 2) from port B of cell ct_lsu_vb.$and$./ct_lsu_vb_gold.v:1451$252 ($and).
+Removed top 1 bits (of 2) from port B of cell ct_lsu_vb.$and$./ct_lsu_vb_gold.v:1452$254 ($and).
+Removed top 3 bits (of 5) from mux cell ct_lsu_vb.$ternary$./ct_lsu_vb_gold.v:1475$260 ($mux).
+Removed top 1 bits (of 2) from port B of cell ct_lsu_vb.$and$./ct_lsu_vb_gold.v:1578$285 ($and).
+Removed top 1 bits (of 2) from port B of cell ct_lsu_vb.$and$./ct_lsu_vb_gold.v:1579$286 ($and).
+Removed top 1 bits (of 2) from port B of cell ct_lsu_vb.$and$./ct_lsu_vb_gold.v:1580$288 ($and).
+Removed top 1 bits (of 2) from port B of cell ct_lsu_vb.$procmux$334_CMP0 ($eq).
+Removed top 1 bits (of 2) from port B of cell ct_lsu_vb.$procmux$356_CMP0 ($eq).
+Removed top 1 bits (of 2) from port B of cell ct_lsu_vb.$procmux$359_CMP0 ($eq).
+Removed top 1 bits (of 3) from port B of cell ct_lsu_vb.$procmux$378_CMP0 ($eq).
+Removed top 1 bits (of 2) from port B of cell ct_lsu_vb.$procmux$387_CMP0 ($eq).
+Removed top 3 bits (of 4) from mux cell ct_lsu_vb.$procmux$404 ($mux).
+Removed top 2 bits (of 4) from mux cell ct_lsu_vb.$procmux$554 ($mux).
+Removed top 2 bits (of 4) from mux cell ct_lsu_vb.$procmux$583 ($mux).
+Removed top 2 bits (of 4) from mux cell ct_lsu_vb.$procmux$694 ($mux).
+Removed top 3 bits (of 4) from mux cell ct_lsu_vb.$procmux$707 ($mux).
+Removed top 1 bits (of 2) from port B of cell ct_lsu_vb.$procmux$754_CMP0 ($eq).
+Removed top 1 bits (of 3) from port B of cell ct_lsu_vb.$flatten\x_lsu_vb_source_id_0_expand.$eq$C910_RTL_FACTORY/gen_rtl/rtu/rtl/ct_rtu_expand_8.v:39$7 ($eq).
+Removed top 1 bits (of 3) from port B of cell ct_lsu_vb.$flatten\x_lsu_vb_source_id_0_expand.$eq$C910_RTL_FACTORY/gen_rtl/rtu/rtl/ct_rtu_expand_8.v:38$6 ($eq).
+Removed top 2 bits (of 3) from port B of cell ct_lsu_vb.$flatten\x_lsu_vb_source_id_0_expand.$eq$C910_RTL_FACTORY/gen_rtl/rtu/rtl/ct_rtu_expand_8.v:37$5 ($eq).
+Removed top 1 bits (of 3) from port B of cell ct_lsu_vb.$flatten\x_lsu_vb_source_id_1_expand.$eq$C910_RTL_FACTORY/gen_rtl/rtu/rtl/ct_rtu_expand_8.v:39$7 ($eq).
+Removed top 1 bits (of 3) from port B of cell ct_lsu_vb.$flatten\x_lsu_vb_source_id_1_expand.$eq$C910_RTL_FACTORY/gen_rtl/rtu/rtl/ct_rtu_expand_8.v:38$6 ($eq).
+Removed top 2 bits (of 3) from port B of cell ct_lsu_vb.$flatten\x_lsu_vb_source_id_1_expand.$eq$C910_RTL_FACTORY/gen_rtl/rtu/rtl/ct_rtu_expand_8.v:37$5 ($eq).
+Removed top 3 bits (of 4) from wire ct_lsu_vb.$20\vb_rcl_sm_next_state[3:0].
+Removed top 2 bits (of 4) from wire ct_lsu_vb.$11\vb_rcl_sm_next_state[3:0].
+Removed top 2 bits (of 4) from wire ct_lsu_vb.$10\vb_rcl_sm_next_state[3:0].
+Removed top 2 bits (of 4) from wire ct_lsu_vb.$4\vb_rcl_sm_next_state[3:0].
+Removed top 3 bits (of 4) from wire ct_lsu_vb.$3\vb_rcl_sm_next_state[3:0].
+
+6.12. Executing PEEPOPT pass (run peephole optimizers).
+
+6.13. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_lsu_vb..
+Removed 0 unused cells and 5 unused wires.
+<suppressed ~1 debug messages>
+
+6.14. Executing ALUMACC pass (create $alu and $macc cells).
+Extracting $alu and $macc cells in module ct_lsu_vb:
+  created 0 $alu and 0 $macc cells.
+
+6.15. Executing SHARE pass (SAT-based resource sharing).
+
+6.16. Executing OPT pass (performing simple optimizations).
+
+6.16.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_lsu_vb.
+
+6.16.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_lsu_vb'.
+Computing hashes of 460 cells of `\ct_lsu_vb'.
+Finding duplicate cells in `\ct_lsu_vb'.
+Removed a total of 0 cells.
+
+6.16.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \ct_lsu_vb..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~163 debug messages>
+
+6.16.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \ct_lsu_vb.
+Performed a total of 0 changes.
+
+6.16.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_lsu_vb'.
+Computing hashes of 460 cells of `\ct_lsu_vb'.
+Finding duplicate cells in `\ct_lsu_vb'.
+Removed a total of 0 cells.
+
+6.16.6. Executing OPT_DFF pass (perform DFF optimizations).
+
+6.16.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_lsu_vb..
+
+6.16.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_lsu_vb.
+
+6.16.9. Finished fast OPT passes. (There is nothing left to do.)
+
+6.17. Executing MEMORY pass.
+
+6.17.1. Executing OPT_MEM pass (optimize memories).
+Performed a total of 0 transformations.
+
+6.17.2. Executing OPT_MEM_PRIORITY pass (removing unnecessary memory write priority relations).
+Performed a total of 0 transformations.
+
+6.17.3. Executing OPT_MEM_FEEDBACK pass (finding memory read-to-write feedback paths).
+
+6.17.4. Executing MEMORY_BMUX2ROM pass (converting muxes to ROMs).
+
+6.17.5. Executing MEMORY_DFF pass (merging $dff cells to $memrd).
+
+6.17.6. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_lsu_vb..
+
+6.17.7. Executing MEMORY_SHARE pass (consolidating $memrd/$memwr cells).
+
+6.17.8. Executing OPT_MEM_WIDEN pass (optimize memories where all ports are wide).
+Performed a total of 0 transformations.
+
+6.17.9. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_lsu_vb..
+
+6.17.10. Executing MEMORY_COLLECT pass (generating $mem cells).
+
+6.18. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_lsu_vb..
+
+6.19. Executing OPT pass (performing simple optimizations).
+
+6.19.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_lsu_vb.
+<suppressed ~127 debug messages>
+
+6.19.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_lsu_vb'.
+Computing hashes of 417 cells of `\ct_lsu_vb'.
+Finding duplicate cells in `\ct_lsu_vb'.
+Computing hashes of 415 cells of `\ct_lsu_vb'.
+Finding duplicate cells in `\ct_lsu_vb'.
+<suppressed ~6 debug messages>
+Removed a total of 2 cells.
+
+6.19.3. Executing OPT_DFF pass (perform DFF optimizations).
+
+6.19.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_lsu_vb..
+Removed 0 unused cells and 63 unused wires.
+<suppressed ~1 debug messages>
+
+6.19.5. Finished fast OPT passes.
+
+6.20. Executing MEMORY_MAP pass (converting memories to logic and flip-flops).
+
+6.21. Executing OPT pass (performing simple optimizations).
+
+6.21.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_lsu_vb.
+<suppressed ~7 debug messages>
+
+6.21.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_lsu_vb'.
+Computing hashes of 414 cells of `\ct_lsu_vb'.
+Finding duplicate cells in `\ct_lsu_vb'.
+Removed a total of 0 cells.
+
+6.21.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \ct_lsu_vb..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~83 debug messages>
+
+6.21.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \ct_lsu_vb.
+    Consolidated identical input bits for $mux cell $procmux$721:
+      Old ports: A=4'0000, B=4'1000, Y=$2\vb_rcl_sm_next_state[3:0]
+      New ports: A=1'0, B=1'1, Y=$2\vb_rcl_sm_next_state[3:0] [3]
+      New connections: $2\vb_rcl_sm_next_state[3:0] [2:0] = 3'000
+    Consolidated identical input bits for $mux cell $procmux$694:
+      Old ports: A=2'10, B=2'00, Y=$4\vb_rcl_sm_next_state[3:0]
+      New ports: A=1'1, B=1'0, Y=$4\vb_rcl_sm_next_state[3:0] [1]
+      New connections: $4\vb_rcl_sm_next_state[3:0] [0] = 1'0
+    Consolidated identical input bits for $mux cell $procmux$609:
+      Old ports: A=4'0000, B={ 2'11 $10\vb_rcl_sm_next_state[3:0] }, Y=$9\vb_rcl_sm_next_state[3:0]
+      New ports: A=3'000, B={ 1'1 $10\vb_rcl_sm_next_state[3:0] }, Y=$9\vb_rcl_sm_next_state[3:0] [2:0]
+      New connections: $9\vb_rcl_sm_next_state[3:0] [3] = $9\vb_rcl_sm_next_state[3:0] [2]
+    Consolidated identical input bits for $mux cell $procmux$484:
+      Old ports: A=4'1100, B={ 2'11 $11\vb_rcl_sm_next_state[3:0] }, Y=$14\vb_rcl_sm_next_state[3:0]
+      New ports: A=2'00, B=$11\vb_rcl_sm_next_state[3:0], Y=$14\vb_rcl_sm_next_state[3:0] [1:0]
+      New connections: $14\vb_rcl_sm_next_state[3:0] [3:2] = 2'11
+    Consolidated identical input bits for $mux cell $procmux$431:
+      Old ports: A=4'1100, B=4'0000, Y=$17\vb_rcl_sm_next_state[3:0]
+      New ports: A=1'1, B=1'0, Y=$17\vb_rcl_sm_next_state[3:0] [2]
+      New connections: { $17\vb_rcl_sm_next_state[3:0] [3] $17\vb_rcl_sm_next_state[3:0] [1:0] } = { $17\vb_rcl_sm_next_state[3:0] [2] 2'00 }
+    Consolidated identical input bits for $mux cell $procmux$421:
+      Old ports: A=4'1011, B=4'0000, Y=$18\vb_rcl_sm_next_state[3:0]
+      New ports: A=1'1, B=1'0, Y=$18\vb_rcl_sm_next_state[3:0] [0]
+      New connections: $18\vb_rcl_sm_next_state[3:0] [3:1] = { $18\vb_rcl_sm_next_state[3:0] [0] 1'0 $18\vb_rcl_sm_next_state[3:0] [0] }
+    Consolidated identical input bits for $mux cell $procmux$397:
+      Old ports: A=4'0000, B=4'1110, Y=$21\vb_rcl_sm_next_state[3:0]
+      New ports: A=1'0, B=1'1, Y=$21\vb_rcl_sm_next_state[3:0] [1]
+      New connections: { $21\vb_rcl_sm_next_state[3:0] [3:2] $21\vb_rcl_sm_next_state[3:0] [0] } = { $21\vb_rcl_sm_next_state[3:0] [1] $21\vb_rcl_sm_next_state[3:0] [1] 1'0 }
+    Consolidated identical input bits for $mux cell $ternary$./ct_lsu_vb_gold.v:1478$261:
+      Old ports: A={ \evict_req_addr_tto6 6'000000 }, B={ \vb_biu_aw_req_addr_tto6 6'000000 }, Y=\vb_biu_aw_addr
+      New ports: A=\evict_req_addr_tto6, B=\vb_biu_aw_req_addr_tto6, Y=\vb_biu_aw_addr [39:6]
+      New connections: \vb_biu_aw_addr [5:0] = 6'000000
+    Consolidated identical input bits for $mux cell $ternary$./ct_lsu_vb_gold.v:1475$260:
+      Old ports: A={ 1'0 \vb_rcl_sm_addr_id [1] }, B={ 1'0 \vb_biu_aw_req_id [0] }, Y=\vb_biu_aw_id [1:0]
+      New ports: A=\vb_rcl_sm_addr_id [1], B=\vb_biu_aw_req_id [0], Y=\vb_biu_aw_id [0]
+      New connections: \vb_biu_aw_id [1] = 1'0
+    Consolidated identical input bits for $mux cell $ternary$./ct_lsu_vb_gold.v:1322$204:
+      Old ports: A=7'0000000, B={ \vb_rcl_sm_inv \vb_rcl_sm_dcache_way \vb_rcl_sm_dcache_way \vb_rcl_sm_dcache_way \vb_dcache_arb_ld_tag_wen [0] \vb_dcache_arb_ld_tag_wen [0] \vb_dcache_arb_ld_tag_wen [0] }, Y=\vb_dcache_arb_st_dirty_wen
+      New ports: A=3'000, B={ \vb_rcl_sm_inv \vb_rcl_sm_dcache_way \vb_dcache_arb_ld_tag_wen [0] }, Y={ \vb_dcache_arb_st_dirty_wen [6] \vb_dcache_arb_st_dirty_wen [3] \vb_dcache_arb_st_dirty_wen [0] }
+      New connections: { \vb_dcache_arb_st_dirty_wen [5:4] \vb_dcache_arb_st_dirty_wen [2:1] } = { \vb_dcache_arb_st_dirty_wen [3] \vb_dcache_arb_st_dirty_wen [3] \vb_dcache_arb_st_dirty_wen [0] \vb_dcache_arb_st_dirty_wen [0] }
+  Optimizing cells in module \ct_lsu_vb.
+    Consolidated identical input bits for $mux cell $procmux$632:
+      Old ports: A=$9\vb_rcl_sm_next_state[3:0], B=4'0000, Y=$8\vb_rcl_sm_next_state[3:0]
+      New ports: A=$9\vb_rcl_sm_next_state[3:0] [2:0], B=3'000, Y=$8\vb_rcl_sm_next_state[3:0] [2:0]
+      New connections: $8\vb_rcl_sm_next_state[3:0] [3] = $8\vb_rcl_sm_next_state[3:0] [2]
+    Consolidated identical input bits for $mux cell $procmux$510:
+      Old ports: A=$14\vb_rcl_sm_next_state[3:0], B=4'0000, Y=$13\vb_rcl_sm_next_state[3:0]
+      New ports: A={ 1'1 $14\vb_rcl_sm_next_state[3:0] [1:0] }, B=3'000, Y=$13\vb_rcl_sm_next_state[3:0] [2:0]
+      New connections: $13\vb_rcl_sm_next_state[3:0] [3] = $13\vb_rcl_sm_next_state[3:0] [2]
+    Consolidated identical input bits for $mux cell $procmux$444:
+      Old ports: A=$17\vb_rcl_sm_next_state[3:0], B=4'1011, Y=$16\vb_rcl_sm_next_state[3:0]
+      New ports: A={ $17\vb_rcl_sm_next_state[3:0] [2] $17\vb_rcl_sm_next_state[3:0] [2] 1'0 }, B=3'101, Y={ $16\vb_rcl_sm_next_state[3:0] [3:2] $16\vb_rcl_sm_next_state[3:0] [0] }
+      New connections: $16\vb_rcl_sm_next_state[3:0] [1] = $16\vb_rcl_sm_next_state[3:0] [0]
+  Optimizing cells in module \ct_lsu_vb.
+    Consolidated identical input bits for $mux cell $procmux$533:
+      Old ports: A=$13\vb_rcl_sm_next_state[3:0], B=4'0000, Y=$12\vb_rcl_sm_next_state[3:0]
+      New ports: A=$13\vb_rcl_sm_next_state[3:0] [2:0], B=3'000, Y=$12\vb_rcl_sm_next_state[3:0] [2:0]
+      New connections: $12\vb_rcl_sm_next_state[3:0] [3] = $12\vb_rcl_sm_next_state[3:0] [2]
+  Optimizing cells in module \ct_lsu_vb.
+    Consolidated identical input bits for $mux cell $procmux$651:
+      Old ports: A=$12\vb_rcl_sm_next_state[3:0], B=$8\vb_rcl_sm_next_state[3:0], Y=$7\vb_rcl_sm_next_state[3:0]
+      New ports: A=$12\vb_rcl_sm_next_state[3:0] [2:0], B=$8\vb_rcl_sm_next_state[3:0] [2:0], Y=$7\vb_rcl_sm_next_state[3:0] [2:0]
+      New connections: $7\vb_rcl_sm_next_state[3:0] [3] = $7\vb_rcl_sm_next_state[3:0] [2]
+  Optimizing cells in module \ct_lsu_vb.
+    Consolidated identical input bits for $mux cell $procmux$668:
+      Old ports: A=$7\vb_rcl_sm_next_state[3:0], B=4'0000, Y=$6\vb_rcl_sm_next_state[3:0]
+      New ports: A=$7\vb_rcl_sm_next_state[3:0] [2:0], B=3'000, Y=$6\vb_rcl_sm_next_state[3:0] [2:0]
+      New connections: $6\vb_rcl_sm_next_state[3:0] [3] = $6\vb_rcl_sm_next_state[3:0] [2]
+  Optimizing cells in module \ct_lsu_vb.
+Performed a total of 16 changes.
+
+6.21.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_lsu_vb'.
+Computing hashes of 414 cells of `\ct_lsu_vb'.
+Finding duplicate cells in `\ct_lsu_vb'.
+Removed a total of 0 cells.
+
+6.21.6. Executing OPT_SHARE pass.
+
+6.21.7. Executing OPT_DFF pass (perform DFF optimizations).
+
+6.21.8. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_lsu_vb..
+
+6.21.9. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_lsu_vb.
+<suppressed ~5 debug messages>
+
+6.21.10. Rerunning OPT passes. (Maybe there is more to do..)
+
+6.21.11. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \ct_lsu_vb..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~78 debug messages>
+
+6.21.12. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \ct_lsu_vb.
+Performed a total of 0 changes.
+
+6.21.13. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_lsu_vb'.
+Computing hashes of 412 cells of `\ct_lsu_vb'.
+Finding duplicate cells in `\ct_lsu_vb'.
+Removed a total of 0 cells.
+
+6.21.14. Executing OPT_SHARE pass.
+
+6.21.15. Executing OPT_DFF pass (perform DFF optimizations).
+
+6.21.16. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_lsu_vb..
+Removed 0 unused cells and 2 unused wires.
+<suppressed ~1 debug messages>
+
+6.21.17. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_lsu_vb.
+
+6.21.18. Rerunning OPT passes. (Maybe there is more to do..)
+
+6.21.19. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \ct_lsu_vb..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~78 debug messages>
+
+6.21.20. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \ct_lsu_vb.
+Performed a total of 0 changes.
+
+6.21.21. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_lsu_vb'.
+Computing hashes of 412 cells of `\ct_lsu_vb'.
+Finding duplicate cells in `\ct_lsu_vb'.
+Removed a total of 0 cells.
+
+6.21.22. Executing OPT_SHARE pass.
+
+6.21.23. Executing OPT_DFF pass (perform DFF optimizations).
+
+6.21.24. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_lsu_vb..
+
+6.21.25. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_lsu_vb.
+
+6.21.26. Finished fast OPT passes. (There is nothing left to do.)
+
+6.22. Executing TECHMAP pass (map to technology primitives).
+
+6.22.1. Executing Verilog-2005 frontend: oss-cad-suite-20260630/lib/../share/yosys/techmap.v
+Parsing Verilog input from `oss-cad-suite-20260630/lib/../share/yosys/techmap.v' to AST representation.
+Generating RTLIL representation for module `\_90_simplemap_bool_ops'.
+Generating RTLIL representation for module `\_90_simplemap_reduce_ops'.
+Generating RTLIL representation for module `\_90_simplemap_logic_ops'.
+Generating RTLIL representation for module `\_90_simplemap_compare_ops'.
+Generating RTLIL representation for module `\_90_simplemap_various'.
+Generating RTLIL representation for module `\_90_simplemap_registers'.
+Generating RTLIL representation for module `\_90_shift_ops_shr_shl_sshl_sshr'.
+Generating RTLIL representation for module `\_90_shift_shiftx'.
+Generating RTLIL representation for module `\_90_fa'.
+Generating RTLIL representation for module `\_90_lcu_brent_kung'.
+Generating RTLIL representation for module `\_90_alu'.
+Generating RTLIL representation for module `\_90_macc'.
+Generating RTLIL representation for module `\_90_alumacc'.
+Generating RTLIL representation for module `$__div_mod_u'.
+Generating RTLIL representation for module `$__div_mod_trunc'.
+Generating RTLIL representation for module `\_90_div'.
+Generating RTLIL representation for module `\_90_mod'.
+Generating RTLIL representation for module `$__div_mod_floor'.
+Generating RTLIL representation for module `\_90_divfloor'.
+Generating RTLIL representation for module `\_90_modfloor'.
+Generating RTLIL representation for module `\_90_pow'.
+Generating RTLIL representation for module `\_90_demux'.
+Generating RTLIL representation for module `\_90_lut'.
+Generating RTLIL representation for module `$connect'.
+Generating RTLIL representation for module `$input_port'.
+Successfully finished Verilog frontend.
+
+6.22.2. Continuing TECHMAP pass.
+Using extmapper simplemap for cells of type $or.
+Using extmapper simplemap for cells of type $and.
+Using extmapper simplemap for cells of type $adffe.
+Using extmapper simplemap for cells of type $reduce_bool.
+Using extmapper simplemap for cells of type $reduce_or.
+Using extmapper simplemap for cells of type $reduce_and.
+Using extmapper simplemap for cells of type $logic_and.
+Using extmapper simplemap for cells of type $logic_not.
+Using extmapper simplemap for cells of type $logic_or.
+Using extmapper simplemap for cells of type $mux.
+Using extmapper simplemap for cells of type $eq.
+Using extmapper simplemap for cells of type $not.
+Using extmapper simplemap for cells of type $pmux.
+Using extmapper simplemap for cells of type $adff.
+No more expansions possible.
+<suppressed ~476 debug messages>
+
+6.23. Executing OPT pass (performing simple optimizations).
+
+6.23.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_lsu_vb.
+<suppressed ~158 debug messages>
+
+6.23.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_lsu_vb'.
+Computing hashes of 2333 cells of `\ct_lsu_vb'.
+Finding duplicate cells in `\ct_lsu_vb'.
+Computing hashes of 2264 cells of `\ct_lsu_vb'.
+Finding duplicate cells in `\ct_lsu_vb'.
+Computing hashes of 2245 cells of `\ct_lsu_vb'.
+Finding duplicate cells in `\ct_lsu_vb'.
+<suppressed ~264 debug messages>
+Removed a total of 88 cells.
+
+6.23.3. Executing OPT_DFF pass (perform DFF optimizations).
+
+6.23.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_lsu_vb..
+Removed 0 unused cells and 232 unused wires.
+<suppressed ~1 debug messages>
+
+6.23.5. Finished fast OPT passes.
+
+6.24. Executing ABC pass (technology mapping using ABC).
+
+6.24.1. Extracting gate netlist of module `\ct_lsu_vb' to `<abc-temp-dir>/input.blif'..
+
+6.24.1.1. Executed ABC.
+Extracted 2081 gates and 2856 wires to a netlist network with 773 inputs and 441 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: UC Berkeley, ABC 1.01 (compiled Jun 30 2026 04:50:19)
+ABC: abc 01> empty
+ABC: abc 01> source <abc-temp-dir>/abc.script
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_library <abc-temp-dir>/stdcells.genlib 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &fraig -x 
+ABC: + &put 
+ABC: + scorr 
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2 
+ABC: + dretime 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &dch -f 
+ABC: + &nf 
+ABC: + &put 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+ABC: 
+ABC: YOSYS_ABC_DONE 
+
+6.24.1.2. Re-integrating ABC results.
+ABC RESULTS:               AND cells:      455
+ABC RESULTS:            ANDNOT cells:       44
+ABC RESULTS:               MUX cells:      267
+ABC RESULTS:              NAND cells:      899
+ABC RESULTS:               NOR cells:       12
+ABC RESULTS:               NOT cells:       11
+ABC RESULTS:                OR cells:       26
+ABC RESULTS:             ORNOT cells:      134
+ABC RESULTS:              XNOR cells:       96
+ABC RESULTS:               XOR cells:        1
+ABC RESULTS:        internal signals:     1642
+ABC RESULTS:           input signals:      773
+ABC RESULTS:          output signals:      441
+Removing temp directory.
+Removing global temp directory.
+
+6.25. Executing OPT pass (performing simple optimizations).
+
+6.25.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_lsu_vb.
+
+6.25.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_lsu_vb'.
+Computing hashes of 2109 cells of `\ct_lsu_vb'.
+Finding duplicate cells in `\ct_lsu_vb'.
+Computing hashes of 2108 cells of `\ct_lsu_vb'.
+Finding duplicate cells in `\ct_lsu_vb'.
+<suppressed ~3 debug messages>
+Removed a total of 1 cells.
+
+6.25.3. Executing OPT_DFF pass (perform DFF optimizations).
+
+6.25.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_lsu_vb..
+Removed 0 unused cells and 1624 unused wires.
+<suppressed ~130 debug messages>
+
+6.25.5. Finished fast OPT passes.
+
+6.26. Executing HIERARCHY pass (managing design hierarchy).
+Attribute `top' found on module `ct_lsu_vb'. Setting top module to ct_lsu_vb.
+
+6.26.1. Analyzing design hierarchy..
+Top module:  \ct_lsu_vb
+
+6.26.2. Analyzing design hierarchy..
+Top module:  \ct_lsu_vb
+Removed 0 unused modules.
+
+6.27. Printing statistics.
+
+=== ct_lsu_vb ===
+
+        +----------Local Count, excluding submodules.
+        | 
+     1991 wires
+     4660 wire bits
+      384 public wires
+     3050 public wire bits
+      154 ports
+     1256 port bits
+     2108 cells
+       44   $_ANDNOT_
+      454   $_AND_
+      144   $_DFFE_PN0P_
+        1   $_DFFE_PN1P_
+        6   $_DFF_PN0_
+      267   $_MUX_
+      899   $_NAND_
+       12   $_NOR_
+       11   $_NOT_
+      134   $_ORNOT_
+       26   $_OR_
+       96   $_XNOR_
+        1   $_XOR_
+       13   $scopeinfo
+
+6.28. Executing CHECK pass (checking for obvious problems).
+Checking module ct_lsu_vb...
+Found and reported 0 problems.
+
+7. Executing DFFLIBMAP pass (mapping DFF cells to sequential cells from liberty file).
+  cell sky130_fd_sc_hd__dfxtp_1 (noninv, pins=3, area=20.02) is a direct match for cell type $_DFF_P_.
+  cell sky130_fd_sc_hd__dfrtn_1 (noninv, pins=4, area=25.02) is a direct match for cell type $_DFF_NN0_.
+  cell sky130_fd_sc_hd__dfrtp_1 (noninv, pins=4, area=25.02) is a direct match for cell type $_DFF_PN0_.
+  cell sky130_fd_sc_hd__dfstp_2 (noninv, pins=4, area=26.28) is a direct match for cell type $_DFF_PN1_.
+  cell sky130_fd_sc_hd__edfxtp_1 (noninv, pins=4, area=30.03) is a direct match for cell type $_DFFE_PP_.
+  cell sky130_fd_sc_hd__dfbbn_1 (noninv, pins=6, area=32.53) is a direct match for cell type $_DFFSR_NNN_.
+  cell sky130_fd_sc_hd__dfbbp_1 (noninv, pins=6, area=32.53) is a direct match for cell type $_DFFSR_PNN_.
+  final dff cell mappings:
+    unmapped dff cell: $_DFF_N_
+    \sky130_fd_sc_hd__dfxtp_1 _DFF_P_ (.CLK( C), .D( D), .Q( Q));
+    \sky130_fd_sc_hd__dfrtn_1 _DFF_NN0_ (.CLK_N( C), .D( D), .Q( Q), .RESET_B( R));
+    unmapped dff cell: $_DFF_NN1_
+    unmapped dff cell: $_DFF_NP0_
+    unmapped dff cell: $_DFF_NP1_
+    \sky130_fd_sc_hd__dfrtp_1 _DFF_PN0_ (.CLK( C), .D( D), .Q( Q), .RESET_B( R));
+    \sky130_fd_sc_hd__dfstp_2 _DFF_PN1_ (.CLK( C), .D( D), .Q( Q), .SET_B( R));
+    unmapped dff cell: $_DFF_PP0_
+    unmapped dff cell: $_DFF_PP1_
+    unmapped dff cell: $_DFFE_NN_
+    unmapped dff cell: $_DFFE_NP_
+    unmapped dff cell: $_DFFE_PN_
+    \sky130_fd_sc_hd__edfxtp_1 _DFFE_PP_ (.CLK( C), .D( D), .DE( E), .Q( Q));
+    \sky130_fd_sc_hd__dfbbn_1 _DFFSR_NNN_ (.CLK_N( C), .D( D), .Q( Q), .Q_N(~Q), .RESET_B( R), .SET_B( S));
+    unmapped dff cell: $_DFFSR_NNP_
+    unmapped dff cell: $_DFFSR_NPN_
+    unmapped dff cell: $_DFFSR_NPP_
+    \sky130_fd_sc_hd__dfbbp_1 _DFFSR_PNN_ (.CLK( C), .D( D), .Q( Q), .Q_N(~Q), .RESET_B( R), .SET_B( S));
+    unmapped dff cell: $_DFFSR_PNP_
+    unmapped dff cell: $_DFFSR_PPN_
+    unmapped dff cell: $_DFFSR_PPP_
+
+7.1. Executing DFFLEGALIZE pass (convert FFs to types supported by the target).
+<suppressed ~24 debug messages>
+Mapping DFF cells in module `\ct_lsu_vb':
+  mapped 150 $_DFF_PN0_ cells to \sky130_fd_sc_hd__dfrtp_1 cells.
+  mapped 1 $_DFF_PN1_ cells to \sky130_fd_sc_hd__dfstp_2 cells.
+
+8. Executing ABC pass (technology mapping using ABC).
+
+8.1. Extracting gate netlist of module `\ct_lsu_vb' to `<abc-temp-dir>/input.blif'..
+ABC: using cached merged SCL: yosys-liberty-scl-cache/yosys_merged.scl (1 files)
+
+8.1.1. Executed ABC.
+Extracted 2089 gates and 2896 wires to a netlist network with 807 inputs and 433 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: UC Berkeley, ABC 1.01 (compiled Jun 30 2026 04:50:19)
+ABC: abc 01> empty
+ABC: abc 01> source <abc-temp-dir>/abc.script
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_scl yosys-liberty-scl-cache/yosys_merged.scl 
+ABC: Warning: Detected 9 multi-output cells (for example, "sky130_fd_sc_hd__fa_1").
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &fraig -x 
+ABC: + &put 
+ABC: + scorr 
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2 
+ABC: + dretime 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &dch -f 
+ABC: + &nf 
+ABC: + &put 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+ABC: 
+ABC: YOSYS_ABC_DONE 
+
+8.1.2. Re-integrating ABC results.
+ABC RESULTS:   sky130_fd_sc_hd__a2111o_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__a2111oi_0 cells:        5
+ABC RESULTS:   sky130_fd_sc_hd__a211o_1 cells:        2
+ABC RESULTS:   sky130_fd_sc_hd__a211oi_1 cells:        5
+ABC RESULTS:   sky130_fd_sc_hd__a21boi_0 cells:        2
+ABC RESULTS:   sky130_fd_sc_hd__a21o_1 cells:       11
+ABC RESULTS:   sky130_fd_sc_hd__a21oi_1 cells:       47
+ABC RESULTS:   sky130_fd_sc_hd__a221o_1 cells:        6
+ABC RESULTS:   sky130_fd_sc_hd__a221oi_1 cells:       15
+ABC RESULTS:   sky130_fd_sc_hd__a222oi_1 cells:      172
+ABC RESULTS:   sky130_fd_sc_hd__a22o_1 cells:       23
+ABC RESULTS:   sky130_fd_sc_hd__a22oi_1 cells:       21
+ABC RESULTS:   sky130_fd_sc_hd__a2bb2oi_1 cells:        2
+ABC RESULTS:   sky130_fd_sc_hd__a311oi_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__a31o_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__a31oi_1 cells:        4
+ABC RESULTS:   sky130_fd_sc_hd__a32oi_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__and2_0 cells:       13
+ABC RESULTS:   sky130_fd_sc_hd__and3_1 cells:       12
+ABC RESULTS:   sky130_fd_sc_hd__and3b_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__clkinv_1 cells:      243
+ABC RESULTS:   sky130_fd_sc_hd__lpflow_inputiso1p_1 cells:        3
+ABC RESULTS:   sky130_fd_sc_hd__lpflow_isobufsrc_1 cells:       11
+ABC RESULTS:   sky130_fd_sc_hd__mux2_1 cells:       52
+ABC RESULTS:   sky130_fd_sc_hd__mux2i_1 cells:       91
+ABC RESULTS:   sky130_fd_sc_hd__nand2_1 cells:      120
+ABC RESULTS:   sky130_fd_sc_hd__nand2b_1 cells:       18
+ABC RESULTS:   sky130_fd_sc_hd__nand3_1 cells:       28
+ABC RESULTS:   sky130_fd_sc_hd__nand3b_1 cells:        4
+ABC RESULTS:   sky130_fd_sc_hd__nand4_1 cells:       17
+ABC RESULTS:   sky130_fd_sc_hd__nand4b_1 cells:        5
+ABC RESULTS:   sky130_fd_sc_hd__nor2_1 cells:      128
+ABC RESULTS:   sky130_fd_sc_hd__nor3_1 cells:       13
+ABC RESULTS:   sky130_fd_sc_hd__nor3b_1 cells:        3
+ABC RESULTS:   sky130_fd_sc_hd__nor4_1 cells:       20
+ABC RESULTS:   sky130_fd_sc_hd__nor4bb_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__o2111a_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__o2111ai_1 cells:        3
+ABC RESULTS:   sky130_fd_sc_hd__o211a_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__o211ai_1 cells:        6
+ABC RESULTS:   sky130_fd_sc_hd__o21a_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__o21ai_0 cells:      139
+ABC RESULTS:   sky130_fd_sc_hd__o21bai_1 cells:        3
+ABC RESULTS:   sky130_fd_sc_hd__o221ai_1 cells:       10
+ABC RESULTS:   sky130_fd_sc_hd__o22ai_1 cells:       81
+ABC RESULTS:   sky130_fd_sc_hd__o2bb2ai_1 cells:        6
+ABC RESULTS:   sky130_fd_sc_hd__o311a_1 cells:        2
+ABC RESULTS:   sky130_fd_sc_hd__o311ai_0 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__o31a_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__o31ai_1 cells:        3
+ABC RESULTS:   sky130_fd_sc_hd__o32a_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__o32ai_1 cells:        3
+ABC RESULTS:   sky130_fd_sc_hd__o41ai_1 cells:        3
+ABC RESULTS:   sky130_fd_sc_hd__or3_1 cells:        5
+ABC RESULTS:   sky130_fd_sc_hd__or3b_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__xnor2_1 cells:       35
+ABC RESULTS:   sky130_fd_sc_hd__xor2_1 cells:       34
+ABC RESULTS:        internal signals:     1656
+ABC RESULTS:           input signals:      807
+ABC RESULTS:          output signals:      433
+Removing temp directory.
+Removing global temp directory.
+Removed 0 unused cells and 2872 unused wires.
+
+9. Printing statistics.
+
+=== ct_lsu_vb ===
+
+        +----------Local Count, excluding submodules.
+        |        +-Local Area, excluding submodules.
+        |        | 
+     1513        - wires
+     4135        - wire bits
+      359        - public wires
+     2981        - public wire bits
+      154        - ports
+     1256        - port bits
+     1606  1.3E+04 cells
+       13        -   $scopeinfo
+        1   11.261   sky130_fd_sc_hd__a2111o_1
+        5   43.792   sky130_fd_sc_hd__a2111oi_0
+        2   17.517   sky130_fd_sc_hd__a211o_1
+        5   37.536   sky130_fd_sc_hd__a211oi_1
+        2   15.014   sky130_fd_sc_hd__a21boi_0
+       11   82.579   sky130_fd_sc_hd__a21o_1
+       47  235.226   sky130_fd_sc_hd__a21oi_1
+        6   60.058   sky130_fd_sc_hd__a221o_1
+       15  131.376   sky130_fd_sc_hd__a221oi_1
+      172 1.72E+03   sky130_fd_sc_hd__a222oi_1
+       23  201.443   sky130_fd_sc_hd__a22o_1
+       21  157.651   sky130_fd_sc_hd__a22oi_1
+        2   17.517   sky130_fd_sc_hd__a2bb2oi_1
+        1    8.758   sky130_fd_sc_hd__a311oi_1
+        1    8.758   sky130_fd_sc_hd__a31o_1
+        4   25.024   sky130_fd_sc_hd__a31oi_1
+        1    8.758   sky130_fd_sc_hd__a32oi_1
+       13   81.328   sky130_fd_sc_hd__and2_0
+       12   75.072   sky130_fd_sc_hd__and3_1
+        1    8.758   sky130_fd_sc_hd__and3b_1
+      243  912.125   sky130_fd_sc_hd__clkinv_1
+      150   3753.6   sky130_fd_sc_hd__dfrtp_1
+        1   26.275   sky130_fd_sc_hd__dfstp_2
+        3   18.768   sky130_fd_sc_hd__lpflow_inputiso1p_1
+       11   68.816   sky130_fd_sc_hd__lpflow_isobufsrc_1
+       52  585.562   sky130_fd_sc_hd__mux2_1
+       91  910.874   sky130_fd_sc_hd__mux2i_1
+      120  450.432   sky130_fd_sc_hd__nand2_1
+       18  112.608   sky130_fd_sc_hd__nand2b_1
+       28  140.134   sky130_fd_sc_hd__nand3_1
+        4   30.029   sky130_fd_sc_hd__nand3b_1
+       17  106.352   sky130_fd_sc_hd__nand4_1
+        5   43.792   sky130_fd_sc_hd__nand4b_1
+      128  480.461   sky130_fd_sc_hd__nor2_1
+       13   65.062   sky130_fd_sc_hd__nor3_1
+        3   22.522   sky130_fd_sc_hd__nor3b_1
+       20   125.12   sky130_fd_sc_hd__nor4_1
+        1    10.01   sky130_fd_sc_hd__nor4bb_1
+        1   11.261   sky130_fd_sc_hd__o2111a_1
+        3   26.275   sky130_fd_sc_hd__o2111ai_1
+        1    10.01   sky130_fd_sc_hd__o211a_1
+        6   45.043   sky130_fd_sc_hd__o211ai_1
+        1    7.507   sky130_fd_sc_hd__o21a_1
+      139  695.667   sky130_fd_sc_hd__o21ai_0
+        3   22.522   sky130_fd_sc_hd__o21bai_1
+       10   87.584   sky130_fd_sc_hd__o221ai_1
+       81  506.736   sky130_fd_sc_hd__o22ai_1
+        6    52.55   sky130_fd_sc_hd__o2bb2ai_1
+        2   20.019   sky130_fd_sc_hd__o311a_1
+        1    8.758   sky130_fd_sc_hd__o311ai_0
+        1    8.758   sky130_fd_sc_hd__o31a_1
+        3   22.522   sky130_fd_sc_hd__o31ai_1
+        1    10.01   sky130_fd_sc_hd__o32a_1
+        3   26.275   sky130_fd_sc_hd__o32ai_1
+        3   26.275   sky130_fd_sc_hd__o41ai_1
+        5    31.28   sky130_fd_sc_hd__or3_1
+        1    8.758   sky130_fd_sc_hd__or3b_1
+       35  306.544   sky130_fd_sc_hd__xnor2_1
+       34  297.786   sky130_fd_sc_hd__xor2_1
+
+   Area for cell type $scopeinfo is unknown!
+
+   Chip area for module '\ct_lsu_vb': 13043.760000
+     of which used for sequential elements: 3779.875200 (28.98%)
+
+10. Executing Verilog backend.
+
+10.1. Executing BMUXMAP pass.
+
+10.2. Executing DEMUXMAP pass.
+Dumping module `\ct_lsu_vb'.
+
+End of script. Logfile hash: a6968340f9, time: 0.76s, user: 0.38s, system: 0.04s, MEM: 50.25 MB peak
+Yosys 0.66+181 (git sha1 afe6b18f2, Release, Clang /usr/bin/clang++ 18.1.8)
+Time spent: 51% 2x abc (0 sec), 9% 18x opt_clean (0 sec), ...

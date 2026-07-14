@@ -67,6 +67,7 @@ metric results because the multi-axis bar above is not closed.
 | --- | --- | --- | --- |
 | `ct_fifo` | Accepted module-local proof packet | Visible-output relation proof is replayable and non-vacuous, but same-candidate timing/power metric closure is still required before it becomes a result row | [`athanor_artifacts/ct_fifo/`](athanor_artifacts/ct_fifo/) |
 | `ct_rtu_rob_entry` | Candidate packet | Same-state equivalence and area screening are positive, but metric promotion was rejected by OpenSTA timing regression; it remains a hard-negative / learning packet | [`athanor_artifacts/rtu_rob_entry_candidate1/`](athanor_artifacts/rtu_rob_entry_candidate1/) |
+| `ct_lsu_vb` | Candidate metric scout | Same-candidate area, OpenSTA max data-arrival, and OpenSTA estimated power all improve, with a reset-first output miter and biting proof mutant; pending non-author replay before any result-row discussion | [`athanor_artifacts/ct_lsu_vb_area_timing_power_candidate1/`](athanor_artifacts/ct_lsu_vb_area_timing_power_candidate1/) |
 | `ct_rtu_pst_vreg` parent lift | Scout only | Replacing all 64 vreg entries improves parent area but regresses parent max data-arrival. It needs ATH-2971 compositional proof plus direct parent metric closure | [`athanor_artifacts/KAIROS_GAP_LEDGER.md`](athanor_artifacts/KAIROS_GAP_LEDGER.md) |
 
 ## Evidence Bar
@@ -108,7 +109,7 @@ theorem-level mutant or weakened-invariant check that fails.
 | RTU ROB | `ct_rtu_rob_entry`, then `ct_rtu_rob` | Timing-safe candidate or hard negative; ROB commit-order invariant before whole-ROB wording |
 | RTU physical status | `ct_rtu_pst_preg`, `ct_rtu_pst_vreg` | Entry-to-parent composition proof and parent-level metric closure |
 | IDU issue/dependency | `ct_idu_is_lsiq_entry`, AIQ entries | Issue wakeup/select and age-order invariant candidates |
-| LSU queues | `ct_lsu_sq_entry`, `ct_lsu_lq_entry`, `ct_lsu_rb` | Load/store ordering and queue-consistency proof route |
+| LSU queues | `ct_lsu_vb`, `ct_lsu_sq_entry`, `ct_lsu_lq_entry`, `ct_lsu_rb` | Load/store ordering and queue-consistency proof route |
 
 ## Replay Map
 
