@@ -25,7 +25,7 @@
   "files": {
     ".gitattributes": "dd189159ababdd3a2f5c2a0a7106f4a0bffd179e55e9db36e1476121f0bb8e7c",
     "README.md": "0a71d7880524f14f4e127e44ec217ef69b2a998aff81ea04755ef7f0b8313444",
-    "cpu_cfig.h": "f95edd68a9a93f0214ec0f2d1c09e03c4c6efbb2d43c5997a4c99ef14dcc097e",
+    "cpu_cfig.h": "59a0804ea10d96c26569ee3f056b62e385cf39110efad7e5c57199e1f1637199",
     "gated_clk_cell.v": "6cfad397c18daabdff77e3a520ccbf964e4178197cc9a0f8dd825bbf928a91c8",
     "ct_rtu_expand_8.v": "4ce9e12bcb4658ab96e101a1357918caff0a652f4090e952625cee2029d1c8d0",
     "ct_lsu_vb_addr_entry.v": "02717f4d07e486435057fc0b9bcd413b87389a13d92a9242e12fe54cc32c5df4",
