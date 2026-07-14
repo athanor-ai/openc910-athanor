@@ -1,6 +1,6 @@
 {
   "ticket": "ATH-2967",
-  "status": "candidate_pending_independent_review",
+  "status": "candidate_independent_replay_cleared_pending_promotion",
   "customer_ready": false,
   "target": {
     "module": "ct_rtu_pst_preg_entry",
@@ -44,7 +44,7 @@
     "relation_miter_mutant_negative_tempinduct_seq8.pinned.log": "668f0056f7f21de7277d3e93bf4f56e3bf823eb6356e1ae3a14b09d608e97aeb",
     "relation_miter_tempinduct_seq8.pinned.log": "13f1c771884496ef6a00db487d6a60b0fd5c24a7f4a3207c9d307a70f76b9bfe",
     "replay.sh": "8f65c426a6b78227729f723c651239a59bac0f71c85554dc2b6b590972d1e061",
-    "same_candidate_binding_receipt.json": "4df9724c993ce0c5a69d0608f4cf4347b8dea6c947141cc8480259ac18df33bc"
+    "same_candidate_binding_receipt.json": "72585c1e0b6ec95be40ede0152dd7a69e4db57468043b6e9ab0a2e4b63007fa8"
   },
   "metrics": {
     "area": {
@@ -159,10 +159,32 @@
     }
   },
   "known_boundaries": [
-    "candidate pending independent replay by a non-author seat",
+    "candidate independently replayed by non-author seats; customer-ready promotion is not claimed in this receipt",
     "module-local ct_rtu_pst_preg_entry only",
     "correctness proof scope remains visible-output equivalence under reset-first through passive debug bridge plus lifecycle-encoding relation induction",
     "OpenSTA estimated power is not signoff power and not measured workload activity",
     "not whole RTU, whole C910, BOOM, ISA, memory consistency, speculation recovery, composed optimization, or whole-chip authority"
-  ]
+  ],
+  "independent_reviews": {
+    "ronald_replay": {
+      "status": "passed",
+      "source": "Slack receipt 2026-07-13 17:46 PT on PR #8 head 1c48be3",
+      "checks": [
+        "package replay passed with pinned Yosys/OpenSTA/Liberty",
+        "same-candidate binding held across area, timing, and OpenSTA estimated-power",
+        "lifecycle relation proof proved and proof mutant failed with proof did fail",
+        "export-safety, public verifier, SHA manifest, JSON, bash, bridge py_compile, and diff checks passed"
+      ]
+    },
+    "quan_adversarial_qa": {
+      "status": "passed",
+      "source": "Slack receipts 2026-07-13 17:51 PT and 17:53 PT on routed main 5197483",
+      "checks": [
+        "routed main package tree matched approved PR head",
+        "same-candidate binding and provenance held for candidate and mapped netlist",
+        "relation proof mutant bit under the changed-flop state-relation proof path",
+        "metric red-control reded all three measured axes"
+      ]
+    }
+  }
 }

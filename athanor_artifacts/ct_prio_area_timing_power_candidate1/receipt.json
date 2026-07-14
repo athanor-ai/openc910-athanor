@@ -1,6 +1,6 @@
 {
   "ticket": "ATH-2967",
-  "status": "candidate_pending_independent_review",
+  "status": "candidate_independent_replay_cleared_pending_promotion",
   "customer_ready": false,
   "target": {
     "module": "ct_prio",
@@ -40,7 +40,7 @@
     "output_miter_proof.pinned.log": "3ddeeb6fd41495f7204690808fa31e6db315826eeaec46f64ae9f60f1b8a047f",
     "proof_mutant_negative.pinned.log": "4f3de4e26077f13be6c6d1c20b4df2258c6037547fefb8b09105d81bb5a568f1",
     "replay.sh": "3a7218c806b3293be4767d86e80c19af02841e41d84424f93814a6c0fb718d16",
-    "same_candidate_binding_receipt.json": "1ed9fd1e67435419f79bd02f40a1cde8874323e834141e88df7e004074c82738"
+    "same_candidate_binding_receipt.json": "0220131383c93300d3225ddcec8b4a6fe3b8bf5f368462a9c22f8765f34cc95f"
   },
   "metrics": {
     "area": {
@@ -147,11 +147,33 @@
     }
   },
   "known_boundaries": [
-    "candidate pending independent replay by a non-author seat",
+    "candidate independently replayed by non-author seats; customer-ready promotion is not claimed in this receipt",
     "module-local ct_prio only",
     "visible-output behavior under reset-first is the proof subject",
     "not full internal-state equivalence",
     "OpenSTA estimated power is not signoff power and not measured workload activity",
     "not whole C910/BOOM, ISA, memory consistency, speculation recovery, composed optimization, or whole-chip authority"
-  ]
+  ],
+  "independent_reviews": {
+    "ronald_replay": {
+      "status": "passed",
+      "source": "Slack receipt 2026-07-13 17:27 PT on PR #6 head 36e79c4",
+      "checks": [
+        "package replay passed with pinned Yosys/OpenSTA/Liberty",
+        "proof mutant failed the same ct_prio_output_miter with proof did fail",
+        "same-candidate binding held across area, timing, and OpenSTA estimated-power",
+        "export-safety, public verifier, SHA manifest, JSON, bash, and diff checks passed"
+      ]
+    },
+    "quan_adversarial_qa": {
+      "status": "passed",
+      "source": "Slack receipts 2026-07-13 17:29 PT and 17:53 PT on routed main 3cc1935",
+      "checks": [
+        "positive gold-vs-candidate miter proved rc=0 under pinned Yosys",
+        "proof mutant bit rc=1 under the same visible-output miter",
+        "candidate and mapped netlist provenance matched receipt hashes",
+        "area, timing, and OpenSTA estimated-power axes bound to the same mapped netlist and selected flow"
+      ]
+    }
+  }
 }
