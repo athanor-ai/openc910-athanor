@@ -1,0 +1,2292 @@
+
+ /----------------------------------------------------------------------------\
+ |  yosys -- Yosys Open SYnthesis Suite                                       |
+ |  Copyright (C) 2012 - 2026  Claire Xenia Wolf <claire@yosyshq.com>         |
+ |  Distributed under an ISC-like license, type "license" to see terms        |
+ \----------------------------------------------------------------------------/
+ Yosys 0.66+181 (git sha1 afe6b18f2, Release, Clang /usr/bin/clang++ 18.1.8)
+
+-- Running command `read_verilog -sv   C910_RTL_FACTORY/gen_rtl/cpu/rtl/cpu_cfig.h   C910_RTL_FACTORY/gen_rtl/clk/rtl/gated_clk_cell.v   C910_RTL_FACTORY/gen_rtl/rtu/rtl/ct_rtu_expand_8.v   C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_vb_addr_entry.v   ./ct_lsu_vb_gold.v   ./ct_lsu_vb_gate_renamed.v   ./ct_lsu_vb_output_miter.sv;   prep -top ct_lsu_vb_output_miter; flatten; async2sync; dffunmap; opt;   select -module ct_lsu_vb_output_miter;   sat -seq 8 -set-at 1 cpurst_b 0 -set-at 2 cpurst_b 1 -set-at 3 cpurst_b 1 -set-at 4 cpurst_b 1 -set-at 5 cpurst_b 1 -set-at 6 cpurst_b 1 -set-at 7 cpurst_b 1 -set-at 8 cpurst_b 1 -prove-asserts -verify' --
+
+1. Executing Verilog-2005 frontend: C910_RTL_FACTORY/gen_rtl/cpu/rtl/cpu_cfig.h
+Parsing SystemVerilog input from `C910_RTL_FACTORY/gen_rtl/cpu/rtl/cpu_cfig.h' to AST representation.
+Successfully finished Verilog frontend.
+
+2. Executing Verilog-2005 frontend: C910_RTL_FACTORY/gen_rtl/clk/rtl/gated_clk_cell.v
+Parsing SystemVerilog input from `C910_RTL_FACTORY/gen_rtl/clk/rtl/gated_clk_cell.v' to AST representation.
+Generating RTLIL representation for module `\gated_clk_cell'.
+Successfully finished Verilog frontend.
+
+3. Executing Verilog-2005 frontend: C910_RTL_FACTORY/gen_rtl/rtu/rtl/ct_rtu_expand_8.v
+Parsing SystemVerilog input from `C910_RTL_FACTORY/gen_rtl/rtu/rtl/ct_rtu_expand_8.v' to AST representation.
+Generating RTLIL representation for module `\ct_rtu_expand_8'.
+Successfully finished Verilog frontend.
+
+4. Executing Verilog-2005 frontend: C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_vb_addr_entry.v
+Parsing SystemVerilog input from `C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_vb_addr_entry.v' to AST representation.
+Generating RTLIL representation for module `\ct_lsu_vb_addr_entry'.
+Successfully finished Verilog frontend.
+
+5. Executing Verilog-2005 frontend: ./ct_lsu_vb_gold.v
+Parsing SystemVerilog input from `./ct_lsu_vb_gold.v' to AST representation.
+Generating RTLIL representation for module `\ct_lsu_vb'.
+Note: Assuming pure combinatorial block at ./ct_lsu_vb_gold.v:820.1-831.4 in
+compliance with IEC 62142(E):2005 / IEEE Std. 1364.1(E):2002. Recommending
+use of @* instead of @(...) for better match of synthesis and simulation.
+Note: Assuming pure combinatorial block at ./ct_lsu_vb_gold.v:974.1-1078.4 in
+compliance with IEC 62142(E):2005 / IEEE Std. 1364.1(E):2002. Recommending
+use of @* instead of @(...) for better match of synthesis and simulation.
+Note: Assuming pure combinatorial block at ./ct_lsu_vb_gold.v:1088.1-1099.4 in
+compliance with IEC 62142(E):2005 / IEEE Std. 1364.1(E):2002. Recommending
+use of @* instead of @(...) for better match of synthesis and simulation.
+Note: Assuming pure combinatorial block at ./ct_lsu_vb_gold.v:1369.1-1379.4 in
+compliance with IEC 62142(E):2005 / IEEE Std. 1364.1(E):2002. Recommending
+use of @* instead of @(...) for better match of synthesis and simulation.
+Note: Assuming pure combinatorial block at ./ct_lsu_vb_gold.v:1427.1-1437.4 in
+compliance with IEC 62142(E):2005 / IEEE Std. 1364.1(E):2002. Recommending
+use of @* instead of @(...) for better match of synthesis and simulation.
+Note: Assuming pure combinatorial block at ./ct_lsu_vb_gold.v:1455.1-1466.4 in
+compliance with IEC 62142(E):2005 / IEEE Std. 1364.1(E):2002. Recommending
+use of @* instead of @(...) for better match of synthesis and simulation.
+Note: Assuming pure combinatorial block at ./ct_lsu_vb_gold.v:1491.1-1504.4 in
+compliance with IEC 62142(E):2005 / IEEE Std. 1364.1(E):2002. Recommending
+use of @* instead of @(...) for better match of synthesis and simulation.
+Note: Assuming pure combinatorial block at ./ct_lsu_vb_gold.v:1603.1-1614.4 in
+compliance with IEC 62142(E):2005 / IEEE Std. 1364.1(E):2002. Recommending
+use of @* instead of @(...) for better match of synthesis and simulation.
+Successfully finished Verilog frontend.
+
+6. Executing Verilog-2005 frontend: ./ct_lsu_vb_gate_renamed.v
+Parsing SystemVerilog input from `./ct_lsu_vb_gate_renamed.v' to AST representation.
+Generating RTLIL representation for module `\ct_lsu_vb_gate'.
+Note: Assuming pure combinatorial block at ./ct_lsu_vb_gate_renamed.v:820.1-831.4 in
+compliance with IEC 62142(E):2005 / IEEE Std. 1364.1(E):2002. Recommending
+use of @* instead of @(...) for better match of synthesis and simulation.
+Note: Assuming pure combinatorial block at ./ct_lsu_vb_gate_renamed.v:974.1-1078.4 in
+compliance with IEC 62142(E):2005 / IEEE Std. 1364.1(E):2002. Recommending
+use of @* instead of @(...) for better match of synthesis and simulation.
+Note: Assuming pure combinatorial block at ./ct_lsu_vb_gate_renamed.v:1088.1-1099.4 in
+compliance with IEC 62142(E):2005 / IEEE Std. 1364.1(E):2002. Recommending
+use of @* instead of @(...) for better match of synthesis and simulation.
+Note: Assuming pure combinatorial block at ./ct_lsu_vb_gate_renamed.v:1369.1-1379.4 in
+compliance with IEC 62142(E):2005 / IEEE Std. 1364.1(E):2002. Recommending
+use of @* instead of @(...) for better match of synthesis and simulation.
+Note: Assuming pure combinatorial block at ./ct_lsu_vb_gate_renamed.v:1427.1-1437.4 in
+compliance with IEC 62142(E):2005 / IEEE Std. 1364.1(E):2002. Recommending
+use of @* instead of @(...) for better match of synthesis and simulation.
+Note: Assuming pure combinatorial block at ./ct_lsu_vb_gate_renamed.v:1480.1-1493.4 in
+compliance with IEC 62142(E):2005 / IEEE Std. 1364.1(E):2002. Recommending
+use of @* instead of @(...) for better match of synthesis and simulation.
+Successfully finished Verilog frontend.
+
+7. Executing Verilog-2005 frontend: ./ct_lsu_vb_output_miter.sv
+Parsing SystemVerilog input from `./ct_lsu_vb_output_miter.sv' to AST representation.
+Generating RTLIL representation for module `\ct_lsu_vb_output_miter'.
+Successfully finished Verilog frontend.
+
+8. Executing PREP pass.
+
+8.1. Executing HIERARCHY pass (managing design hierarchy).
+
+8.1.1. Analyzing design hierarchy..
+Top module:  \ct_lsu_vb_output_miter
+Used module:     \ct_lsu_vb_gate
+Used module:         \ct_rtu_expand_8
+Used module:         \ct_lsu_vb_addr_entry
+Used module:             \gated_clk_cell
+Used module:     \ct_lsu_vb
+
+8.1.2. Analyzing design hierarchy..
+Top module:  \ct_lsu_vb_output_miter
+Used module:     \ct_lsu_vb_gate
+Used module:         \ct_rtu_expand_8
+Used module:         \ct_lsu_vb_addr_entry
+Used module:             \gated_clk_cell
+Used module:     \ct_lsu_vb
+Removed 0 unused modules.
+Module ct_lsu_vb_output_miter directly or indirectly contains formal properties -> setting "keep" attribute.
+
+8.2. Executing PROC pass (convert processes to netlists).
+
+8.2.1. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Cleaned up 0 empty switches.
+
+8.2.2. Executing PROC_RMDEAD pass (remove dead branches from decision trees).
+Marked 2 switch rules as full_case in process $proc$./ct_lsu_vb_gate_renamed.v:1533$551 in module ct_lsu_vb_gate.
+Marked 1 switch rules as full_case in process $proc$./ct_lsu_vb_gate_renamed.v:1522$549 in module ct_lsu_vb_gate.
+Marked 2 switch rules as full_case in process $proc$./ct_lsu_vb_gate_renamed.v:1509$547 in module ct_lsu_vb_gate.
+Marked 1 switch rules as full_case in process $proc$./ct_lsu_vb_gate_renamed.v:1480$543 in module ct_lsu_vb_gate.
+Marked 1 switch rules as full_case in process $proc$./ct_lsu_vb_gate_renamed.v:1427$523 in module ct_lsu_vb_gate.
+Marked 1 switch rules as full_case in process $proc$./ct_lsu_vb_gate_renamed.v:1369$506 in module ct_lsu_vb_gate.
+Marked 1 switch rules as full_case in process $proc$./ct_lsu_vb_gate_renamed.v:1088$390 in module ct_lsu_vb_gate.
+Marked 21 switch rules as full_case in process $proc$./ct_lsu_vb_gate_renamed.v:974$375 in module ct_lsu_vb_gate.
+Marked 1 switch rules as full_case in process $proc$./ct_lsu_vb_gate_renamed.v:964$373 in module ct_lsu_vb_gate.
+Marked 1 switch rules as full_case in process $proc$./ct_lsu_vb_gate_renamed.v:942$371 in module ct_lsu_vb_gate.
+Marked 1 switch rules as full_case in process $proc$./ct_lsu_vb_gate_renamed.v:925$369 in module ct_lsu_vb_gate.
+Marked 2 switch rules as full_case in process $proc$./ct_lsu_vb_gate_renamed.v:912$367 in module ct_lsu_vb_gate.
+Marked 2 switch rules as full_case in process $proc$./ct_lsu_vb_gate_renamed.v:901$365 in module ct_lsu_vb_gate.
+Marked 1 switch rules as full_case in process $proc$./ct_lsu_vb_gate_renamed.v:889$363 in module ct_lsu_vb_gate.
+Marked 1 switch rules as full_case in process $proc$./ct_lsu_vb_gate_renamed.v:820$334 in module ct_lsu_vb_gate.
+Marked 1 switch rules as full_case in process $proc$./ct_lsu_vb_gold.v:1603$295 in module ct_lsu_vb.
+Marked 2 switch rules as full_case in process $proc$./ct_lsu_vb_gold.v:1544$270 in module ct_lsu_vb.
+Marked 1 switch rules as full_case in process $proc$./ct_lsu_vb_gold.v:1533$268 in module ct_lsu_vb.
+Marked 2 switch rules as full_case in process $proc$./ct_lsu_vb_gold.v:1520$266 in module ct_lsu_vb.
+Marked 1 switch rules as full_case in process $proc$./ct_lsu_vb_gold.v:1491$262 in module ct_lsu_vb.
+Marked 1 switch rules as full_case in process $proc$./ct_lsu_vb_gold.v:1455$256 in module ct_lsu_vb.
+Marked 1 switch rules as full_case in process $proc$./ct_lsu_vb_gold.v:1427$242 in module ct_lsu_vb.
+Marked 1 switch rules as full_case in process $proc$./ct_lsu_vb_gold.v:1369$225 in module ct_lsu_vb.
+Marked 1 switch rules as full_case in process $proc$./ct_lsu_vb_gold.v:1088$109 in module ct_lsu_vb.
+Marked 21 switch rules as full_case in process $proc$./ct_lsu_vb_gold.v:974$94 in module ct_lsu_vb.
+Marked 1 switch rules as full_case in process $proc$./ct_lsu_vb_gold.v:964$92 in module ct_lsu_vb.
+Marked 1 switch rules as full_case in process $proc$./ct_lsu_vb_gold.v:942$90 in module ct_lsu_vb.
+Marked 1 switch rules as full_case in process $proc$./ct_lsu_vb_gold.v:925$88 in module ct_lsu_vb.
+Marked 2 switch rules as full_case in process $proc$./ct_lsu_vb_gold.v:912$86 in module ct_lsu_vb.
+Marked 2 switch rules as full_case in process $proc$./ct_lsu_vb_gold.v:901$84 in module ct_lsu_vb.
+Marked 1 switch rules as full_case in process $proc$./ct_lsu_vb_gold.v:889$82 in module ct_lsu_vb.
+Marked 1 switch rules as full_case in process $proc$./ct_lsu_vb_gold.v:820$53 in module ct_lsu_vb.
+Marked 1 switch rules as full_case in process $proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_vb_addr_entry.v:397$26 in module ct_lsu_vb_addr_entry.
+Marked 3 switch rules as full_case in process $proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_vb_addr_entry.v:384$24 in module ct_lsu_vb_addr_entry.
+Marked 2 switch rules as full_case in process $proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_vb_addr_entry.v:373$22 in module ct_lsu_vb_addr_entry.
+Marked 2 switch rules as full_case in process $proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_vb_addr_entry.v:362$20 in module ct_lsu_vb_addr_entry.
+Marked 3 switch rules as full_case in process $proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_vb_addr_entry.v:322$18 in module ct_lsu_vb_addr_entry.
+Marked 4 switch rules as full_case in process $proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_vb_addr_entry.v:305$16 in module ct_lsu_vb_addr_entry.
+Marked 2 switch rules as full_case in process $proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_vb_addr_entry.v:292$14 in module ct_lsu_vb_addr_entry.
+Removed a total of 0 dead cases.
+
+8.2.3. Executing PROC_PRUNE pass (remove redundant assignments in processes).
+Removed 6 redundant assignments.
+Promoted 14 assignments to connections.
+
+8.2.4. Executing PROC_INIT pass (extract init attributes).
+
+8.2.5. Executing PROC_ARST pass (detect async resets in processes).
+Found async reset \cpurst_b in `\ct_lsu_vb_gate.$proc$./ct_lsu_vb_gate_renamed.v:1533$551'.
+Found async reset \cpurst_b in `\ct_lsu_vb_gate.$proc$./ct_lsu_vb_gate_renamed.v:1522$549'.
+Found async reset \cpurst_b in `\ct_lsu_vb_gate.$proc$./ct_lsu_vb_gate_renamed.v:1509$547'.
+Found async reset \cpurst_b in `\ct_lsu_vb_gate.$proc$./ct_lsu_vb_gate_renamed.v:964$373'.
+Found async reset \cpurst_b in `\ct_lsu_vb_gate.$proc$./ct_lsu_vb_gate_renamed.v:942$371'.
+Found async reset \cpurst_b in `\ct_lsu_vb_gate.$proc$./ct_lsu_vb_gate_renamed.v:925$369'.
+Found async reset \cpurst_b in `\ct_lsu_vb_gate.$proc$./ct_lsu_vb_gate_renamed.v:912$367'.
+Found async reset \cpurst_b in `\ct_lsu_vb_gate.$proc$./ct_lsu_vb_gate_renamed.v:901$365'.
+Found async reset \cpurst_b in `\ct_lsu_vb_gate.$proc$./ct_lsu_vb_gate_renamed.v:889$363'.
+Found async reset \cpurst_b in `\ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:1544$270'.
+Found async reset \cpurst_b in `\ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:1533$268'.
+Found async reset \cpurst_b in `\ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:1520$266'.
+Found async reset \cpurst_b in `\ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:964$92'.
+Found async reset \cpurst_b in `\ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:942$90'.
+Found async reset \cpurst_b in `\ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:925$88'.
+Found async reset \cpurst_b in `\ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:912$86'.
+Found async reset \cpurst_b in `\ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:901$84'.
+Found async reset \cpurst_b in `\ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:889$82'.
+Found async reset \cpurst_b in `\ct_lsu_vb_addr_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_vb_addr_entry.v:397$26'.
+Found async reset \cpurst_b in `\ct_lsu_vb_addr_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_vb_addr_entry.v:384$24'.
+Found async reset \cpurst_b in `\ct_lsu_vb_addr_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_vb_addr_entry.v:373$22'.
+Found async reset \cpurst_b in `\ct_lsu_vb_addr_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_vb_addr_entry.v:362$20'.
+Found async reset \cpurst_b in `\ct_lsu_vb_addr_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_vb_addr_entry.v:322$18'.
+Found async reset \cpurst_b in `\ct_lsu_vb_addr_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_vb_addr_entry.v:305$16'.
+Found async reset \cpurst_b in `\ct_lsu_vb_addr_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_vb_addr_entry.v:292$14'.
+
+8.2.6. Executing PROC_ROM pass (convert switches to ROMs).
+Converted 0 switches.
+<suppressed ~92 debug messages>
+
+8.2.7. Executing PROC_MUX pass (convert decision trees to multiplexers).
+Creating decoders for process `\ct_lsu_vb_output_miter.$proc$./ct_lsu_vb_output_miter.sv:557$613'.
+     1/88: $assert$./ct_lsu_vb_output_miter.sv:646$788_EN
+     2/88: $assert$./ct_lsu_vb_output_miter.sv:645$786_EN
+     3/88: $assert$./ct_lsu_vb_output_miter.sv:644$784_EN
+     4/88: $assert$./ct_lsu_vb_output_miter.sv:643$782_EN
+     5/88: $assert$./ct_lsu_vb_output_miter.sv:642$780_EN
+     6/88: $assert$./ct_lsu_vb_output_miter.sv:641$778_EN
+     7/88: $assert$./ct_lsu_vb_output_miter.sv:640$776_EN
+     8/88: $assert$./ct_lsu_vb_output_miter.sv:639$774_EN
+     9/88: $assert$./ct_lsu_vb_output_miter.sv:638$772_EN
+    10/88: $assert$./ct_lsu_vb_output_miter.sv:637$770_EN
+    11/88: $assert$./ct_lsu_vb_output_miter.sv:636$768_EN
+    12/88: $assert$./ct_lsu_vb_output_miter.sv:635$766_EN
+    13/88: $assert$./ct_lsu_vb_output_miter.sv:634$764_EN
+    14/88: $assert$./ct_lsu_vb_output_miter.sv:633$762_EN
+    15/88: $assert$./ct_lsu_vb_output_miter.sv:632$760_EN
+    16/88: $assert$./ct_lsu_vb_output_miter.sv:631$758_EN
+    17/88: $assert$./ct_lsu_vb_output_miter.sv:630$756_EN
+    18/88: $assert$./ct_lsu_vb_output_miter.sv:629$754_EN
+    19/88: $assert$./ct_lsu_vb_output_miter.sv:628$752_EN
+    20/88: $assert$./ct_lsu_vb_output_miter.sv:627$750_EN
+    21/88: $assert$./ct_lsu_vb_output_miter.sv:626$748_EN
+    22/88: $assert$./ct_lsu_vb_output_miter.sv:625$746_EN
+    23/88: $assert$./ct_lsu_vb_output_miter.sv:624$744_EN
+    24/88: $assert$./ct_lsu_vb_output_miter.sv:623$742_EN
+    25/88: $assert$./ct_lsu_vb_output_miter.sv:622$740_EN
+    26/88: $assert$./ct_lsu_vb_output_miter.sv:621$738_EN
+    27/88: $assert$./ct_lsu_vb_output_miter.sv:620$736_EN
+    28/88: $assert$./ct_lsu_vb_output_miter.sv:619$734_EN
+    29/88: $assert$./ct_lsu_vb_output_miter.sv:618$732_EN
+    30/88: $assert$./ct_lsu_vb_output_miter.sv:617$730_EN
+    31/88: $assert$./ct_lsu_vb_output_miter.sv:616$728_EN
+    32/88: $assert$./ct_lsu_vb_output_miter.sv:615$726_EN
+    33/88: $assert$./ct_lsu_vb_output_miter.sv:614$724_EN
+    34/88: $assert$./ct_lsu_vb_output_miter.sv:613$722_EN
+    35/88: $assert$./ct_lsu_vb_output_miter.sv:612$720_EN
+    36/88: $assert$./ct_lsu_vb_output_miter.sv:611$718_EN
+    37/88: $assert$./ct_lsu_vb_output_miter.sv:610$716_EN
+    38/88: $assert$./ct_lsu_vb_output_miter.sv:609$714_EN
+    39/88: $assert$./ct_lsu_vb_output_miter.sv:608$712_EN
+    40/88: $assert$./ct_lsu_vb_output_miter.sv:607$710_EN
+    41/88: $assert$./ct_lsu_vb_output_miter.sv:606$708_EN
+    42/88: $assert$./ct_lsu_vb_output_miter.sv:605$706_EN
+    43/88: $assert$./ct_lsu_vb_output_miter.sv:604$704_EN
+    44/88: $assert$./ct_lsu_vb_output_miter.sv:603$702_EN
+    45/88: $assert$./ct_lsu_vb_output_miter.sv:602$700_EN
+    46/88: $assert$./ct_lsu_vb_output_miter.sv:601$698_EN
+    47/88: $assert$./ct_lsu_vb_output_miter.sv:600$696_EN
+    48/88: $assert$./ct_lsu_vb_output_miter.sv:599$694_EN
+    49/88: $assert$./ct_lsu_vb_output_miter.sv:598$692_EN
+    50/88: $assert$./ct_lsu_vb_output_miter.sv:597$690_EN
+    51/88: $assert$./ct_lsu_vb_output_miter.sv:596$688_EN
+    52/88: $assert$./ct_lsu_vb_output_miter.sv:595$686_EN
+    53/88: $assert$./ct_lsu_vb_output_miter.sv:594$684_EN
+    54/88: $assert$./ct_lsu_vb_output_miter.sv:593$682_EN
+    55/88: $assert$./ct_lsu_vb_output_miter.sv:592$680_EN
+    56/88: $assert$./ct_lsu_vb_output_miter.sv:591$678_EN
+    57/88: $assert$./ct_lsu_vb_output_miter.sv:590$676_EN
+    58/88: $assert$./ct_lsu_vb_output_miter.sv:589$674_EN
+    59/88: $assert$./ct_lsu_vb_output_miter.sv:588$672_EN
+    60/88: $assert$./ct_lsu_vb_output_miter.sv:587$670_EN
+    61/88: $assert$./ct_lsu_vb_output_miter.sv:586$668_EN
+    62/88: $assert$./ct_lsu_vb_output_miter.sv:585$666_EN
+    63/88: $assert$./ct_lsu_vb_output_miter.sv:584$664_EN
+    64/88: $assert$./ct_lsu_vb_output_miter.sv:583$662_EN
+    65/88: $assert$./ct_lsu_vb_output_miter.sv:582$660_EN
+    66/88: $assert$./ct_lsu_vb_output_miter.sv:581$658_EN
+    67/88: $assert$./ct_lsu_vb_output_miter.sv:580$656_EN
+    68/88: $assert$./ct_lsu_vb_output_miter.sv:579$654_EN
+    69/88: $assert$./ct_lsu_vb_output_miter.sv:578$652_EN
+    70/88: $assert$./ct_lsu_vb_output_miter.sv:577$650_EN
+    71/88: $assert$./ct_lsu_vb_output_miter.sv:576$648_EN
+    72/88: $assert$./ct_lsu_vb_output_miter.sv:575$646_EN
+    73/88: $assert$./ct_lsu_vb_output_miter.sv:574$644_EN
+    74/88: $assert$./ct_lsu_vb_output_miter.sv:573$642_EN
+    75/88: $assert$./ct_lsu_vb_output_miter.sv:572$640_EN
+    76/88: $assert$./ct_lsu_vb_output_miter.sv:571$638_EN
+    77/88: $assert$./ct_lsu_vb_output_miter.sv:570$636_EN
+    78/88: $assert$./ct_lsu_vb_output_miter.sv:569$634_EN
+    79/88: $assert$./ct_lsu_vb_output_miter.sv:568$632_EN
+    80/88: $assert$./ct_lsu_vb_output_miter.sv:567$630_EN
+    81/88: $assert$./ct_lsu_vb_output_miter.sv:566$628_EN
+    82/88: $assert$./ct_lsu_vb_output_miter.sv:565$626_EN
+    83/88: $assert$./ct_lsu_vb_output_miter.sv:564$624_EN
+    84/88: $assert$./ct_lsu_vb_output_miter.sv:563$622_EN
+    85/88: $assert$./ct_lsu_vb_output_miter.sv:562$620_EN
+    86/88: $assert$./ct_lsu_vb_output_miter.sv:561$618_EN
+    87/88: $assert$./ct_lsu_vb_output_miter.sv:560$616_EN
+    88/88: $assert$./ct_lsu_vb_output_miter.sv:559$614_EN
+Creating decoders for process `\ct_lsu_vb_gate.$proc$./ct_lsu_vb_gate_renamed.v:1533$551'.
+     1/1: $0\vb_wd_sm_data_bias[3:0]
+Creating decoders for process `\ct_lsu_vb_gate.$proc$./ct_lsu_vb_gate_renamed.v:1522$549'.
+     1/1: $0\vb_wd_sm_data_id[2:0]
+Creating decoders for process `\ct_lsu_vb_gate.$proc$./ct_lsu_vb_gate_renamed.v:1509$547'.
+     1/1: $0\vb_wd_sm_vld[0:0]
+Creating decoders for process `\ct_lsu_vb_gate.$proc$./ct_lsu_vb_gate_renamed.v:1480$543'.
+     1/1: $1\vb_biu_aw_req_snoop[2:0]
+Creating decoders for process `\ct_lsu_vb_gate.$proc$./ct_lsu_vb_gate_renamed.v:1427$523'.
+     1/3: $1\vb_data_biu_req_ptr[2:0] [2]
+     2/3: $1\vb_data_biu_req_ptr[2:0] [0]
+     3/3: $1\vb_data_biu_req_ptr[2:0] [1]
+Creating decoders for process `\ct_lsu_vb_gate.$proc$./ct_lsu_vb_gate_renamed.v:1369$506'.
+     1/3: $1\vb_data_create_ptr[2:0] [2]
+     2/3: $1\vb_data_create_ptr[2:0] [0]
+     3/3: $1\vb_data_create_ptr[2:0] [1]
+Creating decoders for process `\ct_lsu_vb_gate.$proc$./ct_lsu_vb_gate_renamed.v:1088$390'.
+     1/2: $1\vb_rcl_sm_req_addr_ptr[1:0] [1]
+     2/2: $1\vb_rcl_sm_req_addr_ptr[1:0] [0]
+Creating decoders for process `\ct_lsu_vb_gate.$proc$./ct_lsu_vb_gate_renamed.v:974$375'.
+     1/21: $21\vb_rcl_sm_next_state[3:0]
+     2/21: $20\vb_rcl_sm_next_state[3:0]
+     3/21: $19\vb_rcl_sm_next_state[3:0]
+     4/21: $18\vb_rcl_sm_next_state[3:0]
+     5/21: $17\vb_rcl_sm_next_state[3:0]
+     6/21: $16\vb_rcl_sm_next_state[3:0]
+     7/21: $15\vb_rcl_sm_next_state[3:0]
+     8/21: $14\vb_rcl_sm_next_state[3:0]
+     9/21: $13\vb_rcl_sm_next_state[3:0]
+    10/21: $12\vb_rcl_sm_next_state[3:0]
+    11/21: $11\vb_rcl_sm_next_state[3:0]
+    12/21: $10\vb_rcl_sm_next_state[3:0]
+    13/21: $9\vb_rcl_sm_next_state[3:0]
+    14/21: $8\vb_rcl_sm_next_state[3:0]
+    15/21: $7\vb_rcl_sm_next_state[3:0]
+    16/21: $6\vb_rcl_sm_next_state[3:0]
+    17/21: $5\vb_rcl_sm_next_state[3:0]
+    18/21: $4\vb_rcl_sm_next_state[3:0]
+    19/21: $3\vb_rcl_sm_next_state[3:0]
+    20/21: $2\vb_rcl_sm_next_state[3:0]
+    21/21: $1\vb_rcl_sm_next_state[3:0]
+Creating decoders for process `\ct_lsu_vb_gate.$proc$./ct_lsu_vb_gate_renamed.v:964$373'.
+     1/1: $0\vb_rcl_sm_data_id[2:0]
+Creating decoders for process `\ct_lsu_vb_gate.$proc$./ct_lsu_vb_gate_renamed.v:942$371'.
+     1/2: $0\vb_rcl_sm_dcache_way[0:0]
+     2/2: $0\vb_rcl_sm_dcache_dirty[0:0]
+Creating decoders for process `\ct_lsu_vb_gate.$proc$./ct_lsu_vb_gate_renamed.v:925$369'.
+     1/2: $0\vb_rcl_sm_addr_tto6[33:0]
+     2/2: $0\vb_rcl_sm_addr_id[1:0]
+Creating decoders for process `\ct_lsu_vb_gate.$proc$./ct_lsu_vb_gate_renamed.v:912$367'.
+     1/1: $0\vb_dcache_arb_st_req[0:0]
+Creating decoders for process `\ct_lsu_vb_gate.$proc$./ct_lsu_vb_gate_renamed.v:901$365'.
+     1/1: $0\vb_dcache_arb_ld_req[0:0]
+Creating decoders for process `\ct_lsu_vb_gate.$proc$./ct_lsu_vb_gate_renamed.v:889$363'.
+     1/1: $0\vb_rcl_sm_state[3:0]
+Creating decoders for process `\ct_lsu_vb_gate.$proc$./ct_lsu_vb_gate_renamed.v:820$334'.
+     1/2: $1\vb_addr_create_ptr[1:0] [1]
+     2/2: $1\vb_addr_create_ptr[1:0] [0]
+Creating decoders for process `\ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:1603$295'.
+     1/2: $1\vb_addr_b_resp_ptr[1:0] [1]
+     2/2: $1\vb_addr_b_resp_ptr[1:0] [0]
+Creating decoders for process `\ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:1544$270'.
+     1/1: $0\vb_wd_sm_data_bias[3:0]
+Creating decoders for process `\ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:1533$268'.
+     1/1: $0\vb_wd_sm_data_id[2:0]
+Creating decoders for process `\ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:1520$266'.
+     1/1: $0\vb_wd_sm_vld[0:0]
+Creating decoders for process `\ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:1491$262'.
+     1/1: $1\vb_biu_aw_req_snoop[2:0]
+Creating decoders for process `\ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:1455$256'.
+     1/2: $1\vb_biu_aw_addr_ptr[1:0] [1]
+     2/2: $1\vb_biu_aw_addr_ptr[1:0] [0]
+Creating decoders for process `\ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:1427$242'.
+     1/3: $1\vb_data_biu_req_ptr[2:0] [2]
+     2/3: $1\vb_data_biu_req_ptr[2:0] [0]
+     3/3: $1\vb_data_biu_req_ptr[2:0] [1]
+Creating decoders for process `\ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:1369$225'.
+     1/3: $1\vb_data_create_ptr[2:0] [2]
+     2/3: $1\vb_data_create_ptr[2:0] [0]
+     3/3: $1\vb_data_create_ptr[2:0] [1]
+Creating decoders for process `\ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:1088$109'.
+     1/2: $1\vb_rcl_sm_req_addr_ptr[1:0] [1]
+     2/2: $1\vb_rcl_sm_req_addr_ptr[1:0] [0]
+Creating decoders for process `\ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:974$94'.
+     1/21: $21\vb_rcl_sm_next_state[3:0]
+     2/21: $20\vb_rcl_sm_next_state[3:0]
+     3/21: $19\vb_rcl_sm_next_state[3:0]
+     4/21: $18\vb_rcl_sm_next_state[3:0]
+     5/21: $17\vb_rcl_sm_next_state[3:0]
+     6/21: $16\vb_rcl_sm_next_state[3:0]
+     7/21: $15\vb_rcl_sm_next_state[3:0]
+     8/21: $14\vb_rcl_sm_next_state[3:0]
+     9/21: $13\vb_rcl_sm_next_state[3:0]
+    10/21: $12\vb_rcl_sm_next_state[3:0]
+    11/21: $11\vb_rcl_sm_next_state[3:0]
+    12/21: $10\vb_rcl_sm_next_state[3:0]
+    13/21: $9\vb_rcl_sm_next_state[3:0]
+    14/21: $8\vb_rcl_sm_next_state[3:0]
+    15/21: $7\vb_rcl_sm_next_state[3:0]
+    16/21: $6\vb_rcl_sm_next_state[3:0]
+    17/21: $5\vb_rcl_sm_next_state[3:0]
+    18/21: $4\vb_rcl_sm_next_state[3:0]
+    19/21: $3\vb_rcl_sm_next_state[3:0]
+    20/21: $2\vb_rcl_sm_next_state[3:0]
+    21/21: $1\vb_rcl_sm_next_state[3:0]
+Creating decoders for process `\ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:964$92'.
+     1/1: $0\vb_rcl_sm_data_id[2:0]
+Creating decoders for process `\ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:942$90'.
+     1/2: $0\vb_rcl_sm_dcache_way[0:0]
+     2/2: $0\vb_rcl_sm_dcache_dirty[0:0]
+Creating decoders for process `\ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:925$88'.
+     1/2: $0\vb_rcl_sm_addr_tto6[33:0]
+     2/2: $0\vb_rcl_sm_addr_id[1:0]
+Creating decoders for process `\ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:912$86'.
+     1/1: $0\vb_dcache_arb_st_req[0:0]
+Creating decoders for process `\ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:901$84'.
+     1/1: $0\vb_dcache_arb_ld_req[0:0]
+Creating decoders for process `\ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:889$82'.
+     1/1: $0\vb_rcl_sm_state[3:0]
+Creating decoders for process `\ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:820$53'.
+     1/2: $1\vb_addr_create_ptr[1:0] [1]
+     2/2: $1\vb_addr_create_ptr[1:0] [0]
+Creating decoders for process `\ct_lsu_vb_addr_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_vb_addr_entry.v:397$26'.
+     1/1: $0\vb_addr_entry_db_id[2:0]
+Creating decoders for process `\ct_lsu_vb_addr_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_vb_addr_entry.v:384$24'.
+     1/1: $0\vb_addr_entry_data_req_success[0:0]
+Creating decoders for process `\ct_lsu_vb_addr_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_vb_addr_entry.v:373$22'.
+     1/1: $0\vb_addr_entry_rcl_done[0:0]
+Creating decoders for process `\ct_lsu_vb_addr_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_vb_addr_entry.v:362$20'.
+     1/1: $0\vb_addr_entry_rcl_sm_req_success[0:0]
+Creating decoders for process `\ct_lsu_vb_addr_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_vb_addr_entry.v:322$18'.
+     1/6: $0\vb_addr_entry_wmb_create[0:0]
+     2/6: $0\vb_addr_entry_source_id[2:0]
+     3/6: $0\vb_addr_entry_set_way_mode[0:0]
+     4/6: $0\vb_addr_entry_lfb_create[0:0]
+     5/6: $0\vb_addr_entry_inv[0:0]
+     6/6: $0\vb_addr_entry_addr_tto6[7:0]
+Creating decoders for process `\ct_lsu_vb_addr_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_vb_addr_entry.v:305$16'.
+     1/1: $0\vb_addr_entry_addr_tto6[33:8]
+Creating decoders for process `\ct_lsu_vb_addr_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_vb_addr_entry.v:292$14'.
+     1/1: $0\vb_addr_entry_vld[0:0]
+
+8.2.8. Executing PROC_DLATCH pass (convert process syncs to latches).
+No latch inferred for signal `\ct_lsu_vb_gate.\vb_biu_aw_req_snoop' from process `\ct_lsu_vb_gate.$proc$./ct_lsu_vb_gate_renamed.v:1480$543'.
+No latch inferred for signal `\ct_lsu_vb_gate.\vb_data_biu_req_ptr' from process `\ct_lsu_vb_gate.$proc$./ct_lsu_vb_gate_renamed.v:1427$523'.
+No latch inferred for signal `\ct_lsu_vb_gate.\vb_data_create_ptr' from process `\ct_lsu_vb_gate.$proc$./ct_lsu_vb_gate_renamed.v:1369$506'.
+No latch inferred for signal `\ct_lsu_vb_gate.\vb_rcl_sm_req_addr_ptr' from process `\ct_lsu_vb_gate.$proc$./ct_lsu_vb_gate_renamed.v:1088$390'.
+No latch inferred for signal `\ct_lsu_vb_gate.\vb_rcl_sm_next_state' from process `\ct_lsu_vb_gate.$proc$./ct_lsu_vb_gate_renamed.v:974$375'.
+No latch inferred for signal `\ct_lsu_vb_gate.\vb_addr_create_ptr' from process `\ct_lsu_vb_gate.$proc$./ct_lsu_vb_gate_renamed.v:820$334'.
+No latch inferred for signal `\ct_lsu_vb.\vb_addr_b_resp_ptr' from process `\ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:1603$295'.
+No latch inferred for signal `\ct_lsu_vb.\vb_biu_aw_req_snoop' from process `\ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:1491$262'.
+No latch inferred for signal `\ct_lsu_vb.\vb_biu_aw_addr_ptr' from process `\ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:1455$256'.
+No latch inferred for signal `\ct_lsu_vb.\vb_data_biu_req_ptr' from process `\ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:1427$242'.
+No latch inferred for signal `\ct_lsu_vb.\vb_data_create_ptr' from process `\ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:1369$225'.
+No latch inferred for signal `\ct_lsu_vb.\vb_rcl_sm_req_addr_ptr' from process `\ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:1088$109'.
+No latch inferred for signal `\ct_lsu_vb.\vb_rcl_sm_next_state' from process `\ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:974$94'.
+No latch inferred for signal `\ct_lsu_vb.\vb_addr_create_ptr' from process `\ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:820$53'.
+
+8.2.9. Executing PROC_DFF pass (convert process syncs to FFs).
+Creating register for signal `\ct_lsu_vb_gate.\vb_wd_sm_data_bias' using process `\ct_lsu_vb_gate.$proc$./ct_lsu_vb_gate_renamed.v:1533$551'.
+  created $adff cell `$procdff$1894' with positive edge clock and positive level reset.
+Creating register for signal `\ct_lsu_vb_gate.\vb_wd_sm_data_id' using process `\ct_lsu_vb_gate.$proc$./ct_lsu_vb_gate_renamed.v:1522$549'.
+  created $adff cell `$procdff$1899' with positive edge clock and positive level reset.
+Creating register for signal `\ct_lsu_vb_gate.\vb_wd_sm_vld' using process `\ct_lsu_vb_gate.$proc$./ct_lsu_vb_gate_renamed.v:1509$547'.
+  created $adff cell `$procdff$1904' with positive edge clock and positive level reset.
+Creating register for signal `\ct_lsu_vb_gate.\vb_rcl_sm_data_id' using process `\ct_lsu_vb_gate.$proc$./ct_lsu_vb_gate_renamed.v:964$373'.
+  created $adff cell `$procdff$1909' with positive edge clock and positive level reset.
+Creating register for signal `\ct_lsu_vb_gate.\vb_rcl_sm_dcache_dirty' using process `\ct_lsu_vb_gate.$proc$./ct_lsu_vb_gate_renamed.v:942$371'.
+  created $adff cell `$procdff$1914' with positive edge clock and positive level reset.
+Creating register for signal `\ct_lsu_vb_gate.\vb_rcl_sm_dcache_way' using process `\ct_lsu_vb_gate.$proc$./ct_lsu_vb_gate_renamed.v:942$371'.
+  created $adff cell `$procdff$1919' with positive edge clock and positive level reset.
+Creating register for signal `\ct_lsu_vb_gate.\vb_rcl_sm_addr_id' using process `\ct_lsu_vb_gate.$proc$./ct_lsu_vb_gate_renamed.v:925$369'.
+  created $adff cell `$procdff$1924' with positive edge clock and positive level reset.
+Creating register for signal `\ct_lsu_vb_gate.\vb_rcl_sm_addr_tto6' using process `\ct_lsu_vb_gate.$proc$./ct_lsu_vb_gate_renamed.v:925$369'.
+  created $adff cell `$procdff$1929' with positive edge clock and positive level reset.
+Creating register for signal `\ct_lsu_vb_gate.\vb_dcache_arb_st_req' using process `\ct_lsu_vb_gate.$proc$./ct_lsu_vb_gate_renamed.v:912$367'.
+  created $adff cell `$procdff$1934' with positive edge clock and positive level reset.
+Creating register for signal `\ct_lsu_vb_gate.\vb_dcache_arb_ld_req' using process `\ct_lsu_vb_gate.$proc$./ct_lsu_vb_gate_renamed.v:901$365'.
+  created $adff cell `$procdff$1939' with positive edge clock and positive level reset.
+Creating register for signal `\ct_lsu_vb_gate.\vb_rcl_sm_state' using process `\ct_lsu_vb_gate.$proc$./ct_lsu_vb_gate_renamed.v:889$363'.
+  created $adff cell `$procdff$1944' with positive edge clock and positive level reset.
+Creating register for signal `\ct_lsu_vb.\vb_wd_sm_data_bias' using process `\ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:1544$270'.
+  created $adff cell `$procdff$1949' with positive edge clock and positive level reset.
+Creating register for signal `\ct_lsu_vb.\vb_wd_sm_data_id' using process `\ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:1533$268'.
+  created $adff cell `$procdff$1954' with positive edge clock and positive level reset.
+Creating register for signal `\ct_lsu_vb.\vb_wd_sm_vld' using process `\ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:1520$266'.
+  created $adff cell `$procdff$1959' with positive edge clock and positive level reset.
+Creating register for signal `\ct_lsu_vb.\vb_rcl_sm_data_id' using process `\ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:964$92'.
+  created $adff cell `$procdff$1964' with positive edge clock and positive level reset.
+Creating register for signal `\ct_lsu_vb.\vb_rcl_sm_dcache_dirty' using process `\ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:942$90'.
+  created $adff cell `$procdff$1969' with positive edge clock and positive level reset.
+Creating register for signal `\ct_lsu_vb.\vb_rcl_sm_dcache_way' using process `\ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:942$90'.
+  created $adff cell `$procdff$1974' with positive edge clock and positive level reset.
+Creating register for signal `\ct_lsu_vb.\vb_rcl_sm_addr_id' using process `\ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:925$88'.
+  created $adff cell `$procdff$1979' with positive edge clock and positive level reset.
+Creating register for signal `\ct_lsu_vb.\vb_rcl_sm_addr_tto6' using process `\ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:925$88'.
+  created $adff cell `$procdff$1984' with positive edge clock and positive level reset.
+Creating register for signal `\ct_lsu_vb.\vb_dcache_arb_st_req' using process `\ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:912$86'.
+  created $adff cell `$procdff$1989' with positive edge clock and positive level reset.
+Creating register for signal `\ct_lsu_vb.\vb_dcache_arb_ld_req' using process `\ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:901$84'.
+  created $adff cell `$procdff$1994' with positive edge clock and positive level reset.
+Creating register for signal `\ct_lsu_vb.\vb_rcl_sm_state' using process `\ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:889$82'.
+  created $adff cell `$procdff$1999' with positive edge clock and positive level reset.
+Creating register for signal `\ct_lsu_vb_addr_entry.\vb_addr_entry_db_id' using process `\ct_lsu_vb_addr_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_vb_addr_entry.v:397$26'.
+  created $adff cell `$procdff$2004' with positive edge clock and positive level reset.
+Creating register for signal `\ct_lsu_vb_addr_entry.\vb_addr_entry_data_req_success' using process `\ct_lsu_vb_addr_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_vb_addr_entry.v:384$24'.
+  created $adff cell `$procdff$2009' with positive edge clock and positive level reset.
+Creating register for signal `\ct_lsu_vb_addr_entry.\vb_addr_entry_rcl_done' using process `\ct_lsu_vb_addr_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_vb_addr_entry.v:373$22'.
+  created $adff cell `$procdff$2014' with positive edge clock and positive level reset.
+Creating register for signal `\ct_lsu_vb_addr_entry.\vb_addr_entry_rcl_sm_req_success' using process `\ct_lsu_vb_addr_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_vb_addr_entry.v:362$20'.
+  created $adff cell `$procdff$2019' with positive edge clock and positive level reset.
+Creating register for signal `\ct_lsu_vb_addr_entry.\vb_addr_entry_addr_tto6 [7:0]' using process `\ct_lsu_vb_addr_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_vb_addr_entry.v:322$18'.
+  created $adff cell `$procdff$2024' with positive edge clock and positive level reset.
+Creating register for signal `\ct_lsu_vb_addr_entry.\vb_addr_entry_inv' using process `\ct_lsu_vb_addr_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_vb_addr_entry.v:322$18'.
+  created $adff cell `$procdff$2029' with positive edge clock and positive level reset.
+Creating register for signal `\ct_lsu_vb_addr_entry.\vb_addr_entry_lfb_create' using process `\ct_lsu_vb_addr_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_vb_addr_entry.v:322$18'.
+  created $adff cell `$procdff$2034' with positive edge clock and positive level reset.
+Creating register for signal `\ct_lsu_vb_addr_entry.\vb_addr_entry_set_way_mode' using process `\ct_lsu_vb_addr_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_vb_addr_entry.v:322$18'.
+  created $adff cell `$procdff$2039' with positive edge clock and positive level reset.
+Creating register for signal `\ct_lsu_vb_addr_entry.\vb_addr_entry_source_id' using process `\ct_lsu_vb_addr_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_vb_addr_entry.v:322$18'.
+  created $adff cell `$procdff$2044' with positive edge clock and positive level reset.
+Creating register for signal `\ct_lsu_vb_addr_entry.\vb_addr_entry_wmb_create' using process `\ct_lsu_vb_addr_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_vb_addr_entry.v:322$18'.
+  created $adff cell `$procdff$2049' with positive edge clock and positive level reset.
+Creating register for signal `\ct_lsu_vb_addr_entry.\vb_addr_entry_addr_tto6 [33:8]' using process `\ct_lsu_vb_addr_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_vb_addr_entry.v:305$16'.
+  created $adff cell `$procdff$2054' with positive edge clock and positive level reset.
+Creating register for signal `\ct_lsu_vb_addr_entry.\vb_addr_entry_vld' using process `\ct_lsu_vb_addr_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_vb_addr_entry.v:292$14'.
+  created $adff cell `$procdff$2059' with positive edge clock and positive level reset.
+
+8.2.10. Executing PROC_MEMWR pass (convert process memory writes to cells).
+
+8.2.11. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Found and cleaned up 1 empty switch in `\ct_lsu_vb_output_miter.$proc$./ct_lsu_vb_output_miter.sv:557$613'.
+Removing empty process `ct_lsu_vb_output_miter.$proc$./ct_lsu_vb_output_miter.sv:557$613'.
+Found and cleaned up 2 empty switches in `\ct_lsu_vb_gate.$proc$./ct_lsu_vb_gate_renamed.v:1533$551'.
+Removing empty process `ct_lsu_vb_gate.$proc$./ct_lsu_vb_gate_renamed.v:1533$551'.
+Found and cleaned up 1 empty switch in `\ct_lsu_vb_gate.$proc$./ct_lsu_vb_gate_renamed.v:1522$549'.
+Removing empty process `ct_lsu_vb_gate.$proc$./ct_lsu_vb_gate_renamed.v:1522$549'.
+Found and cleaned up 2 empty switches in `\ct_lsu_vb_gate.$proc$./ct_lsu_vb_gate_renamed.v:1509$547'.
+Removing empty process `ct_lsu_vb_gate.$proc$./ct_lsu_vb_gate_renamed.v:1509$547'.
+Found and cleaned up 1 empty switch in `\ct_lsu_vb_gate.$proc$./ct_lsu_vb_gate_renamed.v:1480$543'.
+Removing empty process `ct_lsu_vb_gate.$proc$./ct_lsu_vb_gate_renamed.v:1480$543'.
+Found and cleaned up 1 empty switch in `\ct_lsu_vb_gate.$proc$./ct_lsu_vb_gate_renamed.v:1427$523'.
+Removing empty process `ct_lsu_vb_gate.$proc$./ct_lsu_vb_gate_renamed.v:1427$523'.
+Found and cleaned up 1 empty switch in `\ct_lsu_vb_gate.$proc$./ct_lsu_vb_gate_renamed.v:1369$506'.
+Removing empty process `ct_lsu_vb_gate.$proc$./ct_lsu_vb_gate_renamed.v:1369$506'.
+Found and cleaned up 1 empty switch in `\ct_lsu_vb_gate.$proc$./ct_lsu_vb_gate_renamed.v:1088$390'.
+Removing empty process `ct_lsu_vb_gate.$proc$./ct_lsu_vb_gate_renamed.v:1088$390'.
+Found and cleaned up 21 empty switches in `\ct_lsu_vb_gate.$proc$./ct_lsu_vb_gate_renamed.v:974$375'.
+Removing empty process `ct_lsu_vb_gate.$proc$./ct_lsu_vb_gate_renamed.v:974$375'.
+Found and cleaned up 1 empty switch in `\ct_lsu_vb_gate.$proc$./ct_lsu_vb_gate_renamed.v:964$373'.
+Removing empty process `ct_lsu_vb_gate.$proc$./ct_lsu_vb_gate_renamed.v:964$373'.
+Found and cleaned up 1 empty switch in `\ct_lsu_vb_gate.$proc$./ct_lsu_vb_gate_renamed.v:942$371'.
+Removing empty process `ct_lsu_vb_gate.$proc$./ct_lsu_vb_gate_renamed.v:942$371'.
+Found and cleaned up 1 empty switch in `\ct_lsu_vb_gate.$proc$./ct_lsu_vb_gate_renamed.v:925$369'.
+Removing empty process `ct_lsu_vb_gate.$proc$./ct_lsu_vb_gate_renamed.v:925$369'.
+Found and cleaned up 1 empty switch in `\ct_lsu_vb_gate.$proc$./ct_lsu_vb_gate_renamed.v:912$367'.
+Removing empty process `ct_lsu_vb_gate.$proc$./ct_lsu_vb_gate_renamed.v:912$367'.
+Found and cleaned up 1 empty switch in `\ct_lsu_vb_gate.$proc$./ct_lsu_vb_gate_renamed.v:901$365'.
+Removing empty process `ct_lsu_vb_gate.$proc$./ct_lsu_vb_gate_renamed.v:901$365'.
+Removing empty process `ct_lsu_vb_gate.$proc$./ct_lsu_vb_gate_renamed.v:889$363'.
+Found and cleaned up 1 empty switch in `\ct_lsu_vb_gate.$proc$./ct_lsu_vb_gate_renamed.v:820$334'.
+Removing empty process `ct_lsu_vb_gate.$proc$./ct_lsu_vb_gate_renamed.v:820$334'.
+Found and cleaned up 1 empty switch in `\ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:1603$295'.
+Removing empty process `ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:1603$295'.
+Found and cleaned up 2 empty switches in `\ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:1544$270'.
+Removing empty process `ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:1544$270'.
+Found and cleaned up 1 empty switch in `\ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:1533$268'.
+Removing empty process `ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:1533$268'.
+Found and cleaned up 2 empty switches in `\ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:1520$266'.
+Removing empty process `ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:1520$266'.
+Found and cleaned up 1 empty switch in `\ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:1491$262'.
+Removing empty process `ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:1491$262'.
+Found and cleaned up 1 empty switch in `\ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:1455$256'.
+Removing empty process `ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:1455$256'.
+Found and cleaned up 1 empty switch in `\ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:1427$242'.
+Removing empty process `ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:1427$242'.
+Found and cleaned up 1 empty switch in `\ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:1369$225'.
+Removing empty process `ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:1369$225'.
+Found and cleaned up 1 empty switch in `\ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:1088$109'.
+Removing empty process `ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:1088$109'.
+Found and cleaned up 21 empty switches in `\ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:974$94'.
+Removing empty process `ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:974$94'.
+Found and cleaned up 1 empty switch in `\ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:964$92'.
+Removing empty process `ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:964$92'.
+Found and cleaned up 1 empty switch in `\ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:942$90'.
+Removing empty process `ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:942$90'.
+Found and cleaned up 1 empty switch in `\ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:925$88'.
+Removing empty process `ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:925$88'.
+Found and cleaned up 1 empty switch in `\ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:912$86'.
+Removing empty process `ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:912$86'.
+Found and cleaned up 1 empty switch in `\ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:901$84'.
+Removing empty process `ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:901$84'.
+Removing empty process `ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:889$82'.
+Found and cleaned up 1 empty switch in `\ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:820$53'.
+Removing empty process `ct_lsu_vb.$proc$./ct_lsu_vb_gold.v:820$53'.
+Found and cleaned up 1 empty switch in `\ct_lsu_vb_addr_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_vb_addr_entry.v:397$26'.
+Removing empty process `ct_lsu_vb_addr_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_vb_addr_entry.v:397$26'.
+Found and cleaned up 3 empty switches in `\ct_lsu_vb_addr_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_vb_addr_entry.v:384$24'.
+Removing empty process `ct_lsu_vb_addr_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_vb_addr_entry.v:384$24'.
+Found and cleaned up 2 empty switches in `\ct_lsu_vb_addr_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_vb_addr_entry.v:373$22'.
+Removing empty process `ct_lsu_vb_addr_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_vb_addr_entry.v:373$22'.
+Found and cleaned up 2 empty switches in `\ct_lsu_vb_addr_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_vb_addr_entry.v:362$20'.
+Removing empty process `ct_lsu_vb_addr_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_vb_addr_entry.v:362$20'.
+Found and cleaned up 3 empty switches in `\ct_lsu_vb_addr_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_vb_addr_entry.v:322$18'.
+Removing empty process `ct_lsu_vb_addr_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_vb_addr_entry.v:322$18'.
+Found and cleaned up 4 empty switches in `\ct_lsu_vb_addr_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_vb_addr_entry.v:305$16'.
+Removing empty process `ct_lsu_vb_addr_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_vb_addr_entry.v:305$16'.
+Found and cleaned up 2 empty switches in `\ct_lsu_vb_addr_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_vb_addr_entry.v:292$14'.
+Removing empty process `ct_lsu_vb_addr_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_vb_addr_entry.v:292$14'.
+Cleaned up 92 empty switches.
+
+8.2.12. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_lsu_vb_output_miter.
+Optimizing module ct_lsu_vb_gate.
+<suppressed ~40 debug messages>
+Optimizing module ct_lsu_vb.
+<suppressed ~42 debug messages>
+Optimizing module ct_lsu_vb_addr_entry.
+<suppressed ~24 debug messages>
+Optimizing module ct_rtu_expand_8.
+<suppressed ~1 debug messages>
+Optimizing module gated_clk_cell.
+
+8.3. Executing FUTURE pass.
+
+8.4. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_lsu_vb_output_miter.
+Optimizing module ct_lsu_vb_gate.
+Optimizing module ct_lsu_vb.
+Optimizing module ct_lsu_vb_addr_entry.
+Optimizing module ct_rtu_expand_8.
+Optimizing module gated_clk_cell.
+
+8.5. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_lsu_vb_output_miter..
+Finding unused cells or wires in module \ct_lsu_vb_gate..
+Finding unused cells or wires in module \ct_lsu_vb..
+Finding unused cells or wires in module \ct_lsu_vb_addr_entry..
+Finding unused cells or wires in module \ct_rtu_expand_8..
+Finding unused cells or wires in module \gated_clk_cell..
+Removed 78 unused cells and 857 unused wires.
+<suppressed ~85 debug messages>
+
+8.6. Executing CHECK pass (checking for obvious problems).
+Checking module ct_lsu_vb_output_miter...
+Checking module ct_lsu_vb_gate...
+Checking module ct_lsu_vb...
+Checking module ct_lsu_vb_addr_entry...
+Checking module ct_rtu_expand_8...
+Checking module gated_clk_cell...
+Found and reported 0 problems.
+
+8.7. Executing OPT pass (performing simple optimizations).
+
+8.7.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_lsu_vb_output_miter.
+Optimizing module ct_lsu_vb_gate.
+Optimizing module ct_lsu_vb.
+Optimizing module ct_lsu_vb_addr_entry.
+Optimizing module ct_rtu_expand_8.
+Optimizing module gated_clk_cell.
+
+8.7.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_lsu_vb_output_miter'.
+Computing hashes of 266 cells of `\ct_lsu_vb_output_miter'.
+Finding duplicate cells in `\ct_lsu_vb_output_miter'.
+Finding identical cells in module `\ct_lsu_vb_gate'.
+Computing hashes of 411 cells of `\ct_lsu_vb_gate'.
+Finding duplicate cells in `\ct_lsu_vb_gate'.
+Computing hashes of 360 cells of `\ct_lsu_vb_gate'.
+Finding duplicate cells in `\ct_lsu_vb_gate'.
+Computing hashes of 358 cells of `\ct_lsu_vb_gate'.
+Finding duplicate cells in `\ct_lsu_vb_gate'.
+<suppressed ~159 debug messages>
+Finding identical cells in module `\ct_lsu_vb'.
+Computing hashes of 417 cells of `\ct_lsu_vb'.
+Finding duplicate cells in `\ct_lsu_vb'.
+Computing hashes of 366 cells of `\ct_lsu_vb'.
+Finding duplicate cells in `\ct_lsu_vb'.
+Computing hashes of 364 cells of `\ct_lsu_vb'.
+Finding duplicate cells in `\ct_lsu_vb'.
+<suppressed ~159 debug messages>
+Finding identical cells in module `\ct_lsu_vb_addr_entry'.
+Computing hashes of 72 cells of `\ct_lsu_vb_addr_entry'.
+Finding duplicate cells in `\ct_lsu_vb_addr_entry'.
+Finding identical cells in module `\ct_rtu_expand_8'.
+Computing hashes of 8 cells of `\ct_rtu_expand_8'.
+Finding duplicate cells in `\ct_rtu_expand_8'.
+Finding identical cells in module `\gated_clk_cell'.
+Computing hashes of 0 cells of `\gated_clk_cell'.
+Finding duplicate cells in `\gated_clk_cell'.
+Removed a total of 106 cells.
+
+8.7.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \ct_lsu_vb_output_miter..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \ct_lsu_vb_gate..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+    dead port 1/2 on $mux $procmux$1209.
+    dead port 2/2 on $mux $procmux$1206.
+    dead port 2/2 on $mux $procmux$1193.
+    dead port 1/2 on $mux $procmux$1191.
+    dead port 1/2 on $mux $procmux$1188.
+    dead port 2/2 on $mux $procmux$1185.
+    dead port 1/2 on $mux $procmux$1183.
+    dead port 2/2 on $mux $procmux$1180.
+    dead port 2/2 on $mux $procmux$1177.
+    dead port 2/2 on $mux $procmux$1164.
+    dead port 1/2 on $mux $procmux$1162.
+    dead port 1/2 on $mux $procmux$1159.
+    dead port 1/2 on $mux $procmux$1156.
+    dead port 2/2 on $mux $procmux$1144.
+    dead port 1/2 on $mux $procmux$1142.
+    dead port 1/2 on $mux $procmux$1139.
+    dead port 1/2 on $mux $procmux$1136.
+    dead port 1/2 on $mux $procmux$1133.
+    dead port 2/2 on $mux $procmux$1121.
+    dead port 1/2 on $mux $procmux$1119.
+    dead port 1/2 on $mux $procmux$1116.
+    dead port 1/2 on $mux $procmux$1113.
+    dead port 1/2 on $mux $procmux$1110.
+    dead port 1/2 on $mux $procmux$1107.
+    dead port 2/2 on $mux $procmux$1095.
+    dead port 1/2 on $mux $procmux$1093.
+    dead port 1/2 on $mux $procmux$1090.
+    dead port 1/2 on $mux $procmux$1087.
+    dead port 1/2 on $mux $procmux$1084.
+    dead port 1/2 on $mux $procmux$1081.
+    dead port 2/2 on $mux $procmux$1078.
+    dead port 2/2 on $mux $procmux$1066.
+    dead port 2/2 on $mux $procmux$1343.
+    dead port 2/2 on $mux $procmux$1056.
+    dead port 1/2 on $mux $procmux$1054.
+    dead port 2/2 on $mux $procmux$1043.
+    dead port 2/2 on $mux $procmux$1034.
+    dead port 2/2 on $mux $procmux$1329.
+    dead port 2/2 on $mux $procmux$1026.
+    dead port 2/2 on $mux $procmux$1019.
+    dead port 2/2 on $mux $procmux$1316.
+    dead port 2/2 on $mux $procmux$1304.
+    dead port 2/2 on $mux $procmux$1293.
+    dead port 1/2 on $mux $procmux$1291.
+    dead port 2/2 on $mux $procmux$1279.
+    dead port 1/2 on $mux $procmux$1277.
+    dead port 1/2 on $mux $procmux$1274.
+    dead port 2/2 on $mux $procmux$1262.
+    dead port 1/2 on $mux $procmux$1260.
+    dead port 1/2 on $mux $procmux$1257.
+    dead port 1/2 on $mux $procmux$1214.
+    dead port 2/2 on $mux $procmux$1254.
+    dead port 2/2 on $mux $procmux$1242.
+    dead port 1/2 on $mux $procmux$1240.
+    dead port 1/2 on $mux $procmux$1237.
+    dead port 2/2 on $mux $procmux$1234.
+    dead port 2/2 on $mux $procmux$1211.
+    dead port 1/2 on $mux $procmux$1232.
+    dead port 2/2 on $mux $procmux$1219.
+    dead port 1/2 on $mux $procmux$1217.
+Running muxtree optimizer on module \ct_lsu_vb..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+    dead port 1/2 on $mux $procmux$1636.
+    dead port 2/2 on $mux $procmux$1633.
+    dead port 2/2 on $mux $procmux$1620.
+    dead port 1/2 on $mux $procmux$1618.
+    dead port 1/2 on $mux $procmux$1615.
+    dead port 2/2 on $mux $procmux$1612.
+    dead port 1/2 on $mux $procmux$1610.
+    dead port 2/2 on $mux $procmux$1607.
+    dead port 2/2 on $mux $procmux$1604.
+    dead port 2/2 on $mux $procmux$1591.
+    dead port 1/2 on $mux $procmux$1589.
+    dead port 1/2 on $mux $procmux$1586.
+    dead port 1/2 on $mux $procmux$1583.
+    dead port 2/2 on $mux $procmux$1571.
+    dead port 1/2 on $mux $procmux$1569.
+    dead port 1/2 on $mux $procmux$1566.
+    dead port 1/2 on $mux $procmux$1563.
+    dead port 1/2 on $mux $procmux$1560.
+    dead port 2/2 on $mux $procmux$1548.
+    dead port 1/2 on $mux $procmux$1546.
+    dead port 1/2 on $mux $procmux$1543.
+    dead port 1/2 on $mux $procmux$1540.
+    dead port 1/2 on $mux $procmux$1537.
+    dead port 1/2 on $mux $procmux$1534.
+    dead port 2/2 on $mux $procmux$1522.
+    dead port 1/2 on $mux $procmux$1520.
+    dead port 1/2 on $mux $procmux$1517.
+    dead port 1/2 on $mux $procmux$1514.
+    dead port 1/2 on $mux $procmux$1511.
+    dead port 1/2 on $mux $procmux$1508.
+    dead port 2/2 on $mux $procmux$1505.
+    dead port 2/2 on $mux $procmux$1493.
+    dead port 2/2 on $mux $procmux$1770.
+    dead port 2/2 on $mux $procmux$1483.
+    dead port 1/2 on $mux $procmux$1481.
+    dead port 2/2 on $mux $procmux$1470.
+    dead port 2/2 on $mux $procmux$1461.
+    dead port 2/2 on $mux $procmux$1756.
+    dead port 2/2 on $mux $procmux$1453.
+    dead port 2/2 on $mux $procmux$1446.
+    dead port 2/2 on $mux $procmux$1743.
+    dead port 2/2 on $mux $procmux$1731.
+    dead port 2/2 on $mux $procmux$1720.
+    dead port 1/2 on $mux $procmux$1718.
+    dead port 2/2 on $mux $procmux$1706.
+    dead port 1/2 on $mux $procmux$1704.
+    dead port 1/2 on $mux $procmux$1701.
+    dead port 2/2 on $mux $procmux$1689.
+    dead port 1/2 on $mux $procmux$1687.
+    dead port 1/2 on $mux $procmux$1684.
+    dead port 1/2 on $mux $procmux$1641.
+    dead port 2/2 on $mux $procmux$1681.
+    dead port 2/2 on $mux $procmux$1669.
+    dead port 1/2 on $mux $procmux$1667.
+    dead port 1/2 on $mux $procmux$1664.
+    dead port 2/2 on $mux $procmux$1661.
+    dead port 2/2 on $mux $procmux$1638.
+    dead port 1/2 on $mux $procmux$1659.
+    dead port 2/2 on $mux $procmux$1646.
+    dead port 1/2 on $mux $procmux$1644.
+Running muxtree optimizer on module \ct_lsu_vb_addr_entry..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \ct_rtu_expand_8..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \gated_clk_cell..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Removed 120 multiplexer ports.
+<suppressed ~518 debug messages>
+
+8.7.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \ct_lsu_vb_output_miter.
+  Optimizing cells in module \ct_lsu_vb_gate.
+    New ctrl vector for $pmux cell $procmux$979: { $procmux$980_CMP $auto$opt_reduce.cc:135:opt_pmux$2061 $procmux$983_CMP }
+  Optimizing cells in module \ct_lsu_vb_gate.
+  Optimizing cells in module \ct_lsu_vb.
+    New ctrl vector for $pmux cell $procmux$1399: { $procmux$1400_CMP $auto$opt_reduce.cc:135:opt_pmux$2063 $procmux$1403_CMP }
+  Optimizing cells in module \ct_lsu_vb.
+  Optimizing cells in module \ct_lsu_vb_addr_entry.
+  Optimizing cells in module \ct_rtu_expand_8.
+  Optimizing cells in module \gated_clk_cell.
+Performed a total of 2 changes.
+
+8.7.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_lsu_vb_output_miter'.
+Computing hashes of 266 cells of `\ct_lsu_vb_output_miter'.
+Finding duplicate cells in `\ct_lsu_vb_output_miter'.
+Computing hashes of 179 cells of `\ct_lsu_vb_output_miter'.
+Finding duplicate cells in `\ct_lsu_vb_output_miter'.
+<suppressed ~261 debug messages>
+Finding identical cells in module `\ct_lsu_vb_gate'.
+Computing hashes of 299 cells of `\ct_lsu_vb_gate'.
+Finding duplicate cells in `\ct_lsu_vb_gate'.
+Computing hashes of 297 cells of `\ct_lsu_vb_gate'.
+Finding duplicate cells in `\ct_lsu_vb_gate'.
+<suppressed ~6 debug messages>
+Finding identical cells in module `\ct_lsu_vb'.
+Computing hashes of 305 cells of `\ct_lsu_vb'.
+Finding duplicate cells in `\ct_lsu_vb'.
+Computing hashes of 303 cells of `\ct_lsu_vb'.
+Finding duplicate cells in `\ct_lsu_vb'.
+<suppressed ~6 debug messages>
+Finding identical cells in module `\ct_lsu_vb_addr_entry'.
+Computing hashes of 72 cells of `\ct_lsu_vb_addr_entry'.
+Finding duplicate cells in `\ct_lsu_vb_addr_entry'.
+Finding identical cells in module `\ct_rtu_expand_8'.
+Computing hashes of 8 cells of `\ct_rtu_expand_8'.
+Finding duplicate cells in `\ct_rtu_expand_8'.
+Finding identical cells in module `\gated_clk_cell'.
+Computing hashes of 0 cells of `\gated_clk_cell'.
+Finding duplicate cells in `\gated_clk_cell'.
+Removed a total of 91 cells.
+
+8.7.6. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_lsu_vb_output_miter..
+Finding unused cells or wires in module \ct_lsu_vb_gate..
+Finding unused cells or wires in module \ct_lsu_vb..
+Finding unused cells or wires in module \ct_lsu_vb_addr_entry..
+Finding unused cells or wires in module \ct_rtu_expand_8..
+Finding unused cells or wires in module \gated_clk_cell..
+Removed 0 unused cells and 311 unused wires.
+<suppressed ~3 debug messages>
+
+8.7.7. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_lsu_vb_output_miter.
+Optimizing module ct_lsu_vb_gate.
+Optimizing module ct_lsu_vb.
+Optimizing module ct_lsu_vb_addr_entry.
+Optimizing module ct_rtu_expand_8.
+Optimizing module gated_clk_cell.
+
+8.7.8. Rerunning OPT passes. (Maybe there is more to do..)
+
+8.7.9. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \ct_lsu_vb_output_miter..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \ct_lsu_vb_gate..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \ct_lsu_vb..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \ct_lsu_vb_addr_entry..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \ct_rtu_expand_8..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \gated_clk_cell..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Removed 0 multiplexer ports.
+<suppressed ~228 debug messages>
+
+8.7.10. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \ct_lsu_vb_output_miter.
+  Optimizing cells in module \ct_lsu_vb_gate.
+  Optimizing cells in module \ct_lsu_vb.
+  Optimizing cells in module \ct_lsu_vb_addr_entry.
+  Optimizing cells in module \ct_rtu_expand_8.
+  Optimizing cells in module \gated_clk_cell.
+Performed a total of 0 changes.
+
+8.7.11. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_lsu_vb_output_miter'.
+Computing hashes of 179 cells of `\ct_lsu_vb_output_miter'.
+Finding duplicate cells in `\ct_lsu_vb_output_miter'.
+Finding identical cells in module `\ct_lsu_vb_gate'.
+Computing hashes of 297 cells of `\ct_lsu_vb_gate'.
+Finding duplicate cells in `\ct_lsu_vb_gate'.
+Finding identical cells in module `\ct_lsu_vb'.
+Computing hashes of 303 cells of `\ct_lsu_vb'.
+Finding duplicate cells in `\ct_lsu_vb'.
+Finding identical cells in module `\ct_lsu_vb_addr_entry'.
+Computing hashes of 72 cells of `\ct_lsu_vb_addr_entry'.
+Finding duplicate cells in `\ct_lsu_vb_addr_entry'.
+Finding identical cells in module `\ct_rtu_expand_8'.
+Computing hashes of 8 cells of `\ct_rtu_expand_8'.
+Finding duplicate cells in `\ct_rtu_expand_8'.
+Finding identical cells in module `\gated_clk_cell'.
+Computing hashes of 0 cells of `\gated_clk_cell'.
+Finding duplicate cells in `\gated_clk_cell'.
+Removed a total of 0 cells.
+
+8.7.12. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_lsu_vb_output_miter..
+Finding unused cells or wires in module \ct_lsu_vb_gate..
+Finding unused cells or wires in module \ct_lsu_vb..
+Finding unused cells or wires in module \ct_lsu_vb_addr_entry..
+Finding unused cells or wires in module \ct_rtu_expand_8..
+Finding unused cells or wires in module \gated_clk_cell..
+
+8.7.13. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_lsu_vb_output_miter.
+Optimizing module ct_lsu_vb_gate.
+Optimizing module ct_lsu_vb.
+Optimizing module ct_lsu_vb_addr_entry.
+Optimizing module ct_rtu_expand_8.
+Optimizing module gated_clk_cell.
+
+8.7.14. Finished fast OPT passes. (There is nothing left to do.)
+
+8.8. Executing WREDUCE pass (reducing word size of cells).
+Removed top 1 bits (of 2) from port B of cell ct_lsu_vb_gate.$and$./ct_lsu_vb_gate_renamed.v:1450$532 ($and).
+Removed top 1 bits (of 2) from port B of cell ct_lsu_vb_gate.$and$./ct_lsu_vb_gate_renamed.v:1451$533 ($and).
+Removed top 1 bits (of 2) from port B of cell ct_lsu_vb_gate.$and$./ct_lsu_vb_gate_renamed.v:1452$535 ($and).
+Removed top 1 bits (of 2) from port A of cell ct_lsu_vb_gate.$shl$./ct_lsu_vb_gate_renamed.v:1455$537 ($shl).
+Removed top 3 bits (of 5) from mux cell ct_lsu_vb_gate.$ternary$./ct_lsu_vb_gate_renamed.v:1464$541 ($mux).
+Removed top 1 bits (of 2) from port B of cell ct_lsu_vb_gate.$and$./ct_lsu_vb_gate_renamed.v:1567$566 ($and).
+Removed top 1 bits (of 2) from port B of cell ct_lsu_vb_gate.$and$./ct_lsu_vb_gate_renamed.v:1568$567 ($and).
+Removed top 1 bits (of 2) from port B of cell ct_lsu_vb_gate.$and$./ct_lsu_vb_gate_renamed.v:1569$569 ($and).
+Removed top 1 bits (of 2) from port A of cell ct_lsu_vb_gate.$shl$./ct_lsu_vb_gate_renamed.v:1592$576 ($shl).
+Removed top 1 bits (of 2) from port B of cell ct_lsu_vb_gate.$procmux$983_CMP0 ($eq).
+Removed top 1 bits (of 3) from port B of cell ct_lsu_vb_gate.$procmux$998_CMP0 ($eq).
+Removed top 1 bits (of 2) from port B of cell ct_lsu_vb_gate.$procmux$1007_CMP0 ($eq).
+Removed top 3 bits (of 4) from mux cell ct_lsu_vb_gate.$procmux$1024 ($mux).
+Removed top 2 bits (of 4) from mux cell ct_lsu_vb_gate.$procmux$1075 ($mux).
+Removed top 2 bits (of 4) from mux cell ct_lsu_vb_gate.$procmux$1104 ($mux).
+Removed top 2 bits (of 4) from mux cell ct_lsu_vb_gate.$procmux$1203 ($mux).
+Removed top 2 bits (of 4) from mux cell ct_lsu_vb_gate.$procmux$1314 ($mux).
+Removed top 3 bits (of 4) from mux cell ct_lsu_vb_gate.$procmux$1327 ($mux).
+Removed top 1 bits (of 2) from port B of cell ct_lsu_vb_gate.$procmux$1374_CMP0 ($eq).
+Removed top 3 bits (of 4) from wire ct_lsu_vb_gate.$20\vb_rcl_sm_next_state[3:0].
+Removed top 2 bits (of 4) from wire ct_lsu_vb_gate.$14\vb_rcl_sm_next_state[3:0].
+Removed top 2 bits (of 4) from wire ct_lsu_vb_gate.$11\vb_rcl_sm_next_state[3:0].
+Removed top 2 bits (of 4) from wire ct_lsu_vb_gate.$10\vb_rcl_sm_next_state[3:0].
+Removed top 2 bits (of 4) from wire ct_lsu_vb_gate.$4\vb_rcl_sm_next_state[3:0].
+Removed top 3 bits (of 4) from wire ct_lsu_vb_gate.$3\vb_rcl_sm_next_state[3:0].
+Removed top 1 bits (of 2) from port B of cell ct_lsu_vb.$and$./ct_lsu_vb_gold.v:1450$251 ($and).
+Removed top 1 bits (of 2) from port B of cell ct_lsu_vb.$and$./ct_lsu_vb_gold.v:1451$252 ($and).
+Removed top 1 bits (of 2) from port B of cell ct_lsu_vb.$and$./ct_lsu_vb_gold.v:1452$254 ($and).
+Removed top 3 bits (of 5) from mux cell ct_lsu_vb.$ternary$./ct_lsu_vb_gold.v:1475$260 ($mux).
+Removed top 1 bits (of 2) from port B of cell ct_lsu_vb.$and$./ct_lsu_vb_gold.v:1578$285 ($and).
+Removed top 1 bits (of 2) from port B of cell ct_lsu_vb.$and$./ct_lsu_vb_gold.v:1579$286 ($and).
+Removed top 1 bits (of 2) from port B of cell ct_lsu_vb.$and$./ct_lsu_vb_gold.v:1580$288 ($and).
+Removed top 1 bits (of 2) from port B of cell ct_lsu_vb.$procmux$1381_CMP0 ($eq).
+Removed top 1 bits (of 2) from port B of cell ct_lsu_vb.$procmux$1403_CMP0 ($eq).
+Removed top 1 bits (of 2) from port B of cell ct_lsu_vb.$procmux$1406_CMP0 ($eq).
+Removed top 1 bits (of 3) from port B of cell ct_lsu_vb.$procmux$1425_CMP0 ($eq).
+Removed top 1 bits (of 2) from port B of cell ct_lsu_vb.$procmux$1434_CMP0 ($eq).
+Removed top 3 bits (of 4) from mux cell ct_lsu_vb.$procmux$1451 ($mux).
+Removed top 2 bits (of 4) from mux cell ct_lsu_vb.$procmux$1502 ($mux).
+Removed top 2 bits (of 4) from mux cell ct_lsu_vb.$procmux$1531 ($mux).
+Removed top 2 bits (of 4) from mux cell ct_lsu_vb.$procmux$1630 ($mux).
+Removed top 2 bits (of 4) from mux cell ct_lsu_vb.$procmux$1741 ($mux).
+Removed top 3 bits (of 4) from mux cell ct_lsu_vb.$procmux$1754 ($mux).
+Removed top 1 bits (of 2) from port B of cell ct_lsu_vb.$procmux$1801_CMP0 ($eq).
+Removed top 3 bits (of 4) from wire ct_lsu_vb.$20\vb_rcl_sm_next_state[3:0].
+Removed top 2 bits (of 4) from wire ct_lsu_vb.$14\vb_rcl_sm_next_state[3:0].
+Removed top 2 bits (of 4) from wire ct_lsu_vb.$11\vb_rcl_sm_next_state[3:0].
+Removed top 2 bits (of 4) from wire ct_lsu_vb.$10\vb_rcl_sm_next_state[3:0].
+Removed top 2 bits (of 4) from wire ct_lsu_vb.$4\vb_rcl_sm_next_state[3:0].
+Removed top 3 bits (of 4) from wire ct_lsu_vb.$3\vb_rcl_sm_next_state[3:0].
+Removed top 2 bits (of 3) from port B of cell ct_rtu_expand_8.$eq$C910_RTL_FACTORY/gen_rtl/rtu/rtl/ct_rtu_expand_8.v:37$5 ($eq).
+Removed top 1 bits (of 3) from port B of cell ct_rtu_expand_8.$eq$C910_RTL_FACTORY/gen_rtl/rtu/rtl/ct_rtu_expand_8.v:38$6 ($eq).
+Removed top 1 bits (of 3) from port B of cell ct_rtu_expand_8.$eq$C910_RTL_FACTORY/gen_rtl/rtu/rtl/ct_rtu_expand_8.v:39$7 ($eq).
+
+8.9. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_lsu_vb_output_miter..
+Finding unused cells or wires in module \ct_lsu_vb_gate..
+Finding unused cells or wires in module \ct_lsu_vb..
+Finding unused cells or wires in module \ct_lsu_vb_addr_entry..
+Finding unused cells or wires in module \ct_rtu_expand_8..
+Finding unused cells or wires in module \gated_clk_cell..
+Removed 0 unused cells and 12 unused wires.
+<suppressed ~2 debug messages>
+
+8.10. Executing MEMORY_COLLECT pass (generating $mem cells).
+
+8.11. Executing OPT pass (performing simple optimizations).
+
+8.11.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_lsu_vb_output_miter.
+Optimizing module ct_lsu_vb_gate.
+Optimizing module ct_lsu_vb.
+Optimizing module ct_lsu_vb_addr_entry.
+Optimizing module ct_rtu_expand_8.
+Optimizing module gated_clk_cell.
+
+8.11.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_lsu_vb_output_miter'.
+Computing hashes of 179 cells of `\ct_lsu_vb_output_miter'.
+Finding duplicate cells in `\ct_lsu_vb_output_miter'.
+Finding identical cells in module `\ct_lsu_vb_gate'.
+Computing hashes of 297 cells of `\ct_lsu_vb_gate'.
+Finding duplicate cells in `\ct_lsu_vb_gate'.
+Finding identical cells in module `\ct_lsu_vb'.
+Computing hashes of 303 cells of `\ct_lsu_vb'.
+Finding duplicate cells in `\ct_lsu_vb'.
+Finding identical cells in module `\ct_lsu_vb_addr_entry'.
+Computing hashes of 72 cells of `\ct_lsu_vb_addr_entry'.
+Finding duplicate cells in `\ct_lsu_vb_addr_entry'.
+Finding identical cells in module `\ct_rtu_expand_8'.
+Computing hashes of 8 cells of `\ct_rtu_expand_8'.
+Finding duplicate cells in `\ct_rtu_expand_8'.
+Finding identical cells in module `\gated_clk_cell'.
+Computing hashes of 0 cells of `\gated_clk_cell'.
+Finding duplicate cells in `\gated_clk_cell'.
+Removed a total of 0 cells.
+
+8.11.3. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_lsu_vb_output_miter..
+Finding unused cells or wires in module \ct_lsu_vb_gate..
+Finding unused cells or wires in module \ct_lsu_vb..
+Finding unused cells or wires in module \ct_lsu_vb_addr_entry..
+Finding unused cells or wires in module \ct_rtu_expand_8..
+Finding unused cells or wires in module \gated_clk_cell..
+
+8.11.4. Finished fast OPT passes.
+
+8.12. Executing SORT pass.
+
+8.13. Printing statistics.
+
+=== ct_lsu_vb ===
+
+        +----------Local Count, excluding submodules.
+        | 
+      426 wires
+     2791 wire bits
+      271 public wires
+     1781 public wire bits
+      154 ports
+     1256 port bits
+      296 cells
+       11   $adff
+       57   $and
+       25   $eq
+       48   $logic_and
+       25   $logic_not
+       33   $logic_or
+       52   $mux
+        2   $not
+       19   $or
+        2   $pmux
+        2   $reduce_and
+       20   $reduce_or
+        7 submodules
+        2   ct_lsu_vb_addr_entry
+        2   ct_rtu_expand_8
+        3   gated_clk_cell
+
+=== ct_lsu_vb_addr_entry ===
+
+        +----------Local Count, excluding submodules.
+        | 
+      139 wires
+      883 wire bits
+       94 public wires
+      709 public wire bits
+       49 ports
+      405 port bits
+       69 cells
+       12   $adff
+        6   $eq
+       12   $logic_and
+        4   $logic_not
+        3   $logic_or
+       32   $mux
+        3 submodules
+        3   gated_clk_cell
+
+=== ct_lsu_vb_gate ===
+
+        +----------Local Count, excluding submodules.
+        | 
+      422 wires
+     2787 wire bits
+      271 public wires
+     1781 public wire bits
+      154 ports
+     1256 port bits
+      290 cells
+       11   $adff
+       57   $and
+       23   $eq
+       48   $logic_and
+       23   $logic_not
+       33   $logic_or
+       48   $mux
+        2   $not
+       19   $or
+        2   $pmux
+        2   $reduce_and
+       20   $reduce_or
+        2   $shl
+        7 submodules
+        2   ct_lsu_vb_addr_entry
+        2   ct_rtu_expand_8
+        3   gated_clk_cell
+
+=== ct_lsu_vb_output_miter ===
+
+        +----------Local Count, excluding submodules.
+        | 
+      331 wires
+     1809 wire bits
+      242 public wires
+     1720 public wire bits
+       66 ports
+      792 port bits
+      177 cells
+       88   $check
+       88   $eq
+        1   $mux
+        2 submodules
+        1   ct_lsu_vb
+        1   ct_lsu_vb_gate
+
+=== ct_rtu_expand_8 ===
+
+        +----------Local Count, excluding submodules.
+        | 
+        2 wires
+       11 wire bits
+        2 public wires
+       11 public wire bits
+        2 ports
+       11 port bits
+        8 cells
+        7   $eq
+        1   $logic_not
+
+=== gated_clk_cell ===
+
+        +----------Local Count, excluding submodules.
+        | 
+        8 wires
+        8 wire bits
+        8 public wires
+        8 public wire bits
+        7 ports
+        7 port bits
+
+=== design hierarchy ===
+
+        +----------Count including submodules.
+        | 
+     1071 ct_lsu_vb_output_miter
+      296 ct_lsu_vb
+       69   ct_lsu_vb_addr_entry
+        8   ct_rtu_expand_8
+      290 ct_lsu_vb_gate
+       69   ct_lsu_vb_addr_entry
+        8   ct_rtu_expand_8
+
+        +----------Count including submodules.
+        | 
+     1887 wires
+    11107 wire bits
+     1312 public wires
+     8306 public wire bits
+      704 ports
+     5094 port bits
+        - memories
+        - memory bits
+        - processes
+     1071 cells
+       70   $adff
+      114   $and
+       88   $check
+      188   $eq
+      144   $logic_and
+       68   $logic_not
+       78   $logic_or
+      229   $mux
+        4   $not
+       38   $or
+        4   $pmux
+        4   $reduce_and
+       40   $reduce_or
+        2   $shl
+        2 submodules
+        1   ct_lsu_vb
+        1   ct_lsu_vb_gate
+
+8.14. Executing CHECK pass (checking for obvious problems).
+Checking module ct_lsu_vb...
+Checking module ct_lsu_vb_addr_entry...
+Checking module ct_lsu_vb_gate...
+Checking module ct_lsu_vb_output_miter...
+Checking module ct_rtu_expand_8...
+Checking module gated_clk_cell...
+Found and reported 0 problems.
+
+9. Executing FLATTEN pass (flatten design).
+Deleting now unused module ct_lsu_vb.
+Deleting now unused module ct_lsu_vb_addr_entry.
+Deleting now unused module ct_lsu_vb_gate.
+Deleting now unused module ct_rtu_expand_8.
+Deleting now unused module gated_clk_cell.
+<suppressed ~19 debug messages>
+
+10. Executing ASYNC2SYNC pass.
+Replacing ct_lsu_vb_output_miter.$flatten\gate_i.$procdff$1944 ($adff): ARST=\gate_i.cpurst_b, D=\gate_i.vb_rcl_sm_next_state, Q=\gate_i.vb_rcl_sm_state
+Replacing ct_lsu_vb_output_miter.$flatten\gate_i.$procdff$1939 ($adff): ARST=\gate_i.cpurst_b, D=$flatten\gate_i.$0\vb_dcache_arb_ld_req[0:0], Q=\gate_i.vb_dcache_arb_ld_req
+Replacing ct_lsu_vb_output_miter.$flatten\gate_i.$procdff$1934 ($adff): ARST=\gate_i.cpurst_b, D=$flatten\gate_i.$0\vb_dcache_arb_st_req[0:0], Q=\gate_i.vb_dcache_arb_st_req
+Replacing ct_lsu_vb_output_miter.$flatten\gate_i.$procdff$1929 ($adff): ARST=\gate_i.cpurst_b, D=$flatten\gate_i.$0\vb_rcl_sm_addr_tto6[33:0], Q=\gate_i.vb_rcl_sm_addr_tto6
+Replacing ct_lsu_vb_output_miter.$flatten\gate_i.$procdff$1924 ($adff): ARST=\gate_i.cpurst_b, D=$flatten\gate_i.$0\vb_rcl_sm_addr_id[1:0], Q=\gate_i.vb_rcl_sm_addr_id
+Replacing ct_lsu_vb_output_miter.$flatten\gate_i.$procdff$1919 ($adff): ARST=\gate_i.cpurst_b, D=$flatten\gate_i.$0\vb_rcl_sm_dcache_way[0:0], Q=\gate_i.vb_rcl_sm_dcache_way
+Replacing ct_lsu_vb_output_miter.$flatten\gate_i.$procdff$1914 ($adff): ARST=\gate_i.cpurst_b, D=$flatten\gate_i.$0\vb_rcl_sm_dcache_dirty[0:0], Q=\gate_i.vb_rcl_sm_dcache_dirty
+Replacing ct_lsu_vb_output_miter.$flatten\gate_i.$procdff$1909 ($adff): ARST=\gate_i.cpurst_b, D=$flatten\gate_i.$0\vb_rcl_sm_data_id[2:0], Q=\gate_i.vb_rcl_sm_data_id
+Replacing ct_lsu_vb_output_miter.$flatten\gate_i.$procdff$1904 ($adff): ARST=\gate_i.cpurst_b, D=$flatten\gate_i.$0\vb_wd_sm_vld[0:0], Q=\gate_i.vb_wd_sm_vld
+Replacing ct_lsu_vb_output_miter.$flatten\gate_i.$procdff$1899 ($adff): ARST=\gate_i.cpurst_b, D=$flatten\gate_i.$0\vb_wd_sm_data_id[2:0], Q=\gate_i.vb_wd_sm_data_id
+Replacing ct_lsu_vb_output_miter.$flatten\gate_i.$procdff$1894 ($adff): ARST=\gate_i.cpurst_b, D=$flatten\gate_i.$0\vb_wd_sm_data_bias[3:0], Q=\gate_i.vb_wd_sm_data_bias
+Replacing ct_lsu_vb_output_miter.$flatten\gate_i.\x_ct_lsu_vb_addr_entry_1.$procdff$2004 ($adff): ARST=\gate_i.x_ct_lsu_vb_addr_entry_1.cpurst_b, D=$flatten\gate_i.\x_ct_lsu_vb_addr_entry_1.$0\vb_addr_entry_db_id[2:0], Q=\gate_i.x_ct_lsu_vb_addr_entry_1.vb_addr_entry_db_id
+Replacing ct_lsu_vb_output_miter.$flatten\gate_i.\x_ct_lsu_vb_addr_entry_1.$procdff$2009 ($adff): ARST=\gate_i.x_ct_lsu_vb_addr_entry_1.cpurst_b, D=$flatten\gate_i.\x_ct_lsu_vb_addr_entry_1.$0\vb_addr_entry_data_req_success[0:0], Q=\gate_i.x_ct_lsu_vb_addr_entry_1.vb_addr_entry_data_req_success
+Replacing ct_lsu_vb_output_miter.$flatten\gate_i.\x_ct_lsu_vb_addr_entry_1.$procdff$2014 ($adff): ARST=\gate_i.x_ct_lsu_vb_addr_entry_1.cpurst_b, D=$flatten\gate_i.\x_ct_lsu_vb_addr_entry_1.$0\vb_addr_entry_rcl_done[0:0], Q=\gate_i.x_ct_lsu_vb_addr_entry_1.vb_addr_entry_rcl_done
+Replacing ct_lsu_vb_output_miter.$flatten\gate_i.\x_ct_lsu_vb_addr_entry_1.$procdff$2019 ($adff): ARST=\gate_i.x_ct_lsu_vb_addr_entry_1.cpurst_b, D=$flatten\gate_i.\x_ct_lsu_vb_addr_entry_1.$0\vb_addr_entry_rcl_sm_req_success[0:0], Q=\gate_i.x_ct_lsu_vb_addr_entry_1.vb_addr_entry_rcl_sm_req_success
+Replacing ct_lsu_vb_output_miter.$flatten\gate_i.\x_ct_lsu_vb_addr_entry_1.$procdff$2024 ($adff): ARST=\gate_i.x_ct_lsu_vb_addr_entry_1.cpurst_b, D=$flatten\gate_i.\x_ct_lsu_vb_addr_entry_1.$0\vb_addr_entry_addr_tto6[7:0], Q=\gate_i.x_ct_lsu_vb_addr_entry_1.vb_addr_entry_addr_tto6 [7:0]
+Replacing ct_lsu_vb_output_miter.$flatten\gate_i.\x_ct_lsu_vb_addr_entry_1.$procdff$2029 ($adff): ARST=\gate_i.x_ct_lsu_vb_addr_entry_1.cpurst_b, D=$flatten\gate_i.\x_ct_lsu_vb_addr_entry_1.$0\vb_addr_entry_inv[0:0], Q=\gate_i.x_ct_lsu_vb_addr_entry_1.vb_addr_entry_inv
+Replacing ct_lsu_vb_output_miter.$flatten\gate_i.\x_ct_lsu_vb_addr_entry_1.$procdff$2034 ($adff): ARST=\gate_i.x_ct_lsu_vb_addr_entry_1.cpurst_b, D=$flatten\gate_i.\x_ct_lsu_vb_addr_entry_1.$0\vb_addr_entry_lfb_create[0:0], Q=\gate_i.x_ct_lsu_vb_addr_entry_1.vb_addr_entry_lfb_create
+Replacing ct_lsu_vb_output_miter.$flatten\gate_i.\x_ct_lsu_vb_addr_entry_1.$procdff$2039 ($adff): ARST=\gate_i.x_ct_lsu_vb_addr_entry_1.cpurst_b, D=$flatten\gate_i.\x_ct_lsu_vb_addr_entry_1.$0\vb_addr_entry_set_way_mode[0:0], Q=\gate_i.x_ct_lsu_vb_addr_entry_1.vb_addr_entry_set_way_mode
+Replacing ct_lsu_vb_output_miter.$flatten\gate_i.\x_ct_lsu_vb_addr_entry_1.$procdff$2044 ($adff): ARST=\gate_i.x_ct_lsu_vb_addr_entry_1.cpurst_b, D=$flatten\gate_i.\x_ct_lsu_vb_addr_entry_1.$0\vb_addr_entry_source_id[2:0], Q=\gate_i.x_ct_lsu_vb_addr_entry_1.vb_addr_entry_source_id
+Replacing ct_lsu_vb_output_miter.$flatten\gate_i.\x_ct_lsu_vb_addr_entry_1.$procdff$2049 ($adff): ARST=\gate_i.x_ct_lsu_vb_addr_entry_1.cpurst_b, D=$flatten\gate_i.\x_ct_lsu_vb_addr_entry_1.$0\vb_addr_entry_wmb_create[0:0], Q=\gate_i.x_ct_lsu_vb_addr_entry_1.vb_addr_entry_wmb_create
+Replacing ct_lsu_vb_output_miter.$flatten\gate_i.\x_ct_lsu_vb_addr_entry_1.$procdff$2054 ($adff): ARST=\gate_i.x_ct_lsu_vb_addr_entry_1.cpurst_b, D=$flatten\gate_i.\x_ct_lsu_vb_addr_entry_1.$0\vb_addr_entry_addr_tto6[33:8], Q=\gate_i.x_ct_lsu_vb_addr_entry_1.vb_addr_entry_addr_tto6 [33:8]
+Replacing ct_lsu_vb_output_miter.$flatten\gate_i.\x_ct_lsu_vb_addr_entry_1.$procdff$2059 ($adff): ARST=\gate_i.x_ct_lsu_vb_addr_entry_1.cpurst_b, D=$flatten\gate_i.\x_ct_lsu_vb_addr_entry_1.$0\vb_addr_entry_vld[0:0], Q=\gate_i.x_ct_lsu_vb_addr_entry_1.vb_addr_entry_vld
+Replacing ct_lsu_vb_output_miter.$flatten\gate_i.\x_ct_lsu_vb_addr_entry_0.$procdff$2004 ($adff): ARST=\gate_i.x_ct_lsu_vb_addr_entry_0.cpurst_b, D=$flatten\gate_i.\x_ct_lsu_vb_addr_entry_0.$0\vb_addr_entry_db_id[2:0], Q=\gate_i.x_ct_lsu_vb_addr_entry_0.vb_addr_entry_db_id
+Replacing ct_lsu_vb_output_miter.$flatten\gate_i.\x_ct_lsu_vb_addr_entry_0.$procdff$2009 ($adff): ARST=\gate_i.x_ct_lsu_vb_addr_entry_0.cpurst_b, D=$flatten\gate_i.\x_ct_lsu_vb_addr_entry_0.$0\vb_addr_entry_data_req_success[0:0], Q=\gate_i.x_ct_lsu_vb_addr_entry_0.vb_addr_entry_data_req_success
+Replacing ct_lsu_vb_output_miter.$flatten\gate_i.\x_ct_lsu_vb_addr_entry_0.$procdff$2014 ($adff): ARST=\gate_i.x_ct_lsu_vb_addr_entry_0.cpurst_b, D=$flatten\gate_i.\x_ct_lsu_vb_addr_entry_0.$0\vb_addr_entry_rcl_done[0:0], Q=\gate_i.x_ct_lsu_vb_addr_entry_0.vb_addr_entry_rcl_done
+Replacing ct_lsu_vb_output_miter.$flatten\gate_i.\x_ct_lsu_vb_addr_entry_0.$procdff$2019 ($adff): ARST=\gate_i.x_ct_lsu_vb_addr_entry_0.cpurst_b, D=$flatten\gate_i.\x_ct_lsu_vb_addr_entry_0.$0\vb_addr_entry_rcl_sm_req_success[0:0], Q=\gate_i.x_ct_lsu_vb_addr_entry_0.vb_addr_entry_rcl_sm_req_success
+Replacing ct_lsu_vb_output_miter.$flatten\gate_i.\x_ct_lsu_vb_addr_entry_0.$procdff$2024 ($adff): ARST=\gate_i.x_ct_lsu_vb_addr_entry_0.cpurst_b, D=$flatten\gate_i.\x_ct_lsu_vb_addr_entry_0.$0\vb_addr_entry_addr_tto6[7:0], Q=\gate_i.x_ct_lsu_vb_addr_entry_0.vb_addr_entry_addr_tto6 [7:0]
+Replacing ct_lsu_vb_output_miter.$flatten\gate_i.\x_ct_lsu_vb_addr_entry_0.$procdff$2029 ($adff): ARST=\gate_i.x_ct_lsu_vb_addr_entry_0.cpurst_b, D=$flatten\gate_i.\x_ct_lsu_vb_addr_entry_0.$0\vb_addr_entry_inv[0:0], Q=\gate_i.x_ct_lsu_vb_addr_entry_0.vb_addr_entry_inv
+Replacing ct_lsu_vb_output_miter.$flatten\gate_i.\x_ct_lsu_vb_addr_entry_0.$procdff$2034 ($adff): ARST=\gate_i.x_ct_lsu_vb_addr_entry_0.cpurst_b, D=$flatten\gate_i.\x_ct_lsu_vb_addr_entry_0.$0\vb_addr_entry_lfb_create[0:0], Q=\gate_i.x_ct_lsu_vb_addr_entry_0.vb_addr_entry_lfb_create
+Replacing ct_lsu_vb_output_miter.$flatten\gate_i.\x_ct_lsu_vb_addr_entry_0.$procdff$2039 ($adff): ARST=\gate_i.x_ct_lsu_vb_addr_entry_0.cpurst_b, D=$flatten\gate_i.\x_ct_lsu_vb_addr_entry_0.$0\vb_addr_entry_set_way_mode[0:0], Q=\gate_i.x_ct_lsu_vb_addr_entry_0.vb_addr_entry_set_way_mode
+Replacing ct_lsu_vb_output_miter.$flatten\gate_i.\x_ct_lsu_vb_addr_entry_0.$procdff$2044 ($adff): ARST=\gate_i.x_ct_lsu_vb_addr_entry_0.cpurst_b, D=$flatten\gate_i.\x_ct_lsu_vb_addr_entry_0.$0\vb_addr_entry_source_id[2:0], Q=\gate_i.x_ct_lsu_vb_addr_entry_0.vb_addr_entry_source_id
+Replacing ct_lsu_vb_output_miter.$flatten\gate_i.\x_ct_lsu_vb_addr_entry_0.$procdff$2049 ($adff): ARST=\gate_i.x_ct_lsu_vb_addr_entry_0.cpurst_b, D=$flatten\gate_i.\x_ct_lsu_vb_addr_entry_0.$0\vb_addr_entry_wmb_create[0:0], Q=\gate_i.x_ct_lsu_vb_addr_entry_0.vb_addr_entry_wmb_create
+Replacing ct_lsu_vb_output_miter.$flatten\gate_i.\x_ct_lsu_vb_addr_entry_0.$procdff$2054 ($adff): ARST=\gate_i.x_ct_lsu_vb_addr_entry_0.cpurst_b, D=$flatten\gate_i.\x_ct_lsu_vb_addr_entry_0.$0\vb_addr_entry_addr_tto6[33:8], Q=\gate_i.x_ct_lsu_vb_addr_entry_0.vb_addr_entry_addr_tto6 [33:8]
+Replacing ct_lsu_vb_output_miter.$flatten\gate_i.\x_ct_lsu_vb_addr_entry_0.$procdff$2059 ($adff): ARST=\gate_i.x_ct_lsu_vb_addr_entry_0.cpurst_b, D=$flatten\gate_i.\x_ct_lsu_vb_addr_entry_0.$0\vb_addr_entry_vld[0:0], Q=\gate_i.x_ct_lsu_vb_addr_entry_0.vb_addr_entry_vld
+Replacing ct_lsu_vb_output_miter.$flatten\gold_i.$procdff$1999 ($adff): ARST=\gold_i.cpurst_b, D=\gold_i.vb_rcl_sm_next_state, Q=\gold_i.vb_rcl_sm_state
+Replacing ct_lsu_vb_output_miter.$flatten\gold_i.$procdff$1994 ($adff): ARST=\gold_i.cpurst_b, D=$flatten\gold_i.$0\vb_dcache_arb_ld_req[0:0], Q=\gold_i.vb_dcache_arb_ld_req
+Replacing ct_lsu_vb_output_miter.$flatten\gold_i.$procdff$1989 ($adff): ARST=\gold_i.cpurst_b, D=$flatten\gold_i.$0\vb_dcache_arb_st_req[0:0], Q=\gold_i.vb_dcache_arb_st_req
+Replacing ct_lsu_vb_output_miter.$flatten\gold_i.$procdff$1984 ($adff): ARST=\gold_i.cpurst_b, D=$flatten\gold_i.$0\vb_rcl_sm_addr_tto6[33:0], Q=\gold_i.vb_rcl_sm_addr_tto6
+Replacing ct_lsu_vb_output_miter.$flatten\gold_i.$procdff$1979 ($adff): ARST=\gold_i.cpurst_b, D=$flatten\gold_i.$0\vb_rcl_sm_addr_id[1:0], Q=\gold_i.vb_rcl_sm_addr_id
+Replacing ct_lsu_vb_output_miter.$flatten\gold_i.$procdff$1974 ($adff): ARST=\gold_i.cpurst_b, D=$flatten\gold_i.$0\vb_rcl_sm_dcache_way[0:0], Q=\gold_i.vb_rcl_sm_dcache_way
+Replacing ct_lsu_vb_output_miter.$flatten\gold_i.$procdff$1969 ($adff): ARST=\gold_i.cpurst_b, D=$flatten\gold_i.$0\vb_rcl_sm_dcache_dirty[0:0], Q=\gold_i.vb_rcl_sm_dcache_dirty
+Replacing ct_lsu_vb_output_miter.$flatten\gold_i.$procdff$1964 ($adff): ARST=\gold_i.cpurst_b, D=$flatten\gold_i.$0\vb_rcl_sm_data_id[2:0], Q=\gold_i.vb_rcl_sm_data_id
+Replacing ct_lsu_vb_output_miter.$flatten\gold_i.$procdff$1959 ($adff): ARST=\gold_i.cpurst_b, D=$flatten\gold_i.$0\vb_wd_sm_vld[0:0], Q=\gold_i.vb_wd_sm_vld
+Replacing ct_lsu_vb_output_miter.$flatten\gold_i.$procdff$1954 ($adff): ARST=\gold_i.cpurst_b, D=$flatten\gold_i.$0\vb_wd_sm_data_id[2:0], Q=\gold_i.vb_wd_sm_data_id
+Replacing ct_lsu_vb_output_miter.$flatten\gold_i.$procdff$1949 ($adff): ARST=\gold_i.cpurst_b, D=$flatten\gold_i.$0\vb_wd_sm_data_bias[3:0], Q=\gold_i.vb_wd_sm_data_bias
+Replacing ct_lsu_vb_output_miter.$flatten\gold_i.\x_ct_lsu_vb_addr_entry_1.$procdff$2004 ($adff): ARST=\gold_i.x_ct_lsu_vb_addr_entry_1.cpurst_b, D=$flatten\gold_i.\x_ct_lsu_vb_addr_entry_1.$0\vb_addr_entry_db_id[2:0], Q=\gold_i.x_ct_lsu_vb_addr_entry_1.vb_addr_entry_db_id
+Replacing ct_lsu_vb_output_miter.$flatten\gold_i.\x_ct_lsu_vb_addr_entry_1.$procdff$2009 ($adff): ARST=\gold_i.x_ct_lsu_vb_addr_entry_1.cpurst_b, D=$flatten\gold_i.\x_ct_lsu_vb_addr_entry_1.$0\vb_addr_entry_data_req_success[0:0], Q=\gold_i.x_ct_lsu_vb_addr_entry_1.vb_addr_entry_data_req_success
+Replacing ct_lsu_vb_output_miter.$flatten\gold_i.\x_ct_lsu_vb_addr_entry_1.$procdff$2014 ($adff): ARST=\gold_i.x_ct_lsu_vb_addr_entry_1.cpurst_b, D=$flatten\gold_i.\x_ct_lsu_vb_addr_entry_1.$0\vb_addr_entry_rcl_done[0:0], Q=\gold_i.x_ct_lsu_vb_addr_entry_1.vb_addr_entry_rcl_done
+Replacing ct_lsu_vb_output_miter.$flatten\gold_i.\x_ct_lsu_vb_addr_entry_1.$procdff$2019 ($adff): ARST=\gold_i.x_ct_lsu_vb_addr_entry_1.cpurst_b, D=$flatten\gold_i.\x_ct_lsu_vb_addr_entry_1.$0\vb_addr_entry_rcl_sm_req_success[0:0], Q=\gold_i.x_ct_lsu_vb_addr_entry_1.vb_addr_entry_rcl_sm_req_success
+Replacing ct_lsu_vb_output_miter.$flatten\gold_i.\x_ct_lsu_vb_addr_entry_1.$procdff$2024 ($adff): ARST=\gold_i.x_ct_lsu_vb_addr_entry_1.cpurst_b, D=$flatten\gold_i.\x_ct_lsu_vb_addr_entry_1.$0\vb_addr_entry_addr_tto6[7:0], Q=\gold_i.x_ct_lsu_vb_addr_entry_1.vb_addr_entry_addr_tto6 [7:0]
+Replacing ct_lsu_vb_output_miter.$flatten\gold_i.\x_ct_lsu_vb_addr_entry_1.$procdff$2029 ($adff): ARST=\gold_i.x_ct_lsu_vb_addr_entry_1.cpurst_b, D=$flatten\gold_i.\x_ct_lsu_vb_addr_entry_1.$0\vb_addr_entry_inv[0:0], Q=\gold_i.x_ct_lsu_vb_addr_entry_1.vb_addr_entry_inv
+Replacing ct_lsu_vb_output_miter.$flatten\gold_i.\x_ct_lsu_vb_addr_entry_1.$procdff$2034 ($adff): ARST=\gold_i.x_ct_lsu_vb_addr_entry_1.cpurst_b, D=$flatten\gold_i.\x_ct_lsu_vb_addr_entry_1.$0\vb_addr_entry_lfb_create[0:0], Q=\gold_i.x_ct_lsu_vb_addr_entry_1.vb_addr_entry_lfb_create
+Replacing ct_lsu_vb_output_miter.$flatten\gold_i.\x_ct_lsu_vb_addr_entry_1.$procdff$2039 ($adff): ARST=\gold_i.x_ct_lsu_vb_addr_entry_1.cpurst_b, D=$flatten\gold_i.\x_ct_lsu_vb_addr_entry_1.$0\vb_addr_entry_set_way_mode[0:0], Q=\gold_i.x_ct_lsu_vb_addr_entry_1.vb_addr_entry_set_way_mode
+Replacing ct_lsu_vb_output_miter.$flatten\gold_i.\x_ct_lsu_vb_addr_entry_1.$procdff$2044 ($adff): ARST=\gold_i.x_ct_lsu_vb_addr_entry_1.cpurst_b, D=$flatten\gold_i.\x_ct_lsu_vb_addr_entry_1.$0\vb_addr_entry_source_id[2:0], Q=\gold_i.x_ct_lsu_vb_addr_entry_1.vb_addr_entry_source_id
+Replacing ct_lsu_vb_output_miter.$flatten\gold_i.\x_ct_lsu_vb_addr_entry_1.$procdff$2049 ($adff): ARST=\gold_i.x_ct_lsu_vb_addr_entry_1.cpurst_b, D=$flatten\gold_i.\x_ct_lsu_vb_addr_entry_1.$0\vb_addr_entry_wmb_create[0:0], Q=\gold_i.x_ct_lsu_vb_addr_entry_1.vb_addr_entry_wmb_create
+Replacing ct_lsu_vb_output_miter.$flatten\gold_i.\x_ct_lsu_vb_addr_entry_1.$procdff$2054 ($adff): ARST=\gold_i.x_ct_lsu_vb_addr_entry_1.cpurst_b, D=$flatten\gold_i.\x_ct_lsu_vb_addr_entry_1.$0\vb_addr_entry_addr_tto6[33:8], Q=\gold_i.x_ct_lsu_vb_addr_entry_1.vb_addr_entry_addr_tto6 [33:8]
+Replacing ct_lsu_vb_output_miter.$flatten\gold_i.\x_ct_lsu_vb_addr_entry_1.$procdff$2059 ($adff): ARST=\gold_i.x_ct_lsu_vb_addr_entry_1.cpurst_b, D=$flatten\gold_i.\x_ct_lsu_vb_addr_entry_1.$0\vb_addr_entry_vld[0:0], Q=\gold_i.x_ct_lsu_vb_addr_entry_1.vb_addr_entry_vld
+Replacing ct_lsu_vb_output_miter.$flatten\gold_i.\x_ct_lsu_vb_addr_entry_0.$procdff$2004 ($adff): ARST=\gold_i.x_ct_lsu_vb_addr_entry_0.cpurst_b, D=$flatten\gold_i.\x_ct_lsu_vb_addr_entry_0.$0\vb_addr_entry_db_id[2:0], Q=\gold_i.x_ct_lsu_vb_addr_entry_0.vb_addr_entry_db_id
+Replacing ct_lsu_vb_output_miter.$flatten\gold_i.\x_ct_lsu_vb_addr_entry_0.$procdff$2009 ($adff): ARST=\gold_i.x_ct_lsu_vb_addr_entry_0.cpurst_b, D=$flatten\gold_i.\x_ct_lsu_vb_addr_entry_0.$0\vb_addr_entry_data_req_success[0:0], Q=\gold_i.x_ct_lsu_vb_addr_entry_0.vb_addr_entry_data_req_success
+Replacing ct_lsu_vb_output_miter.$flatten\gold_i.\x_ct_lsu_vb_addr_entry_0.$procdff$2014 ($adff): ARST=\gold_i.x_ct_lsu_vb_addr_entry_0.cpurst_b, D=$flatten\gold_i.\x_ct_lsu_vb_addr_entry_0.$0\vb_addr_entry_rcl_done[0:0], Q=\gold_i.x_ct_lsu_vb_addr_entry_0.vb_addr_entry_rcl_done
+Replacing ct_lsu_vb_output_miter.$flatten\gold_i.\x_ct_lsu_vb_addr_entry_0.$procdff$2019 ($adff): ARST=\gold_i.x_ct_lsu_vb_addr_entry_0.cpurst_b, D=$flatten\gold_i.\x_ct_lsu_vb_addr_entry_0.$0\vb_addr_entry_rcl_sm_req_success[0:0], Q=\gold_i.x_ct_lsu_vb_addr_entry_0.vb_addr_entry_rcl_sm_req_success
+Replacing ct_lsu_vb_output_miter.$flatten\gold_i.\x_ct_lsu_vb_addr_entry_0.$procdff$2024 ($adff): ARST=\gold_i.x_ct_lsu_vb_addr_entry_0.cpurst_b, D=$flatten\gold_i.\x_ct_lsu_vb_addr_entry_0.$0\vb_addr_entry_addr_tto6[7:0], Q=\gold_i.x_ct_lsu_vb_addr_entry_0.vb_addr_entry_addr_tto6 [7:0]
+Replacing ct_lsu_vb_output_miter.$flatten\gold_i.\x_ct_lsu_vb_addr_entry_0.$procdff$2029 ($adff): ARST=\gold_i.x_ct_lsu_vb_addr_entry_0.cpurst_b, D=$flatten\gold_i.\x_ct_lsu_vb_addr_entry_0.$0\vb_addr_entry_inv[0:0], Q=\gold_i.x_ct_lsu_vb_addr_entry_0.vb_addr_entry_inv
+Replacing ct_lsu_vb_output_miter.$flatten\gold_i.\x_ct_lsu_vb_addr_entry_0.$procdff$2034 ($adff): ARST=\gold_i.x_ct_lsu_vb_addr_entry_0.cpurst_b, D=$flatten\gold_i.\x_ct_lsu_vb_addr_entry_0.$0\vb_addr_entry_lfb_create[0:0], Q=\gold_i.x_ct_lsu_vb_addr_entry_0.vb_addr_entry_lfb_create
+Replacing ct_lsu_vb_output_miter.$flatten\gold_i.\x_ct_lsu_vb_addr_entry_0.$procdff$2039 ($adff): ARST=\gold_i.x_ct_lsu_vb_addr_entry_0.cpurst_b, D=$flatten\gold_i.\x_ct_lsu_vb_addr_entry_0.$0\vb_addr_entry_set_way_mode[0:0], Q=\gold_i.x_ct_lsu_vb_addr_entry_0.vb_addr_entry_set_way_mode
+Replacing ct_lsu_vb_output_miter.$flatten\gold_i.\x_ct_lsu_vb_addr_entry_0.$procdff$2044 ($adff): ARST=\gold_i.x_ct_lsu_vb_addr_entry_0.cpurst_b, D=$flatten\gold_i.\x_ct_lsu_vb_addr_entry_0.$0\vb_addr_entry_source_id[2:0], Q=\gold_i.x_ct_lsu_vb_addr_entry_0.vb_addr_entry_source_id
+Replacing ct_lsu_vb_output_miter.$flatten\gold_i.\x_ct_lsu_vb_addr_entry_0.$procdff$2049 ($adff): ARST=\gold_i.x_ct_lsu_vb_addr_entry_0.cpurst_b, D=$flatten\gold_i.\x_ct_lsu_vb_addr_entry_0.$0\vb_addr_entry_wmb_create[0:0], Q=\gold_i.x_ct_lsu_vb_addr_entry_0.vb_addr_entry_wmb_create
+Replacing ct_lsu_vb_output_miter.$flatten\gold_i.\x_ct_lsu_vb_addr_entry_0.$procdff$2054 ($adff): ARST=\gold_i.x_ct_lsu_vb_addr_entry_0.cpurst_b, D=$flatten\gold_i.\x_ct_lsu_vb_addr_entry_0.$0\vb_addr_entry_addr_tto6[33:8], Q=\gold_i.x_ct_lsu_vb_addr_entry_0.vb_addr_entry_addr_tto6 [33:8]
+Replacing ct_lsu_vb_output_miter.$flatten\gold_i.\x_ct_lsu_vb_addr_entry_0.$procdff$2059 ($adff): ARST=\gold_i.x_ct_lsu_vb_addr_entry_0.cpurst_b, D=$flatten\gold_i.\x_ct_lsu_vb_addr_entry_0.$0\vb_addr_entry_vld[0:0], Q=\gold_i.x_ct_lsu_vb_addr_entry_0.vb_addr_entry_vld
+
+11. Executing DFFUNMAP pass (unmap clock enable and synchronous reset from FFs).
+
+12. Executing OPT pass (performing simple optimizations).
+
+12.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_lsu_vb_output_miter.
+<suppressed ~28 debug messages>
+
+12.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_lsu_vb_output_miter'.
+Computing hashes of 1388 cells of `\ct_lsu_vb_output_miter'.
+Finding duplicate cells in `\ct_lsu_vb_output_miter'.
+Computing hashes of 1352 cells of `\ct_lsu_vb_output_miter'.
+Finding duplicate cells in `\ct_lsu_vb_output_miter'.
+Computing hashes of 1330 cells of `\ct_lsu_vb_output_miter'.
+Finding duplicate cells in `\ct_lsu_vb_output_miter'.
+Computing hashes of 1315 cells of `\ct_lsu_vb_output_miter'.
+Finding duplicate cells in `\ct_lsu_vb_output_miter'.
+<suppressed ~219 debug messages>
+Removed a total of 73 cells.
+
+12.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \ct_lsu_vb_output_miter..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~576 debug messages>
+
+12.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \ct_lsu_vb_output_miter.
+Performed a total of 0 changes.
+
+12.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_lsu_vb_output_miter'.
+Computing hashes of 1315 cells of `\ct_lsu_vb_output_miter'.
+Finding duplicate cells in `\ct_lsu_vb_output_miter'.
+Computing hashes of 1303 cells of `\ct_lsu_vb_output_miter'.
+Finding duplicate cells in `\ct_lsu_vb_output_miter'.
+Computing hashes of 1294 cells of `\ct_lsu_vb_output_miter'.
+Finding duplicate cells in `\ct_lsu_vb_output_miter'.
+Computing hashes of 1289 cells of `\ct_lsu_vb_output_miter'.
+Finding duplicate cells in `\ct_lsu_vb_output_miter'.
+Computing hashes of 1282 cells of `\ct_lsu_vb_output_miter'.
+Finding duplicate cells in `\ct_lsu_vb_output_miter'.
+Computing hashes of 1280 cells of `\ct_lsu_vb_output_miter'.
+Finding duplicate cells in `\ct_lsu_vb_output_miter'.
+Computing hashes of 1279 cells of `\ct_lsu_vb_output_miter'.
+Finding duplicate cells in `\ct_lsu_vb_output_miter'.
+Computing hashes of 1278 cells of `\ct_lsu_vb_output_miter'.
+Finding duplicate cells in `\ct_lsu_vb_output_miter'.
+<suppressed ~111 debug messages>
+Removed a total of 37 cells.
+
+12.6. Executing OPT_DFF pass (perform DFF optimizations).
+Adding SRST signal on $flatten\gold_i.\x_ct_lsu_vb_addr_entry_0.$procdff$2024 ($dff) from module ct_lsu_vb_output_miter (D = $flatten\gold_i.\x_ct_lsu_vb_addr_entry_0.$0\vb_addr_entry_addr_tto6[7:0], Q = $auto$async2sync.cc:253:execute$2219, rval = 8'00000000).
+Adding SRST signal on $flatten\gold_i.\x_ct_lsu_vb_addr_entry_0.$procdff$2019 ($dff) from module ct_lsu_vb_output_miter (D = $flatten\gold_i.\x_ct_lsu_vb_addr_entry_0.$procmux$1821_Y, Q = $auto$async2sync.cc:253:execute$2217, rval = 1'0).
+Adding SRST signal on $flatten\gold_i.\x_ct_lsu_vb_addr_entry_0.$procdff$2014 ($dff) from module ct_lsu_vb_output_miter (D = $flatten\gold_i.\x_ct_lsu_vb_addr_entry_0.$procmux$1816_Y, Q = $auto$async2sync.cc:253:execute$2215, rval = 1'0).
+Adding SRST signal on $flatten\gold_i.\x_ct_lsu_vb_addr_entry_0.$procdff$2009 ($dff) from module ct_lsu_vb_output_miter (D = $flatten\gold_i.\x_ct_lsu_vb_addr_entry_0.$procmux$1811_Y, Q = $auto$async2sync.cc:253:execute$2213, rval = 1'0).
+Adding SRST signal on $flatten\gold_i.\x_ct_lsu_vb_addr_entry_0.$procdff$2004 ($dff) from module ct_lsu_vb_output_miter (D = $flatten\gold_i.\x_ct_lsu_vb_addr_entry_0.$0\vb_addr_entry_db_id[2:0], Q = $auto$async2sync.cc:253:execute$2211, rval = 3'000).
+Adding SRST signal on $flatten\gold_i.\x_ct_lsu_vb_addr_entry_1.$procdff$2059 ($dff) from module ct_lsu_vb_output_miter (D = $flatten\gold_i.\x_ct_lsu_vb_addr_entry_1.$procmux$1885_Y, Q = $auto$async2sync.cc:253:execute$2209, rval = 1'0).
+Adding SRST signal on $flatten\gold_i.\x_ct_lsu_vb_addr_entry_1.$procdff$2054 ($dff) from module ct_lsu_vb_output_miter (D = $flatten\gold_i.\x_ct_lsu_vb_addr_entry_1.$0\vb_addr_entry_addr_tto6[33:8], Q = $auto$async2sync.cc:253:execute$2207, rval = 26'00000000000000000000000000).
+Adding SRST signal on $flatten\gold_i.\x_ct_lsu_vb_addr_entry_1.$procdff$2049 ($dff) from module ct_lsu_vb_output_miter (D = $flatten\gold_i.\x_ct_lsu_vb_addr_entry_1.$procmux$1826_Y, Q = $auto$async2sync.cc:253:execute$2205, rval = 1'0).
+Adding SRST signal on $flatten\gold_i.\x_ct_lsu_vb_addr_entry_1.$procdff$2044 ($dff) from module ct_lsu_vb_output_miter (D = $flatten\gold_i.\x_ct_lsu_vb_addr_entry_1.$procmux$1837_Y, Q = $auto$async2sync.cc:253:execute$2203, rval = 3'000).
+Adding SRST signal on $flatten\gate_i.$procdff$1944 ($dff) from module ct_lsu_vb_output_miter (D = \gate_i.vb_rcl_sm_next_state, Q = $auto$async2sync.cc:253:execute$2095, rval = 4'0000).
+Adding SRST signal on $flatten\gate_i.$procdff$1929 ($dff) from module ct_lsu_vb_output_miter (D = $flatten\gate_i.$0\vb_rcl_sm_addr_tto6[33:0], Q = $auto$async2sync.cc:253:execute$2101, rval = 34'0000000000000000000000000000000000).
+Adding SRST signal on $flatten\gate_i.$procdff$1914 ($dff) from module ct_lsu_vb_output_miter (D = $flatten\gate_i.$0\vb_rcl_sm_dcache_dirty[0:0], Q = $auto$async2sync.cc:253:execute$2107, rval = 1'0).
+Adding SRST signal on $flatten\gold_i.\x_ct_lsu_vb_addr_entry_1.$procdff$2039 ($dff) from module ct_lsu_vb_output_miter (D = $flatten\gold_i.\x_ct_lsu_vb_addr_entry_1.$0\vb_addr_entry_set_way_mode[0:0], Q = $auto$async2sync.cc:253:execute$2201, rval = 1'0).
+Adding SRST signal on $flatten\gold_i.\x_ct_lsu_vb_addr_entry_1.$procdff$2034 ($dff) from module ct_lsu_vb_output_miter (D = $flatten\gold_i.\x_ct_lsu_vb_addr_entry_1.$procmux$1853_Y, Q = $auto$async2sync.cc:253:execute$2199, rval = 1'0).
+Adding SRST signal on $flatten\gate_i.$procdff$1899 ($dff) from module ct_lsu_vb_output_miter (D = $flatten\gate_i.$0\vb_wd_sm_data_id[2:0], Q = $auto$async2sync.cc:253:execute$2113, rval = 3'000).
+Adding SRST signal on $flatten\gate_i.\x_ct_lsu_vb_addr_entry_0.$procdff$2009 ($dff) from module ct_lsu_vb_output_miter (D = $flatten\gate_i.\x_ct_lsu_vb_addr_entry_0.$procmux$1811_Y, Q = $auto$async2sync.cc:253:execute$2143, rval = 1'0).
+Adding SRST signal on $flatten\gate_i.\x_ct_lsu_vb_addr_entry_1.$procdff$2009 ($dff) from module ct_lsu_vb_output_miter (D = $flatten\gate_i.\x_ct_lsu_vb_addr_entry_1.$procmux$1811_Y, Q = $auto$async2sync.cc:253:execute$2119, rval = 1'0).
+Adding SRST signal on $flatten\gate_i.\x_ct_lsu_vb_addr_entry_1.$procdff$2024 ($dff) from module ct_lsu_vb_output_miter (D = $flatten\gate_i.\x_ct_lsu_vb_addr_entry_1.$0\vb_addr_entry_addr_tto6[7:0], Q = $auto$async2sync.cc:253:execute$2125, rval = 8'00000000).
+Adding SRST signal on $flatten\gate_i.\x_ct_lsu_vb_addr_entry_1.$procdff$2039 ($dff) from module ct_lsu_vb_output_miter (D = $flatten\gate_i.\x_ct_lsu_vb_addr_entry_1.$0\vb_addr_entry_set_way_mode[0:0], Q = $auto$async2sync.cc:253:execute$2131, rval = 1'0).
+Adding SRST signal on $flatten\gate_i.\x_ct_lsu_vb_addr_entry_1.$procdff$2054 ($dff) from module ct_lsu_vb_output_miter (D = $flatten\gate_i.\x_ct_lsu_vb_addr_entry_1.$0\vb_addr_entry_addr_tto6[33:8], Q = $auto$async2sync.cc:253:execute$2137, rval = 26'00000000000000000000000000).
+Adding SRST signal on $flatten\gate_i.$procdff$1934 ($dff) from module ct_lsu_vb_output_miter (D = $flatten\gate_i.$0\vb_dcache_arb_st_req[0:0], Q = $auto$async2sync.cc:253:execute$2099, rval = 1'0).
+Adding SRST signal on $flatten\gate_i.$procdff$1919 ($dff) from module ct_lsu_vb_output_miter (D = $flatten\gate_i.$0\vb_rcl_sm_dcache_way[0:0], Q = $auto$async2sync.cc:253:execute$2105, rval = 1'0).
+Adding SRST signal on $flatten\gate_i.$procdff$1904 ($dff) from module ct_lsu_vb_output_miter (D = $flatten\gate_i.$0\vb_wd_sm_vld[0:0], Q = $auto$async2sync.cc:253:execute$2111, rval = 1'0).
+Adding SRST signal on $flatten\gate_i.\x_ct_lsu_vb_addr_entry_1.$procdff$2004 ($dff) from module ct_lsu_vb_output_miter (D = $flatten\gate_i.\x_ct_lsu_vb_addr_entry_1.$0\vb_addr_entry_db_id[2:0], Q = $auto$async2sync.cc:253:execute$2117, rval = 3'000).
+Adding SRST signal on $flatten\gate_i.\x_ct_lsu_vb_addr_entry_0.$procdff$2019 ($dff) from module ct_lsu_vb_output_miter (D = $flatten\gate_i.\x_ct_lsu_vb_addr_entry_0.$procmux$1821_Y, Q = $auto$async2sync.cc:253:execute$2147, rval = 1'0).
+Adding SRST signal on $flatten\gate_i.\x_ct_lsu_vb_addr_entry_1.$procdff$2019 ($dff) from module ct_lsu_vb_output_miter (D = $flatten\gate_i.\x_ct_lsu_vb_addr_entry_1.$procmux$1821_Y, Q = $auto$async2sync.cc:253:execute$2123, rval = 1'0).
+Adding SRST signal on $flatten\gate_i.\x_ct_lsu_vb_addr_entry_1.$procdff$2034 ($dff) from module ct_lsu_vb_output_miter (D = $flatten\gate_i.\x_ct_lsu_vb_addr_entry_1.$procmux$1853_Y, Q = $auto$async2sync.cc:253:execute$2129, rval = 1'0).
+Adding SRST signal on $flatten\gate_i.\x_ct_lsu_vb_addr_entry_1.$procdff$2049 ($dff) from module ct_lsu_vb_output_miter (D = $flatten\gate_i.\x_ct_lsu_vb_addr_entry_1.$procmux$1826_Y, Q = $auto$async2sync.cc:253:execute$2135, rval = 1'0).
+Adding SRST signal on $flatten\gate_i.\x_ct_lsu_vb_addr_entry_0.$procdff$2004 ($dff) from module ct_lsu_vb_output_miter (D = $flatten\gate_i.\x_ct_lsu_vb_addr_entry_0.$0\vb_addr_entry_db_id[2:0], Q = $auto$async2sync.cc:253:execute$2141, rval = 3'000).
+Adding SRST signal on $flatten\gold_i.\x_ct_lsu_vb_addr_entry_1.$procdff$2029 ($dff) from module ct_lsu_vb_output_miter (D = $flatten\gold_i.\x_ct_lsu_vb_addr_entry_1.$0\vb_addr_entry_inv[0:0], Q = $auto$async2sync.cc:253:execute$2197, rval = 1'0).
+Adding SRST signal on $flatten\gold_i.\x_ct_lsu_vb_addr_entry_1.$procdff$2024 ($dff) from module ct_lsu_vb_output_miter (D = $flatten\gold_i.\x_ct_lsu_vb_addr_entry_1.$0\vb_addr_entry_addr_tto6[7:0], Q = $auto$async2sync.cc:253:execute$2195, rval = 8'00000000).
+Adding SRST signal on $flatten\gold_i.\x_ct_lsu_vb_addr_entry_1.$procdff$2019 ($dff) from module ct_lsu_vb_output_miter (D = $flatten\gold_i.\x_ct_lsu_vb_addr_entry_1.$procmux$1821_Y, Q = $auto$async2sync.cc:253:execute$2193, rval = 1'0).
+Adding SRST signal on $flatten\gold_i.\x_ct_lsu_vb_addr_entry_1.$procdff$2014 ($dff) from module ct_lsu_vb_output_miter (D = $flatten\gold_i.\x_ct_lsu_vb_addr_entry_1.$procmux$1816_Y, Q = $auto$async2sync.cc:253:execute$2191, rval = 1'0).
+Adding SRST signal on $flatten\gold_i.\x_ct_lsu_vb_addr_entry_1.$procdff$2009 ($dff) from module ct_lsu_vb_output_miter (D = $flatten\gold_i.\x_ct_lsu_vb_addr_entry_1.$procmux$1811_Y, Q = $auto$async2sync.cc:253:execute$2189, rval = 1'0).
+Adding SRST signal on $flatten\gold_i.\x_ct_lsu_vb_addr_entry_1.$procdff$2004 ($dff) from module ct_lsu_vb_output_miter (D = $flatten\gold_i.\x_ct_lsu_vb_addr_entry_1.$0\vb_addr_entry_db_id[2:0], Q = $auto$async2sync.cc:253:execute$2187, rval = 3'000).
+Adding SRST signal on $flatten\gold_i.$procdff$1949 ($dff) from module ct_lsu_vb_output_miter (D = $flatten\gold_i.$procmux$1386_Y, Q = $auto$async2sync.cc:253:execute$2185, rval = 4'0001).
+Adding SRST signal on $flatten\gold_i.$procdff$1954 ($dff) from module ct_lsu_vb_output_miter (D = $flatten\gold_i.$0\vb_wd_sm_data_id[2:0], Q = $auto$async2sync.cc:253:execute$2183, rval = 3'000).
+Adding SRST signal on $flatten\gold_i.$procdff$1959 ($dff) from module ct_lsu_vb_output_miter (D = $flatten\gold_i.$0\vb_wd_sm_vld[0:0], Q = $auto$async2sync.cc:253:execute$2181, rval = 1'0).
+Adding SRST signal on $flatten\gold_i.$procdff$1964 ($dff) from module ct_lsu_vb_output_miter (D = $flatten\gold_i.$0\vb_rcl_sm_data_id[2:0], Q = $auto$async2sync.cc:253:execute$2179, rval = 3'000).
+Adding SRST signal on $flatten\gold_i.$procdff$1969 ($dff) from module ct_lsu_vb_output_miter (D = $flatten\gold_i.$0\vb_rcl_sm_dcache_dirty[0:0], Q = $auto$async2sync.cc:253:execute$2177, rval = 1'0).
+Adding SRST signal on $flatten\gold_i.$procdff$1974 ($dff) from module ct_lsu_vb_output_miter (D = $flatten\gold_i.$0\vb_rcl_sm_dcache_way[0:0], Q = $auto$async2sync.cc:253:execute$2175, rval = 1'0).
+Adding SRST signal on $flatten\gold_i.$procdff$1979 ($dff) from module ct_lsu_vb_output_miter (D = $flatten\gold_i.$0\vb_rcl_sm_addr_id[1:0], Q = $auto$async2sync.cc:253:execute$2173, rval = 2'00).
+Adding SRST signal on $flatten\gold_i.$procdff$1984 ($dff) from module ct_lsu_vb_output_miter (D = $flatten\gold_i.$0\vb_rcl_sm_addr_tto6[33:0], Q = $auto$async2sync.cc:253:execute$2171, rval = 34'0000000000000000000000000000000000).
+Adding SRST signal on $flatten\gold_i.$procdff$1989 ($dff) from module ct_lsu_vb_output_miter (D = $flatten\gold_i.$0\vb_dcache_arb_st_req[0:0], Q = $auto$async2sync.cc:253:execute$2169, rval = 1'0).
+Adding SRST signal on $flatten\gold_i.$procdff$1994 ($dff) from module ct_lsu_vb_output_miter (D = $flatten\gold_i.$0\vb_dcache_arb_ld_req[0:0], Q = $auto$async2sync.cc:253:execute$2167, rval = 1'0).
+Adding SRST signal on $flatten\gold_i.$procdff$1999 ($dff) from module ct_lsu_vb_output_miter (D = \gold_i.vb_rcl_sm_next_state, Q = $auto$async2sync.cc:253:execute$2165, rval = 4'0000).
+Adding SRST signal on $flatten\gate_i.\x_ct_lsu_vb_addr_entry_0.$procdff$2059 ($dff) from module ct_lsu_vb_output_miter (D = $flatten\gate_i.\x_ct_lsu_vb_addr_entry_0.$procmux$1885_Y, Q = $auto$async2sync.cc:253:execute$2163, rval = 1'0).
+Adding SRST signal on $flatten\gate_i.\x_ct_lsu_vb_addr_entry_0.$procdff$2054 ($dff) from module ct_lsu_vb_output_miter (D = $flatten\gate_i.\x_ct_lsu_vb_addr_entry_0.$0\vb_addr_entry_addr_tto6[33:8], Q = $auto$async2sync.cc:253:execute$2161, rval = 26'00000000000000000000000000).
+Adding SRST signal on $flatten\gate_i.\x_ct_lsu_vb_addr_entry_0.$procdff$2049 ($dff) from module ct_lsu_vb_output_miter (D = $flatten\gate_i.\x_ct_lsu_vb_addr_entry_0.$procmux$1826_Y, Q = $auto$async2sync.cc:253:execute$2159, rval = 1'0).
+Adding SRST signal on $flatten\gate_i.\x_ct_lsu_vb_addr_entry_0.$procdff$2044 ($dff) from module ct_lsu_vb_output_miter (D = $flatten\gate_i.\x_ct_lsu_vb_addr_entry_0.$procmux$1837_Y, Q = $auto$async2sync.cc:253:execute$2157, rval = 3'000).
+Adding SRST signal on $flatten\gate_i.\x_ct_lsu_vb_addr_entry_0.$procdff$2039 ($dff) from module ct_lsu_vb_output_miter (D = $flatten\gate_i.\x_ct_lsu_vb_addr_entry_0.$0\vb_addr_entry_set_way_mode[0:0], Q = $auto$async2sync.cc:253:execute$2155, rval = 1'0).
+Adding SRST signal on $flatten\gate_i.\x_ct_lsu_vb_addr_entry_0.$procdff$2034 ($dff) from module ct_lsu_vb_output_miter (D = $flatten\gate_i.\x_ct_lsu_vb_addr_entry_0.$procmux$1853_Y, Q = $auto$async2sync.cc:253:execute$2153, rval = 1'0).
+Adding SRST signal on $flatten\gate_i.\x_ct_lsu_vb_addr_entry_0.$procdff$2029 ($dff) from module ct_lsu_vb_output_miter (D = $flatten\gate_i.\x_ct_lsu_vb_addr_entry_0.$0\vb_addr_entry_inv[0:0], Q = $auto$async2sync.cc:253:execute$2151, rval = 1'0).
+Adding SRST signal on $flatten\gate_i.\x_ct_lsu_vb_addr_entry_0.$procdff$2024 ($dff) from module ct_lsu_vb_output_miter (D = $flatten\gate_i.\x_ct_lsu_vb_addr_entry_0.$0\vb_addr_entry_addr_tto6[7:0], Q = $auto$async2sync.cc:253:execute$2149, rval = 8'00000000).
+Adding SRST signal on $flatten\gate_i.\x_ct_lsu_vb_addr_entry_1.$procdff$2059 ($dff) from module ct_lsu_vb_output_miter (D = $flatten\gate_i.\x_ct_lsu_vb_addr_entry_1.$procmux$1885_Y, Q = $auto$async2sync.cc:253:execute$2139, rval = 1'0).
+Adding SRST signal on $flatten\gate_i.\x_ct_lsu_vb_addr_entry_1.$procdff$2044 ($dff) from module ct_lsu_vb_output_miter (D = $flatten\gate_i.\x_ct_lsu_vb_addr_entry_1.$procmux$1837_Y, Q = $auto$async2sync.cc:253:execute$2133, rval = 3'000).
+Adding SRST signal on $flatten\gate_i.\x_ct_lsu_vb_addr_entry_1.$procdff$2029 ($dff) from module ct_lsu_vb_output_miter (D = $flatten\gate_i.\x_ct_lsu_vb_addr_entry_1.$0\vb_addr_entry_inv[0:0], Q = $auto$async2sync.cc:253:execute$2127, rval = 1'0).
+Adding SRST signal on $flatten\gate_i.\x_ct_lsu_vb_addr_entry_1.$procdff$2014 ($dff) from module ct_lsu_vb_output_miter (D = $flatten\gate_i.\x_ct_lsu_vb_addr_entry_1.$procmux$1816_Y, Q = $auto$async2sync.cc:253:execute$2121, rval = 1'0).
+Adding SRST signal on $flatten\gate_i.\x_ct_lsu_vb_addr_entry_0.$procdff$2014 ($dff) from module ct_lsu_vb_output_miter (D = $flatten\gate_i.\x_ct_lsu_vb_addr_entry_0.$procmux$1816_Y, Q = $auto$async2sync.cc:253:execute$2145, rval = 1'0).
+Adding SRST signal on $flatten\gate_i.$procdff$1894 ($dff) from module ct_lsu_vb_output_miter (D = $flatten\gate_i.$procmux$966_Y, Q = $auto$async2sync.cc:253:execute$2115, rval = 4'0001).
+Adding SRST signal on $flatten\gate_i.$procdff$1909 ($dff) from module ct_lsu_vb_output_miter (D = $flatten\gate_i.$0\vb_rcl_sm_data_id[2:0], Q = $auto$async2sync.cc:253:execute$2109, rval = 3'000).
+Adding SRST signal on $flatten\gate_i.$procdff$1924 ($dff) from module ct_lsu_vb_output_miter (D = $flatten\gate_i.$0\vb_rcl_sm_addr_id[1:0], Q = $auto$async2sync.cc:253:execute$2103, rval = 2'00).
+Adding SRST signal on $flatten\gate_i.$procdff$1939 ($dff) from module ct_lsu_vb_output_miter (D = $flatten\gate_i.$0\vb_dcache_arb_ld_req[0:0], Q = $auto$async2sync.cc:253:execute$2097, rval = 1'0).
+Adding SRST signal on $flatten\gold_i.\x_ct_lsu_vb_addr_entry_0.$procdff$2059 ($dff) from module ct_lsu_vb_output_miter (D = $flatten\gold_i.\x_ct_lsu_vb_addr_entry_0.$procmux$1885_Y, Q = $auto$async2sync.cc:253:execute$2233, rval = 1'0).
+Adding SRST signal on $flatten\gold_i.\x_ct_lsu_vb_addr_entry_0.$procdff$2054 ($dff) from module ct_lsu_vb_output_miter (D = $flatten\gold_i.\x_ct_lsu_vb_addr_entry_0.$0\vb_addr_entry_addr_tto6[33:8], Q = $auto$async2sync.cc:253:execute$2231, rval = 26'00000000000000000000000000).
+Adding SRST signal on $flatten\gold_i.\x_ct_lsu_vb_addr_entry_0.$procdff$2049 ($dff) from module ct_lsu_vb_output_miter (D = $flatten\gold_i.\x_ct_lsu_vb_addr_entry_0.$procmux$1826_Y, Q = $auto$async2sync.cc:253:execute$2229, rval = 1'0).
+Adding SRST signal on $flatten\gold_i.\x_ct_lsu_vb_addr_entry_0.$procdff$2044 ($dff) from module ct_lsu_vb_output_miter (D = $flatten\gold_i.\x_ct_lsu_vb_addr_entry_0.$procmux$1837_Y, Q = $auto$async2sync.cc:253:execute$2227, rval = 3'000).
+Adding SRST signal on $flatten\gold_i.\x_ct_lsu_vb_addr_entry_0.$procdff$2039 ($dff) from module ct_lsu_vb_output_miter (D = $flatten\gold_i.\x_ct_lsu_vb_addr_entry_0.$0\vb_addr_entry_set_way_mode[0:0], Q = $auto$async2sync.cc:253:execute$2225, rval = 1'0).
+Adding SRST signal on $flatten\gold_i.\x_ct_lsu_vb_addr_entry_0.$procdff$2034 ($dff) from module ct_lsu_vb_output_miter (D = $flatten\gold_i.\x_ct_lsu_vb_addr_entry_0.$procmux$1853_Y, Q = $auto$async2sync.cc:253:execute$2223, rval = 1'0).
+Adding SRST signal on $flatten\gold_i.\x_ct_lsu_vb_addr_entry_0.$procdff$2029 ($dff) from module ct_lsu_vb_output_miter (D = $flatten\gold_i.\x_ct_lsu_vb_addr_entry_0.$0\vb_addr_entry_inv[0:0], Q = $auto$async2sync.cc:253:execute$2221, rval = 1'0).
+
+12.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_lsu_vb_output_miter..
+Removed 256 unused cells and 399 unused wires.
+<suppressed ~301 debug messages>
+
+12.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_lsu_vb_output_miter.
+<suppressed ~6 debug messages>
+
+12.9. Rerunning OPT passes. (Maybe there is more to do..)
+
+12.10. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \ct_lsu_vb_output_miter..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+    dead port 1/4 on $pmux $flatten\gate_i.$procmux$979.
+    dead port 2/4 on $pmux $flatten\gate_i.$procmux$979.
+    dead port 3/4 on $pmux $flatten\gate_i.$procmux$979.
+    dead port 4/4 on $pmux $flatten\gate_i.$procmux$979.
+    dead port 1/2 on $mux $flatten\gate_i.$ternary$./ct_lsu_vb_gate_renamed.v:1494$544.
+    dead port 2/2 on $mux $flatten\gate_i.$ternary$./ct_lsu_vb_gate_renamed.v:1494$544.
+Removed 6 multiplexer ports.
+<suppressed ~468 debug messages>
+
+12.11. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \ct_lsu_vb_output_miter.
+Performed a total of 0 changes.
+
+12.12. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_lsu_vb_output_miter'.
+Computing hashes of 1074 cells of `\ct_lsu_vb_output_miter'.
+Finding duplicate cells in `\ct_lsu_vb_output_miter'.
+Computing hashes of 1045 cells of `\ct_lsu_vb_output_miter'.
+Finding duplicate cells in `\ct_lsu_vb_output_miter'.
+Computing hashes of 1033 cells of `\ct_lsu_vb_output_miter'.
+Finding duplicate cells in `\ct_lsu_vb_output_miter'.
+<suppressed ~123 debug messages>
+Removed a total of 41 cells.
+
+12.13. Executing OPT_DFF pass (perform DFF optimizations).
+
+12.14. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_lsu_vb_output_miter..
+Removed 14 unused cells and 74 unused wires.
+<suppressed ~33 debug messages>
+
+12.15. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_lsu_vb_output_miter.
+
+12.16. Rerunning OPT passes. (Maybe there is more to do..)
+
+12.17. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \ct_lsu_vb_output_miter..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~468 debug messages>
+
+12.18. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \ct_lsu_vb_output_miter.
+Performed a total of 0 changes.
+
+12.19. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_lsu_vb_output_miter'.
+Computing hashes of 1019 cells of `\ct_lsu_vb_output_miter'.
+Finding duplicate cells in `\ct_lsu_vb_output_miter'.
+Removed a total of 0 cells.
+
+12.20. Executing OPT_DFF pass (perform DFF optimizations).
+
+12.21. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_lsu_vb_output_miter..
+
+12.22. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_lsu_vb_output_miter.
+
+12.23. Finished fast OPT passes. (There is nothing left to do.)
+
+13. Executing SAT pass (solving SAT problems in the circuit).
+Using SAT solver `minisat`.
+
+Setting up time step 1:
+Import set-constraint for this timestep: \cpurst_b = 1'0
+Final constraint equation: \cpurst_b = 1'0
+Imported 1019 cells to SAT database.
+No constraints for initial state found.
+
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:599$695_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: 1'1 when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:607$711_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:631$759_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:618$733_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:619$735_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:625$747_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:630$757_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:629$755_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:559$615_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:628$753_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:599$695_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:627$751_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:606$709_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:626$749_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:610$717_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:600$697_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:579$655_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:616$729_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:600$697_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:644$785_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:638$773_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:605$707_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: 1'1 when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:643$783_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:604$705_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:642$781_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:603$703_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:615$727_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:641$779_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:602$701_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:599$695_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:640$777_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:601$699_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:639$775_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: 1'1 when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:637$771_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:604$705_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:624$745_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:646$789_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:623$743_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:612$721_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:622$741_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: 1'1 when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:621$739_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:598$693_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:636$769_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:597$691_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: 1'1 when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:606$709_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:635$767_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: 1'1 when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:561$619_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:562$621_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:563$623_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: 1'1 when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: 1'1 when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: 1'1 when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: 1'1 when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:568$633_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:569$635_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: 1'1 when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: 1'1 when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:568$633_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:596$689_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:634$765_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:568$633_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:595$687_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:633$763_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:594$685_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:592$681_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:580$657_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:581$659_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:582$661_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: 1'1 when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:582$661_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: 1'1 when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:586$669_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:586$669_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:588$673_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:589$675_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:590$677_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:591$679_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:592$681_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:593$683_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:606$709_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: 1'1 when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:645$787_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+
+Setting up time step 2:
+Import set-constraint for this timestep: \cpurst_b = 1'1
+Final constraint equation: \cpurst_b = 1'1
+Imported 1019 cells to SAT database.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:599$695_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: 1'1 when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:607$711_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:631$759_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:618$733_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:619$735_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:625$747_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:630$757_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:629$755_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:559$615_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:628$753_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:599$695_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:627$751_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:606$709_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:626$749_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:610$717_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:600$697_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:579$655_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:616$729_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:600$697_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:644$785_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:638$773_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:605$707_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: 1'1 when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:643$783_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:604$705_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:642$781_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:603$703_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:615$727_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:641$779_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:602$701_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:599$695_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:640$777_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:601$699_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:639$775_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: 1'1 when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:637$771_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:604$705_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:624$745_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:646$789_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:623$743_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:612$721_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:622$741_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: 1'1 when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:621$739_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:598$693_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:636$769_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:597$691_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: 1'1 when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:606$709_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:635$767_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: 1'1 when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:561$619_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:562$621_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:563$623_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: 1'1 when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: 1'1 when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: 1'1 when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: 1'1 when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:568$633_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:569$635_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: 1'1 when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: 1'1 when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:568$633_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:596$689_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:634$765_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:568$633_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:595$687_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:633$763_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:594$685_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:592$681_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:580$657_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:581$659_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:582$661_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: 1'1 when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:582$661_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: 1'1 when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:586$669_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:586$669_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:588$673_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:589$675_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:590$677_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:591$679_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:592$681_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:593$683_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:606$709_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: 1'1 when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:645$787_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+
+Setting up time step 3:
+Import set-constraint for this timestep: \cpurst_b = 1'1
+Final constraint equation: \cpurst_b = 1'1
+Imported 1019 cells to SAT database.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:599$695_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: 1'1 when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:607$711_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:631$759_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:618$733_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:619$735_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:625$747_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:630$757_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:629$755_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:559$615_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:628$753_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:599$695_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:627$751_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:606$709_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:626$749_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:610$717_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:600$697_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:579$655_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:616$729_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:600$697_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:644$785_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:638$773_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:605$707_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: 1'1 when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:643$783_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:604$705_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:642$781_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:603$703_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:615$727_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:641$779_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:602$701_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:599$695_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:640$777_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:601$699_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:639$775_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: 1'1 when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:637$771_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:604$705_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:624$745_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:646$789_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:623$743_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:612$721_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:622$741_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: 1'1 when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:621$739_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:598$693_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:636$769_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:597$691_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: 1'1 when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:606$709_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:635$767_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: 1'1 when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:561$619_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:562$621_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:563$623_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: 1'1 when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: 1'1 when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: 1'1 when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: 1'1 when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:568$633_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:569$635_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: 1'1 when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: 1'1 when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:568$633_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:596$689_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:634$765_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:568$633_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:595$687_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:633$763_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:594$685_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:592$681_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:580$657_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:581$659_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:582$661_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: 1'1 when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:582$661_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: 1'1 when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:586$669_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:586$669_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:588$673_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:589$675_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:590$677_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:591$679_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:592$681_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:593$683_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:606$709_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: 1'1 when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:645$787_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+
+Setting up time step 4:
+Import set-constraint for this timestep: \cpurst_b = 1'1
+Final constraint equation: \cpurst_b = 1'1
+Imported 1019 cells to SAT database.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:599$695_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: 1'1 when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:607$711_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:631$759_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:618$733_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:619$735_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:625$747_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:630$757_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:629$755_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:559$615_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:628$753_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:599$695_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:627$751_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:606$709_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:626$749_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:610$717_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:600$697_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:579$655_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:616$729_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:600$697_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:644$785_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:638$773_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:605$707_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: 1'1 when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:643$783_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:604$705_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:642$781_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:603$703_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:615$727_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:641$779_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:602$701_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:599$695_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:640$777_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:601$699_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:639$775_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: 1'1 when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:637$771_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:604$705_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:624$745_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:646$789_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:623$743_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:612$721_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:622$741_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: 1'1 when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:621$739_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:598$693_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:636$769_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:597$691_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: 1'1 when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:606$709_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:635$767_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: 1'1 when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:561$619_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:562$621_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:563$623_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: 1'1 when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: 1'1 when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: 1'1 when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: 1'1 when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:568$633_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:569$635_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: 1'1 when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: 1'1 when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:568$633_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:596$689_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:634$765_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:568$633_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:595$687_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:633$763_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:594$685_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:592$681_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:580$657_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:581$659_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:582$661_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: 1'1 when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:582$661_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: 1'1 when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:586$669_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:586$669_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:588$673_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:589$675_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:590$677_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:591$679_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:592$681_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:593$683_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:606$709_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: 1'1 when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:645$787_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+
+Setting up time step 5:
+Import set-constraint for this timestep: \cpurst_b = 1'1
+Final constraint equation: \cpurst_b = 1'1
+Imported 1019 cells to SAT database.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:599$695_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: 1'1 when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:607$711_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:631$759_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:618$733_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:619$735_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:625$747_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:630$757_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:629$755_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:559$615_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:628$753_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:599$695_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:627$751_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:606$709_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:626$749_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:610$717_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:600$697_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:579$655_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:616$729_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:600$697_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:644$785_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:638$773_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:605$707_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: 1'1 when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:643$783_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:604$705_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:642$781_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:603$703_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:615$727_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:641$779_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:602$701_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:599$695_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:640$777_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:601$699_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:639$775_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: 1'1 when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:637$771_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:604$705_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:624$745_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:646$789_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:623$743_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:612$721_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:622$741_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: 1'1 when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:621$739_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:598$693_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:636$769_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:597$691_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: 1'1 when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:606$709_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:635$767_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: 1'1 when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:561$619_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:562$621_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:563$623_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: 1'1 when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: 1'1 when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: 1'1 when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: 1'1 when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:568$633_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:569$635_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: 1'1 when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: 1'1 when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:568$633_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:596$689_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:634$765_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:568$633_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:595$687_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:633$763_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:594$685_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:592$681_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:580$657_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:581$659_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:582$661_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: 1'1 when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:582$661_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: 1'1 when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:586$669_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:586$669_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:588$673_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:589$675_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:590$677_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:591$679_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:592$681_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:593$683_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:606$709_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: 1'1 when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:645$787_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+
+Setting up time step 6:
+Import set-constraint for this timestep: \cpurst_b = 1'1
+Final constraint equation: \cpurst_b = 1'1
+Imported 1019 cells to SAT database.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:599$695_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: 1'1 when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:607$711_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:631$759_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:618$733_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:619$735_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:625$747_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:630$757_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:629$755_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:559$615_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:628$753_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:599$695_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:627$751_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:606$709_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:626$749_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:610$717_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:600$697_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:579$655_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:616$729_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:600$697_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:644$785_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:638$773_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:605$707_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: 1'1 when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:643$783_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:604$705_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:642$781_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:603$703_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:615$727_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:641$779_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:602$701_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:599$695_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:640$777_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:601$699_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:639$775_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: 1'1 when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:637$771_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:604$705_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:624$745_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:646$789_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:623$743_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:612$721_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:622$741_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: 1'1 when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:621$739_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:598$693_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:636$769_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:597$691_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: 1'1 when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:606$709_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:635$767_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: 1'1 when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:561$619_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:562$621_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:563$623_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: 1'1 when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: 1'1 when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: 1'1 when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: 1'1 when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:568$633_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:569$635_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: 1'1 when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: 1'1 when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:568$633_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:596$689_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:634$765_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:568$633_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:595$687_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:633$763_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:594$685_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:592$681_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:580$657_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:581$659_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:582$661_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: 1'1 when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:582$661_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: 1'1 when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:586$669_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:586$669_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:588$673_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:589$675_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:590$677_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:591$679_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:592$681_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:593$683_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:606$709_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: 1'1 when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:645$787_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+
+Setting up time step 7:
+Import set-constraint for this timestep: \cpurst_b = 1'1
+Final constraint equation: \cpurst_b = 1'1
+Imported 1019 cells to SAT database.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:599$695_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: 1'1 when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:607$711_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:631$759_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:618$733_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:619$735_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:625$747_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:630$757_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:629$755_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:559$615_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:628$753_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:599$695_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:627$751_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:606$709_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:626$749_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:610$717_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:600$697_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:579$655_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:616$729_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:600$697_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:644$785_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:638$773_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:605$707_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: 1'1 when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:643$783_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:604$705_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:642$781_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:603$703_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:615$727_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:641$779_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:602$701_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:599$695_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:640$777_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:601$699_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:639$775_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: 1'1 when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:637$771_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:604$705_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:624$745_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:646$789_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:623$743_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:612$721_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:622$741_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: 1'1 when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:621$739_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:598$693_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:636$769_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:597$691_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: 1'1 when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:606$709_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:635$767_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: 1'1 when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:561$619_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:562$621_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:563$623_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: 1'1 when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: 1'1 when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: 1'1 when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: 1'1 when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:568$633_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:569$635_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: 1'1 when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: 1'1 when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:568$633_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:596$689_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:634$765_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:568$633_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:595$687_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:633$763_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:594$685_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:592$681_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:580$657_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:581$659_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:582$661_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: 1'1 when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:582$661_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: 1'1 when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:586$669_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:586$669_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:588$673_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:589$675_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:590$677_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:591$679_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:592$681_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:593$683_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:606$709_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: 1'1 when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:645$787_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+
+Setting up time step 8:
+Import set-constraint for this timestep: \cpurst_b = 1'1
+Final constraint equation: \cpurst_b = 1'1
+Imported 1019 cells to SAT database.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:599$695_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: 1'1 when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:607$711_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:631$759_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:618$733_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:619$735_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:625$747_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:630$757_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:629$755_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:559$615_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:628$753_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:599$695_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:627$751_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:606$709_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:626$749_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:610$717_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:600$697_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:579$655_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:616$729_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:600$697_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:644$785_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:638$773_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:605$707_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: 1'1 when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:643$783_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:604$705_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:642$781_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:603$703_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:615$727_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:641$779_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:602$701_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:599$695_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:640$777_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:601$699_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:639$775_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: 1'1 when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:637$771_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:604$705_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:624$745_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:646$789_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:623$743_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:612$721_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:622$741_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: 1'1 when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:621$739_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:598$693_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:636$769_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:597$691_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: 1'1 when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:606$709_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:635$767_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: 1'1 when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:561$619_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:562$621_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:563$623_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: 1'1 when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: 1'1 when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: 1'1 when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: 1'1 when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:568$633_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:569$635_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: 1'1 when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: 1'1 when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:568$633_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:596$689_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:634$765_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:568$633_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:595$687_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:633$763_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:594$685_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:592$681_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:580$657_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:581$659_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:582$661_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: 1'1 when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:582$661_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: 1'1 when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:586$669_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:586$669_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:588$673_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:589$675_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:590$677_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:591$679_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:592$681_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:593$683_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:606$709_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: 1'1 when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+Import proof for assert: $eq$./ct_lsu_vb_output_miter.sv:645$787_Y when $assert$./ct_lsu_vb_output_miter.sv:559$614_EN.
+
+Solving problem with 207141 variables and 543956 clauses..
+SAT proof finished - no model found: SUCCESS!
+
+                  /$$$$$$      /$$$$$$$$     /$$$$$$$    
+                 /$$__  $$    | $$_____/    | $$__  $$   
+                | $$  \ $$    | $$          | $$  \ $$   
+                | $$  | $$    | $$$$$       | $$  | $$   
+                | $$  | $$    | $$__/       | $$  | $$   
+                | $$/$$ $$    | $$          | $$  | $$   
+                |  $$$$$$/ /$$| $$$$$$$$ /$$| $$$$$$$//$$
+                 \____ $$$|__/|________/|__/|_______/|__/
+                       \__/                              
+
+End of script. Logfile hash: b338e95fb2, time: 32.89s, user: 32.67s, system: 0.21s, MEM: 256.03 MB peak
+Yosys 0.66+181 (git sha1 afe6b18f2, Release, Clang /usr/bin/clang++ 18.1.8)
+Time spent: 99% 1x sat (32 sec), 0% 8x opt_clean (0 sec), ...

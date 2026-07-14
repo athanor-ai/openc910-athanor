@@ -1,0 +1,83 @@
+{
+  "schema": "athanor.same_candidate_metric_binding.v1",
+  "status": "candidate_metric_scout_pending_independent_replay",
+  "customer_ready": false,
+  "candidate": {
+    "candidate_sha256": "dd1bb28581560d692370e55f206d0a6308ee4e16f41a91488239a367acd4c62c",
+    "mapped_netlist_sha256": "f290807e5166729be5200ffb8934f1abc02ef604bb39281ee934ad1d0d854339",
+    "selected_flow": "yosys66_sky130_synth_dfflibmap_abc_opensta_contract_v1"
+  },
+  "axes": {
+    "area": {
+      "candidate_sha256": "dd1bb28581560d692370e55f206d0a6308ee4e16f41a91488239a367acd4c62c",
+      "mapped_netlist_sha256": "f290807e5166729be5200ffb8934f1abc02ef604bb39281ee934ad1d0d854339",
+      "selected_flow": "yosys66_sky130_synth_dfflibmap_abc_opensta_contract_v1",
+      "instrument": "yosys_stat_liberty",
+      "instrument_version": "Yosys 0.66+181 (git sha1 afe6b18f2, Release, Clang /usr/bin/clang++ 18.1.8)",
+      "metric": {
+        "gold": 13043.76,
+        "gate": 13038.7552,
+        "unit": "sky130_selected_area"
+      },
+      "negative_control": {
+        "regressed_candidate_sha256": "adbe85217d0bc8b4dda37154e9cfb863914b15620fe30b72794860f3e0e32ae7",
+        "axis_reds": true,
+        "metric": {
+          "regressed": 15312.1856,
+          "unit": "sky130_selected_area"
+        },
+        "log_ref": "metric_negative_area.pinned.log"
+      }
+    },
+    "timing": {
+      "candidate_sha256": "dd1bb28581560d692370e55f206d0a6308ee4e16f41a91488239a367acd4c62c",
+      "mapped_netlist_sha256": "f290807e5166729be5200ffb8934f1abc02ef604bb39281ee934ad1d0d854339",
+      "selected_flow": "yosys66_sky130_synth_dfflibmap_abc_opensta_contract_v1",
+      "instrument": "opensta",
+      "instrument_version": "OpenSTA 2.2.0 02b129d48f",
+      "metric": {
+        "gold_max_data_arrival_ns": 6.01,
+        "gate_max_data_arrival_ns": 4.99,
+        "clock_period_ns": 10.0,
+        "interpretation": "lower data-arrival under the package SDC"
+      },
+      "negative_control": {
+        "regressed_candidate_sha256": "adbe85217d0bc8b4dda37154e9cfb863914b15620fe30b72794860f3e0e32ae7",
+        "axis_reds": true,
+        "metric": {
+          "regressed_max_data_arrival_ns": 8.93
+        },
+        "log_ref": "metric_negative_opensta_area_timing_power.pinned.log"
+      }
+    },
+    "power": {
+      "candidate_sha256": "dd1bb28581560d692370e55f206d0a6308ee4e16f41a91488239a367acd4c62c",
+      "mapped_netlist_sha256": "f290807e5166729be5200ffb8934f1abc02ef604bb39281ee934ad1d0d854339",
+      "selected_flow": "yosys66_sky130_synth_dfflibmap_abc_opensta_contract_v1",
+      "instrument": "opensta_report_power",
+      "instrument_version": "OpenSTA 2.2.0 02b129d48f",
+      "activity_source": "set_power_activity -global -activity 0.1 -duty 0.5",
+      "metric": {
+        "gold_total_power_nw": 0.000595,
+        "gate_total_power_nw": 0.000593,
+        "gold_internal_power_nw": 0.000442,
+        "gate_internal_power_nw": 0.000442,
+        "gold_switching_power_nw": 0.000152,
+        "gate_switching_power_nw": 0.000151,
+        "gold_leakage_power_nw": 0.00000000454,
+        "gate_leakage_power_nw": 0.00000000455,
+        "interpretation": "lower estimated power under fixed activity",
+        "methodology_boundary": "OpenSTA liberty estimate under fixed global activity; not signoff power and not measured workload activity"
+      },
+      "negative_control": {
+        "regressed_candidate_sha256": "adbe85217d0bc8b4dda37154e9cfb863914b15620fe30b72794860f3e0e32ae7",
+        "axis_reds": true,
+        "metric": {
+          "regressed_total_power_nw": 0.000662
+        },
+        "log_ref": "metric_negative_opensta_area_timing_power.pinned.log"
+      }
+    }
+  },
+  "independent_review_summary": "Pending independent replay; this packet is candidate evidence only."
+}

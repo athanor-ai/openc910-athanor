@@ -1,0 +1,163 @@
+{
+  "schema": "kairos.ath2950.module_metric_scout.v1",
+  "ticket": "ATH-2950",
+  "status": "candidate_metric_scout_pending_independent_replay",
+  "customer_ready": false,
+  "customer_ready_scope": "none; candidate scout only",
+  "target": {
+    "module": "ct_lsu_vb",
+    "subsystem": "lsu_vb",
+    "proof_subject": "module-local visible-output equivalence under a reset-first bounded miter"
+  },
+  "candidate": {
+    "candidate_id": "ct_lsu_vb_addr_decode_shift_candidate1",
+    "description": "replace two 2-entry address-ID case decodes with direct one-hot shifts for vb_biu_aw_addr_ptr and vb_addr_b_resp_ptr",
+    "candidate_sha256": "dd1bb28581560d692370e55f206d0a6308ee4e16f41a91488239a367acd4c62c",
+    "mapped_netlist_sha256": "f290807e5166729be5200ffb8934f1abc02ef604bb39281ee934ad1d0d854339",
+    "selected_flow": "yosys66_sky130_synth_dfflibmap_abc_opensta_contract_v1",
+    "state_change": "none"
+  },
+  "toolchain": {
+    "yosys_version": "Yosys 0.66+181 (git sha1 afe6b18f2, Release, Clang /usr/bin/clang++ 18.1.8)",
+    "opensta_version": "OpenSTA 2.2.0 02b129d48f",
+    "liberty": "sky130_fd_sc_hd__tt_025C_1v80.lib"
+  },
+  "files": {
+    ".gitattributes": "dd189159ababdd3a2f5c2a0a7106f4a0bffd179e55e9db36e1476121f0bb8e7c",
+    "README.md": "0a71d7880524f14f4e127e44ec217ef69b2a998aff81ea04755ef7f0b8313444",
+    "cpu_cfig.h": "f95edd68a9a93f0214ec0f2d1c09e03c4c6efbb2d43c5997a4c99ef14dcc097e",
+    "gated_clk_cell.v": "6cfad397c18daabdff77e3a520ccbf964e4178197cc9a0f8dd825bbf928a91c8",
+    "ct_rtu_expand_8.v": "4ce9e12bcb4658ab96e101a1357918caff0a652f4090e952625cee2029d1c8d0",
+    "ct_lsu_vb_addr_entry.v": "02717f4d07e486435057fc0b9bcd413b87389a13d92a9242e12fe54cc32c5df4",
+    "ct_lsu_vb_gold.v": "40ea2b5de49f1eacbda28d3cbce87bb1e9c000cf0c0a62e4700ff4e6b868f30b",
+    "ct_lsu_vb_gate_candidate.v": "dd1bb28581560d692370e55f206d0a6308ee4e16f41a91488239a367acd4c62c",
+    "ct_lsu_vb_gate_proof_mutant.v": "31760015fb021d252da6fb0c87c59c9644b4825824ebaae6612740a1b617c8c7",
+    "ct_lsu_vb_metric_negative.v": "b7cd777e3203da146c132a02918a6a897f26bf6bfe062cf3ba84c09ac6f1e45f",
+    "ct_lsu_vb_output_miter.sv": "2c955bb3352a73a6f1436ed3c03ca906cd29ff1ecb4617725109a71876eb8dde",
+    "ct_lsu_vb_gold.mapped.v": "0b37bd4200de933a7d4f09f65afeecd9db0c83ac1f990313e850aef9b55a9906",
+    "ct_lsu_vb_gate_candidate.mapped.v": "f290807e5166729be5200ffb8934f1abc02ef604bb39281ee934ad1d0d854339",
+    "ct_lsu_vb_metric_negative.mapped.v": "adbe85217d0bc8b4dda37154e9cfb863914b15620fe30b72794860f3e0e32ae7",
+    "output_miter_seq8.pinned.log": "dd02f5e638402ff26744d050211903585d6484b2f233885b4735f7924dfea85c",
+    "proof_mutant_negative.pinned.log": "b9246a9cd9ec450150209ff2d089f9d7a85bf46fb3cb4e419cc0daf76e335370",
+    "gold_map.pinned.log": "7e8d4e80e79a7a017785d356fe6f3a4c9de79e04b6e327f875ffe2321b223477",
+    "gate_map.pinned.log": "fd709958c39b3082951143303efcfa10c269ce5c3d15ec6f28cac295ee019ccf",
+    "metric_negative_area.pinned.log": "c3302dfa891c2f0b2732522d42db38b8d9a347951c2c73498dd50ecefeb22aca",
+    "gold_opensta_area_timing_power.pinned.log": "530e86426d7931885609306a466fe039c2c3479e16c20b0d75aedfbe23232474",
+    "gate_opensta_area_timing_power.pinned.log": "f597b33d600bac8f7e4ef8cff4ddda9b0ca278d3204e18e3a970c67d573c9ff8",
+    "metric_negative_opensta_area_timing_power.pinned.log": "3b31970222b627980831c937886b99333b6feeca71cd8ed29858734e6d399ccf",
+    "same_candidate_binding_receipt.json": "706c658c815ab427adf0ace1496f772fbec0ff40352060a432c13387c172bb55",
+    "replay.sh": "ec179658b043aeac16ac8907d3b458973aa6822b4d848e9c9c9fb714d0b8a4ae"
+  },
+  "metrics": {
+    "area": {
+      "candidate_sha256": "dd1bb28581560d692370e55f206d0a6308ee4e16f41a91488239a367acd4c62c",
+      "mapped_netlist_sha256": "f290807e5166729be5200ffb8934f1abc02ef604bb39281ee934ad1d0d854339",
+      "selected_flow": "yosys66_sky130_synth_dfflibmap_abc_opensta_contract_v1",
+      "instrument": "yosys_stat_liberty",
+      "instrument_version": "Yosys 0.66+181 (git sha1 afe6b18f2, Release, Clang /usr/bin/clang++ 18.1.8)",
+      "metric": {
+        "gold": 13043.76,
+        "gate": 13038.7552,
+        "unit": "sky130_selected_area"
+      },
+      "negative_control": {
+        "regressed_candidate_sha256": "adbe85217d0bc8b4dda37154e9cfb863914b15620fe30b72794860f3e0e32ae7",
+        "axis_reds": true,
+        "metric": {
+          "regressed": 15312.1856,
+          "unit": "sky130_selected_area"
+        },
+        "log_ref": "metric_negative_area.pinned.log"
+      }
+    },
+    "timing": {
+      "candidate_sha256": "dd1bb28581560d692370e55f206d0a6308ee4e16f41a91488239a367acd4c62c",
+      "mapped_netlist_sha256": "f290807e5166729be5200ffb8934f1abc02ef604bb39281ee934ad1d0d854339",
+      "selected_flow": "yosys66_sky130_synth_dfflibmap_abc_opensta_contract_v1",
+      "instrument": "opensta",
+      "instrument_version": "OpenSTA 2.2.0 02b129d48f",
+      "metric": {
+        "gold_max_data_arrival_ns": 6.01,
+        "gate_max_data_arrival_ns": 4.99,
+        "clock_period_ns": 10.0,
+        "interpretation": "lower data-arrival under the package SDC"
+      },
+      "negative_control": {
+        "regressed_candidate_sha256": "adbe85217d0bc8b4dda37154e9cfb863914b15620fe30b72794860f3e0e32ae7",
+        "axis_reds": true,
+        "metric": {
+          "regressed_max_data_arrival_ns": 8.93
+        },
+        "log_ref": "metric_negative_opensta_area_timing_power.pinned.log"
+      }
+    },
+    "power": {
+      "candidate_sha256": "dd1bb28581560d692370e55f206d0a6308ee4e16f41a91488239a367acd4c62c",
+      "mapped_netlist_sha256": "f290807e5166729be5200ffb8934f1abc02ef604bb39281ee934ad1d0d854339",
+      "selected_flow": "yosys66_sky130_synth_dfflibmap_abc_opensta_contract_v1",
+      "instrument": "opensta_report_power",
+      "instrument_version": "OpenSTA 2.2.0 02b129d48f",
+      "activity_source": "set_power_activity -global -activity 0.1 -duty 0.5",
+      "metric": {
+        "gold_total_power_nw": 0.000595,
+        "gate_total_power_nw": 0.000593,
+        "gold_internal_power_nw": 0.000442,
+        "gate_internal_power_nw": 0.000442,
+        "gold_switching_power_nw": 0.000152,
+        "gate_switching_power_nw": 0.000151,
+        "gold_leakage_power_nw": 0.00000000454,
+        "gate_leakage_power_nw": 0.00000000455,
+        "interpretation": "lower estimated power under fixed activity",
+        "methodology_boundary": "OpenSTA liberty estimate under fixed global activity; not signoff power and not measured workload activity"
+      },
+      "negative_control": {
+        "regressed_candidate_sha256": "adbe85217d0bc8b4dda37154e9cfb863914b15620fe30b72794860f3e0e32ae7",
+        "axis_reds": true,
+        "metric": {
+          "regressed_total_power_nw": 0.000662
+        },
+        "log_ref": "metric_negative_opensta_area_timing_power.pinned.log"
+      }
+    }
+  },
+  "proof_receipts": {
+    "visible_output_miter": {
+      "status": "passed",
+      "command": "read_verilog -sv cpu_cfig.h gated_clk_cell.v ct_rtu_expand_8.v ct_lsu_vb_addr_entry.v ct_lsu_vb_gold.v ct_lsu_vb_gate_candidate.renamed.v ct_lsu_vb_output_miter.sv; prep -top ct_lsu_vb_output_miter; flatten; async2sync; dffunmap; opt; select -module ct_lsu_vb_output_miter; sat -seq 8 -set-at 1 cpurst_b 0 -set-at 2 cpurst_b 1 -set-at 3 cpurst_b 1 -set-at 4 cpurst_b 1 -set-at 5 cpurst_b 1 -set-at 6 cpurst_b 1 -set-at 7 cpurst_b 1 -set-at 8 cpurst_b 1 -prove-asserts -verify",
+      "log": "output_miter_seq8.pinned.log",
+      "log_sha256": "dd02f5e638402ff26744d050211903585d6484b2f233885b4735f7924dfea85c",
+      "sequence_depth": 8,
+      "reset_policy": "cpurst_b forced low at step 1 and high at steps 2 through 8"
+    },
+    "proof_negative_control": {
+      "status": "failed_as_expected",
+      "mutation": "flip both direct one-hot shift indices with xor 2'b01",
+      "command": "same as visible_output_miter, with ct_lsu_vb_gate_proof_mutant.v renamed to ct_lsu_vb_gate",
+      "log": "proof_mutant_negative.pinned.log",
+      "log_sha256": "b9246a9cd9ec450150209ff2d089f9d7a85bf46fb3cb4e419cc0daf76e335370",
+      "failure_marker": "SAT proof finished - model found: FAIL; Called with -verify and proof did fail"
+    }
+  },
+  "negative_controls": {
+    "metric_negative_netlist": {
+      "path": "ct_lsu_vb_metric_negative.mapped.v",
+      "sha256": "adbe85217d0bc8b4dda37154e9cfb863914b15620fe30b72794860f3e0e32ae7",
+      "interpretation": "metric-only red control; not a functional/proof candidate"
+    },
+    "proof_mutant": {
+      "path": "ct_lsu_vb_gate_proof_mutant.v",
+      "sha256": "31760015fb021d252da6fb0c87c59c9644b4825824ebaae6612740a1b617c8c7",
+      "interpretation": "functional proof red control; the same output miter rejects this broken candidate"
+    }
+  },
+  "known_boundaries": [
+    "candidate metric scout only; not promoted as a result row",
+    "module-local ct_lsu_vb only",
+    "visible-output equivalence under the reset-first bounded miter is the proof subject",
+    "OpenSTA estimated power is not signoff power and not measured workload activity",
+    "not whole LSU, whole C910/BOOM, ISA, memory consistency, speculation recovery, composed optimization, or whole-chip authority"
+  ],
+  "next_independent_check": {
+    "ask": "Reproduce replay.sh with pinned public-style Yosys/OpenSTA/Liberty; confirm proof mutant fails and metric red-control reds all three axes before any promotion discussion."
+  }
+}

@@ -1,0 +1,54 @@
+OpenSTA 2.2.0 02b129d48f Copyright (c) 2019, Parallax Software, Inc.
+License GPLv3: GNU GPL version 3 <http://gnu.org/licenses/gpl.html>
+
+This is free software, and you are free to change and redistribute it
+under certain conditions; type `show_copying' for details. 
+This program comes with ABSOLUTELY NO WARRANTY; for details type `show_warranty'.
+Error: ./ct_lsu_vb_gate_candidate.mapped.v, line 11273 syntax error.
+Error: ./ct_lsu_vb_gate_candidate.mapped.v, line 11280 syntax error.
+Startpoint: _2658_ (rising edge-triggered flip-flop clocked by lsu_special_clk)
+Endpoint: _2669_ (rising edge-triggered flip-flop clocked by lsu_special_clk)
+Path Group: lsu_special_clk
+Path Type: max
+
+  Delay    Time   Description
+---------------------------------------------------------
+   0.00    0.00   clock lsu_special_clk (rise edge)
+   0.00    0.00   clock network delay (ideal)
+   0.00    0.00 ^ _2658_/CLK (sky130_fd_sc_hd__dfrtp_1)
+   0.52    0.52 ^ _2658_/Q (sky130_fd_sc_hd__dfrtp_1)
+   0.15    0.67 v _1209_/Y (sky130_fd_sc_hd__nand2_1)
+   0.25    0.92 v _1211_/X (sky130_fd_sc_hd__and3b_1)
+   0.51    1.43 ^ _2085_/Y (sky130_fd_sc_hd__nand3_1)
+   1.33    2.77 ^ _2086_/X (sky130_fd_sc_hd__and2_0)
+   0.28    3.05 v _2091_/Y (sky130_fd_sc_hd__nand2_1)
+   1.55    4.59 ^ _2194_/Y (sky130_fd_sc_hd__a21oi_1)
+   0.40    4.99 v _2336_/X (sky130_fd_sc_hd__mux2_1)
+   0.00    4.99 v _2669_/D (sky130_fd_sc_hd__dfrtp_1)
+           4.99   data arrival time
+
+  10.00   10.00   clock lsu_special_clk (rise edge)
+   0.00   10.00   clock network delay (ideal)
+   0.00   10.00   clock reconvergence pessimism
+          10.00 ^ _2669_/CLK (sky130_fd_sc_hd__dfrtp_1)
+  -0.13    9.87   library setup time
+           9.87   data required time
+---------------------------------------------------------
+           9.87   data required time
+          -4.99   data arrival time
+---------------------------------------------------------
+           4.87   slack (MET)
+
+
+tns 0.00
+wns 0.00
+Group                  Internal  Switching    Leakage      Total
+                          Power      Power      Power      Power
+----------------------------------------------------------------
+Sequential             3.30e-04   5.02e-05   1.32e-09   3.80e-04  64.0%
+Combinational          1.13e-04   1.01e-04   3.23e-09   2.13e-04  36.0%
+Macro                  0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.0%
+Pad                    0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.0%
+----------------------------------------------------------------
+Total                  4.42e-04   1.51e-04   4.55e-09   5.93e-04 100.0%
+                          74.5%      25.5%       0.0%
