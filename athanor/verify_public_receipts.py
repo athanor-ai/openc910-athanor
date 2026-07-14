@@ -247,6 +247,80 @@ def _verify_receipt_bound_to_logs(package: Path) -> list[str]:
     return problems
 
 
+_LEAN_FALLBACK_REQUIRED = ("reason", "strongest_evidence", "scope_boundary")
+_LEAN_AUTHORITY_REQUIRED = ("theorem", "target", "obligation", "mutant_bite", "candidate_binding")
+
+
+def _sha_bound_file_hashes(package: Path) -> set[str]:
+    """sha256 of every SHA256SUMS-listed file -- the real, hash-verified artifact
+    hashes a candidate_binding SHA must resolve to (never a self-declared value)."""
+    out: set[str] = set()
+    for rel in _sums_listed(package):
+        fp = package / rel
+        if fp.is_file():
+            out.add(_sha256(fp))
+    return out
+
+
+def _verify_customer_ready_lean_gate(package: Path) -> list[str]:
+    """ATH-2975/ATH-2982 fork half. A customer_ready=true packet must carry EXACTLY
+    ONE of lean_authority or lean_fallback. lean_fallback must be structured (reason
+    + strongest_evidence + scope_boundary). For lean_authority, the fork owns LINK-3:
+    each declared candidate_binding gold/gate sha256 must be the sha256 of a REAL
+    SHA256SUMS-bound netlist in this packet -- never trusted by assertion, so a faked
+    candidate_binding (e.g. a family/pilot theorem's netlist SHAs) cannot pass. The
+    SDK-side authenticity recompute (registry-resolve + discharge + obligation +
+    theorem-mutant) is the ATH-2975 validator's; this leg enforces block presence,
+    structure, and the real-netlist binding."""
+    receipt = package / "receipt.json"
+    if not receipt.is_file():
+        return []
+    try:
+        data = json.loads(receipt.read_text(encoding="utf-8"))
+    except json.JSONDecodeError:
+        return []  # parse failure already flagged by _verify_receipt_json
+    if data.get("customer_ready") is not True:
+        return []
+    try:
+        rel = receipt.relative_to(REPO_ROOT)
+    except ValueError:
+        rel = receipt
+    authority = data.get("lean_authority")
+    fallback = data.get("lean_fallback")
+    has_a = isinstance(authority, dict)
+    has_f = isinstance(fallback, dict)
+    if has_a == has_f:
+        return [
+            f"{rel}: customer_ready=true requires exactly one of lean_authority / "
+            f"lean_fallback (ATH-2975); found {'both' if has_a else 'neither'}"
+        ]
+    problems: list[str] = []
+    if has_f:
+        missing = [
+            k for k in _LEAN_FALLBACK_REQUIRED
+            if not (isinstance(fallback.get(k), str) and fallback.get(k).strip())
+        ]
+        if missing:
+            problems.append(f"{rel}: lean_fallback missing/empty {missing}")
+    if has_a:
+        for k in _LEAN_AUTHORITY_REQUIRED:
+            if not authority.get(k):
+                problems.append(f"{rel}: lean_authority missing {k}")
+        cb = authority.get("candidate_binding")
+        if isinstance(cb, dict):
+            real = _sha_bound_file_hashes(package)
+            for role in ("gold", "gate"):
+                declared = str(cb.get(f"{role}_sha256") or "")
+                if declared and declared not in real:
+                    problems.append(
+                        f"{rel}: lean_authority candidate_binding {role}_sha256 "
+                        f"{declared[:12]} is not the sha256 of any SHA256SUMS-bound "
+                        f"netlist (declared candidate SHA not bound to a real file -- "
+                        f"link-3 fail: possible family/pilot SHA reuse)"
+                    )
+    return problems
+
+
 def verify(root: Path = ARTIFACT_ROOT) -> list[str]:
     # A capture-track fork (e.g. riscv-boom-athanor) legitimately has no proof
     # packages yet -- "no artifacts yet" is not a failure. Fail-closed means
@@ -272,6 +346,7 @@ def verify(root: Path = ARTIFACT_ROOT) -> list[str]:
         problems.extend(_verify_receipt_json(package))
         problems.extend(_verify_replay(package))
         problems.extend(_verify_receipt_bound_to_logs(package))
+        problems.extend(_verify_customer_ready_lean_gate(package))
         problems.extend(_verify_public_export_clean(package))
     return problems
 
