@@ -1,0 +1,3 @@
+ATH-2960 enforcement proof (THROWAWAY, will delete). Clean marker file; the
+seeded leak goes in the PR BODY to exercise the PR-text scan surface, since the
+pre-push self-review hook already blocks a committed leak at the push layer.
