@@ -1,0 +1,88 @@
+{
+  "schema": "athanor.same_candidate_metric_binding.v1",
+  "status": "accepted_module_local_area_timing_opensta_estimated_power_packet",
+  "candidate": {
+    "candidate_sha256": "e6cbb7c5e95ed80fc01516f642b49091fdf6024966c7b71d1fce4834d99fc81d",
+    "mapped_netlist_sha256": "ddeed61b5de195fbdcb83aea42644d8c2adf97548730d839da1b1ff4e78b8b87",
+    "selected_flow": "yosys66_sky130_synth_dfflibmap_abc_opensta_contract_v1"
+  },
+  "axes": {
+    "area": {
+      "candidate_sha256": "e6cbb7c5e95ed80fc01516f642b49091fdf6024966c7b71d1fce4834d99fc81d",
+      "mapped_netlist_sha256": "ddeed61b5de195fbdcb83aea42644d8c2adf97548730d839da1b1ff4e78b8b87",
+      "selected_flow": "yosys66_sky130_synth_dfflibmap_abc_opensta_contract_v1",
+      "instrument": "yosys_stat_liberty",
+      "instrument_version": "Yosys 0.66+181 (git sha1 afe6b18f2, Release, Clang /usr/bin/clang++ 18.1.8)",
+      "metric": {
+        "gold_top_with_deps": 3510.8672,
+        "gate_top_with_deps": 3482.0896,
+        "gold_local": 2677.568,
+        "gate_local": 2648.7904,
+        "unit": "sky130_selected_area"
+      },
+      "negative_control": {
+        "regressed_candidate_sha256": "0af7853cbe7302c3ae9bc9b1ca9741fc9cf0958201e7428a0a4c6e7e0d9c0188",
+        "axis_reds": true,
+        "metric": {
+          "regressed_top_with_deps": 5711.728,
+          "unit": "sky130_selected_area"
+        },
+        "log_ref": "metric_negative_area.pinned.log"
+      }
+    },
+    "timing": {
+      "candidate_sha256": "e6cbb7c5e95ed80fc01516f642b49091fdf6024966c7b71d1fce4834d99fc81d",
+      "mapped_netlist_sha256": "ddeed61b5de195fbdcb83aea42644d8c2adf97548730d839da1b1ff4e78b8b87",
+      "selected_flow": "yosys66_sky130_synth_dfflibmap_abc_opensta_contract_v1",
+      "instrument": "opensta",
+      "instrument_version": "OpenSTA 2.2.0 02b129d48f",
+      "metric": {
+        "gold_max_data_arrival_ns": 3.23,
+        "gate_max_data_arrival_ns": 2.91,
+        "gold_wns_ns": 0.0,
+        "gate_wns_ns": 0.0,
+        "gold_tns_ns": 0.0,
+        "gate_tns_ns": 0.0,
+        "clock_period_ns": 10.0
+      },
+      "negative_control": {
+        "regressed_candidate_sha256": "0af7853cbe7302c3ae9bc9b1ca9741fc9cf0958201e7428a0a4c6e7e0d9c0188",
+        "axis_reds": true,
+        "metric": {
+          "regressed_max_data_arrival_ns": 11.88,
+          "regressed_wns_ns": -1.88,
+          "regressed_tns_ns": -1.88
+        },
+        "log_ref": "metric_negative_opensta_area_timing_power.pinned.log"
+      }
+    },
+    "power": {
+      "candidate_sha256": "e6cbb7c5e95ed80fc01516f642b49091fdf6024966c7b71d1fce4834d99fc81d",
+      "mapped_netlist_sha256": "ddeed61b5de195fbdcb83aea42644d8c2adf97548730d839da1b1ff4e78b8b87",
+      "selected_flow": "yosys66_sky130_synth_dfflibmap_abc_opensta_contract_v1",
+      "instrument": "opensta_report_power",
+      "instrument_version": "OpenSTA 2.2.0 02b129d48f",
+      "activity_source": "set_power_activity -global -activity 0.1 -duty 0.5",
+      "metric": {
+        "gold_total_power_nw": 0.000138,
+        "gate_total_power_nw": 0.000135,
+        "gold_internal_power_nw": 9.69e-05,
+        "gate_internal_power_nw": 9.4e-05,
+        "gold_switching_power_nw": 4.15e-05,
+        "gate_switching_power_nw": 4.1e-05,
+        "gold_leakage_power_nw": 1.27e-09,
+        "gate_leakage_power_nw": 1.21e-09,
+        "methodology_boundary": "OpenSTA liberty estimate under fixed global activity; not signoff power and not measured workload activity"
+      },
+      "negative_control": {
+        "regressed_candidate_sha256": "0af7853cbe7302c3ae9bc9b1ca9741fc9cf0958201e7428a0a4c6e7e0d9c0188",
+        "axis_reds": true,
+        "metric": {
+          "regressed_total_power_nw": 0.00024
+        },
+        "log_ref": "metric_negative_opensta_area_timing_power.pinned.log"
+      }
+    }
+  },
+  "independent_review_summary": "Ronald and Quan independent replay cleared on PR #8 and routed main 5197483; customer_ready is true only for scoped module-local area/timing/OpenSTA-estimated-power wording."
+}

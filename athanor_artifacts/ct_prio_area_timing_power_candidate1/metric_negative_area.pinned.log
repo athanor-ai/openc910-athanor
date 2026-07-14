@@ -1,0 +1,53 @@
+
+ /----------------------------------------------------------------------------\
+ |  yosys -- Yosys Open SYnthesis Suite                                       |
+ |  Copyright (C) 2012 - 2026  Claire Xenia Wolf <claire@yosyshq.com>         |
+ |  Distributed under an ISC-like license, type "license" to see terms        |
+ \----------------------------------------------------------------------------/
+ Yosys 0.66+181 (git sha1 afe6b18f2, Release, Clang /usr/bin/clang++ 18.1.8)
+
+-- Running command `read_liberty -lib sky130_fd_sc_hd__tt_025C_1v80.lib; read_verilog ct_prio_gate_oneflop_metric_bad.mapped.v; hierarchy -top ct_prio_gate; stat -liberty sky130_fd_sc_hd__tt_025C_1v80.lib' --
+
+1. Executing Liberty frontend: sky130_fd_sc_hd__tt_025C_1v80.lib
+Imported 428 cell types from liberty file.
+
+2. Executing Verilog-2005 frontend: ct_prio_gate_oneflop_metric_bad.mapped.v
+Parsing Verilog input from `ct_prio_gate_oneflop_metric_bad.mapped.v' to AST representation.
+Generating RTLIL representation for module `\ct_prio_gate'.
+Successfully finished Verilog frontend.
+
+3. Executing HIERARCHY pass (managing design hierarchy).
+
+3.1. Analyzing design hierarchy..
+Top module:  \ct_prio_gate
+
+3.2. Analyzing design hierarchy..
+Top module:  \ct_prio_gate
+Removed 0 unused modules.
+
+4. Printing statistics.
+
+=== ct_prio_gate ===
+
+        +----------Local Count, excluding submodules.
+        |        +-Local Area, excluding submodules.
+        |        | 
+       21        - wires
+       23        - wire bits
+       21        - public wires
+       23        - public wire bits
+        5        - ports
+        7        - port bits
+       18  390.374 cells
+        3   22.522   sky130_fd_sc_hd__a21boi_0
+        1    8.758   sky130_fd_sc_hd__a31o_1
+       12  330.317   sky130_fd_sc_hd__buf_16
+        1    3.754   sky130_fd_sc_hd__clkinv_1
+        1   25.024   sky130_fd_sc_hd__dfrtp_1
+
+   Chip area for module '\ct_prio_gate': 390.374400
+     of which used for sequential elements: 25.024000 (6.41%)
+
+End of script. Logfile hash: a67362bd85, time: 0.10s, user: 0.08s, system: 0.03s, MEM: 40.75 MB peak
+Yosys 0.66+181 (git sha1 afe6b18f2, Release, Clang /usr/bin/clang++ 18.1.8)
+Time spent: 51% 2x read_liberty (0 sec), 39% 1x stat (0 sec), ...

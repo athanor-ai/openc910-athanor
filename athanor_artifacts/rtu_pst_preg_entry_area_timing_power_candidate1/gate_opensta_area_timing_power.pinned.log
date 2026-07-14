@@ -1,0 +1,230 @@
+OpenSTA 2.2.0 02b129d48f Copyright (c) 2019, Parallax Software, Inc.
+License GPLv3: GNU GPL version 3 <http://gnu.org/licenses/gpl.html>
+
+This is free software, and you are free to change and redistribute it
+under certain conditions; type `show_copying' for details. 
+This program comes with ABSOLUTELY NO WARRANTY; for details type `show_warranty'.
+Warning: gate.tcl, 6 port 'x_num[4]' not found.
+Warning: gate.tcl, 7 port 'x_num[3]' not found.
+Warning: gate.tcl, 8 port 'x_num[2]' not found.
+Warning: gate.tcl, 9 port 'x_num[1]' not found.
+Warning: gate.tcl, 10 port 'x_num[0]' not found.
+Warning: gate.tcl, 11 port 'x_num[6]' not found.
+Warning: gate.tcl, 12 port 'x_num[5]' not found.
+Warning: gate.tcl, 13 port 'x_num[4]' not found.
+Warning: gate.tcl, 14 port 'x_num[3]' not found.
+Warning: gate.tcl, 15 port 'x_num[2]' not found.
+Warning: gate.tcl, 16 port 'x_num[1]' not found.
+Warning: gate.tcl, 17 port 'x_num[0]' not found.
+Warning: gate.tcl, 142 port 'clk_in' not found.
+Warning: gate.tcl, 143 port 'global_en' not found.
+Warning: gate.tcl, 144 port 'module_en' not found.
+Warning: gate.tcl, 145 port 'local_en' not found.
+Warning: gate.tcl, 146 port 'external_en' not found.
+Warning: gate.tcl, 148 port 'x_num_expand[31]' not found.
+Warning: gate.tcl, 149 port 'x_num_expand[30]' not found.
+Warning: gate.tcl, 150 port 'x_num_expand[29]' not found.
+Warning: gate.tcl, 151 port 'x_num_expand[28]' not found.
+Warning: gate.tcl, 152 port 'x_num_expand[27]' not found.
+Warning: gate.tcl, 153 port 'x_num_expand[26]' not found.
+Warning: gate.tcl, 154 port 'x_num_expand[25]' not found.
+Warning: gate.tcl, 155 port 'x_num_expand[24]' not found.
+Warning: gate.tcl, 156 port 'x_num_expand[23]' not found.
+Warning: gate.tcl, 157 port 'x_num_expand[22]' not found.
+Warning: gate.tcl, 158 port 'x_num_expand[21]' not found.
+Warning: gate.tcl, 159 port 'x_num_expand[20]' not found.
+Warning: gate.tcl, 160 port 'x_num_expand[19]' not found.
+Warning: gate.tcl, 161 port 'x_num_expand[18]' not found.
+Warning: gate.tcl, 162 port 'x_num_expand[17]' not found.
+Warning: gate.tcl, 163 port 'x_num_expand[16]' not found.
+Warning: gate.tcl, 164 port 'x_num_expand[15]' not found.
+Warning: gate.tcl, 165 port 'x_num_expand[14]' not found.
+Warning: gate.tcl, 166 port 'x_num_expand[13]' not found.
+Warning: gate.tcl, 167 port 'x_num_expand[12]' not found.
+Warning: gate.tcl, 168 port 'x_num_expand[11]' not found.
+Warning: gate.tcl, 169 port 'x_num_expand[10]' not found.
+Warning: gate.tcl, 170 port 'x_num_expand[9]' not found.
+Warning: gate.tcl, 171 port 'x_num_expand[8]' not found.
+Warning: gate.tcl, 172 port 'x_num_expand[7]' not found.
+Warning: gate.tcl, 173 port 'x_num_expand[6]' not found.
+Warning: gate.tcl, 174 port 'x_num_expand[5]' not found.
+Warning: gate.tcl, 175 port 'x_num_expand[4]' not found.
+Warning: gate.tcl, 176 port 'x_num_expand[3]' not found.
+Warning: gate.tcl, 177 port 'x_num_expand[2]' not found.
+Warning: gate.tcl, 178 port 'x_num_expand[1]' not found.
+Warning: gate.tcl, 179 port 'x_num_expand[0]' not found.
+Warning: gate.tcl, 180 port 'x_num_expand[95]' not found.
+Warning: gate.tcl, 181 port 'x_num_expand[94]' not found.
+Warning: gate.tcl, 182 port 'x_num_expand[93]' not found.
+Warning: gate.tcl, 183 port 'x_num_expand[92]' not found.
+Warning: gate.tcl, 184 port 'x_num_expand[91]' not found.
+Warning: gate.tcl, 185 port 'x_num_expand[90]' not found.
+Warning: gate.tcl, 186 port 'x_num_expand[89]' not found.
+Warning: gate.tcl, 187 port 'x_num_expand[88]' not found.
+Warning: gate.tcl, 188 port 'x_num_expand[87]' not found.
+Warning: gate.tcl, 189 port 'x_num_expand[86]' not found.
+Warning: gate.tcl, 190 port 'x_num_expand[85]' not found.
+Warning: gate.tcl, 191 port 'x_num_expand[84]' not found.
+Warning: gate.tcl, 192 port 'x_num_expand[83]' not found.
+Warning: gate.tcl, 193 port 'x_num_expand[82]' not found.
+Warning: gate.tcl, 194 port 'x_num_expand[81]' not found.
+Warning: gate.tcl, 195 port 'x_num_expand[80]' not found.
+Warning: gate.tcl, 196 port 'x_num_expand[79]' not found.
+Warning: gate.tcl, 197 port 'x_num_expand[78]' not found.
+Warning: gate.tcl, 198 port 'x_num_expand[77]' not found.
+Warning: gate.tcl, 199 port 'x_num_expand[76]' not found.
+Warning: gate.tcl, 200 port 'x_num_expand[75]' not found.
+Warning: gate.tcl, 201 port 'x_num_expand[74]' not found.
+Warning: gate.tcl, 202 port 'x_num_expand[73]' not found.
+Warning: gate.tcl, 203 port 'x_num_expand[72]' not found.
+Warning: gate.tcl, 204 port 'x_num_expand[71]' not found.
+Warning: gate.tcl, 205 port 'x_num_expand[70]' not found.
+Warning: gate.tcl, 206 port 'x_num_expand[69]' not found.
+Warning: gate.tcl, 207 port 'x_num_expand[68]' not found.
+Warning: gate.tcl, 208 port 'x_num_expand[67]' not found.
+Warning: gate.tcl, 209 port 'x_num_expand[66]' not found.
+Warning: gate.tcl, 210 port 'x_num_expand[65]' not found.
+Warning: gate.tcl, 211 port 'x_num_expand[64]' not found.
+Warning: gate.tcl, 212 port 'x_num_expand[63]' not found.
+Warning: gate.tcl, 213 port 'x_num_expand[62]' not found.
+Warning: gate.tcl, 214 port 'x_num_expand[61]' not found.
+Warning: gate.tcl, 215 port 'x_num_expand[60]' not found.
+Warning: gate.tcl, 216 port 'x_num_expand[59]' not found.
+Warning: gate.tcl, 217 port 'x_num_expand[58]' not found.
+Warning: gate.tcl, 218 port 'x_num_expand[57]' not found.
+Warning: gate.tcl, 219 port 'x_num_expand[56]' not found.
+Warning: gate.tcl, 220 port 'x_num_expand[55]' not found.
+Warning: gate.tcl, 221 port 'x_num_expand[54]' not found.
+Warning: gate.tcl, 222 port 'x_num_expand[53]' not found.
+Warning: gate.tcl, 223 port 'x_num_expand[52]' not found.
+Warning: gate.tcl, 224 port 'x_num_expand[51]' not found.
+Warning: gate.tcl, 225 port 'x_num_expand[50]' not found.
+Warning: gate.tcl, 226 port 'x_num_expand[49]' not found.
+Warning: gate.tcl, 227 port 'x_num_expand[48]' not found.
+Warning: gate.tcl, 228 port 'x_num_expand[47]' not found.
+Warning: gate.tcl, 229 port 'x_num_expand[46]' not found.
+Warning: gate.tcl, 230 port 'x_num_expand[45]' not found.
+Warning: gate.tcl, 231 port 'x_num_expand[44]' not found.
+Warning: gate.tcl, 232 port 'x_num_expand[43]' not found.
+Warning: gate.tcl, 233 port 'x_num_expand[42]' not found.
+Warning: gate.tcl, 234 port 'x_num_expand[41]' not found.
+Warning: gate.tcl, 235 port 'x_num_expand[40]' not found.
+Warning: gate.tcl, 236 port 'x_num_expand[39]' not found.
+Warning: gate.tcl, 237 port 'x_num_expand[38]' not found.
+Warning: gate.tcl, 238 port 'x_num_expand[37]' not found.
+Warning: gate.tcl, 239 port 'x_num_expand[36]' not found.
+Warning: gate.tcl, 240 port 'x_num_expand[35]' not found.
+Warning: gate.tcl, 241 port 'x_num_expand[34]' not found.
+Warning: gate.tcl, 242 port 'x_num_expand[33]' not found.
+Warning: gate.tcl, 243 port 'x_num_expand[32]' not found.
+Warning: gate.tcl, 244 port 'x_num_expand[31]' not found.
+Warning: gate.tcl, 245 port 'x_num_expand[30]' not found.
+Warning: gate.tcl, 246 port 'x_num_expand[29]' not found.
+Warning: gate.tcl, 247 port 'x_num_expand[28]' not found.
+Warning: gate.tcl, 248 port 'x_num_expand[27]' not found.
+Warning: gate.tcl, 249 port 'x_num_expand[26]' not found.
+Warning: gate.tcl, 250 port 'x_num_expand[25]' not found.
+Warning: gate.tcl, 251 port 'x_num_expand[24]' not found.
+Warning: gate.tcl, 252 port 'x_num_expand[23]' not found.
+Warning: gate.tcl, 253 port 'x_num_expand[22]' not found.
+Warning: gate.tcl, 254 port 'x_num_expand[21]' not found.
+Warning: gate.tcl, 255 port 'x_num_expand[20]' not found.
+Warning: gate.tcl, 256 port 'x_num_expand[19]' not found.
+Warning: gate.tcl, 257 port 'x_num_expand[18]' not found.
+Warning: gate.tcl, 258 port 'x_num_expand[17]' not found.
+Warning: gate.tcl, 259 port 'x_num_expand[16]' not found.
+Warning: gate.tcl, 260 port 'x_num_expand[15]' not found.
+Warning: gate.tcl, 261 port 'x_num_expand[14]' not found.
+Warning: gate.tcl, 262 port 'x_num_expand[13]' not found.
+Warning: gate.tcl, 263 port 'x_num_expand[12]' not found.
+Warning: gate.tcl, 264 port 'x_num_expand[11]' not found.
+Warning: gate.tcl, 265 port 'x_num_expand[10]' not found.
+Warning: gate.tcl, 266 port 'x_num_expand[9]' not found.
+Warning: gate.tcl, 267 port 'x_num_expand[8]' not found.
+Warning: gate.tcl, 268 port 'x_num_expand[7]' not found.
+Warning: gate.tcl, 269 port 'x_num_expand[6]' not found.
+Warning: gate.tcl, 270 port 'x_num_expand[5]' not found.
+Warning: gate.tcl, 271 port 'x_num_expand[4]' not found.
+Warning: gate.tcl, 272 port 'x_num_expand[3]' not found.
+Warning: gate.tcl, 273 port 'x_num_expand[2]' not found.
+Warning: gate.tcl, 274 port 'x_num_expand[1]' not found.
+Warning: gate.tcl, 275 port 'x_num_expand[0]' not found.
+Warning: gate.tcl, 406 port 'clk_out' not found.
+ time 1ns
+ capacitance 1pF
+ resistance 1kohm
+ voltage 1v
+ current 1mA
+ power 1nW
+ distance 1um
+Startpoint: ifu_xx_sync_reset (input port clocked by clk)
+Endpoint: _498_ (rising edge-triggered flip-flop clocked by clk)
+Path Group: clk
+Path Type: min
+
+  Delay    Time   Description
+---------------------------------------------------------
+   0.00    0.00   clock clk (rise edge)
+   0.00    0.00   clock network delay (ideal)
+   0.00    0.00 ^ input external delay
+   0.00    0.00 ^ ifu_xx_sync_reset (in)
+   0.03    0.03 v _339_/Y (sky130_fd_sc_hd__nor3_1)
+   0.00    0.03 v _498_/D (sky130_fd_sc_hd__dfrtp_1)
+           0.03   data arrival time
+
+   0.00    0.00   clock clk (rise edge)
+   0.00    0.00   clock network delay (ideal)
+   0.00    0.00   clock reconvergence pessimism
+           0.00 ^ _498_/CLK (sky130_fd_sc_hd__dfrtp_1)
+  -0.05   -0.05   library hold time
+          -0.05   data required time
+---------------------------------------------------------
+          -0.05   data required time
+          -0.03   data arrival time
+---------------------------------------------------------
+           0.08   slack (MET)
+
+
+Startpoint: x_create_vld[0] (input port clocked by clk)
+Endpoint: _483_ (rising edge-triggered flip-flop clocked by clk)
+Path Group: clk
+Path Type: max
+
+  Delay    Time   Description
+---------------------------------------------------------
+   0.00    0.00   clock clk (rise edge)
+   0.00    0.00   clock network delay (ideal)
+   0.00    0.00 v input external delay
+   0.00    0.00 v x_create_vld[0] (in)
+   1.69    1.69 ^ _352_/Y (sky130_fd_sc_hd__nor4b_1)
+   0.69    2.38 v _355_/Y (sky130_fd_sc_hd__nor3_1)
+   0.42    2.80 ^ _451_/Y (sky130_fd_sc_hd__a211oi_1)
+   0.11    2.91 v _453_/Y (sky130_fd_sc_hd__o31ai_1)
+   0.00    2.91 v _483_/D (sky130_fd_sc_hd__dfrtp_1)
+           2.91   data arrival time
+
+  10.00   10.00   clock clk (rise edge)
+   0.00   10.00   clock network delay (ideal)
+   0.00   10.00   clock reconvergence pessimism
+          10.00 ^ _483_/CLK (sky130_fd_sc_hd__dfrtp_1)
+  -0.17    9.83   library setup time
+           9.83   data required time
+---------------------------------------------------------
+           9.83   data required time
+          -2.91   data arrival time
+---------------------------------------------------------
+           6.92   slack (MET)
+
+
+tns 0.00
+wns 0.00
+Group                  Internal  Switching    Leakage      Total
+                          Power      Power      Power      Power
+----------------------------------------------------------------
+Sequential             5.91e-05   9.85e-06   2.35e-10   6.90e-05  51.1%
+Combinational          3.49e-05   3.11e-05   9.72e-10   6.60e-05  48.9%
+Macro                  0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.0%
+Pad                    0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.0%
+----------------------------------------------------------------
+Total                  9.40e-05   4.10e-05   1.21e-09   1.35e-04 100.0%
+                          69.6%      30.4%       0.0%

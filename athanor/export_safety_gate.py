@@ -55,13 +55,21 @@ import sys
 from pathlib import Path
 
 
-# --- BLOCK tier: (label, extended-regex). Any committed-tree hit fails the gate.
-#     Regexes are built from fragments so this file holds no verbatim leak string.
-BLOCK_PATTERNS: list[tuple[str, str]] = [
+# --- BLOCK tiers. Regexes are fragment-built so this file holds no verbatim leak.
+#
+# These forks are forks-OF-UPSTREAM (OpenC910, riscv-boom/FireSim). Upstream
+# ships its OWN host paths in its OWN files (its CI references upstream home dirs
+# and a FireSim temp instance-data file) -- that is public-upstream content, NOT
+# our leak, and must not be flagged (scrubbing it would diverge the fork). So
+# two tiers (patterns fragment-built so this file holds no verbatim leak string):
+#
+#   BLOCK_ALWAYS  our unambiguous internal markers + secrets. Never legitimate
+#                 anywhere, in upstream or our files -> block across the whole tree.
+#   BLOCK_SCOPED  ambiguous host paths. Our leak risk is a VM path landing in an
+#                 artifact WE add; upstream's own host paths are fine. So block
+#                 these ONLY under OUR_ADDED_PREFIXES.
+BLOCK_ALWAYS: list[tuple[str, str]] = [
     ("internal workdir path", "/work" + "dir"),
-    ("home directory path", "/ho" + r"me/[A-Za-z0-9._-]+"),
-    ("macOS home path", "/Use" + r"rs/[A-Za-z0-9._-]+"),
-    ("tmp / tool-cache path", "/t" + r"mp/[A-Za-z0-9._/-]+"),
     ("cloud build username", "azure" + "user"),
     ("internal ops repo", "athanor-" + "kairos-runall"),
     ("GitHub token", r"gh[posru]_[A-Za-z0-9]{20,}"),
@@ -72,6 +80,19 @@ BLOCK_PATTERNS: list[tuple[str, str]] = [
     ("OpenAI API key", r"sk-[A-Za-z0-9]{20,}"),
     ("private key block", r"-----BEGIN [A-Z ]*PRIVATE KEY-----"),
 ]
+BLOCK_SCOPED: list[tuple[str, str]] = [
+    ("home directory path", "/ho" + r"me/[A-Za-z0-9._-]+"),
+    ("macOS home path", "/Use" + r"rs/[A-Za-z0-9._-]+"),
+    ("tmp / tool-cache path", "/t" + r"mp/[A-Za-z0-9._/-]+"),
+]
+# Paths WE author on these forks; ambiguous host-path scanning is scoped to these.
+OUR_ADDED_PREFIXES: tuple[str, ...] = (
+    "athanor/",
+    "athanor_artifacts/",
+    "generated_rtl_capture/",
+    "docs/customer/",
+    "README.md",
+)
 
 # --- WARN tier: (label, extended-regex, exclude-regex-or-None). Never blocks.
 WARN_PATTERNS: list[tuple[str, str, str | None]] = [
@@ -132,7 +153,8 @@ def _scan_committed(ref: str, root: Path) -> tuple[list[str], list[str], list[st
     ``.gitattributes`` -- notably the pinned tool logs, the likeliest place a
     real credential leaks -- are searched too; ``git grep -I`` would skip them.
     """
-    block_res = [(label, re.compile(pat.encode())) for label, pat in BLOCK_PATTERNS]
+    always_res = [(label, re.compile(pat.encode())) for label, pat in BLOCK_ALWAYS]
+    scoped_res = [(label, re.compile(pat.encode())) for label, pat in BLOCK_SCOPED]
     warn_res = [
         (label, re.compile(pat.encode()), (re.compile(ex.encode()) if ex else None))
         for label, pat, ex in WARN_PATTERNS
@@ -147,6 +169,10 @@ def _scan_committed(ref: str, root: Path) -> tuple[list[str], list[str], list[st
         if ext in BINARY_ASSET_EXT or b"\x00" in data:
             skipped.append(path)
             continue
+        # Ambiguous host-path patterns fire only in files WE author; upstream's
+        # own host paths (its .circleci etc.) are public-upstream content.
+        in_our_scope = path.startswith(OUR_ADDED_PREFIXES)
+        block_res = always_res + scoped_res if in_our_scope else always_res
         for lineno, line in enumerate(data.split(b"\n"), 1):
             shown = line.decode("utf-8", "replace").strip()[:200]
             for label, rx in block_res:
@@ -180,13 +206,67 @@ def run_gate(ref: str = "HEAD", start: Path | None = None) -> tuple[list[str], l
     return block, warn, skipped
 
 
+def scan_text(text: str, source: str = "pr-text") -> list[str]:
+    """Run the ALWAYS-block patterns over arbitrary public text -- a PR body,
+    review comment, or issue comment. These are public surfaces on a public fork
+    that the committed-tree scan cannot see (they are GitHub metadata, not files),
+    so an internal build-path or a token in a PR body is public + invisible to the
+    file gate (the #14 body-leak class, ATH-2960).
+
+    Reuses BLOCK_ALWAYS as the SINGLE source of truth so the text surface and the
+    committed-tree surface can never drift. The BLOCK_SCOPED host-path patterns
+    are intentionally NOT applied to prose (a bare home-directory path in a
+    sentence is not an unambiguous leak), but our internal markers + secret tokens
+    always are. (No verbatim forbidden literal appears in this docstring so the
+    gate does not self-trip on its own source.)
+    """
+    res = [(label, re.compile(pat)) for label, pat in BLOCK_ALWAYS]
+    findings: list[str] = []
+    for lineno, line in enumerate(text.splitlines(), 1):
+        for label, rx in res:
+            if rx.search(line):
+                findings.append(f"[{label}] {source}:{lineno}: {line.strip()[:200]}")
+    return findings
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="ATH-2960 fork export-safety gate")
     parser.add_argument("--ref", default="HEAD", help="committed ref to scan (default HEAD)")
     parser.add_argument(
         "--warn-limit", type=int, default=40, help="max WARN lines to print (0 = all)"
     )
+    parser.add_argument(
+        "--scan-text",
+        action="store_true",
+        help="scan stdin (a PR/issue/review body) for BLOCK_ALWAYS internal markers "
+        "+ secrets; exit 1 on a hit. Public-text surface companion to the file scan.",
+    )
     args = parser.parse_args(argv)
+
+    # PR bodies / review + issue comments are public surfaces on a public fork that
+    # the committed-tree scan cannot see. Scan them with the SAME BLOCK_ALWAYS set.
+    if args.scan_text:
+        try:
+            text = sys.stdin.read()
+        except OSError as exc:
+            print(f"GATE-ERROR: could not read text from stdin: {exc}", file=sys.stderr)
+            return 2
+        findings = scan_text(text)
+        if findings:
+            print(
+                f"\nFAIL: {len(findings)} BLOCK-tier leak(s) in the PR/issue/review text:",
+                file=sys.stderr,
+            )
+            for f in findings:
+                print(f"  block: {f}", file=sys.stderr)
+            print(
+                "\nInternal markers/secrets are public on a public fork's PR page too "
+                "-- scrub the PR body / comments.",
+                file=sys.stderr,
+            )
+            return 1
+        print("OK: PR/issue/review text clean (0 BLOCK-tier leaks).")
+        return 0
 
     try:
         block, warn, skipped = run_gate(ref=args.ref)
