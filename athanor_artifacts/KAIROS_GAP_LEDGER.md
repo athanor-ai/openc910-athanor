@@ -15,6 +15,7 @@ Kairos automation.
 | Lean obligations are currently human-written | `ct_fifo` reachable-state invariant; `ct_rtu_pst_preg_entry` lifecycle relation | Kairos should call the Lean-prove cycle or Aristotle-style subagent automatically when BMC/PDR/k-induction stalls on an invariant-shaped proof. |
 | Parent-level lifts need compositional proof, not deeper bounded output search | `ct_rtu_pst_vreg` all-entry substitution scout; tracked as ATH-2971 | Kairos should detect repeated proven-instance substitutions, reuse the per-instance relation proof by symmetry, prove parent interconnect identity, and require a seam mutant before reporting a parent lift. Bounded parent-output BMC remains screening evidence. |
 | Area/proof candidates need metric screening before promotion | `ct_rtu_rob_entry` same-state proof packet | Kairos should run the same-candidate area/timing/power screen before attempting customer metric promotion. The ROB-entry area win is proof-clean but OpenSTA max data-arrival regresses. |
+| Candidate triage must preserve near-misses without promoting flat axes | `ct_lsu_lfb_data_entry` address-ID shift-decode scout | Kairos should package proof-clean, same-candidate-bound near-misses as candidate scouts when one metric axis is flat or marginal. The LSU candidate improves area and max data-arrival slightly, but OpenSTA estimated power is flat at reported precision, so it feeds denominator data rather than the result table. |
 
 ## Parent-Lift Composition Gap
 
