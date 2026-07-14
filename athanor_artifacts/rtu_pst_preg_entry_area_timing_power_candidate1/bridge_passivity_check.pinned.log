@@ -1,0 +1,16 @@
+PASS: gold_dbg is passive instrumentation only
+PASS: gate_dbg is passive instrumentation only
+PASS: selftest rejected non-passive gold_dbg logic edit
+FAIL: gold_dbg has non-passive changes
+--- ct_rtu_pst_preg_entry_gold.v
++++ ct_rtu_pst_preg_entry_gold_dbg.v normalized
+@@ -328,7 +328,7 @@
+ assign lifecycle_cur_state_retire   = lifecycle_cur_state[3];
+ assign lifecycle_cur_state_release  = lifecycle_cur_state[4];
+ 
+-assign x_cur_state_dealloc          = lifecycle_cur_state_dealloc;
++assign x_cur_state_dealloc          = ~lifecycle_cur_state_dealloc;
+ 
+ //==========================================================
+ //               Preg Write Back State Machine
+PASS: gate_dbg is passive instrumentation only
