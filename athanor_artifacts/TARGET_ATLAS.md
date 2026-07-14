@@ -14,6 +14,7 @@ receipt index, not a whole-core proof claim.
 | `ct_rtu_pst_preg_entry` candidate 1 | RTU physical-register-status entry | accepted proof packet; superseded by metric packet for result reporting | Sky130 local area `2677.568000 -> 2648.790400`; top-with-deps area `3510.867200 -> 3482.089600` | visible outputs under reset-first via passive debug bridge plus closed lifecycle-encoding relation induction; lifecycle and storage-path relation mutants bite; same-state non-claim logged | [`rtu_pst_preg_entry_candidate1/`](rtu_pst_preg_entry_candidate1/) |
 | `ct_rtu_pst_preg_entry` metric packet 1 | RTU physical-register-status entry | accepted module-local metric packet | Same-candidate-bound top-with-deps Sky130 area `3510.867200 -> 3482.089600`; OpenSTA max data-arrival `3.23 ns -> 2.91 ns`; OpenSTA estimated total power `1.38e-04 nW -> 1.35e-04 nW` | visible outputs under reset-first via passive debug bridge plus closed lifecycle-encoding relation induction; proof mutant bites; metric red-control reds all three axes; OpenSTA power is estimated under fixed activity | [`rtu_pst_preg_entry_area_timing_power_candidate1/`](rtu_pst_preg_entry_area_timing_power_candidate1/) |
 | `ct_rtu_pst_vreg_entry` metric packet 1 | RTU vector-register-status entry | accepted module-local metric packet | Same-candidate-bound top-with-deps Sky130 area `3148.019200 -> 3057.932800`; OpenSTA max data-arrival `2.82 ns -> 2.81 ns` (small delta, not a material timing claim); OpenSTA estimated total power `1.28e-04 nW -> 1.24e-04 nW` | visible outputs under reset-first via passive debug bridge plus closed lifecycle-encoding relation induction; proof mutant bites; metric red-control reds all three axes; OpenSTA power is estimated under fixed activity | [`rtu_pst_vreg_entry_area_timing_power_candidate1/`](rtu_pst_vreg_entry_area_timing_power_candidate1/) |
+| `ct_lsu_lfb_data_entry` candidate 1 | LSU line-fill-buffer data entry | candidate metric scout; independent replay pending | Same-candidate-bound Sky130 area `19467.420800 -> 19456.160000`; OpenSTA max data-arrival `8.17 ns -> 8.14 ns`; OpenSTA estimated total power flat at `1.33e-03 nW` | same-state Yosys equivalence `560` proven / `0` unproven; proof mutant leaves `8` address-ID cells unproven; metric red-control reds all three axes | [`ct_lsu_lfb_data_entry_candidate1/`](ct_lsu_lfb_data_entry_candidate1/) |
 
 ## Active RTU Campaign
 
@@ -33,7 +34,7 @@ receipt index, not a whole-core proof claim.
 | RTU / ROB | `ct_rtu_rob_entry`, `ct_rtu_rob` | Commit-order, completion accounting, reorder-buffer entry state. |
 | RTU / physical status | `ct_rtu_pst_preg_entry`, `ct_rtu_pst_preg`, `ct_rtu_pst_vreg_entry` | Rename/free-list/physical-register lifecycle invariants. |
 | IDU / issue | `ct_idu_is_aiq0_entry`, `ct_idu_is_lsiq_entry`, `ct_idu_dep_reg_entry` | Issue wakeup/select and age-order invariants. |
-| LSU queues | `ct_lsu_sq_entry`, `ct_lsu_lq_entry`, `ct_lsu_rb` | Store/load ordering and queue consistency. |
+| LSU queues | `ct_lsu_lfb_data_entry`, `ct_lsu_sq_entry`, `ct_lsu_lq_entry`, `ct_lsu_rb` | Line-fill-buffer decode/control, store/load ordering, and queue consistency. |
 
 ## Evidence Bar
 

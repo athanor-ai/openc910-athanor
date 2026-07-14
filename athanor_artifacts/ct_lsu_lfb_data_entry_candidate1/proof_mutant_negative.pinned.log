@@ -1,0 +1,998 @@
+
+ /----------------------------------------------------------------------------\
+ |  yosys -- Yosys Open SYnthesis Suite                                       |
+ |  Copyright (C) 2012 - 2026  Claire Xenia Wolf <claire@yosyshq.com>         |
+ |  Distributed under an ISC-like license, type "license" to see terms        |
+ \----------------------------------------------------------------------------/
+ Yosys 0.66+181 (git sha1 afe6b18f2, Release, Clang /usr/bin/clang++ 18.1.8)
+
+-- Running command `read_verilog -sv cpu_cfig.h gated_clk_cell.v ct_lsu_lfb_data_entry_gold.v; rename ct_lsu_lfb_data_entry ct_lsu_lfb_data_entry_gold; read_verilog -sv ct_lsu_lfb_data_entry_gate_proof_mutant.v; rename ct_lsu_lfb_data_entry ct_lsu_lfb_data_entry_gate; proc; memory; opt; equiv_make ct_lsu_lfb_data_entry_gold ct_lsu_lfb_data_entry_gate equiv; hierarchy -top equiv; flatten; async2sync; dffunmap; opt; equiv_simple -seq 8; equiv_status' --
+
+1. Executing Verilog-2005 frontend: cpu_cfig.h
+Parsing SystemVerilog input from `cpu_cfig.h' to AST representation.
+Successfully finished Verilog frontend.
+
+2. Executing Verilog-2005 frontend: gated_clk_cell.v
+Parsing SystemVerilog input from `gated_clk_cell.v' to AST representation.
+Generating RTLIL representation for module `\gated_clk_cell'.
+Successfully finished Verilog frontend.
+
+3. Executing Verilog-2005 frontend: ct_lsu_lfb_data_entry_gold.v
+Parsing SystemVerilog input from `ct_lsu_lfb_data_entry_gold.v' to AST representation.
+Generating RTLIL representation for module `\ct_lsu_lfb_data_entry'.
+Note: Assuming pure combinatorial block at ct_lsu_lfb_data_entry_gold.v:488.1-503.4 in
+compliance with IEC 62142(E):2005 / IEEE Std. 1364.1(E):2002. Recommending
+use of @* instead of @(...) for better match of synthesis and simulation.
+Successfully finished Verilog frontend.
+Renaming module \ct_lsu_lfb_data_entry to \ct_lsu_lfb_data_entry_gold.
+
+4. Executing Verilog-2005 frontend: ct_lsu_lfb_data_entry_gate_proof_mutant.v
+Parsing SystemVerilog input from `ct_lsu_lfb_data_entry_gate_proof_mutant.v' to AST representation.
+Generating RTLIL representation for module `\ct_lsu_lfb_data_entry'.
+Successfully finished Verilog frontend.
+Renaming module \ct_lsu_lfb_data_entry to \ct_lsu_lfb_data_entry_gate.
+
+5. Executing PROC pass (convert processes to netlists).
+
+5.1. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Cleaned up 0 empty switches.
+
+5.2. Executing PROC_RMDEAD pass (remove dead branches from decision trees).
+Marked 2 switch rules as full_case in process $proc$ct_lsu_lfb_data_entry_gate_proof_mutant.v:418$103 in module ct_lsu_lfb_data_entry_gate.
+Marked 1 switch rules as full_case in process $proc$ct_lsu_lfb_data_entry_gate_proof_mutant.v:407$101 in module ct_lsu_lfb_data_entry_gate.
+Marked 1 switch rules as full_case in process $proc$ct_lsu_lfb_data_entry_gate_proof_mutant.v:399$99 in module ct_lsu_lfb_data_entry_gate.
+Marked 1 switch rules as full_case in process $proc$ct_lsu_lfb_data_entry_gate_proof_mutant.v:391$97 in module ct_lsu_lfb_data_entry_gate.
+Marked 1 switch rules as full_case in process $proc$ct_lsu_lfb_data_entry_gate_proof_mutant.v:383$95 in module ct_lsu_lfb_data_entry_gate.
+Marked 2 switch rules as full_case in process $proc$ct_lsu_lfb_data_entry_gate_proof_mutant.v:370$92 in module ct_lsu_lfb_data_entry_gate.
+Marked 3 switch rules as full_case in process $proc$ct_lsu_lfb_data_entry_gate_proof_mutant.v:347$90 in module ct_lsu_lfb_data_entry_gate.
+Marked 2 switch rules as full_case in process $proc$ct_lsu_lfb_data_entry_gate_proof_mutant.v:323$87 in module ct_lsu_lfb_data_entry_gate.
+Marked 1 switch rules as full_case in process $proc$ct_lsu_lfb_data_entry_gate_proof_mutant.v:312$85 in module ct_lsu_lfb_data_entry_gate.
+Marked 2 switch rules as full_case in process $proc$ct_lsu_lfb_data_entry_gate_proof_mutant.v:299$83 in module ct_lsu_lfb_data_entry_gate.
+Removed 1 dead cases from process $proc$ct_lsu_lfb_data_entry_gold.v:488$57 in module ct_lsu_lfb_data_entry_gold.
+Marked 1 switch rules as full_case in process $proc$ct_lsu_lfb_data_entry_gold.v:488$57 in module ct_lsu_lfb_data_entry_gold.
+Marked 2 switch rules as full_case in process $proc$ct_lsu_lfb_data_entry_gold.v:418$25 in module ct_lsu_lfb_data_entry_gold.
+Marked 1 switch rules as full_case in process $proc$ct_lsu_lfb_data_entry_gold.v:407$23 in module ct_lsu_lfb_data_entry_gold.
+Marked 1 switch rules as full_case in process $proc$ct_lsu_lfb_data_entry_gold.v:399$21 in module ct_lsu_lfb_data_entry_gold.
+Marked 1 switch rules as full_case in process $proc$ct_lsu_lfb_data_entry_gold.v:391$19 in module ct_lsu_lfb_data_entry_gold.
+Marked 1 switch rules as full_case in process $proc$ct_lsu_lfb_data_entry_gold.v:383$17 in module ct_lsu_lfb_data_entry_gold.
+Marked 2 switch rules as full_case in process $proc$ct_lsu_lfb_data_entry_gold.v:370$14 in module ct_lsu_lfb_data_entry_gold.
+Marked 3 switch rules as full_case in process $proc$ct_lsu_lfb_data_entry_gold.v:347$12 in module ct_lsu_lfb_data_entry_gold.
+Marked 2 switch rules as full_case in process $proc$ct_lsu_lfb_data_entry_gold.v:323$9 in module ct_lsu_lfb_data_entry_gold.
+Marked 1 switch rules as full_case in process $proc$ct_lsu_lfb_data_entry_gold.v:312$7 in module ct_lsu_lfb_data_entry_gold.
+Marked 2 switch rules as full_case in process $proc$ct_lsu_lfb_data_entry_gold.v:299$5 in module ct_lsu_lfb_data_entry_gold.
+Removed a total of 1 dead cases.
+
+5.3. Executing PROC_PRUNE pass (remove redundant assignments in processes).
+Removed 0 redundant assignments.
+Promoted 1 assignment to connection.
+
+5.4. Executing PROC_INIT pass (extract init attributes).
+
+5.5. Executing PROC_ARST pass (detect async resets in processes).
+Found async reset \cpurst_b in `\ct_lsu_lfb_data_entry_gate.$proc$ct_lsu_lfb_data_entry_gate_proof_mutant.v:418$103'.
+Found async reset \cpurst_b in `\ct_lsu_lfb_data_entry_gate.$proc$ct_lsu_lfb_data_entry_gate_proof_mutant.v:407$101'.
+Found async reset \cpurst_b in `\ct_lsu_lfb_data_entry_gate.$proc$ct_lsu_lfb_data_entry_gate_proof_mutant.v:399$99'.
+Found async reset \cpurst_b in `\ct_lsu_lfb_data_entry_gate.$proc$ct_lsu_lfb_data_entry_gate_proof_mutant.v:391$97'.
+Found async reset \cpurst_b in `\ct_lsu_lfb_data_entry_gate.$proc$ct_lsu_lfb_data_entry_gate_proof_mutant.v:383$95'.
+Found async reset \cpurst_b in `\ct_lsu_lfb_data_entry_gate.$proc$ct_lsu_lfb_data_entry_gate_proof_mutant.v:370$92'.
+Found async reset \cpurst_b in `\ct_lsu_lfb_data_entry_gate.$proc$ct_lsu_lfb_data_entry_gate_proof_mutant.v:347$90'.
+Found async reset \cpurst_b in `\ct_lsu_lfb_data_entry_gate.$proc$ct_lsu_lfb_data_entry_gate_proof_mutant.v:323$87'.
+Found async reset \cpurst_b in `\ct_lsu_lfb_data_entry_gate.$proc$ct_lsu_lfb_data_entry_gate_proof_mutant.v:312$85'.
+Found async reset \cpurst_b in `\ct_lsu_lfb_data_entry_gate.$proc$ct_lsu_lfb_data_entry_gate_proof_mutant.v:299$83'.
+Found async reset \cpurst_b in `\ct_lsu_lfb_data_entry_gold.$proc$ct_lsu_lfb_data_entry_gold.v:418$25'.
+Found async reset \cpurst_b in `\ct_lsu_lfb_data_entry_gold.$proc$ct_lsu_lfb_data_entry_gold.v:407$23'.
+Found async reset \cpurst_b in `\ct_lsu_lfb_data_entry_gold.$proc$ct_lsu_lfb_data_entry_gold.v:399$21'.
+Found async reset \cpurst_b in `\ct_lsu_lfb_data_entry_gold.$proc$ct_lsu_lfb_data_entry_gold.v:391$19'.
+Found async reset \cpurst_b in `\ct_lsu_lfb_data_entry_gold.$proc$ct_lsu_lfb_data_entry_gold.v:383$17'.
+Found async reset \cpurst_b in `\ct_lsu_lfb_data_entry_gold.$proc$ct_lsu_lfb_data_entry_gold.v:370$14'.
+Found async reset \cpurst_b in `\ct_lsu_lfb_data_entry_gold.$proc$ct_lsu_lfb_data_entry_gold.v:347$12'.
+Found async reset \cpurst_b in `\ct_lsu_lfb_data_entry_gold.$proc$ct_lsu_lfb_data_entry_gold.v:323$9'.
+Found async reset \cpurst_b in `\ct_lsu_lfb_data_entry_gold.$proc$ct_lsu_lfb_data_entry_gold.v:312$7'.
+Found async reset \cpurst_b in `\ct_lsu_lfb_data_entry_gold.$proc$ct_lsu_lfb_data_entry_gold.v:299$5'.
+
+5.6. Executing PROC_ROM pass (convert switches to ROMs).
+Converted 1 switch.
+<suppressed ~32 debug messages>
+
+5.7. Executing PROC_MUX pass (convert decision trees to multiplexers).
+Creating decoders for process `\ct_lsu_lfb_data_entry_gate.$proc$ct_lsu_lfb_data_entry_gate_proof_mutant.v:418$103'.
+     1/1: $0\lfb_data_entry_lf_sm_req_success[0:0]
+Creating decoders for process `\ct_lsu_lfb_data_entry_gate.$proc$ct_lsu_lfb_data_entry_gate_proof_mutant.v:407$101'.
+     1/1: $0\lfb_data_entry_data[511:384]
+Creating decoders for process `\ct_lsu_lfb_data_entry_gate.$proc$ct_lsu_lfb_data_entry_gate_proof_mutant.v:399$99'.
+     1/1: $0\lfb_data_entry_data[383:256]
+Creating decoders for process `\ct_lsu_lfb_data_entry_gate.$proc$ct_lsu_lfb_data_entry_gate_proof_mutant.v:391$97'.
+     1/1: $0\lfb_data_entry_data[255:128]
+Creating decoders for process `\ct_lsu_lfb_data_entry_gate.$proc$ct_lsu_lfb_data_entry_gate_proof_mutant.v:383$95'.
+     1/1: $0\lfb_data_entry_data[127:0]
+Creating decoders for process `\ct_lsu_lfb_data_entry_gate.$proc$ct_lsu_lfb_data_entry_gate_proof_mutant.v:370$92'.
+     1/1: $0\lfb_data_entry_bus_err[0:0]
+Creating decoders for process `\ct_lsu_lfb_data_entry_gate.$proc$ct_lsu_lfb_data_entry_gate_proof_mutant.v:347$90'.
+     1/1: $0\lfb_data_entry_dcache_share[0:0]
+Creating decoders for process `\ct_lsu_lfb_data_entry_gate.$proc$ct_lsu_lfb_data_entry_gate_proof_mutant.v:323$87'.
+     1/3: $0\lfb_data_entry_pass_ptr[3:0]
+     2/3: $0\lfb_data_entry_last[0:0]
+     3/3: $0\lfb_data_entry_cnt[1:0]
+Creating decoders for process `\ct_lsu_lfb_data_entry_gate.$proc$ct_lsu_lfb_data_entry_gate_proof_mutant.v:312$85'.
+     1/1: $0\lfb_data_entry_biu_id[2:0]
+Creating decoders for process `\ct_lsu_lfb_data_entry_gate.$proc$ct_lsu_lfb_data_entry_gate_proof_mutant.v:299$83'.
+     1/1: $0\lfb_data_entry_vld[0:0]
+Creating decoders for process `\ct_lsu_lfb_data_entry_gold.$proc$ct_lsu_lfb_data_entry_gold.v:488$57'.
+     1/1: { $1\lfb_data_entry_addr_id[7:0] [0] $1\lfb_data_entry_addr_id[7:0] [7:1] }
+Creating decoders for process `\ct_lsu_lfb_data_entry_gold.$proc$ct_lsu_lfb_data_entry_gold.v:418$25'.
+     1/1: $0\lfb_data_entry_lf_sm_req_success[0:0]
+Creating decoders for process `\ct_lsu_lfb_data_entry_gold.$proc$ct_lsu_lfb_data_entry_gold.v:407$23'.
+     1/1: $0\lfb_data_entry_data[511:384]
+Creating decoders for process `\ct_lsu_lfb_data_entry_gold.$proc$ct_lsu_lfb_data_entry_gold.v:399$21'.
+     1/1: $0\lfb_data_entry_data[383:256]
+Creating decoders for process `\ct_lsu_lfb_data_entry_gold.$proc$ct_lsu_lfb_data_entry_gold.v:391$19'.
+     1/1: $0\lfb_data_entry_data[255:128]
+Creating decoders for process `\ct_lsu_lfb_data_entry_gold.$proc$ct_lsu_lfb_data_entry_gold.v:383$17'.
+     1/1: $0\lfb_data_entry_data[127:0]
+Creating decoders for process `\ct_lsu_lfb_data_entry_gold.$proc$ct_lsu_lfb_data_entry_gold.v:370$14'.
+     1/1: $0\lfb_data_entry_bus_err[0:0]
+Creating decoders for process `\ct_lsu_lfb_data_entry_gold.$proc$ct_lsu_lfb_data_entry_gold.v:347$12'.
+     1/1: $0\lfb_data_entry_dcache_share[0:0]
+Creating decoders for process `\ct_lsu_lfb_data_entry_gold.$proc$ct_lsu_lfb_data_entry_gold.v:323$9'.
+     1/3: $0\lfb_data_entry_pass_ptr[3:0]
+     2/3: $0\lfb_data_entry_last[0:0]
+     3/3: $0\lfb_data_entry_cnt[1:0]
+Creating decoders for process `\ct_lsu_lfb_data_entry_gold.$proc$ct_lsu_lfb_data_entry_gold.v:312$7'.
+     1/1: $0\lfb_data_entry_biu_id[2:0]
+Creating decoders for process `\ct_lsu_lfb_data_entry_gold.$proc$ct_lsu_lfb_data_entry_gold.v:299$5'.
+     1/1: $0\lfb_data_entry_vld[0:0]
+
+5.8. Executing PROC_DLATCH pass (convert process syncs to latches).
+No latch inferred for signal `\ct_lsu_lfb_data_entry_gold.\lfb_data_entry_addr_id' from process `\ct_lsu_lfb_data_entry_gold.$proc$ct_lsu_lfb_data_entry_gold.v:488$57'.
+
+5.9. Executing PROC_DFF pass (convert process syncs to FFs).
+Creating register for signal `\ct_lsu_lfb_data_entry_gate.\lfb_data_entry_lf_sm_req_success' using process `\ct_lsu_lfb_data_entry_gate.$proc$ct_lsu_lfb_data_entry_gate_proof_mutant.v:418$103'.
+  created $adff cell `$procdff$266' with positive edge clock and positive level reset.
+Creating register for signal `\ct_lsu_lfb_data_entry_gate.\lfb_data_entry_data [511:384]' using process `\ct_lsu_lfb_data_entry_gate.$proc$ct_lsu_lfb_data_entry_gate_proof_mutant.v:407$101'.
+  created $adff cell `$procdff$271' with positive edge clock and positive level reset.
+Creating register for signal `\ct_lsu_lfb_data_entry_gate.\lfb_data_entry_data [383:256]' using process `\ct_lsu_lfb_data_entry_gate.$proc$ct_lsu_lfb_data_entry_gate_proof_mutant.v:399$99'.
+  created $adff cell `$procdff$276' with positive edge clock and positive level reset.
+Creating register for signal `\ct_lsu_lfb_data_entry_gate.\lfb_data_entry_data [255:128]' using process `\ct_lsu_lfb_data_entry_gate.$proc$ct_lsu_lfb_data_entry_gate_proof_mutant.v:391$97'.
+  created $adff cell `$procdff$281' with positive edge clock and positive level reset.
+Creating register for signal `\ct_lsu_lfb_data_entry_gate.\lfb_data_entry_data [127:0]' using process `\ct_lsu_lfb_data_entry_gate.$proc$ct_lsu_lfb_data_entry_gate_proof_mutant.v:383$95'.
+  created $adff cell `$procdff$286' with positive edge clock and positive level reset.
+Creating register for signal `\ct_lsu_lfb_data_entry_gate.\lfb_data_entry_bus_err' using process `\ct_lsu_lfb_data_entry_gate.$proc$ct_lsu_lfb_data_entry_gate_proof_mutant.v:370$92'.
+  created $adff cell `$procdff$291' with positive edge clock and positive level reset.
+Creating register for signal `\ct_lsu_lfb_data_entry_gate.\lfb_data_entry_dcache_share' using process `\ct_lsu_lfb_data_entry_gate.$proc$ct_lsu_lfb_data_entry_gate_proof_mutant.v:347$90'.
+  created $adff cell `$procdff$296' with positive edge clock and positive level reset.
+Creating register for signal `\ct_lsu_lfb_data_entry_gate.\lfb_data_entry_cnt' using process `\ct_lsu_lfb_data_entry_gate.$proc$ct_lsu_lfb_data_entry_gate_proof_mutant.v:323$87'.
+  created $adff cell `$procdff$301' with positive edge clock and positive level reset.
+Creating register for signal `\ct_lsu_lfb_data_entry_gate.\lfb_data_entry_last' using process `\ct_lsu_lfb_data_entry_gate.$proc$ct_lsu_lfb_data_entry_gate_proof_mutant.v:323$87'.
+  created $adff cell `$procdff$306' with positive edge clock and positive level reset.
+Creating register for signal `\ct_lsu_lfb_data_entry_gate.\lfb_data_entry_pass_ptr' using process `\ct_lsu_lfb_data_entry_gate.$proc$ct_lsu_lfb_data_entry_gate_proof_mutant.v:323$87'.
+  created $adff cell `$procdff$311' with positive edge clock and positive level reset.
+Creating register for signal `\ct_lsu_lfb_data_entry_gate.\lfb_data_entry_biu_id' using process `\ct_lsu_lfb_data_entry_gate.$proc$ct_lsu_lfb_data_entry_gate_proof_mutant.v:312$85'.
+  created $adff cell `$procdff$316' with positive edge clock and positive level reset.
+Creating register for signal `\ct_lsu_lfb_data_entry_gate.\lfb_data_entry_vld' using process `\ct_lsu_lfb_data_entry_gate.$proc$ct_lsu_lfb_data_entry_gate_proof_mutant.v:299$83'.
+  created $adff cell `$procdff$321' with positive edge clock and positive level reset.
+Creating register for signal `\ct_lsu_lfb_data_entry_gold.\lfb_data_entry_lf_sm_req_success' using process `\ct_lsu_lfb_data_entry_gold.$proc$ct_lsu_lfb_data_entry_gold.v:418$25'.
+  created $adff cell `$procdff$326' with positive edge clock and positive level reset.
+Creating register for signal `\ct_lsu_lfb_data_entry_gold.\lfb_data_entry_data [511:384]' using process `\ct_lsu_lfb_data_entry_gold.$proc$ct_lsu_lfb_data_entry_gold.v:407$23'.
+  created $adff cell `$procdff$331' with positive edge clock and positive level reset.
+Creating register for signal `\ct_lsu_lfb_data_entry_gold.\lfb_data_entry_data [383:256]' using process `\ct_lsu_lfb_data_entry_gold.$proc$ct_lsu_lfb_data_entry_gold.v:399$21'.
+  created $adff cell `$procdff$336' with positive edge clock and positive level reset.
+Creating register for signal `\ct_lsu_lfb_data_entry_gold.\lfb_data_entry_data [255:128]' using process `\ct_lsu_lfb_data_entry_gold.$proc$ct_lsu_lfb_data_entry_gold.v:391$19'.
+  created $adff cell `$procdff$341' with positive edge clock and positive level reset.
+Creating register for signal `\ct_lsu_lfb_data_entry_gold.\lfb_data_entry_data [127:0]' using process `\ct_lsu_lfb_data_entry_gold.$proc$ct_lsu_lfb_data_entry_gold.v:383$17'.
+  created $adff cell `$procdff$346' with positive edge clock and positive level reset.
+Creating register for signal `\ct_lsu_lfb_data_entry_gold.\lfb_data_entry_bus_err' using process `\ct_lsu_lfb_data_entry_gold.$proc$ct_lsu_lfb_data_entry_gold.v:370$14'.
+  created $adff cell `$procdff$351' with positive edge clock and positive level reset.
+Creating register for signal `\ct_lsu_lfb_data_entry_gold.\lfb_data_entry_dcache_share' using process `\ct_lsu_lfb_data_entry_gold.$proc$ct_lsu_lfb_data_entry_gold.v:347$12'.
+  created $adff cell `$procdff$356' with positive edge clock and positive level reset.
+Creating register for signal `\ct_lsu_lfb_data_entry_gold.\lfb_data_entry_cnt' using process `\ct_lsu_lfb_data_entry_gold.$proc$ct_lsu_lfb_data_entry_gold.v:323$9'.
+  created $adff cell `$procdff$361' with positive edge clock and positive level reset.
+Creating register for signal `\ct_lsu_lfb_data_entry_gold.\lfb_data_entry_last' using process `\ct_lsu_lfb_data_entry_gold.$proc$ct_lsu_lfb_data_entry_gold.v:323$9'.
+  created $adff cell `$procdff$366' with positive edge clock and positive level reset.
+Creating register for signal `\ct_lsu_lfb_data_entry_gold.\lfb_data_entry_pass_ptr' using process `\ct_lsu_lfb_data_entry_gold.$proc$ct_lsu_lfb_data_entry_gold.v:323$9'.
+  created $adff cell `$procdff$371' with positive edge clock and positive level reset.
+Creating register for signal `\ct_lsu_lfb_data_entry_gold.\lfb_data_entry_biu_id' using process `\ct_lsu_lfb_data_entry_gold.$proc$ct_lsu_lfb_data_entry_gold.v:312$7'.
+  created $adff cell `$procdff$376' with positive edge clock and positive level reset.
+Creating register for signal `\ct_lsu_lfb_data_entry_gold.\lfb_data_entry_vld' using process `\ct_lsu_lfb_data_entry_gold.$proc$ct_lsu_lfb_data_entry_gold.v:299$5'.
+  created $adff cell `$procdff$381' with positive edge clock and positive level reset.
+
+5.10. Executing PROC_MEMWR pass (convert process memory writes to cells).
+
+5.11. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Found and cleaned up 2 empty switches in `\ct_lsu_lfb_data_entry_gate.$proc$ct_lsu_lfb_data_entry_gate_proof_mutant.v:418$103'.
+Removing empty process `ct_lsu_lfb_data_entry_gate.$proc$ct_lsu_lfb_data_entry_gate_proof_mutant.v:418$103'.
+Found and cleaned up 1 empty switch in `\ct_lsu_lfb_data_entry_gate.$proc$ct_lsu_lfb_data_entry_gate_proof_mutant.v:407$101'.
+Removing empty process `ct_lsu_lfb_data_entry_gate.$proc$ct_lsu_lfb_data_entry_gate_proof_mutant.v:407$101'.
+Found and cleaned up 1 empty switch in `\ct_lsu_lfb_data_entry_gate.$proc$ct_lsu_lfb_data_entry_gate_proof_mutant.v:399$99'.
+Removing empty process `ct_lsu_lfb_data_entry_gate.$proc$ct_lsu_lfb_data_entry_gate_proof_mutant.v:399$99'.
+Found and cleaned up 1 empty switch in `\ct_lsu_lfb_data_entry_gate.$proc$ct_lsu_lfb_data_entry_gate_proof_mutant.v:391$97'.
+Removing empty process `ct_lsu_lfb_data_entry_gate.$proc$ct_lsu_lfb_data_entry_gate_proof_mutant.v:391$97'.
+Found and cleaned up 1 empty switch in `\ct_lsu_lfb_data_entry_gate.$proc$ct_lsu_lfb_data_entry_gate_proof_mutant.v:383$95'.
+Removing empty process `ct_lsu_lfb_data_entry_gate.$proc$ct_lsu_lfb_data_entry_gate_proof_mutant.v:383$95'.
+Found and cleaned up 2 empty switches in `\ct_lsu_lfb_data_entry_gate.$proc$ct_lsu_lfb_data_entry_gate_proof_mutant.v:370$92'.
+Removing empty process `ct_lsu_lfb_data_entry_gate.$proc$ct_lsu_lfb_data_entry_gate_proof_mutant.v:370$92'.
+Found and cleaned up 3 empty switches in `\ct_lsu_lfb_data_entry_gate.$proc$ct_lsu_lfb_data_entry_gate_proof_mutant.v:347$90'.
+Removing empty process `ct_lsu_lfb_data_entry_gate.$proc$ct_lsu_lfb_data_entry_gate_proof_mutant.v:347$90'.
+Found and cleaned up 2 empty switches in `\ct_lsu_lfb_data_entry_gate.$proc$ct_lsu_lfb_data_entry_gate_proof_mutant.v:323$87'.
+Removing empty process `ct_lsu_lfb_data_entry_gate.$proc$ct_lsu_lfb_data_entry_gate_proof_mutant.v:323$87'.
+Found and cleaned up 1 empty switch in `\ct_lsu_lfb_data_entry_gate.$proc$ct_lsu_lfb_data_entry_gate_proof_mutant.v:312$85'.
+Removing empty process `ct_lsu_lfb_data_entry_gate.$proc$ct_lsu_lfb_data_entry_gate_proof_mutant.v:312$85'.
+Found and cleaned up 2 empty switches in `\ct_lsu_lfb_data_entry_gate.$proc$ct_lsu_lfb_data_entry_gate_proof_mutant.v:299$83'.
+Removing empty process `ct_lsu_lfb_data_entry_gate.$proc$ct_lsu_lfb_data_entry_gate_proof_mutant.v:299$83'.
+Found and cleaned up 1 empty switch in `\ct_lsu_lfb_data_entry_gold.$proc$ct_lsu_lfb_data_entry_gold.v:488$57'.
+Removing empty process `ct_lsu_lfb_data_entry_gold.$proc$ct_lsu_lfb_data_entry_gold.v:488$57'.
+Found and cleaned up 2 empty switches in `\ct_lsu_lfb_data_entry_gold.$proc$ct_lsu_lfb_data_entry_gold.v:418$25'.
+Removing empty process `ct_lsu_lfb_data_entry_gold.$proc$ct_lsu_lfb_data_entry_gold.v:418$25'.
+Found and cleaned up 1 empty switch in `\ct_lsu_lfb_data_entry_gold.$proc$ct_lsu_lfb_data_entry_gold.v:407$23'.
+Removing empty process `ct_lsu_lfb_data_entry_gold.$proc$ct_lsu_lfb_data_entry_gold.v:407$23'.
+Found and cleaned up 1 empty switch in `\ct_lsu_lfb_data_entry_gold.$proc$ct_lsu_lfb_data_entry_gold.v:399$21'.
+Removing empty process `ct_lsu_lfb_data_entry_gold.$proc$ct_lsu_lfb_data_entry_gold.v:399$21'.
+Found and cleaned up 1 empty switch in `\ct_lsu_lfb_data_entry_gold.$proc$ct_lsu_lfb_data_entry_gold.v:391$19'.
+Removing empty process `ct_lsu_lfb_data_entry_gold.$proc$ct_lsu_lfb_data_entry_gold.v:391$19'.
+Found and cleaned up 1 empty switch in `\ct_lsu_lfb_data_entry_gold.$proc$ct_lsu_lfb_data_entry_gold.v:383$17'.
+Removing empty process `ct_lsu_lfb_data_entry_gold.$proc$ct_lsu_lfb_data_entry_gold.v:383$17'.
+Found and cleaned up 2 empty switches in `\ct_lsu_lfb_data_entry_gold.$proc$ct_lsu_lfb_data_entry_gold.v:370$14'.
+Removing empty process `ct_lsu_lfb_data_entry_gold.$proc$ct_lsu_lfb_data_entry_gold.v:370$14'.
+Found and cleaned up 3 empty switches in `\ct_lsu_lfb_data_entry_gold.$proc$ct_lsu_lfb_data_entry_gold.v:347$12'.
+Removing empty process `ct_lsu_lfb_data_entry_gold.$proc$ct_lsu_lfb_data_entry_gold.v:347$12'.
+Found and cleaned up 2 empty switches in `\ct_lsu_lfb_data_entry_gold.$proc$ct_lsu_lfb_data_entry_gold.v:323$9'.
+Removing empty process `ct_lsu_lfb_data_entry_gold.$proc$ct_lsu_lfb_data_entry_gold.v:323$9'.
+Found and cleaned up 1 empty switch in `\ct_lsu_lfb_data_entry_gold.$proc$ct_lsu_lfb_data_entry_gold.v:312$7'.
+Removing empty process `ct_lsu_lfb_data_entry_gold.$proc$ct_lsu_lfb_data_entry_gold.v:312$7'.
+Found and cleaned up 2 empty switches in `\ct_lsu_lfb_data_entry_gold.$proc$ct_lsu_lfb_data_entry_gold.v:299$5'.
+Removing empty process `ct_lsu_lfb_data_entry_gold.$proc$ct_lsu_lfb_data_entry_gold.v:299$5'.
+Cleaned up 33 empty switches.
+
+5.12. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_lsu_lfb_data_entry_gate.
+<suppressed ~26 debug messages>
+Optimizing module ct_lsu_lfb_data_entry_gold.
+<suppressed ~25 debug messages>
+Optimizing module gated_clk_cell.
+
+6. Executing MEMORY pass.
+
+6.1. Executing OPT_MEM pass (optimize memories).
+Performed a total of 0 transformations.
+
+6.2. Executing OPT_MEM_PRIORITY pass (removing unnecessary memory write priority relations).
+Performed a total of 0 transformations.
+
+6.3. Executing OPT_MEM_FEEDBACK pass (finding memory read-to-write feedback paths).
+
+6.4. Executing MEMORY_BMUX2ROM pass (converting muxes to ROMs).
+
+6.5. Executing MEMORY_DFF pass (merging $dff cells to $memrd).
+Checking read port `$auto$proc_rom.cc:155:do_switch$162'[0] in module `\ct_lsu_lfb_data_entry_gold': no output FF found.
+Checking read port address `$auto$proc_rom.cc:155:do_switch$162'[0] in module `\ct_lsu_lfb_data_entry_gold': address FF has async set and/or reset, not supported.
+
+6.6. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_lsu_lfb_data_entry_gate..
+Finding unused cells or wires in module \ct_lsu_lfb_data_entry_gold..
+Finding unused cells or wires in module \gated_clk_cell..
+Removed 47 unused cells and 179 unused wires.
+<suppressed ~51 debug messages>
+
+6.7. Executing MEMORY_SHARE pass (consolidating $memrd/$memwr cells).
+
+6.8. Executing OPT_MEM_WIDEN pass (optimize memories where all ports are wide).
+Performed a total of 0 transformations.
+
+6.9. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_lsu_lfb_data_entry_gate..
+Finding unused cells or wires in module \ct_lsu_lfb_data_entry_gold..
+Finding unused cells or wires in module \gated_clk_cell..
+
+6.10. Executing MEMORY_COLLECT pass (generating $mem cells).
+
+6.11. Executing MEMORY_MAP pass (converting memories to logic and flip-flops).
+Mapping memory $auto$proc_rom.cc:155:do_switch$162 in module \ct_lsu_lfb_data_entry_gold:
+  created 8 $dff cells and 0 static cells of width 8.
+  read interface: 0 $dff and 7 $mux cells.
+  write interface: 0 write mux blocks.
+
+7. Executing OPT pass (performing simple optimizations).
+
+7.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_lsu_lfb_data_entry_gate.
+Optimizing module ct_lsu_lfb_data_entry_gold.
+Optimizing module gated_clk_cell.
+
+7.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_lsu_lfb_data_entry_gate'.
+Computing hashes of 97 cells of `\ct_lsu_lfb_data_entry_gate'.
+Finding duplicate cells in `\ct_lsu_lfb_data_entry_gate'.
+Finding identical cells in module `\ct_lsu_lfb_data_entry_gold'.
+Computing hashes of 102 cells of `\ct_lsu_lfb_data_entry_gold'.
+Finding duplicate cells in `\ct_lsu_lfb_data_entry_gold'.
+Finding identical cells in module `\gated_clk_cell'.
+Computing hashes of 0 cells of `\gated_clk_cell'.
+Finding duplicate cells in `\gated_clk_cell'.
+Removed a total of 0 cells.
+
+7.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \ct_lsu_lfb_data_entry_gate..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \ct_lsu_lfb_data_entry_gold..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \gated_clk_cell..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Removed 0 multiplexer ports.
+<suppressed ~72 debug messages>
+
+7.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \ct_lsu_lfb_data_entry_gate.
+  Optimizing cells in module \ct_lsu_lfb_data_entry_gold.
+  Optimizing cells in module \gated_clk_cell.
+Performed a total of 0 changes.
+
+7.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_lsu_lfb_data_entry_gate'.
+Computing hashes of 97 cells of `\ct_lsu_lfb_data_entry_gate'.
+Finding duplicate cells in `\ct_lsu_lfb_data_entry_gate'.
+Finding identical cells in module `\ct_lsu_lfb_data_entry_gold'.
+Computing hashes of 102 cells of `\ct_lsu_lfb_data_entry_gold'.
+Finding duplicate cells in `\ct_lsu_lfb_data_entry_gold'.
+Finding identical cells in module `\gated_clk_cell'.
+Computing hashes of 0 cells of `\gated_clk_cell'.
+Finding duplicate cells in `\gated_clk_cell'.
+Removed a total of 0 cells.
+
+7.6. Executing OPT_DFF pass (perform DFF optimizations).
+Adding EN signal on $procdff$281 ($adff) from module ct_lsu_lfb_data_entry_gate (D = \biu_lsu_r_data, Q = \lfb_data_entry_data [255:128]).
+Adding EN signal on $procdff$321 ($adff) from module ct_lsu_lfb_data_entry_gate (D = $0\lfb_data_entry_vld[0:0], Q = \lfb_data_entry_vld).
+Adding EN signal on $procdff$291 ($adff) from module ct_lsu_lfb_data_entry_gate (D = $0\lfb_data_entry_bus_err[0:0], Q = \lfb_data_entry_bus_err).
+Adding EN signal on $procdff$276 ($adff) from module ct_lsu_lfb_data_entry_gate (D = \biu_lsu_r_data, Q = \lfb_data_entry_data [383:256]).
+Adding EN signal on $procdff$306 ($adff) from module ct_lsu_lfb_data_entry_gate (D = $0\lfb_data_entry_last[0:0], Q = \lfb_data_entry_last).
+Adding EN signal on $procdff$286 ($adff) from module ct_lsu_lfb_data_entry_gate (D = \biu_lsu_r_data, Q = \lfb_data_entry_data [127:0]).
+Adding EN signal on $procdff$271 ($adff) from module ct_lsu_lfb_data_entry_gate (D = \biu_lsu_r_data, Q = \lfb_data_entry_data [511:384]).
+Adding EN signal on $procdff$316 ($adff) from module ct_lsu_lfb_data_entry_gate (D = \lfb_biu_id_2to0, Q = \lfb_data_entry_biu_id).
+Adding EN signal on $procdff$301 ($adff) from module ct_lsu_lfb_data_entry_gate (D = $0\lfb_data_entry_cnt[1:0], Q = \lfb_data_entry_cnt).
+Adding EN signal on $procdff$266 ($adff) from module ct_lsu_lfb_data_entry_gate (D = $0\lfb_data_entry_lf_sm_req_success[0:0], Q = \lfb_data_entry_lf_sm_req_success).
+Adding EN signal on $procdff$311 ($adff) from module ct_lsu_lfb_data_entry_gate (D = $0\lfb_data_entry_pass_ptr[3:0], Q = \lfb_data_entry_pass_ptr).
+Adding EN signal on $procdff$296 ($adff) from module ct_lsu_lfb_data_entry_gate (D = $0\lfb_data_entry_dcache_share[0:0], Q = \lfb_data_entry_dcache_share).
+Adding EN signal on $procdff$341 ($adff) from module ct_lsu_lfb_data_entry_gold (D = \biu_lsu_r_data, Q = \lfb_data_entry_data [255:128]).
+Adding EN signal on $procdff$381 ($adff) from module ct_lsu_lfb_data_entry_gold (D = $0\lfb_data_entry_vld[0:0], Q = \lfb_data_entry_vld).
+Adding EN signal on $procdff$351 ($adff) from module ct_lsu_lfb_data_entry_gold (D = $0\lfb_data_entry_bus_err[0:0], Q = \lfb_data_entry_bus_err).
+Adding EN signal on $procdff$336 ($adff) from module ct_lsu_lfb_data_entry_gold (D = \biu_lsu_r_data, Q = \lfb_data_entry_data [383:256]).
+Adding EN signal on $procdff$366 ($adff) from module ct_lsu_lfb_data_entry_gold (D = $0\lfb_data_entry_last[0:0], Q = \lfb_data_entry_last).
+Adding EN signal on $procdff$346 ($adff) from module ct_lsu_lfb_data_entry_gold (D = \biu_lsu_r_data, Q = \lfb_data_entry_data [127:0]).
+Adding EN signal on $procdff$331 ($adff) from module ct_lsu_lfb_data_entry_gold (D = \biu_lsu_r_data, Q = \lfb_data_entry_data [511:384]).
+Adding EN signal on $procdff$376 ($adff) from module ct_lsu_lfb_data_entry_gold (D = \lfb_biu_id_2to0, Q = \lfb_data_entry_biu_id).
+Adding EN signal on $procdff$361 ($adff) from module ct_lsu_lfb_data_entry_gold (D = $0\lfb_data_entry_cnt[1:0], Q = \lfb_data_entry_cnt).
+Adding EN signal on $procdff$326 ($adff) from module ct_lsu_lfb_data_entry_gold (D = $0\lfb_data_entry_lf_sm_req_success[0:0], Q = \lfb_data_entry_lf_sm_req_success).
+Adding EN signal on $procdff$356 ($adff) from module ct_lsu_lfb_data_entry_gold (D = $0\lfb_data_entry_dcache_share[0:0], Q = \lfb_data_entry_dcache_share).
+Adding EN signal on $procdff$371 ($adff) from module ct_lsu_lfb_data_entry_gold (D = $0\lfb_data_entry_pass_ptr[3:0], Q = \lfb_data_entry_pass_ptr).
+
+7.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_lsu_lfb_data_entry_gate..
+Finding unused cells or wires in module \ct_lsu_lfb_data_entry_gold..
+Finding unused cells or wires in module \gated_clk_cell..
+Removed 10 unused cells and 18 unused wires.
+<suppressed ~12 debug messages>
+
+7.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_lsu_lfb_data_entry_gate.
+<suppressed ~7 debug messages>
+Optimizing module ct_lsu_lfb_data_entry_gold.
+<suppressed ~7 debug messages>
+Optimizing module gated_clk_cell.
+
+7.9. Rerunning OPT passes. (Maybe there is more to do..)
+
+7.10. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \ct_lsu_lfb_data_entry_gate..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \ct_lsu_lfb_data_entry_gold..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \gated_clk_cell..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Removed 0 multiplexer ports.
+<suppressed ~52 debug messages>
+
+7.11. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \ct_lsu_lfb_data_entry_gate.
+  Optimizing cells in module \ct_lsu_lfb_data_entry_gold.
+  Optimizing cells in module \gated_clk_cell.
+Performed a total of 0 changes.
+
+7.12. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_lsu_lfb_data_entry_gate'.
+Computing hashes of 99 cells of `\ct_lsu_lfb_data_entry_gate'.
+Finding duplicate cells in `\ct_lsu_lfb_data_entry_gate'.
+Computing hashes of 97 cells of `\ct_lsu_lfb_data_entry_gate'.
+Finding duplicate cells in `\ct_lsu_lfb_data_entry_gate'.
+<suppressed ~6 debug messages>
+Finding identical cells in module `\ct_lsu_lfb_data_entry_gold'.
+Computing hashes of 104 cells of `\ct_lsu_lfb_data_entry_gold'.
+Finding duplicate cells in `\ct_lsu_lfb_data_entry_gold'.
+Computing hashes of 102 cells of `\ct_lsu_lfb_data_entry_gold'.
+Finding duplicate cells in `\ct_lsu_lfb_data_entry_gold'.
+<suppressed ~6 debug messages>
+Finding identical cells in module `\gated_clk_cell'.
+Computing hashes of 0 cells of `\gated_clk_cell'.
+Finding duplicate cells in `\gated_clk_cell'.
+Removed a total of 4 cells.
+
+7.13. Executing OPT_DFF pass (perform DFF optimizations).
+
+7.14. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_lsu_lfb_data_entry_gate..
+Finding unused cells or wires in module \ct_lsu_lfb_data_entry_gold..
+Finding unused cells or wires in module \gated_clk_cell..
+Removed 0 unused cells and 4 unused wires.
+<suppressed ~2 debug messages>
+
+7.15. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_lsu_lfb_data_entry_gate.
+Optimizing module ct_lsu_lfb_data_entry_gold.
+Optimizing module gated_clk_cell.
+
+7.16. Rerunning OPT passes. (Maybe there is more to do..)
+
+7.17. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \ct_lsu_lfb_data_entry_gate..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \ct_lsu_lfb_data_entry_gold..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \gated_clk_cell..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Removed 0 multiplexer ports.
+<suppressed ~52 debug messages>
+
+7.18. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \ct_lsu_lfb_data_entry_gate.
+  Optimizing cells in module \ct_lsu_lfb_data_entry_gold.
+  Optimizing cells in module \gated_clk_cell.
+Performed a total of 0 changes.
+
+7.19. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_lsu_lfb_data_entry_gate'.
+Computing hashes of 97 cells of `\ct_lsu_lfb_data_entry_gate'.
+Finding duplicate cells in `\ct_lsu_lfb_data_entry_gate'.
+Finding identical cells in module `\ct_lsu_lfb_data_entry_gold'.
+Computing hashes of 102 cells of `\ct_lsu_lfb_data_entry_gold'.
+Finding duplicate cells in `\ct_lsu_lfb_data_entry_gold'.
+Finding identical cells in module `\gated_clk_cell'.
+Computing hashes of 0 cells of `\gated_clk_cell'.
+Finding duplicate cells in `\gated_clk_cell'.
+Removed a total of 0 cells.
+
+7.20. Executing OPT_DFF pass (perform DFF optimizations).
+
+7.21. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_lsu_lfb_data_entry_gate..
+Finding unused cells or wires in module \ct_lsu_lfb_data_entry_gold..
+Finding unused cells or wires in module \gated_clk_cell..
+
+7.22. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_lsu_lfb_data_entry_gate.
+Optimizing module ct_lsu_lfb_data_entry_gold.
+Optimizing module gated_clk_cell.
+
+7.23. Finished fast OPT passes. (There is nothing left to do.)
+
+8. Executing EQUIV_MAKE pass (creating equiv checking module).
+Presumably equivalent wires: snq_lfb_bypass_invalid_gold (\snq_lfb_bypass_invalid_x_gold), snq_lfb_bypass_invalid_gate (\snq_lfb_bypass_invalid_x_gate) -> snq_lfb_bypass_invalid
+Presumably equivalent wires: snq_lfb_bypass_chg_tag_gold (\snq_lfb_bypass_chg_tag_x_gold), snq_lfb_bypass_chg_tag_gate (\snq_lfb_bypass_chg_tag_x_gate) -> snq_lfb_bypass_chg_tag
+Presumably equivalent wires: lfb_lf_sm_data_pop_req_gold (\lfb_lf_sm_data_pop_req_x_gold), lfb_lf_sm_data_pop_req_gate (\lfb_lf_sm_data_pop_req_x_gate) -> lfb_lf_sm_data_pop_req
+Presumably equivalent wires: lfb_lf_sm_data_grnt_gold (\lfb_lf_sm_data_grnt_x_gold), lfb_lf_sm_data_grnt_gate (\lfb_lf_sm_data_grnt_x_gate) -> lfb_lf_sm_data_grnt
+Presumably equivalent wires: lfb_data_entry_wait_surplus_gold (\lfb_data_entry_wait_surplus_x_gold), lfb_data_entry_wait_surplus_gate (\lfb_data_entry_wait_surplus_x_gate) -> lfb_data_entry_wait_surplus
+Presumably equivalent wires: lfb_data_entry_r_id_hit_gold (\lfb_data_entry_r_id_hit_gold), lfb_data_entry_r_id_hit_gate (\lfb_data_entry_r_id_hit_gate) -> lfb_data_entry_r_id_hit
+Presumably equivalent wires: lfb_data_entry_pop_vld_gold (\lfb_data_entry_pop_vld_gold), lfb_data_entry_pop_vld_gate (\lfb_data_entry_pop_vld_gate) -> lfb_data_entry_pop_vld
+Presumably equivalent wires: lfb_data_entry_pass_data_vld_gold (\lfb_data_entry_data_clk_en_gold), lfb_data_entry_pass_data_vld_gate (\lfb_data_entry_data_clk_en_gate) -> lfb_data_entry_pass_data_vld
+Presumably equivalent wires: lfb_data_entry_pass_data_last_gold (\lfb_data_entry_pass_data_last_gold), lfb_data_entry_pass_data_last_gate (\lfb_data_entry_pass_data_last_gate) -> lfb_data_entry_pass_data_last
+Presumably equivalent wires: lfb_data_entry_pass_data3_vld_gold (\lfb_data_entry_data3_clk_en_gold), lfb_data_entry_pass_data3_vld_gate (\lfb_data_entry_data3_clk_en_gate) -> lfb_data_entry_pass_data3_vld
+Presumably equivalent wires: lfb_data_entry_pass_data2_vld_gold (\lfb_data_entry_data2_clk_en_gold), lfb_data_entry_pass_data2_vld_gate (\lfb_data_entry_data2_clk_en_gate) -> lfb_data_entry_pass_data2_vld
+Presumably equivalent wires: lfb_data_entry_pass_data1_vld_gold (\lfb_data_entry_data1_clk_en_gold), lfb_data_entry_pass_data1_vld_gate (\lfb_data_entry_data1_clk_en_gate) -> lfb_data_entry_pass_data1_vld
+Presumably equivalent wires: lfb_data_entry_pass_data0_vld_gold (\lfb_data_entry_data0_clk_en_gold), lfb_data_entry_pass_data0_vld_gate (\lfb_data_entry_data0_clk_en_gate) -> lfb_data_entry_pass_data0_vld
+Presumably equivalent wires: lfb_data_entry_pass_3times_gold (\lfb_data_entry_pass_3times_gold), lfb_data_entry_pass_3times_gate (\lfb_data_entry_pass_3times_gate) -> lfb_data_entry_pass_3times
+Presumably equivalent wires: lfb_data_entry_linefill_permit_gold (\lfb_data_entry_linefill_permit_gold), lfb_data_entry_linefill_permit_gate (\lfb_data_entry_linefill_permit_gate) -> lfb_data_entry_linefill_permit
+Presumably equivalent wires: lfb_data_entry_linefill_abort_gold (\lfb_data_entry_linefill_abort_gold), lfb_data_entry_linefill_abort_gate (\lfb_data_entry_linefill_abort_gate) -> lfb_data_entry_linefill_abort
+Presumably equivalent wires: lfb_data_entry_lf_sm_req_gold (\lfb_data_entry_lf_sm_req_x_gold), lfb_data_entry_lf_sm_req_gate (\lfb_data_entry_lf_sm_req_x_gate) -> lfb_data_entry_lf_sm_req
+Presumably equivalent wires: lfb_data_entry_full_gold (\lfb_data_entry_full_x_gold), lfb_data_entry_full_gate (\lfb_data_entry_full_x_gate) -> lfb_data_entry_full
+Presumably equivalent wires: lfb_data_entry_finish_once_gold (\lfb_data_entry_finish_once_gold), lfb_data_entry_finish_once_gate (\lfb_data_entry_finish_once_gate) -> lfb_data_entry_finish_once
+Presumably equivalent wires: lfb_data_entry_finish_line_gold (\lfb_data_entry_finish_line_gold), lfb_data_entry_finish_line_gate (\lfb_data_entry_finish_line_gate) -> lfb_data_entry_finish_line
+Presumably equivalent wires: lfb_data_entry_data_clk_en_gold (\lfb_data_entry_data_clk_en_gold), lfb_data_entry_data_clk_en_gate (\lfb_data_entry_data_clk_en_gate) -> lfb_data_entry_data_clk_en
+Presumably equivalent wires: lfb_data_entry_data_clk_gold (\lfb_data_entry_data_clk_gold), lfb_data_entry_data_clk_gate (\lfb_data_entry_data_clk_gate) -> lfb_data_entry_data_clk
+Presumably equivalent wires: lfb_data_entry_data3_clk_en_gold (\lfb_data_entry_data3_clk_en_gold), lfb_data_entry_data3_clk_en_gate (\lfb_data_entry_data3_clk_en_gate) -> lfb_data_entry_data3_clk_en
+Presumably equivalent wires: lfb_data_entry_data3_clk_gold (\lfb_data_entry_data3_clk_gold), lfb_data_entry_data3_clk_gate (\lfb_data_entry_data3_clk_gate) -> lfb_data_entry_data3_clk
+Presumably equivalent wires: lfb_data_entry_data2_clk_en_gold (\lfb_data_entry_data2_clk_en_gold), lfb_data_entry_data2_clk_en_gate (\lfb_data_entry_data2_clk_en_gate) -> lfb_data_entry_data2_clk_en
+Presumably equivalent wires: lfb_data_entry_data2_clk_gold (\lfb_data_entry_data2_clk_gold), lfb_data_entry_data2_clk_gate (\lfb_data_entry_data2_clk_gate) -> lfb_data_entry_data2_clk
+Presumably equivalent wires: lfb_data_entry_data1_clk_en_gold (\lfb_data_entry_data1_clk_en_gold), lfb_data_entry_data1_clk_en_gate (\lfb_data_entry_data1_clk_en_gate) -> lfb_data_entry_data1_clk_en
+Presumably equivalent wires: lfb_data_entry_data1_clk_gold (\lfb_data_entry_data1_clk_gold), lfb_data_entry_data1_clk_gate (\lfb_data_entry_data1_clk_gate) -> lfb_data_entry_data1_clk
+Presumably equivalent wires: lfb_data_entry_data0_clk_en_gold (\lfb_data_entry_data0_clk_en_gold), lfb_data_entry_data0_clk_en_gate (\lfb_data_entry_data0_clk_en_gate) -> lfb_data_entry_data0_clk_en
+Presumably equivalent wires: lfb_data_entry_data0_clk_gold (\lfb_data_entry_data0_clk_gold), lfb_data_entry_data0_clk_gate (\lfb_data_entry_data0_clk_gate) -> lfb_data_entry_data0_clk
+Presumably equivalent wires: lfb_data_entry_create_vld_gold (\lfb_data_entry_create_vld_x_gold), lfb_data_entry_create_vld_gate (\lfb_data_entry_create_vld_x_gate) -> lfb_data_entry_create_vld
+Presumably equivalent wires: lfb_data_entry_create_gateclk_en_gold (\lfb_data_entry_create_gateclk_en_x_gold), lfb_data_entry_create_gateclk_en_gate (\lfb_data_entry_create_gateclk_en_x_gate) -> lfb_data_entry_create_gateclk_en
+Presumably equivalent wires: lfb_data_entry_create_dp_vld_gold (\lfb_data_entry_create_dp_vld_x_gold), lfb_data_entry_create_dp_vld_gate (\lfb_data_entry_create_dp_vld_x_gate) -> lfb_data_entry_create_dp_vld
+Presumably equivalent wires: lfb_data_entry_clk_en_gold (\lfb_data_entry_clk_en_gold), lfb_data_entry_clk_en_gate (\lfb_data_entry_clk_en_gate) -> lfb_data_entry_clk_en
+Presumably equivalent wires: lfb_data_entry_clk_gold (\lfb_data_entry_clk_gold), lfb_data_entry_clk_gate (\lfb_data_entry_clk_gate) -> lfb_data_entry_clk
+Presumably equivalent wires: lfb_data_entry_addr_pop_req_gold (\lfb_data_entry_addr_pop_req_v_gold), lfb_data_entry_addr_pop_req_gate (\lfb_data_entry_addr_pop_req_v_gate) -> lfb_data_entry_addr_pop_req
+Presumably equivalent wires: lfb_data_entry_abort_gold (\lfb_data_entry_abort_gold), lfb_data_entry_abort_gate (\lfb_data_entry_abort_gate) -> lfb_data_entry_abort
+Presumably equivalent wires: lfb_data_entry_vld_gold (\lfb_data_entry_vld_gold), lfb_data_entry_vld_gate (\lfb_data_entry_vld_gate) -> lfb_data_entry_vld
+Presumably equivalent wires: lfb_data_entry_pass_ptr_gold (\lfb_data_entry_pass_ptr_gold), lfb_data_entry_pass_ptr_gate (\lfb_data_entry_pass_ptr_gate) -> lfb_data_entry_pass_ptr
+Presumably equivalent wires: lfb_data_entry_lf_sm_req_success_gold (\lfb_data_entry_lf_sm_req_success_gold), lfb_data_entry_lf_sm_req_success_gate (\lfb_data_entry_lf_sm_req_success_gate) -> lfb_data_entry_lf_sm_req_success
+Presumably equivalent wires: lfb_data_entry_last_gold (\lfb_data_entry_last_gold), lfb_data_entry_last_gate (\lfb_data_entry_last_gate) -> lfb_data_entry_last
+Presumably equivalent wires: lfb_data_entry_dcache_share_gold (\lfb_data_entry_dcache_share_gold), lfb_data_entry_dcache_share_gate (\lfb_data_entry_dcache_share_gate) -> lfb_data_entry_dcache_share
+Presumably equivalent wires: lfb_data_entry_data_gold (\lfb_data_entry_data_gold), lfb_data_entry_data_gate (\lfb_data_entry_data_gate) -> lfb_data_entry_data
+Presumably equivalent wires: lfb_data_entry_cnt_gold (\lfb_data_entry_cnt_gold), lfb_data_entry_cnt_gate (\lfb_data_entry_cnt_gate) -> lfb_data_entry_cnt
+Presumably equivalent wires: lfb_data_entry_bus_err_gold (\lfb_data_entry_bus_err_gold), lfb_data_entry_bus_err_gate (\lfb_data_entry_bus_err_gate) -> lfb_data_entry_bus_err
+Presumably equivalent wires: lfb_data_entry_biu_id_gold (\lfb_data_entry_biu_id_gold), lfb_data_entry_biu_id_gate (\lfb_data_entry_biu_id_gate) -> lfb_data_entry_biu_id
+Presumably equivalent wires: lfb_data_entry_addr_id_gold (\lfb_data_entry_addr_id_gold), lfb_data_entry_addr_id_gate (\lfb_data_entry_addr_id_gate) -> lfb_data_entry_addr_id
+Presumably equivalent wires: lfb_data_entry_wait_surplus_x_gold (\lfb_data_entry_wait_surplus_x_gold), lfb_data_entry_wait_surplus_x_gate (\lfb_data_entry_wait_surplus_x_gate) -> lfb_data_entry_wait_surplus_x
+Presumably equivalent wires: lfb_data_entry_vld_x_gold (\lfb_data_entry_vld_gold), lfb_data_entry_vld_x_gate (\lfb_data_entry_vld_gate) -> lfb_data_entry_vld_x
+Presumably equivalent wires: lfb_data_entry_lf_sm_req_x_gold (\lfb_data_entry_lf_sm_req_x_gold), lfb_data_entry_lf_sm_req_x_gate (\lfb_data_entry_lf_sm_req_x_gate) -> lfb_data_entry_lf_sm_req_x
+Presumably equivalent wires: lfb_data_entry_last_x_gold (\lfb_data_entry_last_gold), lfb_data_entry_last_x_gate (\lfb_data_entry_last_gate) -> lfb_data_entry_last_x
+Presumably equivalent wires: lfb_data_entry_full_x_gold (\lfb_data_entry_full_x_gold), lfb_data_entry_full_x_gate (\lfb_data_entry_full_x_gate) -> lfb_data_entry_full_x
+Presumably equivalent wires: lfb_data_entry_dcache_share_x_gold (\lfb_data_entry_dcache_share_gold), lfb_data_entry_dcache_share_x_gate (\lfb_data_entry_dcache_share_gate) -> lfb_data_entry_dcache_share_x
+Presumably equivalent wires: lfb_data_entry_data_v_gold (\lfb_data_entry_data_gold), lfb_data_entry_data_v_gate (\lfb_data_entry_data_gate) -> lfb_data_entry_data_v
+Presumably equivalent wires: lfb_data_entry_addr_pop_req_v_gold (\lfb_data_entry_addr_pop_req_v_gold), lfb_data_entry_addr_pop_req_v_gate (\lfb_data_entry_addr_pop_req_v_gate) -> lfb_data_entry_addr_pop_req_v
+Presumably equivalent wires: lfb_data_entry_addr_id_v_gold (\lfb_data_entry_addr_id_gold), lfb_data_entry_addr_id_v_gate (\lfb_data_entry_addr_id_gate) -> lfb_data_entry_addr_id_v
+Presumably equivalent wires: snq_lfb_bypass_invalid_x_gold (\snq_lfb_bypass_invalid_x_gold), snq_lfb_bypass_invalid_x_gate (\snq_lfb_bypass_invalid_x_gate) -> snq_lfb_bypass_invalid_x
+Presumably equivalent wires: snq_lfb_bypass_chg_tag_x_gold (\snq_lfb_bypass_chg_tag_x_gold), snq_lfb_bypass_chg_tag_x_gate (\snq_lfb_bypass_chg_tag_x_gate) -> snq_lfb_bypass_chg_tag_x
+Presumably equivalent wires: pad_yy_icg_scan_en_gold (\pad_yy_icg_scan_en_gold), pad_yy_icg_scan_en_gate (\pad_yy_icg_scan_en_gate) -> pad_yy_icg_scan_en
+Presumably equivalent wires: lsu_special_clk_gold (\lsu_special_clk_gold), lsu_special_clk_gate (\lsu_special_clk_gate) -> lsu_special_clk
+Presumably equivalent wires: lfb_r_resp_share_gold (\lfb_r_resp_share_gold), lfb_r_resp_share_gate (\lfb_r_resp_share_gate) -> lfb_r_resp_share
+Presumably equivalent wires: lfb_r_resp_err_gold (\lfb_r_resp_err_gold), lfb_r_resp_err_gate (\lfb_r_resp_err_gate) -> lfb_r_resp_err
+Presumably equivalent wires: lfb_lf_sm_data_pop_req_x_gold (\lfb_lf_sm_data_pop_req_x_gold), lfb_lf_sm_data_pop_req_x_gate (\lfb_lf_sm_data_pop_req_x_gate) -> lfb_lf_sm_data_pop_req_x
+Presumably equivalent wires: lfb_lf_sm_data_grnt_x_gold (\lfb_lf_sm_data_grnt_x_gold), lfb_lf_sm_data_grnt_x_gate (\lfb_lf_sm_data_grnt_x_gate) -> lfb_lf_sm_data_grnt_x
+Presumably equivalent wires: lfb_first_pass_ptr_gold (\lfb_first_pass_ptr_gold), lfb_first_pass_ptr_gate (\lfb_first_pass_ptr_gate) -> lfb_first_pass_ptr
+Presumably equivalent wires: lfb_data_entry_create_vld_x_gold (\lfb_data_entry_create_vld_x_gold), lfb_data_entry_create_vld_x_gate (\lfb_data_entry_create_vld_x_gate) -> lfb_data_entry_create_vld_x
+Presumably equivalent wires: lfb_data_entry_create_gateclk_en_x_gold (\lfb_data_entry_create_gateclk_en_x_gold), lfb_data_entry_create_gateclk_en_x_gate (\lfb_data_entry_create_gateclk_en_x_gate) -> lfb_data_entry_create_gateclk_en_x
+Presumably equivalent wires: lfb_data_entry_create_dp_vld_x_gold (\lfb_data_entry_create_dp_vld_x_gold), lfb_data_entry_create_dp_vld_x_gate (\lfb_data_entry_create_dp_vld_x_gate) -> lfb_data_entry_create_dp_vld_x
+Presumably equivalent wires: lfb_biu_r_id_hit_gold (\lfb_biu_r_id_hit_gold), lfb_biu_r_id_hit_gate (\lfb_biu_r_id_hit_gate) -> lfb_biu_r_id_hit
+Presumably equivalent wires: lfb_biu_id_2to0_gold (\lfb_biu_id_2to0_gold), lfb_biu_id_2to0_gate (\lfb_biu_id_2to0_gate) -> lfb_biu_id_2to0
+Presumably equivalent wires: lfb_addr_entry_linefill_permit_gold (\lfb_addr_entry_linefill_permit_gold), lfb_addr_entry_linefill_permit_gate (\lfb_addr_entry_linefill_permit_gate) -> lfb_addr_entry_linefill_permit
+Presumably equivalent wires: lfb_addr_entry_linefill_abort_gold (\lfb_addr_entry_linefill_abort_gold), lfb_addr_entry_linefill_abort_gate (\lfb_addr_entry_linefill_abort_gate) -> lfb_addr_entry_linefill_abort
+Presumably equivalent wires: cpurst_b_gold (\cpurst_b_gold), cpurst_b_gate (\cpurst_b_gate) -> cpurst_b
+Presumably equivalent wires: cp0_yy_clk_en_gold (\cp0_yy_clk_en_gold), cp0_yy_clk_en_gate (\cp0_yy_clk_en_gate) -> cp0_yy_clk_en
+Presumably equivalent wires: cp0_lsu_icg_en_gold (\cp0_lsu_icg_en_gold), cp0_lsu_icg_en_gate (\cp0_lsu_icg_en_gate) -> cp0_lsu_icg_en
+Presumably equivalent wires: cp0_lsu_dcache_en_gold (\cp0_lsu_dcache_en_gold), cp0_lsu_dcache_en_gate (\cp0_lsu_dcache_en_gate) -> cp0_lsu_dcache_en
+Presumably equivalent wires: biu_lsu_r_vld_gold (\biu_lsu_r_vld_gold), biu_lsu_r_vld_gate (\biu_lsu_r_vld_gate) -> biu_lsu_r_vld
+Presumably equivalent wires: biu_lsu_r_last_gold (\biu_lsu_r_last_gold), biu_lsu_r_last_gate (\biu_lsu_r_last_gate) -> biu_lsu_r_last
+Presumably equivalent wires: biu_lsu_r_data_gold (\biu_lsu_r_data_gold), biu_lsu_r_data_gate (\biu_lsu_r_data_gate) -> biu_lsu_r_data
+Changing input CLK of cell $auto$ff.cc:337:slice$427_gate ($adffe): \lfb_data_entry_data_clk_gate -> \lfb_data_entry_data_clk
+Changing input S of cell $procmux$211_gate ($mux): \lfb_data_entry_pop_vld_gate -> \lfb_data_entry_pop_vld
+Changing input A of cell $auto$opt_dff.cc:235:make_patterns_logic$417_gate ($reduce_bool): { \lfb_data_entry_data_clk_en_gate \lfb_data_entry_create_dp_vld_x_gate } -> { \lfb_data_entry_data_clk_en \lfb_data_entry_create_dp_vld_x_gate }
+Changing input S of cell $procmux$201_gate ($mux): \lfb_data_entry_data_clk_en_gate -> \lfb_data_entry_data_clk_en
+Changing input S of cell $procmux$196_gate ($mux): \lfb_data_entry_data_clk_en_gate -> \lfb_data_entry_data_clk_en
+Changing input S of cell $procmux$191_gate ($mux): \lfb_data_entry_data_clk_en_gate -> \lfb_data_entry_data_clk_en
+Changing input B of cell $procmux$191_gate ($mux): { \lfb_data_entry_pass_ptr_gate [2:0] \lfb_data_entry_pass_ptr_gate [3] } -> { \lfb_data_entry_pass_ptr [2:0] \lfb_data_entry_pass_ptr [3] }
+Changing input S of cell $procmux$186_gate ($mux): \lfb_data_entry_data_clk_en_gate -> \lfb_data_entry_data_clk_en
+Changing input A of cell $auto$opt_dff.cc:235:make_patterns_logic$410_gate ($reduce_bool): { \lfb_data_entry_pop_vld_gate \lfb_data_entry_create_vld_x_gate } -> { \lfb_data_entry_pop_vld \lfb_data_entry_create_vld_x_gate }
+Changing input A of cell $auto$opt_dff.cc:235:make_patterns_logic$432_gate ($reduce_bool): { \lfb_data_entry_data_clk_en_gate \snq_lfb_bypass_chg_tag_x_gate \lfb_data_entry_create_dp_vld_x_gate } -> { \lfb_data_entry_data_clk_en \snq_lfb_bypass_chg_tag_x_gate \lfb_data_entry_create_dp_vld_x_gate }
+Changing input A of cell $logic_or$ct_lsu_lfb_data_entry_gate_proof_mutant.v:521$160_gate ($logic_or): \lfb_data_entry_abort_gate -> \lfb_data_entry_abort
+Changing input A of cell $logic_or$ct_lsu_lfb_data_entry_gate_proof_mutant.v:515$158_gate ($logic_or): \lfb_data_entry_finish_line_gate -> \lfb_data_entry_finish_line
+Changing input B of cell $logic_and$ct_lsu_lfb_data_entry_gate_proof_mutant.v:516$155_gate ($logic_and): \lfb_data_entry_pass_data_last_gate -> \lfb_data_entry_pass_data_last
+Changing input A of cell $logic_and$ct_lsu_lfb_data_entry_gate_proof_mutant.v:516$155_gate ($logic_and): \lfb_data_entry_pass_3times_gate -> \lfb_data_entry_pass_3times
+Changing input B of cell $logic_and$ct_lsu_lfb_data_entry_gate_proof_mutant.v:510$153_gate ($logic_and): \lfb_data_entry_linefill_permit_gate -> \lfb_data_entry_linefill_permit
+Changing input A of cell $logic_not$ct_lsu_lfb_data_entry_gate_proof_mutant.v:512$151_gate ($logic_not): \lfb_data_entry_bus_err_gate -> \lfb_data_entry_bus_err
+Changing input A of cell $logic_and$ct_lsu_lfb_data_entry_gate_proof_mutant.v:510$150_gate ($logic_and): \lfb_data_entry_vld_gate -> \lfb_data_entry_vld_x
+Changing input A of cell $logic_not$ct_lsu_lfb_data_entry_gate_proof_mutant.v:511$149_gate ($logic_not): \lfb_data_entry_lf_sm_req_success_gate -> \lfb_data_entry_lf_sm_req_success
+Changing input B of cell $and$ct_lsu_lfb_data_entry_gate_proof_mutant.v:504$148_gate ($and): { \lfb_data_entry_abort_gate \lfb_data_entry_abort_gate \lfb_data_entry_abort_gate \lfb_data_entry_abort_gate \lfb_data_entry_abort_gate \lfb_data_entry_abort_gate \lfb_data_entry_abort_gate \lfb_data_entry_abort_gate } -> { \lfb_data_entry_abort \lfb_data_entry_abort \lfb_data_entry_abort \lfb_data_entry_abort \lfb_data_entry_abort \lfb_data_entry_abort \lfb_data_entry_abort \lfb_data_entry_abort }
+Changing input A of cell $and$ct_lsu_lfb_data_entry_gate_proof_mutant.v:504$148_gate ($and): \lfb_data_entry_addr_id_gate -> \lfb_data_entry_addr_id_v
+Changing input A of cell $logic_and$ct_lsu_lfb_data_entry_gate_proof_mutant.v:498$146_gate ($logic_and): \lfb_data_entry_finish_line_gate -> \lfb_data_entry_finish_line
+Changing input A of cell $logic_or$ct_lsu_lfb_data_entry_gate_proof_mutant.v:499$145_gate ($logic_or): \lfb_data_entry_linefill_abort_gate -> \lfb_data_entry_linefill_abort
+Changing input A of cell $logic_and$ct_lsu_lfb_data_entry_gate_proof_mutant.v:500$144_gate ($logic_and): \lfb_data_entry_linefill_permit_gate -> \lfb_data_entry_linefill_permit
+Changing input A of cell $logic_or$ct_lsu_lfb_data_entry_gate_proof_mutant.v:501$143_gate ($logic_or): \lfb_data_entry_bus_err_gate -> \lfb_data_entry_bus_err
+Changing input A of cell $logic_or$ct_lsu_lfb_data_entry_gate_proof_mutant.v:496$141_gate ($logic_or): \lfb_data_entry_finish_once_gate -> \lfb_data_entry_finish_once
+Changing input A of cell $and$ct_lsu_lfb_data_entry_gate_proof_mutant.v:492$139_gate ($and): \lfb_data_entry_addr_id_gate -> \lfb_data_entry_addr_id_v
+Changing input A of cell $and$ct_lsu_lfb_data_entry_gate_proof_mutant.v:490$137_gate ($and): \lfb_data_entry_addr_id_gate -> \lfb_data_entry_addr_id_v
+Changing input B of cell $shl$ct_lsu_lfb_data_entry_gate_proof_mutant.v:488$136_gate ($shl): { \lfb_data_entry_biu_id_gate [2:1] $auto$rtlil.cc:3264:Not$383_gate } -> { \lfb_data_entry_biu_id [2:1] $auto$rtlil.cc:3264:Not$383_gate }
+Changing input A of cell $auto$opt_expr.cc:702:replace_const_cells$382_gate ($not): \lfb_data_entry_biu_id_gate [0] -> \lfb_data_entry_biu_id [0]
+Changing input B of cell $logic_and$ct_lsu_lfb_data_entry_gate_proof_mutant.v:482$134_gate ($logic_and): \lfb_data_entry_data_clk_en_gate -> \lfb_data_entry_data_clk_en
+Changing input A of cell $logic_and$ct_lsu_lfb_data_entry_gate_proof_mutant.v:482$133_gate ($logic_and): \lfb_data_entry_vld_gate -> \lfb_data_entry_vld_x
+Changing input B of cell $logic_and$ct_lsu_lfb_data_entry_gate_proof_mutant.v:478$132_gate ($logic_and): \lfb_data_entry_last_gate -> \lfb_data_entry_last_x
+Changing input A of cell $logic_and$ct_lsu_lfb_data_entry_gate_proof_mutant.v:478$131_gate ($logic_and): \lfb_data_entry_vld_gate -> \lfb_data_entry_vld_x
+Changing input A of cell $eq$ct_lsu_lfb_data_entry_gate_proof_mutant.v:479$130_gate ($logic_not): \lfb_data_entry_cnt_gate -> \lfb_data_entry_cnt
+Changing input B of cell $logic_and$ct_lsu_lfb_data_entry_gate_proof_mutant.v:475$129_gate ($logic_and): \lfb_data_entry_last_gate -> \lfb_data_entry_last_x
+Changing input A of cell $logic_and$ct_lsu_lfb_data_entry_gate_proof_mutant.v:475$128_gate ($logic_and): \lfb_data_entry_vld_gate -> \lfb_data_entry_vld_x
+Changing input A of cell $eq$ct_lsu_lfb_data_entry_gate_proof_mutant.v:476$127_gate ($eq): \lfb_data_entry_cnt_gate -> \lfb_data_entry_cnt
+Changing input A of cell $logic_and$ct_lsu_lfb_data_entry_gate_proof_mutant.v:473$126_gate ($logic_and): \lfb_data_entry_vld_gate -> \lfb_data_entry_vld_x
+Changing input A of cell $eq$ct_lsu_lfb_data_entry_gate_proof_mutant.v:474$125_gate ($eq): \lfb_data_entry_cnt_gate -> \lfb_data_entry_cnt
+Changing input B of cell $logic_and$ct_lsu_lfb_data_entry_gate_proof_mutant.v:466$123_gate ($logic_and): \lfb_data_entry_pass_ptr_gate [3] -> \lfb_data_entry_pass_ptr [3]
+Changing input A of cell $logic_and$ct_lsu_lfb_data_entry_gate_proof_mutant.v:466$123_gate ($logic_and): \lfb_data_entry_r_id_hit_gate -> \lfb_data_entry_r_id_hit
+Changing input B of cell $logic_and$ct_lsu_lfb_data_entry_gate_proof_mutant.v:461$120_gate ($logic_and): \lfb_data_entry_pass_ptr_gate [2] -> \lfb_data_entry_pass_ptr [2]
+Changing input A of cell $logic_and$ct_lsu_lfb_data_entry_gate_proof_mutant.v:461$120_gate ($logic_and): \lfb_data_entry_r_id_hit_gate -> \lfb_data_entry_r_id_hit
+Changing input B of cell $logic_and$ct_lsu_lfb_data_entry_gate_proof_mutant.v:456$117_gate ($logic_and): \lfb_data_entry_pass_ptr_gate [1] -> \lfb_data_entry_pass_ptr [1]
+Changing input A of cell $logic_and$ct_lsu_lfb_data_entry_gate_proof_mutant.v:456$117_gate ($logic_and): \lfb_data_entry_r_id_hit_gate -> \lfb_data_entry_r_id_hit
+Changing input B of cell $logic_and$ct_lsu_lfb_data_entry_gate_proof_mutant.v:451$114_gate ($logic_and): \lfb_data_entry_pass_ptr_gate [0] -> \lfb_data_entry_pass_ptr [0]
+Changing input A of cell $logic_and$ct_lsu_lfb_data_entry_gate_proof_mutant.v:451$114_gate ($logic_and): \lfb_data_entry_r_id_hit_gate -> \lfb_data_entry_r_id_hit
+Changing input B of cell $logic_or$ct_lsu_lfb_data_entry_gate_proof_mutant.v:446$112_gate ($logic_or): \lfb_data_entry_r_id_hit_gate -> \lfb_data_entry_r_id_hit
+Changing input A of cell $eq$ct_lsu_lfb_data_entry_gate_proof_mutant.v:443$110_gate ($eq): \lfb_data_entry_biu_id_gate -> \lfb_data_entry_biu_id
+Changing input A of cell $logic_and$ct_lsu_lfb_data_entry_gate_proof_mutant.v:440$108_gate ($logic_and): \lfb_data_entry_vld_gate -> \lfb_data_entry_vld_x
+Changing input A of cell $logic_and$ct_lsu_lfb_data_entry_gate_proof_mutant.v:436$107_gate ($logic_and): \lfb_data_entry_vld_gate -> \lfb_data_entry_vld_x
+Changing input A of cell $logic_not$ct_lsu_lfb_data_entry_gate_proof_mutant.v:437$106_gate ($logic_not): \lfb_data_entry_last_gate -> \lfb_data_entry_last_x
+Changing input B of cell $logic_and$ct_lsu_lfb_data_entry_gate_proof_mutant.v:433$105_gate ($logic_and): \lfb_data_entry_last_gate -> \lfb_data_entry_last_x
+Changing input A of cell $logic_and$ct_lsu_lfb_data_entry_gate_proof_mutant.v:433$105_gate ($logic_and): \lfb_data_entry_vld_gate -> \lfb_data_entry_vld_x
+Changing input CLK of cell $auto$ff.cc:337:slice$424_gate ($adffe): \lfb_data_entry_clk_gate -> \lfb_data_entry_clk
+Changing input CLK of cell $auto$ff.cc:337:slice$421_gate ($adffe): \lfb_data_entry_data_clk_gate -> \lfb_data_entry_data_clk
+Changing input CLK of cell $auto$ff.cc:337:slice$420_gate ($adffe): \lfb_data_entry_data_clk_gate -> \lfb_data_entry_data_clk
+Changing input EN of cell $auto$ff.cc:337:slice$419_gate ($adffe): \lfb_data_entry_data3_clk_en_gate -> \lfb_data_entry_data3_clk_en
+Changing input CLK of cell $auto$ff.cc:337:slice$419_gate ($adffe): \lfb_data_entry_data3_clk_gate -> \lfb_data_entry_data3_clk
+Changing input EN of cell $auto$ff.cc:337:slice$418_gate ($adffe): \lfb_data_entry_data0_clk_en_gate -> \lfb_data_entry_data0_clk_en
+Changing input CLK of cell $auto$ff.cc:337:slice$418_gate ($adffe): \lfb_data_entry_data0_clk_gate -> \lfb_data_entry_data0_clk
+Changing input A of cell $logic_and$ct_lsu_lfb_data_entry_gate_proof_mutant.v:376$94_gate ($logic_and): \lfb_data_entry_data_clk_en_gate -> \lfb_data_entry_data_clk_en
+Changing input CLK of cell $auto$ff.cc:337:slice$415_gate ($adffe): \lfb_data_entry_data_clk_gate -> \lfb_data_entry_data_clk
+Changing input EN of cell $auto$ff.cc:337:slice$414_gate ($adffe): \lfb_data_entry_data2_clk_en_gate -> \lfb_data_entry_data2_clk_en
+Changing input CLK of cell $auto$ff.cc:337:slice$414_gate ($adffe): \lfb_data_entry_data2_clk_gate -> \lfb_data_entry_data2_clk
+Changing input A of cell $add$ct_lsu_lfb_data_entry_gate_proof_mutant.v:340$89_gate ($add): \lfb_data_entry_cnt_gate -> \lfb_data_entry_cnt
+Changing input CLK of cell $auto$ff.cc:337:slice$411_gate ($adffe): \lfb_data_entry_data_clk_gate -> \lfb_data_entry_data_clk
+Changing input CLK of cell $auto$ff.cc:337:slice$408_gate ($adffe): \lfb_data_entry_clk_gate -> \lfb_data_entry_clk
+Changing input EN of cell $auto$ff.cc:337:slice$407_gate ($adffe): \lfb_data_entry_data1_clk_en_gate -> \lfb_data_entry_data1_clk_en
+Changing input CLK of cell $auto$ff.cc:337:slice$407_gate ($adffe): \lfb_data_entry_data1_clk_gate -> \lfb_data_entry_data1_clk
+Changing input local_en of cell x_lsu_lfb_data_entry_data3_gated_clk_gate (gated_clk_cell): \lfb_data_entry_data3_clk_en_gate -> \lfb_data_entry_data3_clk_en
+Changing input local_en of cell x_lsu_lfb_data_entry_data2_gated_clk_gate (gated_clk_cell): \lfb_data_entry_data2_clk_en_gate -> \lfb_data_entry_data2_clk_en
+Changing input local_en of cell x_lsu_lfb_data_entry_data1_gated_clk_gate (gated_clk_cell): \lfb_data_entry_data1_clk_en_gate -> \lfb_data_entry_data1_clk_en
+Changing input local_en of cell x_lsu_lfb_data_entry_data0_gated_clk_gate (gated_clk_cell): \lfb_data_entry_data0_clk_en_gate -> \lfb_data_entry_data0_clk_en
+Changing input local_en of cell x_lsu_lfb_data_entry_data_gated_clk_gate (gated_clk_cell): \lfb_data_entry_data_clk_en_gate -> \lfb_data_entry_data_clk_en
+Changing input local_en of cell x_lsu_lfb_data_entry_gated_clk_gate (gated_clk_cell): \lfb_data_entry_clk_en_gate -> \lfb_data_entry_clk_en
+Changing input A of cell $logic_or$ct_lsu_lfb_data_entry_gate_proof_mutant.v:177$82_gate ($logic_or): \lfb_data_entry_vld_gate -> \lfb_data_entry_vld_x
+Changing input CLK of cell $auto$ff.cc:337:slice$430_gate ($adffe): \lfb_data_entry_clk_gate -> \lfb_data_entry_clk
+Changing input S of cell $memory$auto$proc_rom.cc:155:do_switch$162$rdmux[0][2][1]$398_gold ($mux): \lfb_data_entry_biu_id_gold [0] -> \lfb_data_entry_biu_id [0]
+Changing input S of cell $memory$auto$proc_rom.cc:155:do_switch$162$rdmux[0][2][0]$395_gold ($mux): \lfb_data_entry_biu_id_gold [0] -> \lfb_data_entry_biu_id [0]
+Changing input S of cell $memory$auto$proc_rom.cc:155:do_switch$162$rdmux[0][1][1]$392_gold ($mux): \lfb_data_entry_biu_id_gold [1] -> \lfb_data_entry_biu_id [1]
+Changing input S of cell $memory$auto$proc_rom.cc:155:do_switch$162$rdmux[0][1][0]$389_gold ($mux): \lfb_data_entry_biu_id_gold [1] -> \lfb_data_entry_biu_id [1]
+Changing input S of cell $memory$auto$proc_rom.cc:155:do_switch$162$rdmux[0][0][0]$386_gold ($mux): \lfb_data_entry_biu_id_gold [2] -> \lfb_data_entry_biu_id [2]
+Changing input CLK of cell $auto$ff.cc:337:slice$456_gold ($adffe): \lfb_data_entry_data_clk_gold -> \lfb_data_entry_data_clk
+Changing input S of cell $procmux$260_gold ($mux): \lfb_data_entry_pop_vld_gold -> \lfb_data_entry_pop_vld
+Changing input A of cell $auto$opt_dff.cc:235:make_patterns_logic$443_gold ($reduce_bool): { \lfb_data_entry_data_clk_en_gold \lfb_data_entry_create_dp_vld_x_gold } -> { \lfb_data_entry_data_clk_en \lfb_data_entry_create_dp_vld_x_gold }
+Changing input S of cell $procmux$250_gold ($mux): \lfb_data_entry_data_clk_en_gold -> \lfb_data_entry_data_clk_en
+Changing input S of cell $procmux$245_gold ($mux): \lfb_data_entry_data_clk_en_gold -> \lfb_data_entry_data_clk_en
+Changing input S of cell $procmux$240_gold ($mux): \lfb_data_entry_data_clk_en_gold -> \lfb_data_entry_data_clk_en
+Changing input B of cell $procmux$240_gold ($mux): { \lfb_data_entry_pass_ptr_gold [2:0] \lfb_data_entry_pass_ptr_gold [3] } -> { \lfb_data_entry_pass_ptr [2:0] \lfb_data_entry_pass_ptr [3] }
+Changing input S of cell $procmux$235_gold ($mux): \lfb_data_entry_data_clk_en_gold -> \lfb_data_entry_data_clk_en
+Changing input A of cell $auto$opt_dff.cc:235:make_patterns_logic$455_gold ($reduce_bool): { \lfb_data_entry_data_clk_en_gold \snq_lfb_bypass_chg_tag_x_gold \lfb_data_entry_create_dp_vld_x_gold } -> { \lfb_data_entry_data_clk_en \snq_lfb_bypass_chg_tag_x_gold \lfb_data_entry_create_dp_vld_x_gold }
+Changing input A of cell $auto$opt_dff.cc:235:make_patterns_logic$436_gold ($reduce_bool): { \lfb_data_entry_pop_vld_gold \lfb_data_entry_create_vld_x_gold } -> { \lfb_data_entry_pop_vld \lfb_data_entry_create_vld_x_gold }
+Changing input CLK of cell $auto$ff.cc:337:slice$453_gold ($adffe): \lfb_data_entry_clk_gold -> \lfb_data_entry_clk
+Changing input S of cell $memory$auto$proc_rom.cc:155:do_switch$162$rdmux[0][2][3]$404_gold ($mux): \lfb_data_entry_biu_id_gold [0] -> \lfb_data_entry_biu_id [0]
+Changing input A of cell $logic_or$ct_lsu_lfb_data_entry_gold.v:536$81_gold ($logic_or): \lfb_data_entry_abort_gold -> \lfb_data_entry_abort
+Changing input A of cell $logic_or$ct_lsu_lfb_data_entry_gold.v:530$79_gold ($logic_or): \lfb_data_entry_finish_line_gold -> \lfb_data_entry_finish_line
+Changing input B of cell $logic_and$ct_lsu_lfb_data_entry_gold.v:531$76_gold ($logic_and): \lfb_data_entry_pass_data_last_gold -> \lfb_data_entry_pass_data_last
+Changing input A of cell $logic_and$ct_lsu_lfb_data_entry_gold.v:531$76_gold ($logic_and): \lfb_data_entry_pass_3times_gold -> \lfb_data_entry_pass_3times
+Changing input B of cell $logic_and$ct_lsu_lfb_data_entry_gold.v:525$74_gold ($logic_and): \lfb_data_entry_linefill_permit_gold -> \lfb_data_entry_linefill_permit
+Changing input A of cell $logic_not$ct_lsu_lfb_data_entry_gold.v:527$72_gold ($logic_not): \lfb_data_entry_bus_err_gold -> \lfb_data_entry_bus_err
+Changing input A of cell $logic_and$ct_lsu_lfb_data_entry_gold.v:525$71_gold ($logic_and): \lfb_data_entry_vld_gold -> \lfb_data_entry_vld_x
+Changing input A of cell $logic_not$ct_lsu_lfb_data_entry_gold.v:526$70_gold ($logic_not): \lfb_data_entry_lf_sm_req_success_gold -> \lfb_data_entry_lf_sm_req_success
+Changing input B of cell $and$ct_lsu_lfb_data_entry_gold.v:519$69_gold ($and): { \lfb_data_entry_abort_gold \lfb_data_entry_abort_gold \lfb_data_entry_abort_gold \lfb_data_entry_abort_gold \lfb_data_entry_abort_gold \lfb_data_entry_abort_gold \lfb_data_entry_abort_gold \lfb_data_entry_abort_gold } -> { \lfb_data_entry_abort \lfb_data_entry_abort \lfb_data_entry_abort \lfb_data_entry_abort \lfb_data_entry_abort \lfb_data_entry_abort \lfb_data_entry_abort \lfb_data_entry_abort }
+Changing input A of cell $and$ct_lsu_lfb_data_entry_gold.v:519$69_gold ($and): \lfb_data_entry_addr_id_gold -> \lfb_data_entry_addr_id_v
+Changing input A of cell $logic_and$ct_lsu_lfb_data_entry_gold.v:513$67_gold ($logic_and): \lfb_data_entry_finish_line_gold -> \lfb_data_entry_finish_line
+Changing input A of cell $logic_or$ct_lsu_lfb_data_entry_gold.v:514$66_gold ($logic_or): \lfb_data_entry_linefill_abort_gold -> \lfb_data_entry_linefill_abort
+Changing input A of cell $logic_and$ct_lsu_lfb_data_entry_gold.v:515$65_gold ($logic_and): \lfb_data_entry_linefill_permit_gold -> \lfb_data_entry_linefill_permit
+Changing input A of cell $logic_or$ct_lsu_lfb_data_entry_gold.v:516$64_gold ($logic_or): \lfb_data_entry_bus_err_gold -> \lfb_data_entry_bus_err
+Changing input A of cell $logic_or$ct_lsu_lfb_data_entry_gold.v:511$62_gold ($logic_or): \lfb_data_entry_finish_once_gold -> \lfb_data_entry_finish_once
+Changing input A of cell $and$ct_lsu_lfb_data_entry_gold.v:507$60_gold ($and): \lfb_data_entry_addr_id_gold -> \lfb_data_entry_addr_id_v
+Changing input A of cell $and$ct_lsu_lfb_data_entry_gold.v:505$58_gold ($and): \lfb_data_entry_addr_id_gold -> \lfb_data_entry_addr_id_v
+Changing input B of cell $logic_and$ct_lsu_lfb_data_entry_gold.v:482$56_gold ($logic_and): \lfb_data_entry_data_clk_en_gold -> \lfb_data_entry_data_clk_en
+Changing input A of cell $logic_and$ct_lsu_lfb_data_entry_gold.v:482$55_gold ($logic_and): \lfb_data_entry_vld_gold -> \lfb_data_entry_vld_x
+Changing input B of cell $logic_and$ct_lsu_lfb_data_entry_gold.v:478$54_gold ($logic_and): \lfb_data_entry_last_gold -> \lfb_data_entry_last_x
+Changing input A of cell $logic_and$ct_lsu_lfb_data_entry_gold.v:478$53_gold ($logic_and): \lfb_data_entry_vld_gold -> \lfb_data_entry_vld_x
+Changing input A of cell $eq$ct_lsu_lfb_data_entry_gold.v:479$52_gold ($logic_not): \lfb_data_entry_cnt_gold -> \lfb_data_entry_cnt
+Changing input B of cell $logic_and$ct_lsu_lfb_data_entry_gold.v:475$51_gold ($logic_and): \lfb_data_entry_last_gold -> \lfb_data_entry_last_x
+Changing input A of cell $logic_and$ct_lsu_lfb_data_entry_gold.v:475$50_gold ($logic_and): \lfb_data_entry_vld_gold -> \lfb_data_entry_vld_x
+Changing input A of cell $eq$ct_lsu_lfb_data_entry_gold.v:476$49_gold ($eq): \lfb_data_entry_cnt_gold -> \lfb_data_entry_cnt
+Changing input A of cell $logic_and$ct_lsu_lfb_data_entry_gold.v:473$48_gold ($logic_and): \lfb_data_entry_vld_gold -> \lfb_data_entry_vld_x
+Changing input A of cell $eq$ct_lsu_lfb_data_entry_gold.v:474$47_gold ($eq): \lfb_data_entry_cnt_gold -> \lfb_data_entry_cnt
+Changing input B of cell $logic_and$ct_lsu_lfb_data_entry_gold.v:466$45_gold ($logic_and): \lfb_data_entry_pass_ptr_gold [3] -> \lfb_data_entry_pass_ptr [3]
+Changing input A of cell $logic_and$ct_lsu_lfb_data_entry_gold.v:466$45_gold ($logic_and): \lfb_data_entry_r_id_hit_gold -> \lfb_data_entry_r_id_hit
+Changing input B of cell $logic_and$ct_lsu_lfb_data_entry_gold.v:461$42_gold ($logic_and): \lfb_data_entry_pass_ptr_gold [2] -> \lfb_data_entry_pass_ptr [2]
+Changing input A of cell $logic_and$ct_lsu_lfb_data_entry_gold.v:461$42_gold ($logic_and): \lfb_data_entry_r_id_hit_gold -> \lfb_data_entry_r_id_hit
+Changing input B of cell $logic_and$ct_lsu_lfb_data_entry_gold.v:456$39_gold ($logic_and): \lfb_data_entry_pass_ptr_gold [1] -> \lfb_data_entry_pass_ptr [1]
+Changing input A of cell $logic_and$ct_lsu_lfb_data_entry_gold.v:456$39_gold ($logic_and): \lfb_data_entry_r_id_hit_gold -> \lfb_data_entry_r_id_hit
+Changing input B of cell $logic_and$ct_lsu_lfb_data_entry_gold.v:451$36_gold ($logic_and): \lfb_data_entry_pass_ptr_gold [0] -> \lfb_data_entry_pass_ptr [0]
+Changing input A of cell $logic_and$ct_lsu_lfb_data_entry_gold.v:451$36_gold ($logic_and): \lfb_data_entry_r_id_hit_gold -> \lfb_data_entry_r_id_hit
+Changing input B of cell $logic_or$ct_lsu_lfb_data_entry_gold.v:446$34_gold ($logic_or): \lfb_data_entry_r_id_hit_gold -> \lfb_data_entry_r_id_hit
+Changing input A of cell $eq$ct_lsu_lfb_data_entry_gold.v:443$32_gold ($eq): \lfb_data_entry_biu_id_gold -> \lfb_data_entry_biu_id
+Changing input A of cell $logic_and$ct_lsu_lfb_data_entry_gold.v:440$30_gold ($logic_and): \lfb_data_entry_vld_gold -> \lfb_data_entry_vld_x
+Changing input A of cell $logic_and$ct_lsu_lfb_data_entry_gold.v:436$29_gold ($logic_and): \lfb_data_entry_vld_gold -> \lfb_data_entry_vld_x
+Changing input A of cell $logic_not$ct_lsu_lfb_data_entry_gold.v:437$28_gold ($logic_not): \lfb_data_entry_last_gold -> \lfb_data_entry_last_x
+Changing input B of cell $logic_and$ct_lsu_lfb_data_entry_gold.v:433$27_gold ($logic_and): \lfb_data_entry_last_gold -> \lfb_data_entry_last_x
+Changing input A of cell $logic_and$ct_lsu_lfb_data_entry_gold.v:433$27_gold ($logic_and): \lfb_data_entry_vld_gold -> \lfb_data_entry_vld_x
+Changing input CLK of cell $auto$ff.cc:337:slice$450_gold ($adffe): \lfb_data_entry_clk_gold -> \lfb_data_entry_clk
+Changing input CLK of cell $auto$ff.cc:337:slice$447_gold ($adffe): \lfb_data_entry_data_clk_gold -> \lfb_data_entry_data_clk
+Changing input CLK of cell $auto$ff.cc:337:slice$446_gold ($adffe): \lfb_data_entry_data_clk_gold -> \lfb_data_entry_data_clk
+Changing input EN of cell $auto$ff.cc:337:slice$445_gold ($adffe): \lfb_data_entry_data3_clk_en_gold -> \lfb_data_entry_data3_clk_en
+Changing input CLK of cell $auto$ff.cc:337:slice$445_gold ($adffe): \lfb_data_entry_data3_clk_gold -> \lfb_data_entry_data3_clk
+Changing input EN of cell $auto$ff.cc:337:slice$444_gold ($adffe): \lfb_data_entry_data0_clk_en_gold -> \lfb_data_entry_data0_clk_en
+Changing input CLK of cell $auto$ff.cc:337:slice$444_gold ($adffe): \lfb_data_entry_data0_clk_gold -> \lfb_data_entry_data0_clk
+Changing input A of cell $logic_and$ct_lsu_lfb_data_entry_gold.v:376$16_gold ($logic_and): \lfb_data_entry_data_clk_en_gold -> \lfb_data_entry_data_clk_en
+Changing input CLK of cell $auto$ff.cc:337:slice$441_gold ($adffe): \lfb_data_entry_data_clk_gold -> \lfb_data_entry_data_clk
+Changing input EN of cell $auto$ff.cc:337:slice$440_gold ($adffe): \lfb_data_entry_data2_clk_en_gold -> \lfb_data_entry_data2_clk_en
+Changing input CLK of cell $auto$ff.cc:337:slice$440_gold ($adffe): \lfb_data_entry_data2_clk_gold -> \lfb_data_entry_data2_clk
+Changing input A of cell $add$ct_lsu_lfb_data_entry_gold.v:340$11_gold ($add): \lfb_data_entry_cnt_gold -> \lfb_data_entry_cnt
+Changing input CLK of cell $auto$ff.cc:337:slice$437_gold ($adffe): \lfb_data_entry_data_clk_gold -> \lfb_data_entry_data_clk
+Changing input CLK of cell $auto$ff.cc:337:slice$434_gold ($adffe): \lfb_data_entry_clk_gold -> \lfb_data_entry_clk
+Changing input EN of cell $auto$ff.cc:337:slice$433_gold ($adffe): \lfb_data_entry_data1_clk_en_gold -> \lfb_data_entry_data1_clk_en
+Changing input CLK of cell $auto$ff.cc:337:slice$433_gold ($adffe): \lfb_data_entry_data1_clk_gold -> \lfb_data_entry_data1_clk
+Changing input local_en of cell x_lsu_lfb_data_entry_data3_gated_clk_gold (gated_clk_cell): \lfb_data_entry_data3_clk_en_gold -> \lfb_data_entry_data3_clk_en
+Changing input local_en of cell x_lsu_lfb_data_entry_data2_gated_clk_gold (gated_clk_cell): \lfb_data_entry_data2_clk_en_gold -> \lfb_data_entry_data2_clk_en
+Changing input local_en of cell x_lsu_lfb_data_entry_data1_gated_clk_gold (gated_clk_cell): \lfb_data_entry_data1_clk_en_gold -> \lfb_data_entry_data1_clk_en
+Changing input local_en of cell x_lsu_lfb_data_entry_data0_gated_clk_gold (gated_clk_cell): \lfb_data_entry_data0_clk_en_gold -> \lfb_data_entry_data0_clk_en
+Changing input local_en of cell x_lsu_lfb_data_entry_data_gated_clk_gold (gated_clk_cell): \lfb_data_entry_data_clk_en_gold -> \lfb_data_entry_data_clk_en
+Changing input local_en of cell x_lsu_lfb_data_entry_gated_clk_gold (gated_clk_cell): \lfb_data_entry_clk_en_gold -> \lfb_data_entry_clk_en
+Changing input A of cell $logic_or$ct_lsu_lfb_data_entry_gold.v:177$4_gold ($logic_or): \lfb_data_entry_vld_gold -> \lfb_data_entry_vld_x
+Changing input S of cell $memory$auto$proc_rom.cc:155:do_switch$162$rdmux[0][2][2]$401_gold ($mux): \lfb_data_entry_biu_id_gold [0] -> \lfb_data_entry_biu_id [0]
+Presumably equivalent cells: x_lsu_lfb_data_entry_data3_gated_clk_gold x_lsu_lfb_data_entry_data3_gated_clk_gate (gated_clk_cell) -> x_lsu_lfb_data_entry_data3_gated_clk
+Presumably equivalent cells: x_lsu_lfb_data_entry_data2_gated_clk_gold x_lsu_lfb_data_entry_data2_gated_clk_gate (gated_clk_cell) -> x_lsu_lfb_data_entry_data2_gated_clk
+Presumably equivalent cells: x_lsu_lfb_data_entry_data1_gated_clk_gold x_lsu_lfb_data_entry_data1_gated_clk_gate (gated_clk_cell) -> x_lsu_lfb_data_entry_data1_gated_clk
+Presumably equivalent cells: x_lsu_lfb_data_entry_data0_gated_clk_gold x_lsu_lfb_data_entry_data0_gated_clk_gate (gated_clk_cell) -> x_lsu_lfb_data_entry_data0_gated_clk
+Presumably equivalent cells: x_lsu_lfb_data_entry_data_gated_clk_gold x_lsu_lfb_data_entry_data_gated_clk_gate (gated_clk_cell) -> x_lsu_lfb_data_entry_data_gated_clk
+Presumably equivalent cells: x_lsu_lfb_data_entry_gated_clk_gold x_lsu_lfb_data_entry_gated_clk_gate (gated_clk_cell) -> x_lsu_lfb_data_entry_gated_clk
+
+9. Executing HIERARCHY pass (managing design hierarchy).
+
+9.1. Analyzing design hierarchy..
+Top module:  \equiv
+Used module:     \gated_clk_cell
+
+9.2. Analyzing design hierarchy..
+Top module:  \equiv
+Used module:     \gated_clk_cell
+Removing unused module `\ct_lsu_lfb_data_entry_gate'.
+Removing unused module `\ct_lsu_lfb_data_entry_gold'.
+Removed 2 unused modules.
+
+10. Executing FLATTEN pass (flatten design).
+Deleting now unused module gated_clk_cell.
+<suppressed ~6 debug messages>
+
+11. Executing ASYNC2SYNC pass.
+Replacing equiv.$auto$ff.cc:337:slice$427_gate ($adffe): ARST=\cpurst_b_gate, D=$0\lfb_data_entry_pass_ptr[3:0]_gate, Q=\lfb_data_entry_pass_ptr_gate
+Replacing equiv.$auto$ff.cc:337:slice$424_gate ($adffe): ARST=\cpurst_b_gate, D=$0\lfb_data_entry_lf_sm_req_success[0:0]_gate, Q=\lfb_data_entry_lf_sm_req_success_gate
+Replacing equiv.$auto$ff.cc:337:slice$421_gate ($adffe): ARST=\cpurst_b_gate, D=$0\lfb_data_entry_cnt[1:0]_gate, Q=\lfb_data_entry_cnt_gate
+Replacing equiv.$auto$ff.cc:337:slice$420_gate ($adffe): ARST=\cpurst_b_gate, D=\lfb_biu_id_2to0_gate, Q=\lfb_data_entry_biu_id_gate
+Replacing equiv.$auto$ff.cc:337:slice$419_gate ($adffe): ARST=\cpurst_b_gate, D=\biu_lsu_r_data_gate, Q=\lfb_data_entry_data_gate [511:384]
+Replacing equiv.$auto$ff.cc:337:slice$418_gate ($adffe): ARST=\cpurst_b_gate, D=\biu_lsu_r_data_gate, Q=\lfb_data_entry_data_gate [127:0]
+Replacing equiv.$auto$ff.cc:337:slice$415_gate ($adffe): ARST=\cpurst_b_gate, D=$0\lfb_data_entry_last[0:0]_gate, Q=\lfb_data_entry_last_gate
+Replacing equiv.$auto$ff.cc:337:slice$414_gate ($adffe): ARST=\cpurst_b_gate, D=\biu_lsu_r_data_gate, Q=\lfb_data_entry_data_gate [383:256]
+Replacing equiv.$auto$ff.cc:337:slice$411_gate ($adffe): ARST=\cpurst_b_gate, D=$0\lfb_data_entry_bus_err[0:0]_gate, Q=\lfb_data_entry_bus_err_gate
+Replacing equiv.$auto$ff.cc:337:slice$408_gate ($adffe): ARST=\cpurst_b_gate, D=$0\lfb_data_entry_vld[0:0]_gate, Q=\lfb_data_entry_vld_gate
+Replacing equiv.$auto$ff.cc:337:slice$407_gate ($adffe): ARST=\cpurst_b_gate, D=\biu_lsu_r_data_gate, Q=\lfb_data_entry_data_gate [255:128]
+Replacing equiv.$auto$ff.cc:337:slice$430_gate ($adffe): ARST=\cpurst_b_gate, D=$0\lfb_data_entry_dcache_share[0:0]_gate, Q=\lfb_data_entry_dcache_share_gate
+Replacing equiv.$auto$ff.cc:337:slice$456_gold ($adffe): ARST=\cpurst_b_gold, D=$0\lfb_data_entry_pass_ptr[3:0]_gold, Q=\lfb_data_entry_pass_ptr_gold
+Replacing equiv.$auto$ff.cc:337:slice$453_gold ($adffe): ARST=\cpurst_b_gold, D=$0\lfb_data_entry_dcache_share[0:0]_gold, Q=\lfb_data_entry_dcache_share_gold
+Replacing equiv.$auto$ff.cc:337:slice$450_gold ($adffe): ARST=\cpurst_b_gold, D=$0\lfb_data_entry_lf_sm_req_success[0:0]_gold, Q=\lfb_data_entry_lf_sm_req_success_gold
+Replacing equiv.$auto$ff.cc:337:slice$447_gold ($adffe): ARST=\cpurst_b_gold, D=$0\lfb_data_entry_cnt[1:0]_gold, Q=\lfb_data_entry_cnt_gold
+Replacing equiv.$auto$ff.cc:337:slice$446_gold ($adffe): ARST=\cpurst_b_gold, D=\lfb_biu_id_2to0_gold, Q=\lfb_data_entry_biu_id_gold
+Replacing equiv.$auto$ff.cc:337:slice$445_gold ($adffe): ARST=\cpurst_b_gold, D=\biu_lsu_r_data_gold, Q=\lfb_data_entry_data_gold [511:384]
+Replacing equiv.$auto$ff.cc:337:slice$444_gold ($adffe): ARST=\cpurst_b_gold, D=\biu_lsu_r_data_gold, Q=\lfb_data_entry_data_gold [127:0]
+Replacing equiv.$auto$ff.cc:337:slice$441_gold ($adffe): ARST=\cpurst_b_gold, D=$0\lfb_data_entry_last[0:0]_gold, Q=\lfb_data_entry_last_gold
+Replacing equiv.$auto$ff.cc:337:slice$440_gold ($adffe): ARST=\cpurst_b_gold, D=\biu_lsu_r_data_gold, Q=\lfb_data_entry_data_gold [383:256]
+Replacing equiv.$auto$ff.cc:337:slice$437_gold ($adffe): ARST=\cpurst_b_gold, D=$0\lfb_data_entry_bus_err[0:0]_gold, Q=\lfb_data_entry_bus_err_gold
+Replacing equiv.$auto$ff.cc:337:slice$434_gold ($adffe): ARST=\cpurst_b_gold, D=$0\lfb_data_entry_vld[0:0]_gold, Q=\lfb_data_entry_vld_gold
+Replacing equiv.$auto$ff.cc:337:slice$433_gold ($adffe): ARST=\cpurst_b_gold, D=\biu_lsu_r_data_gold, Q=\lfb_data_entry_data_gold [255:128]
+
+12. Executing DFFUNMAP pass (unmap clock enable and synchronous reset from FFs).
+
+13. Executing OPT pass (performing simple optimizations).
+
+13.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module equiv.
+
+13.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\equiv'.
+Computing hashes of 1377 cells of `\equiv'.
+Finding duplicate cells in `\equiv'.
+Computing hashes of 799 cells of `\equiv'.
+Finding duplicate cells in `\equiv'.
+Computing hashes of 783 cells of `\equiv'.
+Finding duplicate cells in `\equiv'.
+Computing hashes of 777 cells of `\equiv'.
+Finding duplicate cells in `\equiv'.
+Computing hashes of 775 cells of `\equiv'.
+Finding duplicate cells in `\equiv'.
+Computing hashes of 773 cells of `\equiv'.
+Finding duplicate cells in `\equiv'.
+Computing hashes of 771 cells of `\equiv'.
+Finding duplicate cells in `\equiv'.
+<suppressed ~1818 debug messages>
+Removed a total of 606 cells.
+
+13.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \equiv..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~158 debug messages>
+
+13.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \equiv.
+Performed a total of 0 changes.
+
+13.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\equiv'.
+Computing hashes of 771 cells of `\equiv'.
+Finding duplicate cells in `\equiv'.
+Computing hashes of 764 cells of `\equiv'.
+Finding duplicate cells in `\equiv'.
+Computing hashes of 757 cells of `\equiv'.
+Finding duplicate cells in `\equiv'.
+Computing hashes of 756 cells of `\equiv'.
+Finding duplicate cells in `\equiv'.
+<suppressed ~45 debug messages>
+Removed a total of 15 cells.
+
+13.6. Executing OPT_DFF pass (perform DFF optimizations).
+Adding SRST signal on $auto$ff.cc:337:slice$420_gate ($dff) from module equiv (D = $auto$rtlil.cc:3399:Mux$1706, Q = $auto$async2sync.cc:253:execute$1583, rval = 3'000).
+Adding EN signal on $auto$ff.cc:337:slice$1721 ($sdff) from module equiv (D = \lfb_biu_id_2to0_gate, Q = $auto$async2sync.cc:253:execute$1583).
+Adding SRST signal on $auto$ff.cc:337:slice$421_gate ($dff) from module equiv (D = $auto$rtlil.cc:3399:Mux$1710, Q = $auto$async2sync.cc:253:execute$1581, rval = 2'00).
+Adding EN signal on $auto$ff.cc:337:slice$1723 ($sdff) from module equiv (D = $0\lfb_data_entry_cnt[1:0]_gate, Q = $auto$async2sync.cc:253:execute$1581).
+Adding SRST signal on $auto$ff.cc:337:slice$424_gate ($dff) from module equiv (D = $auto$rtlil.cc:3399:Mux$1714, Q = $auto$async2sync.cc:253:execute$1579, rval = 1'0).
+Adding EN signal on $auto$ff.cc:337:slice$1725 ($sdff) from module equiv (D = $0\lfb_data_entry_lf_sm_req_success[0:0]_gate, Q = $auto$async2sync.cc:253:execute$1579).
+Adding SRST signal on $auto$ff.cc:337:slice$427_gate ($dff) from module equiv (D = $auto$rtlil.cc:3399:Mux$1718, Q = $auto$async2sync.cc:253:execute$1577, rval = 4'0001).
+Adding EN signal on $auto$ff.cc:337:slice$1727 ($sdff) from module equiv (D = $0\lfb_data_entry_pass_ptr[3:0]_gate, Q = $auto$async2sync.cc:253:execute$1577).
+Adding SRST signal on $auto$ff.cc:337:slice$433_gold ($dff) from module equiv (D = $auto$rtlil.cc:3399:Mux$1626, Q = $auto$async2sync.cc:253:execute$1623, rval = 128'00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000).
+Adding EN signal on $auto$ff.cc:337:slice$1729 ($sdff) from module equiv (D = \biu_lsu_r_data_gold, Q = $auto$async2sync.cc:253:execute$1623).
+Adding SRST signal on $auto$ff.cc:337:slice$434_gold ($dff) from module equiv (D = $auto$rtlil.cc:3399:Mux$1630, Q = $auto$async2sync.cc:253:execute$1621, rval = 1'0).
+Adding EN signal on $auto$ff.cc:337:slice$1731 ($sdff) from module equiv (D = $0\lfb_data_entry_vld[0:0]_gold, Q = $auto$async2sync.cc:253:execute$1621).
+Adding SRST signal on $auto$ff.cc:337:slice$437_gold ($dff) from module equiv (D = $auto$rtlil.cc:3399:Mux$1634, Q = $auto$async2sync.cc:253:execute$1619, rval = 1'0).
+Adding EN signal on $auto$ff.cc:337:slice$1733 ($sdff) from module equiv (D = $0\lfb_data_entry_bus_err[0:0]_gold, Q = $auto$async2sync.cc:253:execute$1619).
+Adding SRST signal on $auto$ff.cc:337:slice$440_gold ($dff) from module equiv (D = $auto$rtlil.cc:3399:Mux$1638, Q = $auto$async2sync.cc:253:execute$1617, rval = 128'00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000).
+Adding EN signal on $auto$ff.cc:337:slice$1735 ($sdff) from module equiv (D = \biu_lsu_r_data_gold, Q = $auto$async2sync.cc:253:execute$1617).
+Adding SRST signal on $auto$ff.cc:337:slice$441_gold ($dff) from module equiv (D = $auto$rtlil.cc:3399:Mux$1642, Q = $auto$async2sync.cc:253:execute$1615, rval = 1'0).
+Adding EN signal on $auto$ff.cc:337:slice$1737 ($sdff) from module equiv (D = $0\lfb_data_entry_last[0:0]_gold, Q = $auto$async2sync.cc:253:execute$1615).
+Adding SRST signal on $auto$ff.cc:337:slice$444_gold ($dff) from module equiv (D = $auto$rtlil.cc:3399:Mux$1646, Q = $auto$async2sync.cc:253:execute$1613, rval = 128'00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000).
+Adding EN signal on $auto$ff.cc:337:slice$1739 ($sdff) from module equiv (D = \biu_lsu_r_data_gold, Q = $auto$async2sync.cc:253:execute$1613).
+Adding SRST signal on $auto$ff.cc:337:slice$445_gold ($dff) from module equiv (D = $auto$rtlil.cc:3399:Mux$1650, Q = $auto$async2sync.cc:253:execute$1611, rval = 128'00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000).
+Adding EN signal on $auto$ff.cc:337:slice$1741 ($sdff) from module equiv (D = \biu_lsu_r_data_gold, Q = $auto$async2sync.cc:253:execute$1611).
+Adding SRST signal on $auto$ff.cc:337:slice$446_gold ($dff) from module equiv (D = $auto$rtlil.cc:3399:Mux$1654, Q = $auto$async2sync.cc:253:execute$1609, rval = 3'000).
+Adding EN signal on $auto$ff.cc:337:slice$1743 ($sdff) from module equiv (D = \lfb_biu_id_2to0_gold, Q = $auto$async2sync.cc:253:execute$1609).
+Adding SRST signal on $auto$ff.cc:337:slice$447_gold ($dff) from module equiv (D = $auto$rtlil.cc:3399:Mux$1658, Q = $auto$async2sync.cc:253:execute$1607, rval = 2'00).
+Adding EN signal on $auto$ff.cc:337:slice$1745 ($sdff) from module equiv (D = $0\lfb_data_entry_cnt[1:0]_gold, Q = $auto$async2sync.cc:253:execute$1607).
+Adding SRST signal on $auto$ff.cc:337:slice$450_gold ($dff) from module equiv (D = $auto$rtlil.cc:3399:Mux$1662, Q = $auto$async2sync.cc:253:execute$1605, rval = 1'0).
+Adding EN signal on $auto$ff.cc:337:slice$1747 ($sdff) from module equiv (D = $0\lfb_data_entry_lf_sm_req_success[0:0]_gold, Q = $auto$async2sync.cc:253:execute$1605).
+Adding SRST signal on $auto$ff.cc:337:slice$453_gold ($dff) from module equiv (D = $auto$rtlil.cc:3399:Mux$1666, Q = $auto$async2sync.cc:253:execute$1603, rval = 1'0).
+Adding EN signal on $auto$ff.cc:337:slice$1749 ($sdff) from module equiv (D = $0\lfb_data_entry_dcache_share[0:0]_gold, Q = $auto$async2sync.cc:253:execute$1603).
+Adding SRST signal on $auto$ff.cc:337:slice$456_gold ($dff) from module equiv (D = $auto$rtlil.cc:3399:Mux$1670, Q = $auto$async2sync.cc:253:execute$1601, rval = 4'0001).
+Adding EN signal on $auto$ff.cc:337:slice$1751 ($sdff) from module equiv (D = $0\lfb_data_entry_pass_ptr[3:0]_gold, Q = $auto$async2sync.cc:253:execute$1601).
+Adding SRST signal on $auto$ff.cc:337:slice$430_gate ($dff) from module equiv (D = $auto$rtlil.cc:3399:Mux$1674, Q = $auto$async2sync.cc:253:execute$1599, rval = 1'0).
+Adding EN signal on $auto$ff.cc:337:slice$1753 ($sdff) from module equiv (D = $0\lfb_data_entry_dcache_share[0:0]_gate, Q = $auto$async2sync.cc:253:execute$1599).
+Adding SRST signal on $auto$ff.cc:337:slice$407_gate ($dff) from module equiv (D = $auto$rtlil.cc:3399:Mux$1678, Q = $auto$async2sync.cc:253:execute$1597, rval = 128'00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000).
+Adding EN signal on $auto$ff.cc:337:slice$1755 ($sdff) from module equiv (D = \biu_lsu_r_data_gate, Q = $auto$async2sync.cc:253:execute$1597).
+Adding SRST signal on $auto$ff.cc:337:slice$408_gate ($dff) from module equiv (D = $auto$rtlil.cc:3399:Mux$1682, Q = $auto$async2sync.cc:253:execute$1595, rval = 1'0).
+Adding EN signal on $auto$ff.cc:337:slice$1757 ($sdff) from module equiv (D = $0\lfb_data_entry_vld[0:0]_gate, Q = $auto$async2sync.cc:253:execute$1595).
+Adding SRST signal on $auto$ff.cc:337:slice$411_gate ($dff) from module equiv (D = $auto$rtlil.cc:3399:Mux$1686, Q = $auto$async2sync.cc:253:execute$1593, rval = 1'0).
+Adding EN signal on $auto$ff.cc:337:slice$1759 ($sdff) from module equiv (D = $0\lfb_data_entry_bus_err[0:0]_gate, Q = $auto$async2sync.cc:253:execute$1593).
+Adding SRST signal on $auto$ff.cc:337:slice$414_gate ($dff) from module equiv (D = $auto$rtlil.cc:3399:Mux$1690, Q = $auto$async2sync.cc:253:execute$1591, rval = 128'00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000).
+Adding EN signal on $auto$ff.cc:337:slice$1761 ($sdff) from module equiv (D = \biu_lsu_r_data_gate, Q = $auto$async2sync.cc:253:execute$1591).
+Adding SRST signal on $auto$ff.cc:337:slice$415_gate ($dff) from module equiv (D = $auto$rtlil.cc:3399:Mux$1694, Q = $auto$async2sync.cc:253:execute$1589, rval = 1'0).
+Adding EN signal on $auto$ff.cc:337:slice$1763 ($sdff) from module equiv (D = $0\lfb_data_entry_last[0:0]_gate, Q = $auto$async2sync.cc:253:execute$1589).
+Adding SRST signal on $auto$ff.cc:337:slice$418_gate ($dff) from module equiv (D = $auto$rtlil.cc:3399:Mux$1698, Q = $auto$async2sync.cc:253:execute$1587, rval = 128'00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000).
+Adding EN signal on $auto$ff.cc:337:slice$1765 ($sdff) from module equiv (D = \biu_lsu_r_data_gate, Q = $auto$async2sync.cc:253:execute$1587).
+Adding SRST signal on $auto$ff.cc:337:slice$419_gate ($dff) from module equiv (D = $auto$rtlil.cc:3399:Mux$1702, Q = $auto$async2sync.cc:253:execute$1585, rval = 128'00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000).
+Adding EN signal on $auto$ff.cc:337:slice$1767 ($sdff) from module equiv (D = \biu_lsu_r_data_gate, Q = $auto$async2sync.cc:253:execute$1585).
+
+13.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \equiv..
+Removed 57 unused cells and 117 unused wires.
+<suppressed ~69 debug messages>
+
+13.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module equiv.
+
+13.9. Rerunning OPT passes. (Maybe there is more to do..)
+
+13.10. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \equiv..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~78 debug messages>
+
+13.11. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \equiv.
+Performed a total of 0 changes.
+
+13.12. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\equiv'.
+Computing hashes of 699 cells of `\equiv'.
+Finding duplicate cells in `\equiv'.
+Computing hashes of 687 cells of `\equiv'.
+Finding duplicate cells in `\equiv'.
+Computing hashes of 675 cells of `\equiv'.
+Finding duplicate cells in `\equiv'.
+<suppressed ~72 debug messages>
+Removed a total of 24 cells.
+
+13.13. Executing OPT_DFF pass (perform DFF optimizations).
+
+13.14. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \equiv..
+Removed 0 unused cells and 12 unused wires.
+<suppressed ~1 debug messages>
+
+13.15. Executing OPT_EXPR pass (perform const folding).
+Optimizing module equiv.
+
+13.16. Rerunning OPT passes. (Maybe there is more to do..)
+
+13.17. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \equiv..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~54 debug messages>
+
+13.18. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \equiv.
+Performed a total of 0 changes.
+
+13.19. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\equiv'.
+Computing hashes of 675 cells of `\equiv'.
+Finding duplicate cells in `\equiv'.
+Removed a total of 0 cells.
+
+13.20. Executing OPT_DFF pass (perform DFF optimizations).
+
+13.21. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \equiv..
+
+13.22. Executing OPT_EXPR pass (perform const folding).
+Optimizing module equiv.
+
+13.23. Finished fast OPT passes. (There is nothing left to do.)
+
+14. Executing EQUIV_SIMPLE pass.
+Found 8 unproven $equiv cells (1 groups) in equiv:
+ Grouping SAT models for \lfb_data_entry_addr_id_v:
+  Trying to prove $equiv for \lfb_data_entry_addr_id_v [0]:ezsat
+ezsat
+ failed.
+  Trying to prove $equiv for \lfb_data_entry_addr_id_v [1]:ezsat
+ezsat
+ failed.
+  Trying to prove $equiv for \lfb_data_entry_addr_id_v [2]:ezsat
+ezsat
+ failed.
+  Trying to prove $equiv for \lfb_data_entry_addr_id_v [3]:ezsat
+ezsat
+ failed.
+  Trying to prove $equiv for \lfb_data_entry_addr_id_v [4]:ezsat
+ezsat
+ failed.
+  Trying to prove $equiv for \lfb_data_entry_addr_id_v [5]:ezsat
+ezsat
+ failed.
+  Trying to prove $equiv for \lfb_data_entry_addr_id_v [6]:ezsat
+ezsat
+ failed.
+  Trying to prove $equiv for \lfb_data_entry_addr_id_v [7]:ezsat
+ezsat
+ failed.
+Proved 0 previously unproven $equiv cells.
+
+15. Executing EQUIV_STATUS pass.
+Found 560 $equiv cells in equiv:
+  Of those cells 552 are proven and 8 are unproven.
+  Unproven $equiv $auto$equiv_make.cc:295:find_same_wires$1030: \lfb_data_entry_addr_id_gold [1] \lfb_data_entry_addr_id_gate [1]
+  Unproven $equiv $auto$equiv_make.cc:258:find_same_wires$1563: \lfb_data_entry_addr_id_gold [0] \lfb_data_entry_addr_id_gate [0]
+  Unproven $equiv $auto$equiv_make.cc:295:find_same_wires$1032: \lfb_data_entry_addr_id_gold [3] \lfb_data_entry_addr_id_gate [3]
+  Unproven $equiv $auto$equiv_make.cc:295:find_same_wires$1034: \lfb_data_entry_addr_id_gold [5] \lfb_data_entry_addr_id_gate [5]
+  Unproven $equiv $auto$equiv_make.cc:295:find_same_wires$1036: \lfb_data_entry_addr_id_gold [7] \lfb_data_entry_addr_id_gate [7]
+  Unproven $equiv $auto$equiv_make.cc:295:find_same_wires$1031: \lfb_data_entry_addr_id_gold [2] \lfb_data_entry_addr_id_gate [2]
+  Unproven $equiv $auto$equiv_make.cc:295:find_same_wires$1033: \lfb_data_entry_addr_id_gold [4] \lfb_data_entry_addr_id_gate [4]
+  Unproven $equiv $auto$equiv_make.cc:295:find_same_wires$1035: \lfb_data_entry_addr_id_gold [6] \lfb_data_entry_addr_id_gate [6]
+Found a total of 8 unproven $equiv cells.
+
+End of script. Logfile hash: c5ca2339cd, time: 0.09s, user: 0.08s, system: 0.01s, MEM: 21.25 MB peak
+Yosys 0.66+181 (git sha1 afe6b18f2, Release, Clang /usr/bin/clang++ 18.1.8)
+Time spent: 27% 8x opt_clean (0 sec), 16% 6x opt_dff (0 sec), ...

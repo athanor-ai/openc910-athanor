@@ -1,0 +1,929 @@
+
+ /----------------------------------------------------------------------------\
+ |  yosys -- Yosys Open SYnthesis Suite                                       |
+ |  Copyright (C) 2012 - 2026  Claire Xenia Wolf <claire@yosyshq.com>         |
+ |  Distributed under an ISC-like license, type "license" to see terms        |
+ \----------------------------------------------------------------------------/
+ Yosys 0.66+181 (git sha1 afe6b18f2, Release, Clang /usr/bin/clang++ 18.1.8)
+
+-- Running command `read_verilog -sv C910_RTL_FACTORY/gen_rtl/cpu/rtl/cpu_cfig.h C910_RTL_FACTORY/gen_rtl/clk/rtl/gated_clk_cell.v C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_lfb_data_entry.v; synth -flatten -top ct_lsu_lfb_data_entry; dfflibmap -liberty sky130_fd_sc_hd__tt_025C_1v80.lib; abc -liberty sky130_fd_sc_hd__tt_025C_1v80.lib; clean; stat -liberty sky130_fd_sc_hd__tt_025C_1v80.lib; write_verilog -noattr gold.mapped.v' --
+
+1. Executing Verilog-2005 frontend: C910_RTL_FACTORY/gen_rtl/cpu/rtl/cpu_cfig.h
+Parsing SystemVerilog input from `C910_RTL_FACTORY/gen_rtl/cpu/rtl/cpu_cfig.h' to AST representation.
+Successfully finished Verilog frontend.
+
+2. Executing Verilog-2005 frontend: C910_RTL_FACTORY/gen_rtl/clk/rtl/gated_clk_cell.v
+Parsing SystemVerilog input from `C910_RTL_FACTORY/gen_rtl/clk/rtl/gated_clk_cell.v' to AST representation.
+Generating RTLIL representation for module `\gated_clk_cell'.
+Successfully finished Verilog frontend.
+
+3. Executing Verilog-2005 frontend: C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_lfb_data_entry.v
+Parsing SystemVerilog input from `C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_lfb_data_entry.v' to AST representation.
+Generating RTLIL representation for module `\ct_lsu_lfb_data_entry'.
+Note: Assuming pure combinatorial block at C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_lfb_data_entry.v:488.1-503.4 in
+compliance with IEC 62142(E):2005 / IEEE Std. 1364.1(E):2002. Recommending
+use of @* instead of @(...) for better match of synthesis and simulation.
+Successfully finished Verilog frontend.
+
+4. Executing SYNTH pass.
+
+4.1. Executing HIERARCHY pass (managing design hierarchy).
+
+4.1.1. Analyzing design hierarchy..
+Top module:  \ct_lsu_lfb_data_entry
+Used module:     \gated_clk_cell
+
+4.1.2. Analyzing design hierarchy..
+Top module:  \ct_lsu_lfb_data_entry
+Used module:     \gated_clk_cell
+Removed 0 unused modules.
+
+4.2. Executing PROC pass (convert processes to netlists).
+
+4.2.1. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Cleaned up 0 empty switches.
+
+4.2.2. Executing PROC_RMDEAD pass (remove dead branches from decision trees).
+Removed 1 dead cases from process $proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_lfb_data_entry.v:488$57 in module ct_lsu_lfb_data_entry.
+Marked 1 switch rules as full_case in process $proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_lfb_data_entry.v:488$57 in module ct_lsu_lfb_data_entry.
+Marked 2 switch rules as full_case in process $proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_lfb_data_entry.v:418$25 in module ct_lsu_lfb_data_entry.
+Marked 1 switch rules as full_case in process $proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_lfb_data_entry.v:407$23 in module ct_lsu_lfb_data_entry.
+Marked 1 switch rules as full_case in process $proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_lfb_data_entry.v:399$21 in module ct_lsu_lfb_data_entry.
+Marked 1 switch rules as full_case in process $proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_lfb_data_entry.v:391$19 in module ct_lsu_lfb_data_entry.
+Marked 1 switch rules as full_case in process $proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_lfb_data_entry.v:383$17 in module ct_lsu_lfb_data_entry.
+Marked 2 switch rules as full_case in process $proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_lfb_data_entry.v:370$14 in module ct_lsu_lfb_data_entry.
+Marked 3 switch rules as full_case in process $proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_lfb_data_entry.v:347$12 in module ct_lsu_lfb_data_entry.
+Marked 2 switch rules as full_case in process $proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_lfb_data_entry.v:323$9 in module ct_lsu_lfb_data_entry.
+Marked 1 switch rules as full_case in process $proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_lfb_data_entry.v:312$7 in module ct_lsu_lfb_data_entry.
+Marked 2 switch rules as full_case in process $proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_lfb_data_entry.v:299$5 in module ct_lsu_lfb_data_entry.
+Removed a total of 1 dead cases.
+
+4.2.3. Executing PROC_PRUNE pass (remove redundant assignments in processes).
+Removed 0 redundant assignments.
+Promoted 1 assignment to connection.
+
+4.2.4. Executing PROC_INIT pass (extract init attributes).
+
+4.2.5. Executing PROC_ARST pass (detect async resets in processes).
+Found async reset \cpurst_b in `\ct_lsu_lfb_data_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_lfb_data_entry.v:418$25'.
+Found async reset \cpurst_b in `\ct_lsu_lfb_data_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_lfb_data_entry.v:407$23'.
+Found async reset \cpurst_b in `\ct_lsu_lfb_data_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_lfb_data_entry.v:399$21'.
+Found async reset \cpurst_b in `\ct_lsu_lfb_data_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_lfb_data_entry.v:391$19'.
+Found async reset \cpurst_b in `\ct_lsu_lfb_data_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_lfb_data_entry.v:383$17'.
+Found async reset \cpurst_b in `\ct_lsu_lfb_data_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_lfb_data_entry.v:370$14'.
+Found async reset \cpurst_b in `\ct_lsu_lfb_data_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_lfb_data_entry.v:347$12'.
+Found async reset \cpurst_b in `\ct_lsu_lfb_data_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_lfb_data_entry.v:323$9'.
+Found async reset \cpurst_b in `\ct_lsu_lfb_data_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_lfb_data_entry.v:312$7'.
+Found async reset \cpurst_b in `\ct_lsu_lfb_data_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_lfb_data_entry.v:299$5'.
+
+4.2.6. Executing PROC_ROM pass (convert switches to ROMs).
+Converted 1 switch.
+<suppressed ~16 debug messages>
+
+4.2.7. Executing PROC_MUX pass (convert decision trees to multiplexers).
+Creating decoders for process `\ct_lsu_lfb_data_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_lfb_data_entry.v:488$57'.
+     1/1: { $1\lfb_data_entry_addr_id[7:0] [0] $1\lfb_data_entry_addr_id[7:0] [7:1] }
+Creating decoders for process `\ct_lsu_lfb_data_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_lfb_data_entry.v:418$25'.
+     1/1: $0\lfb_data_entry_lf_sm_req_success[0:0]
+Creating decoders for process `\ct_lsu_lfb_data_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_lfb_data_entry.v:407$23'.
+     1/1: $0\lfb_data_entry_data[511:384]
+Creating decoders for process `\ct_lsu_lfb_data_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_lfb_data_entry.v:399$21'.
+     1/1: $0\lfb_data_entry_data[383:256]
+Creating decoders for process `\ct_lsu_lfb_data_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_lfb_data_entry.v:391$19'.
+     1/1: $0\lfb_data_entry_data[255:128]
+Creating decoders for process `\ct_lsu_lfb_data_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_lfb_data_entry.v:383$17'.
+     1/1: $0\lfb_data_entry_data[127:0]
+Creating decoders for process `\ct_lsu_lfb_data_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_lfb_data_entry.v:370$14'.
+     1/1: $0\lfb_data_entry_bus_err[0:0]
+Creating decoders for process `\ct_lsu_lfb_data_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_lfb_data_entry.v:347$12'.
+     1/1: $0\lfb_data_entry_dcache_share[0:0]
+Creating decoders for process `\ct_lsu_lfb_data_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_lfb_data_entry.v:323$9'.
+     1/3: $0\lfb_data_entry_pass_ptr[3:0]
+     2/3: $0\lfb_data_entry_last[0:0]
+     3/3: $0\lfb_data_entry_cnt[1:0]
+Creating decoders for process `\ct_lsu_lfb_data_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_lfb_data_entry.v:312$7'.
+     1/1: $0\lfb_data_entry_biu_id[2:0]
+Creating decoders for process `\ct_lsu_lfb_data_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_lfb_data_entry.v:299$5'.
+     1/1: $0\lfb_data_entry_vld[0:0]
+
+4.2.8. Executing PROC_DLATCH pass (convert process syncs to latches).
+No latch inferred for signal `\ct_lsu_lfb_data_entry.\lfb_data_entry_addr_id' from process `\ct_lsu_lfb_data_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_lfb_data_entry.v:488$57'.
+
+4.2.9. Executing PROC_DFF pass (convert process syncs to FFs).
+Creating register for signal `\ct_lsu_lfb_data_entry.\lfb_data_entry_lf_sm_req_success' using process `\ct_lsu_lfb_data_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_lfb_data_entry.v:418$25'.
+  created $adff cell `$procdff$139' with positive edge clock and positive level reset.
+Creating register for signal `\ct_lsu_lfb_data_entry.\lfb_data_entry_data [511:384]' using process `\ct_lsu_lfb_data_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_lfb_data_entry.v:407$23'.
+  created $adff cell `$procdff$144' with positive edge clock and positive level reset.
+Creating register for signal `\ct_lsu_lfb_data_entry.\lfb_data_entry_data [383:256]' using process `\ct_lsu_lfb_data_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_lfb_data_entry.v:399$21'.
+  created $adff cell `$procdff$149' with positive edge clock and positive level reset.
+Creating register for signal `\ct_lsu_lfb_data_entry.\lfb_data_entry_data [255:128]' using process `\ct_lsu_lfb_data_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_lfb_data_entry.v:391$19'.
+  created $adff cell `$procdff$154' with positive edge clock and positive level reset.
+Creating register for signal `\ct_lsu_lfb_data_entry.\lfb_data_entry_data [127:0]' using process `\ct_lsu_lfb_data_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_lfb_data_entry.v:383$17'.
+  created $adff cell `$procdff$159' with positive edge clock and positive level reset.
+Creating register for signal `\ct_lsu_lfb_data_entry.\lfb_data_entry_bus_err' using process `\ct_lsu_lfb_data_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_lfb_data_entry.v:370$14'.
+  created $adff cell `$procdff$164' with positive edge clock and positive level reset.
+Creating register for signal `\ct_lsu_lfb_data_entry.\lfb_data_entry_dcache_share' using process `\ct_lsu_lfb_data_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_lfb_data_entry.v:347$12'.
+  created $adff cell `$procdff$169' with positive edge clock and positive level reset.
+Creating register for signal `\ct_lsu_lfb_data_entry.\lfb_data_entry_cnt' using process `\ct_lsu_lfb_data_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_lfb_data_entry.v:323$9'.
+  created $adff cell `$procdff$174' with positive edge clock and positive level reset.
+Creating register for signal `\ct_lsu_lfb_data_entry.\lfb_data_entry_last' using process `\ct_lsu_lfb_data_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_lfb_data_entry.v:323$9'.
+  created $adff cell `$procdff$179' with positive edge clock and positive level reset.
+Creating register for signal `\ct_lsu_lfb_data_entry.\lfb_data_entry_pass_ptr' using process `\ct_lsu_lfb_data_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_lfb_data_entry.v:323$9'.
+  created $adff cell `$procdff$184' with positive edge clock and positive level reset.
+Creating register for signal `\ct_lsu_lfb_data_entry.\lfb_data_entry_biu_id' using process `\ct_lsu_lfb_data_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_lfb_data_entry.v:312$7'.
+  created $adff cell `$procdff$189' with positive edge clock and positive level reset.
+Creating register for signal `\ct_lsu_lfb_data_entry.\lfb_data_entry_vld' using process `\ct_lsu_lfb_data_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_lfb_data_entry.v:299$5'.
+  created $adff cell `$procdff$194' with positive edge clock and positive level reset.
+
+4.2.10. Executing PROC_MEMWR pass (convert process memory writes to cells).
+
+4.2.11. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Found and cleaned up 1 empty switch in `\ct_lsu_lfb_data_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_lfb_data_entry.v:488$57'.
+Removing empty process `ct_lsu_lfb_data_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_lfb_data_entry.v:488$57'.
+Found and cleaned up 2 empty switches in `\ct_lsu_lfb_data_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_lfb_data_entry.v:418$25'.
+Removing empty process `ct_lsu_lfb_data_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_lfb_data_entry.v:418$25'.
+Found and cleaned up 1 empty switch in `\ct_lsu_lfb_data_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_lfb_data_entry.v:407$23'.
+Removing empty process `ct_lsu_lfb_data_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_lfb_data_entry.v:407$23'.
+Found and cleaned up 1 empty switch in `\ct_lsu_lfb_data_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_lfb_data_entry.v:399$21'.
+Removing empty process `ct_lsu_lfb_data_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_lfb_data_entry.v:399$21'.
+Found and cleaned up 1 empty switch in `\ct_lsu_lfb_data_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_lfb_data_entry.v:391$19'.
+Removing empty process `ct_lsu_lfb_data_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_lfb_data_entry.v:391$19'.
+Found and cleaned up 1 empty switch in `\ct_lsu_lfb_data_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_lfb_data_entry.v:383$17'.
+Removing empty process `ct_lsu_lfb_data_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_lfb_data_entry.v:383$17'.
+Found and cleaned up 2 empty switches in `\ct_lsu_lfb_data_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_lfb_data_entry.v:370$14'.
+Removing empty process `ct_lsu_lfb_data_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_lfb_data_entry.v:370$14'.
+Found and cleaned up 3 empty switches in `\ct_lsu_lfb_data_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_lfb_data_entry.v:347$12'.
+Removing empty process `ct_lsu_lfb_data_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_lfb_data_entry.v:347$12'.
+Found and cleaned up 2 empty switches in `\ct_lsu_lfb_data_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_lfb_data_entry.v:323$9'.
+Removing empty process `ct_lsu_lfb_data_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_lfb_data_entry.v:323$9'.
+Found and cleaned up 1 empty switch in `\ct_lsu_lfb_data_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_lfb_data_entry.v:312$7'.
+Removing empty process `ct_lsu_lfb_data_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_lfb_data_entry.v:312$7'.
+Found and cleaned up 2 empty switches in `\ct_lsu_lfb_data_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_lfb_data_entry.v:299$5'.
+Removing empty process `ct_lsu_lfb_data_entry.$proc$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_lfb_data_entry.v:299$5'.
+Cleaned up 17 empty switches.
+
+4.2.12. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_lsu_lfb_data_entry.
+<suppressed ~25 debug messages>
+Optimizing module gated_clk_cell.
+
+4.3. Executing CHECK pass (checking for obvious problems).
+Checking module ct_lsu_lfb_data_entry...
+Checking module gated_clk_cell...
+Found and reported 0 problems.
+
+4.4. Executing FLATTEN pass (flatten design).
+Deleting now unused module gated_clk_cell.
+<suppressed ~6 debug messages>
+
+4.5. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_lsu_lfb_data_entry.
+<suppressed ~6 debug messages>
+
+4.6. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_lsu_lfb_data_entry..
+Removed 35 unused cells and 114 unused wires.
+<suppressed ~44 debug messages>
+
+4.7. Executing CHECK pass (checking for obvious problems).
+Checking module ct_lsu_lfb_data_entry...
+Found and reported 0 problems.
+
+4.8. Executing OPT pass (performing simple optimizations).
+
+4.8.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_lsu_lfb_data_entry.
+
+4.8.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_lsu_lfb_data_entry'.
+Computing hashes of 96 cells of `\ct_lsu_lfb_data_entry'.
+Finding duplicate cells in `\ct_lsu_lfb_data_entry'.
+Removed a total of 0 cells.
+
+4.8.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \ct_lsu_lfb_data_entry..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~32 debug messages>
+
+4.8.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \ct_lsu_lfb_data_entry.
+Performed a total of 0 changes.
+
+4.8.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_lsu_lfb_data_entry'.
+Computing hashes of 96 cells of `\ct_lsu_lfb_data_entry'.
+Finding duplicate cells in `\ct_lsu_lfb_data_entry'.
+Removed a total of 0 cells.
+
+4.8.6. Executing OPT_DFF pass (perform DFF optimizations).
+
+4.8.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_lsu_lfb_data_entry..
+
+4.8.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_lsu_lfb_data_entry.
+
+4.8.9. Finished fast OPT passes. (There is nothing left to do.)
+
+4.9. Executing FSM pass (extract and optimize FSM).
+
+4.9.1. Executing FSM_DETECT pass (finding FSMs in design).
+
+4.9.2. Executing FSM_EXTRACT pass (extracting FSM from design).
+
+4.9.3. Executing FSM_OPT pass (simple optimizations of FSMs).
+
+4.9.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_lsu_lfb_data_entry..
+
+4.9.5. Executing FSM_OPT pass (simple optimizations of FSMs).
+
+4.9.6. Executing FSM_RECODE pass (re-assigning FSM state encoding).
+
+4.9.7. Executing FSM_INFO pass (dumping all available information on FSM cells).
+
+4.9.8. Executing FSM_MAP pass (mapping FSMs to basic logic).
+
+4.10. Executing OPT pass (performing simple optimizations).
+
+4.10.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_lsu_lfb_data_entry.
+
+4.10.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_lsu_lfb_data_entry'.
+Computing hashes of 96 cells of `\ct_lsu_lfb_data_entry'.
+Finding duplicate cells in `\ct_lsu_lfb_data_entry'.
+Removed a total of 0 cells.
+
+4.10.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \ct_lsu_lfb_data_entry..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~32 debug messages>
+
+4.10.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \ct_lsu_lfb_data_entry.
+Performed a total of 0 changes.
+
+4.10.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_lsu_lfb_data_entry'.
+Computing hashes of 96 cells of `\ct_lsu_lfb_data_entry'.
+Finding duplicate cells in `\ct_lsu_lfb_data_entry'.
+Removed a total of 0 cells.
+
+4.10.6. Executing OPT_DFF pass (perform DFF optimizations).
+Adding EN signal on $procdff$174 ($adff) from module ct_lsu_lfb_data_entry (D = $0\lfb_data_entry_cnt[1:0], Q = \lfb_data_entry_cnt).
+Adding EN signal on $procdff$154 ($adff) from module ct_lsu_lfb_data_entry (D = \biu_lsu_r_data, Q = \lfb_data_entry_data [255:128]).
+Adding EN signal on $procdff$139 ($adff) from module ct_lsu_lfb_data_entry (D = $0\lfb_data_entry_lf_sm_req_success[0:0], Q = \lfb_data_entry_lf_sm_req_success).
+Adding EN signal on $procdff$179 ($adff) from module ct_lsu_lfb_data_entry (D = $0\lfb_data_entry_last[0:0], Q = \lfb_data_entry_last).
+Adding EN signal on $procdff$144 ($adff) from module ct_lsu_lfb_data_entry (D = \biu_lsu_r_data, Q = \lfb_data_entry_data [511:384]).
+Adding EN signal on $procdff$194 ($adff) from module ct_lsu_lfb_data_entry (D = $0\lfb_data_entry_vld[0:0], Q = \lfb_data_entry_vld).
+Adding EN signal on $procdff$149 ($adff) from module ct_lsu_lfb_data_entry (D = \biu_lsu_r_data, Q = \lfb_data_entry_data [383:256]).
+Adding EN signal on $procdff$169 ($adff) from module ct_lsu_lfb_data_entry (D = $0\lfb_data_entry_dcache_share[0:0], Q = \lfb_data_entry_dcache_share).
+Adding EN signal on $procdff$189 ($adff) from module ct_lsu_lfb_data_entry (D = \lfb_biu_id_2to0, Q = \lfb_data_entry_biu_id).
+Adding EN signal on $procdff$164 ($adff) from module ct_lsu_lfb_data_entry (D = $0\lfb_data_entry_bus_err[0:0], Q = \lfb_data_entry_bus_err).
+Adding EN signal on $procdff$184 ($adff) from module ct_lsu_lfb_data_entry (D = $0\lfb_data_entry_pass_ptr[3:0], Q = \lfb_data_entry_pass_ptr).
+Adding EN signal on $procdff$159 ($adff) from module ct_lsu_lfb_data_entry (D = \biu_lsu_r_data, Q = \lfb_data_entry_data [127:0]).
+
+4.10.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_lsu_lfb_data_entry..
+Removed 5 unused cells and 5 unused wires.
+<suppressed ~6 debug messages>
+
+4.10.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_lsu_lfb_data_entry.
+<suppressed ~7 debug messages>
+
+4.10.9. Rerunning OPT passes. (Maybe there is more to do..)
+
+4.10.10. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \ct_lsu_lfb_data_entry..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~22 debug messages>
+
+4.10.11. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \ct_lsu_lfb_data_entry.
+Performed a total of 0 changes.
+
+4.10.12. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_lsu_lfb_data_entry'.
+Computing hashes of 98 cells of `\ct_lsu_lfb_data_entry'.
+Finding duplicate cells in `\ct_lsu_lfb_data_entry'.
+Computing hashes of 96 cells of `\ct_lsu_lfb_data_entry'.
+Finding duplicate cells in `\ct_lsu_lfb_data_entry'.
+<suppressed ~6 debug messages>
+Removed a total of 2 cells.
+
+4.10.13. Executing OPT_DFF pass (perform DFF optimizations).
+
+4.10.14. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_lsu_lfb_data_entry..
+Removed 0 unused cells and 2 unused wires.
+<suppressed ~1 debug messages>
+
+4.10.15. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_lsu_lfb_data_entry.
+
+4.10.16. Rerunning OPT passes. (Maybe there is more to do..)
+
+4.10.17. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \ct_lsu_lfb_data_entry..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~22 debug messages>
+
+4.10.18. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \ct_lsu_lfb_data_entry.
+Performed a total of 0 changes.
+
+4.10.19. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_lsu_lfb_data_entry'.
+Computing hashes of 96 cells of `\ct_lsu_lfb_data_entry'.
+Finding duplicate cells in `\ct_lsu_lfb_data_entry'.
+Removed a total of 0 cells.
+
+4.10.20. Executing OPT_DFF pass (perform DFF optimizations).
+
+4.10.21. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_lsu_lfb_data_entry..
+
+4.10.22. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_lsu_lfb_data_entry.
+
+4.10.23. Finished fast OPT passes. (There is nothing left to do.)
+
+4.11. Executing WREDUCE pass (reducing word size of cells).
+Removed top 29 address bits (of 32) from memory init port ct_lsu_lfb_data_entry.$auto$mem.cc:351:emit$85 ($auto$proc_rom.cc:155:do_switch$83).
+Removed top 1 bits (of 2) from port B of cell ct_lsu_lfb_data_entry.$add$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_lfb_data_entry.v:340$11 ($add).
+
+4.12. Executing PEEPOPT pass (run peephole optimizers).
+
+4.13. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_lsu_lfb_data_entry..
+
+4.14. Executing ALUMACC pass (create $alu and $macc cells).
+Extracting $alu and $macc cells in module ct_lsu_lfb_data_entry:
+  creating $macc model for $add$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_lfb_data_entry.v:340$11 ($add).
+  creating $alu model for $macc $add$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_lfb_data_entry.v:340$11.
+  creating $alu cell for $add$C910_RTL_FACTORY/gen_rtl/lsu/rtl/ct_lsu_lfb_data_entry.v:340$11: $auto$alumacc.cc:512:replace_alu$227
+  created 1 $alu and 0 $macc cells.
+
+4.15. Executing SHARE pass (SAT-based resource sharing).
+
+4.16. Executing OPT pass (performing simple optimizations).
+
+4.16.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_lsu_lfb_data_entry.
+
+4.16.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_lsu_lfb_data_entry'.
+Computing hashes of 96 cells of `\ct_lsu_lfb_data_entry'.
+Finding duplicate cells in `\ct_lsu_lfb_data_entry'.
+Removed a total of 0 cells.
+
+4.16.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \ct_lsu_lfb_data_entry..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~22 debug messages>
+
+4.16.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \ct_lsu_lfb_data_entry.
+Performed a total of 0 changes.
+
+4.16.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_lsu_lfb_data_entry'.
+Computing hashes of 96 cells of `\ct_lsu_lfb_data_entry'.
+Finding duplicate cells in `\ct_lsu_lfb_data_entry'.
+Removed a total of 0 cells.
+
+4.16.6. Executing OPT_DFF pass (perform DFF optimizations).
+
+4.16.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_lsu_lfb_data_entry..
+
+4.16.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_lsu_lfb_data_entry.
+
+4.16.9. Finished fast OPT passes. (There is nothing left to do.)
+
+4.17. Executing MEMORY pass.
+
+4.17.1. Executing OPT_MEM pass (optimize memories).
+Performed a total of 0 transformations.
+
+4.17.2. Executing OPT_MEM_PRIORITY pass (removing unnecessary memory write priority relations).
+Performed a total of 0 transformations.
+
+4.17.3. Executing OPT_MEM_FEEDBACK pass (finding memory read-to-write feedback paths).
+
+4.17.4. Executing MEMORY_BMUX2ROM pass (converting muxes to ROMs).
+
+4.17.5. Executing MEMORY_DFF pass (merging $dff cells to $memrd).
+Checking read port `$auto$proc_rom.cc:155:do_switch$83'[0] in module `\ct_lsu_lfb_data_entry': no output FF found.
+Checking read port address `$auto$proc_rom.cc:155:do_switch$83'[0] in module `\ct_lsu_lfb_data_entry': address FF has async set and/or reset, not supported.
+
+4.17.6. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_lsu_lfb_data_entry..
+
+4.17.7. Executing MEMORY_SHARE pass (consolidating $memrd/$memwr cells).
+
+4.17.8. Executing OPT_MEM_WIDEN pass (optimize memories where all ports are wide).
+Performed a total of 0 transformations.
+
+4.17.9. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_lsu_lfb_data_entry..
+
+4.17.10. Executing MEMORY_COLLECT pass (generating $mem cells).
+
+4.18. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_lsu_lfb_data_entry..
+
+4.19. Executing OPT pass (performing simple optimizations).
+
+4.19.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_lsu_lfb_data_entry.
+<suppressed ~8 debug messages>
+
+4.19.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_lsu_lfb_data_entry'.
+Computing hashes of 87 cells of `\ct_lsu_lfb_data_entry'.
+Finding duplicate cells in `\ct_lsu_lfb_data_entry'.
+Removed a total of 0 cells.
+
+4.19.3. Executing OPT_DFF pass (perform DFF optimizations).
+
+4.19.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_lsu_lfb_data_entry..
+Removed 0 unused cells and 8 unused wires.
+<suppressed ~1 debug messages>
+
+4.19.5. Finished fast OPT passes.
+
+4.20. Executing MEMORY_MAP pass (converting memories to logic and flip-flops).
+Mapping memory $auto$proc_rom.cc:155:do_switch$83 in module \ct_lsu_lfb_data_entry:
+  created 8 $dff cells and 0 static cells of width 8.
+  read interface: 0 $dff and 7 $mux cells.
+  write interface: 0 write mux blocks.
+
+4.21. Executing OPT pass (performing simple optimizations).
+
+4.21.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_lsu_lfb_data_entry.
+<suppressed ~2 debug messages>
+
+4.21.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_lsu_lfb_data_entry'.
+Computing hashes of 93 cells of `\ct_lsu_lfb_data_entry'.
+Finding duplicate cells in `\ct_lsu_lfb_data_entry'.
+Removed a total of 0 cells.
+
+4.21.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \ct_lsu_lfb_data_entry..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~17 debug messages>
+
+4.21.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \ct_lsu_lfb_data_entry.
+    Consolidated identical input bits for $mux cell $memory$auto$proc_rom.cc:155:do_switch$83$rdmux[0][2][2]$247:
+      Old ports: A=8'00001000, B=8'00010000, Y=$memory$auto$proc_rom.cc:155:do_switch$83$rdmux[0][1][1]$a$239
+      New ports: A=2'01, B=2'10, Y=$memory$auto$proc_rom.cc:155:do_switch$83$rdmux[0][1][1]$a$239 [4:3]
+      New connections: { $memory$auto$proc_rom.cc:155:do_switch$83$rdmux[0][1][1]$a$239 [7:5] $memory$auto$proc_rom.cc:155:do_switch$83$rdmux[0][1][1]$a$239 [2:0] } = 6'000000
+    Consolidated identical input bits for $mux cell $memory$auto$proc_rom.cc:155:do_switch$83$rdmux[0][2][1]$244:
+      Old ports: A=8'00000010, B=8'00000100, Y=$memory$auto$proc_rom.cc:155:do_switch$83$rdmux[0][1][0]$b$237
+      New ports: A=2'01, B=2'10, Y=$memory$auto$proc_rom.cc:155:do_switch$83$rdmux[0][1][0]$b$237 [2:1]
+      New connections: { $memory$auto$proc_rom.cc:155:do_switch$83$rdmux[0][1][0]$b$237 [7:3] $memory$auto$proc_rom.cc:155:do_switch$83$rdmux[0][1][0]$b$237 [0] } = 6'000000
+    Consolidated identical input bits for $mux cell $memory$auto$proc_rom.cc:155:do_switch$83$rdmux[0][2][0]$241:
+      Old ports: A=8'10000000, B=8'00000001, Y=$memory$auto$proc_rom.cc:155:do_switch$83$rdmux[0][1][0]$a$236
+      New ports: A=2'10, B=2'01, Y={ $memory$auto$proc_rom.cc:155:do_switch$83$rdmux[0][1][0]$a$236 [7] $memory$auto$proc_rom.cc:155:do_switch$83$rdmux[0][1][0]$a$236 [0] }
+      New connections: $memory$auto$proc_rom.cc:155:do_switch$83$rdmux[0][1][0]$a$236 [6:1] = 6'000000
+    Consolidated identical input bits for $mux cell $memory$auto$proc_rom.cc:155:do_switch$83$rdmux[0][2][3]$250:
+      Old ports: A=8'00100000, B=8'01000000, Y=$memory$auto$proc_rom.cc:155:do_switch$83$rdmux[0][1][1]$b$240
+      New ports: A=2'01, B=2'10, Y=$memory$auto$proc_rom.cc:155:do_switch$83$rdmux[0][1][1]$b$240 [6:5]
+      New connections: { $memory$auto$proc_rom.cc:155:do_switch$83$rdmux[0][1][1]$b$240 [7] $memory$auto$proc_rom.cc:155:do_switch$83$rdmux[0][1][1]$b$240 [4:0] } = 6'000000
+  Optimizing cells in module \ct_lsu_lfb_data_entry.
+    Consolidated identical input bits for $mux cell $memory$auto$proc_rom.cc:155:do_switch$83$rdmux[0][1][1]$238:
+      Old ports: A=$memory$auto$proc_rom.cc:155:do_switch$83$rdmux[0][1][1]$a$239, B=$memory$auto$proc_rom.cc:155:do_switch$83$rdmux[0][1][1]$b$240, Y=$memory$auto$proc_rom.cc:155:do_switch$83$rdmux[0][0][0]$b$234
+      New ports: A={ 2'00 $memory$auto$proc_rom.cc:155:do_switch$83$rdmux[0][1][1]$a$239 [4:3] }, B={ $memory$auto$proc_rom.cc:155:do_switch$83$rdmux[0][1][1]$b$240 [6:5] 2'00 }, Y=$memory$auto$proc_rom.cc:155:do_switch$83$rdmux[0][0][0]$b$234 [6:3]
+      New connections: { $memory$auto$proc_rom.cc:155:do_switch$83$rdmux[0][0][0]$b$234 [7] $memory$auto$proc_rom.cc:155:do_switch$83$rdmux[0][0][0]$b$234 [2:0] } = 4'0000
+    Consolidated identical input bits for $mux cell $memory$auto$proc_rom.cc:155:do_switch$83$rdmux[0][1][0]$235:
+      Old ports: A=$memory$auto$proc_rom.cc:155:do_switch$83$rdmux[0][1][0]$a$236, B=$memory$auto$proc_rom.cc:155:do_switch$83$rdmux[0][1][0]$b$237, Y=$memory$auto$proc_rom.cc:155:do_switch$83$rdmux[0][0][0]$a$233
+      New ports: A={ $memory$auto$proc_rom.cc:155:do_switch$83$rdmux[0][1][0]$a$236 [7] 2'00 $memory$auto$proc_rom.cc:155:do_switch$83$rdmux[0][1][0]$a$236 [0] }, B={ 1'0 $memory$auto$proc_rom.cc:155:do_switch$83$rdmux[0][1][0]$b$237 [2:1] 1'0 }, Y={ $memory$auto$proc_rom.cc:155:do_switch$83$rdmux[0][0][0]$a$233 [7] $memory$auto$proc_rom.cc:155:do_switch$83$rdmux[0][0][0]$a$233 [2:0] }
+      New connections: $memory$auto$proc_rom.cc:155:do_switch$83$rdmux[0][0][0]$a$233 [6:3] = 4'0000
+  Optimizing cells in module \ct_lsu_lfb_data_entry.
+Performed a total of 6 changes.
+
+4.21.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_lsu_lfb_data_entry'.
+Computing hashes of 93 cells of `\ct_lsu_lfb_data_entry'.
+Finding duplicate cells in `\ct_lsu_lfb_data_entry'.
+Computing hashes of 91 cells of `\ct_lsu_lfb_data_entry'.
+Finding duplicate cells in `\ct_lsu_lfb_data_entry'.
+<suppressed ~6 debug messages>
+Removed a total of 2 cells.
+
+4.21.6. Executing OPT_SHARE pass.
+
+4.21.7. Executing OPT_DFF pass (perform DFF optimizations).
+
+4.21.8. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_lsu_lfb_data_entry..
+Removed 0 unused cells and 10 unused wires.
+<suppressed ~1 debug messages>
+
+4.21.9. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_lsu_lfb_data_entry.
+
+4.21.10. Rerunning OPT passes. (Maybe there is more to do..)
+
+4.21.11. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \ct_lsu_lfb_data_entry..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~19 debug messages>
+
+4.21.12. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \ct_lsu_lfb_data_entry.
+Performed a total of 0 changes.
+
+4.21.13. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_lsu_lfb_data_entry'.
+Computing hashes of 91 cells of `\ct_lsu_lfb_data_entry'.
+Finding duplicate cells in `\ct_lsu_lfb_data_entry'.
+Removed a total of 0 cells.
+
+4.21.14. Executing OPT_SHARE pass.
+
+4.21.15. Executing OPT_DFF pass (perform DFF optimizations).
+
+4.21.16. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_lsu_lfb_data_entry..
+
+4.21.17. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_lsu_lfb_data_entry.
+
+4.21.18. Finished fast OPT passes. (There is nothing left to do.)
+
+4.22. Executing TECHMAP pass (map to technology primitives).
+
+4.22.1. Executing Verilog-2005 frontend: YOSYS_TECHMAP
+Parsing Verilog input from `YOSYS_TECHMAP' to AST representation.
+Generating RTLIL representation for module `\_90_simplemap_bool_ops'.
+Generating RTLIL representation for module `\_90_simplemap_reduce_ops'.
+Generating RTLIL representation for module `\_90_simplemap_logic_ops'.
+Generating RTLIL representation for module `\_90_simplemap_compare_ops'.
+Generating RTLIL representation for module `\_90_simplemap_various'.
+Generating RTLIL representation for module `\_90_simplemap_registers'.
+Generating RTLIL representation for module `\_90_shift_ops_shr_shl_sshl_sshr'.
+Generating RTLIL representation for module `\_90_shift_shiftx'.
+Generating RTLIL representation for module `\_90_fa'.
+Generating RTLIL representation for module `\_90_lcu_brent_kung'.
+Generating RTLIL representation for module `\_90_alu'.
+Generating RTLIL representation for module `\_90_macc'.
+Generating RTLIL representation for module `\_90_alumacc'.
+Generating RTLIL representation for module `$__div_mod_u'.
+Generating RTLIL representation for module `$__div_mod_trunc'.
+Generating RTLIL representation for module `\_90_div'.
+Generating RTLIL representation for module `\_90_mod'.
+Generating RTLIL representation for module `$__div_mod_floor'.
+Generating RTLIL representation for module `\_90_divfloor'.
+Generating RTLIL representation for module `\_90_modfloor'.
+Generating RTLIL representation for module `\_90_pow'.
+Generating RTLIL representation for module `\_90_demux'.
+Generating RTLIL representation for module `\_90_lut'.
+Generating RTLIL representation for module `$connect'.
+Generating RTLIL representation for module `$input_port'.
+Successfully finished Verilog frontend.
+
+4.22.2. Continuing TECHMAP pass.
+Using template $paramod$175e67c02b86e96b1288b9dc100122520d7240d8\_90_alu for cells of type $alu.
+Using extmapper simplemap for cells of type $adffe.
+Using extmapper simplemap for cells of type $reduce_bool.
+Using extmapper simplemap for cells of type $mux.
+Using extmapper simplemap for cells of type $logic_and.
+Using extmapper simplemap for cells of type $logic_not.
+Using extmapper simplemap for cells of type $eq.
+Using extmapper simplemap for cells of type $logic_or.
+Using extmapper simplemap for cells of type $and.
+Using extmapper simplemap for cells of type $reduce_or.
+Using extmapper simplemap for cells of type $not.
+Using extmapper simplemap for cells of type $xor.
+Using template $paramod\_90_fa\WIDTH=32'00000000000000000000000000000010 for cells of type $fa.
+Using template $paramod\_90_lcu_brent_kung\WIDTH=32'00000000000000000000000000000010 for cells of type $lcu.
+Using extmapper simplemap for cells of type $pos.
+Using extmapper simplemap for cells of type $or.
+No more expansions possible.
+<suppressed ~317 debug messages>
+
+4.23. Executing OPT pass (performing simple optimizations).
+
+4.23.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_lsu_lfb_data_entry.
+<suppressed ~23 debug messages>
+
+4.23.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_lsu_lfb_data_entry'.
+Computing hashes of 671 cells of `\ct_lsu_lfb_data_entry'.
+Finding duplicate cells in `\ct_lsu_lfb_data_entry'.
+Computing hashes of 663 cells of `\ct_lsu_lfb_data_entry'.
+Finding duplicate cells in `\ct_lsu_lfb_data_entry'.
+Computing hashes of 662 cells of `\ct_lsu_lfb_data_entry'.
+Finding duplicate cells in `\ct_lsu_lfb_data_entry'.
+<suppressed ~27 debug messages>
+Removed a total of 9 cells.
+
+4.23.3. Executing OPT_DFF pass (perform DFF optimizations).
+
+4.23.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_lsu_lfb_data_entry..
+Removed 1 unused cells and 59 unused wires.
+<suppressed ~2 debug messages>
+
+4.23.5. Finished fast OPT passes.
+
+4.24. Executing ABC pass (technology mapping using ABC).
+
+4.24.1. Extracting gate netlist of module `\ct_lsu_lfb_data_entry' to `<abc-temp-dir>/input.blif'..
+
+4.24.1.1. Executed ABC.
+Extracted 129 gates and 179 wires to a netlist network with 48 inputs and 38 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: UC Berkeley, ABC 1.01 (compiled Jun 30 2026 04:50:19)
+ABC: abc 01> empty
+ABC: abc 01> source <abc-temp-dir>/abc.script
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_library <abc-temp-dir>/stdcells.genlib 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &fraig -x 
+ABC: + &put 
+ABC: + scorr 
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2 
+ABC: + dretime 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &dch -f 
+ABC: + &nf 
+ABC: + &put 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+ABC: 
+ABC: YOSYS_ABC_DONE 
+
+4.24.1.2. Re-integrating ABC results.
+ABC RESULTS:               AND cells:       40
+ABC RESULTS:            ANDNOT cells:       11
+ABC RESULTS:               MUX cells:        4
+ABC RESULTS:              NAND cells:       33
+ABC RESULTS:               NOR cells:        6
+ABC RESULTS:               NOT cells:        1
+ABC RESULTS:                OR cells:        5
+ABC RESULTS:             ORNOT cells:        5
+ABC RESULTS:              XNOR cells:        3
+ABC RESULTS:        internal signals:       93
+ABC RESULTS:           input signals:       48
+ABC RESULTS:          output signals:       38
+Removing temp directory.
+Removing global temp directory.
+
+4.25. Executing OPT pass (performing simple optimizations).
+
+4.25.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_lsu_lfb_data_entry.
+
+4.25.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_lsu_lfb_data_entry'.
+Computing hashes of 640 cells of `\ct_lsu_lfb_data_entry'.
+Finding duplicate cells in `\ct_lsu_lfb_data_entry'.
+Removed a total of 0 cells.
+
+4.25.3. Executing OPT_DFF pass (perform DFF optimizations).
+
+4.25.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_lsu_lfb_data_entry..
+Removed 0 unused cells and 152 unused wires.
+<suppressed ~13 debug messages>
+
+4.25.5. Finished fast OPT passes.
+
+4.26. Executing HIERARCHY pass (managing design hierarchy).
+Attribute `top' found on module `ct_lsu_lfb_data_entry'. Setting top module to ct_lsu_lfb_data_entry.
+
+4.26.1. Analyzing design hierarchy..
+Top module:  \ct_lsu_lfb_data_entry
+
+4.26.2. Analyzing design hierarchy..
+Top module:  \ct_lsu_lfb_data_entry
+Removed 0 unused modules.
+
+4.27. Printing statistics.
+
+=== ct_lsu_lfb_data_entry ===
+
+        +----------Local Count, excluding submodules.
+        | 
+      194 wires
+     1400 wire bits
+      113 public wires
+     1315 public wire bits
+       32 ports
+      703 port bits
+      640 cells
+       11   $_ANDNOT_
+       40   $_AND_
+      525   $_DFFE_PN0P_
+        1   $_DFFE_PN1P_
+        4   $_MUX_
+       33   $_NAND_
+        6   $_NOR_
+        1   $_NOT_
+        5   $_ORNOT_
+        5   $_OR_
+        3   $_XNOR_
+        6   $scopeinfo
+
+4.28. Executing CHECK pass (checking for obvious problems).
+Checking module ct_lsu_lfb_data_entry...
+Found and reported 0 problems.
+
+5. Executing DFFLIBMAP pass (mapping DFF cells to sequential cells from liberty file).
+  cell sky130_fd_sc_hd__dfxtp_1 (noninv, pins=3, area=20.02) is a direct match for cell type $_DFF_P_.
+  cell sky130_fd_sc_hd__dfrtn_1 (noninv, pins=4, area=25.02) is a direct match for cell type $_DFF_NN0_.
+  cell sky130_fd_sc_hd__dfrtp_1 (noninv, pins=4, area=25.02) is a direct match for cell type $_DFF_PN0_.
+  cell sky130_fd_sc_hd__dfstp_2 (noninv, pins=4, area=26.28) is a direct match for cell type $_DFF_PN1_.
+  cell sky130_fd_sc_hd__edfxtp_1 (noninv, pins=4, area=30.03) is a direct match for cell type $_DFFE_PP_.
+  cell sky130_fd_sc_hd__dfbbn_1 (noninv, pins=6, area=32.53) is a direct match for cell type $_DFFSR_NNN_.
+  cell sky130_fd_sc_hd__dfbbp_1 (noninv, pins=6, area=32.53) is a direct match for cell type $_DFFSR_PNN_.
+  final dff cell mappings:
+    unmapped dff cell: $_DFF_N_
+    \sky130_fd_sc_hd__dfxtp_1 _DFF_P_ (.CLK( C), .D( D), .Q( Q));
+    \sky130_fd_sc_hd__dfrtn_1 _DFF_NN0_ (.CLK_N( C), .D( D), .Q( Q), .RESET_B( R));
+    unmapped dff cell: $_DFF_NN1_
+    unmapped dff cell: $_DFF_NP0_
+    unmapped dff cell: $_DFF_NP1_
+    \sky130_fd_sc_hd__dfrtp_1 _DFF_PN0_ (.CLK( C), .D( D), .Q( Q), .RESET_B( R));
+    \sky130_fd_sc_hd__dfstp_2 _DFF_PN1_ (.CLK( C), .D( D), .Q( Q), .SET_B( R));
+    unmapped dff cell: $_DFF_PP0_
+    unmapped dff cell: $_DFF_PP1_
+    unmapped dff cell: $_DFFE_NN_
+    unmapped dff cell: $_DFFE_NP_
+    unmapped dff cell: $_DFFE_PN_
+    \sky130_fd_sc_hd__edfxtp_1 _DFFE_PP_ (.CLK( C), .D( D), .DE( E), .Q( Q));
+    \sky130_fd_sc_hd__dfbbn_1 _DFFSR_NNN_ (.CLK_N( C), .D( D), .Q( Q), .Q_N(~Q), .RESET_B( R), .SET_B( S));
+    unmapped dff cell: $_DFFSR_NNP_
+    unmapped dff cell: $_DFFSR_NPN_
+    unmapped dff cell: $_DFFSR_NPP_
+    \sky130_fd_sc_hd__dfbbp_1 _DFFSR_PNN_ (.CLK( C), .D( D), .Q( Q), .Q_N(~Q), .RESET_B( R), .SET_B( S));
+    unmapped dff cell: $_DFFSR_PNP_
+    unmapped dff cell: $_DFFSR_PPN_
+    unmapped dff cell: $_DFFSR_PPP_
+
+5.1. Executing DFFLEGALIZE pass (convert FFs to types supported by the target).
+<suppressed ~24 debug messages>
+Mapping DFF cells in module `\ct_lsu_lfb_data_entry':
+  mapped 525 $_DFF_PN0_ cells to \sky130_fd_sc_hd__dfrtp_1 cells.
+  mapped 1 $_DFF_PN1_ cells to \sky130_fd_sc_hd__dfstp_2 cells.
+
+6. Executing ABC pass (technology mapping using ABC).
+
+6.1. Extracting gate netlist of module `\ct_lsu_lfb_data_entry' to `<abc-temp-dir>/input.blif'..
+ABC: using cached merged SCL: yosys-liberty-scl-cache/yosys_merged_33924531.scl (1 files)
+
+6.1.1. Executed ABC.
+Extracted 634 gates and 1323 wires to a netlist network with 689 inputs and 545 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: UC Berkeley, ABC 1.01 (compiled Jun 30 2026 04:50:19)
+ABC: abc 01> empty
+ABC: abc 01> source <abc-temp-dir>/abc.script
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_scl yosys-liberty-scl-cache/yosys_merged_33924531.scl 
+ABC: Warning: Detected 9 multi-output cells (for example, "sky130_fd_sc_hd__fa_1").
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &fraig -x 
+ABC: + &put 
+ABC: + scorr 
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2 
+ABC: + dretime 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &dch -f 
+ABC: + &nf 
+ABC: + &put 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+ABC: 
+ABC: YOSYS_ABC_DONE 
+
+6.1.2. Re-integrating ABC results.
+ABC RESULTS:   sky130_fd_sc_hd__a2111oi_0 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__a211oi_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__a21boi_0 cells:        8
+ABC RESULTS:   sky130_fd_sc_hd__a21oi_1 cells:        3
+ABC RESULTS:   sky130_fd_sc_hd__a221oi_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__a22o_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__a22oi_1 cells:        8
+ABC RESULTS:   sky130_fd_sc_hd__a31o_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__a41o_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__and2_0 cells:        2
+ABC RESULTS:   sky130_fd_sc_hd__and3_1 cells:        2
+ABC RESULTS:   sky130_fd_sc_hd__and3b_1 cells:        2
+ABC RESULTS:   sky130_fd_sc_hd__and4_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__and4b_1 cells:        2
+ABC RESULTS:   sky130_fd_sc_hd__clkinv_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__lpflow_isobufsrc_1 cells:        6
+ABC RESULTS:   sky130_fd_sc_hd__mux2_1 cells:      516
+ABC RESULTS:   sky130_fd_sc_hd__nand2_1 cells:        5
+ABC RESULTS:   sky130_fd_sc_hd__nand3_1 cells:        4
+ABC RESULTS:   sky130_fd_sc_hd__nor2_1 cells:       11
+ABC RESULTS:   sky130_fd_sc_hd__nor3_1 cells:        2
+ABC RESULTS:   sky130_fd_sc_hd__nor3b_1 cells:        3
+ABC RESULTS:   sky130_fd_sc_hd__nor4_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__o2111ai_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__o21ai_0 cells:        6
+ABC RESULTS:   sky130_fd_sc_hd__o22a_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__xor2_1 cells:        3
+ABC RESULTS:        internal signals:       89
+ABC RESULTS:           input signals:      689
+ABC RESULTS:          output signals:      545
+Removing temp directory.
+Removing global temp directory.
+Removed 0 unused cells and 1327 unused wires.
+
+7. Printing statistics.
+
+=== ct_lsu_lfb_data_entry ===
+
+        +----------Local Count, excluding submodules.
+        |        +-Local Area, excluding submodules.
+        |        | 
+      676        - wires
+     1878        - wire bits
+      101        - public wires
+     1303        - public wire bits
+       32        - ports
+      703        - port bits
+     1126 1.95E+04 cells
+        6        -   $scopeinfo
+        1    8.758   sky130_fd_sc_hd__a2111oi_0
+        1    7.507   sky130_fd_sc_hd__a211oi_1
+        8   60.058   sky130_fd_sc_hd__a21boi_0
+        3   15.014   sky130_fd_sc_hd__a21oi_1
+        1    8.758   sky130_fd_sc_hd__a221oi_1
+        1    8.758   sky130_fd_sc_hd__a22o_1
+        8   60.058   sky130_fd_sc_hd__a22oi_1
+        1    8.758   sky130_fd_sc_hd__a31o_1
+        1    10.01   sky130_fd_sc_hd__a41o_1
+        2   12.512   sky130_fd_sc_hd__and2_0
+        2   12.512   sky130_fd_sc_hd__and3_1
+        2   17.517   sky130_fd_sc_hd__and3b_1
+        1    8.758   sky130_fd_sc_hd__and4_1
+        2   20.019   sky130_fd_sc_hd__and4b_1
+        1    3.754   sky130_fd_sc_hd__clkinv_1
+      525  13137.6   sky130_fd_sc_hd__dfrtp_1
+        1   26.275   sky130_fd_sc_hd__dfstp_2
+        6   37.536   sky130_fd_sc_hd__lpflow_isobufsrc_1
+      516 5.81E+03   sky130_fd_sc_hd__mux2_1
+        5   18.768   sky130_fd_sc_hd__nand2_1
+        4   20.019   sky130_fd_sc_hd__nand3_1
+       11    41.29   sky130_fd_sc_hd__nor2_1
+        2    10.01   sky130_fd_sc_hd__nor3_1
+        3   22.522   sky130_fd_sc_hd__nor3b_1
+        1    6.256   sky130_fd_sc_hd__nor4_1
+        1    8.758   sky130_fd_sc_hd__o2111ai_1
+        6   30.029   sky130_fd_sc_hd__o21ai_0
+        1    8.758   sky130_fd_sc_hd__o22a_1
+        3   26.275   sky130_fd_sc_hd__xor2_1
+
+   Area for cell type $scopeinfo is unknown!
+
+   Chip area for module '\ct_lsu_lfb_data_entry': 19467.420800
+     of which used for sequential elements: 13163.875200 (67.62%)
+
+8. Executing Verilog backend.
+
+8.1. Executing BMUXMAP pass.
+
+8.2. Executing DEMUXMAP pass.
+Dumping module `\ct_lsu_lfb_data_entry'.
+
+End of script. Logfile hash: bda7746d15, time: 0.48s, user: 0.24s, system: 0.03s, MEM: 46.88 MB peak
+Yosys 0.66+181 (git sha1 afe6b18f2, Release, Clang /usr/bin/clang++ 18.1.8)
+Time spent: 53% 2x abc (0 sec), 15% 2x stat (0 sec), ...
