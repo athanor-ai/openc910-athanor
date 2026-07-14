@@ -1,0 +1,157 @@
+{
+  "ticket": "ATH-2967",
+  "status": "candidate_pending_independent_review",
+  "customer_ready": false,
+  "target": {
+    "module": "ct_prio",
+    "source_packet": "athanor_artifacts/ct_prio",
+    "proof_subject": "module-local visible sel[1:0] behavior under reset-first"
+  },
+  "candidate": {
+    "description": "one-flop priority encoding for NUM=2 ct_prio",
+    "candidate_sha256": "d87e69e67ca406bc7f0ba9cecca80a466c1b8f95ca0de36e04da37f817240ff1",
+    "mapped_netlist_sha256": "cd38c2a5134b06248e151bbf8a40c1c210e8ddfb97e26585aadb7e87e18be250",
+    "selected_flow": "yosys66_sky130_synth_dfflibmap_abc_opensta_contract_v1"
+  },
+  "toolchain": {
+    "yosys_version": "Yosys 0.66+181 (git sha1 afe6b18f2, Release, Clang /usr/bin/clang++ 18.1.8)",
+    "yosys_sha256": "7c3e3396b38c129dd7485be5a0a0f0da8e495a94c8fd486059e3bea043a588d6",
+    "opensta_version": "OpenSTA 2.2.0 02b129d48f",
+    "opensta_sha256": "4be87ddb9323b86bb4f6cd404f8a4793ea639e9728a48f809603a6606fd2ae83",
+    "liberty": "sky130_fd_sc_hd__tt_025C_1v80.lib",
+    "liberty_sha256": "ec0e1067a35c8bf20b11e58d1e8ac53326067e4dac84a125cc1b917a3518d0d9"
+  },
+  "files": {
+    ".gitattributes": "dd189159ababdd3a2f5c2a0a7106f4a0bffd179e55e9db36e1476121f0bb8e7c",
+    "README.md": "411708733971e7e0dd68040196f544d0b664d3bc85aad4de1a3a52418a04dff6",
+    "ct_prio_gate_candidate.mapped.v": "cd38c2a5134b06248e151bbf8a40c1c210e8ddfb97e26585aadb7e87e18be250",
+    "ct_prio_gate_candidate.v": "d87e69e67ca406bc7f0ba9cecca80a466c1b8f95ca0de36e04da37f817240ff1",
+    "ct_prio_gate_proof_mutant.v": "f58bc816059e5e04c8c08ddd52094def1cb0cbb37927f4edb56f949d3a5f8bcf",
+    "ct_prio_gold.mapped.v": "6bd565c238906c7bb011bba8fc0342f53522f304f84502d6ec7e564814ccfcaf",
+    "ct_prio_gold.v": "2cd7d0e3350c6e4e3df90953570ed95915d6b38e3398ede956df0be321eb6865",
+    "ct_prio_metric_negative.mapped.v": "c58fa396a4734fa402561d1a9c5aec6c016a42e6d5b6033bdd25b3d46ee872e2",
+    "ct_prio_output_miter.sv": "82f8892627d5cdd0b8fe89e607130fb9bf549ea2a1f5dce3c1de1a8f31e39fab",
+    "gate_map.pinned.log": "1b5439521fe10a96cc30e9fe49cde8d8cd5e0d1e4f1c55adc0eff7a25ef3d809",
+    "gate_opensta_area_timing_power.pinned.log": "2fe03f24c237f662dd0552c685cfbfe0ddef32214a628c8ac2c3a912bce65e97",
+    "gold_map.pinned.log": "1a57447e6b1d3beca93769809bc081ff7ab1d53022861b24245680ee9d3a16ff",
+    "gold_opensta_area_timing_power.pinned.log": "b5bf00def3e76b42cee4668d733b3d0e613c134109922de3c5687b21e23a2448",
+    "metric_negative_area.pinned.log": "b91ff6229dd897fbd05b10acddc1589611b8d1ff72ddf44c7f4fa42e44b20647",
+    "metric_negative_opensta_area_timing_power.pinned.log": "796db7d2fdf771d46a038333a1d6efce25c26257d292f8ec2639b635a6bdda84",
+    "output_miter_proof.pinned.log": "3ddeeb6fd41495f7204690808fa31e6db315826eeaec46f64ae9f60f1b8a047f",
+    "proof_mutant_negative.pinned.log": "4f3de4e26077f13be6c6d1c20b4df2258c6037547fefb8b09105d81bb5a568f1",
+    "replay.sh": "3a7218c806b3293be4767d86e80c19af02841e41d84424f93814a6c0fb718d16",
+    "same_candidate_binding_receipt.json": "1ed9fd1e67435419f79bd02f40a1cde8874323e834141e88df7e004074c82738"
+  },
+  "metrics": {
+    "area": {
+      "candidate_sha256": "d87e69e67ca406bc7f0ba9cecca80a466c1b8f95ca0de36e04da37f817240ff1",
+      "mapped_netlist_sha256": "cd38c2a5134b06248e151bbf8a40c1c210e8ddfb97e26585aadb7e87e18be250",
+      "selected_flow": "yosys66_sky130_synth_dfflibmap_abc_opensta_contract_v1",
+      "instrument": "yosys_stat_liberty",
+      "instrument_version": "Yosys 0.66+181 (git sha1 afe6b18f2, Release, Clang /usr/bin/clang++ 18.1.8)",
+      "metric": {
+        "gold": 158.9024,
+        "gate": 60.0576,
+        "unit": "sky130_selected_area"
+      },
+      "negative_control": {
+        "regressed_candidate_sha256": "c58fa396a4734fa402561d1a9c5aec6c016a42e6d5b6033bdd25b3d46ee872e2",
+        "axis_reds": true,
+        "metric": {
+          "regressed": 390.3744,
+          "unit": "sky130_selected_area"
+        },
+        "log_ref": "metric_negative_area.pinned.log"
+      }
+    },
+    "timing": {
+      "candidate_sha256": "d87e69e67ca406bc7f0ba9cecca80a466c1b8f95ca0de36e04da37f817240ff1",
+      "mapped_netlist_sha256": "cd38c2a5134b06248e151bbf8a40c1c210e8ddfb97e26585aadb7e87e18be250",
+      "selected_flow": "yosys66_sky130_synth_dfflibmap_abc_opensta_contract_v1",
+      "instrument": "opensta",
+      "instrument_version": "OpenSTA 2.2.0 02b129d48f",
+      "metric": {
+        "gold_max_data_arrival_ns": 0.85,
+        "gate_max_data_arrival_ns": 0.67,
+        "gold_wns_ns": 0.0,
+        "gate_wns_ns": 0.0,
+        "gold_tns_ns": 0.0,
+        "gate_tns_ns": 0.0,
+        "clock_period_ns": 10.0
+      },
+      "negative_control": {
+        "regressed_candidate_sha256": "c58fa396a4734fa402561d1a9c5aec6c016a42e6d5b6033bdd25b3d46ee872e2",
+        "axis_reds": true,
+        "metric": {
+          "regressed_max_data_arrival_ns": 2.45
+        },
+        "log_ref": "metric_negative_opensta_area_timing_power.pinned.log"
+      }
+    },
+    "power": {
+      "candidate_sha256": "d87e69e67ca406bc7f0ba9cecca80a466c1b8f95ca0de36e04da37f817240ff1",
+      "mapped_netlist_sha256": "cd38c2a5134b06248e151bbf8a40c1c210e8ddfb97e26585aadb7e87e18be250",
+      "selected_flow": "yosys66_sky130_synth_dfflibmap_abc_opensta_contract_v1",
+      "instrument": "opensta_report_power",
+      "instrument_version": "OpenSTA 2.2.0 02b129d48f",
+      "activity_source": "set_power_activity -global -activity 0.1 -duty 0.5",
+      "metric": {
+        "gold_total_power_nw": 1.08e-05,
+        "gate_total_power_nw": 2.89e-06,
+        "gold_internal_power_nw": 9.85e-06,
+        "gate_internal_power_nw": 2.6e-06,
+        "gold_switching_power_nw": 9.16e-07,
+        "gate_switching_power_nw": 2.92e-07,
+        "gold_leakage_power_nw": 6.13e-11,
+        "gate_leakage_power_nw": 2.01e-11,
+        "methodology_boundary": "OpenSTA liberty estimate under fixed global activity; not signoff power and not measured workload activity"
+      },
+      "negative_control": {
+        "regressed_candidate_sha256": "c58fa396a4734fa402561d1a9c5aec6c016a42e6d5b6033bdd25b3d46ee872e2",
+        "axis_reds": true,
+        "metric": {
+          "regressed_total_power_nw": 1.84e-05
+        },
+        "log_ref": "metric_negative_opensta_area_timing_power.pinned.log"
+      }
+    }
+  },
+  "proof_receipts": {
+    "visible_output_temporal_induction": {
+      "status": "proved",
+      "outputs": [
+        "sel[1:0]"
+      ],
+      "reset_assumption": "rst_b is 0 at time 1 and 1 at time 2",
+      "log": "output_miter_proof.pinned.log",
+      "log_sha256": "3ddeeb6fd41495f7204690808fa31e6db315826eeaec46f64ae9f60f1b8a047f"
+    },
+    "proof_negative_control": {
+      "status": "failed_as_expected",
+      "mutation": "ct_prio_gate_proof_mutant.v changes sel[0] to valid[0], ignoring valid[1] priority over requester 0",
+      "command": "read_verilog -formal -sv ct_prio_gold.v ct_prio_gate_proof_mutant.v ct_prio_output_miter.sv; prep -top ct_prio_output_miter; flatten; async2sync; dffunmap; opt; sat -seq 8 -tempinduct -set-at 1 rst_b 0 -set-at 2 rst_b 1 -prove-asserts -verify",
+      "log": "proof_mutant_negative.pinned.log",
+      "log_sha256": "4f3de4e26077f13be6c6d1c20b4df2258c6037547fefb8b09105d81bb5a568f1"
+    }
+  },
+  "negative_controls": {
+    "metric_negative_netlist": {
+      "path": "ct_prio_metric_negative.mapped.v",
+      "sha256": "c58fa396a4734fa402561d1a9c5aec6c016a42e6d5b6033bdd25b3d46ee872e2",
+      "interpretation": "metric-only red control; not a functional/proof candidate"
+    },
+    "proof_mutant": {
+      "path": "ct_prio_gate_proof_mutant.v",
+      "sha256": "f58bc816059e5e04c8c08ddd52094def1cb0cbb37927f4edb56f949d3a5f8bcf",
+      "interpretation": "functional proof red control; the same visible-output temporal-induction miter rejects this broken candidate"
+    }
+  },
+  "known_boundaries": [
+    "candidate pending independent replay by a non-author seat",
+    "module-local ct_prio only",
+    "visible-output behavior under reset-first is the proof subject",
+    "not full internal-state equivalence",
+    "OpenSTA estimated power is not signoff power and not measured workload activity",
+    "not whole C910/BOOM, ISA, memory consistency, speculation recovery, composed optimization, or whole-chip authority"
+  ]
+}
