@@ -14,6 +14,7 @@ Kairos automation.
 | A composed win needs a falsifiable no-interference check | ATH-2950 compounding plan | Kairos should run disjoint-patch, composed-equivalence, and seam-mutant checks before reporting `best_composed`. |
 | Lean obligations are currently human-written | `ct_fifo` reachable-state invariant; `ct_rtu_pst_preg_entry` lifecycle relation | Kairos should call the Lean-prove cycle or Aristotle-style subagent automatically when BMC/PDR/k-induction stalls on an invariant-shaped proof. |
 | Parent-level lifts need compositional proof, not deeper bounded output search | `ct_rtu_pst_vreg` all-entry substitution scout; tracked as ATH-2971 | Kairos should detect repeated proven-instance substitutions, reuse the per-instance relation proof by symmetry, prove parent interconnect identity, and require a seam mutant before reporting a parent lift. Bounded parent-output BMC remains screening evidence. |
+| Area/proof candidates need metric screening before promotion | `ct_rtu_rob_entry` same-state proof packet | Kairos should run the same-candidate area/timing/power screen before attempting customer metric promotion. The ROB-entry area win is proof-clean but OpenSTA max data-arrival regresses. |
 
 ## Parent-Lift Composition Gap
 
