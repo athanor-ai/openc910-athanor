@@ -186,5 +186,14 @@
         "metric red-control reded all three measured axes and export-safety reported 0 BLOCK"
       ]
     }
+  },
+  "lean_fallback": {
+    "reason": "no discharged Lean theorem binds THIS candidate netlist; the Pythia discharged theorems are FifoWidget toy pilots, none bind a real C910 candidate. Graduation to lean_authority = ATH-2976 debt: discharge a Lean refinement SHA-bound to this candidate.",
+    "strongest_evidence": "Yosys state_exposed_relation_tempinduct_seq8 (relation induction closes) + debug_wrapper_passivity (script-checked) + relation mutant-negative; same-candidate-bound Sky130 area + OpenSTA max + OpenSTA power",
+    "scope_boundary": "state relation over state-exposed copies of the vreg lifecycle encoding under reset-first, module-local",
+    "candidate_binding": {
+      "gold_sha256": "ac976ab610cbaa7416d628807722a40bf0fb964fcee3dbcb11613bef0d45a98b",
+      "gate_sha256": "f32961563a22241e9a0d1decdbde8264897504b07079dc74f647e907dca47197"
+    }
   }
 }

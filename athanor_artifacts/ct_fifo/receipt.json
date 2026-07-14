@@ -108,5 +108,14 @@
     "No traffic assumptions beyond reset-first are used for the output checks.",
     "No whole C910, BOOM, ISA, memory-consistency, speculation, or whole-chip authority is claimed."
   ],
-  "review_ruling": "Ronald accepted the bridge-plus-relation proof shape for module-local visible-output equivalence wording on 2026-07-13. The supported wording is limited to the visible outputs under the reset-first contract and the non-claims above."
+  "review_ruling": "Ronald accepted the bridge-plus-relation proof shape for module-local visible-output equivalence wording on 2026-07-13. The supported wording is limited to the visible outputs under the reset-first contract and the non-claims above.",
+  "lean_fallback": {
+    "reason": "no discharged Lean theorem binds THIS candidate netlist; the Pythia discharged theorems are FifoWidget toy pilots, none bind a real C910 candidate. Graduation to lean_authority = ATH-2976 debt: discharge a Lean refinement SHA-bound to this candidate.",
+    "strongest_evidence": "Yosys state_exposed_relation_tempinduct_seq8 (temporal induction closes over state-exposed copies asserting visible outputs + create/pop pointer + valid vector + stored data) + debug_wrapper_passivity (script-checked) + state_exposed_relation_mutant_negative (biting control); visible-output bounded via exact_output_bmc seq6/seq12",
+    "scope_boundary": "state relation over state-exposed copies under reset-first; visible-output equivalence bounded through seq12; not a Lean-kernel refinement for THIS candidate",
+    "candidate_binding": {
+      "gold_sha256": "59f387c64e92b25fa90abd549d7cae7fa1440d4927be080ea698e5e9aece3301",
+      "gate_sha256": "4529573b40c666018ed97df1280dee82df2b3aea7fb327963ed492ba5d844006"
+    }
+  }
 }

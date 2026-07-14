@@ -135,5 +135,14 @@
         "independent storage-path rel_preg mutant bites under the real prove invocation"
       ]
     }
+  },
+  "lean_fallback": {
+    "reason": "no discharged Lean theorem binds THIS candidate netlist; the Pythia discharged theorems are FifoWidget toy pilots, none bind a real C910 candidate. Graduation to lean_authority = ATH-2976 debt: discharge a Lean refinement SHA-bound to this candidate.",
+    "strongest_evidence": "Yosys state_exposed_relation_tempinduct_seq8 (relation induction closes) + debug_wrapper_passivity (script-checked) + relation mutant-negative",
+    "scope_boundary": "state relation over state-exposed copies of the preg lifecycle encoding under reset-first, module-local; proof-only packet (no PPA metric axis)",
+    "candidate_binding": {
+      "gold_sha256": "72cab4cbc55d44e5802b6abe5ec479fb9b0e4912c3f7356da741c90e58dff624",
+      "gate_sha256": "e6cbb7c5e95ed80fc01516f642b49091fdf6024966c7b71d1fce4834d99fc81d"
+    }
   }
 }
