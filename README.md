@@ -7,9 +7,13 @@ Can Athanor/Kairos find RTL optimizations on out-of-order CPU structures, bind
 the exact candidate to area/timing/power measurements, and prove the scoped
 behavior did not change?
 
-The answer so far is yes at module scope. The table below is the customer-facing
-scoreboard. A row is only a result if it has all three metric axes plus a scoped
-proof and a biting negative control.
+The public answer today is three receipt-complete OoO control-block wins: each
+has area, OpenSTA max data-arrival, OpenSTA estimated power, replayable proof,
+and negative controls bound to the same candidate. The next bar is a subsystem
+win, not a fourth isolated block: compose repeated entries, score the composed
+netlist directly, and close the proof with a reusable relation or Lean
+invariant. The table below is the promoted result set; anything outside it is a
+candidate, denominator, or product-learning artifact.
 
 ## Executive Scoreboard
 
@@ -35,6 +39,24 @@ fixed activity, not silicon signoff and not workload-measured power.
 - Local module results are not whole-core correctness claims. Whole C910,
   speculation recovery, memory consistency, ISA correctness, and composed
   subsystem results require separate receipts.
+
+## Next Ambitious Target
+
+The current campaign target is a parent/subsystem result that a CPU architect can
+audit, not a bundle of unrelated local edits:
+
+1. Reuse a proven entry relation across repeated RTU instances by symmetry.
+2. Prove the parent interconnect is unchanged except for the substituted entries.
+3. Require a seam mutant that breaks the composition check.
+4. Measure area, OpenSTA max data-arrival, and OpenSTA estimated power on the
+   composed parent netlist, not by summing local wins.
+5. Attach a Lean obligation for the invariant that raw bounded search cannot
+   justify.
+
+Naive parent lifts have already produced useful hard negatives: area can improve
+while parent timing regresses. Those rejects are kept in the ledger because they
+teach Kairos that composition must be proof-aware and metric-aware at the parent
+netlist, not just locally attractive.
 
 ## Proof Artifacts Awaiting Metric Closure
 
@@ -65,7 +87,8 @@ not a result.
 ## Lean / Formal Moat
 
 The next proof layer is Lean-backed composition, not longer bounded searches.
-Concrete obligations now visible from this campaign:
+The goal is to turn every manual proof intervention into a reusable Kairos
+obligation template. Concrete obligations now visible from this campaign:
 
 | Obligation | Why it matters |
 | --- | --- |
