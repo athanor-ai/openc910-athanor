@@ -213,7 +213,14 @@ def _verify_receipt_bound_to_logs(package: Path) -> list[str]:
     pinned log -- the receipt's numbers are PARSED FROM the hash-verified tool
     output, never self-asserted. An inflated/tampered area claim that no pinned
     log reproduces is caught. Correctness-only packets (no area claims) are a
-    no-op by construction."""
+    no-op by construction.
+
+    Scope (structure, not execution): this proves the claimed number is PRESENT
+    in a SHA-bound log; it does NOT re-run replay.sh. A forgery that fabricates
+    BOTH the receipt value AND a matching, SHA256SUMS-listed log passes here --
+    reproducibility ultimately rests on the auditor re-running replay.sh, which
+    _verify_replay guarantees exists and self-checks. This gate catches drift,
+    casual tampering, and self-certification; full forgery is caught by replay."""
     receipt = package / "receipt.json"
     if not receipt.is_file():
         return []
