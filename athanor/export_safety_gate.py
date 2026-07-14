@@ -206,13 +206,67 @@ def run_gate(ref: str = "HEAD", start: Path | None = None) -> tuple[list[str], l
     return block, warn, skipped
 
 
+def scan_text(text: str, source: str = "pr-text") -> list[str]:
+    """Run the ALWAYS-block patterns over arbitrary public text -- a PR body,
+    review comment, or issue comment. These are public surfaces on a public fork
+    that the committed-tree scan cannot see (they are GitHub metadata, not files),
+    so an internal build-path or a token in a PR body is public + invisible to the
+    file gate (the #14 body-leak class, ATH-2960).
+
+    Reuses BLOCK_ALWAYS as the SINGLE source of truth so the text surface and the
+    committed-tree surface can never drift. The BLOCK_SCOPED host-path patterns
+    are intentionally NOT applied to prose (a bare home-directory path in a
+    sentence is not an unambiguous leak), but our internal markers + secret tokens
+    always are. (No verbatim forbidden literal appears in this docstring so the
+    gate does not self-trip on its own source.)
+    """
+    res = [(label, re.compile(pat)) for label, pat in BLOCK_ALWAYS]
+    findings: list[str] = []
+    for lineno, line in enumerate(text.splitlines(), 1):
+        for label, rx in res:
+            if rx.search(line):
+                findings.append(f"[{label}] {source}:{lineno}: {line.strip()[:200]}")
+    return findings
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="ATH-2960 fork export-safety gate")
     parser.add_argument("--ref", default="HEAD", help="committed ref to scan (default HEAD)")
     parser.add_argument(
         "--warn-limit", type=int, default=40, help="max WARN lines to print (0 = all)"
     )
+    parser.add_argument(
+        "--scan-text",
+        action="store_true",
+        help="scan stdin (a PR/issue/review body) for BLOCK_ALWAYS internal markers "
+        "+ secrets; exit 1 on a hit. Public-text surface companion to the file scan.",
+    )
     args = parser.parse_args(argv)
+
+    # PR bodies / review + issue comments are public surfaces on a public fork that
+    # the committed-tree scan cannot see. Scan them with the SAME BLOCK_ALWAYS set.
+    if args.scan_text:
+        try:
+            text = sys.stdin.read()
+        except OSError as exc:
+            print(f"GATE-ERROR: could not read text from stdin: {exc}", file=sys.stderr)
+            return 2
+        findings = scan_text(text)
+        if findings:
+            print(
+                f"\nFAIL: {len(findings)} BLOCK-tier leak(s) in the PR/issue/review text:",
+                file=sys.stderr,
+            )
+            for f in findings:
+                print(f"  block: {f}", file=sys.stderr)
+            print(
+                "\nInternal markers/secrets are public on a public fork's PR page too "
+                "-- scrub the PR body / comments.",
+                file=sys.stderr,
+            )
+            return 1
+        print("OK: PR/issue/review text clean (0 BLOCK-tier leaks).")
+        return 0
 
     try:
         block, warn, skipped = run_gate(ref=args.ref)

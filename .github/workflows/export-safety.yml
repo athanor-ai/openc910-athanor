@@ -11,6 +11,7 @@ on:
 
 permissions:
   contents: read
+  pull-requests: read
 
 jobs:
   export-safety:
@@ -28,3 +29,21 @@ jobs:
 
       - name: Export-safety gate (committed-tree leak scan + receipt verifier)
         run: python3 athanor/export_safety_gate.py --ref HEAD
+
+      # PR bodies + review/issue comments are public surfaces the committed-tree
+      # scan cannot see. Scan them with the same BLOCK_ALWAYS set (single source
+      # of truth). PR text is passed via env, never interpolated into the shell,
+      # to avoid script injection.
+      - name: Export-safety PR-text scan (PR body + comments)
+        if: github.event_name == 'pull_request'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR_BODY: ${{ github.event.pull_request.body }}
+          PR: ${{ github.event.pull_request.number }}
+          REPO: ${{ github.repository }}
+        run: |
+          {
+            printf '%s\n' "$PR_BODY"
+            gh api "repos/$REPO/issues/$PR/comments" --jq '.[].body' 2>/dev/null || true
+            gh api "repos/$REPO/pulls/$PR/comments" --jq '.[].body' 2>/dev/null || true
+          } | python3 athanor/export_safety_gate.py --scan-text
