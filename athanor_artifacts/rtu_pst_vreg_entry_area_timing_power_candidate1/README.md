@@ -1,6 +1,7 @@
-# C910 RTU PST Vreg Entry Area, Timing, and Estimated-Power Candidate 1
+# C910 RTU PST Vreg Entry Area, Timing, and Estimated-Power Packet 1
 
-Status: candidate with independent replay cleared; `customer_ready=false`.
+Status: accepted module-local metric packet; `customer_ready=true` for scoped
+area/timing/OpenSTA-estimated-power wording.
 
 This package records a same-candidate-bound metric packet for
 `ct_rtu_pst_vreg_entry`. The candidate recodes the lifecycle FSM from the
@@ -20,7 +21,7 @@ Area, timing, and OpenSTA estimated-power use the exact committed mapped netlist
 | axis | gold | candidate | interpretation |
 | --- | --- | --- | --- |
 | Selected Sky130 area, top with deps | `3148.019200` | `3057.932800` | lower area in the selected flow |
-| OpenSTA max data-arrival | `2.82 ns` | `2.81 ns` | lower delay under the package SDC |
+| OpenSTA max data-arrival | `2.82 ns` | `2.81 ns` | small lower data-arrival delta under the package SDC; not a material timing claim |
 | OpenSTA estimated total power | `1.28e-04 nW` | `1.24e-04 nW` | lower estimate under fixed activity |
 
 The power row is an OpenSTA liberty estimate with
@@ -67,8 +68,8 @@ axes.
 
 ## Boundaries
 
-- Independent replay cleared by non-author seats; customer-ready promotion is
-  not claimed in this package.
+- Customer-ready only for scoped module-local area/timing/OpenSTA-estimated-power
+  wording.
 - Module-local `ct_rtu_pst_vreg_entry` only.
 - Correctness proof scope remains visible-output equivalence under reset-first
   through passive debug bridge plus lifecycle-encoding relation induction.

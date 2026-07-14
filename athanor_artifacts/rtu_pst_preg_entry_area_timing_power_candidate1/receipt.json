@@ -1,7 +1,8 @@
 {
   "ticket": "ATH-2967",
-  "status": "candidate_independent_replay_cleared_pending_promotion",
-  "customer_ready": false,
+  "status": "accepted_module_local_area_timing_opensta_estimated_power_packet",
+  "customer_ready": true,
+  "customer_ready_scope": "module-local ct_rtu_pst_preg_entry same-candidate-bound selected Sky130 area, OpenSTA max data-arrival under the package SDC, and OpenSTA estimated total power under fixed global activity; visible-output equivalence under reset-first through passive debug bridge plus lifecycle-encoding relation induction; OpenSTA estimated power is not signoff power and not measured workload activity",
   "target": {
     "module": "ct_rtu_pst_preg_entry",
     "source_packet": "athanor_artifacts/rtu_pst_preg_entry_candidate1",
@@ -20,7 +21,7 @@
   },
   "files": {
     ".gitattributes": "dd189159ababdd3a2f5c2a0a7106f4a0bffd179e55e9db36e1476121f0bb8e7c",
-    "README.md": "b90a0d3bf08e9758791f16cec20803c503b976ae49b199890d6d20a0b3eace15",
+    "README.md": "4599d1263a6da511f200759b27895215990ab1cf53e08744134396ad871344c0",
     "bridge_passivity_check.pinned.log": "1ba4463bb0cd00db354ee38b0638bd036720931a5f08923dae4c5696afa649df",
     "bridge_passivity_check.py": "18d86aafb51eb7706e0abf4dba5fbb47fe2a54a0a32668ae98d6ef2e4f4d7af5",
     "ct_rtu_expand_32.v": "4467b90f7b447790649fa18b44b6f9425a0f6eca990e2220e2482a7dd636c27e",
@@ -44,7 +45,7 @@
     "relation_miter_mutant_negative_tempinduct_seq8.pinned.log": "668f0056f7f21de7277d3e93bf4f56e3bf823eb6356e1ae3a14b09d608e97aeb",
     "relation_miter_tempinduct_seq8.pinned.log": "13f1c771884496ef6a00db487d6a60b0fd5c24a7f4a3207c9d307a70f76b9bfe",
     "replay.sh": "8f65c426a6b78227729f723c651239a59bac0f71c85554dc2b6b590972d1e061",
-    "same_candidate_binding_receipt.json": "72585c1e0b6ec95be40ede0152dd7a69e4db57468043b6e9ab0a2e4b63007fa8"
+    "same_candidate_binding_receipt.json": "a94e2ec31aa40924c87afa9ef2f1d03865dfb2cc4af06984c99d9fd86c57508f"
   },
   "metrics": {
     "area": {
@@ -159,7 +160,7 @@
     }
   },
   "known_boundaries": [
-    "candidate independently replayed by non-author seats; customer-ready promotion is not claimed in this receipt",
+    "customer-ready only for scoped module-local area/timing/OpenSTA-estimated-power wording",
     "module-local ct_rtu_pst_preg_entry only",
     "correctness proof scope remains visible-output equivalence under reset-first through passive debug bridge plus lifecycle-encoding relation induction",
     "OpenSTA estimated power is not signoff power and not measured workload activity",

@@ -1,7 +1,8 @@
 {
   "ticket": "ATH-2967",
-  "status": "candidate_independent_replay_cleared_pending_promotion",
-  "customer_ready": false,
+  "status": "accepted_module_local_area_timing_opensta_estimated_power_packet",
+  "customer_ready": true,
+  "customer_ready_scope": "module-local ct_rtu_pst_vreg_entry same-candidate-bound selected Sky130 area, OpenSTA max data-arrival under the package SDC, and OpenSTA estimated total power under fixed global activity; visible-output equivalence under reset-first through passive debug bridge plus lifecycle-encoding relation induction; OpenSTA estimated power is not signoff power and not measured workload activity",
   "target": {
     "module": "ct_rtu_pst_vreg_entry",
     "description": "C910 RTU PST vector-register-status entry lifecycle recode, with same-candidate-bound metric measurements"
@@ -19,7 +20,7 @@
   },
   "files": {
     ".gitattributes": "dd189159ababdd3a2f5c2a0a7106f4a0bffd179e55e9db36e1476121f0bb8e7c",
-    "README.md": "0664ff6c0ee0c857ce6503086b4bdbd6552d0c35539f62a8a9d466ebc92b9b0a",
+    "README.md": "8c9282820859444bdf69ba98c722eb558f446b1c9329670c85dcb32b9c122fee",
     "bridge_passivity_check.pinned.log": "f5276ea6b7539b623cd9600506e117dfd43008da6df47d2af70a94ab6f25bb69",
     "bridge_passivity_check.py": "66e28939e06c6d7312fbaa1620e589f52e1bd8d636ed1bce8a177b90009c2656",
     "ct_rtu_expand_32.v": "4467b90f7b447790649fa18b44b6f9425a0f6eca990e2220e2482a7dd636c27e",
@@ -43,7 +44,7 @@
     "relation_miter_mutant_negative_tempinduct_seq8.pinned.log": "416d047dea5dc959fa7778e48f9562e81042e8421f56e4d3b774cb6780a4ba2b",
     "relation_miter_tempinduct_seq8.pinned.log": "7b2e189507a64dda4ae0096d703e8247371121a06538005ca37e9459428831f9",
     "replay.sh": "490264ba672940200c8a7fb1a693975e92853764964c964d27e637ff75d2334e",
-    "same_candidate_binding_receipt.json": "ca24aa1ca59d072591ec4de32ef8b3fb86cbe7f7920b4d7f0124ee67c5cdc30c"
+    "same_candidate_binding_receipt.json": "53fd0cdde423ec6f7dc0fe0b0f3fd1914191826ec0621ab6c7180e7db2b019c9"
   },
   "metrics": {
     "area": {
@@ -158,7 +159,7 @@
     }
   },
   "known_boundaries": [
-    "candidate independently replayed by non-author seats; customer-ready promotion is not claimed in this receipt",
+    "customer-ready only for scoped module-local area/timing/OpenSTA-estimated-power wording",
     "module-local ct_rtu_pst_vreg_entry only",
     "correctness proof scope remains visible-output equivalence under reset-first through passive debug bridge plus lifecycle-encoding relation induction",
     "OpenSTA estimated power is not signoff power and not measured workload activity",
@@ -181,7 +182,7 @@
       "checks": [
         "positive relation miter independently proved with pinned Yosys",
         "relation proof mutant bit with proof did fail under the same ok_life/ok_storage/ok_outputs proof path",
-        "binding checker classified the receipt full-PPA-ready for candidate f3296156 and mapped netlist b85271d2",
+        "binding checker classified the receipt ready for same-candidate-bound area/timing/OpenSTA-estimated-power wording for candidate f3296156 and mapped netlist b85271d2",
         "metric red-control reded all three measured axes and export-safety reported 0 BLOCK"
       ]
     }
