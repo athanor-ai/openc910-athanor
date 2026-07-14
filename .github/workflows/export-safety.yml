@@ -56,6 +56,22 @@ jobs:
         if: github.event_name == 'pull_request' || github.event_name == 'push'
         run: python3 athanor/verify_public_receipts.py
 
+      # Regression protection for the VERIFIER ITSELF. The step above runs the
+      # live verifier over the REAL (clean) packets, so a verifier leg silently
+      # neutered to `return []` still exits 0 -- CI stays GREEN on a broken
+      # verifier. These bites tamper each invariant (missing authority block,
+      # unbound candidate SHA, wrong-candidate metric binding, decorative
+      # red-control, SHA256SUMS path-escape, ...) and assert the matching leg
+      # REDS. Wiring them into CI makes a future verifier regression FAIL the
+      # gate instead of passing silently. Proven load-bearing: neutering
+      # _verify_customer_ready_authority leaves the live verifier at exit 0 but
+      # reds these bites. Reads the committed tree -> same PR/push gate.
+      - name: Verify receipt-verifier bites (regression protection for the verifier)
+        if: github.event_name == 'pull_request' || github.event_name == 'push'
+        run: |
+          python3 -m pip install --quiet pytest
+          PYTHONPATH=. python3 -m pytest -q tests/test_verify_public_receipts.py
+
       # PR body + review/issue comments are public surfaces the committed-tree
       # scan cannot see. Scan them with the SAME BLOCK_ALWAYS set (single source
       # of truth: export_safety_gate.py --scan-text). Runs on PR events AND on
