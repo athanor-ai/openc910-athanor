@@ -1,0 +1,274 @@
+OpenSTA 2.2.0 02b129d48f Copyright (c) 2019, Parallax Software, Inc.
+License GPLv3: GNU GPL version 3 <http://gnu.org/licenses/gpl.html>
+
+This is free software, and you are free to change and redistribute it
+under certain conditions; type `show_copying' for details. 
+This program comes with ABSOLUTELY NO WARRANTY; for details type `show_warranty'.
+Warning: metric_negative_opensta.tcl, 6 port 'x_num[4]' not found.
+Warning: metric_negative_opensta.tcl, 7 port 'x_num[3]' not found.
+Warning: metric_negative_opensta.tcl, 8 port 'x_num[2]' not found.
+Warning: metric_negative_opensta.tcl, 9 port 'x_num[1]' not found.
+Warning: metric_negative_opensta.tcl, 10 port 'x_num[0]' not found.
+Warning: metric_negative_opensta.tcl, 11 port 'x_num[5]' not found.
+Warning: metric_negative_opensta.tcl, 12 port 'x_num[4]' not found.
+Warning: metric_negative_opensta.tcl, 13 port 'x_num[3]' not found.
+Warning: metric_negative_opensta.tcl, 14 port 'x_num[2]' not found.
+Warning: metric_negative_opensta.tcl, 15 port 'x_num[1]' not found.
+Warning: metric_negative_opensta.tcl, 16 port 'x_num[0]' not found.
+Warning: metric_negative_opensta.tcl, 137 port 'clk_in' not found.
+Warning: metric_negative_opensta.tcl, 138 port 'global_en' not found.
+Warning: metric_negative_opensta.tcl, 139 port 'module_en' not found.
+Warning: metric_negative_opensta.tcl, 140 port 'local_en' not found.
+Warning: metric_negative_opensta.tcl, 141 port 'external_en' not found.
+Warning: metric_negative_opensta.tcl, 143 port 'x_num_expand[31]' not found.
+Warning: metric_negative_opensta.tcl, 144 port 'x_num_expand[30]' not found.
+Warning: metric_negative_opensta.tcl, 145 port 'x_num_expand[29]' not found.
+Warning: metric_negative_opensta.tcl, 146 port 'x_num_expand[28]' not found.
+Warning: metric_negative_opensta.tcl, 147 port 'x_num_expand[27]' not found.
+Warning: metric_negative_opensta.tcl, 148 port 'x_num_expand[26]' not found.
+Warning: metric_negative_opensta.tcl, 149 port 'x_num_expand[25]' not found.
+Warning: metric_negative_opensta.tcl, 150 port 'x_num_expand[24]' not found.
+Warning: metric_negative_opensta.tcl, 151 port 'x_num_expand[23]' not found.
+Warning: metric_negative_opensta.tcl, 152 port 'x_num_expand[22]' not found.
+Warning: metric_negative_opensta.tcl, 153 port 'x_num_expand[21]' not found.
+Warning: metric_negative_opensta.tcl, 154 port 'x_num_expand[20]' not found.
+Warning: metric_negative_opensta.tcl, 155 port 'x_num_expand[19]' not found.
+Warning: metric_negative_opensta.tcl, 156 port 'x_num_expand[18]' not found.
+Warning: metric_negative_opensta.tcl, 157 port 'x_num_expand[17]' not found.
+Warning: metric_negative_opensta.tcl, 158 port 'x_num_expand[16]' not found.
+Warning: metric_negative_opensta.tcl, 159 port 'x_num_expand[15]' not found.
+Warning: metric_negative_opensta.tcl, 160 port 'x_num_expand[14]' not found.
+Warning: metric_negative_opensta.tcl, 161 port 'x_num_expand[13]' not found.
+Warning: metric_negative_opensta.tcl, 162 port 'x_num_expand[12]' not found.
+Warning: metric_negative_opensta.tcl, 163 port 'x_num_expand[11]' not found.
+Warning: metric_negative_opensta.tcl, 164 port 'x_num_expand[10]' not found.
+Warning: metric_negative_opensta.tcl, 165 port 'x_num_expand[9]' not found.
+Warning: metric_negative_opensta.tcl, 166 port 'x_num_expand[8]' not found.
+Warning: metric_negative_opensta.tcl, 167 port 'x_num_expand[7]' not found.
+Warning: metric_negative_opensta.tcl, 168 port 'x_num_expand[6]' not found.
+Warning: metric_negative_opensta.tcl, 169 port 'x_num_expand[5]' not found.
+Warning: metric_negative_opensta.tcl, 170 port 'x_num_expand[4]' not found.
+Warning: metric_negative_opensta.tcl, 171 port 'x_num_expand[3]' not found.
+Warning: metric_negative_opensta.tcl, 172 port 'x_num_expand[2]' not found.
+Warning: metric_negative_opensta.tcl, 173 port 'x_num_expand[1]' not found.
+Warning: metric_negative_opensta.tcl, 174 port 'x_num_expand[0]' not found.
+Warning: metric_negative_opensta.tcl, 175 port 'x_num_expand[63]' not found.
+Warning: metric_negative_opensta.tcl, 176 port 'x_num_expand[62]' not found.
+Warning: metric_negative_opensta.tcl, 177 port 'x_num_expand[61]' not found.
+Warning: metric_negative_opensta.tcl, 178 port 'x_num_expand[60]' not found.
+Warning: metric_negative_opensta.tcl, 179 port 'x_num_expand[59]' not found.
+Warning: metric_negative_opensta.tcl, 180 port 'x_num_expand[58]' not found.
+Warning: metric_negative_opensta.tcl, 181 port 'x_num_expand[57]' not found.
+Warning: metric_negative_opensta.tcl, 182 port 'x_num_expand[56]' not found.
+Warning: metric_negative_opensta.tcl, 183 port 'x_num_expand[55]' not found.
+Warning: metric_negative_opensta.tcl, 184 port 'x_num_expand[54]' not found.
+Warning: metric_negative_opensta.tcl, 185 port 'x_num_expand[53]' not found.
+Warning: metric_negative_opensta.tcl, 186 port 'x_num_expand[52]' not found.
+Warning: metric_negative_opensta.tcl, 187 port 'x_num_expand[51]' not found.
+Warning: metric_negative_opensta.tcl, 188 port 'x_num_expand[50]' not found.
+Warning: metric_negative_opensta.tcl, 189 port 'x_num_expand[49]' not found.
+Warning: metric_negative_opensta.tcl, 190 port 'x_num_expand[48]' not found.
+Warning: metric_negative_opensta.tcl, 191 port 'x_num_expand[47]' not found.
+Warning: metric_negative_opensta.tcl, 192 port 'x_num_expand[46]' not found.
+Warning: metric_negative_opensta.tcl, 193 port 'x_num_expand[45]' not found.
+Warning: metric_negative_opensta.tcl, 194 port 'x_num_expand[44]' not found.
+Warning: metric_negative_opensta.tcl, 195 port 'x_num_expand[43]' not found.
+Warning: metric_negative_opensta.tcl, 196 port 'x_num_expand[42]' not found.
+Warning: metric_negative_opensta.tcl, 197 port 'x_num_expand[41]' not found.
+Warning: metric_negative_opensta.tcl, 198 port 'x_num_expand[40]' not found.
+Warning: metric_negative_opensta.tcl, 199 port 'x_num_expand[39]' not found.
+Warning: metric_negative_opensta.tcl, 200 port 'x_num_expand[38]' not found.
+Warning: metric_negative_opensta.tcl, 201 port 'x_num_expand[37]' not found.
+Warning: metric_negative_opensta.tcl, 202 port 'x_num_expand[36]' not found.
+Warning: metric_negative_opensta.tcl, 203 port 'x_num_expand[35]' not found.
+Warning: metric_negative_opensta.tcl, 204 port 'x_num_expand[34]' not found.
+Warning: metric_negative_opensta.tcl, 205 port 'x_num_expand[33]' not found.
+Warning: metric_negative_opensta.tcl, 206 port 'x_num_expand[32]' not found.
+Warning: metric_negative_opensta.tcl, 207 port 'x_num_expand[31]' not found.
+Warning: metric_negative_opensta.tcl, 208 port 'x_num_expand[30]' not found.
+Warning: metric_negative_opensta.tcl, 209 port 'x_num_expand[29]' not found.
+Warning: metric_negative_opensta.tcl, 210 port 'x_num_expand[28]' not found.
+Warning: metric_negative_opensta.tcl, 211 port 'x_num_expand[27]' not found.
+Warning: metric_negative_opensta.tcl, 212 port 'x_num_expand[26]' not found.
+Warning: metric_negative_opensta.tcl, 213 port 'x_num_expand[25]' not found.
+Warning: metric_negative_opensta.tcl, 214 port 'x_num_expand[24]' not found.
+Warning: metric_negative_opensta.tcl, 215 port 'x_num_expand[23]' not found.
+Warning: metric_negative_opensta.tcl, 216 port 'x_num_expand[22]' not found.
+Warning: metric_negative_opensta.tcl, 217 port 'x_num_expand[21]' not found.
+Warning: metric_negative_opensta.tcl, 218 port 'x_num_expand[20]' not found.
+Warning: metric_negative_opensta.tcl, 219 port 'x_num_expand[19]' not found.
+Warning: metric_negative_opensta.tcl, 220 port 'x_num_expand[18]' not found.
+Warning: metric_negative_opensta.tcl, 221 port 'x_num_expand[17]' not found.
+Warning: metric_negative_opensta.tcl, 222 port 'x_num_expand[16]' not found.
+Warning: metric_negative_opensta.tcl, 223 port 'x_num_expand[15]' not found.
+Warning: metric_negative_opensta.tcl, 224 port 'x_num_expand[14]' not found.
+Warning: metric_negative_opensta.tcl, 225 port 'x_num_expand[13]' not found.
+Warning: metric_negative_opensta.tcl, 226 port 'x_num_expand[12]' not found.
+Warning: metric_negative_opensta.tcl, 227 port 'x_num_expand[11]' not found.
+Warning: metric_negative_opensta.tcl, 228 port 'x_num_expand[10]' not found.
+Warning: metric_negative_opensta.tcl, 229 port 'x_num_expand[9]' not found.
+Warning: metric_negative_opensta.tcl, 230 port 'x_num_expand[8]' not found.
+Warning: metric_negative_opensta.tcl, 231 port 'x_num_expand[7]' not found.
+Warning: metric_negative_opensta.tcl, 232 port 'x_num_expand[6]' not found.
+Warning: metric_negative_opensta.tcl, 233 port 'x_num_expand[5]' not found.
+Warning: metric_negative_opensta.tcl, 234 port 'x_num_expand[4]' not found.
+Warning: metric_negative_opensta.tcl, 235 port 'x_num_expand[3]' not found.
+Warning: metric_negative_opensta.tcl, 236 port 'x_num_expand[2]' not found.
+Warning: metric_negative_opensta.tcl, 237 port 'x_num_expand[1]' not found.
+Warning: metric_negative_opensta.tcl, 238 port 'x_num_expand[0]' not found.
+Warning: metric_negative_opensta.tcl, 338 port 'clk_out' not found.
+ time 1ns
+ capacitance 1pF
+ resistance 1kohm
+ voltage 1v
+ current 1mA
+ power 1nW
+ distance 1um
+Startpoint: x_reset_mapped (input port clocked by clk)
+Endpoint: _441_ (rising edge-triggered flip-flop clocked by clk)
+Path Group: clk
+Path Type: min
+
+  Delay    Time   Description
+---------------------------------------------------------
+   0.00    0.00   clock clk (rise edge)
+   0.00    0.00   clock network delay (ideal)
+   0.00    0.00 ^ input external delay
+   0.00    0.00 ^ x_reset_mapped (in)
+   0.03    0.03 v _171_/Y (sky130_fd_sc_hd__a32oi_1)
+   0.00    0.04 v _441_/D (sky130_fd_sc_hd__dfstp_2)
+           0.04   data arrival time
+
+   0.00    0.00   clock clk (rise edge)
+   0.00    0.00   clock network delay (ideal)
+   0.00    0.00   clock reconvergence pessimism
+           0.00 ^ _441_/CLK (sky130_fd_sc_hd__dfstp_2)
+  -0.02   -0.02   library hold time
+          -0.02   data required time
+---------------------------------------------------------
+          -0.02   data required time
+          -0.04   data arrival time
+---------------------------------------------------------
+           0.05   slack (MET)
+
+
+Startpoint: _442_ (rising edge-triggered flip-flop clocked by clk)
+Endpoint: x_cur_state_alloc_release (output port clocked by clk)
+Path Group: clk
+Path Type: max
+
+  Delay    Time   Description
+---------------------------------------------------------
+   0.00    0.00   clock clk (rise edge)
+   0.00    0.00   clock network delay (ideal)
+   0.00    0.00 ^ _442_/CLK (sky130_fd_sc_hd__dfrtp_1)
+   0.77    0.77 v _442_/Q (sky130_fd_sc_hd__dfrtp_1)
+   0.49    1.26 v _162_/X (sky130_fd_sc_hd__lpflow_inputiso1p_1)
+   0.18    1.44 v metric_red_0/X (sky130_fd_sc_hd__buf_16)
+   0.14    1.58 v metric_red_1/X (sky130_fd_sc_hd__buf_16)
+   0.14    1.73 v metric_red_2/X (sky130_fd_sc_hd__buf_16)
+   0.14    1.87 v metric_red_3/X (sky130_fd_sc_hd__buf_16)
+   0.14    2.01 v metric_red_4/X (sky130_fd_sc_hd__buf_16)
+   0.14    2.15 v metric_red_5/X (sky130_fd_sc_hd__buf_16)
+   0.14    2.29 v metric_red_6/X (sky130_fd_sc_hd__buf_16)
+   0.14    2.43 v metric_red_7/X (sky130_fd_sc_hd__buf_16)
+   0.14    2.58 v metric_red_8/X (sky130_fd_sc_hd__buf_16)
+   0.14    2.72 v metric_red_9/X (sky130_fd_sc_hd__buf_16)
+   0.14    2.86 v metric_red_10/X (sky130_fd_sc_hd__buf_16)
+   0.14    3.00 v metric_red_11/X (sky130_fd_sc_hd__buf_16)
+   0.14    3.14 v metric_red_12/X (sky130_fd_sc_hd__buf_16)
+   0.14    3.29 v metric_red_13/X (sky130_fd_sc_hd__buf_16)
+   0.14    3.43 v metric_red_14/X (sky130_fd_sc_hd__buf_16)
+   0.14    3.57 v metric_red_15/X (sky130_fd_sc_hd__buf_16)
+   0.14    3.71 v metric_red_16/X (sky130_fd_sc_hd__buf_16)
+   0.14    3.85 v metric_red_17/X (sky130_fd_sc_hd__buf_16)
+   0.14    3.99 v metric_red_18/X (sky130_fd_sc_hd__buf_16)
+   0.14    4.14 v metric_red_19/X (sky130_fd_sc_hd__buf_16)
+   0.14    4.28 v metric_red_20/X (sky130_fd_sc_hd__buf_16)
+   0.14    4.42 v metric_red_21/X (sky130_fd_sc_hd__buf_16)
+   0.14    4.56 v metric_red_22/X (sky130_fd_sc_hd__buf_16)
+   0.14    4.70 v metric_red_23/X (sky130_fd_sc_hd__buf_16)
+   0.14    4.85 v metric_red_24/X (sky130_fd_sc_hd__buf_16)
+   0.14    4.99 v metric_red_25/X (sky130_fd_sc_hd__buf_16)
+   0.14    5.13 v metric_red_26/X (sky130_fd_sc_hd__buf_16)
+   0.14    5.27 v metric_red_27/X (sky130_fd_sc_hd__buf_16)
+   0.14    5.41 v metric_red_28/X (sky130_fd_sc_hd__buf_16)
+   0.14    5.55 v metric_red_29/X (sky130_fd_sc_hd__buf_16)
+   0.14    5.70 v metric_red_30/X (sky130_fd_sc_hd__buf_16)
+   0.14    5.84 v metric_red_31/X (sky130_fd_sc_hd__buf_16)
+   0.14    5.98 v metric_red_32/X (sky130_fd_sc_hd__buf_16)
+   0.14    6.12 v metric_red_33/X (sky130_fd_sc_hd__buf_16)
+   0.14    6.26 v metric_red_34/X (sky130_fd_sc_hd__buf_16)
+   0.14    6.41 v metric_red_35/X (sky130_fd_sc_hd__buf_16)
+   0.14    6.55 v metric_red_36/X (sky130_fd_sc_hd__buf_16)
+   0.14    6.69 v metric_red_37/X (sky130_fd_sc_hd__buf_16)
+   0.14    6.83 v metric_red_38/X (sky130_fd_sc_hd__buf_16)
+   0.14    6.97 v metric_red_39/X (sky130_fd_sc_hd__buf_16)
+   0.14    7.11 v metric_red_40/X (sky130_fd_sc_hd__buf_16)
+   0.14    7.26 v metric_red_41/X (sky130_fd_sc_hd__buf_16)
+   0.14    7.40 v metric_red_42/X (sky130_fd_sc_hd__buf_16)
+   0.14    7.54 v metric_red_43/X (sky130_fd_sc_hd__buf_16)
+   0.14    7.68 v metric_red_44/X (sky130_fd_sc_hd__buf_16)
+   0.14    7.82 v metric_red_45/X (sky130_fd_sc_hd__buf_16)
+   0.14    7.96 v metric_red_46/X (sky130_fd_sc_hd__buf_16)
+   0.14    8.11 v metric_red_47/X (sky130_fd_sc_hd__buf_16)
+   0.14    8.25 v metric_red_48/X (sky130_fd_sc_hd__buf_16)
+   0.14    8.39 v metric_red_49/X (sky130_fd_sc_hd__buf_16)
+   0.14    8.53 v metric_red_50/X (sky130_fd_sc_hd__buf_16)
+   0.14    8.67 v metric_red_51/X (sky130_fd_sc_hd__buf_16)
+   0.14    8.82 v metric_red_52/X (sky130_fd_sc_hd__buf_16)
+   0.14    8.96 v metric_red_53/X (sky130_fd_sc_hd__buf_16)
+   0.14    9.10 v metric_red_54/X (sky130_fd_sc_hd__buf_16)
+   0.14    9.24 v metric_red_55/X (sky130_fd_sc_hd__buf_16)
+   0.14    9.38 v metric_red_56/X (sky130_fd_sc_hd__buf_16)
+   0.14    9.52 v metric_red_57/X (sky130_fd_sc_hd__buf_16)
+   0.14    9.67 v metric_red_58/X (sky130_fd_sc_hd__buf_16)
+   0.14    9.81 v metric_red_59/X (sky130_fd_sc_hd__buf_16)
+   0.14    9.95 v metric_red_60/X (sky130_fd_sc_hd__buf_16)
+   0.14   10.09 v metric_red_61/X (sky130_fd_sc_hd__buf_16)
+   0.14   10.23 v metric_red_62/X (sky130_fd_sc_hd__buf_16)
+   0.14   10.38 v metric_red_63/X (sky130_fd_sc_hd__buf_16)
+   0.14   10.52 v metric_red_64/X (sky130_fd_sc_hd__buf_16)
+   0.14   10.66 v metric_red_65/X (sky130_fd_sc_hd__buf_16)
+   0.14   10.80 v metric_red_66/X (sky130_fd_sc_hd__buf_16)
+   0.14   10.94 v metric_red_67/X (sky130_fd_sc_hd__buf_16)
+   0.14   11.08 v metric_red_68/X (sky130_fd_sc_hd__buf_16)
+   0.14   11.23 v metric_red_69/X (sky130_fd_sc_hd__buf_16)
+   0.14   11.37 v metric_red_70/X (sky130_fd_sc_hd__buf_16)
+   0.14   11.51 v metric_red_71/X (sky130_fd_sc_hd__buf_16)
+   0.14   11.65 v metric_red_72/X (sky130_fd_sc_hd__buf_16)
+   0.14   11.79 v metric_red_73/X (sky130_fd_sc_hd__buf_16)
+   0.14   11.93 v metric_red_74/X (sky130_fd_sc_hd__buf_16)
+   0.14   12.08 v metric_red_75/X (sky130_fd_sc_hd__buf_16)
+   0.14   12.22 v metric_red_76/X (sky130_fd_sc_hd__buf_16)
+   0.14   12.36 v metric_red_77/X (sky130_fd_sc_hd__buf_16)
+   0.14   12.50 v metric_red_78/X (sky130_fd_sc_hd__buf_16)
+   0.14   12.64 v metric_red_79/X (sky130_fd_sc_hd__buf_16)
+   0.14   12.78 v metric_red_out/X (sky130_fd_sc_hd__buf_16)
+   0.00   12.78 v x_cur_state_alloc_release (out)
+          12.78   data arrival time
+
+  10.00   10.00   clock clk (rise edge)
+   0.00   10.00   clock network delay (ideal)
+   0.00   10.00   clock reconvergence pessimism
+   0.00   10.00   output external delay
+          10.00   data required time
+---------------------------------------------------------
+          10.00   data required time
+         -12.78   data arrival time
+---------------------------------------------------------
+          -2.78   slack (VIOLATED)
+
+
+tns -2.78
+wns -2.78
+Group                  Internal  Switching    Leakage      Total
+                          Power      Power      Power      Power
+----------------------------------------------------------------
+Sequential             5.66e-05   1.18e-05   2.26e-10   6.84e-05  29.8%
+Combinational          1.17e-04   4.37e-05   2.09e-09   1.61e-04  70.2%
+Macro                  0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.0%
+Pad                    0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.0%
+----------------------------------------------------------------
+Total                  1.74e-04   5.55e-05   2.31e-09   2.29e-04 100.0%
+                          75.8%      24.2%       0.0%
