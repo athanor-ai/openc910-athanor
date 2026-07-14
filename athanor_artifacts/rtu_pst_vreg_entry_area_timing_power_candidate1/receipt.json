@@ -1,6 +1,6 @@
 {
   "ticket": "ATH-2967",
-  "status": "candidate_pending_independent_replay",
+  "status": "candidate_independent_replay_cleared_pending_promotion",
   "customer_ready": false,
   "target": {
     "module": "ct_rtu_pst_vreg_entry",
@@ -19,7 +19,7 @@
   },
   "files": {
     ".gitattributes": "dd189159ababdd3a2f5c2a0a7106f4a0bffd179e55e9db36e1476121f0bb8e7c",
-    "README.md": "65e8dbe45ca12e702a7cbf832d3e284ec30402857d0f13c9684a4427f1ec2145",
+    "README.md": "0664ff6c0ee0c857ce6503086b4bdbd6552d0c35539f62a8a9d466ebc92b9b0a",
     "bridge_passivity_check.pinned.log": "f5276ea6b7539b623cd9600506e117dfd43008da6df47d2af70a94ab6f25bb69",
     "bridge_passivity_check.py": "66e28939e06c6d7312fbaa1620e589f52e1bd8d636ed1bce8a177b90009c2656",
     "ct_rtu_expand_32.v": "4467b90f7b447790649fa18b44b6f9425a0f6eca990e2220e2482a7dd636c27e",
@@ -43,7 +43,7 @@
     "relation_miter_mutant_negative_tempinduct_seq8.pinned.log": "416d047dea5dc959fa7778e48f9562e81042e8421f56e4d3b774cb6780a4ba2b",
     "relation_miter_tempinduct_seq8.pinned.log": "7b2e189507a64dda4ae0096d703e8247371121a06538005ca37e9459428831f9",
     "replay.sh": "490264ba672940200c8a7fb1a693975e92853764964c964d27e637ff75d2334e",
-    "same_candidate_binding_receipt.json": "46d78eff699b4ca849d21fbfb89093cccabf0729ce663a33bb663edd8144a4db"
+    "same_candidate_binding_receipt.json": "ca24aa1ca59d072591ec4de32ef8b3fb86cbe7f7920b4d7f0124ee67c5cdc30c"
   },
   "metrics": {
     "area": {
@@ -158,11 +158,32 @@
     }
   },
   "known_boundaries": [
-    "candidate pending independent replay by non-author seats; customer-ready promotion is not claimed in this receipt",
+    "candidate independently replayed by non-author seats; customer-ready promotion is not claimed in this receipt",
     "module-local ct_rtu_pst_vreg_entry only",
     "correctness proof scope remains visible-output equivalence under reset-first through passive debug bridge plus lifecycle-encoding relation induction",
     "OpenSTA estimated power is not signoff power and not measured workload activity",
     "not whole RTU, whole C910, BOOM, ISA, memory consistency, speculation recovery, composed optimization, or whole-chip authority"
   ],
-  "independent_reviews": {}
+  "independent_reviews": {
+    "ronald_replay": {
+      "status": "passed",
+      "source": "Slack receipt 2026-07-13 18:31 PT on PR #11 head 4703c47",
+      "checks": [
+        "full package replay passed with pinned Yosys/OpenSTA/Liberty",
+        "same-candidate binding held across area, timing, and OpenSTA estimated-power",
+        "relation proof proved ok_life, ok_storage, and ok_outputs; relation proof mutant failed as expected with ok_outputs=0 in the counterexample",
+        "export-safety, public verifier, SHA manifest, JSON, bash, bridge py_compile, and diff checks passed"
+      ]
+    },
+    "quan_adversarial_qa": {
+      "status": "passed",
+      "source": "Slack receipt 2026-07-13 18:29 PT on PR #11 head 4703c47",
+      "checks": [
+        "positive relation miter independently proved with pinned Yosys",
+        "relation proof mutant bit with proof did fail under the same ok_life/ok_storage/ok_outputs proof path",
+        "binding checker classified the receipt full-PPA-ready for candidate f3296156 and mapped netlist b85271d2",
+        "metric red-control reded all three measured axes and export-safety reported 0 BLOCK"
+      ]
+    }
+  }
 }
