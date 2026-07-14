@@ -1,0 +1,88 @@
+OpenSTA 2.2.0 02b129d48f Copyright (c) 2019, Parallax Software, Inc.
+License GPLv3: GNU GPL version 3 <http://gnu.org/licenses/gpl.html>
+
+This is free software, and you are free to change and redistribute it
+under certain conditions; type `show_copying' for details. 
+This program comes with ABSOLUTELY NO WARRANTY; for details type `show_warranty'.
+Startpoint: _22594_ (rising edge-triggered flip-flop clocked by lsu_special_clk)
+Endpoint: _22548_ (rising edge-triggered flip-flop clocked by forever_cpuclk)
+Path Group: forever_cpuclk
+Path Type: max
+
+  Delay    Time   Description
+---------------------------------------------------------
+   0.00    0.00   clock lsu_special_clk (rise edge)
+   0.00    0.00   clock network delay (ideal)
+   0.00    0.00 ^ _22594_/CLK (sky130_fd_sc_hd__dfrtp_1)
+   0.56    0.56 v _22594_/Q (sky130_fd_sc_hd__dfrtp_1)
+   0.42    0.98 ^ _11852_/Y (sky130_fd_sc_hd__a222oi_1)
+   0.19    1.17 v _11855_/Y (sky130_fd_sc_hd__nand3_1)
+   0.43    1.59 v _11980_/X (sky130_fd_sc_hd__or3_1)
+   0.79    2.38 ^ _18647_/Y (sky130_fd_sc_hd__nor4_1)
+   0.49    2.87 v _18656_/Y (sky130_fd_sc_hd__nand2_1)
+   0.42    3.29 v _18657_/X (sky130_fd_sc_hd__and2_0)
+   0.11    3.40 ^ _20560_/Y (sky130_fd_sc_hd__nand2_1)
+   0.07    3.48 v _20563_/Y (sky130_fd_sc_hd__o21ai_0)
+   0.00    3.48 v _22548_/D (sky130_fd_sc_hd__dfrtp_1)
+           3.48   data arrival time
+
+  10.00   10.00   clock forever_cpuclk (rise edge)
+   0.00   10.00   clock network delay (ideal)
+   0.00   10.00   clock reconvergence pessimism
+          10.00 ^ _22548_/CLK (sky130_fd_sc_hd__dfrtp_1)
+  -0.13    9.87   library setup time
+           9.87   data required time
+---------------------------------------------------------
+           9.87   data required time
+          -3.48   data arrival time
+---------------------------------------------------------
+           6.39   slack (MET)
+
+
+Startpoint: _20965_ (rising edge-triggered flip-flop clocked by lsu_special_clk)
+Endpoint: _22136_ (rising edge-triggered flip-flop clocked by lsu_special_clk)
+Path Group: lsu_special_clk
+Path Type: max
+
+  Delay    Time   Description
+---------------------------------------------------------
+   0.00    0.00   clock lsu_special_clk (rise edge)
+   0.00    0.00   clock network delay (ideal)
+   0.00    0.00 ^ _20965_/CLK (sky130_fd_sc_hd__dfrtp_1)
+   0.63    0.63 ^ _20965_/Q (sky130_fd_sc_hd__dfrtp_1)
+   0.16    0.80 v _11650_/Y (sky130_fd_sc_hd__nand2_1)
+   7.63    8.42 ^ _11651_/Y (sky130_fd_sc_hd__nor3b_1)
+   0.63    9.06 ^ _11667_/X (sky130_fd_sc_hd__and2_0)
+   0.10    9.15 v _13867_/Y (sky130_fd_sc_hd__nand2_1)
+   6.79   15.95 ^ _14068_/Y (sky130_fd_sc_hd__o21ai_0)
+   0.16   16.10 v _14683_/Y (sky130_fd_sc_hd__nor2_1)
+   0.35   16.46 ^ _14686_/Y (sky130_fd_sc_hd__a21oi_1)
+   0.13   16.59 v _14688_/Y (sky130_fd_sc_hd__a21oi_1)
+   0.00   16.59 v _22136_/D (sky130_fd_sc_hd__dfrtp_1)
+          16.59   data arrival time
+
+  10.00   10.00   clock lsu_special_clk (rise edge)
+   0.00   10.00   clock network delay (ideal)
+   0.00   10.00   clock reconvergence pessimism
+          10.00 ^ _22136_/CLK (sky130_fd_sc_hd__dfrtp_1)
+  -0.25    9.75   library setup time
+           9.75   data required time
+---------------------------------------------------------
+           9.75   data required time
+         -16.59   data arrival time
+---------------------------------------------------------
+          -6.84   slack (VIOLATED)
+
+
+tns -6490.56
+wns -6.84
+Group                  Internal  Switching    Leakage      Total
+                          Power      Power      Power      Power
+----------------------------------------------------------------
+Sequential             3.73e-03   3.32e-04   1.48e-08   4.06e-03  68.6%
+Combinational          9.00e-04   9.60e-04   2.12e-08   1.86e-03  31.4%
+Macro                  0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.0%
+Pad                    0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.0%
+----------------------------------------------------------------
+Total                  4.63e-03   1.29e-03   3.60e-08   5.92e-03 100.0%
+                          78.2%      21.8%       0.0%
