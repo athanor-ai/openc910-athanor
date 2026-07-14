@@ -354,8 +354,34 @@ def test_recognized_proof_packet_with_generic_cells_not_false_redded(tmp_path: P
     (package / "receipt.json").write_text(json.dumps(receipt, indent=2) + "\n", encoding="utf-8")
 
     assert not verify_public_receipts._is_metric_packet(receipt)
-    # The metric-binding leg alone must stay silent for a recognized proof type.
+    # Both the metric-binding leg AND the smuggled-PPA leg must stay silent for a
+    # recognized proof type carrying legitimate generic cell-count context.
     assert verify_public_receipts._verify_same_candidate_metric_binding(package, receipt) == []
+    assert verify_public_receipts._verify_proof_packet_no_smuggled_ppa(package, receipt) == []
+
+
+def test_proof_status_smuggled_ppa_container_reds(tmp_path: Path) -> None:
+    # The recognized-proof-status PPA-smuggling hold: a recognized PROOF/
+    # equivalence status can ride while PPA-shaped gold/gate values hide under a
+    # renamed container with no
+    # same-candidate binding -- dodging both the type check (status recognized) and
+    # the metric-binding leg (not a metric packet). The smuggled-PPA leg reds any
+    # gold/gate numeric pair that is not documented generic cell-count context.
+    package = _write_package(tmp_path, omit_same_candidate=True)
+    receipt = json.loads((package / "receipt.json").read_text(encoding="utf-8"))
+    receipt["status"] = "accepted_module_local_visible_output_relation_packet"
+    receipt["ppa_block"] = {
+        "sel_footprint_um2": {"gold": 100.0, "gate": 80.0},
+        "arr_ns": {"gold": 9.0, "gate": 8.0},
+        "pwr_nw": {"gold": 1.5e-3, "gate": 1.1e-3},
+    }
+    (package / "receipt.json").write_text(json.dumps(receipt, indent=2) + "\n", encoding="utf-8")
+    _rehash(package)
+
+    assert not verify_public_receipts._is_metric_packet(receipt)
+    problems = verify_public_receipts.verify(tmp_path)
+
+    assert any("not documented generic cell-count context" in problem for problem in problems)
 
 
 def test_valid_customer_ready_metric_packet_passes_receipt_gate(tmp_path: Path) -> None:

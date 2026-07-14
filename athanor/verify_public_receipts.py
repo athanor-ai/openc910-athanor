@@ -488,6 +488,64 @@ def _verify_receipt_bound_to_logs(package: Path) -> list[str]:
     return problems
 
 
+def _gold_gate_numeric_pairs(obj: object, path: str = "") -> list[tuple[str, str, list[str]]]:
+    """(location, enclosing-key, [gold/gate numeric keys]) for every nested dict
+    that holds BOTH a gold-prefixed and a gate-prefixed numeric value -- the shape
+    of a before/after PPA comparison claim."""
+    out: list[tuple[str, str, list[str]]] = []
+    if isinstance(obj, dict):
+        gk = [
+            k for k, v in obj.items()
+            if k.lower().startswith("gold") and isinstance(v, (int, float)) and not isinstance(v, bool)
+        ]
+        tk = [
+            k for k, v in obj.items()
+            if k.lower().startswith("gate") and isinstance(v, (int, float)) and not isinstance(v, bool)
+        ]
+        if gk and tk:
+            parent = path.rsplit(".", 1)[-1] if path else ""
+            out.append((path or "<root>", parent, gk + tk))
+        for k, v in obj.items():
+            out += _gold_gate_numeric_pairs(v, f"{path}.{k}" if path else k)
+    elif isinstance(obj, list):
+        for i, v in enumerate(obj):
+            out += _gold_gate_numeric_pairs(v, f"{path}[{i}]")
+    return out
+
+
+def _verify_proof_packet_no_smuggled_ppa(package: Path, receipt: dict[str, object]) -> list[str]:
+    """A customer_ready proof/equivalence packet makes NO PPA optimization claim,
+    so it ships no same-candidate binding. Its ONLY legitimate gold/gate numeric
+    context is documented non-headline generic cell counts (a ``generic_cells``
+    block, whose keys are all cell counts). Any OTHER gold/gate numeric pair -- for
+    example PPA-shaped values (footprint / arrival / power) under a renamed
+    container while riding a recognized proof status -- is a smuggled PPA claim
+    that dodges the metric-packet binding requirement; RED it. This closes the
+    recognized-proof-status + renamed-PPA-container evasion while preserving the
+    legitimate generic cell-count context on relation packets."""
+    if not _customer_ready(receipt):
+        return []
+    if _is_metric_packet(receipt):
+        return []  # bound by _verify_same_candidate_metric_binding
+    try:
+        rel = (package / "receipt.json").relative_to(REPO_ROOT)
+    except ValueError:
+        rel = package / "receipt.json"
+    problems: list[str] = []
+    for loc, parent, keys in _gold_gate_numeric_pairs(receipt):
+        # Allowed ONLY as generic cell-count context: the enclosing key is
+        # `generic_cells` AND every gold/gate numeric key is itself a cell count.
+        if parent == "generic_cells" and all("cell" in k.lower() for k in keys):
+            continue
+        problems.append(
+            f"{rel}: customer_ready proof/equivalence packet presents a gold/gate "
+            f"numeric pair at {loc} that is not documented generic cell-count context "
+            f"-- a PPA claim must use a recognized bound metric packet (fail-closed "
+            f"against renamed-container PPA smuggling under a proof status)"
+        )
+    return problems
+
+
 def _verify_customer_ready_receipt(package: Path) -> list[str]:
     receipt_path = package / "receipt.json"
     if not receipt_path.is_file():
@@ -499,6 +557,7 @@ def _verify_customer_ready_receipt(package: Path) -> list[str]:
     problems: list[str] = []
     problems.extend(_verify_customer_ready_authority(package, receipt))
     problems.extend(_verify_same_candidate_metric_binding(package, receipt))
+    problems.extend(_verify_proof_packet_no_smuggled_ppa(package, receipt))
     return problems
 
 
