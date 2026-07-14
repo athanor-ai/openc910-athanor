@@ -1,0 +1,168 @@
+{
+  "ticket": "ATH-2967",
+  "status": "candidate_pending_independent_review",
+  "customer_ready": false,
+  "target": {
+    "module": "ct_rtu_pst_preg_entry",
+    "source_packet": "athanor_artifacts/rtu_pst_preg_entry_candidate1",
+    "description": "C910 RTU PST physical-register-status entry lifecycle recode, with same-candidate-bound metric measurements"
+  },
+  "candidate": {
+    "description": "4-bit onehot0 lifecycle encoding for ct_rtu_pst_preg_entry, reusing the accepted relation-proof candidate",
+    "candidate_sha256": "e6cbb7c5e95ed80fc01516f642b49091fdf6024966c7b71d1fce4834d99fc81d",
+    "mapped_netlist_sha256": "ddeed61b5de195fbdcb83aea42644d8c2adf97548730d839da1b1ff4e78b8b87",
+    "selected_flow": "yosys66_sky130_synth_dfflibmap_abc_opensta_contract_v1"
+  },
+  "toolchain": {
+    "yosys_version": "Yosys 0.66+181 (git sha1 afe6b18f2, Release, Clang /usr/bin/clang++ 18.1.8)",
+    "opensta_version": "OpenSTA 2.2.0 02b129d48f",
+    "liberty": "sky130_fd_sc_hd__tt_025C_1v80.lib"
+  },
+  "files": {
+    ".gitattributes": "dd189159ababdd3a2f5c2a0a7106f4a0bffd179e55e9db36e1476121f0bb8e7c",
+    "README.md": "b90a0d3bf08e9758791f16cec20803c503b976ae49b199890d6d20a0b3eace15",
+    "bridge_passivity_check.pinned.log": "1ba4463bb0cd00db354ee38b0638bd036720931a5f08923dae4c5696afa649df",
+    "bridge_passivity_check.py": "18d86aafb51eb7706e0abf4dba5fbb47fe2a54a0a32668ae98d6ef2e4f4d7af5",
+    "ct_rtu_expand_32.v": "4467b90f7b447790649fa18b44b6f9425a0f6eca990e2220e2482a7dd636c27e",
+    "ct_rtu_expand_96.v": "04bf6a1cf653991ca05a82732fed2a4a2e9bc160121b807792ecbbfa8ec104ec",
+    "ct_rtu_pst_preg_entry_gate_candidate.mapped.v": "ddeed61b5de195fbdcb83aea42644d8c2adf97548730d839da1b1ff4e78b8b87",
+    "ct_rtu_pst_preg_entry_gate_candidate.v": "e6cbb7c5e95ed80fc01516f642b49091fdf6024966c7b71d1fce4834d99fc81d",
+    "ct_rtu_pst_preg_entry_gate_dbg.v": "dd294eb6a7f44afc194f72334d23e36fe84d43612bbd00735af4530fe72ecad7",
+    "ct_rtu_pst_preg_entry_gate_dbg_mutant.v": "f48173363111ee4bfaeaecca491040af32836da506b39fe6f8f4c3360961d539",
+    "ct_rtu_pst_preg_entry_gold.mapped.v": "105a17d31add0c639f75e051a05ec10998e1bca07475f69c0ae7bea7ab554369",
+    "ct_rtu_pst_preg_entry_gold.v": "72cab4cbc55d44e5802b6abe5ec479fb9b0e4912c3f7356da741c90e58dff624",
+    "ct_rtu_pst_preg_entry_gold_dbg.v": "2d592ee182e1f75f9096d6e039225ebf61d6a4aee727cb85d1a18bb67bbea0bb",
+    "ct_rtu_pst_preg_entry_metric_negative.mapped.v": "0af7853cbe7302c3ae9bc9b1ca9741fc9cf0958201e7428a0a4c6e7e0d9c0188",
+    "ct_rtu_pst_preg_entry_relation_miter.sv": "d44789b9393aa9dc8973cec54a818ed7ea51a50be688172dec07d1c58e29125f",
+    "gate_map.pinned.log": "b29ffdf2f653299d81682d6d48f234e8687d62d75a66ca0e77e5617acfa0173c",
+    "gate_opensta_area_timing_power.pinned.log": "264b796d622869122b969eb95ac4ab429c8bab7de44775b618e092101990aa4e",
+    "gated_clk_cell.v": "6cfad397c18daabdff77e3a520ccbf964e4178197cc9a0f8dd825bbf928a91c8",
+    "gold_map.pinned.log": "fa2e2afe9730ababc29e331a05fd4a36f278d9af7ab153847e20b63d8e9e821f",
+    "gold_opensta_area_timing_power.pinned.log": "40d4bdefddd0c1e785df306c8fd20d5c635815c841d460b203e4976b82b9d273",
+    "metric_negative_area.pinned.log": "123d81b08d16fe05d7d6c50b384e83b9dec743b6de42ac61da4c5426e77d7438",
+    "metric_negative_opensta_area_timing_power.pinned.log": "79b4d2c2a9ea9908c9ff001a632fb4a6bf23a59d1784fd6c654ea1f1fee8db15",
+    "relation_miter_mutant_negative_tempinduct_seq8.pinned.log": "668f0056f7f21de7277d3e93bf4f56e3bf823eb6356e1ae3a14b09d608e97aeb",
+    "relation_miter_tempinduct_seq8.pinned.log": "13f1c771884496ef6a00db487d6a60b0fd5c24a7f4a3207c9d307a70f76b9bfe",
+    "replay.sh": "8f65c426a6b78227729f723c651239a59bac0f71c85554dc2b6b590972d1e061",
+    "same_candidate_binding_receipt.json": "4df9724c993ce0c5a69d0608f4cf4347b8dea6c947141cc8480259ac18df33bc"
+  },
+  "metrics": {
+    "area": {
+      "candidate_sha256": "e6cbb7c5e95ed80fc01516f642b49091fdf6024966c7b71d1fce4834d99fc81d",
+      "mapped_netlist_sha256": "ddeed61b5de195fbdcb83aea42644d8c2adf97548730d839da1b1ff4e78b8b87",
+      "selected_flow": "yosys66_sky130_synth_dfflibmap_abc_opensta_contract_v1",
+      "instrument": "yosys_stat_liberty",
+      "instrument_version": "Yosys 0.66+181 (git sha1 afe6b18f2, Release, Clang /usr/bin/clang++ 18.1.8)",
+      "metric": {
+        "gold_top_with_deps": 3510.8672,
+        "gate_top_with_deps": 3482.0896,
+        "gold_local": 2677.568,
+        "gate_local": 2648.7904,
+        "unit": "sky130_selected_area"
+      },
+      "negative_control": {
+        "regressed_candidate_sha256": "0af7853cbe7302c3ae9bc9b1ca9741fc9cf0958201e7428a0a4c6e7e0d9c0188",
+        "axis_reds": true,
+        "metric": {
+          "regressed_top_with_deps": 5711.728,
+          "unit": "sky130_selected_area"
+        },
+        "log_ref": "metric_negative_area.pinned.log"
+      }
+    },
+    "timing": {
+      "candidate_sha256": "e6cbb7c5e95ed80fc01516f642b49091fdf6024966c7b71d1fce4834d99fc81d",
+      "mapped_netlist_sha256": "ddeed61b5de195fbdcb83aea42644d8c2adf97548730d839da1b1ff4e78b8b87",
+      "selected_flow": "yosys66_sky130_synth_dfflibmap_abc_opensta_contract_v1",
+      "instrument": "opensta",
+      "instrument_version": "OpenSTA 2.2.0 02b129d48f",
+      "metric": {
+        "gold_max_data_arrival_ns": 3.23,
+        "gate_max_data_arrival_ns": 2.91,
+        "gold_wns_ns": 0.0,
+        "gate_wns_ns": 0.0,
+        "gold_tns_ns": 0.0,
+        "gate_tns_ns": 0.0,
+        "clock_period_ns": 10.0
+      },
+      "negative_control": {
+        "regressed_candidate_sha256": "0af7853cbe7302c3ae9bc9b1ca9741fc9cf0958201e7428a0a4c6e7e0d9c0188",
+        "axis_reds": true,
+        "metric": {
+          "regressed_max_data_arrival_ns": 11.88,
+          "regressed_wns_ns": -1.88,
+          "regressed_tns_ns": -1.88
+        },
+        "log_ref": "metric_negative_opensta_area_timing_power.pinned.log"
+      }
+    },
+    "power": {
+      "candidate_sha256": "e6cbb7c5e95ed80fc01516f642b49091fdf6024966c7b71d1fce4834d99fc81d",
+      "mapped_netlist_sha256": "ddeed61b5de195fbdcb83aea42644d8c2adf97548730d839da1b1ff4e78b8b87",
+      "selected_flow": "yosys66_sky130_synth_dfflibmap_abc_opensta_contract_v1",
+      "instrument": "opensta_report_power",
+      "instrument_version": "OpenSTA 2.2.0 02b129d48f",
+      "activity_source": "set_power_activity -global -activity 0.1 -duty 0.5",
+      "metric": {
+        "gold_total_power_nw": 0.000138,
+        "gate_total_power_nw": 0.000135,
+        "gold_internal_power_nw": 9.69e-05,
+        "gate_internal_power_nw": 9.4e-05,
+        "gold_switching_power_nw": 4.15e-05,
+        "gate_switching_power_nw": 4.1e-05,
+        "gold_leakage_power_nw": 1.27e-09,
+        "gate_leakage_power_nw": 1.21e-09,
+        "methodology_boundary": "OpenSTA liberty estimate under fixed global activity; not signoff power and not measured workload activity"
+      },
+      "negative_control": {
+        "regressed_candidate_sha256": "0af7853cbe7302c3ae9bc9b1ca9741fc9cf0958201e7428a0a4c6e7e0d9c0188",
+        "axis_reds": true,
+        "metric": {
+          "regressed_total_power_nw": 0.00024
+        },
+        "log_ref": "metric_negative_opensta_area_timing_power.pinned.log"
+      }
+    }
+  },
+  "proof_receipts": {
+    "state_exposed_relation_tempinduct_seq8": {
+      "status": "proved",
+      "command": "read_verilog -formal -sv gated_clk_cell.v ct_rtu_expand_32.v ct_rtu_expand_96.v ct_rtu_pst_preg_entry_gold_dbg.v ct_rtu_pst_preg_entry_gate_dbg.v ct_rtu_pst_preg_entry_relation_miter.sv; prep -top ct_rtu_pst_preg_entry_relation_dbg_ports_miter; flatten; async2sync; dffunmap; opt; sat -seq 8 -tempinduct -set forever_cpuclk 1 -set cp0_yy_clk_en 1 -set cp0_rtu_icg_en 1 -set pad_yy_icg_scan_en 0 -set-at 1 cpurst_b 0 -set-at 2 cpurst_b 1 -prove ok_life 1 -prove ok_storage 1 -prove ok_outputs 1 -verify",
+      "log": "relation_miter_tempinduct_seq8.pinned.log",
+      "log_sha256": "13f1c771884496ef6a00db487d6a60b0fd5c24a7f4a3207c9d307a70f76b9bfe"
+    },
+    "proof_negative_control": {
+      "status": "failed_as_expected",
+      "mutation": "ct_rtu_pst_preg_entry_gate_dbg_mutant.v changes the lifecycle relation path and is rejected by the same relation proof",
+      "command": "read_verilog -formal -sv gated_clk_cell.v ct_rtu_expand_32.v ct_rtu_expand_96.v ct_rtu_pst_preg_entry_gold_dbg.v ct_rtu_pst_preg_entry_gate_dbg_mutant.v ct_rtu_pst_preg_entry_relation_miter.sv; prep -top ct_rtu_pst_preg_entry_relation_dbg_ports_miter; flatten; async2sync; dffunmap; opt; sat -seq 8 -tempinduct -set forever_cpuclk 1 -set cp0_yy_clk_en 1 -set cp0_rtu_icg_en 1 -set pad_yy_icg_scan_en 0 -set-at 1 cpurst_b 0 -set-at 2 cpurst_b 1 -prove ok_life 1 -prove ok_storage 1 -prove ok_outputs 1 -verify",
+      "log": "relation_miter_mutant_negative_tempinduct_seq8.pinned.log",
+      "log_sha256": "668f0056f7f21de7277d3e93bf4f56e3bf823eb6356e1ae3a14b09d608e97aeb"
+    },
+    "debug_wrapper_passivity": {
+      "status": "proved_by_script",
+      "script": "bridge_passivity_check.py",
+      "script_sha256": "18d86aafb51eb7706e0abf4dba5fbb47fe2a54a0a32668ae98d6ef2e4f4d7af5",
+      "log": "bridge_passivity_check.pinned.log",
+      "log_sha256": "1ba4463bb0cd00db354ee38b0638bd036720931a5f08923dae4c5696afa649df"
+    }
+  },
+  "negative_controls": {
+    "proof_mutant": {
+      "path": "ct_rtu_pst_preg_entry_gate_dbg_mutant.v",
+      "sha256": "f48173363111ee4bfaeaecca491040af32836da506b39fe6f8f4c3360961d539",
+      "interpretation": "functional proof red-control; the same lifecycle relation proof rejects this broken debug-wrapper candidate"
+    },
+    "metric_negative_netlist": {
+      "path": "ct_rtu_pst_preg_entry_metric_negative.mapped.v",
+      "sha256": "0af7853cbe7302c3ae9bc9b1ca9741fc9cf0958201e7428a0a4c6e7e0d9c0188",
+      "interpretation": "metric-only red-control; not a functional or proof candidate"
+    }
+  },
+  "known_boundaries": [
+    "candidate pending independent replay by a non-author seat",
+    "module-local ct_rtu_pst_preg_entry only",
+    "correctness proof scope remains visible-output equivalence under reset-first through passive debug bridge plus lifecycle-encoding relation induction",
+    "OpenSTA estimated power is not signoff power and not measured workload activity",
+    "not whole RTU, whole C910, BOOM, ISA, memory consistency, speculation recovery, composed optimization, or whole-chip authority"
+  ]
+}

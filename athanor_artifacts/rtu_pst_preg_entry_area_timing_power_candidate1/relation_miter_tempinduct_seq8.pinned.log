@@ -1,0 +1,1187 @@
+
+ /----------------------------------------------------------------------------\
+ |  yosys -- Yosys Open SYnthesis Suite                                       |
+ |  Copyright (C) 2012 - 2026  Claire Xenia Wolf <claire@yosyshq.com>         |
+ |  Distributed under an ISC-like license, type "license" to see terms        |
+ \----------------------------------------------------------------------------/
+ Yosys 0.66+181 (git sha1 afe6b18f2, Release, Clang /usr/bin/clang++ 18.1.8)
+
+-- Running command `read_verilog -formal -sv gated_clk_cell.v ct_rtu_expand_32.v ct_rtu_expand_96.v ct_rtu_pst_preg_entry_gold_dbg.v ct_rtu_pst_preg_entry_gate_dbg.v ct_rtu_pst_preg_entry_relation_dbg_ports_miter.sv; prep -top ct_rtu_pst_preg_entry_relation_dbg_ports_miter; flatten; async2sync; dffunmap; opt; sat -seq 8 -tempinduct -set forever_cpuclk 1 -set cp0_yy_clk_en 1 -set cp0_rtu_icg_en 1 -set pad_yy_icg_scan_en 0 -set-at 1 cpurst_b 0 -set-at 2 cpurst_b 1 -prove ok_life 1 -prove ok_storage 1 -prove ok_outputs 1 -verify' --
+
+1. Executing Verilog-2005 frontend: gated_clk_cell.v
+Parsing formal SystemVerilog input from `gated_clk_cell.v' to AST representation.
+Generating RTLIL representation for module `\gated_clk_cell'.
+Successfully finished Verilog frontend.
+
+2. Executing Verilog-2005 frontend: ct_rtu_expand_32.v
+Parsing formal SystemVerilog input from `ct_rtu_expand_32.v' to AST representation.
+Generating RTLIL representation for module `\ct_rtu_expand_32'.
+Successfully finished Verilog frontend.
+
+3. Executing Verilog-2005 frontend: ct_rtu_expand_96.v
+Parsing formal SystemVerilog input from `ct_rtu_expand_96.v' to AST representation.
+Generating RTLIL representation for module `\ct_rtu_expand_96'.
+Successfully finished Verilog frontend.
+
+4. Executing Verilog-2005 frontend: ct_rtu_pst_preg_entry_gold_dbg.v
+Parsing formal SystemVerilog input from `ct_rtu_pst_preg_entry_gold_dbg.v' to AST representation.
+Generating RTLIL representation for module `\ct_rtu_pst_preg_entry'.
+Note: Assuming pure combinatorial block at ct_rtu_pst_preg_entry_gold_dbg.v:295.1-337.4 in
+compliance with IEC 62142(E):2005 / IEEE Std. 1364.1(E):2002. Recommending
+use of @* instead of @(...) for better match of synthesis and simulation.
+Note: Assuming pure combinatorial block at ct_rtu_pst_preg_entry_gold_dbg.v:376.1-392.4 in
+compliance with IEC 62142(E):2005 / IEEE Std. 1364.1(E):2002. Recommending
+use of @* instead of @(...) for better match of synthesis and simulation.
+Note: Assuming pure combinatorial block at ct_rtu_pst_preg_entry_gold_dbg.v:408.1-450.4 in
+compliance with IEC 62142(E):2005 / IEEE Std. 1364.1(E):2002. Recommending
+use of @* instead of @(...) for better match of synthesis and simulation.
+Successfully finished Verilog frontend.
+
+5. Executing Verilog-2005 frontend: ct_rtu_pst_preg_entry_gate_dbg.v
+Parsing formal SystemVerilog input from `ct_rtu_pst_preg_entry_gate_dbg.v' to AST representation.
+Generating RTLIL representation for module `\ct_rtu_pst_preg_entry_gate'.
+Note: Assuming pure combinatorial block at ct_rtu_pst_preg_entry_gate_dbg.v:295.1-337.4 in
+compliance with IEC 62142(E):2005 / IEEE Std. 1364.1(E):2002. Recommending
+use of @* instead of @(...) for better match of synthesis and simulation.
+Note: Assuming pure combinatorial block at ct_rtu_pst_preg_entry_gate_dbg.v:376.1-392.4 in
+compliance with IEC 62142(E):2005 / IEEE Std. 1364.1(E):2002. Recommending
+use of @* instead of @(...) for better match of synthesis and simulation.
+Note: Assuming pure combinatorial block at ct_rtu_pst_preg_entry_gate_dbg.v:408.1-450.4 in
+compliance with IEC 62142(E):2005 / IEEE Std. 1364.1(E):2002. Recommending
+use of @* instead of @(...) for better match of synthesis and simulation.
+Successfully finished Verilog frontend.
+
+6. Executing Verilog-2005 frontend: ct_rtu_pst_preg_entry_relation_dbg_ports_miter.sv
+Parsing formal SystemVerilog input from `ct_rtu_pst_preg_entry_relation_dbg_ports_miter.sv' to AST representation.
+Generating RTLIL representation for module `\ct_rtu_pst_preg_entry_relation_dbg_ports_miter'.
+Successfully finished Verilog frontend.
+
+7. Executing PREP pass.
+
+7.1. Executing HIERARCHY pass (managing design hierarchy).
+
+7.1.1. Analyzing design hierarchy..
+Top module:  \ct_rtu_pst_preg_entry_relation_dbg_ports_miter
+Used module:     \ct_rtu_pst_preg_entry_gate
+Used module:         \ct_rtu_expand_32
+Used module:         \ct_rtu_expand_96
+Used module:         \gated_clk_cell
+Used module:     \ct_rtu_pst_preg_entry
+
+7.1.2. Analyzing design hierarchy..
+Top module:  \ct_rtu_pst_preg_entry_relation_dbg_ports_miter
+Used module:     \ct_rtu_pst_preg_entry_gate
+Used module:         \ct_rtu_expand_32
+Used module:         \ct_rtu_expand_96
+Used module:         \gated_clk_cell
+Used module:     \ct_rtu_pst_preg_entry
+Removed 0 unused modules.
+Module ct_rtu_pst_preg_entry_relation_dbg_ports_miter directly or indirectly contains formal properties -> setting "keep" attribute.
+
+7.2. Executing PROC pass (convert processes to netlists).
+
+7.2.1. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Cleaned up 0 empty switches.
+
+7.2.2. Executing PROC_RMDEAD pass (remove dead branches from decision trees).
+Marked 3 switch rules as full_case in process $proc$ct_rtu_pst_preg_entry_gate_dbg.v:522$250 in module ct_rtu_pst_preg_entry_gate.
+Marked 3 switch rules as full_case in process $proc$ct_rtu_pst_preg_entry_gate_dbg.v:510$248 in module ct_rtu_pst_preg_entry_gate.
+Marked 3 switch rules as full_case in process $proc$ct_rtu_pst_preg_entry_gate_dbg.v:498$246 in module ct_rtu_pst_preg_entry_gate.
+Marked 3 switch rules as full_case in process $proc$ct_rtu_pst_preg_entry_gate_dbg.v:455$236 in module ct_rtu_pst_preg_entry_gate.
+Marked 1 switch rules as full_case in process $proc$ct_rtu_pst_preg_entry_gate_dbg.v:408$235 in module ct_rtu_pst_preg_entry_gate.
+Removed 1 dead cases from process $proc$ct_rtu_pst_preg_entry_gate_dbg.v:376$229 in module ct_rtu_pst_preg_entry_gate.
+Marked 3 switch rules as full_case in process $proc$ct_rtu_pst_preg_entry_gate_dbg.v:376$229 in module ct_rtu_pst_preg_entry_gate.
+Marked 4 switch rules as full_case in process $proc$ct_rtu_pst_preg_entry_gate_dbg.v:361$227 in module ct_rtu_pst_preg_entry_gate.
+Marked 11 switch rules as full_case in process $proc$ct_rtu_pst_preg_entry_gate_dbg.v:295$221 in module ct_rtu_pst_preg_entry_gate.
+Marked 2 switch rules as full_case in process $proc$ct_rtu_pst_preg_entry_gate_dbg.v:284$219 in module ct_rtu_pst_preg_entry_gate.
+Marked 3 switch rules as full_case in process $proc$ct_rtu_pst_preg_entry_gold_dbg.v:522$183 in module ct_rtu_pst_preg_entry.
+Marked 3 switch rules as full_case in process $proc$ct_rtu_pst_preg_entry_gold_dbg.v:510$181 in module ct_rtu_pst_preg_entry.
+Marked 3 switch rules as full_case in process $proc$ct_rtu_pst_preg_entry_gold_dbg.v:498$179 in module ct_rtu_pst_preg_entry.
+Marked 3 switch rules as full_case in process $proc$ct_rtu_pst_preg_entry_gold_dbg.v:455$169 in module ct_rtu_pst_preg_entry.
+Marked 1 switch rules as full_case in process $proc$ct_rtu_pst_preg_entry_gold_dbg.v:408$168 in module ct_rtu_pst_preg_entry.
+Removed 1 dead cases from process $proc$ct_rtu_pst_preg_entry_gold_dbg.v:376$162 in module ct_rtu_pst_preg_entry.
+Marked 3 switch rules as full_case in process $proc$ct_rtu_pst_preg_entry_gold_dbg.v:376$162 in module ct_rtu_pst_preg_entry.
+Marked 4 switch rules as full_case in process $proc$ct_rtu_pst_preg_entry_gold_dbg.v:361$160 in module ct_rtu_pst_preg_entry.
+Marked 11 switch rules as full_case in process $proc$ct_rtu_pst_preg_entry_gold_dbg.v:295$154 in module ct_rtu_pst_preg_entry.
+Marked 2 switch rules as full_case in process $proc$ct_rtu_pst_preg_entry_gold_dbg.v:284$152 in module ct_rtu_pst_preg_entry.
+Removed a total of 2 dead cases.
+
+7.2.3. Executing PROC_PRUNE pass (remove redundant assignments in processes).
+Removed 16 redundant assignments.
+Promoted 10 assignments to connections.
+
+7.2.4. Executing PROC_INIT pass (extract init attributes).
+
+7.2.5. Executing PROC_ARST pass (detect async resets in processes).
+Found async reset \cpurst_b in `\ct_rtu_pst_preg_entry_gate.$proc$ct_rtu_pst_preg_entry_gate_dbg.v:522$250'.
+Found async reset \cpurst_b in `\ct_rtu_pst_preg_entry_gate.$proc$ct_rtu_pst_preg_entry_gate_dbg.v:510$248'.
+Found async reset \cpurst_b in `\ct_rtu_pst_preg_entry_gate.$proc$ct_rtu_pst_preg_entry_gate_dbg.v:498$246'.
+Found async reset \cpurst_b in `\ct_rtu_pst_preg_entry_gate.$proc$ct_rtu_pst_preg_entry_gate_dbg.v:455$236'.
+Found async reset \cpurst_b in `\ct_rtu_pst_preg_entry_gate.$proc$ct_rtu_pst_preg_entry_gate_dbg.v:361$227'.
+Found async reset \cpurst_b in `\ct_rtu_pst_preg_entry_gate.$proc$ct_rtu_pst_preg_entry_gate_dbg.v:284$219'.
+Found async reset \cpurst_b in `\ct_rtu_pst_preg_entry.$proc$ct_rtu_pst_preg_entry_gold_dbg.v:522$183'.
+Found async reset \cpurst_b in `\ct_rtu_pst_preg_entry.$proc$ct_rtu_pst_preg_entry_gold_dbg.v:510$181'.
+Found async reset \cpurst_b in `\ct_rtu_pst_preg_entry.$proc$ct_rtu_pst_preg_entry_gold_dbg.v:498$179'.
+Found async reset \cpurst_b in `\ct_rtu_pst_preg_entry.$proc$ct_rtu_pst_preg_entry_gold_dbg.v:455$169'.
+Found async reset \cpurst_b in `\ct_rtu_pst_preg_entry.$proc$ct_rtu_pst_preg_entry_gold_dbg.v:361$160'.
+Found async reset \cpurst_b in `\ct_rtu_pst_preg_entry.$proc$ct_rtu_pst_preg_entry_gold_dbg.v:284$152'.
+
+7.2.6. Executing PROC_ROM pass (convert switches to ROMs).
+Converted 0 switches.
+<suppressed ~55 debug messages>
+
+7.2.7. Executing PROC_MUX pass (convert decision trees to multiplexers).
+Creating decoders for process `\ct_rtu_pst_preg_entry_relation_dbg_ports_miter.$proc$ct_rtu_pst_preg_entry_relation_dbg_ports_miter.sv:198$315'.
+     1/1: $assume$ct_rtu_pst_preg_entry_relation_dbg_ports_miter.sv:200$316_EN
+Creating decoders for process `\ct_rtu_pst_preg_entry_gate.$proc$ct_rtu_pst_preg_entry_gate_dbg.v:522$250'.
+     1/1: $0\retire_inst2_iid_match[0:0]
+Creating decoders for process `\ct_rtu_pst_preg_entry_gate.$proc$ct_rtu_pst_preg_entry_gate_dbg.v:510$248'.
+     1/1: $0\retire_inst1_iid_match[0:0]
+Creating decoders for process `\ct_rtu_pst_preg_entry_gate.$proc$ct_rtu_pst_preg_entry_gate_dbg.v:498$246'.
+     1/1: $0\retire_inst0_iid_match[0:0]
+Creating decoders for process `\ct_rtu_pst_preg_entry_gate.$proc$ct_rtu_pst_preg_entry_gate_dbg.v:455$236'.
+     1/3: $0\rel_preg[6:0]
+     2/3: $0\dst_reg[4:0]
+     3/3: $0\iid[6:0]
+Creating decoders for process `\ct_rtu_pst_preg_entry_gate.$proc$ct_rtu_pst_preg_entry_gate_dbg.v:408$235'.
+     1/3: $1\create_rel_preg[6:0]
+     2/3: $1\create_dst_reg[4:0]
+     3/3: $1\create_iid[6:0]
+Creating decoders for process `\ct_rtu_pst_preg_entry_gate.$proc$ct_rtu_pst_preg_entry_gate_dbg.v:376$229'.
+     1/3: $3\wb_next_state[0:0]
+     2/3: $2\wb_next_state[0:0]
+     3/3: $1\wb_next_state[0:0]
+Creating decoders for process `\ct_rtu_pst_preg_entry_gate.$proc$ct_rtu_pst_preg_entry_gate_dbg.v:361$227'.
+     1/1: $0\wb_cur_state[0:0]
+Creating decoders for process `\ct_rtu_pst_preg_entry_gate.$proc$ct_rtu_pst_preg_entry_gate_dbg.v:295$221'.
+     1/11: $11\lifecycle_next_state[3:0]
+     2/11: $10\lifecycle_next_state[3:0]
+     3/11: $9\lifecycle_next_state[3:0]
+     4/11: $8\lifecycle_next_state[3:0]
+     5/11: $7\lifecycle_next_state[3:0]
+     6/11: $6\lifecycle_next_state[3:0]
+     7/11: $5\lifecycle_next_state[3:0]
+     8/11: $4\lifecycle_next_state[3:0]
+     9/11: $3\lifecycle_next_state[3:0]
+    10/11: $2\lifecycle_next_state[3:0]
+    11/11: $1\lifecycle_next_state[3:0]
+Creating decoders for process `\ct_rtu_pst_preg_entry_gate.$proc$ct_rtu_pst_preg_entry_gate_dbg.v:284$219'.
+     1/1: $0\lifecycle_cur_state[3:0]
+Creating decoders for process `\ct_rtu_pst_preg_entry.$proc$ct_rtu_pst_preg_entry_gold_dbg.v:522$183'.
+     1/1: $0\retire_inst2_iid_match[0:0]
+Creating decoders for process `\ct_rtu_pst_preg_entry.$proc$ct_rtu_pst_preg_entry_gold_dbg.v:510$181'.
+     1/1: $0\retire_inst1_iid_match[0:0]
+Creating decoders for process `\ct_rtu_pst_preg_entry.$proc$ct_rtu_pst_preg_entry_gold_dbg.v:498$179'.
+     1/1: $0\retire_inst0_iid_match[0:0]
+Creating decoders for process `\ct_rtu_pst_preg_entry.$proc$ct_rtu_pst_preg_entry_gold_dbg.v:455$169'.
+     1/3: $0\rel_preg[6:0]
+     2/3: $0\dst_reg[4:0]
+     3/3: $0\iid[6:0]
+Creating decoders for process `\ct_rtu_pst_preg_entry.$proc$ct_rtu_pst_preg_entry_gold_dbg.v:408$168'.
+     1/3: $1\create_rel_preg[6:0]
+     2/3: $1\create_dst_reg[4:0]
+     3/3: $1\create_iid[6:0]
+Creating decoders for process `\ct_rtu_pst_preg_entry.$proc$ct_rtu_pst_preg_entry_gold_dbg.v:376$162'.
+     1/3: $3\wb_next_state[0:0]
+     2/3: $2\wb_next_state[0:0]
+     3/3: $1\wb_next_state[0:0]
+Creating decoders for process `\ct_rtu_pst_preg_entry.$proc$ct_rtu_pst_preg_entry_gold_dbg.v:361$160'.
+     1/1: $0\wb_cur_state[0:0]
+Creating decoders for process `\ct_rtu_pst_preg_entry.$proc$ct_rtu_pst_preg_entry_gold_dbg.v:295$154'.
+     1/11: $11\lifecycle_next_state[4:0]
+     2/11: $10\lifecycle_next_state[4:0]
+     3/11: $9\lifecycle_next_state[4:0]
+     4/11: $8\lifecycle_next_state[4:0]
+     5/11: $7\lifecycle_next_state[4:0]
+     6/11: $6\lifecycle_next_state[4:0]
+     7/11: $5\lifecycle_next_state[4:0]
+     8/11: $4\lifecycle_next_state[4:0]
+     9/11: $3\lifecycle_next_state[4:0]
+    10/11: $2\lifecycle_next_state[4:0]
+    11/11: $1\lifecycle_next_state[4:0]
+Creating decoders for process `\ct_rtu_pst_preg_entry.$proc$ct_rtu_pst_preg_entry_gold_dbg.v:284$152'.
+     1/1: $0\lifecycle_cur_state[4:0]
+
+7.2.8. Executing PROC_DLATCH pass (convert process syncs to latches).
+No latch inferred for signal `\ct_rtu_pst_preg_entry_gate.\create_dst_reg' from process `\ct_rtu_pst_preg_entry_gate.$proc$ct_rtu_pst_preg_entry_gate_dbg.v:408$235'.
+No latch inferred for signal `\ct_rtu_pst_preg_entry_gate.\create_iid' from process `\ct_rtu_pst_preg_entry_gate.$proc$ct_rtu_pst_preg_entry_gate_dbg.v:408$235'.
+No latch inferred for signal `\ct_rtu_pst_preg_entry_gate.\create_rel_preg' from process `\ct_rtu_pst_preg_entry_gate.$proc$ct_rtu_pst_preg_entry_gate_dbg.v:408$235'.
+No latch inferred for signal `\ct_rtu_pst_preg_entry_gate.\wb_next_state' from process `\ct_rtu_pst_preg_entry_gate.$proc$ct_rtu_pst_preg_entry_gate_dbg.v:376$229'.
+No latch inferred for signal `\ct_rtu_pst_preg_entry_gate.\lifecycle_next_state' from process `\ct_rtu_pst_preg_entry_gate.$proc$ct_rtu_pst_preg_entry_gate_dbg.v:295$221'.
+No latch inferred for signal `\ct_rtu_pst_preg_entry.\create_dst_reg' from process `\ct_rtu_pst_preg_entry.$proc$ct_rtu_pst_preg_entry_gold_dbg.v:408$168'.
+No latch inferred for signal `\ct_rtu_pst_preg_entry.\create_iid' from process `\ct_rtu_pst_preg_entry.$proc$ct_rtu_pst_preg_entry_gold_dbg.v:408$168'.
+No latch inferred for signal `\ct_rtu_pst_preg_entry.\create_rel_preg' from process `\ct_rtu_pst_preg_entry.$proc$ct_rtu_pst_preg_entry_gold_dbg.v:408$168'.
+No latch inferred for signal `\ct_rtu_pst_preg_entry.\wb_next_state' from process `\ct_rtu_pst_preg_entry.$proc$ct_rtu_pst_preg_entry_gold_dbg.v:376$162'.
+No latch inferred for signal `\ct_rtu_pst_preg_entry.\lifecycle_next_state' from process `\ct_rtu_pst_preg_entry.$proc$ct_rtu_pst_preg_entry_gold_dbg.v:295$154'.
+
+7.2.9. Executing PROC_DFF pass (convert process syncs to FFs).
+Creating register for signal `\ct_rtu_pst_preg_entry_gate.\retire_inst2_iid_match' using process `\ct_rtu_pst_preg_entry_gate.$proc$ct_rtu_pst_preg_entry_gate_dbg.v:522$250'.
+  created $adff cell `$procdff$705' with positive edge clock and positive level reset.
+Creating register for signal `\ct_rtu_pst_preg_entry_gate.\retire_inst1_iid_match' using process `\ct_rtu_pst_preg_entry_gate.$proc$ct_rtu_pst_preg_entry_gate_dbg.v:510$248'.
+  created $adff cell `$procdff$710' with positive edge clock and positive level reset.
+Creating register for signal `\ct_rtu_pst_preg_entry_gate.\retire_inst0_iid_match' using process `\ct_rtu_pst_preg_entry_gate.$proc$ct_rtu_pst_preg_entry_gate_dbg.v:498$246'.
+  created $adff cell `$procdff$715' with positive edge clock and positive level reset.
+Creating register for signal `\ct_rtu_pst_preg_entry_gate.\dst_reg' using process `\ct_rtu_pst_preg_entry_gate.$proc$ct_rtu_pst_preg_entry_gate_dbg.v:455$236'.
+  created $adff cell `$procdff$720' with positive edge clock and positive level reset.
+Creating register for signal `\ct_rtu_pst_preg_entry_gate.\iid' using process `\ct_rtu_pst_preg_entry_gate.$proc$ct_rtu_pst_preg_entry_gate_dbg.v:455$236'.
+  created $adff cell `$procdff$725' with positive edge clock and positive level reset.
+Creating register for signal `\ct_rtu_pst_preg_entry_gate.\rel_preg' using process `\ct_rtu_pst_preg_entry_gate.$proc$ct_rtu_pst_preg_entry_gate_dbg.v:455$236'.
+  created $adff cell `$procdff$730' with positive edge clock and positive level reset.
+Creating register for signal `\ct_rtu_pst_preg_entry_gate.\wb_cur_state' using process `\ct_rtu_pst_preg_entry_gate.$proc$ct_rtu_pst_preg_entry_gate_dbg.v:361$227'.
+  created $adff cell `$procdff$735' with positive edge clock and positive level reset.
+Creating register for signal `\ct_rtu_pst_preg_entry_gate.\lifecycle_cur_state' using process `\ct_rtu_pst_preg_entry_gate.$proc$ct_rtu_pst_preg_entry_gate_dbg.v:284$219'.
+  created $adff cell `$procdff$740' with positive edge clock and positive level reset.
+Creating register for signal `\ct_rtu_pst_preg_entry.\retire_inst2_iid_match' using process `\ct_rtu_pst_preg_entry.$proc$ct_rtu_pst_preg_entry_gold_dbg.v:522$183'.
+  created $adff cell `$procdff$745' with positive edge clock and positive level reset.
+Creating register for signal `\ct_rtu_pst_preg_entry.\retire_inst1_iid_match' using process `\ct_rtu_pst_preg_entry.$proc$ct_rtu_pst_preg_entry_gold_dbg.v:510$181'.
+  created $adff cell `$procdff$750' with positive edge clock and positive level reset.
+Creating register for signal `\ct_rtu_pst_preg_entry.\retire_inst0_iid_match' using process `\ct_rtu_pst_preg_entry.$proc$ct_rtu_pst_preg_entry_gold_dbg.v:498$179'.
+  created $adff cell `$procdff$755' with positive edge clock and positive level reset.
+Creating register for signal `\ct_rtu_pst_preg_entry.\dst_reg' using process `\ct_rtu_pst_preg_entry.$proc$ct_rtu_pst_preg_entry_gold_dbg.v:455$169'.
+  created $adff cell `$procdff$760' with positive edge clock and positive level reset.
+Creating register for signal `\ct_rtu_pst_preg_entry.\iid' using process `\ct_rtu_pst_preg_entry.$proc$ct_rtu_pst_preg_entry_gold_dbg.v:455$169'.
+  created $adff cell `$procdff$765' with positive edge clock and positive level reset.
+Creating register for signal `\ct_rtu_pst_preg_entry.\rel_preg' using process `\ct_rtu_pst_preg_entry.$proc$ct_rtu_pst_preg_entry_gold_dbg.v:455$169'.
+  created $adff cell `$procdff$770' with positive edge clock and positive level reset.
+Creating register for signal `\ct_rtu_pst_preg_entry.\wb_cur_state' using process `\ct_rtu_pst_preg_entry.$proc$ct_rtu_pst_preg_entry_gold_dbg.v:361$160'.
+  created $adff cell `$procdff$775' with positive edge clock and positive level reset.
+Creating register for signal `\ct_rtu_pst_preg_entry.\lifecycle_cur_state' using process `\ct_rtu_pst_preg_entry.$proc$ct_rtu_pst_preg_entry_gold_dbg.v:284$152'.
+  created $adff cell `$procdff$780' with positive edge clock and positive level reset.
+
+7.2.10. Executing PROC_MEMWR pass (convert process memory writes to cells).
+
+7.2.11. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Found and cleaned up 1 empty switch in `\ct_rtu_pst_preg_entry_relation_dbg_ports_miter.$proc$ct_rtu_pst_preg_entry_relation_dbg_ports_miter.sv:198$315'.
+Removing empty process `ct_rtu_pst_preg_entry_relation_dbg_ports_miter.$proc$ct_rtu_pst_preg_entry_relation_dbg_ports_miter.sv:198$315'.
+Found and cleaned up 2 empty switches in `\ct_rtu_pst_preg_entry_gate.$proc$ct_rtu_pst_preg_entry_gate_dbg.v:522$250'.
+Removing empty process `ct_rtu_pst_preg_entry_gate.$proc$ct_rtu_pst_preg_entry_gate_dbg.v:522$250'.
+Found and cleaned up 2 empty switches in `\ct_rtu_pst_preg_entry_gate.$proc$ct_rtu_pst_preg_entry_gate_dbg.v:510$248'.
+Removing empty process `ct_rtu_pst_preg_entry_gate.$proc$ct_rtu_pst_preg_entry_gate_dbg.v:510$248'.
+Found and cleaned up 2 empty switches in `\ct_rtu_pst_preg_entry_gate.$proc$ct_rtu_pst_preg_entry_gate_dbg.v:498$246'.
+Removing empty process `ct_rtu_pst_preg_entry_gate.$proc$ct_rtu_pst_preg_entry_gate_dbg.v:498$246'.
+Found and cleaned up 2 empty switches in `\ct_rtu_pst_preg_entry_gate.$proc$ct_rtu_pst_preg_entry_gate_dbg.v:455$236'.
+Removing empty process `ct_rtu_pst_preg_entry_gate.$proc$ct_rtu_pst_preg_entry_gate_dbg.v:455$236'.
+Found and cleaned up 1 empty switch in `\ct_rtu_pst_preg_entry_gate.$proc$ct_rtu_pst_preg_entry_gate_dbg.v:408$235'.
+Removing empty process `ct_rtu_pst_preg_entry_gate.$proc$ct_rtu_pst_preg_entry_gate_dbg.v:408$235'.
+Found and cleaned up 3 empty switches in `\ct_rtu_pst_preg_entry_gate.$proc$ct_rtu_pst_preg_entry_gate_dbg.v:376$229'.
+Removing empty process `ct_rtu_pst_preg_entry_gate.$proc$ct_rtu_pst_preg_entry_gate_dbg.v:376$229'.
+Found and cleaned up 3 empty switches in `\ct_rtu_pst_preg_entry_gate.$proc$ct_rtu_pst_preg_entry_gate_dbg.v:361$227'.
+Removing empty process `ct_rtu_pst_preg_entry_gate.$proc$ct_rtu_pst_preg_entry_gate_dbg.v:361$227'.
+Found and cleaned up 11 empty switches in `\ct_rtu_pst_preg_entry_gate.$proc$ct_rtu_pst_preg_entry_gate_dbg.v:295$221'.
+Removing empty process `ct_rtu_pst_preg_entry_gate.$proc$ct_rtu_pst_preg_entry_gate_dbg.v:295$221'.
+Found and cleaned up 1 empty switch in `\ct_rtu_pst_preg_entry_gate.$proc$ct_rtu_pst_preg_entry_gate_dbg.v:284$219'.
+Removing empty process `ct_rtu_pst_preg_entry_gate.$proc$ct_rtu_pst_preg_entry_gate_dbg.v:284$219'.
+Found and cleaned up 2 empty switches in `\ct_rtu_pst_preg_entry.$proc$ct_rtu_pst_preg_entry_gold_dbg.v:522$183'.
+Removing empty process `ct_rtu_pst_preg_entry.$proc$ct_rtu_pst_preg_entry_gold_dbg.v:522$183'.
+Found and cleaned up 2 empty switches in `\ct_rtu_pst_preg_entry.$proc$ct_rtu_pst_preg_entry_gold_dbg.v:510$181'.
+Removing empty process `ct_rtu_pst_preg_entry.$proc$ct_rtu_pst_preg_entry_gold_dbg.v:510$181'.
+Found and cleaned up 2 empty switches in `\ct_rtu_pst_preg_entry.$proc$ct_rtu_pst_preg_entry_gold_dbg.v:498$179'.
+Removing empty process `ct_rtu_pst_preg_entry.$proc$ct_rtu_pst_preg_entry_gold_dbg.v:498$179'.
+Found and cleaned up 2 empty switches in `\ct_rtu_pst_preg_entry.$proc$ct_rtu_pst_preg_entry_gold_dbg.v:455$169'.
+Removing empty process `ct_rtu_pst_preg_entry.$proc$ct_rtu_pst_preg_entry_gold_dbg.v:455$169'.
+Found and cleaned up 1 empty switch in `\ct_rtu_pst_preg_entry.$proc$ct_rtu_pst_preg_entry_gold_dbg.v:408$168'.
+Removing empty process `ct_rtu_pst_preg_entry.$proc$ct_rtu_pst_preg_entry_gold_dbg.v:408$168'.
+Found and cleaned up 3 empty switches in `\ct_rtu_pst_preg_entry.$proc$ct_rtu_pst_preg_entry_gold_dbg.v:376$162'.
+Removing empty process `ct_rtu_pst_preg_entry.$proc$ct_rtu_pst_preg_entry_gold_dbg.v:376$162'.
+Found and cleaned up 3 empty switches in `\ct_rtu_pst_preg_entry.$proc$ct_rtu_pst_preg_entry_gold_dbg.v:361$160'.
+Removing empty process `ct_rtu_pst_preg_entry.$proc$ct_rtu_pst_preg_entry_gold_dbg.v:361$160'.
+Found and cleaned up 11 empty switches in `\ct_rtu_pst_preg_entry.$proc$ct_rtu_pst_preg_entry_gold_dbg.v:295$154'.
+Removing empty process `ct_rtu_pst_preg_entry.$proc$ct_rtu_pst_preg_entry_gold_dbg.v:295$154'.
+Found and cleaned up 1 empty switch in `\ct_rtu_pst_preg_entry.$proc$ct_rtu_pst_preg_entry_gold_dbg.v:284$152'.
+Removing empty process `ct_rtu_pst_preg_entry.$proc$ct_rtu_pst_preg_entry_gold_dbg.v:284$152'.
+Cleaned up 55 empty switches.
+
+7.2.12. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_rtu_pst_preg_entry_relation_dbg_ports_miter.
+<suppressed ~5 debug messages>
+Optimizing module ct_rtu_pst_preg_entry_gate.
+<suppressed ~25 debug messages>
+Optimizing module ct_rtu_pst_preg_entry.
+<suppressed ~21 debug messages>
+Optimizing module ct_rtu_expand_96.
+<suppressed ~1 debug messages>
+Optimizing module ct_rtu_expand_32.
+<suppressed ~1 debug messages>
+Optimizing module gated_clk_cell.
+
+7.3. Executing FUTURE pass.
+
+7.4. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_rtu_pst_preg_entry_relation_dbg_ports_miter.
+Optimizing module ct_rtu_pst_preg_entry_gate.
+Optimizing module ct_rtu_pst_preg_entry.
+Optimizing module ct_rtu_expand_96.
+Optimizing module ct_rtu_expand_32.
+Optimizing module gated_clk_cell.
+
+7.5. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_rtu_pst_preg_entry_relation_dbg_ports_miter..
+Finding unused cells or wires in module \ct_rtu_pst_preg_entry_gate..
+Finding unused cells or wires in module \ct_rtu_pst_preg_entry..
+Finding unused cells or wires in module \ct_rtu_expand_96..
+Finding unused cells or wires in module \ct_rtu_expand_32..
+Finding unused cells or wires in module \gated_clk_cell..
+Removed 33 unused cells and 369 unused wires.
+<suppressed ~40 debug messages>
+
+7.6. Executing CHECK pass (checking for obvious problems).
+Checking module ct_rtu_pst_preg_entry_relation_dbg_ports_miter...
+Checking module ct_rtu_pst_preg_entry_gate...
+Checking module ct_rtu_pst_preg_entry...
+Checking module ct_rtu_expand_96...
+Checking module ct_rtu_expand_32...
+Checking module gated_clk_cell...
+Found and reported 0 problems.
+
+7.7. Executing OPT pass (performing simple optimizations).
+
+7.7.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_rtu_pst_preg_entry_relation_dbg_ports_miter.
+Optimizing module ct_rtu_pst_preg_entry_gate.
+Optimizing module ct_rtu_pst_preg_entry.
+Optimizing module ct_rtu_expand_96.
+Optimizing module ct_rtu_expand_32.
+Optimizing module gated_clk_cell.
+
+7.7.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_rtu_pst_preg_entry_relation_dbg_ports_miter'.
+Computing hashes of 53 cells of `\ct_rtu_pst_preg_entry_relation_dbg_ports_miter'.
+Finding duplicate cells in `\ct_rtu_pst_preg_entry_relation_dbg_ports_miter'.
+Computing hashes of 51 cells of `\ct_rtu_pst_preg_entry_relation_dbg_ports_miter'.
+Finding duplicate cells in `\ct_rtu_pst_preg_entry_relation_dbg_ports_miter'.
+<suppressed ~6 debug messages>
+Finding identical cells in module `\ct_rtu_pst_preg_entry_gate'.
+Computing hashes of 143 cells of `\ct_rtu_pst_preg_entry_gate'.
+Finding duplicate cells in `\ct_rtu_pst_preg_entry_gate'.
+Computing hashes of 121 cells of `\ct_rtu_pst_preg_entry_gate'.
+Finding duplicate cells in `\ct_rtu_pst_preg_entry_gate'.
+<suppressed ~66 debug messages>
+Finding identical cells in module `\ct_rtu_pst_preg_entry'.
+Computing hashes of 143 cells of `\ct_rtu_pst_preg_entry'.
+Finding duplicate cells in `\ct_rtu_pst_preg_entry'.
+Computing hashes of 121 cells of `\ct_rtu_pst_preg_entry'.
+Finding duplicate cells in `\ct_rtu_pst_preg_entry'.
+<suppressed ~66 debug messages>
+Finding identical cells in module `\ct_rtu_expand_96'.
+Computing hashes of 96 cells of `\ct_rtu_expand_96'.
+Finding duplicate cells in `\ct_rtu_expand_96'.
+Finding identical cells in module `\ct_rtu_expand_32'.
+Computing hashes of 32 cells of `\ct_rtu_expand_32'.
+Finding duplicate cells in `\ct_rtu_expand_32'.
+Finding identical cells in module `\gated_clk_cell'.
+Computing hashes of 0 cells of `\gated_clk_cell'.
+Finding duplicate cells in `\gated_clk_cell'.
+Removed a total of 46 cells.
+
+7.7.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \ct_rtu_pst_preg_entry_relation_dbg_ports_miter..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \ct_rtu_pst_preg_entry_gate..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+    dead port 2/2 on $mux $procmux$448.
+    dead port 1/2 on $mux $procmux$446.
+    dead port 1/2 on $mux $procmux$443.
+    dead port 2/2 on $mux $procmux$434.
+    dead port 2/2 on $mux $procmux$498.
+    dead port 1/2 on $mux $procmux$432.
+    dead port 1/2 on $mux $procmux$429.
+    dead port 1/2 on $mux $procmux$426.
+    dead port 2/2 on $mux $procmux$417.
+    dead port 2/2 on $mux $procmux$410.
+    dead port 1/2 on $mux $procmux$408.
+    dead port 2/2 on $mux $procmux$400.
+    dead port 2/2 on $mux $procmux$488.
+    dead port 1/2 on $mux $procmux$382.
+    dead port 2/2 on $mux $procmux$376.
+    dead port 2/2 on $mux $procmux$479.
+    dead port 1/2 on $mux $procmux$477.
+    dead port 2/2 on $mux $procmux$467.
+    dead port 2/2 on $mux $procmux$459.
+    dead port 1/2 on $mux $procmux$457.
+Running muxtree optimizer on module \ct_rtu_pst_preg_entry..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+    dead port 2/2 on $mux $procmux$639.
+    dead port 1/2 on $mux $procmux$637.
+    dead port 1/2 on $mux $procmux$634.
+    dead port 2/2 on $mux $procmux$625.
+    dead port 2/2 on $mux $procmux$689.
+    dead port 1/2 on $mux $procmux$623.
+    dead port 1/2 on $mux $procmux$620.
+    dead port 1/2 on $mux $procmux$617.
+    dead port 2/2 on $mux $procmux$608.
+    dead port 2/2 on $mux $procmux$601.
+    dead port 1/2 on $mux $procmux$599.
+    dead port 2/2 on $mux $procmux$591.
+    dead port 2/2 on $mux $procmux$679.
+    dead port 1/2 on $mux $procmux$573.
+    dead port 2/2 on $mux $procmux$567.
+    dead port 2/2 on $mux $procmux$670.
+    dead port 1/2 on $mux $procmux$668.
+    dead port 2/2 on $mux $procmux$658.
+    dead port 2/2 on $mux $procmux$650.
+    dead port 1/2 on $mux $procmux$648.
+Running muxtree optimizer on module \ct_rtu_expand_96..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \ct_rtu_expand_32..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \gated_clk_cell..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Removed 40 multiplexer ports.
+<suppressed ~132 debug messages>
+
+7.7.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \ct_rtu_pst_preg_entry_relation_dbg_ports_miter.
+  Optimizing cells in module \ct_rtu_pst_preg_entry_gate.
+  Optimizing cells in module \ct_rtu_pst_preg_entry.
+  Optimizing cells in module \ct_rtu_expand_96.
+  Optimizing cells in module \ct_rtu_expand_32.
+  Optimizing cells in module \gated_clk_cell.
+Performed a total of 0 changes.
+
+7.7.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_rtu_pst_preg_entry_relation_dbg_ports_miter'.
+Computing hashes of 51 cells of `\ct_rtu_pst_preg_entry_relation_dbg_ports_miter'.
+Finding duplicate cells in `\ct_rtu_pst_preg_entry_relation_dbg_ports_miter'.
+Finding identical cells in module `\ct_rtu_pst_preg_entry_gate'.
+Computing hashes of 101 cells of `\ct_rtu_pst_preg_entry_gate'.
+Finding duplicate cells in `\ct_rtu_pst_preg_entry_gate'.
+Finding identical cells in module `\ct_rtu_pst_preg_entry'.
+Computing hashes of 101 cells of `\ct_rtu_pst_preg_entry'.
+Finding duplicate cells in `\ct_rtu_pst_preg_entry'.
+Finding identical cells in module `\ct_rtu_expand_96'.
+Computing hashes of 96 cells of `\ct_rtu_expand_96'.
+Finding duplicate cells in `\ct_rtu_expand_96'.
+Finding identical cells in module `\ct_rtu_expand_32'.
+Computing hashes of 32 cells of `\ct_rtu_expand_32'.
+Finding duplicate cells in `\ct_rtu_expand_32'.
+Finding identical cells in module `\gated_clk_cell'.
+Computing hashes of 0 cells of `\gated_clk_cell'.
+Finding duplicate cells in `\gated_clk_cell'.
+Removed a total of 0 cells.
+
+7.7.6. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_rtu_pst_preg_entry_relation_dbg_ports_miter..
+Finding unused cells or wires in module \ct_rtu_pst_preg_entry_gate..
+Finding unused cells or wires in module \ct_rtu_pst_preg_entry..
+Finding unused cells or wires in module \ct_rtu_expand_96..
+Finding unused cells or wires in module \ct_rtu_expand_32..
+Finding unused cells or wires in module \gated_clk_cell..
+Removed 0 unused cells and 86 unused wires.
+<suppressed ~3 debug messages>
+
+7.7.7. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_rtu_pst_preg_entry_relation_dbg_ports_miter.
+Optimizing module ct_rtu_pst_preg_entry_gate.
+Optimizing module ct_rtu_pst_preg_entry.
+Optimizing module ct_rtu_expand_96.
+Optimizing module ct_rtu_expand_32.
+Optimizing module gated_clk_cell.
+
+7.7.8. Rerunning OPT passes. (Maybe there is more to do..)
+
+7.7.9. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \ct_rtu_pst_preg_entry_relation_dbg_ports_miter..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \ct_rtu_pst_preg_entry_gate..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \ct_rtu_pst_preg_entry..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \ct_rtu_expand_96..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \ct_rtu_expand_32..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \gated_clk_cell..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Removed 0 multiplexer ports.
+<suppressed ~92 debug messages>
+
+7.7.10. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \ct_rtu_pst_preg_entry_relation_dbg_ports_miter.
+  Optimizing cells in module \ct_rtu_pst_preg_entry_gate.
+  Optimizing cells in module \ct_rtu_pst_preg_entry.
+  Optimizing cells in module \ct_rtu_expand_96.
+  Optimizing cells in module \ct_rtu_expand_32.
+  Optimizing cells in module \gated_clk_cell.
+Performed a total of 0 changes.
+
+7.7.11. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_rtu_pst_preg_entry_relation_dbg_ports_miter'.
+Computing hashes of 51 cells of `\ct_rtu_pst_preg_entry_relation_dbg_ports_miter'.
+Finding duplicate cells in `\ct_rtu_pst_preg_entry_relation_dbg_ports_miter'.
+Finding identical cells in module `\ct_rtu_pst_preg_entry_gate'.
+Computing hashes of 101 cells of `\ct_rtu_pst_preg_entry_gate'.
+Finding duplicate cells in `\ct_rtu_pst_preg_entry_gate'.
+Finding identical cells in module `\ct_rtu_pst_preg_entry'.
+Computing hashes of 101 cells of `\ct_rtu_pst_preg_entry'.
+Finding duplicate cells in `\ct_rtu_pst_preg_entry'.
+Finding identical cells in module `\ct_rtu_expand_96'.
+Computing hashes of 96 cells of `\ct_rtu_expand_96'.
+Finding duplicate cells in `\ct_rtu_expand_96'.
+Finding identical cells in module `\ct_rtu_expand_32'.
+Computing hashes of 32 cells of `\ct_rtu_expand_32'.
+Finding duplicate cells in `\ct_rtu_expand_32'.
+Finding identical cells in module `\gated_clk_cell'.
+Computing hashes of 0 cells of `\gated_clk_cell'.
+Finding duplicate cells in `\gated_clk_cell'.
+Removed a total of 0 cells.
+
+7.7.12. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_rtu_pst_preg_entry_relation_dbg_ports_miter..
+Finding unused cells or wires in module \ct_rtu_pst_preg_entry_gate..
+Finding unused cells or wires in module \ct_rtu_pst_preg_entry..
+Finding unused cells or wires in module \ct_rtu_expand_96..
+Finding unused cells or wires in module \ct_rtu_expand_32..
+Finding unused cells or wires in module \gated_clk_cell..
+
+7.7.13. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_rtu_pst_preg_entry_relation_dbg_ports_miter.
+Optimizing module ct_rtu_pst_preg_entry_gate.
+Optimizing module ct_rtu_pst_preg_entry.
+Optimizing module ct_rtu_expand_96.
+Optimizing module ct_rtu_expand_32.
+Optimizing module gated_clk_cell.
+
+7.7.14. Finished fast OPT passes. (There is nothing left to do.)
+
+7.8. Executing WREDUCE pass (reducing word size of cells).
+Removed top 4 bits (of 5) from port B of cell ct_rtu_pst_preg_entry_relation_dbg_ports_miter.$sub$ct_rtu_pst_preg_entry_relation_dbg_ports_miter.sv:174$267 ($sub).
+Removed top 3 bits (of 4) from port B of cell ct_rtu_pst_preg_entry_relation_dbg_ports_miter.$sub$ct_rtu_pst_preg_entry_relation_dbg_ports_miter.sv:175$271 ($sub).
+Removed top 3 bits (of 4) from port B of cell ct_rtu_pst_preg_entry_relation_dbg_ports_miter.$sub$ct_rtu_pst_preg_entry_relation_dbg_ports_miter.sv:182$284 ($sub).
+Removed top 1 bits (of 4) from mux cell ct_rtu_pst_preg_entry_gate.$ternary$ct_rtu_pst_preg_entry_gate_dbg.v:271$218 ($mux).
+Removed top 1 bits (of 4) from port B of cell ct_rtu_pst_preg_entry_gate.$procmux$370_CMP0 ($eq).
+Removed top 2 bits (of 4) from port B of cell ct_rtu_pst_preg_entry_gate.$procmux$371_CMP0 ($eq).
+Removed top 3 bits (of 4) from port B of cell ct_rtu_pst_preg_entry_gate.$procmux$372_CMP0 ($eq).
+Removed top 1 bits (of 4) from mux cell ct_rtu_pst_preg_entry_gate.$procmux$423 ($mux).
+Removed top 2 bits (of 4) from mux cell ct_rtu_pst_preg_entry_gate.$procmux$474 ($mux).
+Removed top 2 bits (of 4) from mux cell ct_rtu_pst_preg_entry_gate.$procmux$486 ($mux).
+Removed top 3 bits (of 4) from mux cell ct_rtu_pst_preg_entry_gate.$procmux$496 ($mux).
+Removed top 1 bits (of 4) from port B of cell ct_rtu_pst_preg_entry_gate.$procmux$503_CMP0 ($eq).
+Removed top 2 bits (of 4) from port B of cell ct_rtu_pst_preg_entry_gate.$procmux$504_CMP0 ($eq).
+Removed top 3 bits (of 4) from port B of cell ct_rtu_pst_preg_entry_gate.$procmux$506_CMP0 ($eq).
+Removed top 1 bits (of 4) from wire ct_rtu_pst_preg_entry_gate.$8\lifecycle_next_state[3:0].
+Removed top 2 bits (of 4) from wire ct_rtu_pst_preg_entry_gate.$4\lifecycle_next_state[3:0].
+Removed top 2 bits (of 4) from wire ct_rtu_pst_preg_entry_gate.$3\lifecycle_next_state[3:0].
+Removed top 3 bits (of 4) from wire ct_rtu_pst_preg_entry_gate.$2\lifecycle_next_state[3:0].
+Removed top 1 bits (of 4) from wire ct_rtu_pst_preg_entry_gate.reset_lifecycle_state.
+Removed top 1 bits (of 5) from mux cell ct_rtu_pst_preg_entry.$ternary$ct_rtu_pst_preg_entry_gold_dbg.v:271$151 ($mux).
+Removed top 1 bits (of 4) from port B of cell ct_rtu_pst_preg_entry.$procmux$561_CMP0 ($eq).
+Removed top 2 bits (of 4) from port B of cell ct_rtu_pst_preg_entry.$procmux$562_CMP0 ($eq).
+Removed top 3 bits (of 4) from port B of cell ct_rtu_pst_preg_entry.$procmux$563_CMP0 ($eq).
+Removed top 1 bits (of 5) from mux cell ct_rtu_pst_preg_entry.$procmux$614 ($mux).
+Removed top 2 bits (of 5) from mux cell ct_rtu_pst_preg_entry.$procmux$665 ($mux).
+Removed top 2 bits (of 5) from mux cell ct_rtu_pst_preg_entry.$procmux$677 ($mux).
+Removed top 3 bits (of 5) from mux cell ct_rtu_pst_preg_entry.$procmux$687 ($mux).
+Removed top 1 bits (of 5) from port B of cell ct_rtu_pst_preg_entry.$procmux$694_CMP0 ($eq).
+Removed top 2 bits (of 5) from port B of cell ct_rtu_pst_preg_entry.$procmux$695_CMP0 ($eq).
+Removed top 3 bits (of 5) from port B of cell ct_rtu_pst_preg_entry.$procmux$696_CMP0 ($eq).
+Removed top 4 bits (of 5) from port B of cell ct_rtu_pst_preg_entry.$procmux$697_CMP0 ($eq).
+Removed top 1 bits (of 5) from wire ct_rtu_pst_preg_entry.$8\lifecycle_next_state[4:0].
+Removed top 2 bits (of 5) from wire ct_rtu_pst_preg_entry.$4\lifecycle_next_state[4:0].
+Removed top 2 bits (of 5) from wire ct_rtu_pst_preg_entry.$3\lifecycle_next_state[4:0].
+Removed top 3 bits (of 5) from wire ct_rtu_pst_preg_entry.$2\lifecycle_next_state[4:0].
+Removed top 1 bits (of 5) from wire ct_rtu_pst_preg_entry.reset_lifecycle_state.
+Removed top 6 bits (of 7) from port B of cell ct_rtu_expand_96.$eq$ct_rtu_expand_96.v:37$37 ($eq).
+Removed top 5 bits (of 7) from port B of cell ct_rtu_expand_96.$eq$ct_rtu_expand_96.v:38$38 ($eq).
+Removed top 5 bits (of 7) from port B of cell ct_rtu_expand_96.$eq$ct_rtu_expand_96.v:39$39 ($eq).
+Removed top 4 bits (of 7) from port B of cell ct_rtu_expand_96.$eq$ct_rtu_expand_96.v:40$40 ($eq).
+Removed top 4 bits (of 7) from port B of cell ct_rtu_expand_96.$eq$ct_rtu_expand_96.v:41$41 ($eq).
+Removed top 4 bits (of 7) from port B of cell ct_rtu_expand_96.$eq$ct_rtu_expand_96.v:42$42 ($eq).
+Removed top 4 bits (of 7) from port B of cell ct_rtu_expand_96.$eq$ct_rtu_expand_96.v:43$43 ($eq).
+Removed top 3 bits (of 7) from port B of cell ct_rtu_expand_96.$eq$ct_rtu_expand_96.v:44$44 ($eq).
+Removed top 3 bits (of 7) from port B of cell ct_rtu_expand_96.$eq$ct_rtu_expand_96.v:45$45 ($eq).
+Removed top 3 bits (of 7) from port B of cell ct_rtu_expand_96.$eq$ct_rtu_expand_96.v:46$46 ($eq).
+Removed top 3 bits (of 7) from port B of cell ct_rtu_expand_96.$eq$ct_rtu_expand_96.v:47$47 ($eq).
+Removed top 3 bits (of 7) from port B of cell ct_rtu_expand_96.$eq$ct_rtu_expand_96.v:48$48 ($eq).
+Removed top 3 bits (of 7) from port B of cell ct_rtu_expand_96.$eq$ct_rtu_expand_96.v:49$49 ($eq).
+Removed top 3 bits (of 7) from port B of cell ct_rtu_expand_96.$eq$ct_rtu_expand_96.v:50$50 ($eq).
+Removed top 3 bits (of 7) from port B of cell ct_rtu_expand_96.$eq$ct_rtu_expand_96.v:51$51 ($eq).
+Removed top 2 bits (of 7) from port B of cell ct_rtu_expand_96.$eq$ct_rtu_expand_96.v:52$52 ($eq).
+Removed top 2 bits (of 7) from port B of cell ct_rtu_expand_96.$eq$ct_rtu_expand_96.v:53$53 ($eq).
+Removed top 2 bits (of 7) from port B of cell ct_rtu_expand_96.$eq$ct_rtu_expand_96.v:54$54 ($eq).
+Removed top 2 bits (of 7) from port B of cell ct_rtu_expand_96.$eq$ct_rtu_expand_96.v:55$55 ($eq).
+Removed top 2 bits (of 7) from port B of cell ct_rtu_expand_96.$eq$ct_rtu_expand_96.v:56$56 ($eq).
+Removed top 2 bits (of 7) from port B of cell ct_rtu_expand_96.$eq$ct_rtu_expand_96.v:57$57 ($eq).
+Removed top 2 bits (of 7) from port B of cell ct_rtu_expand_96.$eq$ct_rtu_expand_96.v:58$58 ($eq).
+Removed top 2 bits (of 7) from port B of cell ct_rtu_expand_96.$eq$ct_rtu_expand_96.v:59$59 ($eq).
+Removed top 2 bits (of 7) from port B of cell ct_rtu_expand_96.$eq$ct_rtu_expand_96.v:60$60 ($eq).
+Removed top 2 bits (of 7) from port B of cell ct_rtu_expand_96.$eq$ct_rtu_expand_96.v:61$61 ($eq).
+Removed top 2 bits (of 7) from port B of cell ct_rtu_expand_96.$eq$ct_rtu_expand_96.v:62$62 ($eq).
+Removed top 2 bits (of 7) from port B of cell ct_rtu_expand_96.$eq$ct_rtu_expand_96.v:63$63 ($eq).
+Removed top 2 bits (of 7) from port B of cell ct_rtu_expand_96.$eq$ct_rtu_expand_96.v:64$64 ($eq).
+Removed top 2 bits (of 7) from port B of cell ct_rtu_expand_96.$eq$ct_rtu_expand_96.v:65$65 ($eq).
+Removed top 2 bits (of 7) from port B of cell ct_rtu_expand_96.$eq$ct_rtu_expand_96.v:66$66 ($eq).
+Removed top 2 bits (of 7) from port B of cell ct_rtu_expand_96.$eq$ct_rtu_expand_96.v:67$67 ($eq).
+Removed top 1 bits (of 7) from port B of cell ct_rtu_expand_96.$eq$ct_rtu_expand_96.v:68$68 ($eq).
+Removed top 1 bits (of 7) from port B of cell ct_rtu_expand_96.$eq$ct_rtu_expand_96.v:69$69 ($eq).
+Removed top 1 bits (of 7) from port B of cell ct_rtu_expand_96.$eq$ct_rtu_expand_96.v:70$70 ($eq).
+Removed top 1 bits (of 7) from port B of cell ct_rtu_expand_96.$eq$ct_rtu_expand_96.v:71$71 ($eq).
+Removed top 1 bits (of 7) from port B of cell ct_rtu_expand_96.$eq$ct_rtu_expand_96.v:72$72 ($eq).
+Removed top 1 bits (of 7) from port B of cell ct_rtu_expand_96.$eq$ct_rtu_expand_96.v:73$73 ($eq).
+Removed top 1 bits (of 7) from port B of cell ct_rtu_expand_96.$eq$ct_rtu_expand_96.v:74$74 ($eq).
+Removed top 1 bits (of 7) from port B of cell ct_rtu_expand_96.$eq$ct_rtu_expand_96.v:75$75 ($eq).
+Removed top 1 bits (of 7) from port B of cell ct_rtu_expand_96.$eq$ct_rtu_expand_96.v:76$76 ($eq).
+Removed top 1 bits (of 7) from port B of cell ct_rtu_expand_96.$eq$ct_rtu_expand_96.v:77$77 ($eq).
+Removed top 1 bits (of 7) from port B of cell ct_rtu_expand_96.$eq$ct_rtu_expand_96.v:78$78 ($eq).
+Removed top 1 bits (of 7) from port B of cell ct_rtu_expand_96.$eq$ct_rtu_expand_96.v:79$79 ($eq).
+Removed top 1 bits (of 7) from port B of cell ct_rtu_expand_96.$eq$ct_rtu_expand_96.v:80$80 ($eq).
+Removed top 1 bits (of 7) from port B of cell ct_rtu_expand_96.$eq$ct_rtu_expand_96.v:81$81 ($eq).
+Removed top 1 bits (of 7) from port B of cell ct_rtu_expand_96.$eq$ct_rtu_expand_96.v:82$82 ($eq).
+Removed top 1 bits (of 7) from port B of cell ct_rtu_expand_96.$eq$ct_rtu_expand_96.v:83$83 ($eq).
+Removed top 1 bits (of 7) from port B of cell ct_rtu_expand_96.$eq$ct_rtu_expand_96.v:84$84 ($eq).
+Removed top 1 bits (of 7) from port B of cell ct_rtu_expand_96.$eq$ct_rtu_expand_96.v:85$85 ($eq).
+Removed top 1 bits (of 7) from port B of cell ct_rtu_expand_96.$eq$ct_rtu_expand_96.v:86$86 ($eq).
+Removed top 1 bits (of 7) from port B of cell ct_rtu_expand_96.$eq$ct_rtu_expand_96.v:87$87 ($eq).
+Removed top 1 bits (of 7) from port B of cell ct_rtu_expand_96.$eq$ct_rtu_expand_96.v:88$88 ($eq).
+Removed top 1 bits (of 7) from port B of cell ct_rtu_expand_96.$eq$ct_rtu_expand_96.v:89$89 ($eq).
+Removed top 1 bits (of 7) from port B of cell ct_rtu_expand_96.$eq$ct_rtu_expand_96.v:90$90 ($eq).
+Removed top 1 bits (of 7) from port B of cell ct_rtu_expand_96.$eq$ct_rtu_expand_96.v:91$91 ($eq).
+Removed top 1 bits (of 7) from port B of cell ct_rtu_expand_96.$eq$ct_rtu_expand_96.v:92$92 ($eq).
+Removed top 1 bits (of 7) from port B of cell ct_rtu_expand_96.$eq$ct_rtu_expand_96.v:93$93 ($eq).
+Removed top 1 bits (of 7) from port B of cell ct_rtu_expand_96.$eq$ct_rtu_expand_96.v:94$94 ($eq).
+Removed top 1 bits (of 7) from port B of cell ct_rtu_expand_96.$eq$ct_rtu_expand_96.v:95$95 ($eq).
+Removed top 1 bits (of 7) from port B of cell ct_rtu_expand_96.$eq$ct_rtu_expand_96.v:96$96 ($eq).
+Removed top 1 bits (of 7) from port B of cell ct_rtu_expand_96.$eq$ct_rtu_expand_96.v:97$97 ($eq).
+Removed top 1 bits (of 7) from port B of cell ct_rtu_expand_96.$eq$ct_rtu_expand_96.v:98$98 ($eq).
+Removed top 1 bits (of 7) from port B of cell ct_rtu_expand_96.$eq$ct_rtu_expand_96.v:99$99 ($eq).
+Removed top 4 bits (of 5) from port B of cell ct_rtu_expand_32.$eq$ct_rtu_expand_32.v:37$5 ($eq).
+Removed top 3 bits (of 5) from port B of cell ct_rtu_expand_32.$eq$ct_rtu_expand_32.v:38$6 ($eq).
+Removed top 3 bits (of 5) from port B of cell ct_rtu_expand_32.$eq$ct_rtu_expand_32.v:39$7 ($eq).
+Removed top 2 bits (of 5) from port B of cell ct_rtu_expand_32.$eq$ct_rtu_expand_32.v:40$8 ($eq).
+Removed top 2 bits (of 5) from port B of cell ct_rtu_expand_32.$eq$ct_rtu_expand_32.v:41$9 ($eq).
+Removed top 2 bits (of 5) from port B of cell ct_rtu_expand_32.$eq$ct_rtu_expand_32.v:42$10 ($eq).
+Removed top 2 bits (of 5) from port B of cell ct_rtu_expand_32.$eq$ct_rtu_expand_32.v:43$11 ($eq).
+Removed top 1 bits (of 5) from port B of cell ct_rtu_expand_32.$eq$ct_rtu_expand_32.v:44$12 ($eq).
+Removed top 1 bits (of 5) from port B of cell ct_rtu_expand_32.$eq$ct_rtu_expand_32.v:45$13 ($eq).
+Removed top 1 bits (of 5) from port B of cell ct_rtu_expand_32.$eq$ct_rtu_expand_32.v:46$14 ($eq).
+Removed top 1 bits (of 5) from port B of cell ct_rtu_expand_32.$eq$ct_rtu_expand_32.v:47$15 ($eq).
+Removed top 1 bits (of 5) from port B of cell ct_rtu_expand_32.$eq$ct_rtu_expand_32.v:48$16 ($eq).
+Removed top 1 bits (of 5) from port B of cell ct_rtu_expand_32.$eq$ct_rtu_expand_32.v:49$17 ($eq).
+Removed top 1 bits (of 5) from port B of cell ct_rtu_expand_32.$eq$ct_rtu_expand_32.v:50$18 ($eq).
+Removed top 1 bits (of 5) from port B of cell ct_rtu_expand_32.$eq$ct_rtu_expand_32.v:51$19 ($eq).
+
+7.9. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_rtu_pst_preg_entry_relation_dbg_ports_miter..
+Finding unused cells or wires in module \ct_rtu_pst_preg_entry_gate..
+Finding unused cells or wires in module \ct_rtu_pst_preg_entry..
+Finding unused cells or wires in module \ct_rtu_expand_96..
+Finding unused cells or wires in module \ct_rtu_expand_32..
+Finding unused cells or wires in module \gated_clk_cell..
+Removed 0 unused cells and 10 unused wires.
+<suppressed ~2 debug messages>
+
+7.10. Executing MEMORY_COLLECT pass (generating $mem cells).
+
+7.11. Executing OPT pass (performing simple optimizations).
+
+7.11.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_rtu_pst_preg_entry_relation_dbg_ports_miter.
+Optimizing module ct_rtu_pst_preg_entry_gate.
+Optimizing module ct_rtu_pst_preg_entry.
+Optimizing module ct_rtu_expand_96.
+Optimizing module ct_rtu_expand_32.
+Optimizing module gated_clk_cell.
+
+7.11.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_rtu_pst_preg_entry_relation_dbg_ports_miter'.
+Computing hashes of 51 cells of `\ct_rtu_pst_preg_entry_relation_dbg_ports_miter'.
+Finding duplicate cells in `\ct_rtu_pst_preg_entry_relation_dbg_ports_miter'.
+Finding identical cells in module `\ct_rtu_pst_preg_entry_gate'.
+Computing hashes of 101 cells of `\ct_rtu_pst_preg_entry_gate'.
+Finding duplicate cells in `\ct_rtu_pst_preg_entry_gate'.
+Finding identical cells in module `\ct_rtu_pst_preg_entry'.
+Computing hashes of 101 cells of `\ct_rtu_pst_preg_entry'.
+Finding duplicate cells in `\ct_rtu_pst_preg_entry'.
+Finding identical cells in module `\ct_rtu_expand_96'.
+Computing hashes of 96 cells of `\ct_rtu_expand_96'.
+Finding duplicate cells in `\ct_rtu_expand_96'.
+Finding identical cells in module `\ct_rtu_expand_32'.
+Computing hashes of 32 cells of `\ct_rtu_expand_32'.
+Finding duplicate cells in `\ct_rtu_expand_32'.
+Finding identical cells in module `\gated_clk_cell'.
+Computing hashes of 0 cells of `\gated_clk_cell'.
+Finding duplicate cells in `\gated_clk_cell'.
+Removed a total of 0 cells.
+
+7.11.3. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_rtu_pst_preg_entry_relation_dbg_ports_miter..
+Finding unused cells or wires in module \ct_rtu_pst_preg_entry_gate..
+Finding unused cells or wires in module \ct_rtu_pst_preg_entry..
+Finding unused cells or wires in module \ct_rtu_expand_96..
+Finding unused cells or wires in module \ct_rtu_expand_32..
+Finding unused cells or wires in module \gated_clk_cell..
+
+7.11.4. Finished fast OPT passes.
+
+7.12. Executing SORT pass.
+
+7.13. Printing statistics.
+
+=== ct_rtu_expand_32 ===
+
+        +----------Local Count, excluding submodules.
+        | 
+        2 wires
+       37 wire bits
+        2 public wires
+       37 public wire bits
+        2 ports
+       37 port bits
+       32 cells
+       31   $eq
+        1   $logic_not
+
+=== ct_rtu_expand_96 ===
+
+        +----------Local Count, excluding submodules.
+        | 
+        2 wires
+      103 wire bits
+        2 public wires
+      103 public wire bits
+        2 ports
+      103 port bits
+       96 cells
+       95   $eq
+        1   $logic_not
+
+=== ct_rtu_pst_preg_entry ===
+
+        +----------Local Count, excluding submodules.
+        | 
+      152 wires
+      624 wire bits
+       84 public wires
+      488 public wire bits
+       49 ports
+      284 port bits
+       97 cells
+        8   $adff
+        2   $and
+       12   $eq
+       16   $logic_and
+        2   $logic_not
+       19   $logic_or
+       31   $mux
+        1   $not
+        5   $pmux
+        1   $reduce_or
+        4 submodules
+        1   ct_rtu_expand_32
+        1   ct_rtu_expand_96
+        2   gated_clk_cell
+
+=== ct_rtu_pst_preg_entry_gate ===
+
+        +----------Local Count, excluding submodules.
+        | 
+      152 wires
+      609 wire bits
+       84 public wires
+      484 public wire bits
+       49 ports
+      283 port bits
+       97 cells
+        8   $adff
+        2   $and
+       11   $eq
+       16   $logic_and
+        3   $logic_not
+       19   $logic_or
+       31   $mux
+        1   $not
+        5   $pmux
+        1   $reduce_or
+        4 submodules
+        1   ct_rtu_expand_32
+        1   ct_rtu_expand_96
+        2   gated_clk_cell
+
+=== ct_rtu_pst_preg_entry_relation_dbg_ports_miter ===
+
+        +----------Local Count, excluding submodules.
+        | 
+      111 wires
+      518 wire bits
+       70 public wires
+      457 public wire bits
+       40 ports
+      129 port bits
+       49 cells
+        3   $and
+        1   $check
+       16   $eq
+       16   $logic_and
+        5   $logic_not
+        3   $logic_or
+        1   $mux
+        1   $reduce_bool
+        3   $sub
+        2 submodules
+        1   ct_rtu_pst_preg_entry
+        1   ct_rtu_pst_preg_entry_gate
+
+=== gated_clk_cell ===
+
+        +----------Local Count, excluding submodules.
+        | 
+        8 wires
+        8 wire bits
+        8 public wires
+        8 public wire bits
+        7 ports
+        7 port bits
+
+=== design hierarchy ===
+
+        +----------Count including submodules.
+        | 
+      499 ct_rtu_pst_preg_entry_relation_dbg_ports_miter
+       97 ct_rtu_pst_preg_entry
+       32   ct_rtu_expand_32
+       96   ct_rtu_expand_96
+       97 ct_rtu_pst_preg_entry_gate
+       32   ct_rtu_expand_32
+       96   ct_rtu_expand_96
+
+        +----------Count including submodules.
+        | 
+      455 wires
+     2063 wire bits
+      278 public wires
+     1741 public wire bits
+      174 ports
+     1004 port bits
+        - memories
+        - memory bits
+        - processes
+      499 cells
+       16   $adff
+        7   $and
+        1   $check
+      291   $eq
+       48   $logic_and
+       14   $logic_not
+       41   $logic_or
+       63   $mux
+        2   $not
+       10   $pmux
+        1   $reduce_bool
+        2   $reduce_or
+        3   $sub
+        2 submodules
+        1   ct_rtu_pst_preg_entry
+        1   ct_rtu_pst_preg_entry_gate
+
+7.14. Executing CHECK pass (checking for obvious problems).
+Checking module ct_rtu_expand_32...
+Checking module ct_rtu_expand_96...
+Checking module ct_rtu_pst_preg_entry...
+Checking module ct_rtu_pst_preg_entry_gate...
+Checking module ct_rtu_pst_preg_entry_relation_dbg_ports_miter...
+Checking module gated_clk_cell...
+Found and reported 0 problems.
+
+8. Executing FLATTEN pass (flatten design).
+Deleting now unused module ct_rtu_expand_32.
+Deleting now unused module ct_rtu_expand_96.
+Deleting now unused module ct_rtu_pst_preg_entry.
+Deleting now unused module ct_rtu_pst_preg_entry_gate.
+Deleting now unused module gated_clk_cell.
+<suppressed ~10 debug messages>
+
+9. Executing ASYNC2SYNC pass.
+Replacing ct_rtu_pst_preg_entry_relation_dbg_ports_miter.$flatten\gate.$procdff$740 ($adff): ARST=\gate.cpurst_b, D=$flatten\gate.$0\lifecycle_cur_state[3:0], Q=\gate.lifecycle_cur_state
+Replacing ct_rtu_pst_preg_entry_relation_dbg_ports_miter.$flatten\gate.$procdff$735 ($adff): ARST=\gate.cpurst_b, D=$flatten\gate.$0\wb_cur_state[0:0], Q=\gate.wb_cur_state
+Replacing ct_rtu_pst_preg_entry_relation_dbg_ports_miter.$flatten\gate.$procdff$730 ($adff): ARST=\gate.cpurst_b, D=$flatten\gate.$0\rel_preg[6:0], Q=\gate.rel_preg
+Replacing ct_rtu_pst_preg_entry_relation_dbg_ports_miter.$flatten\gate.$procdff$725 ($adff): ARST=\gate.cpurst_b, D=$flatten\gate.$0\iid[6:0], Q=\gate.iid
+Replacing ct_rtu_pst_preg_entry_relation_dbg_ports_miter.$flatten\gate.$procdff$720 ($adff): ARST=\gate.cpurst_b, D=$flatten\gate.$0\dst_reg[4:0], Q=\gate.dst_reg
+Replacing ct_rtu_pst_preg_entry_relation_dbg_ports_miter.$flatten\gate.$procdff$715 ($adff): ARST=\gate.cpurst_b, D=$flatten\gate.$0\retire_inst0_iid_match[0:0], Q=\gate.retire_inst0_iid_match
+Replacing ct_rtu_pst_preg_entry_relation_dbg_ports_miter.$flatten\gate.$procdff$710 ($adff): ARST=\gate.cpurst_b, D=$flatten\gate.$0\retire_inst1_iid_match[0:0], Q=\gate.retire_inst1_iid_match
+Replacing ct_rtu_pst_preg_entry_relation_dbg_ports_miter.$flatten\gate.$procdff$705 ($adff): ARST=\gate.cpurst_b, D=$flatten\gate.$0\retire_inst2_iid_match[0:0], Q=\gate.retire_inst2_iid_match
+Replacing ct_rtu_pst_preg_entry_relation_dbg_ports_miter.$flatten\gold.$procdff$780 ($adff): ARST=\gold.cpurst_b, D=$flatten\gold.$0\lifecycle_cur_state[4:0], Q=\gold.lifecycle_cur_state
+Replacing ct_rtu_pst_preg_entry_relation_dbg_ports_miter.$flatten\gold.$procdff$775 ($adff): ARST=\gold.cpurst_b, D=$flatten\gold.$0\wb_cur_state[0:0], Q=\gold.wb_cur_state
+Replacing ct_rtu_pst_preg_entry_relation_dbg_ports_miter.$flatten\gold.$procdff$770 ($adff): ARST=\gold.cpurst_b, D=$flatten\gold.$0\rel_preg[6:0], Q=\gold.rel_preg
+Replacing ct_rtu_pst_preg_entry_relation_dbg_ports_miter.$flatten\gold.$procdff$765 ($adff): ARST=\gold.cpurst_b, D=$flatten\gold.$0\iid[6:0], Q=\gold.iid
+Replacing ct_rtu_pst_preg_entry_relation_dbg_ports_miter.$flatten\gold.$procdff$760 ($adff): ARST=\gold.cpurst_b, D=$flatten\gold.$0\dst_reg[4:0], Q=\gold.dst_reg
+Replacing ct_rtu_pst_preg_entry_relation_dbg_ports_miter.$flatten\gold.$procdff$755 ($adff): ARST=\gold.cpurst_b, D=$flatten\gold.$0\retire_inst0_iid_match[0:0], Q=\gold.retire_inst0_iid_match
+Replacing ct_rtu_pst_preg_entry_relation_dbg_ports_miter.$flatten\gold.$procdff$750 ($adff): ARST=\gold.cpurst_b, D=$flatten\gold.$0\retire_inst1_iid_match[0:0], Q=\gold.retire_inst1_iid_match
+Replacing ct_rtu_pst_preg_entry_relation_dbg_ports_miter.$flatten\gold.$procdff$745 ($adff): ARST=\gold.cpurst_b, D=$flatten\gold.$0\retire_inst2_iid_match[0:0], Q=\gold.retire_inst2_iid_match
+
+10. Executing DFFUNMAP pass (unmap clock enable and synchronous reset from FFs).
+
+11. Executing OPT pass (performing simple optimizations).
+
+11.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_rtu_pst_preg_entry_relation_dbg_ports_miter.
+
+11.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_rtu_pst_preg_entry_relation_dbg_ports_miter'.
+Computing hashes of 543 cells of `\ct_rtu_pst_preg_entry_relation_dbg_ports_miter'.
+Finding duplicate cells in `\ct_rtu_pst_preg_entry_relation_dbg_ports_miter'.
+Computing hashes of 532 cells of `\ct_rtu_pst_preg_entry_relation_dbg_ports_miter'.
+Finding duplicate cells in `\ct_rtu_pst_preg_entry_relation_dbg_ports_miter'.
+Computing hashes of 527 cells of `\ct_rtu_pst_preg_entry_relation_dbg_ports_miter'.
+Finding duplicate cells in `\ct_rtu_pst_preg_entry_relation_dbg_ports_miter'.
+<suppressed ~48 debug messages>
+Removed a total of 16 cells.
+
+11.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \ct_rtu_pst_preg_entry_relation_dbg_ports_miter..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~140 debug messages>
+
+11.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \ct_rtu_pst_preg_entry_relation_dbg_ports_miter.
+Performed a total of 0 changes.
+
+11.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_rtu_pst_preg_entry_relation_dbg_ports_miter'.
+Computing hashes of 527 cells of `\ct_rtu_pst_preg_entry_relation_dbg_ports_miter'.
+Finding duplicate cells in `\ct_rtu_pst_preg_entry_relation_dbg_ports_miter'.
+Computing hashes of 522 cells of `\ct_rtu_pst_preg_entry_relation_dbg_ports_miter'.
+Finding duplicate cells in `\ct_rtu_pst_preg_entry_relation_dbg_ports_miter'.
+<suppressed ~15 debug messages>
+Removed a total of 5 cells.
+
+11.6. Executing OPT_DFF pass (perform DFF optimizations).
+Adding SRST signal on $flatten\gold.$procdff$770 ($dff) from module ct_rtu_pst_preg_entry_relation_dbg_ports_miter (D = $flatten\gold.$procmux$529_Y, Q = $auto$async2sync.cc:253:execute$821, rval = 7'0000000).
+Adding SRST signal on $flatten\gold.$procdff$745 ($dff) from module ct_rtu_pst_preg_entry_relation_dbg_ports_miter (D = $flatten\gold.$procmux$511_Y, Q = $auto$async2sync.cc:253:execute$831, rval = 1'0).
+Adding SRST signal on $flatten\gold.$procdff$775 ($dff) from module ct_rtu_pst_preg_entry_relation_dbg_ports_miter (D = $flatten\gold.$0\wb_cur_state[0:0], Q = $auto$async2sync.cc:253:execute$819, rval = 1'0).
+Adding SRST signal on $flatten\gold.$procdff$780 ($dff) from module ct_rtu_pst_preg_entry_relation_dbg_ports_miter (D = \gold.lifecycle_next_state [4], Q = $auto$async2sync.cc:253:execute$817 [4], rval = 1'0).
+Adding SRST signal on $flatten\gold.$procdff$780 ($dff) from module ct_rtu_pst_preg_entry_relation_dbg_ports_miter (D = $flatten\gold.$0\lifecycle_cur_state[4:0] [3:0], Q = $auto$async2sync.cc:253:execute$817 [3:0], rval = 4'0001).
+Adding SRST signal on $flatten\gate.$procdff$705 ($dff) from module ct_rtu_pst_preg_entry_relation_dbg_ports_miter (D = $flatten\gate.$procmux$320_Y, Q = $auto$async2sync.cc:253:execute$815, rval = 1'0).
+Adding SRST signal on $flatten\gold.$procdff$750 ($dff) from module ct_rtu_pst_preg_entry_relation_dbg_ports_miter (D = $flatten\gold.$procmux$517_Y, Q = $auto$async2sync.cc:253:execute$829, rval = 1'0).
+Adding SRST signal on $flatten\gold.$procdff$755 ($dff) from module ct_rtu_pst_preg_entry_relation_dbg_ports_miter (D = $flatten\gold.$procmux$523_Y, Q = $auto$async2sync.cc:253:execute$827, rval = 1'0).
+Adding SRST signal on $flatten\gate.$procdff$710 ($dff) from module ct_rtu_pst_preg_entry_relation_dbg_ports_miter (D = $flatten\gate.$procmux$326_Y, Q = $auto$async2sync.cc:253:execute$813, rval = 1'0).
+Adding SRST signal on $flatten\gold.$procdff$760 ($dff) from module ct_rtu_pst_preg_entry_relation_dbg_ports_miter (D = $flatten\gold.$0\dst_reg[4:0], Q = $auto$async2sync.cc:253:execute$825, rval = 5'00000).
+Adding SRST signal on $flatten\gate.$procdff$715 ($dff) from module ct_rtu_pst_preg_entry_relation_dbg_ports_miter (D = $flatten\gate.$procmux$332_Y, Q = $auto$async2sync.cc:253:execute$811, rval = 1'0).
+Adding SRST signal on $flatten\gold.$procdff$765 ($dff) from module ct_rtu_pst_preg_entry_relation_dbg_ports_miter (D = $flatten\gold.$procmux$541_Y, Q = $auto$async2sync.cc:253:execute$823, rval = 7'0000000).
+Adding SRST signal on $flatten\gate.$procdff$720 ($dff) from module ct_rtu_pst_preg_entry_relation_dbg_ports_miter (D = $flatten\gate.$0\dst_reg[4:0], Q = $auto$async2sync.cc:253:execute$809, rval = 5'00000).
+Adding SRST signal on $flatten\gate.$procdff$725 ($dff) from module ct_rtu_pst_preg_entry_relation_dbg_ports_miter (D = $flatten\gate.$procmux$350_Y, Q = $auto$async2sync.cc:253:execute$807, rval = 7'0000000).
+Adding SRST signal on $flatten\gate.$procdff$730 ($dff) from module ct_rtu_pst_preg_entry_relation_dbg_ports_miter (D = $flatten\gate.$procmux$338_Y, Q = $auto$async2sync.cc:253:execute$805, rval = 7'0000000).
+Adding SRST signal on $flatten\gate.$procdff$735 ($dff) from module ct_rtu_pst_preg_entry_relation_dbg_ports_miter (D = $flatten\gate.$0\wb_cur_state[0:0], Q = $auto$async2sync.cc:253:execute$803, rval = 1'0).
+Adding SRST signal on $flatten\gate.$procdff$740 ($dff) from module ct_rtu_pst_preg_entry_relation_dbg_ports_miter (D = $flatten\gate.$0\lifecycle_cur_state[3:0] [2:0], Q = $auto$async2sync.cc:253:execute$801 [2:0], rval = 3'001).
+Adding SRST signal on $flatten\gate.$procdff$740 ($dff) from module ct_rtu_pst_preg_entry_relation_dbg_ports_miter (D = \gate.lifecycle_next_state [3], Q = $auto$async2sync.cc:253:execute$801 [3], rval = 1'0).
+
+11.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_rtu_pst_preg_entry_relation_dbg_ports_miter..
+Removed 63 unused cells and 83 unused wires.
+<suppressed ~76 debug messages>
+
+11.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_rtu_pst_preg_entry_relation_dbg_ports_miter.
+
+11.9. Rerunning OPT passes. (Maybe there is more to do..)
+
+11.10. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \ct_rtu_pst_preg_entry_relation_dbg_ports_miter..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~126 debug messages>
+
+11.11. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \ct_rtu_pst_preg_entry_relation_dbg_ports_miter.
+Performed a total of 0 changes.
+
+11.12. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_rtu_pst_preg_entry_relation_dbg_ports_miter'.
+Computing hashes of 485 cells of `\ct_rtu_pst_preg_entry_relation_dbg_ports_miter'.
+Finding duplicate cells in `\ct_rtu_pst_preg_entry_relation_dbg_ports_miter'.
+Computing hashes of 474 cells of `\ct_rtu_pst_preg_entry_relation_dbg_ports_miter'.
+Finding duplicate cells in `\ct_rtu_pst_preg_entry_relation_dbg_ports_miter'.
+Computing hashes of 463 cells of `\ct_rtu_pst_preg_entry_relation_dbg_ports_miter'.
+Finding duplicate cells in `\ct_rtu_pst_preg_entry_relation_dbg_ports_miter'.
+<suppressed ~66 debug messages>
+Removed a total of 22 cells.
+
+11.13. Executing OPT_DFF pass (perform DFF optimizations).
+
+11.14. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_rtu_pst_preg_entry_relation_dbg_ports_miter..
+Removed 0 unused cells and 22 unused wires.
+<suppressed ~1 debug messages>
+
+11.15. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_rtu_pst_preg_entry_relation_dbg_ports_miter.
+
+11.16. Rerunning OPT passes. (Maybe there is more to do..)
+
+11.17. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \ct_rtu_pst_preg_entry_relation_dbg_ports_miter..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~126 debug messages>
+
+11.18. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \ct_rtu_pst_preg_entry_relation_dbg_ports_miter.
+Performed a total of 0 changes.
+
+11.19. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_rtu_pst_preg_entry_relation_dbg_ports_miter'.
+Computing hashes of 463 cells of `\ct_rtu_pst_preg_entry_relation_dbg_ports_miter'.
+Finding duplicate cells in `\ct_rtu_pst_preg_entry_relation_dbg_ports_miter'.
+Removed a total of 0 cells.
+
+11.20. Executing OPT_DFF pass (perform DFF optimizations).
+
+11.21. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_rtu_pst_preg_entry_relation_dbg_ports_miter..
+
+11.22. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_rtu_pst_preg_entry_relation_dbg_ports_miter.
+
+11.23. Finished fast OPT passes. (There is nothing left to do.)
+
+12. Executing SAT pass (solving SAT problems in the circuit).
+Using SAT solver `minisat`.
+
+Setting up time step 1:
+Import set-constraint: \forever_cpuclk = 1'1
+Import set-constraint: \cp0_yy_clk_en = 1'1
+Import set-constraint: \cp0_rtu_icg_en = 1'1
+Import set-constraint: \pad_yy_icg_scan_en = 1'0
+Import set-constraint for this timestep: \cpurst_b = 1'0
+Final constraint equation: { \cpurst_b \pad_yy_icg_scan_en \cp0_rtu_icg_en \cp0_yy_clk_en \forever_cpuclk } = 5'00111
+Imported 463 cells to SAT database.
+No constraints for initial state found.
+
+
+Setting up time step 2:
+Import set-constraint: \forever_cpuclk = 1'1
+Import set-constraint: \cp0_yy_clk_en = 1'1
+Import set-constraint: \cp0_rtu_icg_en = 1'1
+Import set-constraint: \pad_yy_icg_scan_en = 1'0
+Import set-constraint for this timestep: \cpurst_b = 1'1
+Final constraint equation: { \cpurst_b \pad_yy_icg_scan_en \cp0_rtu_icg_en \cp0_yy_clk_en \forever_cpuclk } = 5'10111
+Imported 463 cells to SAT database.
+
+Setting up time step 3:
+Import set-constraint: \forever_cpuclk = 1'1
+Import set-constraint: \cp0_yy_clk_en = 1'1
+Import set-constraint: \cp0_rtu_icg_en = 1'1
+Import set-constraint: \pad_yy_icg_scan_en = 1'0
+Final constraint equation: { \pad_yy_icg_scan_en \cp0_rtu_icg_en \cp0_yy_clk_en \forever_cpuclk } = 4'0111
+Imported 463 cells to SAT database.
+
+Setting up time step 4:
+Import set-constraint: \forever_cpuclk = 1'1
+Import set-constraint: \cp0_yy_clk_en = 1'1
+Import set-constraint: \cp0_rtu_icg_en = 1'1
+Import set-constraint: \pad_yy_icg_scan_en = 1'0
+Final constraint equation: { \pad_yy_icg_scan_en \cp0_rtu_icg_en \cp0_yy_clk_en \forever_cpuclk } = 4'0111
+Imported 463 cells to SAT database.
+
+Setting up time step 5:
+Import set-constraint: \forever_cpuclk = 1'1
+Import set-constraint: \cp0_yy_clk_en = 1'1
+Import set-constraint: \cp0_rtu_icg_en = 1'1
+Import set-constraint: \pad_yy_icg_scan_en = 1'0
+Final constraint equation: { \pad_yy_icg_scan_en \cp0_rtu_icg_en \cp0_yy_clk_en \forever_cpuclk } = 4'0111
+Imported 463 cells to SAT database.
+
+Setting up time step 6:
+Import set-constraint: \forever_cpuclk = 1'1
+Import set-constraint: \cp0_yy_clk_en = 1'1
+Import set-constraint: \cp0_rtu_icg_en = 1'1
+Import set-constraint: \pad_yy_icg_scan_en = 1'0
+Final constraint equation: { \pad_yy_icg_scan_en \cp0_rtu_icg_en \cp0_yy_clk_en \forever_cpuclk } = 4'0111
+Imported 463 cells to SAT database.
+
+Setting up time step 7:
+Import set-constraint: \forever_cpuclk = 1'1
+Import set-constraint: \cp0_yy_clk_en = 1'1
+Import set-constraint: \cp0_rtu_icg_en = 1'1
+Import set-constraint: \pad_yy_icg_scan_en = 1'0
+Final constraint equation: { \pad_yy_icg_scan_en \cp0_rtu_icg_en \cp0_yy_clk_en \forever_cpuclk } = 4'0111
+Imported 463 cells to SAT database.
+
+Setting up time step 8:
+Import set-constraint: \forever_cpuclk = 1'1
+Import set-constraint: \cp0_yy_clk_en = 1'1
+Import set-constraint: \cp0_rtu_icg_en = 1'1
+Import set-constraint: \pad_yy_icg_scan_en = 1'0
+Final constraint equation: { \pad_yy_icg_scan_en \cp0_rtu_icg_en \cp0_yy_clk_en \forever_cpuclk } = 4'0111
+Imported 463 cells to SAT database.
+
+Setting up time step 1:
+Import set-constraint: \forever_cpuclk = 1'1
+Import set-constraint: \cp0_yy_clk_en = 1'1
+Import set-constraint: \cp0_rtu_icg_en = 1'1
+Import set-constraint: \pad_yy_icg_scan_en = 1'0
+Final constraint equation: { \pad_yy_icg_scan_en \cp0_rtu_icg_en \cp0_yy_clk_en \forever_cpuclk } = 4'0111
+Imported 463 cells to SAT database.
+Import proof-constraint: \ok_life = 1'1
+Import proof-constraint: \ok_storage = 1'1
+Import proof-constraint: \ok_outputs = 1'1
+Final proof equation: { \ok_outputs \ok_storage \ok_life } = 3'111
+
+** Trying induction with length 1 **
+
+Setting up time step 9:
+Import set-constraint: \forever_cpuclk = 1'1
+Import set-constraint: \cp0_yy_clk_en = 1'1
+Import set-constraint: \cp0_rtu_icg_en = 1'1
+Import set-constraint: \pad_yy_icg_scan_en = 1'0
+Final constraint equation: { \pad_yy_icg_scan_en \cp0_rtu_icg_en \cp0_yy_clk_en \forever_cpuclk } = 4'0111
+Imported 463 cells to SAT database.
+Import proof-constraint: \ok_life = 1'1
+Import proof-constraint: \ok_storage = 1'1
+Import proof-constraint: \ok_outputs = 1'1
+Final proof equation: { \ok_outputs \ok_storage \ok_life } = 3'111
+
+[base case 1] Solving problem with 54745 variables and 156393 clauses..
+Base case for induction length 1 proven.
+
+Setting up time step 2:
+Import set-constraint: \forever_cpuclk = 1'1
+Import set-constraint: \cp0_yy_clk_en = 1'1
+Import set-constraint: \cp0_rtu_icg_en = 1'1
+Import set-constraint: \pad_yy_icg_scan_en = 1'0
+Final constraint equation: { \pad_yy_icg_scan_en \cp0_rtu_icg_en \cp0_yy_clk_en \forever_cpuclk } = 4'0111
+Imported 463 cells to SAT database.
+Import proof-constraint: \ok_life = 1'1
+Import proof-constraint: \ok_storage = 1'1
+Import proof-constraint: \ok_outputs = 1'1
+Final proof equation: { \ok_outputs \ok_storage \ok_life } = 3'111
+
+[induction step 1] Solving problem with 11958 variables and 34088 clauses..
+Induction step proven: SUCCESS!
+
+                  /$$$$$$      /$$$$$$$$     /$$$$$$$    
+                 /$$__  $$    | $$_____/    | $$__  $$   
+                | $$  \ $$    | $$          | $$  \ $$   
+                | $$  | $$    | $$$$$       | $$  | $$   
+                | $$  | $$    | $$__/       | $$  | $$   
+                | $$/$$ $$    | $$          | $$  | $$   
+                |  $$$$$$/ /$$| $$$$$$$$ /$$| $$$$$$$//$$
+                 \____ $$$|__/|________/|__/|_______/|__/
+                       \__/                              
+
+End of script. Logfile hash: 533d58cb9c, time: 0.83s, user: 0.81s, system: 0.04s, MEM: 71.90 MB peak
+Yosys 0.66+181 (git sha1 afe6b18f2, Release, Clang /usr/bin/clang++ 18.1.8)
+Time spent: 87% 1x sat (0 sec), 3% 7x read_verilog (0 sec), ...
