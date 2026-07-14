@@ -1,6 +1,6 @@
 {
   "schema": "athanor.same_candidate_metric_binding.v1",
-  "status": "candidate_pending_independent_review",
+  "status": "candidate_independent_replay_cleared_pending_promotion",
   "candidate": {
     "candidate_sha256": "e6cbb7c5e95ed80fc01516f642b49091fdf6024966c7b71d1fce4834d99fc81d",
     "mapped_netlist_sha256": "ddeed61b5de195fbdcb83aea42644d8c2adf97548730d839da1b1ff4e78b8b87",
@@ -83,5 +83,6 @@
         "log_ref": "metric_negative_opensta_area_timing_power.pinned.log"
       }
     }
-  }
+  },
+  "independent_review_summary": "Ronald and Quan independent replay cleared on PR #8 and routed main 5197483; customer_ready remains false pending promotion wording."
 }
