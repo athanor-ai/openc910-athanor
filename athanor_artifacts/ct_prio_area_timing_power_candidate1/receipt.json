@@ -176,5 +176,14 @@
         "area, timing, and OpenSTA estimated-power axes bound to the same mapped netlist and selected flow"
       ]
     }
+  },
+  "lean_fallback": {
+    "reason": "no discharged Lean theorem binds THIS candidate netlist; the Pythia discharged theorems are FifoWidget toy pilots, none bind a real C910 candidate. Graduation to lean_authority = ATH-2976 debt: discharge a Lean refinement SHA-bound to this candidate.",
+    "strongest_evidence": "Yosys visible_output_temporal_induction (sel[1:0] output equivalence closes under reset-first) + biting mutant control; same-candidate-bound Sky130 area + OpenSTA max data-arrival + OpenSTA estimated power",
+    "scope_boundary": "visible-output temporal-induction equivalence under a documented reset-first assumption, module-local ct_prio arbiter",
+    "candidate_binding": {
+      "gold_sha256": "2cd7d0e3350c6e4e3df90953570ed95915d6b38e3398ede956df0be321eb6865",
+      "gate_sha256": "d87e69e67ca406bc7f0ba9cecca80a466c1b8f95ca0de36e04da37f817240ff1"
+    }
   }
 }
