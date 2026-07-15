@@ -2,6 +2,15 @@
 
 This artifact records a module-local proof/optimization packet for the PULP C910 `ct_fifo` module.
 
+## Customer Read
+
+This package is customer-ready only for the scoped `ct_fifo` visible-output
+equivalence receipt in `receipt.json`. It is not a promoted area/timing/power
+result row: `metric_screen_receipt.json` is deliberately
+`customer_ready=false` because the same candidate improves area and estimated
+power but regresses OpenSTA max data-arrival. Treat this packet as a replayable
+proof artifact plus a metric hard negative, not as a FIFO optimization win.
+
 ## Result
 
 | item | status |
