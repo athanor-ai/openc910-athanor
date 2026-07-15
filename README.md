@@ -7,13 +7,22 @@ Can Athanor/Kairos find RTL optimizations on out-of-order CPU structures, bind
 the exact candidate to area/timing/power measurements, and prove the scoped
 behavior did not change?
 
-The public answer today is three receipt-complete OoO control-block wins: each
-has area, OpenSTA max data-arrival, OpenSTA estimated power, replayable proof,
-and negative controls bound to the same candidate. The next bar is a subsystem
-win, not a fourth isolated block: compose repeated entries, score the composed
-netlist directly, and close the proof with a reusable relation or Lean
-invariant. The table below is the promoted result set; anything outside it is a
-candidate, denominator, or product-learning artifact.
+Public read in 30 seconds:
+
+- Promoted results: three OoO control-block wins, each with area, OpenSTA max
+  data-arrival, OpenSTA estimated power, replayable proof, and negative controls
+  bound to the same candidate.
+- Candidate scouts: LSU queue/control candidates now include positive screens
+  and hard negatives; none becomes a result row until independent replay closes
+  the full bar.
+- Gate discipline: proof-clean and area-positive is not enough. FIFO, ROB, RTU
+  parent lifts, and LSU create-pointer scouts are rejected when the exact
+  candidate netlist regresses timing.
+- Next bar: a subsystem win, measured on the composed parent netlist and closed
+  with a reusable relation or Lean invariant.
+
+The table below is the promoted result set; anything outside it is a candidate,
+denominator, or product-learning artifact.
 
 ## Executive Scoreboard
 
@@ -69,6 +78,8 @@ metric results because the multi-axis bar above is not closed.
 | `ct_rtu_rob_entry` | Candidate packet | Same-state equivalence and area screening are positive, but metric promotion was rejected by OpenSTA timing regression; it remains a hard-negative / learning packet | [`athanor_artifacts/rtu_rob_entry_candidate1/`](athanor_artifacts/rtu_rob_entry_candidate1/) |
 | `ct_lsu_vb` | Candidate metric scout | Same-candidate area, OpenSTA max data-arrival, and OpenSTA estimated power all improve, with a reset-first output miter and biting proof mutant; pending non-author replay before any result-row discussion | [`athanor_artifacts/ct_lsu_vb_area_timing_power_candidate1/`](athanor_artifacts/ct_lsu_vb_area_timing_power_candidate1/) |
 | `ct_lsu_rb` | Candidate metric scout | Same-candidate area, OpenSTA max data-arrival, WNS, and OpenSTA estimated power all improve under a two-clock package SDC, with same-state equivalence and a biting proof mutant; pending non-author replay before any result-row discussion | [`athanor_artifacts/ct_lsu_rb_area_timing_power_candidate1/`](athanor_artifacts/ct_lsu_rb_area_timing_power_candidate1/) |
+| LSU load/store data-control rotate decoders | Low-value positive scout | `ct_lsu_ld_dc` and `ct_lsu_st_dc` one-hot rotate-selector rewrites are proof-clean and non-regressing across all measured axes, but the gains are too small to stand alone as an architect-facing result; useful only as part of a broader decode-cleanup packet | [`athanor_artifacts/TARGET_ATLAS.md`](athanor_artifacts/TARGET_ATLAS.md) |
+| LSU empty-slot create-pointer rewrites | Hard-negative scouts | `ct_lsu_lq` and `ct_lsu_sq` prove clean and improve area, but OpenSTA max data-arrival regresses, so the transform family is rejected for promotion | [`athanor_artifacts/KAIROS_GAP_LEDGER.md`](athanor_artifacts/KAIROS_GAP_LEDGER.md) |
 | `ct_rtu_pst_vreg` parent lift | Scout only | Replacing all 64 vreg entries improves parent area but regresses parent max data-arrival. It needs ATH-2971 compositional proof plus direct parent metric closure | [`athanor_artifacts/KAIROS_GAP_LEDGER.md`](athanor_artifacts/KAIROS_GAP_LEDGER.md) |
 
 ## Evidence Bar
