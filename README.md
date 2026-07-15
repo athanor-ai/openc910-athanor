@@ -65,7 +65,7 @@ metric results because the multi-axis bar above is not closed.
 
 | Target | Status | Why it is not in the scoreboard | Artifact |
 | --- | --- | --- | --- |
-| `ct_fifo` | Accepted module-local proof packet | Visible-output relation proof is replayable and non-vacuous, but same-candidate timing/power metric closure is still required before it becomes a result row | [`athanor_artifacts/ct_fifo/`](athanor_artifacts/ct_fifo/) |
+| `ct_fifo` | Accepted module-local proof packet; metric hard negative | Visible-output relation proof is replayable and non-vacuous. Same-candidate metrics are measured: area improves and OpenSTA estimated power improves, but OpenSTA max data-arrival regresses `1.02 ns -> 1.14 ns`, so it is not a result row | [`athanor_artifacts/ct_fifo/`](athanor_artifacts/ct_fifo/) |
 | `ct_rtu_rob_entry` | Candidate packet | Same-state equivalence and area screening are positive, but metric promotion was rejected by OpenSTA timing regression; it remains a hard-negative / learning packet | [`athanor_artifacts/rtu_rob_entry_candidate1/`](athanor_artifacts/rtu_rob_entry_candidate1/) |
 | `ct_lsu_vb` | Candidate metric scout | Same-candidate area, OpenSTA max data-arrival, and OpenSTA estimated power all improve, with a reset-first output miter and biting proof mutant; pending non-author replay before any result-row discussion | [`athanor_artifacts/ct_lsu_vb_area_timing_power_candidate1/`](athanor_artifacts/ct_lsu_vb_area_timing_power_candidate1/) |
 | `ct_lsu_rb` | Candidate metric scout | Same-candidate area, OpenSTA max data-arrival, WNS, and OpenSTA estimated power all improve under a two-clock package SDC, with same-state equivalence and a biting proof mutant; pending non-author replay before any result-row discussion | [`athanor_artifacts/ct_lsu_rb_area_timing_power_candidate1/`](athanor_artifacts/ct_lsu_rb_area_timing_power_candidate1/) |
@@ -106,7 +106,7 @@ theorem-level mutant or weakened-invariant check that fails.
 
 | Subsystem | Next target | Needed receipt |
 | --- | --- | --- |
-| CIU FIFO | `ct_fifo` | Same-candidate area/timing/power metric packet bound to the existing relation proof |
+| CIU FIFO | `ct_fifo` | Metric screen closed as hard negative; next FIFO work needs a different candidate or a candidate-bound Lean refinement, not promotion of the current timing-regressing candidate |
 | RTU ROB | `ct_rtu_rob_entry`, then `ct_rtu_rob` | Timing-safe candidate or hard negative; ROB commit-order invariant before whole-ROB wording |
 | RTU physical status | `ct_rtu_pst_preg`, `ct_rtu_pst_vreg` | Entry-to-parent composition proof and parent-level metric closure |
 | IDU issue/dependency | `ct_idu_is_lsiq_entry`, AIQ entries | Issue wakeup/select and age-order invariant candidates |

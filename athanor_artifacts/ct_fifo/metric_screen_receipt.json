@@ -1,0 +1,67 @@
+{
+  "schema": "athanor.metric_screen.hard_negative.v1",
+  "status": "full_metric_promotion_rejected",
+  "customer_ready": false,
+  "customer_ready_scope": "none; metric screen only, proof packet remains scoped in receipt.json",
+  "candidate": {
+    "candidate_sha256": "4529573b40c666018ed97df1280dee82df2b3aea7fb327963ed492ba5d844006",
+    "mapped_netlist_sha256": "fb6019b57e44534743f0106e3cab3718c76a34dec860383f40561dc59a1d7865",
+    "selected_flow": "yosys66_sky130_synth_dfflibmap_abc_opensta_contract_v1"
+  },
+  "axes": {
+    "area": {
+      "instrument": "yosys_stat_liberty",
+      "instrument_version": "Yosys 0.66+181 (git sha1 afe6b18f2, Release, Clang /usr/bin/clang++ 18.1.8)",
+      "metric": {
+        "gold": 711.9328,
+        "gate": 678.1504,
+        "unit": "sky130_selected_area"
+      },
+      "interpretation": "lower selected area",
+      "log_refs": [
+        "gold_sky130.pinned.log",
+        "gate_sky130.pinned.log"
+      ]
+    },
+    "timing": {
+      "instrument": "opensta",
+      "instrument_version": "OpenSTA 2.2.0 02b129d48f",
+      "metric": {
+        "gold_max_data_arrival_ns": 1.02,
+        "gate_max_data_arrival_ns": 1.14,
+        "clock_period_ns": 10.0
+      },
+      "interpretation": "timing regression under the package SDC; this rejects full metric promotion",
+      "log_refs": [
+        "gold_opensta_area_timing_power.pinned.log",
+        "gate_opensta_area_timing_power.pinned.log"
+      ]
+    },
+    "power": {
+      "instrument": "opensta_report_power",
+      "instrument_version": "OpenSTA 2.2.0 02b129d48f",
+      "activity_source": "set_power_activity -global -activity 0.1 -duty 0.5",
+      "metric": {
+        "gold_total_power_nw": 4.45e-05,
+        "gate_total_power_nw": 4.19e-05
+      },
+      "interpretation": "lower OpenSTA estimated power under fixed activity",
+      "methodology_boundary": "OpenSTA liberty estimate under fixed global activity; not signoff power and not measured workload activity",
+      "log_refs": [
+        "gold_opensta_area_timing_power.pinned.log",
+        "gate_opensta_area_timing_power.pinned.log"
+      ]
+    }
+  },
+  "metric_negative_control": {
+    "path": "ct_fifo_metric_negative.v",
+    "candidate_sha256": "2ea0c0ba0c0ef054697599a6f9f67d89231b504832a90c24cd51666097c4a85d",
+    "mapped_netlist_sha256": "076f2428ad13b12d5fff8cbe925c0651eb743a070f3459eeec94d2b85e31fb7c",
+    "estimated_total_power_nw": 4.48e-05,
+    "interpretation": "metric-only regressed netlist; not proof evidence and kept distinct from proof mutants",
+    "log_refs": [
+      "metric_negative_opensta_area_timing_power.pinned.log"
+    ]
+  },
+  "promotion_decision": "reject full-PPA/result-row promotion for this candidate because timing moves the wrong way despite area and estimated-power improvements"
+}

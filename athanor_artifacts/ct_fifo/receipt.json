@@ -98,7 +98,14 @@
     "ct_fifo_gate_dbg_mutant.v": "a84a92966618f088b1c631b3e81bbff66abccb64d025a8a8c3970625d423e58b",
     "ct_fifo_relation_miter.sv": "dd246428484532762bef09d5290afc26a5caa9418e81e67654788bfaaec1325b",
     "ct_fifo_debug_bridge_miter.sv": "f42c87522a45a7af7ef1e098549831e000355864d0d4b8c28aa59a8a207438b1",
-    "bridge_passivity_check.py": "7aa29f7c6f380dadb75fa451857a9b49ae85ec882850b9c3f63c779e59806c4f"
+    "bridge_passivity_check.py": "7aa29f7c6f380dadb75fa451857a9b49ae85ec882850b9c3f63c779e59806c4f",
+    "ct_fifo_gate_candidate.mapped.v": "fb6019b57e44534743f0106e3cab3718c76a34dec860383f40561dc59a1d7865",
+    "ct_fifo_gold.mapped.v": "996104aa377ecc9cd84e17401f8e2d1c575db684cf9f462fee06bc6ae46e5133",
+    "ct_fifo_metric_negative.mapped.v": "076f2428ad13b12d5fff8cbe925c0651eb743a070f3459eeec94d2b85e31fb7c",
+    "ct_fifo_metric_negative.v": "2ea0c0ba0c0ef054697599a6f9f67d89231b504832a90c24cd51666097c4a85d",
+    "gate_opensta_area_timing_power.pinned.log": "6a85e295b089c21c2bcdd538ceb5901b599a512cdcaa9a92c6709cdf86389a57",
+    "gold_opensta_area_timing_power.pinned.log": "bd1f5d8ae0d4f35fe5d9a424cc275d9a063b3ef2472dbe0261202f55f166d89f",
+    "metric_negative_opensta_area_timing_power.pinned.log": "44b48e91f3db3cbe7c0dd2cd7688aafbe9d3379b1466eececc36e6f3ce7c3548"
   },
   "known_boundaries": [
     "Exact gold/gate visible-output proof is bounded to seq12 in the exact miter.",
@@ -106,7 +113,8 @@
     "The raw exact-output temporal-induction log remains a non-closure boundary, not the positive authority path.",
     "No FIFO semantic correctness property is claimed.",
     "No traffic assumptions beyond reset-first are used for the output checks.",
-    "No whole C910, BOOM, ISA, memory-consistency, speculation, or whole-chip authority is claimed."
+    "No whole C910, BOOM, ISA, memory-consistency, speculation, or whole-chip authority is claimed.",
+    "Same-candidate metric screen is measured and rejects full area/timing/OpenSTA-estimated-power promotion because OpenSTA max data-arrival regresses."
   ],
   "review_ruling": "Ronald accepted the bridge-plus-relation proof shape for module-local visible-output equivalence wording on 2026-07-13. The supported wording is limited to the visible outputs under the reset-first contract and the non-claims above.",
   "lean_fallback": {
