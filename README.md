@@ -7,6 +7,15 @@ Can Athanor/Kairos find RTL optimizations on out-of-order CPU structures, bind
 the exact candidate to area/timing/power measurements, and prove the scoped
 behavior did not change?
 
+How the work divides: the AI generates the optimization proposals and
+scaffolding; open, formal tools generate the verdicts (Yosys equivalence,
+OpenSTA timing/power, Lean invariants); and Kairos supplies the contract,
+routing, binding, ledger, and claim discipline that turn a proposal plus a tool
+run into a same-candidate-bound, replayable, negative-controlled result row.
+Kairos does not replace the prover or the model -- it binds an exact candidate to
+its measurements and proofs and refuses to promote anything that skips the bar.
+Every row below is that discipline applied.
+
 Public read in 30 seconds:
 
 - Promoted results: three OoO control-block wins, each with area, OpenSTA max
@@ -80,7 +89,7 @@ metric results because the multi-axis bar above is not closed.
 | `ct_lsu_rb` | Candidate metric scout | Same-candidate area, OpenSTA max data-arrival, WNS, and OpenSTA estimated power all improve under a two-clock package SDC, with same-state equivalence and a biting proof mutant; pending non-author replay before any result-row discussion | [`athanor_artifacts/ct_lsu_rb_area_timing_power_candidate1/`](athanor_artifacts/ct_lsu_rb_area_timing_power_candidate1/) |
 | LSU load/store data-control rotate decoders | Low-value positive scout | `ct_lsu_ld_dc` and `ct_lsu_st_dc` one-hot rotate-selector rewrites are proof-clean and non-regressing across all measured axes, but the gains are too small to stand alone as an architect-facing result; useful only as part of a broader decode-cleanup packet | [`athanor_artifacts/TARGET_ATLAS.md`](athanor_artifacts/TARGET_ATLAS.md) |
 | LSU empty-slot create-pointer rewrites | Hard-negative scouts | `ct_lsu_lq` and `ct_lsu_sq` prove clean and improve area, but OpenSTA max data-arrival regresses, so the transform family is rejected for promotion | [`athanor_artifacts/KAIROS_GAP_LEDGER.md`](athanor_artifacts/KAIROS_GAP_LEDGER.md) |
-| `ct_rtu_pst_vreg` parent lift | Scout only | Replacing all 64 vreg entries improves parent area but regresses parent max data-arrival. It needs ATH-2971 compositional proof plus direct parent metric closure | [`athanor_artifacts/KAIROS_GAP_LEDGER.md`](athanor_artifacts/KAIROS_GAP_LEDGER.md) |
+| `ct_rtu_pst_vreg` parent lift | Scout only | Replacing all 64 vreg entries improves parent area but regresses parent max data-arrival. It needs a compositional proof plus direct parent metric closure | [`athanor_artifacts/KAIROS_GAP_LEDGER.md`](athanor_artifacts/KAIROS_GAP_LEDGER.md) |
 
 ## Evidence Bar
 
