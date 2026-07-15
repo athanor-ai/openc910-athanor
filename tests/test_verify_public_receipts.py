@@ -283,6 +283,107 @@ def test_sha256sums_paths_must_be_package_local(tmp_path: Path) -> None:
     assert any("SHA256SUMS path escapes package" in problem for problem in problems)
 
 
+def _rehash(package: Path) -> None:
+    lines = [
+        f"{_sha(path)}  {path.name}\n"
+        for path in sorted(package.iterdir())
+        if path.name != "SHA256SUMS" and path.is_file()
+    ]
+    (package / "SHA256SUMS").write_text("".join(lines), encoding="utf-8")
+
+
+def test_customer_ready_renamed_axes_fail_closed(tmp_path: Path) -> None:
+    # Renamed AXES under the metrics key + an unrecognized status dodge
+    # _is_metric_packet. The fail-closed type check must RED rather than pass an
+    # unbound PPA surface.
+    package = _write_package(tmp_path, omit_same_candidate=True)
+    receipt = json.loads((package / "receipt.json").read_text(encoding="utf-8"))
+    receipt["status"] = "accepted_module_local_optimization_packet"
+    receipt["metrics"] = {
+        "selected_area_um2": {"gold": 2.0, "gate": 1.0},
+        "max_arrival_ns": {"gold": 2.0, "gate": 1.0},
+        "est_total_power_nw": {"gold": 2.0, "gate": 1.0},
+    }
+    (package / "receipt.json").write_text(json.dumps(receipt, indent=2) + "\n", encoding="utf-8")
+    _rehash(package)  # rehash so the ONLY discriminator is the fail-closed type check
+
+    assert not verify_public_receipts._is_metric_packet(receipt)
+    problems = verify_public_receipts.verify(tmp_path)
+
+    assert any("unrecognized status" in problem for problem in problems)
+
+
+def test_customer_ready_renamed_container_fail_closed(tmp_path: Path) -> None:
+    # The SAME evasion one level up -- rename the CONTAINER, not just the axes.
+    # PPA numbers under receipt["ppa_block"] with an unrecognized status. A
+    # name-based cure keyed on the literal "metrics" key would miss this; the
+    # type check catches it too.
+    package = _write_package(tmp_path, omit_same_candidate=True)
+    receipt = json.loads((package / "receipt.json").read_text(encoding="utf-8"))
+    receipt["status"] = "accepted_module_local_optimization_packet"
+    receipt["ppa_block"] = {
+        "sel_footprint_um2": {"gold": 2.0, "gate": 1.0},
+        "arr_ns": {"gold": 2.0, "gate": 1.0},
+        "pwr_nw": {"gold": 2.0, "gate": 1.0},
+    }
+    (package / "receipt.json").write_text(json.dumps(receipt, indent=2) + "\n", encoding="utf-8")
+    _rehash(package)
+
+    assert not verify_public_receipts._is_metric_packet(receipt)
+    problems = verify_public_receipts.verify(tmp_path)
+
+    assert any("unrecognized status" in problem for problem in problems)
+
+
+def test_recognized_proof_packet_with_generic_cells_not_false_redded(tmp_path: Path) -> None:
+    # Guard against the false-red that rejected a pure gold/gate SHAPE cure: a
+    # recognized proof/equivalence packet legitimately carries gold/gate generic
+    # cell counts (documented non-headline context). It must NOT trip the
+    # metric-binding leg despite the gold/gate numeric shape.
+    package = _write_package(tmp_path, omit_same_candidate=True)
+    receipt = json.loads((package / "receipt.json").read_text(encoding="utf-8"))
+    receipt["status"] = "accepted_module_local_visible_output_relation_packet"
+    receipt["area_receipts"] = {
+        "generic_cells": {
+            "gold_local_cells": 101,
+            "gate_local_cells": 101,
+            "gold_total_cells_with_deps": 229,
+            "gate_total_cells_with_deps": 229,
+        }
+    }
+    (package / "receipt.json").write_text(json.dumps(receipt, indent=2) + "\n", encoding="utf-8")
+
+    assert not verify_public_receipts._is_metric_packet(receipt)
+    # Both the metric-binding leg AND the smuggled-PPA leg must stay silent for a
+    # recognized proof type carrying legitimate generic cell-count context.
+    assert verify_public_receipts._verify_same_candidate_metric_binding(package, receipt) == []
+    assert verify_public_receipts._verify_proof_packet_no_smuggled_ppa(package, receipt) == []
+
+
+def test_proof_status_smuggled_ppa_container_reds(tmp_path: Path) -> None:
+    # The recognized-proof-status PPA-smuggling hold: a recognized PROOF/
+    # equivalence status can ride while PPA-shaped gold/gate values hide under a
+    # renamed container with no
+    # same-candidate binding -- dodging both the type check (status recognized) and
+    # the metric-binding leg (not a metric packet). The smuggled-PPA leg reds any
+    # gold/gate numeric pair that is not documented generic cell-count context.
+    package = _write_package(tmp_path, omit_same_candidate=True)
+    receipt = json.loads((package / "receipt.json").read_text(encoding="utf-8"))
+    receipt["status"] = "accepted_module_local_visible_output_relation_packet"
+    receipt["ppa_block"] = {
+        "sel_footprint_um2": {"gold": 100.0, "gate": 80.0},
+        "arr_ns": {"gold": 9.0, "gate": 8.0},
+        "pwr_nw": {"gold": 1.5e-3, "gate": 1.1e-3},
+    }
+    (package / "receipt.json").write_text(json.dumps(receipt, indent=2) + "\n", encoding="utf-8")
+    _rehash(package)
+
+    assert not verify_public_receipts._is_metric_packet(receipt)
+    problems = verify_public_receipts.verify(tmp_path)
+
+    assert any("not documented generic cell-count context" in problem for problem in problems)
+
+
 def test_valid_customer_ready_metric_packet_passes_receipt_gate(tmp_path: Path) -> None:
     _write_package(tmp_path)
 
