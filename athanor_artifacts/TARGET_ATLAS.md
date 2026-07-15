@@ -18,6 +18,19 @@ receipt index, not a whole-core proof claim.
 | `ct_lsu_vb` candidate 1 | LSU victim-buffer control | candidate metric scout; independent replay pending | Same-candidate-bound Sky130 area `13043.760000 -> 13038.755200`; OpenSTA max data-arrival `6.01 ns -> 4.99 ns`; OpenSTA estimated total power `5.95e-04 nW -> 5.93e-04 nW` | reset-first visible-output miter through seq8 proves; proof mutant fails the same miter; metric red-control reds all three axes; OpenSTA power is estimated under fixed activity | [`ct_lsu_vb_area_timing_power_candidate1/`](ct_lsu_vb_area_timing_power_candidate1/) |
 | `ct_lsu_rb` candidate 1 | LSU read-buffer control | candidate metric scout; independent replay pending | Same-candidate-bound Sky130 area `105329.769600 -> 105134.582400`; OpenSTA max data-arrival `16.76 ns -> 16.59 ns`; WNS `-7.19 ns -> -6.84 ns`; OpenSTA estimated total power `5.94e-03 nW -> 5.92e-03 nW` | same-state Yosys equivalence `2088` proven / `0` unproven; proof mutant leaves `8` pointer cells unproven; metric red-control reds all three axes; OpenSTA power is estimated under fixed activity | [`ct_lsu_rb_area_timing_power_candidate1/`](ct_lsu_rb_area_timing_power_candidate1/) |
 
+## Scratch Scout Evidence
+
+These rows are campaign-learning evidence only. They are not replay packages,
+not promoted result rows, and not customer-ready claims.
+
+| target | transform | scout read | proof / check | decision |
+| --- | --- | --- | --- | --- |
+| `ct_lsu_lq` | Replace 16-way empty-slot create-pointer `casez` with `~lq_entry_vld & (lq_entry_vld + 1)` | Sky130 area improves `72314.355200 -> 71980.284800`; OpenSTA max data-arrival regresses `7.40 ns -> 8.56 ns`; WNS remains `0.00`; OpenSTA estimated total power is flat at `3.61e-03` | Same-state Yosys equivalence `169` proven / `0` unproven | Hard negative. Proof-clean and area-positive still rejects because timing regresses on the exact candidate netlist. |
+| `ct_lsu_sq` | Replace 12-way empty-slot create-pointer `casez` with `~sq_entry_vld & (sq_entry_vld + 1)` | Sky130 area improves `171859.827200 -> 170435.961600`; OpenSTA max data-arrival regresses `13.83 ns -> 22.64 ns`; WNS regresses `-4.81 ns -> -12.95 ns`; OpenSTA estimated total power improves `9.66e-03 -> 9.61e-03` | Same-state Yosys equivalence `3839` proven / `0` unproven | Hard negative. This confirms the empty-slot lowbit transform trades off LSU queue timing despite area gains. |
+| `ct_lsu_dcache_arb` | Replace LD/ST priority `casez` selectors with direct prefix boolean equations | Sky130 area regresses `6912.880000 -> 6956.672000` | Full-module equivalence route hit a pinned-Yosys `equiv_make` internal assertion before proof verdict | Rejected before timing/power because the first metric axis regressed and proof setup did not close. |
+| `ct_lsu_ld_dc` | Replace 8-way load data rotate one-hot `casez` with `8'b00000001 << ld_dc_rot_sel_final` | Sky130 area improves `13122.585600 -> 13110.073600`; OpenSTA max data-arrival improves `2.93 ns -> 2.92 ns`; WNS remains `0.00`; OpenSTA estimated total power improves `6.92e-04 -> 6.90e-04` | Pinned-Yosys output miter SAT through seq8 proves no mismatch | Low-value positive scout. Non-regressing across all axes but too small for a standalone result row. |
+| `ct_lsu_st_dc` | Replace 8-way store data rotate one-hot `casez` with `8'b00000001 << st_dc_rot_sel` | Sky130 area improves `11113.158400 -> 11108.153600`; OpenSTA max data-arrival stays `3.48 ns -> 3.48 ns`; WNS remains `0.00`; OpenSTA estimated total power stays `6.34e-04 -> 6.34e-04` | Pinned-Yosys output miter SAT through seq8 proves no mismatch | Low-value positive scout. Useful only if combined into a broader LD/ST decode-cleanup packet. |
+
 ## Active RTU Campaign
 
 | target | campaign purpose | current read |
