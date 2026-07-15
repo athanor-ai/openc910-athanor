@@ -15,7 +15,10 @@ candidate, and independent QA confirmed a second storage-path mutant also fails.
 
 ## Selected Area
 
-Selected Sky130 area improves in the replay flow; timing/power are not claimed:
+Selected Sky130 area improves in this legacy proof packet. Full PPA promotion is
+handled by the separate `rtu_pst_preg_entry_area_timing_power_candidate1`
+packet, which binds area, timing, and OpenSTA estimated power to the same
+candidate:
 
 - Local module: `2677.568000 -> 2648.790400`
 - Top with `ct_rtu_expand_32`, `ct_rtu_expand_96`, and `gated_clk_cell` deps:
