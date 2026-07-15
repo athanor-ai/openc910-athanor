@@ -7,8 +7,9 @@ Every command below was re-run on pinned Yosys `0.66+181`
 ## End-to-end replay from a fresh clone
 
 `./replay.sh` was run from a clean clone of this branch (not the author's working
-copy): `PASS: ct_prio output proof, mutant bite, Sky130 area-only, and same-state
-boundary reproduced` (exit 0). This is an area replay, not a timing/power claim.
+copy): `PASS: ct_prio output proof, mutant bite, Sky130 area replay, and same-state
+boundary reproduced` (exit 0). This QA pass covers the legacy proof packet; the
+promoted PPA result row lives in `ct_prio_area_timing_power_candidate1`.
 The customer reproduction path works from a bare checkout.
 
 ## Three adversarial probes beyond re-running
@@ -28,7 +29,7 @@ The customer reproduction path works from a bare checkout.
    `sel` at t=0. The proof holds *because of*, and only under, the disclosed
    assumption.
 
-3. **The 41% Sky130 area-only reduction is honest logic simplification, not
+3. **The 41% Sky130 selected-area reduction is honest logic simplification, not
    dropped dead-logic.** Diffing `ct_prio_gold.v` vs
    `ct_prio_gate_candidate.v`: the
    `sel[i]` grant expression is byte-identical. The entire win is rewriting the
@@ -39,13 +40,16 @@ The customer reproduction path works from a bare checkout.
 ## Note on generic cell count
 
 Generic cell count is flow-sensitive (pinned 17 to 19, ambient 21, kairos-selected 22).
-The Sky130 *selected area-only* (`158.902400 -> 93.840000`) is the tool-independent
-headline; generic cell count is not. Timing/power are not claimed for this row.
+The Sky130 selected-area delta (`158.902400 -> 93.840000`) is the
+tool-independent headline for this legacy proof packet; generic cell count is
+not. The promoted full-PPA result row lives in
+`ct_prio_area_timing_power_candidate1`.
 
 ## Boundary (unchanged, supported)
 
 Module-local visible `sel[1:0]` equivalence under the reset-first assumption, with a
-biting mutant and selected Sky130 area-only replay. Timing/power are not claimed.
+biting mutant and selected Sky130 area replay. This QA note is not the promoted
+full-PPA result row; use `ct_prio_area_timing_power_candidate1` for that claim.
 NOT full internal-state equivalence
 (2 internal `prio` bits unproven, see `ct_prio_same_state_equiv_fail.pinned.log`),
 NOT whole-core C910 / BOOM, NOT ISA / memory-consistency / speculation, NOT

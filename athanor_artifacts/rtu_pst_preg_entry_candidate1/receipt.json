@@ -2,7 +2,7 @@
   "artifact": "ath2950_c910_rtu_pst_preg_entry_candidate1",
   "status": "accepted_module_local_visible_output_relation_packet",
   "customer_ready": true,
-  "customer_ready_scope": "module-local visible-output equivalence for C910 ct_rtu_pst_preg_entry under reset-first via passive debug bridge plus closed lifecycle-encoding relation induction; area-only, timing/power not claimed",
+  "customer_ready_scope": "module-local visible-output equivalence for C910 ct_rtu_pst_preg_entry under reset-first via passive debug bridge plus closed lifecycle-encoding relation induction; legacy proof packet only; full-PPA authority lives in the separate same-candidate metric packet",
   "repo": "athanor-ai/openc910-athanor",
   "upstream_reference": {
     "module": "ct_rtu_pst_preg_entry",
@@ -107,7 +107,7 @@
     "The exact output miter is bounded to seq12; the unbounded positive path is the passive-debug lifecycle relation proof.",
     "Same-state bit equivalence is explicitly not claimed because lifecycle state encoding changes; the 304 proven / 6 unproven split is retained only as a boundary artifact.",
     "Raw exact-output temporal induction non-closure remains a boundary artifact, not the positive authority path.",
-    "Area-only row: selected Sky130 local and top-with-deps area improve; timing and power/toggle are not claimed.",
+    "Legacy proof packet: selected Sky130 local and top-with-deps area improve here; full-PPA claims require the separate same-candidate metric packet.",
     "No whole RTU, whole C910, BOOM, ISA, memory-consistency, speculation, composed-optimization, or whole-chip authority is claimed."
   ],
   "review_ruling": "Ronald cold replay and Quan adversarial QA support promotion to accepted module-local visible-output relation packet with the stated boundaries.",
