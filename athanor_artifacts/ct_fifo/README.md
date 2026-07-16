@@ -55,6 +55,18 @@ This artifact does not claim FIFO semantic correctness, full internal-state equi
 
 ## Replay
 
+One command reproduces every claim in this package. It resolves the pinned
+verdict-bearing toolchain, verifies each tool's identity, and fails loud with one
+named provisioning error before any proof or metric if a tool is missing or its
+bytes do not match:
+
+```bash
+python3 ../../athanor/replay_public_receipt.py ct_fifo
+```
+
+BYO / custom toolchain — set the pinned tool paths and run this package's
+`replay.sh` directly (it requires each var and never substitutes an ambient tool):
+
 Run:
 
 ```bash
