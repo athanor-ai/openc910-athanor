@@ -376,24 +376,24 @@ Running ABC script: <abc-temp-dir>/abc.script
 ABC: UC Berkeley, ABC 1.01 (compiled Jun 30 2026 04:50:19)
 ABC: abc 01> empty
 ABC: abc 01> source <abc-temp-dir>/abc.script
-ABC: + read_blif <abc-temp-dir>/input.blif 
-ABC: + read_library <abc-temp-dir>/stdcells.genlib 
-ABC: + strash 
-ABC: + &get -n 
-ABC: + &fraig -x 
-ABC: + &put 
-ABC: + scorr 
+ABC: + read_blif <abc-temp-dir>/input.blif
+ABC: + read_library <abc-temp-dir>/stdcells.genlib
+ABC: + strash
+ABC: + &get -n
+ABC: + &fraig -x
+ABC: + &put
+ABC: + scorr
 ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
-ABC: + dc2 
-ABC: + dretime 
-ABC: + strash 
-ABC: + &get -n 
-ABC: + &dch -f 
-ABC: + &nf 
-ABC: + &put 
-ABC: + write_blif <abc-temp-dir>/output.blif 
-ABC: 
-ABC: YOSYS_ABC_DONE 
+ABC: + dc2
+ABC: + dretime
+ABC: + strash
+ABC: + &get -n
+ABC: + &dch -f
+ABC: + &nf
+ABC: + &put
+ABC: + write_blif <abc-temp-dir>/output.blif
+ABC:
+ABC: YOSYS_ABC_DONE
 
 2.24.1.2. Re-integrating ABC results.
 ABC RESULTS:               AND cells:     1379
@@ -439,7 +439,7 @@ Removed 0 unused modules.
 === ct_fadd_onehot_sel_d ===
 
         +----------Local Count, excluding submodules.
-        | 
+        |
      2865 wires
      3024 wire bits
         3 public wires
@@ -493,7 +493,7 @@ Mapping DFF cells in module `\ct_fadd_onehot_sel_d':
 4. Executing ABC pass (technology mapping using ABC).
 
 4.1. Extracting gate netlist of module `\ct_fadd_onehot_sel_d' to `<abc-temp-dir>/input.blif'..
-ABC: using cached merged SCL: /tmp/yosys-liberty-scl-cache/yosys_merged_0cdec099.scl (1 files)
+ABC: using cached merged SCL: yosys-liberty-scl-cache/yosys_merged_0cdec099.scl (1 files)
 
 4.1.1. Executed ABC.
 Extracted 2916 gates and 3024 wires to a netlist network with 108 inputs and 54 outputs.
@@ -501,25 +501,25 @@ Running ABC script: <abc-temp-dir>/abc.script
 ABC: UC Berkeley, ABC 1.01 (compiled Jun 30 2026 04:50:19)
 ABC: abc 01> empty
 ABC: abc 01> source <abc-temp-dir>/abc.script
-ABC: + read_blif <abc-temp-dir>/input.blif 
-ABC: + read_scl /tmp/yosys-liberty-scl-cache/yosys_merged_0cdec099.scl 
+ABC: + read_blif <abc-temp-dir>/input.blif
+ABC: + read_scl yosys-liberty-scl-cache/yosys_merged_0cdec099.scl
 ABC: Warning: Detected 9 multi-output cells (for example, "sky130_fd_sc_hd__fa_1").
-ABC: + strash 
-ABC: + &get -n 
-ABC: + &fraig -x 
-ABC: + &put 
-ABC: + scorr 
+ABC: + strash
+ABC: + &get -n
+ABC: + &fraig -x
+ABC: + &put
+ABC: + scorr
 ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
-ABC: + dc2 
-ABC: + dretime 
-ABC: + strash 
-ABC: + &get -n 
-ABC: + &dch -f 
-ABC: + &nf 
-ABC: + &put 
-ABC: + write_blif <abc-temp-dir>/output.blif 
-ABC: 
-ABC: YOSYS_ABC_DONE 
+ABC: + dc2
+ABC: + dretime
+ABC: + strash
+ABC: + &get -n
+ABC: + &dch -f
+ABC: + &nf
+ABC: + &put
+ABC: + write_blif <abc-temp-dir>/output.blif
+ABC:
+ABC: YOSYS_ABC_DONE
 
 4.1.2. Re-integrating ABC results.
 ABC RESULTS:   sky130_fd_sc_hd__a211o_1 cells:        1
@@ -554,7 +554,7 @@ Removed 0 unused cells and 3024 unused wires.
 
         +----------Local Count, excluding submodules.
         |        +-Local Area, excluding submodules.
-        |        | 
+        |        |
       786        - wires
       945        - wire bits
         3        - public wires

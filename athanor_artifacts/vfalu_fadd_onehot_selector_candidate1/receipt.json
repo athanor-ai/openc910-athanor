@@ -1,6 +1,6 @@
 {
   "schema": "openc910.vfalu_fadd_onehot_selector_scout.v1",
-  "status": "helper_metric_scout_pending_independent_replay",
+  "status": "helper_metric_scout_replay_confirmed",
   "customer_ready": false,
   "customer_ready_scope": "none; helper-level scout under onehot-or-zero input contract only",
   "target": {
@@ -109,9 +109,24 @@
     "helper-level V FADD onehot selector modules only",
     "correctness is under the onehot-or-zero selector input contract; multihot behavior is not claimed",
     "no parent VFALU integration, full FADD datapath, whole-C910, ISA, or workload claim",
-    "independent non-author replay is pending"
+    "non-author replay confirms this helper package; parent integration is still pending"
   ],
-  "next_independent_check": {
-    "ask": "Run the package replay on a fresh seat with pinned Yosys/OpenSTA/Liberty and then decide whether to parent-integrate or keep as a helper scout."
+  "independent_replay": {
+    "status": "passed",
+    "reviewer": "non-author replay seat",
+    "toolchain": {
+      "yosys_version": "Yosys 0.66+181 (git sha1 afe6b18f2)",
+      "opensta_version": "OpenSTA 2.2.0",
+      "liberty": "sky130_fd_sc_hd__tt_025C_1v80.lib",
+      "liberty_sha256": "ec0e1067a35c8bf20b11e58d1e8ac53326067e4dac84a125cc1b917a3518d0d9"
+    },
+    "checks": [
+      "SHA256SUMS clean before replay",
+      "h and d gold/gate mapped netlists reproduced byte-exact",
+      "h onehot-or-zero contract SAT SUCCESS and adjacent-shift mutant red",
+      "d onehot-or-zero contract SAT SUCCESS and adjacent-shift mutant red",
+      "area, OpenSTA max data-arrival, and OpenSTA estimated power reproduced for both helpers"
+    ],
+    "boundary": "Confirms contracted helper-local scout evidence only; customer_ready remains false until parent VFALU/FADD integration and promotion review."
   }
 }

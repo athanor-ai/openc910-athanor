@@ -19,5 +19,5 @@ claimed by this package.
 | `ct_fadd_onehot_sel_d` | `8134.051200 -> 6563.795200` | `7.07 ns -> 1.03 ns` | `2.25e-04 -> 1.19e-04 nW` |
 
 The package remains `customer_ready=false`: it is a helper-level scout, not a
-parent VFALU result row. Parent integration and non-author replay are still
-required before any promotion discussion.
+parent VFALU result row. Non-author replay has reproduced the helper package;
+parent integration is still required before any promotion discussion.
