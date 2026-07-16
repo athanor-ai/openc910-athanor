@@ -1,0 +1,76 @@
+{
+  "schema": "openc910.vfmau_ff1_10bit_helper_scout.v1",
+  "status": "candidate_metric_scout_pending_independent_replay",
+  "customer_ready": false,
+  "customer_ready_scope": "none; helper-level scout only",
+  "target": {
+    "modules": [
+      "ct_vfmau_ff1_10bit"
+    ],
+    "subsystem": "vfmau_simd_half_multiplier",
+    "proof_subject": "helper-local output equivalence"
+  },
+  "candidate": {
+    "candidate_id": "ct_vfmau_ff1_10bit_masked_priority_candidate1",
+    "description": "replace priority case table with explicit first-one mask plus binary OR reduction",
+    "selected_flow": "yosys66_sky130_synth_dfflibmap_abc_opensta_v1",
+    "state_change": "none",
+    "candidate_sha256": "01872495cacf85f3c057ed88117305b52317ef4d4123a2a170e715dcd1f30e4b",
+    "mapped_netlist_sha256": "963d5f9f42d0667e7dff33bfbf9d027aa8919838547f01c9022e5bb36ab70804"
+  },
+  "toolchain": {
+    "yosys_version": "Yosys 0.66+181 (git sha1 afe6b18f2, Release, Clang /usr/bin/clang++ 18.1.8)",
+    "opensta_version": "OpenSTA 2.2.0",
+    "liberty": "sky130_fd_sc_hd__tt_025C_1v80.lib",
+    "liberty_sha256": "ec0e1067a35c8bf20b11e58d1e8ac53326067e4dac84a125cc1b917a3518d0d9"
+  },
+  "metrics": {
+    "area": {
+      "instrument": "yosys_stat_liberty",
+      "unit": "sky130_selected_area",
+      "gold": 111.3568,
+      "gate": 97.5936,
+      "log_refs": [
+        "gold_map.pinned.log",
+        "gate_map.pinned.log"
+      ]
+    },
+    "timing": {
+      "instrument": "opensta",
+      "unit": "ns max data-arrival",
+      "gold": 0.89,
+      "gate": 0.61,
+      "log_refs": [
+        "gold_opensta_area_timing_power.pinned.log",
+        "gate_opensta_area_timing_power.pinned.log"
+      ]
+    },
+    "power": {
+      "instrument": "opensta_report_power",
+      "unit": "nW OpenSTA estimated total power under fixed global activity 0.1",
+      "gold": 2.46e-06,
+      "gate": 2.06e-06,
+      "methodology_boundary": "OpenSTA liberty estimate under fixed global activity; not signoff power and not measured workload activity"
+    }
+  },
+  "proof_receipts": {
+    "helper_equivalence": {
+      "status": "passed",
+      "log": "equiv_candidate.pinned.log",
+      "log_sha256": "ea0653abce786a50b83ddffc8c5f1c5bcda127936094cae6dfdf94a44ee05c44"
+    },
+    "proof_mutant": {
+      "status": "failed_as_expected",
+      "log": "proof_mutant_negative.pinned.log",
+      "log_sha256": "8460a0025f87809ea0b2e333394dbee6e126d5f96e97a7980b752024f9e64043",
+      "mutation": "swap adjacent encoded first-one results for two low-priority input bits"
+    }
+  },
+  "known_boundaries": [
+    "customer_ready=false; not promoted as a result row",
+    "helper-level VFMAC FF1 module only",
+    "no parent ct_vfmau_mult_simd_half, full VFMAC, whole-C910, ISA, or workload claim",
+    "OpenSTA estimated power is fixed-activity methodology, not signoff or workload power",
+    "independent non-author replay is still pending"
+  ]
+}

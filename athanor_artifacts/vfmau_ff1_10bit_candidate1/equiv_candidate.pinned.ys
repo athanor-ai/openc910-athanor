@@ -1,0 +1,5 @@
+read_verilog -sv ct_vfmau_ff1_10bit_gold.v
+rename ct_vfmau_ff1_10bit gold
+read_verilog -sv ct_vfmau_ff1_10bit_gate_candidate.v
+rename ct_vfmau_ff1_10bit gate
+proc; opt; equiv_make gold gate equiv; hierarchy -top equiv; flatten; opt; equiv_simple; equiv_status -assert
