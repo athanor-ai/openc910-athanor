@@ -1,0 +1,215 @@
+
+ /----------------------------------------------------------------------------\
+ |  yosys -- Yosys Open SYnthesis Suite                                       |
+ |  Copyright (C) 2012 - 2026  Claire Xenia Wolf <claire@yosyshq.com>         |
+ |  Distributed under an ISC-like license, type "license" to see terms        |
+ \----------------------------------------------------------------------------/
+ Yosys 0.66+181 (git sha1 afe6b18f2, Release, Clang /usr/bin/clang++ 18.1.8)
+
+-- Running command `read_verilog -sv ct_rtu_compare_iid_gold.v; rename ct_rtu_compare_iid ct_rtu_compare_iid_gold; read_verilog -sv ct_rtu_compare_iid_gate_proof_mutant.v; proc; opt; equiv_make ct_rtu_compare_iid_gold ct_rtu_compare_iid equiv; hierarchy -top equiv; flatten; opt; equiv_simple; equiv_status -assert' --
+
+1. Executing Verilog-2005 frontend: ct_rtu_compare_iid_gold.v
+Parsing SystemVerilog input from `ct_rtu_compare_iid_gold.v' to AST representation.
+Generating RTLIL representation for module `\ct_rtu_compare_iid'.
+Successfully finished Verilog frontend.
+Renaming module \ct_rtu_compare_iid to \ct_rtu_compare_iid_gold.
+
+2. Executing Verilog-2005 frontend: ct_rtu_compare_iid_gate_proof_mutant.v
+Parsing SystemVerilog input from `ct_rtu_compare_iid_gate_proof_mutant.v' to AST representation.
+Generating RTLIL representation for module `\ct_rtu_compare_iid'.
+Successfully finished Verilog frontend.
+
+3. Executing PROC pass (convert processes to netlists).
+
+3.1. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Cleaned up 0 empty switches.
+
+3.2. Executing PROC_RMDEAD pass (remove dead branches from decision trees).
+Removed a total of 0 dead cases.
+
+3.3. Executing PROC_PRUNE pass (remove redundant assignments in processes).
+Removed 0 redundant assignments.
+Promoted 0 assignments to connections.
+
+3.4. Executing PROC_INIT pass (extract init attributes).
+
+3.5. Executing PROC_ARST pass (detect async resets in processes).
+
+3.6. Executing PROC_ROM pass (convert switches to ROMs).
+Converted 0 switches.
+
+3.7. Executing PROC_MUX pass (convert decision trees to multiplexers).
+
+3.8. Executing PROC_DLATCH pass (convert process syncs to latches).
+
+3.9. Executing PROC_DFF pass (convert process syncs to FFs).
+
+3.10. Executing PROC_MEMWR pass (convert process memory writes to cells).
+
+3.11. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Cleaned up 0 empty switches.
+
+3.12. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_rtu_compare_iid.
+Optimizing module ct_rtu_compare_iid_gold.
+
+4. Executing OPT pass (performing simple optimizations).
+
+4.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_rtu_compare_iid.
+Optimizing module ct_rtu_compare_iid_gold.
+
+4.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_rtu_compare_iid'.
+Computing hashes of 4 cells of `\ct_rtu_compare_iid'.
+Finding duplicate cells in `\ct_rtu_compare_iid'.
+Finding identical cells in module `\ct_rtu_compare_iid_gold'.
+Computing hashes of 67 cells of `\ct_rtu_compare_iid_gold'.
+Finding duplicate cells in `\ct_rtu_compare_iid_gold'.
+Removed a total of 0 cells.
+
+4.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \ct_rtu_compare_iid..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \ct_rtu_compare_iid_gold..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Removed 0 multiplexer ports.
+<suppressed ~2 debug messages>
+
+4.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \ct_rtu_compare_iid.
+  Optimizing cells in module \ct_rtu_compare_iid_gold.
+Performed a total of 0 changes.
+
+4.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_rtu_compare_iid'.
+Computing hashes of 4 cells of `\ct_rtu_compare_iid'.
+Finding duplicate cells in `\ct_rtu_compare_iid'.
+Finding identical cells in module `\ct_rtu_compare_iid_gold'.
+Computing hashes of 67 cells of `\ct_rtu_compare_iid_gold'.
+Finding duplicate cells in `\ct_rtu_compare_iid_gold'.
+Removed a total of 0 cells.
+
+4.6. Executing OPT_DFF pass (perform DFF optimizations).
+
+4.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_rtu_compare_iid..
+Finding unused cells or wires in module \ct_rtu_compare_iid_gold..
+Removed 0 unused cells and 22 unused wires.
+<suppressed ~7 debug messages>
+
+4.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_rtu_compare_iid.
+Optimizing module ct_rtu_compare_iid_gold.
+
+4.9. Rerunning OPT passes. (Maybe there is more to do..)
+
+4.10. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \ct_rtu_compare_iid..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \ct_rtu_compare_iid_gold..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Removed 0 multiplexer ports.
+<suppressed ~2 debug messages>
+
+4.11. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \ct_rtu_compare_iid.
+  Optimizing cells in module \ct_rtu_compare_iid_gold.
+Performed a total of 0 changes.
+
+4.12. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_rtu_compare_iid'.
+Computing hashes of 4 cells of `\ct_rtu_compare_iid'.
+Finding duplicate cells in `\ct_rtu_compare_iid'.
+Finding identical cells in module `\ct_rtu_compare_iid_gold'.
+Computing hashes of 67 cells of `\ct_rtu_compare_iid_gold'.
+Finding duplicate cells in `\ct_rtu_compare_iid_gold'.
+Removed a total of 0 cells.
+
+4.13. Executing OPT_DFF pass (perform DFF optimizations).
+
+4.14. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_rtu_compare_iid..
+Finding unused cells or wires in module \ct_rtu_compare_iid_gold..
+
+4.15. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_rtu_compare_iid.
+Optimizing module ct_rtu_compare_iid_gold.
+
+4.16. Finished fast OPT passes. (There is nothing left to do.)
+
+5. Executing EQUIV_MAKE pass (creating equiv checking module).
+Presumably equivalent wires: x_iid0_older_gold (\x_iid0_older_gold), x_iid0_older_gate (\x_iid0_older_gate) -> x_iid0_older
+Presumably equivalent wires: x_iid1_gold (\x_iid1_gold), x_iid1_gate (\x_iid1_gate) -> x_iid1
+Presumably equivalent wires: x_iid0_gold (\x_iid0_gold), x_iid0_gate (\x_iid0_gate) -> x_iid0
+
+6. Executing HIERARCHY pass (managing design hierarchy).
+
+6.1. Analyzing design hierarchy..
+Top module:  \equiv
+
+6.2. Analyzing design hierarchy..
+Top module:  \equiv
+Removing unused module `\ct_rtu_compare_iid'.
+Removing unused module `\ct_rtu_compare_iid_gold'.
+Removed 2 unused modules.
+
+7. Executing FLATTEN pass (flatten design).
+
+8. Executing OPT pass (performing simple optimizations).
+
+8.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module equiv.
+
+8.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\equiv'.
+Computing hashes of 72 cells of `\equiv'.
+Finding duplicate cells in `\equiv'.
+Removed a total of 0 cells.
+
+8.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \equiv..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~2 debug messages>
+
+8.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \equiv.
+Performed a total of 0 changes.
+
+8.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\equiv'.
+Computing hashes of 72 cells of `\equiv'.
+Finding duplicate cells in `\equiv'.
+Removed a total of 0 cells.
+
+8.6. Executing OPT_DFF pass (perform DFF optimizations).
+
+8.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \equiv..
+
+8.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module equiv.
+
+8.9. Finished fast OPT passes. (There is nothing left to do.)
+
+9. Executing EQUIV_SIMPLE pass.
+Found 1 unproven $equiv cells (1 groups) in equiv:
+  Trying to prove $equiv for \x_iid0_older:ezsat
+ failed.
+Proved 0 previously unproven $equiv cells.
+
+10. Executing EQUIV_STATUS pass.
+Found 1 $equiv cells in equiv:
+  Of those cells 0 are proven and 1 are unproven.
+  Unproven $equiv $auto$equiv_make.cc:258:find_same_wires$72: \x_iid0_older_gold \x_iid0_older_gate
+Found a total of 1 unproven $equiv cells.
+ERROR: Found 1 unproven $equiv cells in 'equiv_status -assert'.

@@ -1,0 +1,1451 @@
+
+ /----------------------------------------------------------------------------\
+ |  yosys -- Yosys Open SYnthesis Suite                                       |
+ |  Copyright (C) 2012 - 2026  Claire Xenia Wolf <claire@yosyshq.com>         |
+ |  Distributed under an ISC-like license, type "license" to see terms        |
+ \----------------------------------------------------------------------------/
+ Yosys 0.66+181 (git sha1 afe6b18f2, Release, Clang /usr/bin/clang++ 18.1.8)
+
+-- Running command `read_verilog -sv -D PA_WIDTH=40 gated_clk_cell.v ct_rtu_compare_iid_gold.v ct_lsu_pfu_sdb_cmp.v; synth -top ct_lsu_pfu_sdb_cmp; abc -liberty sky130_fd_sc_hd__tt_025C_1v80.lib; clean; stat -liberty sky130_fd_sc_hd__tt_025C_1v80.lib' --
+
+1. Executing Verilog-2005 frontend: gated_clk_cell.v
+Parsing SystemVerilog input from `gated_clk_cell.v' to AST representation.
+Generating RTLIL representation for module `\gated_clk_cell'.
+Successfully finished Verilog frontend.
+
+2. Executing Verilog-2005 frontend: ct_rtu_compare_iid_gold.v
+Parsing SystemVerilog input from `ct_rtu_compare_iid_gold.v' to AST representation.
+Generating RTLIL representation for module `\ct_rtu_compare_iid'.
+Successfully finished Verilog frontend.
+
+3. Executing Verilog-2005 frontend: ct_lsu_pfu_sdb_cmp.v
+Parsing SystemVerilog input from `ct_lsu_pfu_sdb_cmp.v' to AST representation.
+Generating RTLIL representation for module `\ct_lsu_pfu_sdb_cmp'.
+Successfully finished Verilog frontend.
+
+4. Executing SYNTH pass.
+
+4.1. Executing HIERARCHY pass (managing design hierarchy).
+
+4.1.1. Analyzing design hierarchy..
+Top module:  \ct_lsu_pfu_sdb_cmp
+Used module:     \ct_rtu_compare_iid
+Used module:     \gated_clk_cell
+
+4.1.2. Analyzing design hierarchy..
+Top module:  \ct_lsu_pfu_sdb_cmp
+Used module:     \ct_rtu_compare_iid
+Used module:     \gated_clk_cell
+Removed 0 unused modules.
+
+4.2. Executing PROC pass (convert processes to netlists).
+
+4.2.1. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Cleaned up 0 empty switches.
+
+4.2.2. Executing PROC_RMDEAD pass (remove dead branches from decision trees).
+Marked 2 switch rules as full_case in process $proc$ct_lsu_pfu_sdb_cmp.v:397$105 in module ct_lsu_pfu_sdb_cmp.
+Marked 1 switch rules as full_case in process $proc$ct_lsu_pfu_sdb_cmp.v:380$103 in module ct_lsu_pfu_sdb_cmp.
+Marked 2 switch rules as full_case in process $proc$ct_lsu_pfu_sdb_cmp.v:365$99 in module ct_lsu_pfu_sdb_cmp.
+Marked 2 switch rules as full_case in process $proc$ct_lsu_pfu_sdb_cmp.v:352$95 in module ct_lsu_pfu_sdb_cmp.
+Marked 1 switch rules as full_case in process $proc$ct_lsu_pfu_sdb_cmp.v:335$93 in module ct_lsu_pfu_sdb_cmp.
+Marked 2 switch rules as full_case in process $proc$ct_lsu_pfu_sdb_cmp.v:322$89 in module ct_lsu_pfu_sdb_cmp.
+Marked 2 switch rules as full_case in process $proc$ct_lsu_pfu_sdb_cmp.v:309$85 in module ct_lsu_pfu_sdb_cmp.
+Marked 1 switch rules as full_case in process $proc$ct_lsu_pfu_sdb_cmp.v:292$83 in module ct_lsu_pfu_sdb_cmp.
+Marked 2 switch rules as full_case in process $proc$ct_lsu_pfu_sdb_cmp.v:279$79 in module ct_lsu_pfu_sdb_cmp.
+Marked 2 switch rules as full_case in process $proc$ct_lsu_pfu_sdb_cmp.v:266$75 in module ct_lsu_pfu_sdb_cmp.
+Marked 1 switch rules as full_case in process $proc$ct_lsu_pfu_sdb_cmp.v:249$73 in module ct_lsu_pfu_sdb_cmp.
+Removed a total of 0 dead cases.
+
+4.2.3. Executing PROC_PRUNE pass (remove redundant assignments in processes).
+Removed 0 redundant assignments.
+Promoted 0 assignments to connections.
+
+4.2.4. Executing PROC_INIT pass (extract init attributes).
+
+4.2.5. Executing PROC_ARST pass (detect async resets in processes).
+Found async reset \cpurst_b in `\ct_lsu_pfu_sdb_cmp.$proc$ct_lsu_pfu_sdb_cmp.v:397$105'.
+Found async reset \cpurst_b in `\ct_lsu_pfu_sdb_cmp.$proc$ct_lsu_pfu_sdb_cmp.v:380$103'.
+Found async reset \cpurst_b in `\ct_lsu_pfu_sdb_cmp.$proc$ct_lsu_pfu_sdb_cmp.v:365$99'.
+Found async reset \cpurst_b in `\ct_lsu_pfu_sdb_cmp.$proc$ct_lsu_pfu_sdb_cmp.v:352$95'.
+Found async reset \cpurst_b in `\ct_lsu_pfu_sdb_cmp.$proc$ct_lsu_pfu_sdb_cmp.v:335$93'.
+Found async reset \cpurst_b in `\ct_lsu_pfu_sdb_cmp.$proc$ct_lsu_pfu_sdb_cmp.v:322$89'.
+Found async reset \cpurst_b in `\ct_lsu_pfu_sdb_cmp.$proc$ct_lsu_pfu_sdb_cmp.v:309$85'.
+Found async reset \cpurst_b in `\ct_lsu_pfu_sdb_cmp.$proc$ct_lsu_pfu_sdb_cmp.v:292$83'.
+Found async reset \cpurst_b in `\ct_lsu_pfu_sdb_cmp.$proc$ct_lsu_pfu_sdb_cmp.v:279$79'.
+Found async reset \cpurst_b in `\ct_lsu_pfu_sdb_cmp.$proc$ct_lsu_pfu_sdb_cmp.v:266$75'.
+Found async reset \cpurst_b in `\ct_lsu_pfu_sdb_cmp.$proc$ct_lsu_pfu_sdb_cmp.v:249$73'.
+
+4.2.6. Executing PROC_ROM pass (convert switches to ROMs).
+Converted 0 switches.
+<suppressed ~18 debug messages>
+
+4.2.7. Executing PROC_MUX pass (convert decision trees to multiplexers).
+Creating decoders for process `\ct_lsu_pfu_sdb_cmp.$proc$ct_lsu_pfu_sdb_cmp.v:397$105'.
+     1/6: $0\entry_stride_diff_eq[0:0]
+     2/6: $0\entry_stride_cmp0_eq[0:0]
+     3/6: $0\entry_stride_0to1_zero[0:0]
+     4/6: $0\entry_stride_0to1_pos_cross_2k[0:0]
+     5/6: $0\entry_stride_0to1_neg_cross_2k[0:0]
+     6/6: $0\entry_addr_cmp_info_vld[0:0]
+Creating decoders for process `\ct_lsu_pfu_sdb_cmp.$proc$ct_lsu_pfu_sdb_cmp.v:380$103'.
+     1/2: $0\entry_stride_neg[0:0]
+     2/2: $0\entry_stride[10:0]
+Creating decoders for process `\ct_lsu_pfu_sdb_cmp.$proc$ct_lsu_pfu_sdb_cmp.v:365$99'.
+     1/1: $0\entry_cmit[2:2]
+Creating decoders for process `\ct_lsu_pfu_sdb_cmp.$proc$ct_lsu_pfu_sdb_cmp.v:352$95'.
+     1/1: $0\entry_addr_vld[2:2]
+Creating decoders for process `\ct_lsu_pfu_sdb_cmp.$proc$ct_lsu_pfu_sdb_cmp.v:335$93'.
+     1/2: $0\entry_iid_2[6:0]
+     2/2: $0\entry_addr_2[39:0]
+Creating decoders for process `\ct_lsu_pfu_sdb_cmp.$proc$ct_lsu_pfu_sdb_cmp.v:322$89'.
+     1/1: $0\entry_cmit[1:1]
+Creating decoders for process `\ct_lsu_pfu_sdb_cmp.$proc$ct_lsu_pfu_sdb_cmp.v:309$85'.
+     1/1: $0\entry_addr_vld[1:1]
+Creating decoders for process `\ct_lsu_pfu_sdb_cmp.$proc$ct_lsu_pfu_sdb_cmp.v:292$83'.
+     1/2: $0\entry_iid_1[6:0]
+     2/2: $0\entry_addr_1[39:0]
+Creating decoders for process `\ct_lsu_pfu_sdb_cmp.$proc$ct_lsu_pfu_sdb_cmp.v:279$79'.
+     1/1: $0\entry_cmit[0:0]
+Creating decoders for process `\ct_lsu_pfu_sdb_cmp.$proc$ct_lsu_pfu_sdb_cmp.v:266$75'.
+     1/1: $0\entry_addr_vld[0:0]
+Creating decoders for process `\ct_lsu_pfu_sdb_cmp.$proc$ct_lsu_pfu_sdb_cmp.v:249$73'.
+     1/2: $0\entry_iid_0[6:0]
+     2/2: $0\entry_addr_0[39:0]
+
+4.2.8. Executing PROC_DLATCH pass (convert process syncs to latches).
+
+4.2.9. Executing PROC_DFF pass (convert process syncs to FFs).
+Creating register for signal `\ct_lsu_pfu_sdb_cmp.\entry_addr_cmp_info_vld' using process `\ct_lsu_pfu_sdb_cmp.$proc$ct_lsu_pfu_sdb_cmp.v:397$105'.
+  created $adff cell `$procdff$265' with positive edge clock and positive level reset.
+Creating register for signal `\ct_lsu_pfu_sdb_cmp.\entry_stride_0to1_neg_cross_2k' using process `\ct_lsu_pfu_sdb_cmp.$proc$ct_lsu_pfu_sdb_cmp.v:397$105'.
+  created $adff cell `$procdff$270' with positive edge clock and positive level reset.
+Creating register for signal `\ct_lsu_pfu_sdb_cmp.\entry_stride_0to1_pos_cross_2k' using process `\ct_lsu_pfu_sdb_cmp.$proc$ct_lsu_pfu_sdb_cmp.v:397$105'.
+  created $adff cell `$procdff$275' with positive edge clock and positive level reset.
+Creating register for signal `\ct_lsu_pfu_sdb_cmp.\entry_stride_0to1_zero' using process `\ct_lsu_pfu_sdb_cmp.$proc$ct_lsu_pfu_sdb_cmp.v:397$105'.
+  created $adff cell `$procdff$280' with positive edge clock and positive level reset.
+Creating register for signal `\ct_lsu_pfu_sdb_cmp.\entry_stride_cmp0_eq' using process `\ct_lsu_pfu_sdb_cmp.$proc$ct_lsu_pfu_sdb_cmp.v:397$105'.
+  created $adff cell `$procdff$285' with positive edge clock and positive level reset.
+Creating register for signal `\ct_lsu_pfu_sdb_cmp.\entry_stride_diff_eq' using process `\ct_lsu_pfu_sdb_cmp.$proc$ct_lsu_pfu_sdb_cmp.v:397$105'.
+  created $adff cell `$procdff$290' with positive edge clock and positive level reset.
+Creating register for signal `\ct_lsu_pfu_sdb_cmp.\entry_stride' using process `\ct_lsu_pfu_sdb_cmp.$proc$ct_lsu_pfu_sdb_cmp.v:380$103'.
+  created $adff cell `$procdff$295' with positive edge clock and positive level reset.
+Creating register for signal `\ct_lsu_pfu_sdb_cmp.\entry_stride_neg' using process `\ct_lsu_pfu_sdb_cmp.$proc$ct_lsu_pfu_sdb_cmp.v:380$103'.
+  created $adff cell `$procdff$300' with positive edge clock and positive level reset.
+Creating register for signal `\ct_lsu_pfu_sdb_cmp.\entry_cmit [2]' using process `\ct_lsu_pfu_sdb_cmp.$proc$ct_lsu_pfu_sdb_cmp.v:365$99'.
+  created $adff cell `$procdff$305' with positive edge clock and positive level reset.
+Creating register for signal `\ct_lsu_pfu_sdb_cmp.\entry_addr_vld [2]' using process `\ct_lsu_pfu_sdb_cmp.$proc$ct_lsu_pfu_sdb_cmp.v:352$95'.
+  created $adff cell `$procdff$310' with positive edge clock and positive level reset.
+Creating register for signal `\ct_lsu_pfu_sdb_cmp.\entry_addr_2' using process `\ct_lsu_pfu_sdb_cmp.$proc$ct_lsu_pfu_sdb_cmp.v:335$93'.
+  created $adff cell `$procdff$315' with positive edge clock and positive level reset.
+Creating register for signal `\ct_lsu_pfu_sdb_cmp.\entry_iid_2' using process `\ct_lsu_pfu_sdb_cmp.$proc$ct_lsu_pfu_sdb_cmp.v:335$93'.
+  created $adff cell `$procdff$320' with positive edge clock and positive level reset.
+Creating register for signal `\ct_lsu_pfu_sdb_cmp.\entry_cmit [1]' using process `\ct_lsu_pfu_sdb_cmp.$proc$ct_lsu_pfu_sdb_cmp.v:322$89'.
+  created $adff cell `$procdff$325' with positive edge clock and positive level reset.
+Creating register for signal `\ct_lsu_pfu_sdb_cmp.\entry_addr_vld [1]' using process `\ct_lsu_pfu_sdb_cmp.$proc$ct_lsu_pfu_sdb_cmp.v:309$85'.
+  created $adff cell `$procdff$330' with positive edge clock and positive level reset.
+Creating register for signal `\ct_lsu_pfu_sdb_cmp.\entry_addr_1' using process `\ct_lsu_pfu_sdb_cmp.$proc$ct_lsu_pfu_sdb_cmp.v:292$83'.
+  created $adff cell `$procdff$335' with positive edge clock and positive level reset.
+Creating register for signal `\ct_lsu_pfu_sdb_cmp.\entry_iid_1' using process `\ct_lsu_pfu_sdb_cmp.$proc$ct_lsu_pfu_sdb_cmp.v:292$83'.
+  created $adff cell `$procdff$340' with positive edge clock and positive level reset.
+Creating register for signal `\ct_lsu_pfu_sdb_cmp.\entry_cmit [0]' using process `\ct_lsu_pfu_sdb_cmp.$proc$ct_lsu_pfu_sdb_cmp.v:279$79'.
+  created $adff cell `$procdff$345' with positive edge clock and positive level reset.
+Creating register for signal `\ct_lsu_pfu_sdb_cmp.\entry_addr_vld [0]' using process `\ct_lsu_pfu_sdb_cmp.$proc$ct_lsu_pfu_sdb_cmp.v:266$75'.
+  created $adff cell `$procdff$350' with positive edge clock and positive level reset.
+Creating register for signal `\ct_lsu_pfu_sdb_cmp.\entry_addr_0' using process `\ct_lsu_pfu_sdb_cmp.$proc$ct_lsu_pfu_sdb_cmp.v:249$73'.
+  created $adff cell `$procdff$355' with positive edge clock and positive level reset.
+Creating register for signal `\ct_lsu_pfu_sdb_cmp.\entry_iid_0' using process `\ct_lsu_pfu_sdb_cmp.$proc$ct_lsu_pfu_sdb_cmp.v:249$73'.
+  created $adff cell `$procdff$360' with positive edge clock and positive level reset.
+
+4.2.10. Executing PROC_MEMWR pass (convert process memory writes to cells).
+
+4.2.11. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Found and cleaned up 2 empty switches in `\ct_lsu_pfu_sdb_cmp.$proc$ct_lsu_pfu_sdb_cmp.v:397$105'.
+Removing empty process `ct_lsu_pfu_sdb_cmp.$proc$ct_lsu_pfu_sdb_cmp.v:397$105'.
+Found and cleaned up 1 empty switch in `\ct_lsu_pfu_sdb_cmp.$proc$ct_lsu_pfu_sdb_cmp.v:380$103'.
+Removing empty process `ct_lsu_pfu_sdb_cmp.$proc$ct_lsu_pfu_sdb_cmp.v:380$103'.
+Found and cleaned up 2 empty switches in `\ct_lsu_pfu_sdb_cmp.$proc$ct_lsu_pfu_sdb_cmp.v:365$99'.
+Removing empty process `ct_lsu_pfu_sdb_cmp.$proc$ct_lsu_pfu_sdb_cmp.v:365$99'.
+Found and cleaned up 2 empty switches in `\ct_lsu_pfu_sdb_cmp.$proc$ct_lsu_pfu_sdb_cmp.v:352$95'.
+Removing empty process `ct_lsu_pfu_sdb_cmp.$proc$ct_lsu_pfu_sdb_cmp.v:352$95'.
+Found and cleaned up 1 empty switch in `\ct_lsu_pfu_sdb_cmp.$proc$ct_lsu_pfu_sdb_cmp.v:335$93'.
+Removing empty process `ct_lsu_pfu_sdb_cmp.$proc$ct_lsu_pfu_sdb_cmp.v:335$93'.
+Found and cleaned up 2 empty switches in `\ct_lsu_pfu_sdb_cmp.$proc$ct_lsu_pfu_sdb_cmp.v:322$89'.
+Removing empty process `ct_lsu_pfu_sdb_cmp.$proc$ct_lsu_pfu_sdb_cmp.v:322$89'.
+Found and cleaned up 2 empty switches in `\ct_lsu_pfu_sdb_cmp.$proc$ct_lsu_pfu_sdb_cmp.v:309$85'.
+Removing empty process `ct_lsu_pfu_sdb_cmp.$proc$ct_lsu_pfu_sdb_cmp.v:309$85'.
+Found and cleaned up 1 empty switch in `\ct_lsu_pfu_sdb_cmp.$proc$ct_lsu_pfu_sdb_cmp.v:292$83'.
+Removing empty process `ct_lsu_pfu_sdb_cmp.$proc$ct_lsu_pfu_sdb_cmp.v:292$83'.
+Found and cleaned up 2 empty switches in `\ct_lsu_pfu_sdb_cmp.$proc$ct_lsu_pfu_sdb_cmp.v:279$79'.
+Removing empty process `ct_lsu_pfu_sdb_cmp.$proc$ct_lsu_pfu_sdb_cmp.v:279$79'.
+Found and cleaned up 2 empty switches in `\ct_lsu_pfu_sdb_cmp.$proc$ct_lsu_pfu_sdb_cmp.v:266$75'.
+Removing empty process `ct_lsu_pfu_sdb_cmp.$proc$ct_lsu_pfu_sdb_cmp.v:266$75'.
+Found and cleaned up 1 empty switch in `\ct_lsu_pfu_sdb_cmp.$proc$ct_lsu_pfu_sdb_cmp.v:249$73'.
+Removing empty process `ct_lsu_pfu_sdb_cmp.$proc$ct_lsu_pfu_sdb_cmp.v:249$73'.
+Cleaned up 18 empty switches.
+
+4.2.12. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_lsu_pfu_sdb_cmp.
+<suppressed ~40 debug messages>
+Optimizing module ct_rtu_compare_iid.
+Optimizing module gated_clk_cell.
+
+4.3. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_lsu_pfu_sdb_cmp.
+Optimizing module ct_rtu_compare_iid.
+Optimizing module gated_clk_cell.
+
+4.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_lsu_pfu_sdb_cmp..
+Finding unused cells or wires in module \ct_rtu_compare_iid..
+Finding unused cells or wires in module \gated_clk_cell..
+Removed 34 unused cells and 164 unused wires.
+<suppressed ~38 debug messages>
+
+4.5. Executing CHECK pass (checking for obvious problems).
+Checking module ct_lsu_pfu_sdb_cmp...
+Checking module ct_rtu_compare_iid...
+Checking module gated_clk_cell...
+Found and reported 0 problems.
+
+4.6. Executing OPT pass (performing simple optimizations).
+
+4.6.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_lsu_pfu_sdb_cmp.
+Optimizing module ct_rtu_compare_iid.
+Optimizing module gated_clk_cell.
+
+4.6.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_lsu_pfu_sdb_cmp'.
+Computing hashes of 151 cells of `\ct_lsu_pfu_sdb_cmp'.
+Finding duplicate cells in `\ct_lsu_pfu_sdb_cmp'.
+Computing hashes of 146 cells of `\ct_lsu_pfu_sdb_cmp'.
+Finding duplicate cells in `\ct_lsu_pfu_sdb_cmp'.
+Computing hashes of 142 cells of `\ct_lsu_pfu_sdb_cmp'.
+Finding duplicate cells in `\ct_lsu_pfu_sdb_cmp'.
+<suppressed ~27 debug messages>
+Finding identical cells in module `\ct_rtu_compare_iid'.
+Computing hashes of 67 cells of `\ct_rtu_compare_iid'.
+Finding duplicate cells in `\ct_rtu_compare_iid'.
+Finding identical cells in module `\gated_clk_cell'.
+Computing hashes of 0 cells of `\gated_clk_cell'.
+Finding duplicate cells in `\gated_clk_cell'.
+Removed a total of 9 cells.
+
+4.6.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \ct_lsu_pfu_sdb_cmp..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \ct_rtu_compare_iid..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \gated_clk_cell..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Removed 0 multiplexer ports.
+<suppressed ~58 debug messages>
+
+4.6.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \ct_lsu_pfu_sdb_cmp.
+  Optimizing cells in module \ct_rtu_compare_iid.
+  Optimizing cells in module \gated_clk_cell.
+Performed a total of 0 changes.
+
+4.6.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_lsu_pfu_sdb_cmp'.
+Computing hashes of 142 cells of `\ct_lsu_pfu_sdb_cmp'.
+Finding duplicate cells in `\ct_lsu_pfu_sdb_cmp'.
+Finding identical cells in module `\ct_rtu_compare_iid'.
+Computing hashes of 67 cells of `\ct_rtu_compare_iid'.
+Finding duplicate cells in `\ct_rtu_compare_iid'.
+Finding identical cells in module `\gated_clk_cell'.
+Computing hashes of 0 cells of `\gated_clk_cell'.
+Finding duplicate cells in `\gated_clk_cell'.
+Removed a total of 0 cells.
+
+4.6.6. Executing OPT_DFF pass (perform DFF optimizations).
+
+4.6.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_lsu_pfu_sdb_cmp..
+Finding unused cells or wires in module \ct_rtu_compare_iid..
+Finding unused cells or wires in module \gated_clk_cell..
+Removed 0 unused cells and 9 unused wires.
+<suppressed ~1 debug messages>
+
+4.6.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_lsu_pfu_sdb_cmp.
+Optimizing module ct_rtu_compare_iid.
+Optimizing module gated_clk_cell.
+
+4.6.9. Rerunning OPT passes. (Maybe there is more to do..)
+
+4.6.10. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \ct_lsu_pfu_sdb_cmp..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \ct_rtu_compare_iid..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \gated_clk_cell..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Removed 0 multiplexer ports.
+<suppressed ~58 debug messages>
+
+4.6.11. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \ct_lsu_pfu_sdb_cmp.
+  Optimizing cells in module \ct_rtu_compare_iid.
+  Optimizing cells in module \gated_clk_cell.
+Performed a total of 0 changes.
+
+4.6.12. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_lsu_pfu_sdb_cmp'.
+Computing hashes of 142 cells of `\ct_lsu_pfu_sdb_cmp'.
+Finding duplicate cells in `\ct_lsu_pfu_sdb_cmp'.
+Finding identical cells in module `\ct_rtu_compare_iid'.
+Computing hashes of 67 cells of `\ct_rtu_compare_iid'.
+Finding duplicate cells in `\ct_rtu_compare_iid'.
+Finding identical cells in module `\gated_clk_cell'.
+Computing hashes of 0 cells of `\gated_clk_cell'.
+Finding duplicate cells in `\gated_clk_cell'.
+Removed a total of 0 cells.
+
+4.6.13. Executing OPT_DFF pass (perform DFF optimizations).
+
+4.6.14. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_lsu_pfu_sdb_cmp..
+Finding unused cells or wires in module \ct_rtu_compare_iid..
+Finding unused cells or wires in module \gated_clk_cell..
+
+4.6.15. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_lsu_pfu_sdb_cmp.
+Optimizing module ct_rtu_compare_iid.
+Optimizing module gated_clk_cell.
+
+4.6.16. Finished fast OPT passes. (There is nothing left to do.)
+
+4.7. Executing FSM pass (extract and optimize FSM).
+
+4.7.1. Executing FSM_DETECT pass (finding FSMs in design).
+
+4.7.2. Executing FSM_EXTRACT pass (extracting FSM from design).
+
+4.7.3. Executing FSM_OPT pass (simple optimizations of FSMs).
+
+4.7.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_lsu_pfu_sdb_cmp..
+Finding unused cells or wires in module \ct_rtu_compare_iid..
+Finding unused cells or wires in module \gated_clk_cell..
+
+4.7.5. Executing FSM_OPT pass (simple optimizations of FSMs).
+
+4.7.6. Executing FSM_RECODE pass (re-assigning FSM state encoding).
+
+4.7.7. Executing FSM_INFO pass (dumping all available information on FSM cells).
+
+4.7.8. Executing FSM_MAP pass (mapping FSMs to basic logic).
+
+4.8. Executing OPT pass (performing simple optimizations).
+
+4.8.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_lsu_pfu_sdb_cmp.
+Optimizing module ct_rtu_compare_iid.
+Optimizing module gated_clk_cell.
+
+4.8.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_lsu_pfu_sdb_cmp'.
+Computing hashes of 142 cells of `\ct_lsu_pfu_sdb_cmp'.
+Finding duplicate cells in `\ct_lsu_pfu_sdb_cmp'.
+Finding identical cells in module `\ct_rtu_compare_iid'.
+Computing hashes of 67 cells of `\ct_rtu_compare_iid'.
+Finding duplicate cells in `\ct_rtu_compare_iid'.
+Finding identical cells in module `\gated_clk_cell'.
+Computing hashes of 0 cells of `\gated_clk_cell'.
+Finding duplicate cells in `\gated_clk_cell'.
+Removed a total of 0 cells.
+
+4.8.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \ct_lsu_pfu_sdb_cmp..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \ct_rtu_compare_iid..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \gated_clk_cell..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Removed 0 multiplexer ports.
+<suppressed ~58 debug messages>
+
+4.8.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \ct_lsu_pfu_sdb_cmp.
+  Optimizing cells in module \ct_rtu_compare_iid.
+  Optimizing cells in module \gated_clk_cell.
+Performed a total of 0 changes.
+
+4.8.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_lsu_pfu_sdb_cmp'.
+Computing hashes of 142 cells of `\ct_lsu_pfu_sdb_cmp'.
+Finding duplicate cells in `\ct_lsu_pfu_sdb_cmp'.
+Finding identical cells in module `\ct_rtu_compare_iid'.
+Computing hashes of 67 cells of `\ct_rtu_compare_iid'.
+Finding duplicate cells in `\ct_rtu_compare_iid'.
+Finding identical cells in module `\gated_clk_cell'.
+Computing hashes of 0 cells of `\gated_clk_cell'.
+Finding duplicate cells in `\gated_clk_cell'.
+Removed a total of 0 cells.
+
+4.8.6. Executing OPT_DFF pass (perform DFF optimizations).
+Adding EN signal on $procdff$330 ($adff) from module ct_lsu_pfu_sdb_cmp (D = $0\entry_addr_vld[1:1], Q = \entry_addr_vld [1]).
+Adding EN signal on $procdff$360 ($adff) from module ct_lsu_pfu_sdb_cmp (D = \ld_da_iid, Q = \entry_iid_0).
+Adding EN signal on $procdff$305 ($adff) from module ct_lsu_pfu_sdb_cmp (D = $0\entry_cmit[2:2], Q = \entry_cmit [2]).
+Adding EN signal on $procdff$270 ($adff) from module ct_lsu_pfu_sdb_cmp (D = $0\entry_stride_0to1_neg_cross_2k[0:0], Q = \entry_stride_0to1_neg_cross_2k).
+Adding EN signal on $procdff$295 ($adff) from module ct_lsu_pfu_sdb_cmp (D = \entry_stride_0to1 [10:0], Q = \entry_stride).
+Adding EN signal on $procdff$290 ($adff) from module ct_lsu_pfu_sdb_cmp (D = $0\entry_stride_diff_eq[0:0], Q = \entry_stride_diff_eq).
+Adding EN signal on $procdff$320 ($adff) from module ct_lsu_pfu_sdb_cmp (D = \entry_iid_2_next, Q = \entry_iid_2).
+Adding EN signal on $procdff$315 ($adff) from module ct_lsu_pfu_sdb_cmp (D = \entry_addr_2_next, Q = \entry_addr_2).
+Adding EN signal on $procdff$340 ($adff) from module ct_lsu_pfu_sdb_cmp (D = \ld_da_iid, Q = \entry_iid_1).
+Adding EN signal on $procdff$350 ($adff) from module ct_lsu_pfu_sdb_cmp (D = $0\entry_addr_vld[0:0], Q = \entry_addr_vld [0]).
+Adding EN signal on $procdff$285 ($adff) from module ct_lsu_pfu_sdb_cmp (D = $0\entry_stride_cmp0_eq[0:0], Q = \entry_stride_cmp0_eq).
+Adding EN signal on $procdff$335 ($adff) from module ct_lsu_pfu_sdb_cmp (D = \pipe_va, Q = \entry_addr_1).
+Adding EN signal on $procdff$355 ($adff) from module ct_lsu_pfu_sdb_cmp (D = \pipe_va, Q = \entry_addr_0).
+Adding EN signal on $procdff$345 ($adff) from module ct_lsu_pfu_sdb_cmp (D = $0\entry_cmit[0:0], Q = \entry_cmit [0]).
+Adding EN signal on $procdff$265 ($adff) from module ct_lsu_pfu_sdb_cmp (D = $0\entry_addr_cmp_info_vld[0:0], Q = \entry_addr_cmp_info_vld).
+Adding EN signal on $procdff$280 ($adff) from module ct_lsu_pfu_sdb_cmp (D = $0\entry_stride_0to1_zero[0:0], Q = \entry_stride_0to1_zero).
+Adding EN signal on $procdff$325 ($adff) from module ct_lsu_pfu_sdb_cmp (D = $0\entry_cmit[1:1], Q = \entry_cmit [1]).
+Adding EN signal on $procdff$300 ($adff) from module ct_lsu_pfu_sdb_cmp (D = \entry_stride_0to1 [39], Q = \entry_stride_neg).
+Adding EN signal on $procdff$275 ($adff) from module ct_lsu_pfu_sdb_cmp (D = $0\entry_stride_0to1_pos_cross_2k[0:0], Q = \entry_stride_0to1_pos_cross_2k).
+Adding EN signal on $procdff$310 ($adff) from module ct_lsu_pfu_sdb_cmp (D = $0\entry_addr_vld[2:2], Q = \entry_addr_vld [2]).
+
+4.8.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_lsu_pfu_sdb_cmp..
+Finding unused cells or wires in module \ct_rtu_compare_iid..
+Finding unused cells or wires in module \gated_clk_cell..
+Removed 8 unused cells and 8 unused wires.
+<suppressed ~9 debug messages>
+
+4.8.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_lsu_pfu_sdb_cmp.
+<suppressed ~12 debug messages>
+Optimizing module ct_rtu_compare_iid.
+Optimizing module gated_clk_cell.
+
+4.8.9. Rerunning OPT passes. (Maybe there is more to do..)
+
+4.8.10. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \ct_lsu_pfu_sdb_cmp..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \ct_rtu_compare_iid..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \gated_clk_cell..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Removed 0 multiplexer ports.
+<suppressed ~44 debug messages>
+
+4.8.11. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \ct_lsu_pfu_sdb_cmp.
+  Optimizing cells in module \ct_rtu_compare_iid.
+  Optimizing cells in module \gated_clk_cell.
+Performed a total of 0 changes.
+
+4.8.12. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_lsu_pfu_sdb_cmp'.
+Computing hashes of 146 cells of `\ct_lsu_pfu_sdb_cmp'.
+Finding duplicate cells in `\ct_lsu_pfu_sdb_cmp'.
+Computing hashes of 141 cells of `\ct_lsu_pfu_sdb_cmp'.
+Finding duplicate cells in `\ct_lsu_pfu_sdb_cmp'.
+<suppressed ~15 debug messages>
+Finding identical cells in module `\ct_rtu_compare_iid'.
+Computing hashes of 67 cells of `\ct_rtu_compare_iid'.
+Finding duplicate cells in `\ct_rtu_compare_iid'.
+Finding identical cells in module `\gated_clk_cell'.
+Computing hashes of 0 cells of `\gated_clk_cell'.
+Finding duplicate cells in `\gated_clk_cell'.
+Removed a total of 5 cells.
+
+4.8.13. Executing OPT_DFF pass (perform DFF optimizations).
+
+4.8.14. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_lsu_pfu_sdb_cmp..
+Finding unused cells or wires in module \ct_rtu_compare_iid..
+Finding unused cells or wires in module \gated_clk_cell..
+Removed 0 unused cells and 5 unused wires.
+<suppressed ~1 debug messages>
+
+4.8.15. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_lsu_pfu_sdb_cmp.
+Optimizing module ct_rtu_compare_iid.
+Optimizing module gated_clk_cell.
+
+4.8.16. Rerunning OPT passes. (Maybe there is more to do..)
+
+4.8.17. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \ct_lsu_pfu_sdb_cmp..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \ct_rtu_compare_iid..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \gated_clk_cell..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Removed 0 multiplexer ports.
+<suppressed ~44 debug messages>
+
+4.8.18. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \ct_lsu_pfu_sdb_cmp.
+  Optimizing cells in module \ct_rtu_compare_iid.
+  Optimizing cells in module \gated_clk_cell.
+Performed a total of 0 changes.
+
+4.8.19. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_lsu_pfu_sdb_cmp'.
+Computing hashes of 141 cells of `\ct_lsu_pfu_sdb_cmp'.
+Finding duplicate cells in `\ct_lsu_pfu_sdb_cmp'.
+Finding identical cells in module `\ct_rtu_compare_iid'.
+Computing hashes of 67 cells of `\ct_rtu_compare_iid'.
+Finding duplicate cells in `\ct_rtu_compare_iid'.
+Finding identical cells in module `\gated_clk_cell'.
+Computing hashes of 0 cells of `\gated_clk_cell'.
+Finding duplicate cells in `\gated_clk_cell'.
+Removed a total of 0 cells.
+
+4.8.20. Executing OPT_DFF pass (perform DFF optimizations).
+
+4.8.21. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_lsu_pfu_sdb_cmp..
+Finding unused cells or wires in module \ct_rtu_compare_iid..
+Finding unused cells or wires in module \gated_clk_cell..
+
+4.8.22. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_lsu_pfu_sdb_cmp.
+Optimizing module ct_rtu_compare_iid.
+Optimizing module gated_clk_cell.
+
+4.8.23. Finished fast OPT passes. (There is nothing left to do.)
+
+4.9. Executing WREDUCE pass (reducing word size of cells).
+
+4.10. Executing PEEPOPT pass (run peephole optimizers).
+
+4.11. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_lsu_pfu_sdb_cmp..
+Finding unused cells or wires in module \ct_rtu_compare_iid..
+Finding unused cells or wires in module \gated_clk_cell..
+
+4.12. Executing ALUMACC pass (create $alu and $macc cells).
+Extracting $alu and $macc cells in module ct_lsu_pfu_sdb_cmp:
+  creating $macc model for $sub$ct_lsu_pfu_sdb_cmp.v:575$158 ($sub).
+  creating $macc model for $sub$ct_lsu_pfu_sdb_cmp.v:573$157 ($sub).
+  creating $macc model for $sub$ct_lsu_pfu_sdb_cmp.v:571$156 ($sub).
+  creating $alu model for $macc $sub$ct_lsu_pfu_sdb_cmp.v:571$156.
+  creating $alu model for $macc $sub$ct_lsu_pfu_sdb_cmp.v:573$157.
+  creating $alu model for $macc $sub$ct_lsu_pfu_sdb_cmp.v:575$158.
+  creating $alu cell for $sub$ct_lsu_pfu_sdb_cmp.v:575$158: $auto$alumacc.cc:512:replace_alu$405
+  creating $alu cell for $sub$ct_lsu_pfu_sdb_cmp.v:573$157: $auto$alumacc.cc:512:replace_alu$408
+  creating $alu cell for $sub$ct_lsu_pfu_sdb_cmp.v:571$156: $auto$alumacc.cc:512:replace_alu$411
+  created 3 $alu and 0 $macc cells.
+Extracting $alu and $macc cells in module ct_rtu_compare_iid:
+  created 0 $alu and 0 $macc cells.
+Extracting $alu and $macc cells in module gated_clk_cell:
+  created 0 $alu and 0 $macc cells.
+
+4.13. Executing SHARE pass (SAT-based resource sharing).
+
+4.14. Executing OPT pass (performing simple optimizations).
+
+4.14.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_lsu_pfu_sdb_cmp.
+Optimizing module ct_rtu_compare_iid.
+Optimizing module gated_clk_cell.
+
+4.14.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_lsu_pfu_sdb_cmp'.
+Computing hashes of 141 cells of `\ct_lsu_pfu_sdb_cmp'.
+Finding duplicate cells in `\ct_lsu_pfu_sdb_cmp'.
+Finding identical cells in module `\ct_rtu_compare_iid'.
+Computing hashes of 67 cells of `\ct_rtu_compare_iid'.
+Finding duplicate cells in `\ct_rtu_compare_iid'.
+Finding identical cells in module `\gated_clk_cell'.
+Computing hashes of 0 cells of `\gated_clk_cell'.
+Finding duplicate cells in `\gated_clk_cell'.
+Removed a total of 0 cells.
+
+4.14.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \ct_lsu_pfu_sdb_cmp..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \ct_rtu_compare_iid..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \gated_clk_cell..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Removed 0 multiplexer ports.
+<suppressed ~44 debug messages>
+
+4.14.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \ct_lsu_pfu_sdb_cmp.
+  Optimizing cells in module \ct_rtu_compare_iid.
+  Optimizing cells in module \gated_clk_cell.
+Performed a total of 0 changes.
+
+4.14.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_lsu_pfu_sdb_cmp'.
+Computing hashes of 141 cells of `\ct_lsu_pfu_sdb_cmp'.
+Finding duplicate cells in `\ct_lsu_pfu_sdb_cmp'.
+Finding identical cells in module `\ct_rtu_compare_iid'.
+Computing hashes of 67 cells of `\ct_rtu_compare_iid'.
+Finding duplicate cells in `\ct_rtu_compare_iid'.
+Finding identical cells in module `\gated_clk_cell'.
+Computing hashes of 0 cells of `\gated_clk_cell'.
+Finding duplicate cells in `\gated_clk_cell'.
+Removed a total of 0 cells.
+
+4.14.6. Executing OPT_DFF pass (perform DFF optimizations).
+
+4.14.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_lsu_pfu_sdb_cmp..
+Finding unused cells or wires in module \ct_rtu_compare_iid..
+Finding unused cells or wires in module \gated_clk_cell..
+
+4.14.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_lsu_pfu_sdb_cmp.
+Optimizing module ct_rtu_compare_iid.
+Optimizing module gated_clk_cell.
+
+4.14.9. Finished fast OPT passes. (There is nothing left to do.)
+
+4.15. Executing MEMORY pass.
+
+4.15.1. Executing OPT_MEM pass (optimize memories).
+Performed a total of 0 transformations.
+
+4.15.2. Executing OPT_MEM_PRIORITY pass (removing unnecessary memory write priority relations).
+Performed a total of 0 transformations.
+
+4.15.3. Executing OPT_MEM_FEEDBACK pass (finding memory read-to-write feedback paths).
+
+4.15.4. Executing MEMORY_BMUX2ROM pass (converting muxes to ROMs).
+
+4.15.5. Executing MEMORY_DFF pass (merging $dff cells to $memrd).
+
+4.15.6. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_lsu_pfu_sdb_cmp..
+Finding unused cells or wires in module \ct_rtu_compare_iid..
+Finding unused cells or wires in module \gated_clk_cell..
+
+4.15.7. Executing MEMORY_SHARE pass (consolidating $memrd/$memwr cells).
+
+4.15.8. Executing OPT_MEM_WIDEN pass (optimize memories where all ports are wide).
+Performed a total of 0 transformations.
+
+4.15.9. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_lsu_pfu_sdb_cmp..
+Finding unused cells or wires in module \ct_rtu_compare_iid..
+Finding unused cells or wires in module \gated_clk_cell..
+
+4.15.10. Executing MEMORY_COLLECT pass (generating $mem cells).
+
+4.16. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_lsu_pfu_sdb_cmp..
+Finding unused cells or wires in module \ct_rtu_compare_iid..
+Finding unused cells or wires in module \gated_clk_cell..
+
+4.17. Executing OPT pass (performing simple optimizations).
+
+4.17.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_lsu_pfu_sdb_cmp.
+<suppressed ~12 debug messages>
+Optimizing module ct_rtu_compare_iid.
+Optimizing module gated_clk_cell.
+
+4.17.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_lsu_pfu_sdb_cmp'.
+Computing hashes of 129 cells of `\ct_lsu_pfu_sdb_cmp'.
+Finding duplicate cells in `\ct_lsu_pfu_sdb_cmp'.
+Computing hashes of 126 cells of `\ct_lsu_pfu_sdb_cmp'.
+Finding duplicate cells in `\ct_lsu_pfu_sdb_cmp'.
+<suppressed ~9 debug messages>
+Finding identical cells in module `\ct_rtu_compare_iid'.
+Computing hashes of 67 cells of `\ct_rtu_compare_iid'.
+Finding duplicate cells in `\ct_rtu_compare_iid'.
+Finding identical cells in module `\gated_clk_cell'.
+Computing hashes of 0 cells of `\gated_clk_cell'.
+Finding duplicate cells in `\gated_clk_cell'.
+Removed a total of 3 cells.
+
+4.17.3. Executing OPT_DFF pass (perform DFF optimizations).
+
+4.17.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_lsu_pfu_sdb_cmp..
+Finding unused cells or wires in module \ct_rtu_compare_iid..
+Finding unused cells or wires in module \gated_clk_cell..
+Removed 0 unused cells and 15 unused wires.
+<suppressed ~1 debug messages>
+
+4.17.5. Finished fast OPT passes.
+
+4.18. Executing MEMORY_MAP pass (converting memories to logic and flip-flops).
+
+4.19. Executing OPT pass (performing simple optimizations).
+
+4.19.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_lsu_pfu_sdb_cmp.
+<suppressed ~4 debug messages>
+Optimizing module ct_rtu_compare_iid.
+Optimizing module gated_clk_cell.
+
+4.19.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_lsu_pfu_sdb_cmp'.
+Computing hashes of 126 cells of `\ct_lsu_pfu_sdb_cmp'.
+Finding duplicate cells in `\ct_lsu_pfu_sdb_cmp'.
+Finding identical cells in module `\ct_rtu_compare_iid'.
+Computing hashes of 67 cells of `\ct_rtu_compare_iid'.
+Finding duplicate cells in `\ct_rtu_compare_iid'.
+Finding identical cells in module `\gated_clk_cell'.
+Computing hashes of 0 cells of `\gated_clk_cell'.
+Finding duplicate cells in `\gated_clk_cell'.
+Removed a total of 0 cells.
+
+4.19.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \ct_lsu_pfu_sdb_cmp..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \ct_rtu_compare_iid..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \gated_clk_cell..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Removed 0 multiplexer ports.
+<suppressed ~18 debug messages>
+
+4.19.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \ct_lsu_pfu_sdb_cmp.
+  Optimizing cells in module \ct_rtu_compare_iid.
+  Optimizing cells in module \gated_clk_cell.
+Performed a total of 0 changes.
+
+4.19.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_lsu_pfu_sdb_cmp'.
+Computing hashes of 126 cells of `\ct_lsu_pfu_sdb_cmp'.
+Finding duplicate cells in `\ct_lsu_pfu_sdb_cmp'.
+Finding identical cells in module `\ct_rtu_compare_iid'.
+Computing hashes of 67 cells of `\ct_rtu_compare_iid'.
+Finding duplicate cells in `\ct_rtu_compare_iid'.
+Finding identical cells in module `\gated_clk_cell'.
+Computing hashes of 0 cells of `\gated_clk_cell'.
+Finding duplicate cells in `\gated_clk_cell'.
+Removed a total of 0 cells.
+
+4.19.6. Executing OPT_SHARE pass.
+
+4.19.7. Executing OPT_DFF pass (perform DFF optimizations).
+
+4.19.8. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_lsu_pfu_sdb_cmp..
+Finding unused cells or wires in module \ct_rtu_compare_iid..
+Finding unused cells or wires in module \gated_clk_cell..
+
+4.19.9. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_lsu_pfu_sdb_cmp.
+Optimizing module ct_rtu_compare_iid.
+Optimizing module gated_clk_cell.
+
+4.19.10. Finished fast OPT passes. (There is nothing left to do.)
+
+4.20. Executing TECHMAP pass (map to technology primitives).
+
+4.20.1. Executing Verilog-2005 frontend: YOSYS_TECHMAP
+Parsing Verilog input from `YOSYS_TECHMAP' to AST representation.
+Generating RTLIL representation for module `\_90_simplemap_bool_ops'.
+Generating RTLIL representation for module `\_90_simplemap_reduce_ops'.
+Generating RTLIL representation for module `\_90_simplemap_logic_ops'.
+Generating RTLIL representation for module `\_90_simplemap_compare_ops'.
+Generating RTLIL representation for module `\_90_simplemap_various'.
+Generating RTLIL representation for module `\_90_simplemap_registers'.
+Generating RTLIL representation for module `\_90_shift_ops_shr_shl_sshl_sshr'.
+Generating RTLIL representation for module `\_90_shift_shiftx'.
+Generating RTLIL representation for module `\_90_fa'.
+Generating RTLIL representation for module `\_90_lcu_brent_kung'.
+Generating RTLIL representation for module `\_90_alu'.
+Generating RTLIL representation for module `\_90_macc'.
+Generating RTLIL representation for module `\_90_alumacc'.
+Generating RTLIL representation for module `$__div_mod_u'.
+Generating RTLIL representation for module `$__div_mod_trunc'.
+Generating RTLIL representation for module `\_90_div'.
+Generating RTLIL representation for module `\_90_mod'.
+Generating RTLIL representation for module `$__div_mod_floor'.
+Generating RTLIL representation for module `\_90_divfloor'.
+Generating RTLIL representation for module `\_90_modfloor'.
+Generating RTLIL representation for module `\_90_pow'.
+Generating RTLIL representation for module `\_90_demux'.
+Generating RTLIL representation for module `\_90_lut'.
+Generating RTLIL representation for module `$connect'.
+Generating RTLIL representation for module `$input_port'.
+Successfully finished Verilog frontend.
+
+4.20.2. Continuing TECHMAP pass.
+Using extmapper simplemap for cells of type $xor.
+Using extmapper simplemap for cells of type $logic_not.
+Using extmapper simplemap for cells of type $logic_and.
+Using extmapper simplemap for cells of type $logic_or.
+Using extmapper simplemap for cells of type $reduce_or.
+Using template $paramod$445c63d4194be6438b67f4f941870a6ab959ba80\_90_alu for cells of type $alu.
+Using extmapper simplemap for cells of type $reduce_bool.
+Using extmapper simplemap for cells of type $adffe.
+Using extmapper simplemap for cells of type $eq.
+Using extmapper simplemap for cells of type $not.
+Using extmapper simplemap for cells of type $and.
+Using extmapper simplemap for cells of type $mux.
+Using extmapper simplemap for cells of type $reduce_and.
+Using template $paramod\_90_fa\WIDTH=32'00000000000000000000000000101000 for cells of type $fa.
+Using template $paramod\_90_lcu_brent_kung\WIDTH=32'00000000000000000000000000101000 for cells of type $lcu.
+Using extmapper simplemap for cells of type $pos.
+Using extmapper simplemap for cells of type $or.
+No more expansions possible.
+<suppressed ~1013 debug messages>
+
+4.21. Executing OPT pass (performing simple optimizations).
+
+4.21.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_lsu_pfu_sdb_cmp.
+<suppressed ~498 debug messages>
+Optimizing module ct_rtu_compare_iid.
+Optimizing module gated_clk_cell.
+
+4.21.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_lsu_pfu_sdb_cmp'.
+Computing hashes of 1671 cells of `\ct_lsu_pfu_sdb_cmp'.
+Finding duplicate cells in `\ct_lsu_pfu_sdb_cmp'.
+Computing hashes of 1608 cells of `\ct_lsu_pfu_sdb_cmp'.
+Finding duplicate cells in `\ct_lsu_pfu_sdb_cmp'.
+Computing hashes of 1601 cells of `\ct_lsu_pfu_sdb_cmp'.
+Finding duplicate cells in `\ct_lsu_pfu_sdb_cmp'.
+<suppressed ~210 debug messages>
+Finding identical cells in module `\ct_rtu_compare_iid'.
+Computing hashes of 79 cells of `\ct_rtu_compare_iid'.
+Finding duplicate cells in `\ct_rtu_compare_iid'.
+Computing hashes of 75 cells of `\ct_rtu_compare_iid'.
+Finding duplicate cells in `\ct_rtu_compare_iid'.
+<suppressed ~12 debug messages>
+Finding identical cells in module `\gated_clk_cell'.
+Computing hashes of 0 cells of `\gated_clk_cell'.
+Finding duplicate cells in `\gated_clk_cell'.
+Removed a total of 74 cells.
+
+4.21.3. Executing OPT_DFF pass (perform DFF optimizations).
+
+4.21.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_lsu_pfu_sdb_cmp..
+Finding unused cells or wires in module \ct_rtu_compare_iid..
+Finding unused cells or wires in module \gated_clk_cell..
+Removed 62 unused cells and 196 unused wires.
+<suppressed ~64 debug messages>
+
+4.21.5. Finished fast OPT passes.
+
+4.22. Executing ABC pass (technology mapping using ABC).
+
+4.22.1. Extracting gate netlist of module `\ct_lsu_pfu_sdb_cmp' to `<abc-temp-dir>/input.blif'..
+
+4.22.1.1. Executed ABC.
+Extracted 1367 gates and 1615 wires to a netlist network with 246 inputs and 89 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: UC Berkeley, ABC 1.01 (compiled Jun 30 2026 04:50:19)
+ABC: abc 01> empty
+ABC: abc 01> source <abc-temp-dir>/abc.script
+ABC: + read_blif <abc-temp-dir>/input.blif
+ABC: + read_library <abc-temp-dir>/stdcells.genlib
+ABC: + strash
+ABC: + &get -n
+ABC: + &fraig -x
+ABC: + &put
+ABC: + scorr
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2
+ABC: + dretime
+ABC: + strash
+ABC: + &get -n
+ABC: + &dch -f
+ABC: + &nf
+ABC: + &put
+ABC: + write_blif <abc-temp-dir>/output.blif
+ABC:
+ABC: YOSYS_ABC_DONE
+
+4.22.1.2. Re-integrating ABC results.
+ABC RESULTS:               AND cells:      365
+ABC RESULTS:            ANDNOT cells:       35
+ABC RESULTS:               MUX cells:       56
+ABC RESULTS:              NAND cells:      227
+ABC RESULTS:               NOR cells:       13
+ABC RESULTS:               NOT cells:        6
+ABC RESULTS:                OR cells:       28
+ABC RESULTS:             ORNOT cells:      251
+ABC RESULTS:              XNOR cells:      127
+ABC RESULTS:               XOR cells:       39
+ABC RESULTS:        internal signals:     1280
+ABC RESULTS:           input signals:      246
+ABC RESULTS:          output signals:       89
+Removing temp directory.
+
+4.22.2. Extracting gate netlist of module `\ct_rtu_compare_iid' to `<abc-temp-dir>/input.blif'..
+
+4.22.2.1. Executed ABC.
+Extracted 75 gates and 89 wires to a netlist network with 14 inputs and 1 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: UC Berkeley, ABC 1.01 (compiled Jun 30 2026 04:50:19)
+ABC: abc 01> empty
+ABC: abc 01> source <abc-temp-dir>/abc.script
+ABC: + read_blif <abc-temp-dir>/input.blif
+ABC: + read_library <abc-temp-dir>/stdcells.genlib
+ABC: + strash
+ABC: + &get -n
+ABC: + &fraig -x
+ABC: + &put
+ABC: + scorr
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2
+ABC: + dretime
+ABC: + strash
+ABC: + &get -n
+ABC: + &dch -f
+ABC: + &nf
+ABC: + &put
+ABC: + write_blif <abc-temp-dir>/output.blif
+ABC:
+ABC: YOSYS_ABC_DONE
+
+4.22.2.2. Re-integrating ABC results.
+ABC RESULTS:               AND cells:        7
+ABC RESULTS:            ANDNOT cells:        2
+ABC RESULTS:              NAND cells:       14
+ABC RESULTS:             ORNOT cells:       11
+ABC RESULTS:              XNOR cells:        1
+ABC RESULTS:        internal signals:       74
+ABC RESULTS:           input signals:       14
+ABC RESULTS:          output signals:        1
+Removing temp directory.
+
+4.22.3. Extracting gate netlist of module `\gated_clk_cell' to `<abc-temp-dir>/input.blif'..
+
+4.22.3.1. Executed ABC.
+Extracted 0 gates and 0 wires to a netlist network with 0 inputs and 0 outputs.
+Don't call ABC as there is nothing to map.
+Removing temp directory.
+Removing global temp directory.
+
+4.23. Executing OPT pass (performing simple optimizations).
+
+4.23.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_lsu_pfu_sdb_cmp.
+Optimizing module ct_rtu_compare_iid.
+Optimizing module gated_clk_cell.
+
+4.23.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_lsu_pfu_sdb_cmp'.
+Computing hashes of 1319 cells of `\ct_lsu_pfu_sdb_cmp'.
+Finding duplicate cells in `\ct_lsu_pfu_sdb_cmp'.
+Finding identical cells in module `\ct_rtu_compare_iid'.
+Computing hashes of 35 cells of `\ct_rtu_compare_iid'.
+Finding duplicate cells in `\ct_rtu_compare_iid'.
+Finding identical cells in module `\gated_clk_cell'.
+Computing hashes of 0 cells of `\gated_clk_cell'.
+Finding duplicate cells in `\gated_clk_cell'.
+Removed a total of 0 cells.
+
+4.23.3. Executing OPT_DFF pass (perform DFF optimizations).
+
+4.23.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_lsu_pfu_sdb_cmp..
+Finding unused cells or wires in module \ct_rtu_compare_iid..
+Finding unused cells or wires in module \gated_clk_cell..
+Removed 0 unused cells and 930 unused wires.
+<suppressed ~27 debug messages>
+
+4.23.5. Finished fast OPT passes.
+
+4.24. Executing HIERARCHY pass (managing design hierarchy).
+Attribute `top' found on module `ct_lsu_pfu_sdb_cmp'. Setting top module to ct_lsu_pfu_sdb_cmp.
+
+4.24.1. Analyzing design hierarchy..
+Top module:  \ct_lsu_pfu_sdb_cmp
+Used module:     \ct_rtu_compare_iid
+Used module:     \gated_clk_cell
+
+4.24.2. Analyzing design hierarchy..
+Top module:  \ct_lsu_pfu_sdb_cmp
+Used module:     \ct_rtu_compare_iid
+Used module:     \gated_clk_cell
+Removed 0 unused modules.
+
+4.25. Printing statistics.
+
+=== ct_lsu_pfu_sdb_cmp ===
+
+        +----------Local Count, excluding submodules.
+        |
+     1134 wires
+     1532 wire bits
+       60 public wires
+      458 public wire bits
+       27 ports
+      106 port bits
+     1312 cells
+       35   $_ANDNOT_
+      365   $_AND_
+      165   $_DFFE_PN0P_
+       56   $_MUX_
+      227   $_NAND_
+       13   $_NOR_
+        6   $_NOT_
+      251   $_ORNOT_
+       28   $_OR_
+      127   $_XNOR_
+       39   $_XOR_
+        7 submodules
+        3   ct_rtu_compare_iid
+        4   gated_clk_cell
+
+=== ct_rtu_compare_iid ===
+
+        +----------Local Count, excluding submodules.
+        |
+       37 wires
+       49 wire bits
+        3 public wires
+       15 public wire bits
+        3 ports
+       15 port bits
+       35 cells
+        2   $_ANDNOT_
+        7   $_AND_
+       14   $_NAND_
+       11   $_ORNOT_
+        1   $_XNOR_
+
+=== gated_clk_cell ===
+
+        +----------Local Count, excluding submodules.
+        |
+        8 wires
+        8 wire bits
+        8 public wires
+        8 public wire bits
+        7 ports
+        7 port bits
+
+=== design hierarchy ===
+
+        +----------Count including submodules.
+        |
+     1417 ct_lsu_pfu_sdb_cmp
+       35 ct_rtu_compare_iid
+
+        +----------Count including submodules.
+        |
+     1277 wires
+     1711 wire bits
+      101 public wires
+      535 public wire bits
+       64 ports
+      179 port bits
+        - memories
+        - memory bits
+        - processes
+     1417 cells
+       41   $_ANDNOT_
+      386   $_AND_
+      165   $_DFFE_PN0P_
+       56   $_MUX_
+      269   $_NAND_
+       13   $_NOR_
+        6   $_NOT_
+      284   $_ORNOT_
+       28   $_OR_
+      130   $_XNOR_
+       39   $_XOR_
+        7 submodules
+        3   ct_rtu_compare_iid
+        4   gated_clk_cell
+
+4.26. Executing CHECK pass (checking for obvious problems).
+Checking module ct_lsu_pfu_sdb_cmp...
+Checking module ct_rtu_compare_iid...
+Checking module gated_clk_cell...
+Found and reported 0 problems.
+
+5. Executing ABC pass (technology mapping using ABC).
+
+5.1. Extracting gate netlist of module `\ct_lsu_pfu_sdb_cmp' to `<abc-temp-dir>/input.blif'..
+ABC: using cached merged SCL: <abc-scl-cache>/yosys_merged_24e19402.scl (1 files)
+
+5.1.1. Executed ABC.
+Extracted 1147 gates and 1393 wires to a netlist network with 246 inputs and 89 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: UC Berkeley, ABC 1.01 (compiled Jun 30 2026 04:50:19)
+ABC: abc 01> empty
+ABC: abc 01> source <abc-temp-dir>/abc.script
+ABC: + read_blif <abc-temp-dir>/input.blif
+ABC: + read_scl <abc-scl-cache>/yosys_merged_24e19402.scl
+ABC: Warning: Detected 9 multi-output cells (for example, "sky130_fd_sc_hd__fa_1").
+ABC: + strash
+ABC: + &get -n
+ABC: + &fraig -x
+ABC: + &put
+ABC: + scorr
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2
+ABC: + dretime
+ABC: + strash
+ABC: + &get -n
+ABC: + &dch -f
+ABC: + &nf
+ABC: + &put
+ABC: + write_blif <abc-temp-dir>/output.blif
+ABC:
+ABC: YOSYS_ABC_DONE
+
+5.1.2. Re-integrating ABC results.
+ABC RESULTS:   sky130_fd_sc_hd__a2111oi_0 cells:        6
+ABC RESULTS:   sky130_fd_sc_hd__a211o_1 cells:        2
+ABC RESULTS:   sky130_fd_sc_hd__a211oi_1 cells:        4
+ABC RESULTS:   sky130_fd_sc_hd__a21bo_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__a21boi_0 cells:        4
+ABC RESULTS:   sky130_fd_sc_hd__a21o_1 cells:        4
+ABC RESULTS:   sky130_fd_sc_hd__a21oi_1 cells:       35
+ABC RESULTS:   sky130_fd_sc_hd__a221o_1 cells:        4
+ABC RESULTS:   sky130_fd_sc_hd__a221oi_1 cells:        5
+ABC RESULTS:   sky130_fd_sc_hd__a222oi_1 cells:        6
+ABC RESULTS:   sky130_fd_sc_hd__a22o_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__a22oi_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__a311o_1 cells:        2
+ABC RESULTS:   sky130_fd_sc_hd__a311oi_1 cells:        7
+ABC RESULTS:   sky130_fd_sc_hd__a31o_1 cells:        2
+ABC RESULTS:   sky130_fd_sc_hd__a31oi_1 cells:       16
+ABC RESULTS:   sky130_fd_sc_hd__a41o_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__a41oi_1 cells:        2
+ABC RESULTS:   sky130_fd_sc_hd__and2_0 cells:       18
+ABC RESULTS:   sky130_fd_sc_hd__and3_1 cells:        4
+ABC RESULTS:   sky130_fd_sc_hd__and4_1 cells:        2
+ABC RESULTS:   sky130_fd_sc_hd__clkinv_1 cells:       52
+ABC RESULTS:   sky130_fd_sc_hd__lpflow_inputiso1p_1 cells:        7
+ABC RESULTS:   sky130_fd_sc_hd__lpflow_isobufsrc_1 cells:       71
+ABC RESULTS:   sky130_fd_sc_hd__maj3_1 cells:        9
+ABC RESULTS:   sky130_fd_sc_hd__mux2_1 cells:       38
+ABC RESULTS:   sky130_fd_sc_hd__nand2_1 cells:       65
+ABC RESULTS:   sky130_fd_sc_hd__nand2b_1 cells:       68
+ABC RESULTS:   sky130_fd_sc_hd__nand3_1 cells:       13
+ABC RESULTS:   sky130_fd_sc_hd__nand4_1 cells:        9
+ABC RESULTS:   sky130_fd_sc_hd__nand4b_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__nor2_1 cells:       49
+ABC RESULTS:   sky130_fd_sc_hd__nor2b_1 cells:        8
+ABC RESULTS:   sky130_fd_sc_hd__nor3_1 cells:       16
+ABC RESULTS:   sky130_fd_sc_hd__nor3b_1 cells:        2
+ABC RESULTS:   sky130_fd_sc_hd__nor4_1 cells:       10
+ABC RESULTS:   sky130_fd_sc_hd__nor4b_1 cells:        2
+ABC RESULTS:   sky130_fd_sc_hd__o2111a_1 cells:        2
+ABC RESULTS:   sky130_fd_sc_hd__o2111ai_1 cells:        4
+ABC RESULTS:   sky130_fd_sc_hd__o211a_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__o211ai_1 cells:        7
+ABC RESULTS:   sky130_fd_sc_hd__o21a_1 cells:        2
+ABC RESULTS:   sky130_fd_sc_hd__o21ai_0 cells:       41
+ABC RESULTS:   sky130_fd_sc_hd__o21bai_1 cells:        2
+ABC RESULTS:   sky130_fd_sc_hd__o221ai_1 cells:        4
+ABC RESULTS:   sky130_fd_sc_hd__o22a_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__o22ai_1 cells:       11
+ABC RESULTS:   sky130_fd_sc_hd__o2bb2ai_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__o311a_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__o311ai_0 cells:       10
+ABC RESULTS:   sky130_fd_sc_hd__o31ai_1 cells:       12
+ABC RESULTS:   sky130_fd_sc_hd__or3_1 cells:        3
+ABC RESULTS:   sky130_fd_sc_hd__or4_1 cells:        4
+ABC RESULTS:   sky130_fd_sc_hd__xnor2_1 cells:      113
+ABC RESULTS:   sky130_fd_sc_hd__xnor3_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__xor2_1 cells:       66
+ABC RESULTS:   sky130_fd_sc_hd__xor3_1 cells:        1
+ABC RESULTS:        internal signals:     1058
+ABC RESULTS:           input signals:      246
+ABC RESULTS:          output signals:       89
+Removing temp directory.
+
+5.2. Extracting gate netlist of module `\ct_rtu_compare_iid' to `<abc-temp-dir>/input.blif'..
+ABC: using cached merged SCL: <abc-scl-cache>/yosys_merged_24e19402.scl (1 files)
+
+5.2.1. Executed ABC.
+Extracted 35 gates and 49 wires to a netlist network with 14 inputs and 1 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: UC Berkeley, ABC 1.01 (compiled Jun 30 2026 04:50:19)
+ABC: abc 01> empty
+ABC: abc 01> source <abc-temp-dir>/abc.script
+ABC: + read_blif <abc-temp-dir>/input.blif
+ABC: + read_scl <abc-scl-cache>/yosys_merged_24e19402.scl
+ABC: Warning: Detected 9 multi-output cells (for example, "sky130_fd_sc_hd__fa_1").
+ABC: + strash
+ABC: + &get -n
+ABC: + &fraig -x
+ABC: + &put
+ABC: + scorr
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2
+ABC: + dretime
+ABC: + strash
+ABC: + &get -n
+ABC: + &dch -f
+ABC: + &nf
+ABC: + &put
+ABC: + write_blif <abc-temp-dir>/output.blif
+ABC:
+ABC: YOSYS_ABC_DONE
+
+5.2.2. Re-integrating ABC results.
+ABC RESULTS:   sky130_fd_sc_hd__a211o_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__a21oi_1 cells:        2
+ABC RESULTS:   sky130_fd_sc_hd__a221oi_1 cells:        2
+ABC RESULTS:   sky130_fd_sc_hd__a311oi_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__clkinv_1 cells:        3
+ABC RESULTS:   sky130_fd_sc_hd__lpflow_isobufsrc_1 cells:        4
+ABC RESULTS:   sky130_fd_sc_hd__nand2b_1 cells:        4
+ABC RESULTS:   sky130_fd_sc_hd__nor2_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__o21ai_0 cells:        3
+ABC RESULTS:   sky130_fd_sc_hd__o32ai_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__xor2_1 cells:        1
+ABC RESULTS:        internal signals:       34
+ABC RESULTS:           input signals:       14
+ABC RESULTS:          output signals:        1
+Removing temp directory.
+
+5.3. Extracting gate netlist of module `\gated_clk_cell' to `<abc-temp-dir>/input.blif'..
+ABC: using cached merged SCL: <abc-scl-cache>/yosys_merged_24e19402.scl (1 files)
+
+5.3.1. Executed ABC.
+Extracted 0 gates and 0 wires to a netlist network with 0 inputs and 0 outputs.
+Don't call ABC as there is nothing to map.
+Removing temp directory.
+Removing global temp directory.
+Removed 0 unused cells and 1442 unused wires.
+
+6. Printing statistics.
+
+=== ct_lsu_pfu_sdb_cmp ===
+
+        +----------Local Count, excluding submodules.
+        |        +-Local Area, excluding submodules.
+        |        |
+      821        - wires
+     1219        - wire bits
+       60        - public wires
+      458        - public wire bits
+       27        - ports
+      106        - port bits
+      999 5.62E+03 cells
+      165        -   $_DFFE_PN0P_
+        6    52.55   sky130_fd_sc_hd__a2111oi_0
+        2   17.517   sky130_fd_sc_hd__a211o_1
+        4   30.029   sky130_fd_sc_hd__a211oi_1
+        1    10.01   sky130_fd_sc_hd__a21bo_1
+        4   30.029   sky130_fd_sc_hd__a21boi_0
+        4   30.029   sky130_fd_sc_hd__a21o_1
+       35  175.168   sky130_fd_sc_hd__a21oi_1
+        4   40.038   sky130_fd_sc_hd__a221o_1
+        5   43.792   sky130_fd_sc_hd__a221oi_1
+        6   60.058   sky130_fd_sc_hd__a222oi_1
+        1    8.758   sky130_fd_sc_hd__a22o_1
+        1    7.507   sky130_fd_sc_hd__a22oi_1
+        2   20.019   sky130_fd_sc_hd__a311o_1
+        7   61.309   sky130_fd_sc_hd__a311oi_1
+        2   17.517   sky130_fd_sc_hd__a31o_1
+       16  100.096   sky130_fd_sc_hd__a31oi_1
+        1    10.01   sky130_fd_sc_hd__a41o_1
+        2   17.517   sky130_fd_sc_hd__a41oi_1
+       18  112.608   sky130_fd_sc_hd__and2_0
+        4   25.024   sky130_fd_sc_hd__and3_1
+        2   17.517   sky130_fd_sc_hd__and4_1
+       52  195.187   sky130_fd_sc_hd__clkinv_1
+        7   43.792   sky130_fd_sc_hd__lpflow_inputiso1p_1
+       71  444.176   sky130_fd_sc_hd__lpflow_isobufsrc_1
+        9   90.086   sky130_fd_sc_hd__maj3_1
+       38   427.91   sky130_fd_sc_hd__mux2_1
+       65  243.984   sky130_fd_sc_hd__nand2_1
+       68  425.408   sky130_fd_sc_hd__nand2b_1
+       13   65.062   sky130_fd_sc_hd__nand3_1
+        9   56.304   sky130_fd_sc_hd__nand4_1
+        1    8.758   sky130_fd_sc_hd__nand4b_1
+       49  183.926   sky130_fd_sc_hd__nor2_1
+        8   50.048   sky130_fd_sc_hd__nor2b_1
+       16   80.077   sky130_fd_sc_hd__nor3_1
+        2   15.014   sky130_fd_sc_hd__nor3b_1
+       10    62.56   sky130_fd_sc_hd__nor4_1
+        2   17.517   sky130_fd_sc_hd__nor4b_1
+        2   22.522   sky130_fd_sc_hd__o2111a_1
+        4   35.034   sky130_fd_sc_hd__o2111ai_1
+        1    10.01   sky130_fd_sc_hd__o211a_1
+        7    52.55   sky130_fd_sc_hd__o211ai_1
+        2   15.014   sky130_fd_sc_hd__o21a_1
+       41  205.197   sky130_fd_sc_hd__o21ai_0
+        2   15.014   sky130_fd_sc_hd__o21bai_1
+        4   35.034   sky130_fd_sc_hd__o221ai_1
+        1    8.758   sky130_fd_sc_hd__o22a_1
+       11   68.816   sky130_fd_sc_hd__o22ai_1
+        1    8.758   sky130_fd_sc_hd__o2bb2ai_1
+        1    10.01   sky130_fd_sc_hd__o311a_1
+       10   87.584   sky130_fd_sc_hd__o311ai_0
+       12   90.086   sky130_fd_sc_hd__o31ai_1
+        3   18.768   sky130_fd_sc_hd__or3_1
+        4   30.029   sky130_fd_sc_hd__or4_1
+      113  989.699   sky130_fd_sc_hd__xnor2_1
+        1   22.522   sky130_fd_sc_hd__xnor3_1
+       66  578.054   sky130_fd_sc_hd__xor2_1
+        1   23.773   sky130_fd_sc_hd__xor3_1
+        7        - submodules
+        3        -   ct_rtu_compare_iid
+        4        -   gated_clk_cell
+
+   Area for cell type $_DFFE_PN0P_ is unknown!
+
+   Chip area for module '\ct_lsu_pfu_sdb_cmp': 5624.144000
+     of which used for sequential elements: 0.000000 (0.00%)
+
+=== ct_rtu_compare_iid ===
+
+        +----------Local Count, excluding submodules.
+        |        +-Local Area, excluding submodules.
+        |        |
+       25        - wires
+       37        - wire bits
+        3        - public wires
+       15        - public wire bits
+        3        - ports
+       15        - port bits
+       23  142.637 cells
+        1    8.758   sky130_fd_sc_hd__a211o_1
+        2    10.01   sky130_fd_sc_hd__a21oi_1
+        2   17.517   sky130_fd_sc_hd__a221oi_1
+        1    8.758   sky130_fd_sc_hd__a311oi_1
+        3   11.261   sky130_fd_sc_hd__clkinv_1
+        4   25.024   sky130_fd_sc_hd__lpflow_isobufsrc_1
+        4   25.024   sky130_fd_sc_hd__nand2b_1
+        1    3.754   sky130_fd_sc_hd__nor2_1
+        3   15.014   sky130_fd_sc_hd__o21ai_0
+        1    8.758   sky130_fd_sc_hd__o32ai_1
+        1    8.758   sky130_fd_sc_hd__xor2_1
+
+   Chip area for module '\ct_rtu_compare_iid': 142.636800
+     of which used for sequential elements: 0.000000 (0.00%)
+
+=== gated_clk_cell ===
+
+        +----------Local Count, excluding submodules.
+        |        +-Local Area, excluding submodules.
+        |        |
+        8        - wires
+        8        - wire bits
+        8        - public wires
+        8        - public wire bits
+        7        - ports
+        7        - port bits
+
+=== design hierarchy ===
+
+        +----------Count including submodules.
+        |        +-Area including submodules.
+        |        |
+     1068 6.05E+03 ct_lsu_pfu_sdb_cmp
+       23  142.637 ct_rtu_compare_iid
+
+        +----------Count including submodules.
+        |        +-Area including submodules.
+        |        |
+      928        - wires
+     1362        - wire bits
+      101        - public wires
+      535        - public wire bits
+       64        - ports
+      179        - port bits
+        -        - memories
+        -        - memory bits
+        -        - processes
+     1068 6.05E+03 cells
+      165        -   $_DFFE_PN0P_
+        6    52.55   sky130_fd_sc_hd__a2111oi_0
+        5   43.792   sky130_fd_sc_hd__a211o_1
+        4   30.029   sky130_fd_sc_hd__a211oi_1
+        1    10.01   sky130_fd_sc_hd__a21bo_1
+        4   30.029   sky130_fd_sc_hd__a21boi_0
+        4   30.029   sky130_fd_sc_hd__a21o_1
+       41  205.197   sky130_fd_sc_hd__a21oi_1
+        4   40.038   sky130_fd_sc_hd__a221o_1
+       11   96.342   sky130_fd_sc_hd__a221oi_1
+        6   60.058   sky130_fd_sc_hd__a222oi_1
+        1    8.758   sky130_fd_sc_hd__a22o_1
+        1    7.507   sky130_fd_sc_hd__a22oi_1
+        2   20.019   sky130_fd_sc_hd__a311o_1
+       10   87.584   sky130_fd_sc_hd__a311oi_1
+        2   17.517   sky130_fd_sc_hd__a31o_1
+       16  100.096   sky130_fd_sc_hd__a31oi_1
+        1    10.01   sky130_fd_sc_hd__a41o_1
+        2   17.517   sky130_fd_sc_hd__a41oi_1
+       18  112.608   sky130_fd_sc_hd__and2_0
+        4   25.024   sky130_fd_sc_hd__and3_1
+        2   17.517   sky130_fd_sc_hd__and4_1
+       61   228.97   sky130_fd_sc_hd__clkinv_1
+        7   43.792   sky130_fd_sc_hd__lpflow_inputiso1p_1
+       83  519.248   sky130_fd_sc_hd__lpflow_isobufsrc_1
+        9   90.086   sky130_fd_sc_hd__maj3_1
+       38   427.91   sky130_fd_sc_hd__mux2_1
+       65  243.984   sky130_fd_sc_hd__nand2_1
+       80   500.48   sky130_fd_sc_hd__nand2b_1
+       13   65.062   sky130_fd_sc_hd__nand3_1
+        9   56.304   sky130_fd_sc_hd__nand4_1
+        1    8.758   sky130_fd_sc_hd__nand4b_1
+       52  195.187   sky130_fd_sc_hd__nor2_1
+        8   50.048   sky130_fd_sc_hd__nor2b_1
+       16   80.077   sky130_fd_sc_hd__nor3_1
+        2   15.014   sky130_fd_sc_hd__nor3b_1
+       10    62.56   sky130_fd_sc_hd__nor4_1
+        2   17.517   sky130_fd_sc_hd__nor4b_1
+        2   22.522   sky130_fd_sc_hd__o2111a_1
+        4   35.034   sky130_fd_sc_hd__o2111ai_1
+        1    10.01   sky130_fd_sc_hd__o211a_1
+        7    52.55   sky130_fd_sc_hd__o211ai_1
+        2   15.014   sky130_fd_sc_hd__o21a_1
+       50   250.24   sky130_fd_sc_hd__o21ai_0
+        2   15.014   sky130_fd_sc_hd__o21bai_1
+        4   35.034   sky130_fd_sc_hd__o221ai_1
+        1    8.758   sky130_fd_sc_hd__o22a_1
+       11   68.816   sky130_fd_sc_hd__o22ai_1
+        1    8.758   sky130_fd_sc_hd__o2bb2ai_1
+        1    10.01   sky130_fd_sc_hd__o311a_1
+       10   87.584   sky130_fd_sc_hd__o311ai_0
+       12   90.086   sky130_fd_sc_hd__o31ai_1
+        3   26.275   sky130_fd_sc_hd__o32ai_1
+        3   18.768   sky130_fd_sc_hd__or3_1
+        4   30.029   sky130_fd_sc_hd__or4_1
+      113  989.699   sky130_fd_sc_hd__xnor2_1
+        1   22.522   sky130_fd_sc_hd__xnor3_1
+       69   604.33   sky130_fd_sc_hd__xor2_1
+        1   23.773   sky130_fd_sc_hd__xor3_1
+        7   427.91 submodules
+        3   427.91   ct_rtu_compare_iid
+        4        -   gated_clk_cell
+
+   Area for cell type $_DFFE_PN0P_ is unknown!
+
+   Chip area for top module '\ct_lsu_pfu_sdb_cmp': 6052.054400
+     of which used for sequential elements: 0.000000 (0.00%)
+
+End of script. Logfile hash: d6647c915a, time: 0.84s, user: 0.16s, system: 0.04s, MEM: 46.38 MB peak
+Yosys 0.66+181 (git sha1 afe6b18f2, Release, Clang /usr/bin/clang++ 18.1.8)
+Time spent: 79% 2x abc (0 sec), 5% 2x stat (0 sec), ...
