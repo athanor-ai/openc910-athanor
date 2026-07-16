@@ -117,7 +117,9 @@ def test_provisioning_failure_runs_no_replay(tmp_path, liberty, monkeypatch):
     pkg = tmp_path / "pkg"
     pkg.mkdir()
     sentinel = tmp_path / "REPLAY_RAN"
-    (pkg / "replay.sh").write_text(f"#!/usr/bin/env bash\ntouch '{sentinel}'\n")
+    (pkg / "replay.sh").write_text(
+        f'#!/usr/bin/env bash\n"$YOSYS_BIN" -V\ntouch \'{sentinel}\'\n'
+    )
 
     # A real provisioning failure: YOSYS_BIN points at a non-existent file.
     monkeypatch.setenv("YOSYS_BIN", str(tmp_path / "no_such_yosys"))
@@ -129,6 +131,24 @@ def test_provisioning_failure_runs_no_replay(tmp_path, liberty, monkeypatch):
     assert rc == rp.EXIT_PROVISIONING
     assert not sentinel.exists(), "replay.sh executed despite a provisioning failure"
     assert not (pkg / "replay_out").exists()
+
+
+def test_only_needed_tools_are_resolved(tmp_path, liberty, monkeypatch):
+    """A proof/area package that never invokes OpenSTA must NOT be forced to
+    provision STA_BIN -- resolve only the tools its replay.sh references."""
+    replay_text = '#!/usr/bin/env bash\necho "$YOSYS_BIN ${LIBERTY}"\n'
+    assert rp._required_tool_vars(replay_text) == ["YOSYS_BIN", "LIBERTY"]
+
+    fake_yosys = _make_tool(tmp_path / "yosys", f"{PINNED_YOSYS} (git sha1 x)")
+    monkeypatch.setenv("YOSYS_BIN", str(fake_yosys))
+    monkeypatch.setenv("LIBERTY", str(liberty))
+    monkeypatch.delenv("STA_BIN", raising=False)
+    # STA is deliberately unresolvable; it must not be required for this package.
+    monkeypatch.setattr(rp.shutil, "which", lambda _n: None)
+
+    resolved = rp._resolve_env(_policy_for(liberty),
+                               rp._required_tool_vars(replay_text))
+    assert set(resolved) == {"YOSYS_BIN", "LIBERTY"}
 
 
 def test_exit_codes_are_distinct() -> None:

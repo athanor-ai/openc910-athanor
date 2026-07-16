@@ -249,13 +249,36 @@ def _packages() -> list[Path]:
     return sorted(p.parent for p in ARTIFACT_ROOT.glob("*/replay.sh"))
 
 
-def _resolve_env(policy: dict) -> dict[str, tuple[Path, str]]:
-    """Resolve all three tools up front. Raises ProvisioningError before replay."""
-    return {
-        "YOSYS_BIN": resolve_yosys(policy),
-        "STA_BIN": resolve_sta(policy),
-        "LIBERTY": resolve_liberty(policy),
-    }
+_RESOLVERS = {
+    "YOSYS_BIN": resolve_yosys,
+    "STA_BIN": resolve_sta,
+    "LIBERTY": resolve_liberty,
+}
+
+
+def _required_tool_vars(replay_text: str) -> list[str]:
+    """The pinned-tool env vars a replay.sh actually references, in stable order.
+
+    A proof/area package that never invokes OpenSTA (e.g. ct_prio) must not be
+    forced to provision STA_BIN it will not use -- resolve only what the script
+    needs, so a customer without every tool can still replay what applies.
+    """
+    import re
+
+    return [
+        var
+        for var in ("YOSYS_BIN", "STA_BIN", "LIBERTY")
+        if re.search(r"\$\{?" + var + r"\b", replay_text)
+    ]
+
+
+def _resolve_env(
+    policy: dict, needed: list[str] | None = None
+) -> dict[str, tuple[Path, str]]:
+    """Resolve the needed pinned tools up front. Raises ProvisioningError before replay."""
+    if needed is None:
+        needed = list(_RESOLVERS)
+    return {var: _RESOLVERS[var](policy) for var in needed}
 
 
 def _print_resolved(resolved: dict[str, tuple[Path, str]]) -> None:
@@ -270,9 +293,11 @@ def replay_package(pkg: Path, policy: dict) -> int:
         print(f"::provisioning-error:: {pkg.name}: no replay.sh in package", file=sys.stderr)
         return EXIT_PROVISIONING
 
-    # Resolve + verify EVERYTHING before running any verdict-bearing replay.
+    # Resolve + verify exactly the tools THIS package needs, before running any
+    # verdict-bearing replay.
+    needed = _required_tool_vars(replay.read_text(encoding="utf-8"))
     try:
-        resolved = _resolve_env(policy)
+        resolved = _resolve_env(policy, needed)
     except ProvisioningError as exc:
         print(f"::provisioning-error:: {pkg.name}: {exc}", file=sys.stderr)
         print(
@@ -306,8 +331,8 @@ def replay_package(pkg: Path, policy: dict) -> int:
     sys.stderr.write(proc.stderr)
 
     if proc.returncode == 0:
-        print(f"PASS: {pkg.name} reproduced every pinned claim (proof + mutant "
-              "red + area + timing + power + metric-negative controls).")
+        print(f"PASS: {pkg.name} reproduced every pinned claim in its replay.sh "
+              "(the package's own PASS line above enumerates them).")
         return EXIT_OK
 
     # Non-zero: distinguish a tool crash from a verdict-red reproduction miss.
