@@ -1,8 +1,8 @@
 {
   "schema": "openc910.helper_parent_full_ppa_scout.v1",
-  "status": "parent_integrated_full_ppa_scout_pending_parent_proof_route",
+  "status": "parent_integrated_pfu_proof_and_full_ppa_scout",
   "customer_ready": false,
-  "customer_ready_scope": "none; parent-integrated scout evidence only, pending a supported parent proof route and non-author replay",
+  "customer_ready_scope": "none; parent-integrated scout evidence only; ct_lsu_pfu_sdb_cmp parent proof now closes, ct_lsu_spec_fail_predict remains PPA-screen-only",
   "target": {
     "helper_module": "ct_rtu_compare_iid",
     "parent_modules": [
@@ -10,7 +10,7 @@
       "ct_lsu_pfu_sdb_cmp"
     ],
     "subsystem": "rtu_lsu_shared_iid_ordering",
-    "proof_subject": "helper-local combinational equivalence under the checked RTL model; parent proof route is not claimed"
+    "proof_subject": "helper-local combinational equivalence plus ct_lsu_pfu_sdb_cmp parent same-state equivalence under the checked RTL model; ct_lsu_spec_fail_predict parent proof route is not claimed"
   },
   "candidate": {
     "candidate_id": "ct_rtu_compare_iid_wrapped_relation_candidate1",
@@ -27,7 +27,7 @@
   },
   "files": {
     ".gitattributes": "a79691a93b46e49ce460c26ef22afcc03d6eca1e63bf2edbc20e96159510f6c9",
-    "README.md": "ffdf18219f66c10ce5992ab1b7309e69aa961f8e804f806d9ee9df636d32e026",
+    "README.md": "6cedbe20b8ceef32e6f8d7d56b84e3a90d0847f67b007dea21b066e281626c95",
     "ct_lsu_pfu_sdb_cmp.v": "84ae51193cc185e0a0cc556ea0ec16e526bdbeba470103beedc20608411d3aae",
     "ct_lsu_pfu_sdb_cmp_gate.mapped.v": "94f92c27e4812e3fb1b13c78c832c1e1843853fc1cd789240ca01b7ce9d6ebc1",
     "ct_lsu_pfu_sdb_cmp_gold.mapped.v": "7269eddd214e906623921026d340673dd3bd9db2d5fc54769cc7108a9d206538",
@@ -53,8 +53,10 @@
     "pfu_sdb_cmp_gold_opensta_area_timing_power.pinned.log": "aef26a205b5bca53b3f224f077b3fa84ca04b644d3b3f2615563b66efeb7070c",
     "pfu_sdb_cmp_metric_negative_map.pinned.log": "170eb996c8b412d1d02dcad1ae4d4412f4c7c34026e94c37761bb96c1df9d302",
     "pfu_sdb_cmp_metric_negative_opensta_area_timing_power.pinned.log": "7b764d97831550fb96f50700b48cd31e3dc4948849ba6b94f15a22dd5b7e402a",
+    "pfu_parent_proof_mutant_negative.pinned.log": "5e28c1a076d756a9a531f667f11c9c6c7aa6753eff12290b4ab9c09af0f19130",
+    "pfu_parent_same_state_equiv.pinned.log": "be737b48724b559ac03a96d8178eb3fdfbd01c6119478f31d931c8edd8a6a970",
     "proof_mutant_negative.pinned.log": "e3f583566bcd7ec051c2af0b1322b2c098112f5652cb3e31b8dedf6614567dd6",
-    "replay.sh": "2f8e916aff85dfcd67a55a5694acefb4feaeae02b4b173366a5d67a40091779c",
+    "replay.sh": "e6cb22d4e43be3017d5e4209cee3d335a40f73cbe753d3df7f76da8bcc3b3168",
     "same_state_equiv.pinned.log": "95b2dc734d64c2b5b10fe1a910a84bd1df78fbbf7cf3a3a9d65dc4f8a0167f4f",
     "spec_fail_predict_gate_map.pinned.log": "b70473b8086ab4599bc9bd77001981191e207f8351c7ec69b15d0acbeec4291c",
     "spec_fail_predict_gate_map_full_ppa.pinned.log": "df17af00a2a695fff24753821db4c69529ec6054ef907e866a00ad74c5bfaed2",
@@ -159,10 +161,31 @@
       "unproven_equiv_cells": 1
     },
     "parent_same_state_route": {
-      "status": "unsupported_tool_error_before_verdict",
-      "attempted_route": "direct parent same-state equiv_make on ct_lsu_spec_fail_predict and ct_lsu_pfu_sdb_cmp with helper substitution",
-      "observed_error": "Yosys equiv_make count_id(wire->name)==0 assertion before any proof verdict",
-      "interpretation": "tool-error is neither proof pass nor proof fail; parent proof authority is not claimed by this packet"
+      "status": "partial_parent_route_passed",
+      "ct_lsu_pfu_sdb_cmp": {
+        "status": "passed",
+        "route": "per-side helper-flattened parent same-state equiv_make with generated-temp blacklist, async2sync, dffunmap, equiv_simple -seq 8, equiv_induct -seq 8, and equiv_status -assert",
+        "log": "pfu_parent_same_state_equiv.pinned.log",
+        "log_sha256": "be737b48724b559ac03a96d8178eb3fdfbd01c6119478f31d931c8edd8a6a970",
+        "proven_equiv_cells": 366,
+        "unproven_equiv_cells": 0
+      },
+      "ct_lsu_pfu_sdb_cmp_negative_control": {
+        "status": "failed_as_expected",
+        "mutation": "weaken same-wrap strict comparison from > to >= in the helper substituted into the parent",
+        "log": "pfu_parent_proof_mutant_negative.pinned.log",
+        "log_sha256": "5e28c1a076d756a9a531f667f11c9c6c7aa6753eff12290b4ab9c09af0f19130",
+        "proven_equiv_cells": 363,
+        "unproven_equiv_cells": 3,
+        "interpretation": "the parent proof route discriminates the equality-boundary mutant at the three helper comparator sites"
+      },
+      "ct_lsu_spec_fail_predict": {
+        "status": "unsupported_tool_error_before_verdict",
+        "attempted_route": "direct parent same-state equiv_make with helper substitution",
+        "observed_error": "Yosys route remains unsupported before verdict for this parent in the current package",
+        "interpretation": "tool-error is neither proof pass nor proof fail; parent proof authority is not claimed for ct_lsu_spec_fail_predict"
+      },
+      "interpretation": "parent proof authority in this packet is limited to ct_lsu_pfu_sdb_cmp; the second parent remains PPA-screen evidence only"
     }
   },
   "negative_controls": {
@@ -201,14 +224,15 @@
   },
   "independent_replay": {
     "status": "pending_non_author_replay",
-    "ask": "Fresh-seat replay should reproduce SHA256SUMS, helper proof, proof mutant, both parent area/timing/OpenSTA-estimated-power screens, and the metric red-control before any promotion discussion."
+    "ask": "Fresh-seat replay should reproduce SHA256SUMS, helper proof, pfu parent proof, both proof mutants, both parent area/timing/OpenSTA-estimated-power screens, and the metric red-control before any promotion discussion."
   },
   "known_boundaries": [
-    "customer_ready=false; parent-integrated scout evidence only",
+    "customer_ready=false; parent-integrated proof/PPA scout evidence only",
     "not promoted as a result row",
     "helper proof is combinational ct_rtu_compare_iid equivalence under the checked RTL model",
+    "ct_lsu_pfu_sdb_cmp parent proof is same-state equivalence with 366/366 cells proven and a 3-cell equality-boundary mutant bite",
     "parent evidence is selected Sky130 area, OpenSTA max-data-arrival, and OpenSTA estimated-power screening for two LSU parent surfaces",
-    "direct parent same-state proof route currently tool-errors before verdict, so parent proof authority is not claimed",
+    "ct_lsu_spec_fail_predict parent same-state proof route remains unsupported before verdict, so proof authority is not claimed for that parent",
     "OpenSTA estimated power is not signoff power and not measured workload activity",
     "not whole LSU, whole C910/BOOM, ISA, memory consistency, speculation recovery, composed optimization, or whole-chip authority"
   ]
