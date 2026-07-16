@@ -1,0 +1,7 @@
+read_verilog -sv ct_fadd_onehot_sel_h_gate_candidate.v
+synth -flatten -top ct_fadd_onehot_sel_h
+dfflibmap -liberty sky130_fd_sc_hd__tt_025C_1v80.lib
+abc -liberty sky130_fd_sc_hd__tt_025C_1v80.lib
+clean
+stat -liberty sky130_fd_sc_hd__tt_025C_1v80.lib
+write_verilog -noattr -simple-lhs ct_fadd_onehot_sel_h_gate.mapped.v

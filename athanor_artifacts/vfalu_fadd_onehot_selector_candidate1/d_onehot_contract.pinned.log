@@ -1,0 +1,674 @@
+
+ /----------------------------------------------------------------------------\
+ |  yosys -- Yosys Open SYnthesis Suite                                       |
+ |  Copyright (C) 2012 - 2026  Claire Xenia Wolf <claire@yosyshq.com>         |
+ |  Distributed under an ISC-like license, type "license" to see terms        |
+ \----------------------------------------------------------------------------/
+ Yosys 0.66+181 (git sha1 afe6b18f2, Release, Clang /usr/bin/clang++ 18.1.8)
+
+-- Executing script file `d_onehot_contract.pinned.ys' --
+
+1. Executing Verilog-2005 frontend: ct_fadd_onehot_sel_d_gold.v
+Parsing SystemVerilog input from `ct_fadd_onehot_sel_d_gold.v' to AST representation.
+Generating RTLIL representation for module `\ct_fadd_onehot_sel_d'.
+Note: Assuming pure combinatorial block at ct_fadd_onehot_sel_d_gold.v:39.1-101.4 in
+compliance with IEC 62142(E):2005 / IEEE Std. 1364.1(E):2002. Recommending
+use of @* instead of @(...) for better match of synthesis and simulation.
+Successfully finished Verilog frontend.
+Renaming module \ct_fadd_onehot_sel_d to \gold.
+
+2. Executing Verilog-2005 frontend: ct_fadd_onehot_sel_d_gate_candidate.v
+Parsing SystemVerilog input from `ct_fadd_onehot_sel_d_gate_candidate.v' to AST representation.
+Generating RTLIL representation for module `\ct_fadd_onehot_sel_d'.
+Successfully finished Verilog frontend.
+Renaming module \ct_fadd_onehot_sel_d to \gate.
+
+3. Executing Verilog-2005 frontend: ct_fadd_onehot_sel_d_onehot_miter.sv
+Parsing formal Verilog input from `ct_fadd_onehot_sel_d_onehot_miter.sv' to AST representation.
+Generating RTLIL representation for module `\miter'.
+Successfully finished Verilog frontend.
+
+4. Executing PREP pass.
+
+4.1. Executing HIERARCHY pass (managing design hierarchy).
+
+4.1.1. Analyzing design hierarchy..
+Top module:  \miter
+Used module:     \gate
+Used module:     \gold
+
+4.1.2. Analyzing design hierarchy..
+Top module:  \miter
+Used module:     \gate
+Used module:     \gold
+Removed 0 unused modules.
+
+4.2. Executing PROC pass (convert processes to netlists).
+
+4.2.1. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Cleaned up 0 empty switches.
+
+4.2.2. Executing PROC_RMDEAD pass (remove dead branches from decision trees).
+Marked 1 switch rules as full_case in process $proc$ct_fadd_onehot_sel_d_gold.v:39$1 in module gold.
+Removed a total of 0 dead cases.
+
+4.2.3. Executing PROC_PRUNE pass (remove redundant assignments in processes).
+Removed 0 redundant assignments.
+Promoted 1 assignment to connection.
+
+4.2.4. Executing PROC_INIT pass (extract init attributes).
+
+4.2.5. Executing PROC_ARST pass (detect async resets in processes).
+
+4.2.6. Executing PROC_ROM pass (convert switches to ROMs).
+Converted 0 switches.
+<suppressed ~1 debug messages>
+
+4.2.7. Executing PROC_MUX pass (convert decision trees to multiplexers).
+Creating decoders for process `\gold.$proc$ct_fadd_onehot_sel_d_gold.v:39$1'.
+     1/1: $1\result_d[53:0]
+
+4.2.8. Executing PROC_DLATCH pass (convert process syncs to latches).
+No latch inferred for signal `\gold.\result_d' from process `\gold.$proc$ct_fadd_onehot_sel_d_gold.v:39$1'.
+
+4.2.9. Executing PROC_DFF pass (convert process syncs to FFs).
+
+4.2.10. Executing PROC_MEMWR pass (convert process memory writes to cells).
+
+4.2.11. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Found and cleaned up 1 empty switch in `\gold.$proc$ct_fadd_onehot_sel_d_gold.v:39$1'.
+Removing empty process `gold.$proc$ct_fadd_onehot_sel_d_gold.v:39$1'.
+Cleaned up 1 empty switch.
+
+4.2.12. Executing OPT_EXPR pass (perform const folding).
+Optimizing module miter.
+<suppressed ~2 debug messages>
+Optimizing module gate.
+<suppressed ~1 debug messages>
+Optimizing module gold.
+<suppressed ~1 debug messages>
+
+4.3. Executing FUTURE pass.
+
+4.4. Executing OPT_EXPR pass (perform const folding).
+Optimizing module miter.
+Optimizing module gate.
+Optimizing module gold.
+
+4.5. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \miter..
+Finding unused cells or wires in module \gate..
+Finding unused cells or wires in module \gold..
+Removed 0 unused cells and 7 unused wires.
+<suppressed ~3 debug messages>
+
+4.6. Executing CHECK pass (checking for obvious problems).
+Checking module miter...
+Warning: Wire miter.\data_in [53] is used but has no driver.
+Warning: Wire miter.\data_in [52] is used but has no driver.
+Warning: Wire miter.\data_in [51] is used but has no driver.
+Warning: Wire miter.\data_in [50] is used but has no driver.
+Warning: Wire miter.\data_in [49] is used but has no driver.
+Warning: Wire miter.\data_in [48] is used but has no driver.
+Warning: Wire miter.\data_in [47] is used but has no driver.
+Warning: Wire miter.\data_in [46] is used but has no driver.
+Warning: Wire miter.\data_in [45] is used but has no driver.
+Warning: Wire miter.\data_in [44] is used but has no driver.
+Warning: Wire miter.\data_in [43] is used but has no driver.
+Warning: Wire miter.\data_in [42] is used but has no driver.
+Warning: Wire miter.\data_in [41] is used but has no driver.
+Warning: Wire miter.\data_in [40] is used but has no driver.
+Warning: Wire miter.\data_in [39] is used but has no driver.
+Warning: Wire miter.\data_in [38] is used but has no driver.
+Warning: Wire miter.\data_in [37] is used but has no driver.
+Warning: Wire miter.\data_in [36] is used but has no driver.
+Warning: Wire miter.\data_in [35] is used but has no driver.
+Warning: Wire miter.\data_in [34] is used but has no driver.
+Warning: Wire miter.\data_in [33] is used but has no driver.
+Warning: Wire miter.\data_in [32] is used but has no driver.
+Warning: Wire miter.\data_in [31] is used but has no driver.
+Warning: Wire miter.\data_in [30] is used but has no driver.
+Warning: Wire miter.\data_in [29] is used but has no driver.
+Warning: Wire miter.\data_in [28] is used but has no driver.
+Warning: Wire miter.\data_in [27] is used but has no driver.
+Warning: Wire miter.\data_in [26] is used but has no driver.
+Warning: Wire miter.\data_in [25] is used but has no driver.
+Warning: Wire miter.\data_in [24] is used but has no driver.
+Warning: Wire miter.\data_in [23] is used but has no driver.
+Warning: Wire miter.\data_in [22] is used but has no driver.
+Warning: Wire miter.\data_in [21] is used but has no driver.
+Warning: Wire miter.\data_in [20] is used but has no driver.
+Warning: Wire miter.\data_in [19] is used but has no driver.
+Warning: Wire miter.\data_in [18] is used but has no driver.
+Warning: Wire miter.\data_in [17] is used but has no driver.
+Warning: Wire miter.\data_in [16] is used but has no driver.
+Warning: Wire miter.\data_in [15] is used but has no driver.
+Warning: Wire miter.\data_in [14] is used but has no driver.
+Warning: Wire miter.\data_in [13] is used but has no driver.
+Warning: Wire miter.\data_in [12] is used but has no driver.
+Warning: Wire miter.\data_in [11] is used but has no driver.
+Warning: Wire miter.\data_in [10] is used but has no driver.
+Warning: Wire miter.\data_in [9] is used but has no driver.
+Warning: Wire miter.\data_in [8] is used but has no driver.
+Warning: Wire miter.\data_in [7] is used but has no driver.
+Warning: Wire miter.\data_in [6] is used but has no driver.
+Warning: Wire miter.\data_in [5] is used but has no driver.
+Warning: Wire miter.\data_in [4] is used but has no driver.
+Warning: Wire miter.\data_in [3] is used but has no driver.
+Warning: Wire miter.\data_in [2] is used but has no driver.
+Warning: Wire miter.\data_in [1] is used but has no driver.
+Warning: Wire miter.\data_in [0] is used but has no driver.
+Warning: Wire miter.\onehot [53] is used but has no driver.
+Warning: Wire miter.\onehot [52] is used but has no driver.
+Warning: Wire miter.\onehot [51] is used but has no driver.
+Warning: Wire miter.\onehot [50] is used but has no driver.
+Warning: Wire miter.\onehot [49] is used but has no driver.
+Warning: Wire miter.\onehot [48] is used but has no driver.
+Warning: Wire miter.\onehot [47] is used but has no driver.
+Warning: Wire miter.\onehot [46] is used but has no driver.
+Warning: Wire miter.\onehot [45] is used but has no driver.
+Warning: Wire miter.\onehot [44] is used but has no driver.
+Warning: Wire miter.\onehot [43] is used but has no driver.
+Warning: Wire miter.\onehot [42] is used but has no driver.
+Warning: Wire miter.\onehot [41] is used but has no driver.
+Warning: Wire miter.\onehot [40] is used but has no driver.
+Warning: Wire miter.\onehot [39] is used but has no driver.
+Warning: Wire miter.\onehot [38] is used but has no driver.
+Warning: Wire miter.\onehot [37] is used but has no driver.
+Warning: Wire miter.\onehot [36] is used but has no driver.
+Warning: Wire miter.\onehot [35] is used but has no driver.
+Warning: Wire miter.\onehot [34] is used but has no driver.
+Warning: Wire miter.\onehot [33] is used but has no driver.
+Warning: Wire miter.\onehot [32] is used but has no driver.
+Warning: Wire miter.\onehot [31] is used but has no driver.
+Warning: Wire miter.\onehot [30] is used but has no driver.
+Warning: Wire miter.\onehot [29] is used but has no driver.
+Warning: Wire miter.\onehot [28] is used but has no driver.
+Warning: Wire miter.\onehot [27] is used but has no driver.
+Warning: Wire miter.\onehot [26] is used but has no driver.
+Warning: Wire miter.\onehot [25] is used but has no driver.
+Warning: Wire miter.\onehot [24] is used but has no driver.
+Warning: Wire miter.\onehot [23] is used but has no driver.
+Warning: Wire miter.\onehot [22] is used but has no driver.
+Warning: Wire miter.\onehot [21] is used but has no driver.
+Warning: Wire miter.\onehot [20] is used but has no driver.
+Warning: Wire miter.\onehot [19] is used but has no driver.
+Warning: Wire miter.\onehot [18] is used but has no driver.
+Warning: Wire miter.\onehot [17] is used but has no driver.
+Warning: Wire miter.\onehot [16] is used but has no driver.
+Warning: Wire miter.\onehot [15] is used but has no driver.
+Warning: Wire miter.\onehot [14] is used but has no driver.
+Warning: Wire miter.\onehot [13] is used but has no driver.
+Warning: Wire miter.\onehot [12] is used but has no driver.
+Warning: Wire miter.\onehot [11] is used but has no driver.
+Warning: Wire miter.\onehot [10] is used but has no driver.
+Warning: Wire miter.\onehot [9] is used but has no driver.
+Warning: Wire miter.\onehot [8] is used but has no driver.
+Warning: Wire miter.\onehot [7] is used but has no driver.
+Warning: Wire miter.\onehot [6] is used but has no driver.
+Warning: Wire miter.\onehot [5] is used but has no driver.
+Warning: Wire miter.\onehot [4] is used but has no driver.
+Warning: Wire miter.\onehot [3] is used but has no driver.
+Warning: Wire miter.\onehot [2] is used but has no driver.
+Warning: Wire miter.\onehot [1] is used but has no driver.
+Warning: Wire miter.\onehot [0] is used but has no driver.
+Checking module gate...
+Checking module gold...
+Found and reported 108 problems.
+
+4.7. Executing OPT pass (performing simple optimizations).
+
+4.7.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module miter.
+Optimizing module gate.
+Optimizing module gold.
+
+4.7.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\miter'.
+Computing hashes of 9 cells of `\miter'.
+Finding duplicate cells in `\miter'.
+Finding identical cells in module `\gate'.
+Computing hashes of 107 cells of `\gate'.
+Finding duplicate cells in `\gate'.
+Finding identical cells in module `\gold'.
+Computing hashes of 56 cells of `\gold'.
+Finding duplicate cells in `\gold'.
+Removed a total of 0 cells.
+
+4.7.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \miter..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \gate..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \gold..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~2 debug messages>
+
+4.7.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \miter.
+  Optimizing cells in module \gate.
+  Optimizing cells in module \gold.
+Performed a total of 0 changes.
+
+4.7.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\miter'.
+Computing hashes of 9 cells of `\miter'.
+Finding duplicate cells in `\miter'.
+Finding identical cells in module `\gate'.
+Computing hashes of 107 cells of `\gate'.
+Finding duplicate cells in `\gate'.
+Finding identical cells in module `\gold'.
+Computing hashes of 56 cells of `\gold'.
+Finding duplicate cells in `\gold'.
+Removed a total of 0 cells.
+
+4.7.6. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \miter..
+Finding unused cells or wires in module \gate..
+Finding unused cells or wires in module \gold..
+
+4.7.7. Executing OPT_EXPR pass (perform const folding).
+Optimizing module miter.
+Optimizing module gate.
+Optimizing module gold.
+
+4.7.8. Finished fast OPT passes. (There is nothing left to do.)
+
+4.8. Executing WREDUCE pass (reducing word size of cells).
+Removed top 53 bits (of 54) from port B of cell miter.$sub$ct_fadd_onehot_sel_d_onehot_miter.sv:13$111 ($sub).
+Removed top 53 bits (of 54) from port B of cell gold.$procmux$120_CMP0 ($eq).
+Removed top 52 bits (of 54) from port B of cell gold.$procmux$121_CMP0 ($eq).
+Removed top 51 bits (of 54) from port B of cell gold.$procmux$122_CMP0 ($eq).
+Removed top 50 bits (of 54) from port B of cell gold.$procmux$123_CMP0 ($eq).
+Removed top 49 bits (of 54) from port B of cell gold.$procmux$124_CMP0 ($eq).
+Removed top 48 bits (of 54) from port B of cell gold.$procmux$125_CMP0 ($eq).
+Removed top 47 bits (of 54) from port B of cell gold.$procmux$126_CMP0 ($eq).
+Removed top 46 bits (of 54) from port B of cell gold.$procmux$127_CMP0 ($eq).
+Removed top 45 bits (of 54) from port B of cell gold.$procmux$128_CMP0 ($eq).
+Removed top 44 bits (of 54) from port B of cell gold.$procmux$129_CMP0 ($eq).
+Removed top 43 bits (of 54) from port B of cell gold.$procmux$130_CMP0 ($eq).
+Removed top 42 bits (of 54) from port B of cell gold.$procmux$131_CMP0 ($eq).
+Removed top 41 bits (of 54) from port B of cell gold.$procmux$132_CMP0 ($eq).
+Removed top 40 bits (of 54) from port B of cell gold.$procmux$133_CMP0 ($eq).
+Removed top 39 bits (of 54) from port B of cell gold.$procmux$134_CMP0 ($eq).
+Removed top 38 bits (of 54) from port B of cell gold.$procmux$135_CMP0 ($eq).
+Removed top 37 bits (of 54) from port B of cell gold.$procmux$136_CMP0 ($eq).
+Removed top 36 bits (of 54) from port B of cell gold.$procmux$137_CMP0 ($eq).
+Removed top 35 bits (of 54) from port B of cell gold.$procmux$138_CMP0 ($eq).
+Removed top 34 bits (of 54) from port B of cell gold.$procmux$139_CMP0 ($eq).
+Removed top 33 bits (of 54) from port B of cell gold.$procmux$140_CMP0 ($eq).
+Removed top 32 bits (of 54) from port B of cell gold.$procmux$141_CMP0 ($eq).
+Removed top 31 bits (of 54) from port B of cell gold.$procmux$142_CMP0 ($eq).
+Removed top 30 bits (of 54) from port B of cell gold.$procmux$143_CMP0 ($eq).
+Removed top 29 bits (of 54) from port B of cell gold.$procmux$144_CMP0 ($eq).
+Removed top 28 bits (of 54) from port B of cell gold.$procmux$145_CMP0 ($eq).
+Removed top 27 bits (of 54) from port B of cell gold.$procmux$146_CMP0 ($eq).
+Removed top 26 bits (of 54) from port B of cell gold.$procmux$147_CMP0 ($eq).
+Removed top 25 bits (of 54) from port B of cell gold.$procmux$148_CMP0 ($eq).
+Removed top 24 bits (of 54) from port B of cell gold.$procmux$149_CMP0 ($eq).
+Removed top 23 bits (of 54) from port B of cell gold.$procmux$150_CMP0 ($eq).
+Removed top 22 bits (of 54) from port B of cell gold.$procmux$151_CMP0 ($eq).
+Removed top 21 bits (of 54) from port B of cell gold.$procmux$152_CMP0 ($eq).
+Removed top 20 bits (of 54) from port B of cell gold.$procmux$153_CMP0 ($eq).
+Removed top 19 bits (of 54) from port B of cell gold.$procmux$154_CMP0 ($eq).
+Removed top 18 bits (of 54) from port B of cell gold.$procmux$155_CMP0 ($eq).
+Removed top 17 bits (of 54) from port B of cell gold.$procmux$156_CMP0 ($eq).
+Removed top 16 bits (of 54) from port B of cell gold.$procmux$157_CMP0 ($eq).
+Removed top 15 bits (of 54) from port B of cell gold.$procmux$158_CMP0 ($eq).
+Removed top 14 bits (of 54) from port B of cell gold.$procmux$159_CMP0 ($eq).
+Removed top 13 bits (of 54) from port B of cell gold.$procmux$160_CMP0 ($eq).
+Removed top 12 bits (of 54) from port B of cell gold.$procmux$161_CMP0 ($eq).
+Removed top 11 bits (of 54) from port B of cell gold.$procmux$162_CMP0 ($eq).
+Removed top 10 bits (of 54) from port B of cell gold.$procmux$163_CMP0 ($eq).
+Removed top 9 bits (of 54) from port B of cell gold.$procmux$164_CMP0 ($eq).
+Removed top 8 bits (of 54) from port B of cell gold.$procmux$165_CMP0 ($eq).
+Removed top 7 bits (of 54) from port B of cell gold.$procmux$166_CMP0 ($eq).
+Removed top 6 bits (of 54) from port B of cell gold.$procmux$167_CMP0 ($eq).
+Removed top 5 bits (of 54) from port B of cell gold.$procmux$168_CMP0 ($eq).
+Removed top 4 bits (of 54) from port B of cell gold.$procmux$169_CMP0 ($eq).
+Removed top 3 bits (of 54) from port B of cell gold.$procmux$170_CMP0 ($eq).
+Removed top 2 bits (of 54) from port B of cell gold.$procmux$171_CMP0 ($eq).
+Removed top 1 bits (of 54) from port B of cell gold.$procmux$172_CMP0 ($eq).
+
+4.9. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \miter..
+Finding unused cells or wires in module \gate..
+Finding unused cells or wires in module \gold..
+
+4.10. Executing MEMORY_COLLECT pass (generating $mem cells).
+
+4.11. Executing OPT pass (performing simple optimizations).
+
+4.11.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module miter.
+Optimizing module gate.
+Optimizing module gold.
+
+4.11.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\miter'.
+Computing hashes of 9 cells of `\miter'.
+Finding duplicate cells in `\miter'.
+Finding identical cells in module `\gate'.
+Computing hashes of 107 cells of `\gate'.
+Finding duplicate cells in `\gate'.
+Finding identical cells in module `\gold'.
+Computing hashes of 56 cells of `\gold'.
+Finding duplicate cells in `\gold'.
+Removed a total of 0 cells.
+
+4.11.3. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \miter..
+Finding unused cells or wires in module \gate..
+Finding unused cells or wires in module \gold..
+
+4.11.4. Finished fast OPT passes.
+
+4.12. Executing SORT pass.
+
+4.13. Printing statistics.
+
+=== gate ===
+
+        +----------Local Count, excluding submodules.
+        | 
+      109 wires
+     5886 wire bits
+        3 public wires
+      162 public wire bits
+        3 ports
+      162 port bits
+      107 cells
+       54   $and
+       53   $or
+
+=== gold ===
+
+        +----------Local Count, excluding submodules.
+        | 
+       59 wires
+      271 wire bits
+        4 public wires
+      216 public wire bits
+        3 ports
+      162 port bits
+       56 cells
+       54   $eq
+        1   $logic_not
+        1   $pmux
+
+=== miter ===
+
+        +----------Local Count, excluding submodules.
+        | 
+       11 wires
+      329 wire bits
+        6 public wires
+      218 public wire bits
+        1 ports
+        1 port bits
+        7 cells
+        1   $and
+        1   $logic_and
+        2   $logic_not
+        1   $logic_or
+        1   $ne
+        1   $sub
+        2 submodules
+        1   gate
+        1   gold
+
+=== design hierarchy ===
+
+        +----------Count including submodules.
+        | 
+      170 miter
+      107 gate
+       56 gold
+
+        +----------Count including submodules.
+        | 
+      179 wires
+     6486 wire bits
+       13 public wires
+      596 public wire bits
+        7 ports
+      325 port bits
+        - memories
+        - memory bits
+        - processes
+      170 cells
+       55   $and
+       54   $eq
+        1   $logic_and
+        3   $logic_not
+        1   $logic_or
+        1   $ne
+       53   $or
+        1   $pmux
+        1   $sub
+        2 submodules
+        1   gate
+        1   gold
+
+4.14. Executing CHECK pass (checking for obvious problems).
+Checking module gate...
+Checking module gold...
+Checking module miter...
+Warning: Wire miter.\data_in [53] is used but has no driver.
+Warning: Wire miter.\data_in [52] is used but has no driver.
+Warning: Wire miter.\data_in [51] is used but has no driver.
+Warning: Wire miter.\data_in [50] is used but has no driver.
+Warning: Wire miter.\data_in [49] is used but has no driver.
+Warning: Wire miter.\data_in [48] is used but has no driver.
+Warning: Wire miter.\data_in [47] is used but has no driver.
+Warning: Wire miter.\data_in [46] is used but has no driver.
+Warning: Wire miter.\data_in [45] is used but has no driver.
+Warning: Wire miter.\data_in [44] is used but has no driver.
+Warning: Wire miter.\data_in [43] is used but has no driver.
+Warning: Wire miter.\data_in [42] is used but has no driver.
+Warning: Wire miter.\data_in [41] is used but has no driver.
+Warning: Wire miter.\data_in [40] is used but has no driver.
+Warning: Wire miter.\data_in [39] is used but has no driver.
+Warning: Wire miter.\data_in [38] is used but has no driver.
+Warning: Wire miter.\data_in [37] is used but has no driver.
+Warning: Wire miter.\data_in [36] is used but has no driver.
+Warning: Wire miter.\data_in [35] is used but has no driver.
+Warning: Wire miter.\data_in [34] is used but has no driver.
+Warning: Wire miter.\data_in [33] is used but has no driver.
+Warning: Wire miter.\data_in [32] is used but has no driver.
+Warning: Wire miter.\data_in [31] is used but has no driver.
+Warning: Wire miter.\data_in [30] is used but has no driver.
+Warning: Wire miter.\data_in [29] is used but has no driver.
+Warning: Wire miter.\data_in [28] is used but has no driver.
+Warning: Wire miter.\data_in [27] is used but has no driver.
+Warning: Wire miter.\data_in [26] is used but has no driver.
+Warning: Wire miter.\data_in [25] is used but has no driver.
+Warning: Wire miter.\data_in [24] is used but has no driver.
+Warning: Wire miter.\data_in [23] is used but has no driver.
+Warning: Wire miter.\data_in [22] is used but has no driver.
+Warning: Wire miter.\data_in [21] is used but has no driver.
+Warning: Wire miter.\data_in [20] is used but has no driver.
+Warning: Wire miter.\data_in [19] is used but has no driver.
+Warning: Wire miter.\data_in [18] is used but has no driver.
+Warning: Wire miter.\data_in [17] is used but has no driver.
+Warning: Wire miter.\data_in [16] is used but has no driver.
+Warning: Wire miter.\data_in [15] is used but has no driver.
+Warning: Wire miter.\data_in [14] is used but has no driver.
+Warning: Wire miter.\data_in [13] is used but has no driver.
+Warning: Wire miter.\data_in [12] is used but has no driver.
+Warning: Wire miter.\data_in [11] is used but has no driver.
+Warning: Wire miter.\data_in [10] is used but has no driver.
+Warning: Wire miter.\data_in [9] is used but has no driver.
+Warning: Wire miter.\data_in [8] is used but has no driver.
+Warning: Wire miter.\data_in [7] is used but has no driver.
+Warning: Wire miter.\data_in [6] is used but has no driver.
+Warning: Wire miter.\data_in [5] is used but has no driver.
+Warning: Wire miter.\data_in [4] is used but has no driver.
+Warning: Wire miter.\data_in [3] is used but has no driver.
+Warning: Wire miter.\data_in [2] is used but has no driver.
+Warning: Wire miter.\data_in [1] is used but has no driver.
+Warning: Wire miter.\data_in [0] is used but has no driver.
+Warning: Wire miter.\onehot [53] is used but has no driver.
+Warning: Wire miter.\onehot [52] is used but has no driver.
+Warning: Wire miter.\onehot [51] is used but has no driver.
+Warning: Wire miter.\onehot [50] is used but has no driver.
+Warning: Wire miter.\onehot [49] is used but has no driver.
+Warning: Wire miter.\onehot [48] is used but has no driver.
+Warning: Wire miter.\onehot [47] is used but has no driver.
+Warning: Wire miter.\onehot [46] is used but has no driver.
+Warning: Wire miter.\onehot [45] is used but has no driver.
+Warning: Wire miter.\onehot [44] is used but has no driver.
+Warning: Wire miter.\onehot [43] is used but has no driver.
+Warning: Wire miter.\onehot [42] is used but has no driver.
+Warning: Wire miter.\onehot [41] is used but has no driver.
+Warning: Wire miter.\onehot [40] is used but has no driver.
+Warning: Wire miter.\onehot [39] is used but has no driver.
+Warning: Wire miter.\onehot [38] is used but has no driver.
+Warning: Wire miter.\onehot [37] is used but has no driver.
+Warning: Wire miter.\onehot [36] is used but has no driver.
+Warning: Wire miter.\onehot [35] is used but has no driver.
+Warning: Wire miter.\onehot [34] is used but has no driver.
+Warning: Wire miter.\onehot [33] is used but has no driver.
+Warning: Wire miter.\onehot [32] is used but has no driver.
+Warning: Wire miter.\onehot [31] is used but has no driver.
+Warning: Wire miter.\onehot [30] is used but has no driver.
+Warning: Wire miter.\onehot [29] is used but has no driver.
+Warning: Wire miter.\onehot [28] is used but has no driver.
+Warning: Wire miter.\onehot [27] is used but has no driver.
+Warning: Wire miter.\onehot [26] is used but has no driver.
+Warning: Wire miter.\onehot [25] is used but has no driver.
+Warning: Wire miter.\onehot [24] is used but has no driver.
+Warning: Wire miter.\onehot [23] is used but has no driver.
+Warning: Wire miter.\onehot [22] is used but has no driver.
+Warning: Wire miter.\onehot [21] is used but has no driver.
+Warning: Wire miter.\onehot [20] is used but has no driver.
+Warning: Wire miter.\onehot [19] is used but has no driver.
+Warning: Wire miter.\onehot [18] is used but has no driver.
+Warning: Wire miter.\onehot [17] is used but has no driver.
+Warning: Wire miter.\onehot [16] is used but has no driver.
+Warning: Wire miter.\onehot [15] is used but has no driver.
+Warning: Wire miter.\onehot [14] is used but has no driver.
+Warning: Wire miter.\onehot [13] is used but has no driver.
+Warning: Wire miter.\onehot [12] is used but has no driver.
+Warning: Wire miter.\onehot [11] is used but has no driver.
+Warning: Wire miter.\onehot [10] is used but has no driver.
+Warning: Wire miter.\onehot [9] is used but has no driver.
+Warning: Wire miter.\onehot [8] is used but has no driver.
+Warning: Wire miter.\onehot [7] is used but has no driver.
+Warning: Wire miter.\onehot [6] is used but has no driver.
+Warning: Wire miter.\onehot [5] is used but has no driver.
+Warning: Wire miter.\onehot [4] is used but has no driver.
+Warning: Wire miter.\onehot [3] is used but has no driver.
+Warning: Wire miter.\onehot [2] is used but has no driver.
+Warning: Wire miter.\onehot [1] is used but has no driver.
+Warning: Wire miter.\onehot [0] is used but has no driver.
+Found and reported 108 problems.
+
+5. Executing FLATTEN pass (flatten design).
+Deleting now unused module gate.
+Deleting now unused module gold.
+<suppressed ~2 debug messages>
+
+6. Executing OPT pass (performing simple optimizations).
+
+6.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module miter.
+
+6.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\miter'.
+Computing hashes of 172 cells of `\miter'.
+Finding duplicate cells in `\miter'.
+Computing hashes of 171 cells of `\miter'.
+Finding duplicate cells in `\miter'.
+<suppressed ~3 debug messages>
+Removed a total of 1 cells.
+
+6.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \miter..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~2 debug messages>
+
+6.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \miter.
+Performed a total of 0 changes.
+
+6.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\miter'.
+Computing hashes of 171 cells of `\miter'.
+Finding duplicate cells in `\miter'.
+Removed a total of 0 cells.
+
+6.6. Executing OPT_DFF pass (perform DFF optimizations).
+
+6.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \miter..
+Removed 0 unused cells and 1 unused wires.
+<suppressed ~1 debug messages>
+
+6.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module miter.
+
+6.9. Rerunning OPT passes. (Maybe there is more to do..)
+
+6.10. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \miter..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~2 debug messages>
+
+6.11. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \miter.
+Performed a total of 0 changes.
+
+6.12. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\miter'.
+Computing hashes of 171 cells of `\miter'.
+Finding duplicate cells in `\miter'.
+Removed a total of 0 cells.
+
+6.13. Executing OPT_DFF pass (perform DFF optimizations).
+
+6.14. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \miter..
+
+6.15. Executing OPT_EXPR pass (perform const folding).
+Optimizing module miter.
+
+6.16. Finished fast OPT passes. (There is nothing left to do.)
+
+7. Executing SAT pass (solving SAT problems in the circuit).
+Using SAT solver `minisat`.
+
+Setting up SAT problem:
+Final constraint equation: { } = { }
+Imported 171 cells to SAT database.
+Import proof-constraint: \fail = 1'0
+Final proof equation: \fail = 1'0
+
+Solving problem with 33774 variables and 91962 clauses..
+SAT proof finished - no model found: SUCCESS!
+
+                  /$$$$$$      /$$$$$$$$     /$$$$$$$    
+                 /$$__  $$    | $$_____/    | $$__  $$   
+                | $$  \ $$    | $$          | $$  \ $$   
+                | $$  | $$    | $$$$$       | $$  | $$   
+                | $$  | $$    | $$__/       | $$  | $$   
+                | $$/$$ $$    | $$          | $$  | $$   
+                |  $$$$$$/ /$$| $$$$$$$$ /$$| $$$$$$$//$$
+                 \____ $$$|__/|________/|__/|_______/|__/
+                       \__/                              
+
+Warnings: 108 unique messages, 216 total
+End of script. Logfile hash: 945666dcbe, time: 0.51s, user: 0.50s, system: 0.02s, MEM: 48.23 MB peak
+Yosys 0.66+181 (git sha1 afe6b18f2, Release, Clang /usr/bin/clang++ 18.1.8)
+Time spent: 82% 1x sat (0 sec), 4% 6x opt_clean (0 sec), ...

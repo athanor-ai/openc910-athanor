@@ -1,0 +1,132 @@
+{
+  "schema": "openc910.vfalu_fadd_onehot_selector_scout.v1",
+  "status": "helper_metric_scout_replay_confirmed",
+  "customer_ready": false,
+  "customer_ready_scope": "none; helper-level scout under onehot-or-zero input contract only",
+  "target": {
+    "modules": [
+      "ct_fadd_onehot_sel_h",
+      "ct_fadd_onehot_sel_d"
+    ],
+    "subsystem": "vfalu_fadd_close_path",
+    "proof_subject": "helper-local output equivalence under onehot-or-zero selector input contract"
+  },
+  "candidate": {
+    "candidate_id": "ct_fadd_onehot_selector_masked_shift_candidate1",
+    "description": "replace case-based onehot shift selectors with explicit masked-shift OR reductions",
+    "selected_flow": "yosys66_sky130_synth_dfflibmap_abc_opensta_contract_v1",
+    "state_change": "none",
+    "h_candidate_sha256": "c70463f4688bea82f19a47f1912fa0b8d65a9117894a9748cfeab80090a72501",
+    "d_candidate_sha256": "544fd7ebde300e899b09f030d4fe728af9f2a3fa55c3cdd1153592c110bd32e0",
+    "h_mapped_netlist_sha256": "6a9d406e2326e6cd62229f873699672ff3c0a945503586ae7424256f7fd06c22",
+    "d_mapped_netlist_sha256": "03891890329123f59b5e04ec96e3bf7bb5d63c9eac9e75296e0f76b1794b62dd"
+  },
+  "toolchain": {
+    "yosys_version": "Yosys 0.66+181 (git sha1 afe6b18f2, Release, Clang /usr/bin/clang++ 18.1.8)",
+    "opensta_version": "OpenSTA 2.2.0",
+    "liberty": "sky130_fd_sc_hd__tt_025C_1v80.lib",
+    "liberty_sha256": "ec0e1067a35c8bf20b11e58d1e8ac53326067e4dac84a125cc1b917a3518d0d9"
+  },
+  "metrics": {
+    "area": {
+      "instrument": "yosys_stat_liberty",
+      "unit": "sky130_selected_area",
+      "h": {
+        "gold": 599.3248,
+        "gate": 339.0752
+      },
+      "d": {
+        "gold": 8134.0512,
+        "gate": 6563.7952
+      },
+      "log_refs": [
+        "h_gold_map.pinned.log",
+        "h_gate_map.pinned.log",
+        "d_gold_map.pinned.log",
+        "d_gate_map.pinned.log"
+      ]
+    },
+    "timing": {
+      "instrument": "opensta",
+      "unit": "ns max data-arrival",
+      "h": {
+        "gold": 2.29,
+        "gate": 0.54
+      },
+      "d": {
+        "gold": 7.07,
+        "gate": 1.03
+      },
+      "log_refs": [
+        "h_gold_opensta_area_timing_power.pinned.log",
+        "h_gate_opensta_area_timing_power.pinned.log",
+        "d_gold_opensta_area_timing_power.pinned.log",
+        "d_gate_opensta_area_timing_power.pinned.log"
+      ]
+    },
+    "power": {
+      "instrument": "opensta_report_power",
+      "unit": "nW OpenSTA estimated total power under fixed global activity 0.1",
+      "h": {
+        "gold": 1.55e-05,
+        "gate": 5.9e-06
+      },
+      "d": {
+        "gold": 0.000225,
+        "gate": 0.000119
+      },
+      "methodology_boundary": "OpenSTA liberty estimate under fixed global activity; not signoff power and not measured workload activity"
+    }
+  },
+  "proof_receipts": {
+    "h_onehot_contract": {
+      "status": "passed",
+      "log": "h_onehot_contract.pinned.log",
+      "log_sha256": "f303ce13dc665adf79b19e2ea83b58e0ef3e0f8fa38faa2d5806b52c4264144d",
+      "assumption": "onehot input is onehot-or-zero"
+    },
+    "d_onehot_contract": {
+      "status": "passed",
+      "log": "d_onehot_contract.pinned.log",
+      "log_sha256": "e4c68232a070812dca22da58f59b7f5c08f6fa3e379ed6f2bcae11849283400f",
+      "assumption": "onehot input is onehot-or-zero"
+    },
+    "h_proof_mutant": {
+      "status": "failed_as_expected",
+      "log": "h_proof_mutant_negative.pinned.log",
+      "log_sha256": "f33eaaefb2c070ebb2d3d655d55b83c4d95c76bd8a9ad4ab75a4f71fc94c8d92",
+      "mutation": "swap adjacent masked shifts"
+    },
+    "d_proof_mutant": {
+      "status": "failed_as_expected",
+      "log": "d_proof_mutant_negative.pinned.log",
+      "log_sha256": "30126d2cde12e8d8c168e5354eb0ef04662a0224e9fc9d5287216c9be1718cba",
+      "mutation": "swap adjacent masked shifts"
+    }
+  },
+  "known_boundaries": [
+    "customer_ready=false; not promoted as a result row",
+    "helper-level V FADD onehot selector modules only",
+    "correctness is under the onehot-or-zero selector input contract; multihot behavior is not claimed",
+    "no parent VFALU integration, full FADD datapath, whole-C910, ISA, or workload claim",
+    "non-author replay confirms this helper package; parent integration is still pending"
+  ],
+  "independent_replay": {
+    "status": "passed",
+    "reviewer": "non-author replay seat",
+    "toolchain": {
+      "yosys_version": "Yosys 0.66+181 (git sha1 afe6b18f2)",
+      "opensta_version": "OpenSTA 2.2.0",
+      "liberty": "sky130_fd_sc_hd__tt_025C_1v80.lib",
+      "liberty_sha256": "ec0e1067a35c8bf20b11e58d1e8ac53326067e4dac84a125cc1b917a3518d0d9"
+    },
+    "checks": [
+      "SHA256SUMS clean before replay",
+      "h and d gold/gate mapped netlists reproduced byte-exact",
+      "h onehot-or-zero contract SAT SUCCESS and adjacent-shift mutant red",
+      "d onehot-or-zero contract SAT SUCCESS and adjacent-shift mutant red",
+      "area, OpenSTA max data-arrival, and OpenSTA estimated power reproduced for both helpers"
+    ],
+    "boundary": "Confirms contracted helper-local scout evidence only; customer_ready remains false until parent VFALU/FADD integration and promotion review."
+  }
+}

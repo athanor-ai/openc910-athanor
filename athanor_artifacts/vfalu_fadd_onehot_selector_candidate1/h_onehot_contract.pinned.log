@@ -1,0 +1,464 @@
+
+ /----------------------------------------------------------------------------\
+ |  yosys -- Yosys Open SYnthesis Suite                                       |
+ |  Copyright (C) 2012 - 2026  Claire Xenia Wolf <claire@yosyshq.com>         |
+ |  Distributed under an ISC-like license, type "license" to see terms        |
+ \----------------------------------------------------------------------------/
+ Yosys 0.66+181 (git sha1 afe6b18f2, Release, Clang /usr/bin/clang++ 18.1.8)
+
+-- Executing script file `h_onehot_contract.pinned.ys' --
+
+1. Executing Verilog-2005 frontend: ct_fadd_onehot_sel_h_gold.v
+Parsing SystemVerilog input from `ct_fadd_onehot_sel_h_gold.v' to AST representation.
+Generating RTLIL representation for module `\ct_fadd_onehot_sel_h'.
+Note: Assuming pure combinatorial block at ct_fadd_onehot_sel_h_gold.v:39.1-59.4 in
+compliance with IEC 62142(E):2005 / IEEE Std. 1364.1(E):2002. Recommending
+use of @* instead of @(...) for better match of synthesis and simulation.
+Successfully finished Verilog frontend.
+Renaming module \ct_fadd_onehot_sel_h to \gold.
+
+2. Executing Verilog-2005 frontend: ct_fadd_onehot_sel_h_gate_candidate.v
+Parsing SystemVerilog input from `ct_fadd_onehot_sel_h_gate_candidate.v' to AST representation.
+Generating RTLIL representation for module `\ct_fadd_onehot_sel_h'.
+Successfully finished Verilog frontend.
+Renaming module \ct_fadd_onehot_sel_h to \gate.
+
+3. Executing Verilog-2005 frontend: ct_fadd_onehot_sel_h_onehot_miter.sv
+Parsing formal Verilog input from `ct_fadd_onehot_sel_h_onehot_miter.sv' to AST representation.
+Generating RTLIL representation for module `\miter'.
+Successfully finished Verilog frontend.
+
+4. Executing PREP pass.
+
+4.1. Executing HIERARCHY pass (managing design hierarchy).
+
+4.1.1. Analyzing design hierarchy..
+Top module:  \miter
+Used module:     \gate
+Used module:     \gold
+
+4.1.2. Analyzing design hierarchy..
+Top module:  \miter
+Used module:     \gate
+Used module:     \gold
+Removed 0 unused modules.
+
+4.2. Executing PROC pass (convert processes to netlists).
+
+4.2.1. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Cleaned up 0 empty switches.
+
+4.2.2. Executing PROC_RMDEAD pass (remove dead branches from decision trees).
+Marked 1 switch rules as full_case in process $proc$ct_fadd_onehot_sel_h_gold.v:39$1 in module gold.
+Removed a total of 0 dead cases.
+
+4.2.3. Executing PROC_PRUNE pass (remove redundant assignments in processes).
+Removed 0 redundant assignments.
+Promoted 1 assignment to connection.
+
+4.2.4. Executing PROC_INIT pass (extract init attributes).
+
+4.2.5. Executing PROC_ARST pass (detect async resets in processes).
+
+4.2.6. Executing PROC_ROM pass (convert switches to ROMs).
+Converted 0 switches.
+<suppressed ~1 debug messages>
+
+4.2.7. Executing PROC_MUX pass (convert decision trees to multiplexers).
+Creating decoders for process `\gold.$proc$ct_fadd_onehot_sel_h_gold.v:39$1'.
+     1/1: $1\result_h[11:0]
+
+4.2.8. Executing PROC_DLATCH pass (convert process syncs to latches).
+No latch inferred for signal `\gold.\result_h' from process `\gold.$proc$ct_fadd_onehot_sel_h_gold.v:39$1'.
+
+4.2.9. Executing PROC_DFF pass (convert process syncs to FFs).
+
+4.2.10. Executing PROC_MEMWR pass (convert process memory writes to cells).
+
+4.2.11. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Found and cleaned up 1 empty switch in `\gold.$proc$ct_fadd_onehot_sel_h_gold.v:39$1'.
+Removing empty process `gold.$proc$ct_fadd_onehot_sel_h_gold.v:39$1'.
+Cleaned up 1 empty switch.
+
+4.2.12. Executing OPT_EXPR pass (perform const folding).
+Optimizing module miter.
+<suppressed ~2 debug messages>
+Optimizing module gate.
+<suppressed ~1 debug messages>
+Optimizing module gold.
+<suppressed ~1 debug messages>
+
+4.3. Executing FUTURE pass.
+
+4.4. Executing OPT_EXPR pass (perform const folding).
+Optimizing module miter.
+Optimizing module gate.
+Optimizing module gold.
+
+4.5. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \miter..
+Finding unused cells or wires in module \gate..
+Finding unused cells or wires in module \gold..
+Removed 0 unused cells and 7 unused wires.
+<suppressed ~3 debug messages>
+
+4.6. Executing CHECK pass (checking for obvious problems).
+Checking module miter...
+Warning: Wire miter.\data_in [11] is used but has no driver.
+Warning: Wire miter.\data_in [10] is used but has no driver.
+Warning: Wire miter.\data_in [9] is used but has no driver.
+Warning: Wire miter.\data_in [8] is used but has no driver.
+Warning: Wire miter.\data_in [7] is used but has no driver.
+Warning: Wire miter.\data_in [6] is used but has no driver.
+Warning: Wire miter.\data_in [5] is used but has no driver.
+Warning: Wire miter.\data_in [4] is used but has no driver.
+Warning: Wire miter.\data_in [3] is used but has no driver.
+Warning: Wire miter.\data_in [2] is used but has no driver.
+Warning: Wire miter.\data_in [1] is used but has no driver.
+Warning: Wire miter.\data_in [0] is used but has no driver.
+Warning: Wire miter.\onehot [11] is used but has no driver.
+Warning: Wire miter.\onehot [10] is used but has no driver.
+Warning: Wire miter.\onehot [9] is used but has no driver.
+Warning: Wire miter.\onehot [8] is used but has no driver.
+Warning: Wire miter.\onehot [7] is used but has no driver.
+Warning: Wire miter.\onehot [6] is used but has no driver.
+Warning: Wire miter.\onehot [5] is used but has no driver.
+Warning: Wire miter.\onehot [4] is used but has no driver.
+Warning: Wire miter.\onehot [3] is used but has no driver.
+Warning: Wire miter.\onehot [2] is used but has no driver.
+Warning: Wire miter.\onehot [1] is used but has no driver.
+Warning: Wire miter.\onehot [0] is used but has no driver.
+Checking module gate...
+Checking module gold...
+Found and reported 24 problems.
+
+4.7. Executing OPT pass (performing simple optimizations).
+
+4.7.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module miter.
+Optimizing module gate.
+Optimizing module gold.
+
+4.7.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\miter'.
+Computing hashes of 9 cells of `\miter'.
+Finding duplicate cells in `\miter'.
+Finding identical cells in module `\gate'.
+Computing hashes of 23 cells of `\gate'.
+Finding duplicate cells in `\gate'.
+Finding identical cells in module `\gold'.
+Computing hashes of 14 cells of `\gold'.
+Finding duplicate cells in `\gold'.
+Removed a total of 0 cells.
+
+4.7.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \miter..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \gate..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \gold..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~2 debug messages>
+
+4.7.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \miter.
+  Optimizing cells in module \gate.
+  Optimizing cells in module \gold.
+Performed a total of 0 changes.
+
+4.7.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\miter'.
+Computing hashes of 9 cells of `\miter'.
+Finding duplicate cells in `\miter'.
+Finding identical cells in module `\gate'.
+Computing hashes of 23 cells of `\gate'.
+Finding duplicate cells in `\gate'.
+Finding identical cells in module `\gold'.
+Computing hashes of 14 cells of `\gold'.
+Finding duplicate cells in `\gold'.
+Removed a total of 0 cells.
+
+4.7.6. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \miter..
+Finding unused cells or wires in module \gate..
+Finding unused cells or wires in module \gold..
+
+4.7.7. Executing OPT_EXPR pass (perform const folding).
+Optimizing module miter.
+Optimizing module gate.
+Optimizing module gold.
+
+4.7.8. Finished fast OPT passes. (There is nothing left to do.)
+
+4.8. Executing WREDUCE pass (reducing word size of cells).
+Removed top 11 bits (of 12) from port B of cell miter.$sub$ct_fadd_onehot_sel_h_onehot_miter.sv:13$27 ($sub).
+Removed top 11 bits (of 12) from port B of cell gold.$procmux$36_CMP0 ($eq).
+Removed top 10 bits (of 12) from port B of cell gold.$procmux$37_CMP0 ($eq).
+Removed top 9 bits (of 12) from port B of cell gold.$procmux$38_CMP0 ($eq).
+Removed top 8 bits (of 12) from port B of cell gold.$procmux$39_CMP0 ($eq).
+Removed top 7 bits (of 12) from port B of cell gold.$procmux$40_CMP0 ($eq).
+Removed top 6 bits (of 12) from port B of cell gold.$procmux$41_CMP0 ($eq).
+Removed top 5 bits (of 12) from port B of cell gold.$procmux$42_CMP0 ($eq).
+Removed top 4 bits (of 12) from port B of cell gold.$procmux$43_CMP0 ($eq).
+Removed top 3 bits (of 12) from port B of cell gold.$procmux$44_CMP0 ($eq).
+Removed top 2 bits (of 12) from port B of cell gold.$procmux$45_CMP0 ($eq).
+Removed top 1 bits (of 12) from port B of cell gold.$procmux$46_CMP0 ($eq).
+
+4.9. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \miter..
+Finding unused cells or wires in module \gate..
+Finding unused cells or wires in module \gold..
+
+4.10. Executing MEMORY_COLLECT pass (generating $mem cells).
+
+4.11. Executing OPT pass (performing simple optimizations).
+
+4.11.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module miter.
+Optimizing module gate.
+Optimizing module gold.
+
+4.11.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\miter'.
+Computing hashes of 9 cells of `\miter'.
+Finding duplicate cells in `\miter'.
+Finding identical cells in module `\gate'.
+Computing hashes of 23 cells of `\gate'.
+Finding duplicate cells in `\gate'.
+Finding identical cells in module `\gold'.
+Computing hashes of 14 cells of `\gold'.
+Finding duplicate cells in `\gold'.
+Removed a total of 0 cells.
+
+4.11.3. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \miter..
+Finding unused cells or wires in module \gate..
+Finding unused cells or wires in module \gold..
+
+4.11.4. Finished fast OPT passes.
+
+4.12. Executing SORT pass.
+
+4.13. Printing statistics.
+
+=== gate ===
+
+        +----------Local Count, excluding submodules.
+        | 
+       25 wires
+      300 wire bits
+        3 public wires
+       36 public wire bits
+        3 ports
+       36 port bits
+       23 cells
+       12   $and
+       11   $or
+
+=== gold ===
+
+        +----------Local Count, excluding submodules.
+        | 
+       17 wires
+       61 wire bits
+        4 public wires
+       48 public wire bits
+        3 ports
+       36 port bits
+       14 cells
+       12   $eq
+        1   $logic_not
+        1   $pmux
+
+=== miter ===
+
+        +----------Local Count, excluding submodules.
+        | 
+       11 wires
+       77 wire bits
+        6 public wires
+       50 public wire bits
+        1 ports
+        1 port bits
+        7 cells
+        1   $and
+        1   $logic_and
+        2   $logic_not
+        1   $logic_or
+        1   $ne
+        1   $sub
+        2 submodules
+        1   gate
+        1   gold
+
+=== design hierarchy ===
+
+        +----------Count including submodules.
+        | 
+       44 miter
+       23 gate
+       14 gold
+
+        +----------Count including submodules.
+        | 
+       53 wires
+      438 wire bits
+       13 public wires
+      134 public wire bits
+        7 ports
+       73 port bits
+        - memories
+        - memory bits
+        - processes
+       44 cells
+       13   $and
+       12   $eq
+        1   $logic_and
+        3   $logic_not
+        1   $logic_or
+        1   $ne
+       11   $or
+        1   $pmux
+        1   $sub
+        2 submodules
+        1   gate
+        1   gold
+
+4.14. Executing CHECK pass (checking for obvious problems).
+Checking module gate...
+Checking module gold...
+Checking module miter...
+Warning: Wire miter.\data_in [11] is used but has no driver.
+Warning: Wire miter.\data_in [10] is used but has no driver.
+Warning: Wire miter.\data_in [9] is used but has no driver.
+Warning: Wire miter.\data_in [8] is used but has no driver.
+Warning: Wire miter.\data_in [7] is used but has no driver.
+Warning: Wire miter.\data_in [6] is used but has no driver.
+Warning: Wire miter.\data_in [5] is used but has no driver.
+Warning: Wire miter.\data_in [4] is used but has no driver.
+Warning: Wire miter.\data_in [3] is used but has no driver.
+Warning: Wire miter.\data_in [2] is used but has no driver.
+Warning: Wire miter.\data_in [1] is used but has no driver.
+Warning: Wire miter.\data_in [0] is used but has no driver.
+Warning: Wire miter.\onehot [11] is used but has no driver.
+Warning: Wire miter.\onehot [10] is used but has no driver.
+Warning: Wire miter.\onehot [9] is used but has no driver.
+Warning: Wire miter.\onehot [8] is used but has no driver.
+Warning: Wire miter.\onehot [7] is used but has no driver.
+Warning: Wire miter.\onehot [6] is used but has no driver.
+Warning: Wire miter.\onehot [5] is used but has no driver.
+Warning: Wire miter.\onehot [4] is used but has no driver.
+Warning: Wire miter.\onehot [3] is used but has no driver.
+Warning: Wire miter.\onehot [2] is used but has no driver.
+Warning: Wire miter.\onehot [1] is used but has no driver.
+Warning: Wire miter.\onehot [0] is used but has no driver.
+Found and reported 24 problems.
+
+5. Executing FLATTEN pass (flatten design).
+Deleting now unused module gate.
+Deleting now unused module gold.
+<suppressed ~2 debug messages>
+
+6. Executing OPT pass (performing simple optimizations).
+
+6.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module miter.
+
+6.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\miter'.
+Computing hashes of 46 cells of `\miter'.
+Finding duplicate cells in `\miter'.
+Computing hashes of 45 cells of `\miter'.
+Finding duplicate cells in `\miter'.
+<suppressed ~3 debug messages>
+Removed a total of 1 cells.
+
+6.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \miter..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~2 debug messages>
+
+6.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \miter.
+Performed a total of 0 changes.
+
+6.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\miter'.
+Computing hashes of 45 cells of `\miter'.
+Finding duplicate cells in `\miter'.
+Removed a total of 0 cells.
+
+6.6. Executing OPT_DFF pass (perform DFF optimizations).
+
+6.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \miter..
+Removed 0 unused cells and 1 unused wires.
+<suppressed ~1 debug messages>
+
+6.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module miter.
+
+6.9. Rerunning OPT passes. (Maybe there is more to do..)
+
+6.10. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \miter..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~2 debug messages>
+
+6.11. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \miter.
+Performed a total of 0 changes.
+
+6.12. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\miter'.
+Computing hashes of 45 cells of `\miter'.
+Finding duplicate cells in `\miter'.
+Removed a total of 0 cells.
+
+6.13. Executing OPT_DFF pass (perform DFF optimizations).
+
+6.14. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \miter..
+
+6.15. Executing OPT_EXPR pass (perform const folding).
+Optimizing module miter.
+
+6.16. Finished fast OPT passes. (There is nothing left to do.)
+
+7. Executing SAT pass (solving SAT problems in the circuit).
+Using SAT solver `minisat`.
+
+Setting up SAT problem:
+Final constraint equation: { } = { }
+Imported 45 cells to SAT database.
+Import proof-constraint: \fail = 1'0
+Final proof equation: \fail = 1'0
+
+Solving problem with 1980 variables and 5358 clauses..
+SAT proof finished - no model found: SUCCESS!
+
+                  /$$$$$$      /$$$$$$$$     /$$$$$$$    
+                 /$$__  $$    | $$_____/    | $$__  $$   
+                | $$  \ $$    | $$          | $$  \ $$   
+                | $$  | $$    | $$$$$       | $$  | $$   
+                | $$  | $$    | $$__/       | $$  | $$   
+                | $$/$$ $$    | $$          | $$  | $$   
+                |  $$$$$$/ /$$| $$$$$$$$ /$$| $$$$$$$//$$
+                 \____ $$$|__/|________/|__/|_______/|__/
+                       \__/                              
+
+Warnings: 24 unique messages, 48 total
+End of script. Logfile hash: d0a3cdf2a4, time: 0.02s, user: 0.02s, system: 0.01s, MEM: 18.75 MB peak
+Yosys 0.66+181 (git sha1 afe6b18f2, Release, Clang /usr/bin/clang++ 18.1.8)
+Time spent: 37% 1x sat (0 sec), 12% 6x opt_clean (0 sec), ...

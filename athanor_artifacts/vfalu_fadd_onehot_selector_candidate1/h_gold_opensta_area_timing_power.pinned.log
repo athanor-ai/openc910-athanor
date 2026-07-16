@@ -1,0 +1,48 @@
+OpenSTA 2.2.0 02b129d48f Copyright (c) 2019, Parallax Software, Inc.
+License GPLv3: GNU GPL version 3 <http://gnu.org/licenses/gpl.html>
+
+This is free software, and you are free to change and redistribute it
+under certain conditions; type `show_copying' for details. 
+This program comes with ABSOLUTELY NO WARRANTY; for details type `show_warranty'.
+Startpoint: onehot[8] (input port clocked by virtual_clk)
+Endpoint: result[4] (output port clocked by virtual_clk)
+Path Group: virtual_clk
+Path Type: max
+
+  Delay    Time   Description
+---------------------------------------------------------
+   0.00    0.00   clock virtual_clk (rise edge)
+   0.00    0.00   clock network delay (ideal)
+   0.00    0.00 v input external delay
+   0.00    0.00 v onehot[8] (in)
+   0.63    0.63 v _078_/X (sky130_fd_sc_hd__or4_1)
+   0.87    1.50 ^ _091_/Y (sky130_fd_sc_hd__nor4_1)
+   0.36    1.87 v _102_/Y (sky130_fd_sc_hd__nor4_1)
+   0.42    2.29 v _117_/X (sky130_fd_sc_hd__a221o_1)
+   0.00    2.29 v result[4] (out)
+           2.29   data arrival time
+
+  10.00   10.00   clock virtual_clk (rise edge)
+   0.00   10.00   clock network delay (ideal)
+   0.00   10.00   clock reconvergence pessimism
+   0.00   10.00   output external delay
+          10.00   data required time
+---------------------------------------------------------
+          10.00   data required time
+          -2.29   data arrival time
+---------------------------------------------------------
+           7.71   slack (MET)
+
+
+tns 0.00
+wns 0.00
+Group                  Internal  Switching    Leakage      Total
+                          Power      Power      Power      Power
+----------------------------------------------------------------
+Sequential             0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.0%
+Combinational          7.98e-06   7.57e-06   1.83e-10   1.55e-05 100.0%
+Macro                  0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.0%
+Pad                    0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.0%
+----------------------------------------------------------------
+Total                  7.98e-06   7.57e-06   1.83e-10   1.55e-05 100.0%
+                          51.3%      48.7%       0.0%
