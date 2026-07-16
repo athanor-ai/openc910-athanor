@@ -1,0 +1,70 @@
+OpenSTA 2.2.0 02b129d48f Copyright (c) 2019, Parallax Software, Inc.
+License GPLv3: GNU GPL version 3 <http://gnu.org/licenses/gpl.html>
+
+This is free software, and you are free to change and redistribute it
+under certain conditions; type `show_copying' for details. 
+This program comes with ABSOLUTELY NO WARRANTY; for details type `show_warranty'.
+Startpoint: x_ct_rtu_pst_entry_vreg2/_472_
+            (rising edge-triggered flip-flop clocked by forever_cpuclk)
+Endpoint: x_ct_rtu_pst_entry_vreg62/_472_
+          (rising edge-triggered flip-flop clocked by forever_cpuclk)
+Path Group: forever_cpuclk
+Path Type: max
+
+  Delay    Time   Description
+---------------------------------------------------------
+   0.00    0.00   clock forever_cpuclk (rise edge)
+   0.00    0.00   clock network delay (ideal)
+   0.00    0.00 ^ x_ct_rtu_pst_entry_vreg2/_472_/CLK (sky130_fd_sc_hd__dfstp_2)
+   0.43    0.43 v x_ct_rtu_pst_entry_vreg2/_472_/Q (sky130_fd_sc_hd__dfstp_2)
+   0.61    1.05 v _2591_/X (sky130_fd_sc_hd__or4_1)
+   0.52    1.57 v _2598_/X (sky130_fd_sc_hd__or4_1)
+   0.44    2.00 ^ _2674_/Y (sky130_fd_sc_hd__o21ai_0)
+   0.30    2.31 ^ _2695_/X (sky130_fd_sc_hd__and4b_1)
+   0.25    2.55 ^ _2703_/X (sky130_fd_sc_hd__and4_1)
+   0.20    2.75 v _2710_/Y (sky130_fd_sc_hd__nand4_1)
+   0.36    3.11 ^ _2713_/X (sky130_fd_sc_hd__and4b_1)
+   0.18    3.30 v _2722_/Y (sky130_fd_sc_hd__nand4_1)
+   0.32    3.62 v _2729_/Y (sky130_fd_sc_hd__nand4b_1)
+   1.04    4.67 ^ _2737_/Y (sky130_fd_sc_hd__a2111oi_0)
+   0.42    5.08 ^ _2743_/X (sky130_fd_sc_hd__and4_1)
+   0.26    5.35 ^ _3133_/X (sky130_fd_sc_hd__and4_1)
+   0.20    5.55 ^ _3140_/X (sky130_fd_sc_hd__and4_1)
+   0.27    5.82 ^ _3143_/X (sky130_fd_sc_hd__and4_1)
+   0.29    6.12 ^ _3147_/X (sky130_fd_sc_hd__and4_1)
+   0.22    6.33 v _3326_/Y (sky130_fd_sc_hd__nand4_1)
+   0.89    7.22 ^ _3332_/Y (sky130_fd_sc_hd__nor4b_1)
+   0.33    7.55 ^ _3336_/X (sky130_fd_sc_hd__and3_1)
+   0.06    7.61 v _3343_/Y (sky130_fd_sc_hd__nor2_1)
+   0.34    7.95 ^ _3347_/Y (sky130_fd_sc_hd__o31ai_1)
+   0.12    8.07 v x_ct_rtu_pst_entry_vreg62/_322_/Y (sky130_fd_sc_hd__nand4b_1)
+   0.11    8.18 ^ x_ct_rtu_pst_entry_vreg62/_323_/Y (sky130_fd_sc_hd__nand4_1)
+   0.11    8.29 v x_ct_rtu_pst_entry_vreg62/_325_/Y (sky130_fd_sc_hd__a41oi_1)
+   0.00    8.30 v x_ct_rtu_pst_entry_vreg62/_472_/D (sky130_fd_sc_hd__dfstp_2)
+           8.30   data arrival time
+
+  10.00   10.00   clock forever_cpuclk (rise edge)
+   0.00   10.00   clock network delay (ideal)
+   0.00   10.00   clock reconvergence pessimism
+          10.00 ^ x_ct_rtu_pst_entry_vreg62/_472_/CLK (sky130_fd_sc_hd__dfstp_2)
+  -0.10    9.90   library setup time
+           9.90   data required time
+---------------------------------------------------------
+           9.90   data required time
+          -8.30   data arrival time
+---------------------------------------------------------
+           1.61   slack (MET)
+
+
+tns 0.00
+wns 0.00
+Group                  Internal  Switching    Leakage      Total
+                          Power      Power      Power      Power
+----------------------------------------------------------------
+Sequential             3.83e-03   7.41e-04   1.53e-08   4.57e-03  48.7%
+Combinational          2.42e-03   2.40e-03   7.46e-08   4.82e-03  51.3%
+Macro                  0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.0%
+Pad                    0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.0%
+----------------------------------------------------------------
+Total                  6.25e-03   3.14e-03   8.99e-08   9.39e-03 100.0%
+                          66.5%      33.5%       0.0%

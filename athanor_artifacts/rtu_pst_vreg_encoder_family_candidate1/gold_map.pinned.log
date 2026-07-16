@@ -1,0 +1,2702 @@
+
+ /----------------------------------------------------------------------------\
+ |  yosys -- Yosys Open SYnthesis Suite                                       |
+ |  Copyright (C) 2012 - 2026  Claire Xenia Wolf <claire@yosyshq.com>         |
+ |  Distributed under an ISC-like license, type "license" to see terms        |
+ \----------------------------------------------------------------------------/
+ Yosys 0.66+181 (git sha1 afe6b18f2, Release, Clang /usr/bin/clang++ 18.1.8)
+
+-- Running command `read_verilog -sv gated_clk_cell.v ct_rtu_expand_32.v ct_rtu_expand_64.v ct_rtu_pst_vreg_entry.v ct_rtu_encode_64_gold.v ct_rtu_pst_vreg_gold.v; synth -top ct_rtu_pst_vreg; dfflibmap -liberty sky130_fd_sc_hd__tt_025C_1v80.lib; abc -liberty sky130_fd_sc_hd__tt_025C_1v80.lib; clean; stat -liberty sky130_fd_sc_hd__tt_025C_1v80.lib; write_verilog -noattr ct_rtu_pst_vreg_gold.mapped.v' --
+
+1. Executing Verilog-2005 frontend: gated_clk_cell.v
+Parsing SystemVerilog input from `gated_clk_cell.v' to AST representation.
+Generating RTLIL representation for module `\gated_clk_cell'.
+Successfully finished Verilog frontend.
+
+2. Executing Verilog-2005 frontend: ct_rtu_expand_32.v
+Parsing SystemVerilog input from `ct_rtu_expand_32.v' to AST representation.
+Generating RTLIL representation for module `\ct_rtu_expand_32'.
+Successfully finished Verilog frontend.
+
+3. Executing Verilog-2005 frontend: ct_rtu_expand_64.v
+Parsing SystemVerilog input from `ct_rtu_expand_64.v' to AST representation.
+Generating RTLIL representation for module `\ct_rtu_expand_64'.
+Successfully finished Verilog frontend.
+
+4. Executing Verilog-2005 frontend: ct_rtu_pst_vreg_entry.v
+Parsing SystemVerilog input from `ct_rtu_pst_vreg_entry.v' to AST representation.
+Generating RTLIL representation for module `\ct_rtu_pst_vreg_entry'.
+Note: Assuming pure combinatorial block at ct_rtu_pst_vreg_entry.v:282.1-324.4 in
+compliance with IEC 62142(E):2005 / IEEE Std. 1364.1(E):2002. Recommending
+use of @* instead of @(...) for better match of synthesis and simulation.
+Note: Assuming pure combinatorial block at ct_rtu_pst_vreg_entry.v:365.1-381.4 in
+compliance with IEC 62142(E):2005 / IEEE Std. 1364.1(E):2002. Recommending
+use of @* instead of @(...) for better match of synthesis and simulation.
+Note: Assuming pure combinatorial block at ct_rtu_pst_vreg_entry.v:397.1-439.4 in
+compliance with IEC 62142(E):2005 / IEEE Std. 1364.1(E):2002. Recommending
+use of @* instead of @(...) for better match of synthesis and simulation.
+Successfully finished Verilog frontend.
+
+5. Executing Verilog-2005 frontend: ct_rtu_encode_64_gold.v
+Parsing SystemVerilog input from `ct_rtu_encode_64_gold.v' to AST representation.
+Generating RTLIL representation for module `\ct_rtu_encode_64'.
+Successfully finished Verilog frontend.
+
+6. Executing Verilog-2005 frontend: ct_rtu_pst_vreg_gold.v
+Parsing SystemVerilog input from `ct_rtu_pst_vreg_gold.v' to AST representation.
+Generating RTLIL representation for module `\ct_rtu_pst_vreg'.
+Successfully finished Verilog frontend.
+
+7. Executing SYNTH pass.
+
+7.1. Executing HIERARCHY pass (managing design hierarchy).
+
+7.1.1. Analyzing design hierarchy..
+Top module:  \ct_rtu_pst_vreg
+Used module:     \ct_rtu_encode_64
+Used module:     \gated_clk_cell
+Used module:     \ct_rtu_expand_64
+Used module:     \ct_rtu_pst_vreg_entry
+Used module:         \ct_rtu_expand_32
+
+7.1.2. Analyzing design hierarchy..
+Top module:  \ct_rtu_pst_vreg
+Used module:     \ct_rtu_encode_64
+Used module:     \gated_clk_cell
+Used module:     \ct_rtu_expand_64
+Used module:     \ct_rtu_pst_vreg_entry
+Used module:         \ct_rtu_expand_32
+Removed 0 unused modules.
+
+7.2. Executing PROC pass (convert processes to netlists).
+
+7.2.1. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Cleaned up 0 empty switches.
+
+7.2.2. Executing PROC_RMDEAD pass (remove dead branches from decision trees).
+Marked 3 switch rules as full_case in process $proc$ct_rtu_pst_vreg_gold.v:5389$1206 in module ct_rtu_pst_vreg.
+Marked 3 switch rules as full_case in process $proc$ct_rtu_pst_vreg_gold.v:5369$1204 in module ct_rtu_pst_vreg.
+Marked 3 switch rules as full_case in process $proc$ct_rtu_pst_vreg_gold.v:5349$1202 in module ct_rtu_pst_vreg.
+Marked 3 switch rules as full_case in process $proc$ct_rtu_pst_vreg_gold.v:5329$1200 in module ct_rtu_pst_vreg.
+Marked 3 switch rules as full_case in process $proc$ct_rtu_pst_vreg_entry.v:511$152 in module ct_rtu_pst_vreg_entry.
+Marked 3 switch rules as full_case in process $proc$ct_rtu_pst_vreg_entry.v:499$150 in module ct_rtu_pst_vreg_entry.
+Marked 3 switch rules as full_case in process $proc$ct_rtu_pst_vreg_entry.v:487$148 in module ct_rtu_pst_vreg_entry.
+Marked 3 switch rules as full_case in process $proc$ct_rtu_pst_vreg_entry.v:444$138 in module ct_rtu_pst_vreg_entry.
+Marked 1 switch rules as full_case in process $proc$ct_rtu_pst_vreg_entry.v:397$137 in module ct_rtu_pst_vreg_entry.
+Removed 1 dead cases from process $proc$ct_rtu_pst_vreg_entry.v:365$131 in module ct_rtu_pst_vreg_entry.
+Marked 3 switch rules as full_case in process $proc$ct_rtu_pst_vreg_entry.v:365$131 in module ct_rtu_pst_vreg_entry.
+Marked 4 switch rules as full_case in process $proc$ct_rtu_pst_vreg_entry.v:350$129 in module ct_rtu_pst_vreg_entry.
+Marked 11 switch rules as full_case in process $proc$ct_rtu_pst_vreg_entry.v:282$122 in module ct_rtu_pst_vreg_entry.
+Marked 2 switch rules as full_case in process $proc$ct_rtu_pst_vreg_entry.v:271$120 in module ct_rtu_pst_vreg_entry.
+Removed a total of 1 dead cases.
+
+7.2.3. Executing PROC_PRUNE pass (remove redundant assignments in processes).
+Removed 16 redundant assignments.
+Promoted 5 assignments to connections.
+
+7.2.4. Executing PROC_INIT pass (extract init attributes).
+
+7.2.5. Executing PROC_ARST pass (detect async resets in processes).
+Found async reset \cpurst_b in `\ct_rtu_pst_vreg.$proc$ct_rtu_pst_vreg_gold.v:5389$1206'.
+Found async reset \cpurst_b in `\ct_rtu_pst_vreg.$proc$ct_rtu_pst_vreg_gold.v:5369$1204'.
+Found async reset \cpurst_b in `\ct_rtu_pst_vreg.$proc$ct_rtu_pst_vreg_gold.v:5349$1202'.
+Found async reset \cpurst_b in `\ct_rtu_pst_vreg.$proc$ct_rtu_pst_vreg_gold.v:5329$1200'.
+Found async reset \cpurst_b in `\ct_rtu_pst_vreg_entry.$proc$ct_rtu_pst_vreg_entry.v:511$152'.
+Found async reset \cpurst_b in `\ct_rtu_pst_vreg_entry.$proc$ct_rtu_pst_vreg_entry.v:499$150'.
+Found async reset \cpurst_b in `\ct_rtu_pst_vreg_entry.$proc$ct_rtu_pst_vreg_entry.v:487$148'.
+Found async reset \cpurst_b in `\ct_rtu_pst_vreg_entry.$proc$ct_rtu_pst_vreg_entry.v:444$138'.
+Found async reset \cpurst_b in `\ct_rtu_pst_vreg_entry.$proc$ct_rtu_pst_vreg_entry.v:350$129'.
+Found async reset \cpurst_b in `\ct_rtu_pst_vreg_entry.$proc$ct_rtu_pst_vreg_entry.v:271$120'.
+
+7.2.6. Executing PROC_ROM pass (convert switches to ROMs).
+Converted 0 switches.
+<suppressed ~35 debug messages>
+
+7.2.7. Executing PROC_MUX pass (convert decision trees to multiplexers).
+Creating decoders for process `\ct_rtu_pst_vreg.$proc$ct_rtu_pst_vreg_gold.v:5389$1206'.
+     1/2: $0\alloc_vreg3[5:0]
+     2/2: $0\alloc_vreg3_vld[0:0]
+Creating decoders for process `\ct_rtu_pst_vreg.$proc$ct_rtu_pst_vreg_gold.v:5369$1204'.
+     1/2: $0\alloc_vreg2[5:0]
+     2/2: $0\alloc_vreg2_vld[0:0]
+Creating decoders for process `\ct_rtu_pst_vreg.$proc$ct_rtu_pst_vreg_gold.v:5349$1202'.
+     1/2: $0\alloc_vreg1[5:0]
+     2/2: $0\alloc_vreg1_vld[0:0]
+Creating decoders for process `\ct_rtu_pst_vreg.$proc$ct_rtu_pst_vreg_gold.v:5329$1200'.
+     1/2: $0\alloc_vreg0[5:0]
+     2/2: $0\alloc_vreg0_vld[0:0]
+Creating decoders for process `\ct_rtu_pst_vreg_entry.$proc$ct_rtu_pst_vreg_entry.v:511$152'.
+     1/1: $0\retire_inst2_iid_match[0:0]
+Creating decoders for process `\ct_rtu_pst_vreg_entry.$proc$ct_rtu_pst_vreg_entry.v:499$150'.
+     1/1: $0\retire_inst1_iid_match[0:0]
+Creating decoders for process `\ct_rtu_pst_vreg_entry.$proc$ct_rtu_pst_vreg_entry.v:487$148'.
+     1/1: $0\retire_inst0_iid_match[0:0]
+Creating decoders for process `\ct_rtu_pst_vreg_entry.$proc$ct_rtu_pst_vreg_entry.v:444$138'.
+     1/3: $0\rel_vreg[5:0]
+     2/3: $0\dstv_reg[4:0]
+     3/3: $0\iid[6:0]
+Creating decoders for process `\ct_rtu_pst_vreg_entry.$proc$ct_rtu_pst_vreg_entry.v:397$137'.
+     1/3: $1\create_rel_vreg[5:0]
+     2/3: $1\create_dstv_reg[4:0]
+     3/3: $1\create_iid[6:0]
+Creating decoders for process `\ct_rtu_pst_vreg_entry.$proc$ct_rtu_pst_vreg_entry.v:365$131'.
+     1/3: $3\wb_next_state[0:0]
+     2/3: $2\wb_next_state[0:0]
+     3/3: $1\wb_next_state[0:0]
+Creating decoders for process `\ct_rtu_pst_vreg_entry.$proc$ct_rtu_pst_vreg_entry.v:350$129'.
+     1/1: $0\wb_cur_state[0:0]
+Creating decoders for process `\ct_rtu_pst_vreg_entry.$proc$ct_rtu_pst_vreg_entry.v:282$122'.
+     1/11: $11\lifecycle_next_state[4:0]
+     2/11: $10\lifecycle_next_state[4:0]
+     3/11: $9\lifecycle_next_state[4:0]
+     4/11: $8\lifecycle_next_state[4:0]
+     5/11: $7\lifecycle_next_state[4:0]
+     6/11: $6\lifecycle_next_state[4:0]
+     7/11: $5\lifecycle_next_state[4:0]
+     8/11: $4\lifecycle_next_state[4:0]
+     9/11: $3\lifecycle_next_state[4:0]
+    10/11: $2\lifecycle_next_state[4:0]
+    11/11: $1\lifecycle_next_state[4:0]
+Creating decoders for process `\ct_rtu_pst_vreg_entry.$proc$ct_rtu_pst_vreg_entry.v:271$120'.
+     1/1: $0\lifecycle_cur_state[4:0]
+
+7.2.8. Executing PROC_DLATCH pass (convert process syncs to latches).
+No latch inferred for signal `\ct_rtu_pst_vreg_entry.\create_dstv_reg' from process `\ct_rtu_pst_vreg_entry.$proc$ct_rtu_pst_vreg_entry.v:397$137'.
+No latch inferred for signal `\ct_rtu_pst_vreg_entry.\create_iid' from process `\ct_rtu_pst_vreg_entry.$proc$ct_rtu_pst_vreg_entry.v:397$137'.
+No latch inferred for signal `\ct_rtu_pst_vreg_entry.\create_rel_vreg' from process `\ct_rtu_pst_vreg_entry.$proc$ct_rtu_pst_vreg_entry.v:397$137'.
+No latch inferred for signal `\ct_rtu_pst_vreg_entry.\wb_next_state' from process `\ct_rtu_pst_vreg_entry.$proc$ct_rtu_pst_vreg_entry.v:365$131'.
+No latch inferred for signal `\ct_rtu_pst_vreg_entry.\lifecycle_next_state' from process `\ct_rtu_pst_vreg_entry.$proc$ct_rtu_pst_vreg_entry.v:282$122'.
+
+7.2.9. Executing PROC_DFF pass (convert process syncs to FFs).
+Creating register for signal `\ct_rtu_pst_vreg.\alloc_vreg3' using process `\ct_rtu_pst_vreg.$proc$ct_rtu_pst_vreg_gold.v:5389$1206'.
+  created $adff cell `$procdff$1452' with positive edge clock and positive level reset.
+Creating register for signal `\ct_rtu_pst_vreg.\alloc_vreg3_vld' using process `\ct_rtu_pst_vreg.$proc$ct_rtu_pst_vreg_gold.v:5389$1206'.
+  created $adff cell `$procdff$1457' with positive edge clock and positive level reset.
+Creating register for signal `\ct_rtu_pst_vreg.\alloc_vreg2' using process `\ct_rtu_pst_vreg.$proc$ct_rtu_pst_vreg_gold.v:5369$1204'.
+  created $adff cell `$procdff$1462' with positive edge clock and positive level reset.
+Creating register for signal `\ct_rtu_pst_vreg.\alloc_vreg2_vld' using process `\ct_rtu_pst_vreg.$proc$ct_rtu_pst_vreg_gold.v:5369$1204'.
+  created $adff cell `$procdff$1467' with positive edge clock and positive level reset.
+Creating register for signal `\ct_rtu_pst_vreg.\alloc_vreg1' using process `\ct_rtu_pst_vreg.$proc$ct_rtu_pst_vreg_gold.v:5349$1202'.
+  created $adff cell `$procdff$1472' with positive edge clock and positive level reset.
+Creating register for signal `\ct_rtu_pst_vreg.\alloc_vreg1_vld' using process `\ct_rtu_pst_vreg.$proc$ct_rtu_pst_vreg_gold.v:5349$1202'.
+  created $adff cell `$procdff$1477' with positive edge clock and positive level reset.
+Creating register for signal `\ct_rtu_pst_vreg.\alloc_vreg0' using process `\ct_rtu_pst_vreg.$proc$ct_rtu_pst_vreg_gold.v:5329$1200'.
+  created $adff cell `$procdff$1482' with positive edge clock and positive level reset.
+Creating register for signal `\ct_rtu_pst_vreg.\alloc_vreg0_vld' using process `\ct_rtu_pst_vreg.$proc$ct_rtu_pst_vreg_gold.v:5329$1200'.
+  created $adff cell `$procdff$1487' with positive edge clock and positive level reset.
+Creating register for signal `\ct_rtu_pst_vreg_entry.\retire_inst2_iid_match' using process `\ct_rtu_pst_vreg_entry.$proc$ct_rtu_pst_vreg_entry.v:511$152'.
+  created $adff cell `$procdff$1492' with positive edge clock and positive level reset.
+Creating register for signal `\ct_rtu_pst_vreg_entry.\retire_inst1_iid_match' using process `\ct_rtu_pst_vreg_entry.$proc$ct_rtu_pst_vreg_entry.v:499$150'.
+  created $adff cell `$procdff$1497' with positive edge clock and positive level reset.
+Creating register for signal `\ct_rtu_pst_vreg_entry.\retire_inst0_iid_match' using process `\ct_rtu_pst_vreg_entry.$proc$ct_rtu_pst_vreg_entry.v:487$148'.
+  created $adff cell `$procdff$1502' with positive edge clock and positive level reset.
+Creating register for signal `\ct_rtu_pst_vreg_entry.\dstv_reg' using process `\ct_rtu_pst_vreg_entry.$proc$ct_rtu_pst_vreg_entry.v:444$138'.
+  created $adff cell `$procdff$1507' with positive edge clock and positive level reset.
+Creating register for signal `\ct_rtu_pst_vreg_entry.\iid' using process `\ct_rtu_pst_vreg_entry.$proc$ct_rtu_pst_vreg_entry.v:444$138'.
+  created $adff cell `$procdff$1512' with positive edge clock and positive level reset.
+Creating register for signal `\ct_rtu_pst_vreg_entry.\rel_vreg' using process `\ct_rtu_pst_vreg_entry.$proc$ct_rtu_pst_vreg_entry.v:444$138'.
+  created $adff cell `$procdff$1517' with positive edge clock and positive level reset.
+Creating register for signal `\ct_rtu_pst_vreg_entry.\wb_cur_state' using process `\ct_rtu_pst_vreg_entry.$proc$ct_rtu_pst_vreg_entry.v:350$129'.
+  created $adff cell `$procdff$1522' with positive edge clock and positive level reset.
+Creating register for signal `\ct_rtu_pst_vreg_entry.\lifecycle_cur_state' using process `\ct_rtu_pst_vreg_entry.$proc$ct_rtu_pst_vreg_entry.v:271$120'.
+  created $adff cell `$procdff$1527' with positive edge clock and positive level reset.
+
+7.2.10. Executing PROC_MEMWR pass (convert process memory writes to cells).
+
+7.2.11. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Found and cleaned up 2 empty switches in `\ct_rtu_pst_vreg.$proc$ct_rtu_pst_vreg_gold.v:5389$1206'.
+Removing empty process `ct_rtu_pst_vreg.$proc$ct_rtu_pst_vreg_gold.v:5389$1206'.
+Found and cleaned up 2 empty switches in `\ct_rtu_pst_vreg.$proc$ct_rtu_pst_vreg_gold.v:5369$1204'.
+Removing empty process `ct_rtu_pst_vreg.$proc$ct_rtu_pst_vreg_gold.v:5369$1204'.
+Found and cleaned up 2 empty switches in `\ct_rtu_pst_vreg.$proc$ct_rtu_pst_vreg_gold.v:5349$1202'.
+Removing empty process `ct_rtu_pst_vreg.$proc$ct_rtu_pst_vreg_gold.v:5349$1202'.
+Found and cleaned up 2 empty switches in `\ct_rtu_pst_vreg.$proc$ct_rtu_pst_vreg_gold.v:5329$1200'.
+Removing empty process `ct_rtu_pst_vreg.$proc$ct_rtu_pst_vreg_gold.v:5329$1200'.
+Found and cleaned up 2 empty switches in `\ct_rtu_pst_vreg_entry.$proc$ct_rtu_pst_vreg_entry.v:511$152'.
+Removing empty process `ct_rtu_pst_vreg_entry.$proc$ct_rtu_pst_vreg_entry.v:511$152'.
+Found and cleaned up 2 empty switches in `\ct_rtu_pst_vreg_entry.$proc$ct_rtu_pst_vreg_entry.v:499$150'.
+Removing empty process `ct_rtu_pst_vreg_entry.$proc$ct_rtu_pst_vreg_entry.v:499$150'.
+Found and cleaned up 2 empty switches in `\ct_rtu_pst_vreg_entry.$proc$ct_rtu_pst_vreg_entry.v:487$148'.
+Removing empty process `ct_rtu_pst_vreg_entry.$proc$ct_rtu_pst_vreg_entry.v:487$148'.
+Found and cleaned up 2 empty switches in `\ct_rtu_pst_vreg_entry.$proc$ct_rtu_pst_vreg_entry.v:444$138'.
+Removing empty process `ct_rtu_pst_vreg_entry.$proc$ct_rtu_pst_vreg_entry.v:444$138'.
+Found and cleaned up 1 empty switch in `\ct_rtu_pst_vreg_entry.$proc$ct_rtu_pst_vreg_entry.v:397$137'.
+Removing empty process `ct_rtu_pst_vreg_entry.$proc$ct_rtu_pst_vreg_entry.v:397$137'.
+Found and cleaned up 3 empty switches in `\ct_rtu_pst_vreg_entry.$proc$ct_rtu_pst_vreg_entry.v:365$131'.
+Removing empty process `ct_rtu_pst_vreg_entry.$proc$ct_rtu_pst_vreg_entry.v:365$131'.
+Found and cleaned up 3 empty switches in `\ct_rtu_pst_vreg_entry.$proc$ct_rtu_pst_vreg_entry.v:350$129'.
+Removing empty process `ct_rtu_pst_vreg_entry.$proc$ct_rtu_pst_vreg_entry.v:350$129'.
+Found and cleaned up 11 empty switches in `\ct_rtu_pst_vreg_entry.$proc$ct_rtu_pst_vreg_entry.v:282$122'.
+Removing empty process `ct_rtu_pst_vreg_entry.$proc$ct_rtu_pst_vreg_entry.v:282$122'.
+Found and cleaned up 1 empty switch in `\ct_rtu_pst_vreg_entry.$proc$ct_rtu_pst_vreg_entry.v:271$120'.
+Removing empty process `ct_rtu_pst_vreg_entry.$proc$ct_rtu_pst_vreg_entry.v:271$120'.
+Cleaned up 35 empty switches.
+
+7.2.12. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_rtu_pst_vreg.
+<suppressed ~16 debug messages>
+Optimizing module ct_rtu_encode_64.
+<suppressed ~65 debug messages>
+Optimizing module ct_rtu_pst_vreg_entry.
+<suppressed ~21 debug messages>
+Optimizing module ct_rtu_expand_64.
+<suppressed ~1 debug messages>
+Optimizing module ct_rtu_expand_32.
+<suppressed ~1 debug messages>
+Optimizing module gated_clk_cell.
+
+7.3. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_rtu_pst_vreg.
+Optimizing module ct_rtu_encode_64.
+Optimizing module ct_rtu_pst_vreg_entry.
+Optimizing module ct_rtu_expand_64.
+Optimizing module ct_rtu_expand_32.
+Optimizing module gated_clk_cell.
+
+7.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_rtu_pst_vreg..
+Finding unused cells or wires in module \ct_rtu_encode_64..
+Finding unused cells or wires in module \ct_rtu_pst_vreg_entry..
+Finding unused cells or wires in module \ct_rtu_expand_64..
+Finding unused cells or wires in module \ct_rtu_expand_32..
+Finding unused cells or wires in module \gated_clk_cell..
+Removed 30 unused cells and 602 unused wires.
+<suppressed ~37 debug messages>
+
+7.5. Executing CHECK pass (checking for obvious problems).
+Checking module ct_rtu_pst_vreg...
+Checking module ct_rtu_encode_64...
+Checking module ct_rtu_pst_vreg_entry...
+Checking module ct_rtu_expand_64...
+Checking module ct_rtu_expand_32...
+Checking module gated_clk_cell...
+Found and reported 0 problems.
+
+7.6. Executing OPT pass (performing simple optimizations).
+
+7.6.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_rtu_pst_vreg.
+Optimizing module ct_rtu_encode_64.
+Optimizing module ct_rtu_pst_vreg_entry.
+Optimizing module ct_rtu_expand_64.
+Optimizing module ct_rtu_expand_32.
+Optimizing module gated_clk_cell.
+
+7.6.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_rtu_pst_vreg'.
+Computing hashes of 1036 cells of `\ct_rtu_pst_vreg'.
+Finding duplicate cells in `\ct_rtu_pst_vreg'.
+Computing hashes of 1017 cells of `\ct_rtu_pst_vreg'.
+Finding duplicate cells in `\ct_rtu_pst_vreg'.
+Computing hashes of 1015 cells of `\ct_rtu_pst_vreg'.
+Finding duplicate cells in `\ct_rtu_pst_vreg'.
+Computing hashes of 1014 cells of `\ct_rtu_pst_vreg'.
+Finding duplicate cells in `\ct_rtu_pst_vreg'.
+<suppressed ~66 debug messages>
+Finding identical cells in module `\ct_rtu_encode_64'.
+Computing hashes of 62 cells of `\ct_rtu_encode_64'.
+Finding duplicate cells in `\ct_rtu_encode_64'.
+Finding identical cells in module `\ct_rtu_pst_vreg_entry'.
+Computing hashes of 144 cells of `\ct_rtu_pst_vreg_entry'.
+Finding duplicate cells in `\ct_rtu_pst_vreg_entry'.
+Computing hashes of 122 cells of `\ct_rtu_pst_vreg_entry'.
+Finding duplicate cells in `\ct_rtu_pst_vreg_entry'.
+<suppressed ~66 debug messages>
+Finding identical cells in module `\ct_rtu_expand_64'.
+Computing hashes of 64 cells of `\ct_rtu_expand_64'.
+Finding duplicate cells in `\ct_rtu_expand_64'.
+Finding identical cells in module `\ct_rtu_expand_32'.
+Computing hashes of 32 cells of `\ct_rtu_expand_32'.
+Finding duplicate cells in `\ct_rtu_expand_32'.
+Finding identical cells in module `\gated_clk_cell'.
+Computing hashes of 0 cells of `\gated_clk_cell'.
+Finding duplicate cells in `\gated_clk_cell'.
+Removed a total of 44 cells.
+
+7.6.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \ct_rtu_pst_vreg..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \ct_rtu_encode_64..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \ct_rtu_pst_vreg_entry..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+    dead port 2/2 on $mux $procmux$1386.
+    dead port 1/2 on $mux $procmux$1384.
+    dead port 1/2 on $mux $procmux$1381.
+    dead port 2/2 on $mux $procmux$1372.
+    dead port 2/2 on $mux $procmux$1436.
+    dead port 1/2 on $mux $procmux$1370.
+    dead port 1/2 on $mux $procmux$1367.
+    dead port 1/2 on $mux $procmux$1364.
+    dead port 2/2 on $mux $procmux$1355.
+    dead port 2/2 on $mux $procmux$1348.
+    dead port 1/2 on $mux $procmux$1346.
+    dead port 2/2 on $mux $procmux$1338.
+    dead port 2/2 on $mux $procmux$1426.
+    dead port 1/2 on $mux $procmux$1320.
+    dead port 2/2 on $mux $procmux$1314.
+    dead port 2/2 on $mux $procmux$1417.
+    dead port 1/2 on $mux $procmux$1415.
+    dead port 2/2 on $mux $procmux$1405.
+    dead port 2/2 on $mux $procmux$1397.
+    dead port 1/2 on $mux $procmux$1395.
+Running muxtree optimizer on module \ct_rtu_expand_64..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \ct_rtu_expand_32..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \gated_clk_cell..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Removed 20 multiplexer ports.
+<suppressed ~89 debug messages>
+
+7.6.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \ct_rtu_pst_vreg.
+  Optimizing cells in module \ct_rtu_encode_64.
+  Optimizing cells in module \ct_rtu_pst_vreg_entry.
+  Optimizing cells in module \ct_rtu_expand_64.
+  Optimizing cells in module \ct_rtu_expand_32.
+  Optimizing cells in module \gated_clk_cell.
+Performed a total of 0 changes.
+
+7.6.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_rtu_pst_vreg'.
+Computing hashes of 1014 cells of `\ct_rtu_pst_vreg'.
+Finding duplicate cells in `\ct_rtu_pst_vreg'.
+Finding identical cells in module `\ct_rtu_encode_64'.
+Computing hashes of 62 cells of `\ct_rtu_encode_64'.
+Finding duplicate cells in `\ct_rtu_encode_64'.
+Finding identical cells in module `\ct_rtu_pst_vreg_entry'.
+Computing hashes of 102 cells of `\ct_rtu_pst_vreg_entry'.
+Finding duplicate cells in `\ct_rtu_pst_vreg_entry'.
+Finding identical cells in module `\ct_rtu_expand_64'.
+Computing hashes of 64 cells of `\ct_rtu_expand_64'.
+Finding duplicate cells in `\ct_rtu_expand_64'.
+Finding identical cells in module `\ct_rtu_expand_32'.
+Computing hashes of 32 cells of `\ct_rtu_expand_32'.
+Finding duplicate cells in `\ct_rtu_expand_32'.
+Finding identical cells in module `\gated_clk_cell'.
+Computing hashes of 0 cells of `\gated_clk_cell'.
+Finding duplicate cells in `\gated_clk_cell'.
+Removed a total of 0 cells.
+
+7.6.6. Executing OPT_DFF pass (perform DFF optimizations).
+
+7.6.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_rtu_pst_vreg..
+Finding unused cells or wires in module \ct_rtu_encode_64..
+Finding unused cells or wires in module \ct_rtu_pst_vreg_entry..
+Finding unused cells or wires in module \ct_rtu_expand_64..
+Finding unused cells or wires in module \ct_rtu_expand_32..
+Finding unused cells or wires in module \gated_clk_cell..
+Removed 0 unused cells and 64 unused wires.
+<suppressed ~2 debug messages>
+
+7.6.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_rtu_pst_vreg.
+Optimizing module ct_rtu_encode_64.
+Optimizing module ct_rtu_pst_vreg_entry.
+Optimizing module ct_rtu_expand_64.
+Optimizing module ct_rtu_expand_32.
+Optimizing module gated_clk_cell.
+
+7.6.9. Rerunning OPT passes. (Maybe there is more to do..)
+
+7.6.10. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \ct_rtu_pst_vreg..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \ct_rtu_encode_64..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \ct_rtu_pst_vreg_entry..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \ct_rtu_expand_64..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \ct_rtu_expand_32..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \gated_clk_cell..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Removed 0 multiplexer ports.
+<suppressed ~69 debug messages>
+
+7.6.11. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \ct_rtu_pst_vreg.
+  Optimizing cells in module \ct_rtu_encode_64.
+  Optimizing cells in module \ct_rtu_pst_vreg_entry.
+  Optimizing cells in module \ct_rtu_expand_64.
+  Optimizing cells in module \ct_rtu_expand_32.
+  Optimizing cells in module \gated_clk_cell.
+Performed a total of 0 changes.
+
+7.6.12. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_rtu_pst_vreg'.
+Computing hashes of 1014 cells of `\ct_rtu_pst_vreg'.
+Finding duplicate cells in `\ct_rtu_pst_vreg'.
+Finding identical cells in module `\ct_rtu_encode_64'.
+Computing hashes of 62 cells of `\ct_rtu_encode_64'.
+Finding duplicate cells in `\ct_rtu_encode_64'.
+Finding identical cells in module `\ct_rtu_pst_vreg_entry'.
+Computing hashes of 102 cells of `\ct_rtu_pst_vreg_entry'.
+Finding duplicate cells in `\ct_rtu_pst_vreg_entry'.
+Finding identical cells in module `\ct_rtu_expand_64'.
+Computing hashes of 64 cells of `\ct_rtu_expand_64'.
+Finding duplicate cells in `\ct_rtu_expand_64'.
+Finding identical cells in module `\ct_rtu_expand_32'.
+Computing hashes of 32 cells of `\ct_rtu_expand_32'.
+Finding duplicate cells in `\ct_rtu_expand_32'.
+Finding identical cells in module `\gated_clk_cell'.
+Computing hashes of 0 cells of `\gated_clk_cell'.
+Finding duplicate cells in `\gated_clk_cell'.
+Removed a total of 0 cells.
+
+7.6.13. Executing OPT_DFF pass (perform DFF optimizations).
+
+7.6.14. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_rtu_pst_vreg..
+Finding unused cells or wires in module \ct_rtu_encode_64..
+Finding unused cells or wires in module \ct_rtu_pst_vreg_entry..
+Finding unused cells or wires in module \ct_rtu_expand_64..
+Finding unused cells or wires in module \ct_rtu_expand_32..
+Finding unused cells or wires in module \gated_clk_cell..
+
+7.6.15. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_rtu_pst_vreg.
+Optimizing module ct_rtu_encode_64.
+Optimizing module ct_rtu_pst_vreg_entry.
+Optimizing module ct_rtu_expand_64.
+Optimizing module ct_rtu_expand_32.
+Optimizing module gated_clk_cell.
+
+7.6.16. Finished fast OPT passes. (There is nothing left to do.)
+
+7.7. Executing FSM pass (extract and optimize FSM).
+
+7.7.1. Executing FSM_DETECT pass (finding FSMs in design).
+Not marking ct_rtu_pst_vreg_entry.lifecycle_cur_state as FSM state register:
+    Register is connected to module port.
+    Users of register don't seem to benefit from recoding.
+
+7.7.2. Executing FSM_EXTRACT pass (extracting FSM from design).
+
+7.7.3. Executing FSM_OPT pass (simple optimizations of FSMs).
+
+7.7.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_rtu_pst_vreg..
+Finding unused cells or wires in module \ct_rtu_encode_64..
+Finding unused cells or wires in module \ct_rtu_pst_vreg_entry..
+Finding unused cells or wires in module \ct_rtu_expand_64..
+Finding unused cells or wires in module \ct_rtu_expand_32..
+Finding unused cells or wires in module \gated_clk_cell..
+
+7.7.5. Executing FSM_OPT pass (simple optimizations of FSMs).
+
+7.7.6. Executing FSM_RECODE pass (re-assigning FSM state encoding).
+
+7.7.7. Executing FSM_INFO pass (dumping all available information on FSM cells).
+
+7.7.8. Executing FSM_MAP pass (mapping FSMs to basic logic).
+
+7.8. Executing OPT pass (performing simple optimizations).
+
+7.8.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_rtu_pst_vreg.
+Optimizing module ct_rtu_encode_64.
+Optimizing module ct_rtu_pst_vreg_entry.
+Optimizing module ct_rtu_expand_64.
+Optimizing module ct_rtu_expand_32.
+Optimizing module gated_clk_cell.
+
+7.8.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_rtu_pst_vreg'.
+Computing hashes of 1014 cells of `\ct_rtu_pst_vreg'.
+Finding duplicate cells in `\ct_rtu_pst_vreg'.
+Finding identical cells in module `\ct_rtu_encode_64'.
+Computing hashes of 62 cells of `\ct_rtu_encode_64'.
+Finding duplicate cells in `\ct_rtu_encode_64'.
+Finding identical cells in module `\ct_rtu_pst_vreg_entry'.
+Computing hashes of 102 cells of `\ct_rtu_pst_vreg_entry'.
+Finding duplicate cells in `\ct_rtu_pst_vreg_entry'.
+Finding identical cells in module `\ct_rtu_expand_64'.
+Computing hashes of 64 cells of `\ct_rtu_expand_64'.
+Finding duplicate cells in `\ct_rtu_expand_64'.
+Finding identical cells in module `\ct_rtu_expand_32'.
+Computing hashes of 32 cells of `\ct_rtu_expand_32'.
+Finding duplicate cells in `\ct_rtu_expand_32'.
+Finding identical cells in module `\gated_clk_cell'.
+Computing hashes of 0 cells of `\gated_clk_cell'.
+Finding duplicate cells in `\gated_clk_cell'.
+Removed a total of 0 cells.
+
+7.8.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \ct_rtu_pst_vreg..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \ct_rtu_encode_64..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \ct_rtu_pst_vreg_entry..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \ct_rtu_expand_64..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \ct_rtu_expand_32..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \gated_clk_cell..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Removed 0 multiplexer ports.
+<suppressed ~69 debug messages>
+
+7.8.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \ct_rtu_pst_vreg.
+  Optimizing cells in module \ct_rtu_encode_64.
+  Optimizing cells in module \ct_rtu_pst_vreg_entry.
+  Optimizing cells in module \ct_rtu_expand_64.
+  Optimizing cells in module \ct_rtu_expand_32.
+  Optimizing cells in module \gated_clk_cell.
+Performed a total of 0 changes.
+
+7.8.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_rtu_pst_vreg'.
+Computing hashes of 1014 cells of `\ct_rtu_pst_vreg'.
+Finding duplicate cells in `\ct_rtu_pst_vreg'.
+Finding identical cells in module `\ct_rtu_encode_64'.
+Computing hashes of 62 cells of `\ct_rtu_encode_64'.
+Finding duplicate cells in `\ct_rtu_encode_64'.
+Finding identical cells in module `\ct_rtu_pst_vreg_entry'.
+Computing hashes of 102 cells of `\ct_rtu_pst_vreg_entry'.
+Finding duplicate cells in `\ct_rtu_pst_vreg_entry'.
+Finding identical cells in module `\ct_rtu_expand_64'.
+Computing hashes of 64 cells of `\ct_rtu_expand_64'.
+Finding duplicate cells in `\ct_rtu_expand_64'.
+Finding identical cells in module `\ct_rtu_expand_32'.
+Computing hashes of 32 cells of `\ct_rtu_expand_32'.
+Finding duplicate cells in `\ct_rtu_expand_32'.
+Finding identical cells in module `\gated_clk_cell'.
+Computing hashes of 0 cells of `\gated_clk_cell'.
+Finding duplicate cells in `\gated_clk_cell'.
+Removed a total of 0 cells.
+
+7.8.6. Executing OPT_DFF pass (perform DFF optimizations).
+Adding EN signal on $procdff$1462 ($adff) from module ct_rtu_pst_vreg (D = $0\alloc_vreg2[5:0], Q = \alloc_vreg2).
+Adding EN signal on $procdff$1482 ($adff) from module ct_rtu_pst_vreg (D = $0\alloc_vreg0[5:0], Q = \alloc_vreg0).
+Adding EN signal on $procdff$1452 ($adff) from module ct_rtu_pst_vreg (D = $0\alloc_vreg3[5:0], Q = \alloc_vreg3).
+Adding EN signal on $procdff$1467 ($adff) from module ct_rtu_pst_vreg (D = $0\alloc_vreg2_vld[0:0], Q = \alloc_vreg2_vld).
+Adding EN signal on $procdff$1472 ($adff) from module ct_rtu_pst_vreg (D = $0\alloc_vreg1[5:0], Q = \alloc_vreg1).
+Adding EN signal on $procdff$1487 ($adff) from module ct_rtu_pst_vreg (D = $0\alloc_vreg0_vld[0:0], Q = \alloc_vreg0_vld).
+Adding EN signal on $procdff$1457 ($adff) from module ct_rtu_pst_vreg (D = $0\alloc_vreg3_vld[0:0], Q = \alloc_vreg3_vld).
+Adding EN signal on $procdff$1477 ($adff) from module ct_rtu_pst_vreg (D = $0\alloc_vreg1_vld[0:0], Q = \alloc_vreg1_vld).
+Adding EN signal on $procdff$1497 ($adff) from module ct_rtu_pst_vreg_entry (D = $0\retire_inst1_iid_match[0:0], Q = \retire_inst1_iid_match).
+Adding EN signal on $procdff$1517 ($adff) from module ct_rtu_pst_vreg_entry (D = $0\rel_vreg[5:0], Q = \rel_vreg).
+Adding EN signal on $procdff$1507 ($adff) from module ct_rtu_pst_vreg_entry (D = $0\dstv_reg[4:0], Q = \dstv_reg).
+Adding EN signal on $procdff$1512 ($adff) from module ct_rtu_pst_vreg_entry (D = $0\iid[6:0], Q = \iid).
+Adding EN signal on $procdff$1492 ($adff) from module ct_rtu_pst_vreg_entry (D = $0\retire_inst2_iid_match[0:0], Q = \retire_inst2_iid_match).
+Adding EN signal on $procdff$1502 ($adff) from module ct_rtu_pst_vreg_entry (D = $0\retire_inst0_iid_match[0:0], Q = \retire_inst0_iid_match).
+
+7.8.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_rtu_pst_vreg..
+Finding unused cells or wires in module \ct_rtu_encode_64..
+Finding unused cells or wires in module \ct_rtu_pst_vreg_entry..
+Finding unused cells or wires in module \ct_rtu_expand_64..
+Finding unused cells or wires in module \ct_rtu_expand_32..
+Finding unused cells or wires in module \gated_clk_cell..
+
+7.8.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_rtu_pst_vreg.
+<suppressed ~8 debug messages>
+Optimizing module ct_rtu_encode_64.
+Optimizing module ct_rtu_pst_vreg_entry.
+<suppressed ~6 debug messages>
+Optimizing module ct_rtu_expand_64.
+Optimizing module ct_rtu_expand_32.
+Optimizing module gated_clk_cell.
+
+7.8.9. Rerunning OPT passes. (Maybe there is more to do..)
+
+7.8.10. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \ct_rtu_pst_vreg..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \ct_rtu_encode_64..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \ct_rtu_pst_vreg_entry..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \ct_rtu_expand_64..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \ct_rtu_expand_32..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \gated_clk_cell..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Removed 0 multiplexer ports.
+<suppressed ~69 debug messages>
+
+7.8.11. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \ct_rtu_pst_vreg.
+  Optimizing cells in module \ct_rtu_encode_64.
+  Optimizing cells in module \ct_rtu_pst_vreg_entry.
+  Optimizing cells in module \ct_rtu_expand_64.
+  Optimizing cells in module \ct_rtu_expand_32.
+  Optimizing cells in module \gated_clk_cell.
+Performed a total of 0 changes.
+
+7.8.12. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_rtu_pst_vreg'.
+Computing hashes of 1022 cells of `\ct_rtu_pst_vreg'.
+Finding duplicate cells in `\ct_rtu_pst_vreg'.
+Computing hashes of 1018 cells of `\ct_rtu_pst_vreg'.
+Finding duplicate cells in `\ct_rtu_pst_vreg'.
+<suppressed ~12 debug messages>
+Finding identical cells in module `\ct_rtu_encode_64'.
+Computing hashes of 62 cells of `\ct_rtu_encode_64'.
+Finding duplicate cells in `\ct_rtu_encode_64'.
+Finding identical cells in module `\ct_rtu_pst_vreg_entry'.
+Computing hashes of 108 cells of `\ct_rtu_pst_vreg_entry'.
+Finding duplicate cells in `\ct_rtu_pst_vreg_entry'.
+Computing hashes of 106 cells of `\ct_rtu_pst_vreg_entry'.
+Finding duplicate cells in `\ct_rtu_pst_vreg_entry'.
+<suppressed ~6 debug messages>
+Finding identical cells in module `\ct_rtu_expand_64'.
+Computing hashes of 64 cells of `\ct_rtu_expand_64'.
+Finding duplicate cells in `\ct_rtu_expand_64'.
+Finding identical cells in module `\ct_rtu_expand_32'.
+Computing hashes of 32 cells of `\ct_rtu_expand_32'.
+Finding duplicate cells in `\ct_rtu_expand_32'.
+Finding identical cells in module `\gated_clk_cell'.
+Computing hashes of 0 cells of `\gated_clk_cell'.
+Finding duplicate cells in `\gated_clk_cell'.
+Removed a total of 6 cells.
+
+7.8.13. Executing OPT_DFF pass (perform DFF optimizations).
+
+7.8.14. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_rtu_pst_vreg..
+Finding unused cells or wires in module \ct_rtu_encode_64..
+Finding unused cells or wires in module \ct_rtu_pst_vreg_entry..
+Finding unused cells or wires in module \ct_rtu_expand_64..
+Finding unused cells or wires in module \ct_rtu_expand_32..
+Finding unused cells or wires in module \gated_clk_cell..
+Removed 0 unused cells and 6 unused wires.
+<suppressed ~2 debug messages>
+
+7.8.15. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_rtu_pst_vreg.
+Optimizing module ct_rtu_encode_64.
+Optimizing module ct_rtu_pst_vreg_entry.
+Optimizing module ct_rtu_expand_64.
+Optimizing module ct_rtu_expand_32.
+Optimizing module gated_clk_cell.
+
+7.8.16. Rerunning OPT passes. (Maybe there is more to do..)
+
+7.8.17. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \ct_rtu_pst_vreg..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \ct_rtu_encode_64..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \ct_rtu_pst_vreg_entry..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \ct_rtu_expand_64..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \ct_rtu_expand_32..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \gated_clk_cell..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Removed 0 multiplexer ports.
+<suppressed ~69 debug messages>
+
+7.8.18. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \ct_rtu_pst_vreg.
+  Optimizing cells in module \ct_rtu_encode_64.
+  Optimizing cells in module \ct_rtu_pst_vreg_entry.
+  Optimizing cells in module \ct_rtu_expand_64.
+  Optimizing cells in module \ct_rtu_expand_32.
+  Optimizing cells in module \gated_clk_cell.
+Performed a total of 0 changes.
+
+7.8.19. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_rtu_pst_vreg'.
+Computing hashes of 1018 cells of `\ct_rtu_pst_vreg'.
+Finding duplicate cells in `\ct_rtu_pst_vreg'.
+Finding identical cells in module `\ct_rtu_encode_64'.
+Computing hashes of 62 cells of `\ct_rtu_encode_64'.
+Finding duplicate cells in `\ct_rtu_encode_64'.
+Finding identical cells in module `\ct_rtu_pst_vreg_entry'.
+Computing hashes of 106 cells of `\ct_rtu_pst_vreg_entry'.
+Finding duplicate cells in `\ct_rtu_pst_vreg_entry'.
+Finding identical cells in module `\ct_rtu_expand_64'.
+Computing hashes of 64 cells of `\ct_rtu_expand_64'.
+Finding duplicate cells in `\ct_rtu_expand_64'.
+Finding identical cells in module `\ct_rtu_expand_32'.
+Computing hashes of 32 cells of `\ct_rtu_expand_32'.
+Finding duplicate cells in `\ct_rtu_expand_32'.
+Finding identical cells in module `\gated_clk_cell'.
+Computing hashes of 0 cells of `\gated_clk_cell'.
+Finding duplicate cells in `\gated_clk_cell'.
+Removed a total of 0 cells.
+
+7.8.20. Executing OPT_DFF pass (perform DFF optimizations).
+
+7.8.21. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_rtu_pst_vreg..
+Finding unused cells or wires in module \ct_rtu_encode_64..
+Finding unused cells or wires in module \ct_rtu_pst_vreg_entry..
+Finding unused cells or wires in module \ct_rtu_expand_64..
+Finding unused cells or wires in module \ct_rtu_expand_32..
+Finding unused cells or wires in module \gated_clk_cell..
+
+7.8.22. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_rtu_pst_vreg.
+Optimizing module ct_rtu_encode_64.
+Optimizing module ct_rtu_pst_vreg_entry.
+Optimizing module ct_rtu_expand_64.
+Optimizing module ct_rtu_expand_32.
+Optimizing module gated_clk_cell.
+
+7.8.23. Finished fast OPT passes. (There is nothing left to do.)
+
+7.9. Executing WREDUCE pass (reducing word size of cells).
+Removed top 5 bits (of 6) from port A of cell ct_rtu_encode_64.$or$ct_rtu_encode_64_gold.v:37$172 ($or).
+Removed top 4 bits (of 6) from port B of cell ct_rtu_encode_64.$or$ct_rtu_encode_64_gold.v:37$172 ($or).
+Removed top 4 bits (of 6) from port Y of cell ct_rtu_encode_64.$or$ct_rtu_encode_64_gold.v:37$172 ($or).
+Removed top 4 bits (of 6) from port A of cell ct_rtu_encode_64.$or$ct_rtu_encode_64_gold.v:37$174 ($or).
+Removed top 4 bits (of 6) from port B of cell ct_rtu_encode_64.$or$ct_rtu_encode_64_gold.v:37$174 ($or).
+Removed top 4 bits (of 6) from port Y of cell ct_rtu_encode_64.$or$ct_rtu_encode_64_gold.v:37$174 ($or).
+Removed top 4 bits (of 6) from port A of cell ct_rtu_encode_64.$or$ct_rtu_encode_64_gold.v:37$176 ($or).
+Removed top 3 bits (of 6) from port B of cell ct_rtu_encode_64.$or$ct_rtu_encode_64_gold.v:37$176 ($or).
+Removed top 3 bits (of 6) from port Y of cell ct_rtu_encode_64.$or$ct_rtu_encode_64_gold.v:37$176 ($or).
+Removed top 3 bits (of 6) from port A of cell ct_rtu_encode_64.$or$ct_rtu_encode_64_gold.v:37$178 ($or).
+Removed top 3 bits (of 6) from port B of cell ct_rtu_encode_64.$or$ct_rtu_encode_64_gold.v:37$178 ($or).
+Removed top 3 bits (of 6) from port Y of cell ct_rtu_encode_64.$or$ct_rtu_encode_64_gold.v:37$178 ($or).
+Removed top 3 bits (of 6) from port A of cell ct_rtu_encode_64.$or$ct_rtu_encode_64_gold.v:37$180 ($or).
+Removed top 3 bits (of 6) from port B of cell ct_rtu_encode_64.$or$ct_rtu_encode_64_gold.v:37$180 ($or).
+Removed top 3 bits (of 6) from port Y of cell ct_rtu_encode_64.$or$ct_rtu_encode_64_gold.v:37$180 ($or).
+Removed top 3 bits (of 6) from port A of cell ct_rtu_encode_64.$or$ct_rtu_encode_64_gold.v:37$182 ($or).
+Removed top 3 bits (of 6) from port B of cell ct_rtu_encode_64.$or$ct_rtu_encode_64_gold.v:37$182 ($or).
+Removed top 3 bits (of 6) from port Y of cell ct_rtu_encode_64.$or$ct_rtu_encode_64_gold.v:37$182 ($or).
+Removed top 3 bits (of 6) from port A of cell ct_rtu_encode_64.$or$ct_rtu_encode_64_gold.v:37$184 ($or).
+Removed top 2 bits (of 6) from port B of cell ct_rtu_encode_64.$or$ct_rtu_encode_64_gold.v:37$184 ($or).
+Removed top 2 bits (of 6) from port Y of cell ct_rtu_encode_64.$or$ct_rtu_encode_64_gold.v:37$184 ($or).
+Removed top 2 bits (of 6) from port A of cell ct_rtu_encode_64.$or$ct_rtu_encode_64_gold.v:37$186 ($or).
+Removed top 2 bits (of 6) from port B of cell ct_rtu_encode_64.$or$ct_rtu_encode_64_gold.v:37$186 ($or).
+Removed top 2 bits (of 6) from port Y of cell ct_rtu_encode_64.$or$ct_rtu_encode_64_gold.v:37$186 ($or).
+Removed top 2 bits (of 6) from port A of cell ct_rtu_encode_64.$or$ct_rtu_encode_64_gold.v:37$188 ($or).
+Removed top 2 bits (of 6) from port B of cell ct_rtu_encode_64.$or$ct_rtu_encode_64_gold.v:37$188 ($or).
+Removed top 2 bits (of 6) from port Y of cell ct_rtu_encode_64.$or$ct_rtu_encode_64_gold.v:37$188 ($or).
+Removed top 2 bits (of 6) from port A of cell ct_rtu_encode_64.$or$ct_rtu_encode_64_gold.v:37$190 ($or).
+Removed top 2 bits (of 6) from port B of cell ct_rtu_encode_64.$or$ct_rtu_encode_64_gold.v:37$190 ($or).
+Removed top 2 bits (of 6) from port Y of cell ct_rtu_encode_64.$or$ct_rtu_encode_64_gold.v:37$190 ($or).
+Removed top 2 bits (of 6) from port A of cell ct_rtu_encode_64.$or$ct_rtu_encode_64_gold.v:37$192 ($or).
+Removed top 2 bits (of 6) from port B of cell ct_rtu_encode_64.$or$ct_rtu_encode_64_gold.v:37$192 ($or).
+Removed top 2 bits (of 6) from port Y of cell ct_rtu_encode_64.$or$ct_rtu_encode_64_gold.v:37$192 ($or).
+Removed top 2 bits (of 6) from port A of cell ct_rtu_encode_64.$or$ct_rtu_encode_64_gold.v:37$194 ($or).
+Removed top 2 bits (of 6) from port B of cell ct_rtu_encode_64.$or$ct_rtu_encode_64_gold.v:37$194 ($or).
+Removed top 2 bits (of 6) from port Y of cell ct_rtu_encode_64.$or$ct_rtu_encode_64_gold.v:37$194 ($or).
+Removed top 2 bits (of 6) from port A of cell ct_rtu_encode_64.$or$ct_rtu_encode_64_gold.v:37$196 ($or).
+Removed top 2 bits (of 6) from port B of cell ct_rtu_encode_64.$or$ct_rtu_encode_64_gold.v:37$196 ($or).
+Removed top 2 bits (of 6) from port Y of cell ct_rtu_encode_64.$or$ct_rtu_encode_64_gold.v:37$196 ($or).
+Removed top 2 bits (of 6) from port A of cell ct_rtu_encode_64.$or$ct_rtu_encode_64_gold.v:37$198 ($or).
+Removed top 2 bits (of 6) from port B of cell ct_rtu_encode_64.$or$ct_rtu_encode_64_gold.v:37$198 ($or).
+Removed top 2 bits (of 6) from port Y of cell ct_rtu_encode_64.$or$ct_rtu_encode_64_gold.v:37$198 ($or).
+Removed top 2 bits (of 6) from port A of cell ct_rtu_encode_64.$or$ct_rtu_encode_64_gold.v:37$200 ($or).
+Removed top 1 bits (of 6) from port B of cell ct_rtu_encode_64.$or$ct_rtu_encode_64_gold.v:37$200 ($or).
+Removed top 1 bits (of 6) from port Y of cell ct_rtu_encode_64.$or$ct_rtu_encode_64_gold.v:37$200 ($or).
+Removed top 1 bits (of 6) from port A of cell ct_rtu_encode_64.$or$ct_rtu_encode_64_gold.v:37$202 ($or).
+Removed top 1 bits (of 6) from port B of cell ct_rtu_encode_64.$or$ct_rtu_encode_64_gold.v:37$202 ($or).
+Removed top 1 bits (of 6) from port Y of cell ct_rtu_encode_64.$or$ct_rtu_encode_64_gold.v:37$202 ($or).
+Removed top 1 bits (of 6) from port A of cell ct_rtu_encode_64.$or$ct_rtu_encode_64_gold.v:37$204 ($or).
+Removed top 1 bits (of 6) from port B of cell ct_rtu_encode_64.$or$ct_rtu_encode_64_gold.v:37$204 ($or).
+Removed top 1 bits (of 6) from port Y of cell ct_rtu_encode_64.$or$ct_rtu_encode_64_gold.v:37$204 ($or).
+Removed top 1 bits (of 6) from port A of cell ct_rtu_encode_64.$or$ct_rtu_encode_64_gold.v:37$206 ($or).
+Removed top 1 bits (of 6) from port B of cell ct_rtu_encode_64.$or$ct_rtu_encode_64_gold.v:37$206 ($or).
+Removed top 1 bits (of 6) from port Y of cell ct_rtu_encode_64.$or$ct_rtu_encode_64_gold.v:37$206 ($or).
+Removed top 1 bits (of 6) from port A of cell ct_rtu_encode_64.$or$ct_rtu_encode_64_gold.v:37$208 ($or).
+Removed top 1 bits (of 6) from port B of cell ct_rtu_encode_64.$or$ct_rtu_encode_64_gold.v:37$208 ($or).
+Removed top 1 bits (of 6) from port Y of cell ct_rtu_encode_64.$or$ct_rtu_encode_64_gold.v:37$208 ($or).
+Removed top 1 bits (of 6) from port A of cell ct_rtu_encode_64.$or$ct_rtu_encode_64_gold.v:37$210 ($or).
+Removed top 1 bits (of 6) from port B of cell ct_rtu_encode_64.$or$ct_rtu_encode_64_gold.v:37$210 ($or).
+Removed top 1 bits (of 6) from port Y of cell ct_rtu_encode_64.$or$ct_rtu_encode_64_gold.v:37$210 ($or).
+Removed top 1 bits (of 6) from port A of cell ct_rtu_encode_64.$or$ct_rtu_encode_64_gold.v:37$212 ($or).
+Removed top 1 bits (of 6) from port B of cell ct_rtu_encode_64.$or$ct_rtu_encode_64_gold.v:37$212 ($or).
+Removed top 1 bits (of 6) from port Y of cell ct_rtu_encode_64.$or$ct_rtu_encode_64_gold.v:37$212 ($or).
+Removed top 1 bits (of 6) from port A of cell ct_rtu_encode_64.$or$ct_rtu_encode_64_gold.v:37$214 ($or).
+Removed top 1 bits (of 6) from port B of cell ct_rtu_encode_64.$or$ct_rtu_encode_64_gold.v:37$214 ($or).
+Removed top 1 bits (of 6) from port Y of cell ct_rtu_encode_64.$or$ct_rtu_encode_64_gold.v:37$214 ($or).
+Removed top 1 bits (of 6) from port A of cell ct_rtu_encode_64.$or$ct_rtu_encode_64_gold.v:37$216 ($or).
+Removed top 1 bits (of 6) from port B of cell ct_rtu_encode_64.$or$ct_rtu_encode_64_gold.v:37$216 ($or).
+Removed top 1 bits (of 6) from port Y of cell ct_rtu_encode_64.$or$ct_rtu_encode_64_gold.v:37$216 ($or).
+Removed top 1 bits (of 6) from port A of cell ct_rtu_encode_64.$or$ct_rtu_encode_64_gold.v:37$218 ($or).
+Removed top 1 bits (of 6) from port B of cell ct_rtu_encode_64.$or$ct_rtu_encode_64_gold.v:37$218 ($or).
+Removed top 1 bits (of 6) from port Y of cell ct_rtu_encode_64.$or$ct_rtu_encode_64_gold.v:37$218 ($or).
+Removed top 1 bits (of 6) from port A of cell ct_rtu_encode_64.$or$ct_rtu_encode_64_gold.v:37$220 ($or).
+Removed top 1 bits (of 6) from port B of cell ct_rtu_encode_64.$or$ct_rtu_encode_64_gold.v:37$220 ($or).
+Removed top 1 bits (of 6) from port Y of cell ct_rtu_encode_64.$or$ct_rtu_encode_64_gold.v:37$220 ($or).
+Removed top 1 bits (of 6) from port A of cell ct_rtu_encode_64.$or$ct_rtu_encode_64_gold.v:37$222 ($or).
+Removed top 1 bits (of 6) from port B of cell ct_rtu_encode_64.$or$ct_rtu_encode_64_gold.v:37$222 ($or).
+Removed top 1 bits (of 6) from port Y of cell ct_rtu_encode_64.$or$ct_rtu_encode_64_gold.v:37$222 ($or).
+Removed top 1 bits (of 6) from port A of cell ct_rtu_encode_64.$or$ct_rtu_encode_64_gold.v:37$224 ($or).
+Removed top 1 bits (of 6) from port B of cell ct_rtu_encode_64.$or$ct_rtu_encode_64_gold.v:37$224 ($or).
+Removed top 1 bits (of 6) from port Y of cell ct_rtu_encode_64.$or$ct_rtu_encode_64_gold.v:37$224 ($or).
+Removed top 1 bits (of 6) from port A of cell ct_rtu_encode_64.$or$ct_rtu_encode_64_gold.v:37$226 ($or).
+Removed top 1 bits (of 6) from port B of cell ct_rtu_encode_64.$or$ct_rtu_encode_64_gold.v:37$226 ($or).
+Removed top 1 bits (of 6) from port Y of cell ct_rtu_encode_64.$or$ct_rtu_encode_64_gold.v:37$226 ($or).
+Removed top 1 bits (of 6) from port A of cell ct_rtu_encode_64.$or$ct_rtu_encode_64_gold.v:37$228 ($or).
+Removed top 1 bits (of 6) from port B of cell ct_rtu_encode_64.$or$ct_rtu_encode_64_gold.v:37$228 ($or).
+Removed top 1 bits (of 6) from port Y of cell ct_rtu_encode_64.$or$ct_rtu_encode_64_gold.v:37$228 ($or).
+Removed top 1 bits (of 6) from port A of cell ct_rtu_encode_64.$or$ct_rtu_encode_64_gold.v:37$230 ($or).
+Removed top 1 bits (of 6) from port B of cell ct_rtu_encode_64.$or$ct_rtu_encode_64_gold.v:37$230 ($or).
+Removed top 1 bits (of 6) from port Y of cell ct_rtu_encode_64.$or$ct_rtu_encode_64_gold.v:37$230 ($or).
+Removed top 1 bits (of 6) from port A of cell ct_rtu_encode_64.$or$ct_rtu_encode_64_gold.v:37$232 ($or).
+Removed top 1 bits (of 6) from wire ct_rtu_encode_64.$or$ct_rtu_encode_64_gold.v:37$228_Y.
+Removed top 1 bits (of 6) from wire ct_rtu_encode_64.$or$ct_rtu_encode_64_gold.v:37$226_Y.
+Removed top 1 bits (of 6) from wire ct_rtu_encode_64.$or$ct_rtu_encode_64_gold.v:37$224_Y.
+Removed top 1 bits (of 6) from wire ct_rtu_encode_64.$or$ct_rtu_encode_64_gold.v:37$222_Y.
+Removed top 1 bits (of 6) from wire ct_rtu_encode_64.$or$ct_rtu_encode_64_gold.v:37$220_Y.
+Removed top 1 bits (of 6) from wire ct_rtu_encode_64.$or$ct_rtu_encode_64_gold.v:37$218_Y.
+Removed top 1 bits (of 6) from wire ct_rtu_encode_64.$or$ct_rtu_encode_64_gold.v:37$216_Y.
+Removed top 1 bits (of 6) from wire ct_rtu_encode_64.$or$ct_rtu_encode_64_gold.v:37$214_Y.
+Removed top 1 bits (of 6) from wire ct_rtu_encode_64.$or$ct_rtu_encode_64_gold.v:37$212_Y.
+Removed top 1 bits (of 6) from wire ct_rtu_encode_64.$or$ct_rtu_encode_64_gold.v:37$210_Y.
+Removed top 1 bits (of 6) from wire ct_rtu_encode_64.$or$ct_rtu_encode_64_gold.v:37$208_Y.
+Removed top 1 bits (of 6) from wire ct_rtu_encode_64.$or$ct_rtu_encode_64_gold.v:37$206_Y.
+Removed top 1 bits (of 6) from wire ct_rtu_encode_64.$or$ct_rtu_encode_64_gold.v:37$204_Y.
+Removed top 1 bits (of 6) from wire ct_rtu_encode_64.$or$ct_rtu_encode_64_gold.v:37$202_Y.
+Removed top 1 bits (of 6) from wire ct_rtu_encode_64.$or$ct_rtu_encode_64_gold.v:37$200_Y.
+Removed top 2 bits (of 6) from wire ct_rtu_encode_64.$or$ct_rtu_encode_64_gold.v:37$198_Y.
+Removed top 2 bits (of 6) from wire ct_rtu_encode_64.$or$ct_rtu_encode_64_gold.v:37$196_Y.
+Removed top 2 bits (of 6) from wire ct_rtu_encode_64.$or$ct_rtu_encode_64_gold.v:37$194_Y.
+Removed top 2 bits (of 6) from wire ct_rtu_encode_64.$or$ct_rtu_encode_64_gold.v:37$192_Y.
+Removed top 2 bits (of 6) from wire ct_rtu_encode_64.$or$ct_rtu_encode_64_gold.v:37$190_Y.
+Removed top 2 bits (of 6) from wire ct_rtu_encode_64.$or$ct_rtu_encode_64_gold.v:37$188_Y.
+Removed top 2 bits (of 6) from wire ct_rtu_encode_64.$or$ct_rtu_encode_64_gold.v:37$186_Y.
+Removed top 2 bits (of 6) from wire ct_rtu_encode_64.$or$ct_rtu_encode_64_gold.v:37$184_Y.
+Removed top 3 bits (of 6) from wire ct_rtu_encode_64.$or$ct_rtu_encode_64_gold.v:37$182_Y.
+Removed top 3 bits (of 6) from wire ct_rtu_encode_64.$or$ct_rtu_encode_64_gold.v:37$180_Y.
+Removed top 3 bits (of 6) from wire ct_rtu_encode_64.$or$ct_rtu_encode_64_gold.v:37$178_Y.
+Removed top 3 bits (of 6) from wire ct_rtu_encode_64.$or$ct_rtu_encode_64_gold.v:37$176_Y.
+Removed top 4 bits (of 6) from wire ct_rtu_encode_64.$or$ct_rtu_encode_64_gold.v:37$174_Y.
+Removed top 4 bits (of 6) from wire ct_rtu_encode_64.$or$ct_rtu_encode_64_gold.v:37$172_Y.
+Removed top 1 bits (of 6) from wire ct_rtu_encode_64.$or$ct_rtu_encode_64_gold.v:37$230_Y.
+Removed top 1 bits (of 5) from mux cell ct_rtu_pst_vreg_entry.$ternary$ct_rtu_pst_vreg_entry.v:258$119 ($mux).
+Removed top 1 bits (of 4) from port B of cell ct_rtu_pst_vreg_entry.$procmux$1308_CMP0 ($eq).
+Removed top 2 bits (of 4) from port B of cell ct_rtu_pst_vreg_entry.$procmux$1309_CMP0 ($eq).
+Removed top 3 bits (of 4) from port B of cell ct_rtu_pst_vreg_entry.$procmux$1310_CMP0 ($eq).
+Removed top 1 bits (of 5) from mux cell ct_rtu_pst_vreg_entry.$procmux$1361 ($mux).
+Removed top 2 bits (of 5) from mux cell ct_rtu_pst_vreg_entry.$procmux$1412 ($mux).
+Removed top 2 bits (of 5) from mux cell ct_rtu_pst_vreg_entry.$procmux$1424 ($mux).
+Removed top 3 bits (of 5) from mux cell ct_rtu_pst_vreg_entry.$procmux$1434 ($mux).
+Removed top 1 bits (of 5) from port B of cell ct_rtu_pst_vreg_entry.$procmux$1441_CMP0 ($eq).
+Removed top 2 bits (of 5) from port B of cell ct_rtu_pst_vreg_entry.$procmux$1442_CMP0 ($eq).
+Removed top 3 bits (of 5) from port B of cell ct_rtu_pst_vreg_entry.$procmux$1443_CMP0 ($eq).
+Removed top 4 bits (of 5) from port B of cell ct_rtu_pst_vreg_entry.$procmux$1444_CMP0 ($eq).
+Removed top 1 bits (of 5) from wire ct_rtu_pst_vreg_entry.$8\lifecycle_next_state[4:0].
+Removed top 2 bits (of 5) from wire ct_rtu_pst_vreg_entry.$4\lifecycle_next_state[4:0].
+Removed top 2 bits (of 5) from wire ct_rtu_pst_vreg_entry.$3\lifecycle_next_state[4:0].
+Removed top 3 bits (of 5) from wire ct_rtu_pst_vreg_entry.$2\lifecycle_next_state[4:0].
+Removed top 1 bits (of 5) from wire ct_rtu_pst_vreg_entry.reset_lifecycle_state.
+Removed top 5 bits (of 6) from port B of cell ct_rtu_expand_64.$eq$ct_rtu_expand_64.v:37$37 ($eq).
+Removed top 4 bits (of 6) from port B of cell ct_rtu_expand_64.$eq$ct_rtu_expand_64.v:38$38 ($eq).
+Removed top 4 bits (of 6) from port B of cell ct_rtu_expand_64.$eq$ct_rtu_expand_64.v:39$39 ($eq).
+Removed top 3 bits (of 6) from port B of cell ct_rtu_expand_64.$eq$ct_rtu_expand_64.v:40$40 ($eq).
+Removed top 3 bits (of 6) from port B of cell ct_rtu_expand_64.$eq$ct_rtu_expand_64.v:41$41 ($eq).
+Removed top 3 bits (of 6) from port B of cell ct_rtu_expand_64.$eq$ct_rtu_expand_64.v:42$42 ($eq).
+Removed top 3 bits (of 6) from port B of cell ct_rtu_expand_64.$eq$ct_rtu_expand_64.v:43$43 ($eq).
+Removed top 2 bits (of 6) from port B of cell ct_rtu_expand_64.$eq$ct_rtu_expand_64.v:44$44 ($eq).
+Removed top 2 bits (of 6) from port B of cell ct_rtu_expand_64.$eq$ct_rtu_expand_64.v:45$45 ($eq).
+Removed top 2 bits (of 6) from port B of cell ct_rtu_expand_64.$eq$ct_rtu_expand_64.v:46$46 ($eq).
+Removed top 2 bits (of 6) from port B of cell ct_rtu_expand_64.$eq$ct_rtu_expand_64.v:47$47 ($eq).
+Removed top 2 bits (of 6) from port B of cell ct_rtu_expand_64.$eq$ct_rtu_expand_64.v:48$48 ($eq).
+Removed top 2 bits (of 6) from port B of cell ct_rtu_expand_64.$eq$ct_rtu_expand_64.v:49$49 ($eq).
+Removed top 2 bits (of 6) from port B of cell ct_rtu_expand_64.$eq$ct_rtu_expand_64.v:50$50 ($eq).
+Removed top 2 bits (of 6) from port B of cell ct_rtu_expand_64.$eq$ct_rtu_expand_64.v:51$51 ($eq).
+Removed top 1 bits (of 6) from port B of cell ct_rtu_expand_64.$eq$ct_rtu_expand_64.v:52$52 ($eq).
+Removed top 1 bits (of 6) from port B of cell ct_rtu_expand_64.$eq$ct_rtu_expand_64.v:53$53 ($eq).
+Removed top 1 bits (of 6) from port B of cell ct_rtu_expand_64.$eq$ct_rtu_expand_64.v:54$54 ($eq).
+Removed top 1 bits (of 6) from port B of cell ct_rtu_expand_64.$eq$ct_rtu_expand_64.v:55$55 ($eq).
+Removed top 1 bits (of 6) from port B of cell ct_rtu_expand_64.$eq$ct_rtu_expand_64.v:56$56 ($eq).
+Removed top 1 bits (of 6) from port B of cell ct_rtu_expand_64.$eq$ct_rtu_expand_64.v:57$57 ($eq).
+Removed top 1 bits (of 6) from port B of cell ct_rtu_expand_64.$eq$ct_rtu_expand_64.v:58$58 ($eq).
+Removed top 1 bits (of 6) from port B of cell ct_rtu_expand_64.$eq$ct_rtu_expand_64.v:59$59 ($eq).
+Removed top 1 bits (of 6) from port B of cell ct_rtu_expand_64.$eq$ct_rtu_expand_64.v:60$60 ($eq).
+Removed top 1 bits (of 6) from port B of cell ct_rtu_expand_64.$eq$ct_rtu_expand_64.v:61$61 ($eq).
+Removed top 1 bits (of 6) from port B of cell ct_rtu_expand_64.$eq$ct_rtu_expand_64.v:62$62 ($eq).
+Removed top 1 bits (of 6) from port B of cell ct_rtu_expand_64.$eq$ct_rtu_expand_64.v:63$63 ($eq).
+Removed top 1 bits (of 6) from port B of cell ct_rtu_expand_64.$eq$ct_rtu_expand_64.v:64$64 ($eq).
+Removed top 1 bits (of 6) from port B of cell ct_rtu_expand_64.$eq$ct_rtu_expand_64.v:65$65 ($eq).
+Removed top 1 bits (of 6) from port B of cell ct_rtu_expand_64.$eq$ct_rtu_expand_64.v:66$66 ($eq).
+Removed top 1 bits (of 6) from port B of cell ct_rtu_expand_64.$eq$ct_rtu_expand_64.v:67$67 ($eq).
+Removed top 4 bits (of 5) from port B of cell ct_rtu_expand_32.$eq$ct_rtu_expand_32.v:37$5 ($eq).
+Removed top 3 bits (of 5) from port B of cell ct_rtu_expand_32.$eq$ct_rtu_expand_32.v:38$6 ($eq).
+Removed top 3 bits (of 5) from port B of cell ct_rtu_expand_32.$eq$ct_rtu_expand_32.v:39$7 ($eq).
+Removed top 2 bits (of 5) from port B of cell ct_rtu_expand_32.$eq$ct_rtu_expand_32.v:40$8 ($eq).
+Removed top 2 bits (of 5) from port B of cell ct_rtu_expand_32.$eq$ct_rtu_expand_32.v:41$9 ($eq).
+Removed top 2 bits (of 5) from port B of cell ct_rtu_expand_32.$eq$ct_rtu_expand_32.v:42$10 ($eq).
+Removed top 2 bits (of 5) from port B of cell ct_rtu_expand_32.$eq$ct_rtu_expand_32.v:43$11 ($eq).
+Removed top 1 bits (of 5) from port B of cell ct_rtu_expand_32.$eq$ct_rtu_expand_32.v:44$12 ($eq).
+Removed top 1 bits (of 5) from port B of cell ct_rtu_expand_32.$eq$ct_rtu_expand_32.v:45$13 ($eq).
+Removed top 1 bits (of 5) from port B of cell ct_rtu_expand_32.$eq$ct_rtu_expand_32.v:46$14 ($eq).
+Removed top 1 bits (of 5) from port B of cell ct_rtu_expand_32.$eq$ct_rtu_expand_32.v:47$15 ($eq).
+Removed top 1 bits (of 5) from port B of cell ct_rtu_expand_32.$eq$ct_rtu_expand_32.v:48$16 ($eq).
+Removed top 1 bits (of 5) from port B of cell ct_rtu_expand_32.$eq$ct_rtu_expand_32.v:49$17 ($eq).
+Removed top 1 bits (of 5) from port B of cell ct_rtu_expand_32.$eq$ct_rtu_expand_32.v:50$18 ($eq).
+Removed top 1 bits (of 5) from port B of cell ct_rtu_expand_32.$eq$ct_rtu_expand_32.v:51$19 ($eq).
+
+7.10. Executing PEEPOPT pass (run peephole optimizers).
+
+7.11. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_rtu_pst_vreg..
+Finding unused cells or wires in module \ct_rtu_encode_64..
+Finding unused cells or wires in module \ct_rtu_pst_vreg_entry..
+Finding unused cells or wires in module \ct_rtu_expand_64..
+Finding unused cells or wires in module \ct_rtu_expand_32..
+Finding unused cells or wires in module \gated_clk_cell..
+Removed 0 unused cells and 35 unused wires.
+<suppressed ~2 debug messages>
+
+7.12. Executing ALUMACC pass (create $alu and $macc cells).
+Extracting $alu and $macc cells in module ct_rtu_pst_vreg:
+  created 0 $alu and 0 $macc cells.
+Extracting $alu and $macc cells in module ct_rtu_encode_64:
+  created 0 $alu and 0 $macc cells.
+Extracting $alu and $macc cells in module ct_rtu_pst_vreg_entry:
+  created 0 $alu and 0 $macc cells.
+Extracting $alu and $macc cells in module ct_rtu_expand_64:
+  created 0 $alu and 0 $macc cells.
+Extracting $alu and $macc cells in module ct_rtu_expand_32:
+  created 0 $alu and 0 $macc cells.
+Extracting $alu and $macc cells in module gated_clk_cell:
+  created 0 $alu and 0 $macc cells.
+
+7.13. Executing SHARE pass (SAT-based resource sharing).
+
+7.14. Executing OPT pass (performing simple optimizations).
+
+7.14.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_rtu_pst_vreg.
+Optimizing module ct_rtu_encode_64.
+Optimizing module ct_rtu_pst_vreg_entry.
+Optimizing module ct_rtu_expand_64.
+Optimizing module ct_rtu_expand_32.
+Optimizing module gated_clk_cell.
+
+7.14.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_rtu_pst_vreg'.
+Computing hashes of 1018 cells of `\ct_rtu_pst_vreg'.
+Finding duplicate cells in `\ct_rtu_pst_vreg'.
+Finding identical cells in module `\ct_rtu_encode_64'.
+Computing hashes of 62 cells of `\ct_rtu_encode_64'.
+Finding duplicate cells in `\ct_rtu_encode_64'.
+Finding identical cells in module `\ct_rtu_pst_vreg_entry'.
+Computing hashes of 106 cells of `\ct_rtu_pst_vreg_entry'.
+Finding duplicate cells in `\ct_rtu_pst_vreg_entry'.
+Finding identical cells in module `\ct_rtu_expand_64'.
+Computing hashes of 64 cells of `\ct_rtu_expand_64'.
+Finding duplicate cells in `\ct_rtu_expand_64'.
+Finding identical cells in module `\ct_rtu_expand_32'.
+Computing hashes of 32 cells of `\ct_rtu_expand_32'.
+Finding duplicate cells in `\ct_rtu_expand_32'.
+Finding identical cells in module `\gated_clk_cell'.
+Computing hashes of 0 cells of `\gated_clk_cell'.
+Finding duplicate cells in `\gated_clk_cell'.
+Removed a total of 0 cells.
+
+7.14.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \ct_rtu_pst_vreg..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \ct_rtu_encode_64..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \ct_rtu_pst_vreg_entry..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \ct_rtu_expand_64..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \ct_rtu_expand_32..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \gated_clk_cell..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Removed 0 multiplexer ports.
+<suppressed ~69 debug messages>
+
+7.14.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \ct_rtu_pst_vreg.
+  Optimizing cells in module \ct_rtu_encode_64.
+  Optimizing cells in module \ct_rtu_pst_vreg_entry.
+  Optimizing cells in module \ct_rtu_expand_64.
+  Optimizing cells in module \ct_rtu_expand_32.
+  Optimizing cells in module \gated_clk_cell.
+Performed a total of 0 changes.
+
+7.14.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_rtu_pst_vreg'.
+Computing hashes of 1018 cells of `\ct_rtu_pst_vreg'.
+Finding duplicate cells in `\ct_rtu_pst_vreg'.
+Finding identical cells in module `\ct_rtu_encode_64'.
+Computing hashes of 62 cells of `\ct_rtu_encode_64'.
+Finding duplicate cells in `\ct_rtu_encode_64'.
+Finding identical cells in module `\ct_rtu_pst_vreg_entry'.
+Computing hashes of 106 cells of `\ct_rtu_pst_vreg_entry'.
+Finding duplicate cells in `\ct_rtu_pst_vreg_entry'.
+Finding identical cells in module `\ct_rtu_expand_64'.
+Computing hashes of 64 cells of `\ct_rtu_expand_64'.
+Finding duplicate cells in `\ct_rtu_expand_64'.
+Finding identical cells in module `\ct_rtu_expand_32'.
+Computing hashes of 32 cells of `\ct_rtu_expand_32'.
+Finding duplicate cells in `\ct_rtu_expand_32'.
+Finding identical cells in module `\gated_clk_cell'.
+Computing hashes of 0 cells of `\gated_clk_cell'.
+Finding duplicate cells in `\gated_clk_cell'.
+Removed a total of 0 cells.
+
+7.14.6. Executing OPT_DFF pass (perform DFF optimizations).
+
+7.14.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_rtu_pst_vreg..
+Finding unused cells or wires in module \ct_rtu_encode_64..
+Finding unused cells or wires in module \ct_rtu_pst_vreg_entry..
+Finding unused cells or wires in module \ct_rtu_expand_64..
+Finding unused cells or wires in module \ct_rtu_expand_32..
+Finding unused cells or wires in module \gated_clk_cell..
+
+7.14.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_rtu_pst_vreg.
+Optimizing module ct_rtu_encode_64.
+Optimizing module ct_rtu_pst_vreg_entry.
+Optimizing module ct_rtu_expand_64.
+Optimizing module ct_rtu_expand_32.
+Optimizing module gated_clk_cell.
+
+7.14.9. Finished fast OPT passes. (There is nothing left to do.)
+
+7.15. Executing MEMORY pass.
+
+7.15.1. Executing OPT_MEM pass (optimize memories).
+Performed a total of 0 transformations.
+
+7.15.2. Executing OPT_MEM_PRIORITY pass (removing unnecessary memory write priority relations).
+Performed a total of 0 transformations.
+
+7.15.3. Executing OPT_MEM_FEEDBACK pass (finding memory read-to-write feedback paths).
+
+7.15.4. Executing MEMORY_BMUX2ROM pass (converting muxes to ROMs).
+
+7.15.5. Executing MEMORY_DFF pass (merging $dff cells to $memrd).
+
+7.15.6. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_rtu_pst_vreg..
+Finding unused cells or wires in module \ct_rtu_encode_64..
+Finding unused cells or wires in module \ct_rtu_pst_vreg_entry..
+Finding unused cells or wires in module \ct_rtu_expand_64..
+Finding unused cells or wires in module \ct_rtu_expand_32..
+Finding unused cells or wires in module \gated_clk_cell..
+
+7.15.7. Executing MEMORY_SHARE pass (consolidating $memrd/$memwr cells).
+
+7.15.8. Executing OPT_MEM_WIDEN pass (optimize memories where all ports are wide).
+Performed a total of 0 transformations.
+
+7.15.9. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_rtu_pst_vreg..
+Finding unused cells or wires in module \ct_rtu_encode_64..
+Finding unused cells or wires in module \ct_rtu_pst_vreg_entry..
+Finding unused cells or wires in module \ct_rtu_expand_64..
+Finding unused cells or wires in module \ct_rtu_expand_32..
+Finding unused cells or wires in module \gated_clk_cell..
+
+7.15.10. Executing MEMORY_COLLECT pass (generating $mem cells).
+
+7.16. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_rtu_pst_vreg..
+Finding unused cells or wires in module \ct_rtu_encode_64..
+Finding unused cells or wires in module \ct_rtu_pst_vreg_entry..
+Finding unused cells or wires in module \ct_rtu_expand_64..
+Finding unused cells or wires in module \ct_rtu_expand_32..
+Finding unused cells or wires in module \gated_clk_cell..
+
+7.17. Executing OPT pass (performing simple optimizations).
+
+7.17.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_rtu_pst_vreg.
+<suppressed ~8 debug messages>
+Optimizing module ct_rtu_encode_64.
+<suppressed ~260 debug messages>
+Optimizing module ct_rtu_pst_vreg_entry.
+<suppressed ~14 debug messages>
+Optimizing module ct_rtu_expand_64.
+Optimizing module ct_rtu_expand_32.
+Optimizing module gated_clk_cell.
+
+7.17.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_rtu_pst_vreg'.
+Computing hashes of 1010 cells of `\ct_rtu_pst_vreg'.
+Finding duplicate cells in `\ct_rtu_pst_vreg'.
+Finding identical cells in module `\ct_rtu_encode_64'.
+Computing hashes of 62 cells of `\ct_rtu_encode_64'.
+Finding duplicate cells in `\ct_rtu_encode_64'.
+Finding identical cells in module `\ct_rtu_pst_vreg_entry'.
+Computing hashes of 98 cells of `\ct_rtu_pst_vreg_entry'.
+Finding duplicate cells in `\ct_rtu_pst_vreg_entry'.
+Finding identical cells in module `\ct_rtu_expand_64'.
+Computing hashes of 64 cells of `\ct_rtu_expand_64'.
+Finding duplicate cells in `\ct_rtu_expand_64'.
+Finding identical cells in module `\ct_rtu_expand_32'.
+Computing hashes of 32 cells of `\ct_rtu_expand_32'.
+Finding duplicate cells in `\ct_rtu_expand_32'.
+Finding identical cells in module `\gated_clk_cell'.
+Computing hashes of 0 cells of `\gated_clk_cell'.
+Finding duplicate cells in `\gated_clk_cell'.
+Removed a total of 0 cells.
+
+7.17.3. Executing OPT_DFF pass (perform DFF optimizations).
+
+7.17.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_rtu_pst_vreg..
+Finding unused cells or wires in module \ct_rtu_encode_64..
+Finding unused cells or wires in module \ct_rtu_pst_vreg_entry..
+Finding unused cells or wires in module \ct_rtu_expand_64..
+Finding unused cells or wires in module \ct_rtu_expand_32..
+Finding unused cells or wires in module \gated_clk_cell..
+Removed 2 unused cells and 117 unused wires.
+<suppressed ~5 debug messages>
+
+7.17.5. Finished fast OPT passes.
+
+7.18. Executing MEMORY_MAP pass (converting memories to logic and flip-flops).
+
+7.19. Executing OPT pass (performing simple optimizations).
+
+7.19.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_rtu_pst_vreg.
+Optimizing module ct_rtu_encode_64.
+Optimizing module ct_rtu_pst_vreg_entry.
+Optimizing module ct_rtu_expand_64.
+Optimizing module ct_rtu_expand_32.
+Optimizing module gated_clk_cell.
+
+7.19.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_rtu_pst_vreg'.
+Computing hashes of 1010 cells of `\ct_rtu_pst_vreg'.
+Finding duplicate cells in `\ct_rtu_pst_vreg'.
+Finding identical cells in module `\ct_rtu_encode_64'.
+Computing hashes of 62 cells of `\ct_rtu_encode_64'.
+Finding duplicate cells in `\ct_rtu_encode_64'.
+Finding identical cells in module `\ct_rtu_pst_vreg_entry'.
+Computing hashes of 96 cells of `\ct_rtu_pst_vreg_entry'.
+Finding duplicate cells in `\ct_rtu_pst_vreg_entry'.
+Finding identical cells in module `\ct_rtu_expand_64'.
+Computing hashes of 64 cells of `\ct_rtu_expand_64'.
+Finding duplicate cells in `\ct_rtu_expand_64'.
+Finding identical cells in module `\ct_rtu_expand_32'.
+Computing hashes of 32 cells of `\ct_rtu_expand_32'.
+Finding duplicate cells in `\ct_rtu_expand_32'.
+Finding identical cells in module `\gated_clk_cell'.
+Computing hashes of 0 cells of `\gated_clk_cell'.
+Finding duplicate cells in `\gated_clk_cell'.
+Removed a total of 0 cells.
+
+7.19.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \ct_rtu_pst_vreg..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \ct_rtu_encode_64..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \ct_rtu_pst_vreg_entry..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \ct_rtu_expand_64..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \ct_rtu_expand_32..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \gated_clk_cell..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Removed 0 multiplexer ports.
+<suppressed ~51 debug messages>
+
+7.19.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \ct_rtu_pst_vreg.
+  Optimizing cells in module \ct_rtu_encode_64.
+  Optimizing cells in module \ct_rtu_pst_vreg_entry.
+    Consolidated identical input bits for $mux cell $procmux$1412:
+      Old ports: A=3'010, B=3'100, Y=$4\lifecycle_next_state[4:0]
+      New ports: A=2'01, B=2'10, Y=$4\lifecycle_next_state[4:0] [2:1]
+      New connections: $4\lifecycle_next_state[4:0] [0] = 1'0
+    Consolidated identical input bits for $mux cell $procmux$1336:
+      Old ports: A=5'10000, B=5'00001, Y=$11\lifecycle_next_state[4:0]
+      New ports: A=2'10, B=2'01, Y={ $11\lifecycle_next_state[4:0] [4] $11\lifecycle_next_state[4:0] [0] }
+      New connections: $11\lifecycle_next_state[4:0] [3:1] = 3'000
+    Consolidated identical input bits for $mux cell $procmux$1343:
+      Old ports: A=5'01000, B=5'10000, Y=$10\lifecycle_next_state[4:0]
+      New ports: A=2'01, B=2'10, Y=$10\lifecycle_next_state[4:0] [4:3]
+      New connections: $10\lifecycle_next_state[4:0] [2:0] = 3'000
+    Consolidated identical input bits for $mux cell $ternary$ct_rtu_pst_vreg_entry.v:258$119:
+      Old ports: A=4'0001, B=4'1000, Y=\reset_lifecycle_state
+      New ports: A=2'01, B=2'10, Y={ \reset_lifecycle_state [3] \reset_lifecycle_state [0] }
+      New connections: \reset_lifecycle_state [2:1] = 2'00
+    Consolidated identical input bits for $mux cell $procmux$1361:
+      Old ports: A=4'0100, B=4'1000, Y=$8\lifecycle_next_state[4:0]
+      New ports: A=2'01, B=2'10, Y=$8\lifecycle_next_state[4:0] [3:2]
+      New connections: $8\lifecycle_next_state[4:0] [1:0] = 2'00
+  Optimizing cells in module \ct_rtu_pst_vreg_entry.
+    Consolidated identical input bits for $mux cell $procmux$1353:
+      Old ports: A=$10\lifecycle_next_state[4:0], B=5'00001, Y=$9\lifecycle_next_state[4:0]
+      New ports: A={ $10\lifecycle_next_state[4:0] [4:3] 1'0 }, B=3'001, Y={ $9\lifecycle_next_state[4:0] [4:3] $9\lifecycle_next_state[4:0] [0] }
+      New connections: $9\lifecycle_next_state[4:0] [2:1] = 2'00
+    Consolidated identical input bits for $mux cell $procmux$1378:
+      Old ports: A={ 1'0 $8\lifecycle_next_state[4:0] }, B=5'10000, Y=$7\lifecycle_next_state[4:0]
+      New ports: A={ 1'0 $8\lifecycle_next_state[4:0] [3:2] }, B=3'100, Y=$7\lifecycle_next_state[4:0] [4:2]
+      New connections: $7\lifecycle_next_state[4:0] [1:0] = 2'00
+  Optimizing cells in module \ct_rtu_pst_vreg_entry.
+    Consolidated identical input bits for $mux cell $procmux$1392:
+      Old ports: A=$7\lifecycle_next_state[4:0], B=5'00001, Y=$6\lifecycle_next_state[4:0]
+      New ports: A={ $7\lifecycle_next_state[4:0] [4:2] 1'0 }, B=4'0001, Y={ $6\lifecycle_next_state[4:0] [4:2] $6\lifecycle_next_state[4:0] [0] }
+      New connections: $6\lifecycle_next_state[4:0] [1] = 1'0
+  Optimizing cells in module \ct_rtu_pst_vreg_entry.
+    Consolidated identical input bits for $mux cell $procmux$1403:
+      Old ports: A=$6\lifecycle_next_state[4:0], B=5'00001, Y=$5\lifecycle_next_state[4:0]
+      New ports: A={ $6\lifecycle_next_state[4:0] [4:2] $6\lifecycle_next_state[4:0] [0] }, B=4'0001, Y={ $5\lifecycle_next_state[4:0] [4:2] $5\lifecycle_next_state[4:0] [0] }
+      New connections: $5\lifecycle_next_state[4:0] [1] = 1'0
+  Optimizing cells in module \ct_rtu_pst_vreg_entry.
+  Optimizing cells in module \ct_rtu_expand_64.
+  Optimizing cells in module \ct_rtu_expand_32.
+  Optimizing cells in module \gated_clk_cell.
+Performed a total of 9 changes.
+
+7.19.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_rtu_pst_vreg'.
+Computing hashes of 1010 cells of `\ct_rtu_pst_vreg'.
+Finding duplicate cells in `\ct_rtu_pst_vreg'.
+Finding identical cells in module `\ct_rtu_encode_64'.
+Computing hashes of 62 cells of `\ct_rtu_encode_64'.
+Finding duplicate cells in `\ct_rtu_encode_64'.
+Finding identical cells in module `\ct_rtu_pst_vreg_entry'.
+Computing hashes of 96 cells of `\ct_rtu_pst_vreg_entry'.
+Finding duplicate cells in `\ct_rtu_pst_vreg_entry'.
+Finding identical cells in module `\ct_rtu_expand_64'.
+Computing hashes of 64 cells of `\ct_rtu_expand_64'.
+Finding duplicate cells in `\ct_rtu_expand_64'.
+Finding identical cells in module `\ct_rtu_expand_32'.
+Computing hashes of 32 cells of `\ct_rtu_expand_32'.
+Finding duplicate cells in `\ct_rtu_expand_32'.
+Finding identical cells in module `\gated_clk_cell'.
+Computing hashes of 0 cells of `\gated_clk_cell'.
+Finding duplicate cells in `\gated_clk_cell'.
+Removed a total of 0 cells.
+
+7.19.6. Executing OPT_SHARE pass.
+
+7.19.7. Executing OPT_DFF pass (perform DFF optimizations).
+
+7.19.8. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_rtu_pst_vreg..
+Finding unused cells or wires in module \ct_rtu_encode_64..
+Finding unused cells or wires in module \ct_rtu_pst_vreg_entry..
+Finding unused cells or wires in module \ct_rtu_expand_64..
+Finding unused cells or wires in module \ct_rtu_expand_32..
+Finding unused cells or wires in module \gated_clk_cell..
+
+7.19.9. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_rtu_pst_vreg.
+Optimizing module ct_rtu_encode_64.
+Optimizing module ct_rtu_pst_vreg_entry.
+Optimizing module ct_rtu_expand_64.
+Optimizing module ct_rtu_expand_32.
+Optimizing module gated_clk_cell.
+
+7.19.10. Rerunning OPT passes. (Maybe there is more to do..)
+
+7.19.11. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \ct_rtu_pst_vreg..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \ct_rtu_encode_64..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \ct_rtu_pst_vreg_entry..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \ct_rtu_expand_64..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \ct_rtu_expand_32..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \gated_clk_cell..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Removed 0 multiplexer ports.
+<suppressed ~51 debug messages>
+
+7.19.12. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \ct_rtu_pst_vreg.
+  Optimizing cells in module \ct_rtu_encode_64.
+  Optimizing cells in module \ct_rtu_pst_vreg_entry.
+  Optimizing cells in module \ct_rtu_expand_64.
+  Optimizing cells in module \ct_rtu_expand_32.
+  Optimizing cells in module \gated_clk_cell.
+Performed a total of 0 changes.
+
+7.19.13. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_rtu_pst_vreg'.
+Computing hashes of 1010 cells of `\ct_rtu_pst_vreg'.
+Finding duplicate cells in `\ct_rtu_pst_vreg'.
+Finding identical cells in module `\ct_rtu_encode_64'.
+Computing hashes of 62 cells of `\ct_rtu_encode_64'.
+Finding duplicate cells in `\ct_rtu_encode_64'.
+Finding identical cells in module `\ct_rtu_pst_vreg_entry'.
+Computing hashes of 96 cells of `\ct_rtu_pst_vreg_entry'.
+Finding duplicate cells in `\ct_rtu_pst_vreg_entry'.
+Finding identical cells in module `\ct_rtu_expand_64'.
+Computing hashes of 64 cells of `\ct_rtu_expand_64'.
+Finding duplicate cells in `\ct_rtu_expand_64'.
+Finding identical cells in module `\ct_rtu_expand_32'.
+Computing hashes of 32 cells of `\ct_rtu_expand_32'.
+Finding duplicate cells in `\ct_rtu_expand_32'.
+Finding identical cells in module `\gated_clk_cell'.
+Computing hashes of 0 cells of `\gated_clk_cell'.
+Finding duplicate cells in `\gated_clk_cell'.
+Removed a total of 0 cells.
+
+7.19.14. Executing OPT_SHARE pass.
+
+7.19.15. Executing OPT_DFF pass (perform DFF optimizations).
+
+7.19.16. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_rtu_pst_vreg..
+Finding unused cells or wires in module \ct_rtu_encode_64..
+Finding unused cells or wires in module \ct_rtu_pst_vreg_entry..
+Finding unused cells or wires in module \ct_rtu_expand_64..
+Finding unused cells or wires in module \ct_rtu_expand_32..
+Finding unused cells or wires in module \gated_clk_cell..
+
+7.19.17. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_rtu_pst_vreg.
+Optimizing module ct_rtu_encode_64.
+Optimizing module ct_rtu_pst_vreg_entry.
+Optimizing module ct_rtu_expand_64.
+Optimizing module ct_rtu_expand_32.
+Optimizing module gated_clk_cell.
+
+7.19.18. Finished fast OPT passes. (There is nothing left to do.)
+
+7.20. Executing TECHMAP pass (map to technology primitives).
+
+7.20.1. Executing Verilog-2005 frontend: yosys-share/techmap.v
+Parsing Verilog input from `yosys-share/techmap.v' to AST representation.
+Generating RTLIL representation for module `\_90_simplemap_bool_ops'.
+Generating RTLIL representation for module `\_90_simplemap_reduce_ops'.
+Generating RTLIL representation for module `\_90_simplemap_logic_ops'.
+Generating RTLIL representation for module `\_90_simplemap_compare_ops'.
+Generating RTLIL representation for module `\_90_simplemap_various'.
+Generating RTLIL representation for module `\_90_simplemap_registers'.
+Generating RTLIL representation for module `\_90_shift_ops_shr_shl_sshl_sshr'.
+Generating RTLIL representation for module `\_90_shift_shiftx'.
+Generating RTLIL representation for module `\_90_fa'.
+Generating RTLIL representation for module `\_90_lcu_brent_kung'.
+Generating RTLIL representation for module `\_90_alu'.
+Generating RTLIL representation for module `\_90_macc'.
+Generating RTLIL representation for module `\_90_alumacc'.
+Generating RTLIL representation for module `$__div_mod_u'.
+Generating RTLIL representation for module `$__div_mod_trunc'.
+Generating RTLIL representation for module `\_90_div'.
+Generating RTLIL representation for module `\_90_mod'.
+Generating RTLIL representation for module `$__div_mod_floor'.
+Generating RTLIL representation for module `\_90_divfloor'.
+Generating RTLIL representation for module `\_90_modfloor'.
+Generating RTLIL representation for module `\_90_pow'.
+Generating RTLIL representation for module `\_90_demux'.
+Generating RTLIL representation for module `\_90_lut'.
+Generating RTLIL representation for module `$connect'.
+Generating RTLIL representation for module `$input_port'.
+Successfully finished Verilog frontend.
+
+7.20.2. Continuing TECHMAP pass.
+Using extmapper simplemap for cells of type $logic_not.
+Using extmapper simplemap for cells of type $eq.
+Using extmapper simplemap for cells of type $reduce_bool.
+Using extmapper simplemap for cells of type $adffe.
+Using extmapper simplemap for cells of type $logic_or.
+Using extmapper simplemap for cells of type $logic_and.
+Using extmapper simplemap for cells of type $mux.
+Using extmapper simplemap for cells of type $reduce_or.
+Using extmapper simplemap for cells of type $and.
+Using extmapper simplemap for cells of type $pmux.
+Using extmapper simplemap for cells of type $not.
+Using extmapper simplemap for cells of type $or.
+Using extmapper simplemap for cells of type $adff.
+Using extmapper simplemap for cells of type $reduce_and.
+No more expansions possible.
+<suppressed ~1231 debug messages>
+
+7.21. Executing OPT pass (performing simple optimizations).
+
+7.21.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_rtu_pst_vreg.
+<suppressed ~144 debug messages>
+Optimizing module ct_rtu_encode_64.
+<suppressed ~20 debug messages>
+Optimizing module ct_rtu_pst_vreg_entry.
+<suppressed ~69 debug messages>
+Optimizing module ct_rtu_expand_64.
+<suppressed ~378 debug messages>
+Optimizing module ct_rtu_expand_32.
+<suppressed ~155 debug messages>
+Optimizing module gated_clk_cell.
+
+7.21.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_rtu_pst_vreg'.
+Computing hashes of 14512 cells of `\ct_rtu_pst_vreg'.
+Finding duplicate cells in `\ct_rtu_pst_vreg'.
+Computing hashes of 10759 cells of `\ct_rtu_pst_vreg'.
+Finding duplicate cells in `\ct_rtu_pst_vreg'.
+Computing hashes of 8976 cells of `\ct_rtu_pst_vreg'.
+Finding duplicate cells in `\ct_rtu_pst_vreg'.
+Computing hashes of 8200 cells of `\ct_rtu_pst_vreg'.
+Finding duplicate cells in `\ct_rtu_pst_vreg'.
+Computing hashes of 7899 cells of `\ct_rtu_pst_vreg'.
+Finding duplicate cells in `\ct_rtu_pst_vreg'.
+Computing hashes of 7816 cells of `\ct_rtu_pst_vreg'.
+Finding duplicate cells in `\ct_rtu_pst_vreg'.
+<suppressed ~20088 debug messages>
+Finding identical cells in module `\ct_rtu_encode_64'.
+Computing hashes of 186 cells of `\ct_rtu_encode_64'.
+Finding duplicate cells in `\ct_rtu_encode_64'.
+Finding identical cells in module `\ct_rtu_pst_vreg_entry'.
+Computing hashes of 456 cells of `\ct_rtu_pst_vreg_entry'.
+Finding duplicate cells in `\ct_rtu_pst_vreg_entry'.
+Computing hashes of 444 cells of `\ct_rtu_pst_vreg_entry'.
+Finding duplicate cells in `\ct_rtu_pst_vreg_entry'.
+Computing hashes of 442 cells of `\ct_rtu_pst_vreg_entry'.
+Finding duplicate cells in `\ct_rtu_pst_vreg_entry'.
+<suppressed ~42 debug messages>
+Finding identical cells in module `\ct_rtu_expand_64'.
+Computing hashes of 576 cells of `\ct_rtu_expand_64'.
+Finding duplicate cells in `\ct_rtu_expand_64'.
+Computing hashes of 345 cells of `\ct_rtu_expand_64'.
+Finding duplicate cells in `\ct_rtu_expand_64'.
+Computing hashes of 207 cells of `\ct_rtu_expand_64'.
+Finding duplicate cells in `\ct_rtu_expand_64'.
+Computing hashes of 162 cells of `\ct_rtu_expand_64'.
+Finding duplicate cells in `\ct_rtu_expand_64'.
+<suppressed ~1242 debug messages>
+Finding identical cells in module `\ct_rtu_expand_32'.
+Computing hashes of 240 cells of `\ct_rtu_expand_32'.
+Finding duplicate cells in `\ct_rtu_expand_32'.
+Computing hashes of 151 cells of `\ct_rtu_expand_32'.
+Finding duplicate cells in `\ct_rtu_expand_32'.
+Computing hashes of 108 cells of `\ct_rtu_expand_32'.
+Finding duplicate cells in `\ct_rtu_expand_32'.
+Computing hashes of 93 cells of `\ct_rtu_expand_32'.
+Finding duplicate cells in `\ct_rtu_expand_32'.
+<suppressed ~441 debug messages>
+Finding identical cells in module `\gated_clk_cell'.
+Computing hashes of 0 cells of `\gated_clk_cell'.
+Finding duplicate cells in `\gated_clk_cell'.
+Removed a total of 7271 cells.
+
+7.21.3. Executing OPT_DFF pass (perform DFF optimizations).
+
+7.21.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_rtu_pst_vreg..
+Finding unused cells or wires in module \ct_rtu_encode_64..
+Finding unused cells or wires in module \ct_rtu_pst_vreg_entry..
+Finding unused cells or wires in module \ct_rtu_expand_64..
+Finding unused cells or wires in module \ct_rtu_expand_32..
+Finding unused cells or wires in module \gated_clk_cell..
+Removed 0 unused cells and 1502 unused wires.
+<suppressed ~5 debug messages>
+
+7.21.5. Finished fast OPT passes.
+
+7.22. Executing ABC pass (technology mapping using ABC).
+
+7.22.1. Extracting gate netlist of module `\ct_rtu_pst_vreg' to `<abc-temp-dir>/input.blif'..
+
+7.22.1.1. Executed ABC.
+Extracted 7682 gates and 12462 wires to a netlist network with 4779 inputs and 736 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: UC Berkeley, ABC 1.01 (compiled Jun 30 2026 04:50:19)
+ABC: abc 01> empty
+ABC: abc 01> source <abc-temp-dir>/abc.script
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_library <abc-temp-dir>/stdcells.genlib 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &fraig -x 
+ABC: + &put 
+ABC: + scorr 
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2 
+ABC: + dretime 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &dch -f 
+ABC: + &nf 
+ABC: + &put 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+ABC: 
+ABC: YOSYS_ABC_DONE 
+
+7.22.1.2. Re-integrating ABC results.
+ABC RESULTS:               AND cells:     3193
+ABC RESULTS:            ANDNOT cells:      327
+ABC RESULTS:               MUX cells:       37
+ABC RESULTS:              NAND cells:      681
+ABC RESULTS:               NOR cells:     2197
+ABC RESULTS:               NOT cells:       72
+ABC RESULTS:                OR cells:       77
+ABC RESULTS:             ORNOT cells:       80
+ABC RESULTS:        internal signals:     6947
+ABC RESULTS:           input signals:     4779
+ABC RESULTS:          output signals:      736
+Removing temp directory.
+
+7.22.2. Extracting gate netlist of module `\ct_rtu_encode_64' to `<abc-temp-dir>/input.blif'..
+
+7.22.2.1. Executed ABC.
+Extracted 186 gates and 249 wires to a netlist network with 63 inputs and 6 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: UC Berkeley, ABC 1.01 (compiled Jun 30 2026 04:50:19)
+ABC: abc 01> empty
+ABC: abc 01> source <abc-temp-dir>/abc.script
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_library <abc-temp-dir>/stdcells.genlib 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &fraig -x 
+ABC: + &put 
+ABC: + scorr 
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2 
+ABC: + dretime 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &dch -f 
+ABC: + &nf 
+ABC: + &put 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+ABC: 
+ABC: YOSYS_ABC_DONE 
+
+7.22.2.2. Re-integrating ABC results.
+ABC RESULTS:               AND cells:       64
+ABC RESULTS:            ANDNOT cells:        7
+ABC RESULTS:              NAND cells:        6
+ABC RESULTS:               NOR cells:       46
+ABC RESULTS:        internal signals:      180
+ABC RESULTS:           input signals:       63
+ABC RESULTS:          output signals:        6
+Removing temp directory.
+
+7.22.3. Extracting gate netlist of module `\ct_rtu_pst_vreg_entry' to `<abc-temp-dir>/input.blif'..
+
+7.22.3.1. Executed ABC.
+Extracted 411 gates and 642 wires to a netlist network with 229 inputs and 130 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: UC Berkeley, ABC 1.01 (compiled Jun 30 2026 04:50:19)
+ABC: abc 01> empty
+ABC: abc 01> source <abc-temp-dir>/abc.script
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_library <abc-temp-dir>/stdcells.genlib 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &fraig -x 
+ABC: + &put 
+ABC: + scorr 
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2 
+ABC: + dretime 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &dch -f 
+ABC: + &nf 
+ABC: + &put 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+ABC: 
+ABC: YOSYS_ABC_DONE 
+
+7.22.3.2. Re-integrating ABC results.
+ABC RESULTS:               AND cells:      202
+ABC RESULTS:            ANDNOT cells:       17
+ABC RESULTS:               MUX cells:        5
+ABC RESULTS:              NAND cells:      106
+ABC RESULTS:               NOR cells:       27
+ABC RESULTS:               NOT cells:        1
+ABC RESULTS:                OR cells:       12
+ABC RESULTS:             ORNOT cells:       28
+ABC RESULTS:              XNOR cells:        9
+ABC RESULTS:        internal signals:      283
+ABC RESULTS:           input signals:      229
+ABC RESULTS:          output signals:      130
+Removing temp directory.
+
+7.22.4. Extracting gate netlist of module `\ct_rtu_expand_64' to `<abc-temp-dir>/input.blif'..
+
+7.22.4.1. Executed ABC.
+Extracted 162 gates and 168 wires to a netlist network with 6 inputs and 64 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: UC Berkeley, ABC 1.01 (compiled Jun 30 2026 04:50:19)
+ABC: abc 01> empty
+ABC: abc 01> source <abc-temp-dir>/abc.script
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_library <abc-temp-dir>/stdcells.genlib 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &fraig -x 
+ABC: + &put 
+ABC: + scorr 
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2 
+ABC: + dretime 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &dch -f 
+ABC: + &nf 
+ABC: + &put 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+ABC: 
+ABC: YOSYS_ABC_DONE 
+
+7.22.4.2. Re-integrating ABC results.
+ABC RESULTS:               AND cells:       83
+ABC RESULTS:            ANDNOT cells:        6
+ABC RESULTS:               NOR cells:        3
+ABC RESULTS:        internal signals:       98
+ABC RESULTS:           input signals:        6
+ABC RESULTS:          output signals:       64
+Removing temp directory.
+
+7.22.5. Extracting gate netlist of module `\ct_rtu_expand_32' to `<abc-temp-dir>/input.blif'..
+
+7.22.5.1. Executed ABC.
+Extracted 93 gates and 98 wires to a netlist network with 5 inputs and 32 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: UC Berkeley, ABC 1.01 (compiled Jun 30 2026 04:50:19)
+ABC: abc 01> empty
+ABC: abc 01> source <abc-temp-dir>/abc.script
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_library <abc-temp-dir>/stdcells.genlib 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &fraig -x 
+ABC: + &put 
+ABC: + scorr 
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2 
+ABC: + dretime 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &dch -f 
+ABC: + &nf 
+ABC: + &put 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+ABC: 
+ABC: YOSYS_ABC_DONE 
+
+7.22.5.2. Re-integrating ABC results.
+ABC RESULTS:               AND cells:       34
+ABC RESULTS:            ANDNOT cells:       20
+ABC RESULTS:               NOR cells:        2
+ABC RESULTS:        internal signals:       61
+ABC RESULTS:           input signals:        5
+ABC RESULTS:          output signals:       32
+Removing temp directory.
+
+7.22.6. Extracting gate netlist of module `\gated_clk_cell' to `<abc-temp-dir>/input.blif'..
+
+7.22.6.1. Executed ABC.
+Extracted 0 gates and 0 wires to a netlist network with 0 inputs and 0 outputs.
+Don't call ABC as there is nothing to map.
+Removing temp directory.
+Removing global temp directory.
+
+7.23. Executing OPT pass (performing simple optimizations).
+
+7.23.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_rtu_pst_vreg.
+<suppressed ~1 debug messages>
+Optimizing module ct_rtu_encode_64.
+Optimizing module ct_rtu_pst_vreg_entry.
+Optimizing module ct_rtu_expand_64.
+Optimizing module ct_rtu_expand_32.
+Optimizing module gated_clk_cell.
+
+7.23.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_rtu_pst_vreg'.
+Computing hashes of 6798 cells of `\ct_rtu_pst_vreg'.
+Finding duplicate cells in `\ct_rtu_pst_vreg'.
+Finding identical cells in module `\ct_rtu_encode_64'.
+Computing hashes of 123 cells of `\ct_rtu_encode_64'.
+Finding duplicate cells in `\ct_rtu_encode_64'.
+Finding identical cells in module `\ct_rtu_pst_vreg_entry'.
+Computing hashes of 438 cells of `\ct_rtu_pst_vreg_entry'.
+Finding duplicate cells in `\ct_rtu_pst_vreg_entry'.
+Finding identical cells in module `\ct_rtu_expand_64'.
+Computing hashes of 92 cells of `\ct_rtu_expand_64'.
+Finding duplicate cells in `\ct_rtu_expand_64'.
+Finding identical cells in module `\ct_rtu_expand_32'.
+Computing hashes of 56 cells of `\ct_rtu_expand_32'.
+Finding duplicate cells in `\ct_rtu_expand_32'.
+Finding identical cells in module `\gated_clk_cell'.
+Computing hashes of 0 cells of `\gated_clk_cell'.
+Finding duplicate cells in `\gated_clk_cell'.
+Removed a total of 0 cells.
+
+7.23.3. Executing OPT_DFF pass (perform DFF optimizations).
+
+7.23.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_rtu_pst_vreg..
+Finding unused cells or wires in module \ct_rtu_encode_64..
+Finding unused cells or wires in module \ct_rtu_pst_vreg_entry..
+Finding unused cells or wires in module \ct_rtu_expand_64..
+Finding unused cells or wires in module \ct_rtu_expand_32..
+Finding unused cells or wires in module \gated_clk_cell..
+Removed 0 unused cells and 7549 unused wires.
+<suppressed ~29 debug messages>
+
+7.23.5. Finished fast OPT passes.
+
+7.24. Executing HIERARCHY pass (managing design hierarchy).
+Attribute `top' found on module `ct_rtu_pst_vreg'. Setting top module to ct_rtu_pst_vreg.
+
+7.24.1. Analyzing design hierarchy..
+Top module:  \ct_rtu_pst_vreg
+Used module:     \ct_rtu_encode_64
+Used module:     \ct_rtu_expand_64
+Used module:     \ct_rtu_pst_vreg_entry
+Used module:         \gated_clk_cell
+Used module:         \ct_rtu_expand_32
+
+7.24.2. Analyzing design hierarchy..
+Top module:  \ct_rtu_pst_vreg
+Used module:     \ct_rtu_encode_64
+Used module:     \ct_rtu_expand_64
+Used module:     \ct_rtu_pst_vreg_entry
+Used module:         \gated_clk_cell
+Used module:         \ct_rtu_expand_32
+Removed 0 unused modules.
+
+7.25. Printing statistics.
+
+=== ct_rtu_pst_vreg ===
+
+        +----------Local Count, excluding submodules.
+        | 
+     6875 wires
+    17837 wire bits
+      935 public wires
+    11877 public wire bits
+       59 ports
+      620 port bits
+     6692 cells
+      327   $_ANDNOT_
+     3193   $_AND_
+       28   $_DFFE_PN0P_
+       37   $_MUX_
+      681   $_NAND_
+     2197   $_NOR_
+       72   $_NOT_
+       80   $_ORNOT_
+       77   $_OR_
+      106 submodules
+       36   ct_rtu_encode_64
+        4   ct_rtu_expand_64
+       64   ct_rtu_pst_vreg_entry
+        2   gated_clk_cell
+
+=== ct_rtu_encode_64 ===
+
+        +----------Local Count, excluding submodules.
+        | 
+      119 wires
+      187 wire bits
+        2 public wires
+       70 public wire bits
+        2 ports
+       70 port bits
+      123 cells
+        7   $_ANDNOT_
+       64   $_AND_
+        6   $_NAND_
+       46   $_NOR_
+
+=== ct_rtu_pst_vreg_entry ===
+
+        +----------Local Count, excluding submodules.
+        | 
+      351 wires
+      665 wire bits
+       63 public wires
+      358 public wire bits
+       42 ports
+      221 port bits
+      434 cells
+       17   $_ANDNOT_
+      202   $_AND_
+       21   $_DFFE_PN0P_
+        5   $_DFF_PN0_
+        1   $_DFF_PN1_
+        5   $_MUX_
+      106   $_NAND_
+       27   $_NOR_
+        1   $_NOT_
+       28   $_ORNOT_
+       12   $_OR_
+        9   $_XNOR_
+        4 submodules
+        1   ct_rtu_expand_32
+        1   ct_rtu_expand_64
+        2   gated_clk_cell
+
+=== ct_rtu_expand_64 ===
+
+        +----------Local Count, excluding submodules.
+        | 
+       30 wires
+       98 wire bits
+        2 public wires
+       70 public wire bits
+        2 ports
+       70 port bits
+       92 cells
+        6   $_ANDNOT_
+       83   $_AND_
+        3   $_NOR_
+
+=== ct_rtu_expand_32 ===
+
+        +----------Local Count, excluding submodules.
+        | 
+       26 wires
+       61 wire bits
+        2 public wires
+       37 public wire bits
+        2 ports
+       37 port bits
+       56 cells
+       20   $_ANDNOT_
+       34   $_AND_
+        2   $_NOR_
+
+=== gated_clk_cell ===
+
+        +----------Local Count, excluding submodules.
+        | 
+        8 wires
+        8 wire bits
+        8 public wires
+        8 public wire bits
+        7 ports
+        7 port bits
+
+=== design hierarchy ===
+
+        +----------Count including submodules.
+        | 
+    48736 ct_rtu_pst_vreg
+      123 ct_rtu_encode_64
+       92 ct_rtu_expand_64
+      434 ct_rtu_pst_vreg_entry
+       56   ct_rtu_expand_32
+       92   ct_rtu_expand_64
+
+        +----------Count including submodules.
+        | 
+    38367 wires
+    78737 wire bits
+     6343 public wires
+    45477 public wire bits
+     3993 ports
+    25322 port bits
+        - memories
+        - memory bits
+        - processes
+    48736 cells
+     3355   $_ANDNOT_
+    26245   $_AND_
+     1372   $_DFFE_PN0P_
+      320   $_DFF_PN0_
+       64   $_DFF_PN1_
+      357   $_MUX_
+     7681   $_NAND_
+     5913   $_NOR_
+      136   $_NOT_
+     1872   $_ORNOT_
+      845   $_OR_
+      576   $_XNOR_
+      106 submodules
+       36   ct_rtu_encode_64
+        4   ct_rtu_expand_64
+       64   ct_rtu_pst_vreg_entry
+        2   gated_clk_cell
+
+7.26. Executing CHECK pass (checking for obvious problems).
+Checking module ct_rtu_pst_vreg...
+Checking module ct_rtu_encode_64...
+Checking module ct_rtu_pst_vreg_entry...
+Checking module ct_rtu_expand_64...
+Checking module ct_rtu_expand_32...
+Checking module gated_clk_cell...
+Found and reported 0 problems.
+
+8. Executing DFFLIBMAP pass (mapping DFF cells to sequential cells from liberty file).
+  cell sky130_fd_sc_hd__dfxtp_1 (noninv, pins=3, area=20.02) is a direct match for cell type $_DFF_P_.
+  cell sky130_fd_sc_hd__dfrtn_1 (noninv, pins=4, area=25.02) is a direct match for cell type $_DFF_NN0_.
+  cell sky130_fd_sc_hd__dfrtp_1 (noninv, pins=4, area=25.02) is a direct match for cell type $_DFF_PN0_.
+  cell sky130_fd_sc_hd__dfstp_2 (noninv, pins=4, area=26.28) is a direct match for cell type $_DFF_PN1_.
+  cell sky130_fd_sc_hd__edfxtp_1 (noninv, pins=4, area=30.03) is a direct match for cell type $_DFFE_PP_.
+  cell sky130_fd_sc_hd__dfbbn_1 (noninv, pins=6, area=32.53) is a direct match for cell type $_DFFSR_NNN_.
+  cell sky130_fd_sc_hd__dfbbp_1 (noninv, pins=6, area=32.53) is a direct match for cell type $_DFFSR_PNN_.
+  final dff cell mappings:
+    unmapped dff cell: $_DFF_N_
+    \sky130_fd_sc_hd__dfxtp_1 _DFF_P_ (.CLK( C), .D( D), .Q( Q));
+    \sky130_fd_sc_hd__dfrtn_1 _DFF_NN0_ (.CLK_N( C), .D( D), .Q( Q), .RESET_B( R));
+    unmapped dff cell: $_DFF_NN1_
+    unmapped dff cell: $_DFF_NP0_
+    unmapped dff cell: $_DFF_NP1_
+    \sky130_fd_sc_hd__dfrtp_1 _DFF_PN0_ (.CLK( C), .D( D), .Q( Q), .RESET_B( R));
+    \sky130_fd_sc_hd__dfstp_2 _DFF_PN1_ (.CLK( C), .D( D), .Q( Q), .SET_B( R));
+    unmapped dff cell: $_DFF_PP0_
+    unmapped dff cell: $_DFF_PP1_
+    unmapped dff cell: $_DFFE_NN_
+    unmapped dff cell: $_DFFE_NP_
+    unmapped dff cell: $_DFFE_PN_
+    \sky130_fd_sc_hd__edfxtp_1 _DFFE_PP_ (.CLK( C), .D( D), .DE( E), .Q( Q));
+    \sky130_fd_sc_hd__dfbbn_1 _DFFSR_NNN_ (.CLK_N( C), .D( D), .Q( Q), .Q_N(~Q), .RESET_B( R), .SET_B( S));
+    unmapped dff cell: $_DFFSR_NNP_
+    unmapped dff cell: $_DFFSR_NPN_
+    unmapped dff cell: $_DFFSR_NPP_
+    \sky130_fd_sc_hd__dfbbp_1 _DFFSR_PNN_ (.CLK( C), .D( D), .Q( Q), .Q_N(~Q), .RESET_B( R), .SET_B( S));
+    unmapped dff cell: $_DFFSR_PNP_
+    unmapped dff cell: $_DFFSR_PPN_
+    unmapped dff cell: $_DFFSR_PPP_
+
+8.1. Executing DFFLEGALIZE pass (convert FFs to types supported by the target).
+<suppressed ~24 debug messages>
+Mapping DFF cells in module `\ct_rtu_pst_vreg':
+  mapped 28 $_DFF_PN0_ cells to \sky130_fd_sc_hd__dfrtp_1 cells.
+Mapping DFF cells in module `\ct_rtu_encode_64':
+Mapping DFF cells in module `\ct_rtu_pst_vreg_entry':
+  mapped 26 $_DFF_PN0_ cells to \sky130_fd_sc_hd__dfrtp_1 cells.
+  mapped 1 $_DFF_PN1_ cells to \sky130_fd_sc_hd__dfstp_2 cells.
+Mapping DFF cells in module `\ct_rtu_expand_64':
+Mapping DFF cells in module `\ct_rtu_expand_32':
+Mapping DFF cells in module `\gated_clk_cell':
+
+9. Executing ABC pass (technology mapping using ABC).
+
+9.1. Extracting gate netlist of module `\ct_rtu_pst_vreg' to `<abc-temp-dir>/input.blif'..
+ABC: using cached merged SCL: yosys-scl-cache/merged.scl (1 files)
+
+9.1.1. Executed ABC.
+Extracted 6692 gates and 11495 wires to a netlist network with 4803 inputs and 732 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: UC Berkeley, ABC 1.01 (compiled Jun 30 2026 04:50:19)
+ABC: abc 01> empty
+ABC: abc 01> source <abc-temp-dir>/abc.script
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_scl yosys-scl-cache/merged.scl 
+ABC: Warning: Detected 9 multi-output cells (for example, "sky130_fd_sc_hd__fa_1").
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &fraig -x 
+ABC: + &put 
+ABC: + scorr 
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2 
+ABC: + dretime 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &dch -f 
+ABC: + &nf 
+ABC: + &put 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+ABC: 
+ABC: YOSYS_ABC_DONE 
+
+9.1.2. Re-integrating ABC results.
+ABC RESULTS:   sky130_fd_sc_hd__a2111o_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__a2111oi_0 cells:        6
+ABC RESULTS:   sky130_fd_sc_hd__a211o_1 cells:        5
+ABC RESULTS:   sky130_fd_sc_hd__a211oi_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__a21bo_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__a21boi_0 cells:        3
+ABC RESULTS:   sky130_fd_sc_hd__a21o_1 cells:        5
+ABC RESULTS:   sky130_fd_sc_hd__a21oi_1 cells:       46
+ABC RESULTS:   sky130_fd_sc_hd__a221o_1 cells:        4
+ABC RESULTS:   sky130_fd_sc_hd__a221oi_1 cells:        4
+ABC RESULTS:   sky130_fd_sc_hd__a222oi_1 cells:       64
+ABC RESULTS:   sky130_fd_sc_hd__a22o_1 cells:       27
+ABC RESULTS:   sky130_fd_sc_hd__a22oi_1 cells:        2
+ABC RESULTS:   sky130_fd_sc_hd__a311o_1 cells:        2
+ABC RESULTS:   sky130_fd_sc_hd__a311oi_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__a31o_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__a31oi_1 cells:       26
+ABC RESULTS:   sky130_fd_sc_hd__a32o_1 cells:        2
+ABC RESULTS:   sky130_fd_sc_hd__a32oi_1 cells:        8
+ABC RESULTS:   sky130_fd_sc_hd__a41o_1 cells:        3
+ABC RESULTS:   sky130_fd_sc_hd__a41oi_1 cells:        5
+ABC RESULTS:   sky130_fd_sc_hd__and2_0 cells:      295
+ABC RESULTS:   sky130_fd_sc_hd__and3_1 cells:       39
+ABC RESULTS:   sky130_fd_sc_hd__and3b_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__and4_1 cells:       10
+ABC RESULTS:   sky130_fd_sc_hd__and4b_1 cells:        4
+ABC RESULTS:   sky130_fd_sc_hd__clkinv_1 cells:      121
+ABC RESULTS:   sky130_fd_sc_hd__lpflow_inputiso1p_1 cells:        9
+ABC RESULTS:   sky130_fd_sc_hd__lpflow_isobufsrc_1 cells:       31
+ABC RESULTS:   sky130_fd_sc_hd__maj3_1 cells:        2
+ABC RESULTS:   sky130_fd_sc_hd__mux2i_1 cells:        3
+ABC RESULTS:   sky130_fd_sc_hd__nand2_1 cells:      287
+ABC RESULTS:   sky130_fd_sc_hd__nand2b_1 cells:       27
+ABC RESULTS:   sky130_fd_sc_hd__nand3_1 cells:       94
+ABC RESULTS:   sky130_fd_sc_hd__nand3b_1 cells:        3
+ABC RESULTS:   sky130_fd_sc_hd__nand4_1 cells:      325
+ABC RESULTS:   sky130_fd_sc_hd__nand4b_1 cells:       11
+ABC RESULTS:   sky130_fd_sc_hd__nand4bb_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__nor2_1 cells:      353
+ABC RESULTS:   sky130_fd_sc_hd__nor2b_1 cells:       13
+ABC RESULTS:   sky130_fd_sc_hd__nor3_1 cells:       80
+ABC RESULTS:   sky130_fd_sc_hd__nor3b_1 cells:       24
+ABC RESULTS:   sky130_fd_sc_hd__nor4_1 cells:     1093
+ABC RESULTS:   sky130_fd_sc_hd__nor4b_1 cells:       11
+ABC RESULTS:   sky130_fd_sc_hd__nor4bb_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__o2111ai_1 cells:       10
+ABC RESULTS:   sky130_fd_sc_hd__o211ai_1 cells:        8
+ABC RESULTS:   sky130_fd_sc_hd__o21a_1 cells:        2
+ABC RESULTS:   sky130_fd_sc_hd__o21ai_0 cells:       66
+ABC RESULTS:   sky130_fd_sc_hd__o221a_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__o221ai_1 cells:        7
+ABC RESULTS:   sky130_fd_sc_hd__o22ai_1 cells:        5
+ABC RESULTS:   sky130_fd_sc_hd__o2bb2ai_1 cells:        2
+ABC RESULTS:   sky130_fd_sc_hd__o311ai_0 cells:        6
+ABC RESULTS:   sky130_fd_sc_hd__o31a_1 cells:        2
+ABC RESULTS:   sky130_fd_sc_hd__o31ai_1 cells:       12
+ABC RESULTS:   sky130_fd_sc_hd__o32ai_1 cells:        4
+ABC RESULTS:   sky130_fd_sc_hd__o41a_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__o41ai_1 cells:        4
+ABC RESULTS:   sky130_fd_sc_hd__or3_1 cells:       12
+ABC RESULTS:   sky130_fd_sc_hd__or3b_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__or4_1 cells:       15
+ABC RESULTS:   sky130_fd_sc_hd__or4b_1 cells:        2
+ABC RESULTS:        internal signals:     5960
+ABC RESULTS:           input signals:     4803
+ABC RESULTS:          output signals:      732
+Removing temp directory.
+
+9.2. Extracting gate netlist of module `\ct_rtu_encode_64' to `<abc-temp-dir>/input.blif'..
+ABC: using cached merged SCL: yosys-scl-cache/merged.scl (1 files)
+
+9.2.1. Executed ABC.
+Extracted 123 gates and 186 wires to a netlist network with 63 inputs and 6 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: UC Berkeley, ABC 1.01 (compiled Jun 30 2026 04:50:19)
+ABC: abc 01> empty
+ABC: abc 01> source <abc-temp-dir>/abc.script
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_scl yosys-scl-cache/merged.scl 
+ABC: Warning: Detected 9 multi-output cells (for example, "sky130_fd_sc_hd__fa_1").
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &fraig -x 
+ABC: + &put 
+ABC: + scorr 
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2 
+ABC: + dretime 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &dch -f 
+ABC: + &nf 
+ABC: + &put 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+ABC: 
+ABC: YOSYS_ABC_DONE 
+
+9.2.2. Re-integrating ABC results.
+ABC RESULTS:   sky130_fd_sc_hd__lpflow_inputiso1p_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__nand2_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__nand2b_1 cells:        3
+ABC RESULTS:   sky130_fd_sc_hd__nand3_1 cells:        3
+ABC RESULTS:   sky130_fd_sc_hd__nand4_1 cells:        6
+ABC RESULTS:   sky130_fd_sc_hd__nor2_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__nor3_1 cells:        5
+ABC RESULTS:   sky130_fd_sc_hd__nor4_1 cells:       24
+ABC RESULTS:   sky130_fd_sc_hd__or3_1 cells:        2
+ABC RESULTS:   sky130_fd_sc_hd__or4_1 cells:        7
+ABC RESULTS:        internal signals:      117
+ABC RESULTS:           input signals:       63
+ABC RESULTS:          output signals:        6
+Removing temp directory.
+
+9.3. Extracting gate netlist of module `\ct_rtu_pst_vreg_entry' to `<abc-temp-dir>/input.blif'..
+ABC: using cached merged SCL: yosys-scl-cache/merged.scl (1 files)
+
+9.3.1. Executed ABC.
+Extracted 428 gates and 668 wires to a netlist network with 240 inputs and 127 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: UC Berkeley, ABC 1.01 (compiled Jun 30 2026 04:50:19)
+ABC: abc 01> empty
+ABC: abc 01> source <abc-temp-dir>/abc.script
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_scl yosys-scl-cache/merged.scl 
+ABC: Warning: Detected 9 multi-output cells (for example, "sky130_fd_sc_hd__fa_1").
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &fraig -x 
+ABC: + &put 
+ABC: + scorr 
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2 
+ABC: + dretime 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &dch -f 
+ABC: + &nf 
+ABC: + &put 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+ABC: 
+ABC: YOSYS_ABC_DONE 
+
+9.3.2. Re-integrating ABC results.
+ABC RESULTS:   sky130_fd_sc_hd__a2111oi_0 cells:        3
+ABC RESULTS:   sky130_fd_sc_hd__a211o_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__a211oi_1 cells:        3
+ABC RESULTS:   sky130_fd_sc_hd__a21boi_0 cells:       13
+ABC RESULTS:   sky130_fd_sc_hd__a21o_1 cells:        3
+ABC RESULTS:   sky130_fd_sc_hd__a21oi_1 cells:        5
+ABC RESULTS:   sky130_fd_sc_hd__a221o_1 cells:        2
+ABC RESULTS:   sky130_fd_sc_hd__a221oi_1 cells:        3
+ABC RESULTS:   sky130_fd_sc_hd__a222oi_1 cells:       14
+ABC RESULTS:   sky130_fd_sc_hd__a22o_1 cells:        4
+ABC RESULTS:   sky130_fd_sc_hd__a22oi_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__a2bb2oi_1 cells:        2
+ABC RESULTS:   sky130_fd_sc_hd__a32o_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__a32oi_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__a41oi_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__and2_0 cells:       36
+ABC RESULTS:   sky130_fd_sc_hd__and3_1 cells:       65
+ABC RESULTS:   sky130_fd_sc_hd__and3b_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__clkinv_1 cells:       13
+ABC RESULTS:   sky130_fd_sc_hd__lpflow_inputiso1p_1 cells:        4
+ABC RESULTS:   sky130_fd_sc_hd__lpflow_isobufsrc_1 cells:        9
+ABC RESULTS:   sky130_fd_sc_hd__nand2_1 cells:       15
+ABC RESULTS:   sky130_fd_sc_hd__nand2b_1 cells:        3
+ABC RESULTS:   sky130_fd_sc_hd__nand3_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__nand3b_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__nand4_1 cells:        3
+ABC RESULTS:   sky130_fd_sc_hd__nand4b_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__nor2_1 cells:        5
+ABC RESULTS:   sky130_fd_sc_hd__nor3_1 cells:        9
+ABC RESULTS:   sky130_fd_sc_hd__nor4_1 cells:        4
+ABC RESULTS:   sky130_fd_sc_hd__nor4b_1 cells:        3
+ABC RESULTS:   sky130_fd_sc_hd__o2111ai_1 cells:        2
+ABC RESULTS:   sky130_fd_sc_hd__o21ai_0 cells:       21
+ABC RESULTS:   sky130_fd_sc_hd__o221ai_1 cells:        2
+ABC RESULTS:   sky130_fd_sc_hd__o22ai_1 cells:        8
+ABC RESULTS:   sky130_fd_sc_hd__o31ai_1 cells:        2
+ABC RESULTS:   sky130_fd_sc_hd__or3_1 cells:        2
+ABC RESULTS:   sky130_fd_sc_hd__or3b_1 cells:        2
+ABC RESULTS:   sky130_fd_sc_hd__xnor2_1 cells:        3
+ABC RESULTS:   sky130_fd_sc_hd__xor2_1 cells:        5
+ABC RESULTS:        internal signals:      301
+ABC RESULTS:           input signals:      240
+ABC RESULTS:          output signals:      127
+Removing temp directory.
+
+9.4. Extracting gate netlist of module `\ct_rtu_expand_64' to `<abc-temp-dir>/input.blif'..
+ABC: using cached merged SCL: yosys-scl-cache/merged.scl (1 files)
+
+9.4.1. Executed ABC.
+Extracted 92 gates and 98 wires to a netlist network with 6 inputs and 64 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: UC Berkeley, ABC 1.01 (compiled Jun 30 2026 04:50:19)
+ABC: abc 01> empty
+ABC: abc 01> source <abc-temp-dir>/abc.script
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_scl yosys-scl-cache/merged.scl 
+ABC: Warning: Detected 9 multi-output cells (for example, "sky130_fd_sc_hd__fa_1").
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &fraig -x 
+ABC: + &put 
+ABC: + scorr 
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2 
+ABC: + dretime 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &dch -f 
+ABC: + &nf 
+ABC: + &put 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+ABC: 
+ABC: YOSYS_ABC_DONE 
+
+9.4.2. Re-integrating ABC results.
+ABC RESULTS:   sky130_fd_sc_hd__lpflow_inputiso1p_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__nand2_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__nand2b_1 cells:        2
+ABC RESULTS:   sky130_fd_sc_hd__nand4_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__nand4b_1 cells:        4
+ABC RESULTS:   sky130_fd_sc_hd__nand4bb_1 cells:        6
+ABC RESULTS:   sky130_fd_sc_hd__nor2_1 cells:       64
+ABC RESULTS:   sky130_fd_sc_hd__or4_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__or4b_1 cells:        4
+ABC RESULTS:        internal signals:       28
+ABC RESULTS:           input signals:        6
+ABC RESULTS:          output signals:       64
+Removing temp directory.
+
+9.5. Extracting gate netlist of module `\ct_rtu_expand_32' to `<abc-temp-dir>/input.blif'..
+ABC: using cached merged SCL: yosys-scl-cache/merged.scl (1 files)
+
+9.5.1. Executed ABC.
+Extracted 56 gates and 61 wires to a netlist network with 5 inputs and 32 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: UC Berkeley, ABC 1.01 (compiled Jun 30 2026 04:50:19)
+ABC: abc 01> empty
+ABC: abc 01> source <abc-temp-dir>/abc.script
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_scl yosys-scl-cache/merged.scl 
+ABC: Warning: Detected 9 multi-output cells (for example, "sky130_fd_sc_hd__fa_1").
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &fraig -x 
+ABC: + &put 
+ABC: + scorr 
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2 
+ABC: + dretime 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &dch -f 
+ABC: + &nf 
+ABC: + &put 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+ABC: 
+ABC: YOSYS_ABC_DONE 
+
+9.5.2. Re-integrating ABC results.
+ABC RESULTS:   sky130_fd_sc_hd__and2_0 cells:        2
+ABC RESULTS:   sky130_fd_sc_hd__and3_1 cells:       16
+ABC RESULTS:   sky130_fd_sc_hd__and3b_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__lpflow_isobufsrc_1 cells:        4
+ABC RESULTS:   sky130_fd_sc_hd__nand2_1 cells:        2
+ABC RESULTS:   sky130_fd_sc_hd__nand2b_1 cells:        4
+ABC RESULTS:   sky130_fd_sc_hd__nor2_1 cells:        2
+ABC RESULTS:   sky130_fd_sc_hd__nor3_1 cells:        9
+ABC RESULTS:   sky130_fd_sc_hd__nor4_1 cells:        6
+ABC RESULTS:        internal signals:       24
+ABC RESULTS:           input signals:        5
+ABC RESULTS:          output signals:       32
+Removing temp directory.
+
+9.6. Extracting gate netlist of module `\gated_clk_cell' to `<abc-temp-dir>/input.blif'..
+ABC: using cached merged SCL: yosys-scl-cache/merged.scl (1 files)
+
+9.6.1. Executed ABC.
+Extracted 0 gates and 0 wires to a netlist network with 0 inputs and 0 outputs.
+Don't call ABC as there is nothing to map.
+Removing temp directory.
+Removing global temp directory.
+Removed 0 unused cells and 12473 unused wires.
+
+10. Printing statistics.
+
+=== ct_rtu_pst_vreg ===
+
+        +----------Local Count, excluding submodules.
+        |        +-Local Area, excluding submodules.
+        |        | 
+     3446        - wires
+    14388        - wire bits
+      935        - public wires
+    11877        - public wire bits
+       59        - ports
+      620        - port bits
+     3243 1.93E+04 cells
+        1   11.261   sky130_fd_sc_hd__a2111o_1
+        6    52.55   sky130_fd_sc_hd__a2111oi_0
+        5   43.792   sky130_fd_sc_hd__a211o_1
+        1    7.507   sky130_fd_sc_hd__a211oi_1
+        1    10.01   sky130_fd_sc_hd__a21bo_1
+        3   22.522   sky130_fd_sc_hd__a21boi_0
+        5   37.536   sky130_fd_sc_hd__a21o_1
+       46  230.221   sky130_fd_sc_hd__a21oi_1
+        4   40.038   sky130_fd_sc_hd__a221o_1
+        4   35.034   sky130_fd_sc_hd__a221oi_1
+       64  640.614   sky130_fd_sc_hd__a222oi_1
+       27  236.477   sky130_fd_sc_hd__a22o_1
+        2   15.014   sky130_fd_sc_hd__a22oi_1
+        2   20.019   sky130_fd_sc_hd__a311o_1
+        1    8.758   sky130_fd_sc_hd__a311oi_1
+        1    8.758   sky130_fd_sc_hd__a31o_1
+       26  162.656   sky130_fd_sc_hd__a31oi_1
+        2   20.019   sky130_fd_sc_hd__a32o_1
+        8   70.067   sky130_fd_sc_hd__a32oi_1
+        3   30.029   sky130_fd_sc_hd__a41o_1
+        5   43.792   sky130_fd_sc_hd__a41oi_1
+      295  1845.52   sky130_fd_sc_hd__and2_0
+       39  243.984   sky130_fd_sc_hd__and3_1
+        1    8.758   sky130_fd_sc_hd__and3b_1
+       10   87.584   sky130_fd_sc_hd__and4_1
+        4   40.038   sky130_fd_sc_hd__and4b_1
+      121  454.186   sky130_fd_sc_hd__clkinv_1
+       28  700.672   sky130_fd_sc_hd__dfrtp_1
+        9   56.304   sky130_fd_sc_hd__lpflow_inputiso1p_1
+       31  193.936   sky130_fd_sc_hd__lpflow_isobufsrc_1
+        2   20.019   sky130_fd_sc_hd__maj3_1
+        3   30.029   sky130_fd_sc_hd__mux2i_1
+      287 1.08E+03   sky130_fd_sc_hd__nand2_1
+       27  168.912   sky130_fd_sc_hd__nand2b_1
+       94  470.451   sky130_fd_sc_hd__nand3_1
+        3   22.522   sky130_fd_sc_hd__nand3b_1
+      325   2033.2   sky130_fd_sc_hd__nand4_1
+       11   96.342   sky130_fd_sc_hd__nand4b_1
+        1   11.261   sky130_fd_sc_hd__nand4bb_1
+      353 1.33E+03   sky130_fd_sc_hd__nor2_1
+       13   81.328   sky130_fd_sc_hd__nor2b_1
+       80  400.384   sky130_fd_sc_hd__nor3_1
+       24  180.173   sky130_fd_sc_hd__nor3b_1
+     1093 6.84E+03   sky130_fd_sc_hd__nor4_1
+       11   96.342   sky130_fd_sc_hd__nor4b_1
+        1    10.01   sky130_fd_sc_hd__nor4bb_1
+       10   87.584   sky130_fd_sc_hd__o2111ai_1
+        8   60.058   sky130_fd_sc_hd__o211ai_1
+        2   15.014   sky130_fd_sc_hd__o21a_1
+       66  330.317   sky130_fd_sc_hd__o21ai_0
+        1   11.261   sky130_fd_sc_hd__o221a_1
+        7   61.309   sky130_fd_sc_hd__o221ai_1
+        5    31.28   sky130_fd_sc_hd__o22ai_1
+        2   17.517   sky130_fd_sc_hd__o2bb2ai_1
+        6    52.55   sky130_fd_sc_hd__o311ai_0
+        2   17.517   sky130_fd_sc_hd__o31a_1
+       12   90.086   sky130_fd_sc_hd__o31ai_1
+        4   35.034   sky130_fd_sc_hd__o32ai_1
+        1   11.261   sky130_fd_sc_hd__o41a_1
+        4   35.034   sky130_fd_sc_hd__o41ai_1
+       12   75.072   sky130_fd_sc_hd__or3_1
+        1    8.758   sky130_fd_sc_hd__or3b_1
+       15  112.608   sky130_fd_sc_hd__or4_1
+        2   20.019   sky130_fd_sc_hd__or4b_1
+      106        - submodules
+       36        -   ct_rtu_encode_64
+        4        -   ct_rtu_expand_64
+       64        -   ct_rtu_pst_vreg_entry
+        2        -   gated_clk_cell
+
+   Chip area for module '\ct_rtu_pst_vreg': 19311.020800
+     of which used for sequential elements: 700.672000 (3.63%)
+
+=== ct_rtu_encode_64 ===
+
+        +----------Local Count, excluding submodules.
+        |        +-Local Area, excluding submodules.
+        |        | 
+       49        - wires
+      117        - wire bits
+        2        - public wires
+       70        - public wire bits
+        2        - ports
+       70        - port bits
+       53  325.312 cells
+        1    6.256   sky130_fd_sc_hd__lpflow_inputiso1p_1
+        1    3.754   sky130_fd_sc_hd__nand2_1
+        3   18.768   sky130_fd_sc_hd__nand2b_1
+        3   15.014   sky130_fd_sc_hd__nand3_1
+        6   37.536   sky130_fd_sc_hd__nand4_1
+        1    3.754   sky130_fd_sc_hd__nor2_1
+        5   25.024   sky130_fd_sc_hd__nor3_1
+       24  150.144   sky130_fd_sc_hd__nor4_1
+        2   12.512   sky130_fd_sc_hd__or3_1
+        7    52.55   sky130_fd_sc_hd__or4_1
+
+   Chip area for module '\ct_rtu_encode_64': 325.312000
+     of which used for sequential elements: 0.000000 (0.00%)
+
+=== ct_rtu_pst_vreg_entry ===
+
+        +----------Local Count, excluding submodules.
+        |        +-Local Area, excluding submodules.
+        |        | 
+      236        - wires
+      535        - wire bits
+       63        - public wires
+      358        - public wire bits
+       42        - ports
+      221        - port bits
+      304 2.46E+03 cells
+        3   26.275   sky130_fd_sc_hd__a2111oi_0
+        1    8.758   sky130_fd_sc_hd__a211o_1
+        3   22.522   sky130_fd_sc_hd__a211oi_1
+       13   97.594   sky130_fd_sc_hd__a21boi_0
+        3   22.522   sky130_fd_sc_hd__a21o_1
+        5   25.024   sky130_fd_sc_hd__a21oi_1
+        2   20.019   sky130_fd_sc_hd__a221o_1
+        3   26.275   sky130_fd_sc_hd__a221oi_1
+       14  140.134   sky130_fd_sc_hd__a222oi_1
+        4   35.034   sky130_fd_sc_hd__a22o_1
+        1    7.507   sky130_fd_sc_hd__a22oi_1
+        2   17.517   sky130_fd_sc_hd__a2bb2oi_1
+        1    10.01   sky130_fd_sc_hd__a32o_1
+        1    8.758   sky130_fd_sc_hd__a32oi_1
+        1    8.758   sky130_fd_sc_hd__a41oi_1
+       36  225.216   sky130_fd_sc_hd__and2_0
+       65   406.64   sky130_fd_sc_hd__and3_1
+        1    8.758   sky130_fd_sc_hd__and3b_1
+       13   48.797   sky130_fd_sc_hd__clkinv_1
+       26  650.624   sky130_fd_sc_hd__dfrtp_1
+        1   26.275   sky130_fd_sc_hd__dfstp_2
+        4   25.024   sky130_fd_sc_hd__lpflow_inputiso1p_1
+        9   56.304   sky130_fd_sc_hd__lpflow_isobufsrc_1
+       15   56.304   sky130_fd_sc_hd__nand2_1
+        3   18.768   sky130_fd_sc_hd__nand2b_1
+        1    5.005   sky130_fd_sc_hd__nand3_1
+        1    7.507   sky130_fd_sc_hd__nand3b_1
+        3   18.768   sky130_fd_sc_hd__nand4_1
+        1    8.758   sky130_fd_sc_hd__nand4b_1
+        5   18.768   sky130_fd_sc_hd__nor2_1
+        9   45.043   sky130_fd_sc_hd__nor3_1
+        4   25.024   sky130_fd_sc_hd__nor4_1
+        3   26.275   sky130_fd_sc_hd__nor4b_1
+        2   17.517   sky130_fd_sc_hd__o2111ai_1
+       21  105.101   sky130_fd_sc_hd__o21ai_0
+        2   17.517   sky130_fd_sc_hd__o221ai_1
+        8   50.048   sky130_fd_sc_hd__o22ai_1
+        2   15.014   sky130_fd_sc_hd__o31ai_1
+        2   12.512   sky130_fd_sc_hd__or3_1
+        2   17.517   sky130_fd_sc_hd__or3b_1
+        3   26.275   sky130_fd_sc_hd__xnor2_1
+        5   43.792   sky130_fd_sc_hd__xor2_1
+        4        - submodules
+        1        -   ct_rtu_expand_32
+        1        -   ct_rtu_expand_64
+        2        -   gated_clk_cell
+
+   Chip area for module '\ct_rtu_pst_vreg_entry': 2459.859200
+     of which used for sequential elements: 676.899200 (27.52%)
+
+=== ct_rtu_expand_64 ===
+
+        +----------Local Count, excluding submodules.
+        |        +-Local Area, excluding submodules.
+        |        | 
+       22        - wires
+       90        - wire bits
+        2        - public wires
+       70        - public wire bits
+        2        - ports
+       70        - port bits
+       84  419.152 cells
+        1    6.256   sky130_fd_sc_hd__lpflow_inputiso1p_1
+        1    3.754   sky130_fd_sc_hd__nand2_1
+        2   12.512   sky130_fd_sc_hd__nand2b_1
+        1    6.256   sky130_fd_sc_hd__nand4_1
+        4   35.034   sky130_fd_sc_hd__nand4b_1
+        6   67.565   sky130_fd_sc_hd__nand4bb_1
+       64   240.23   sky130_fd_sc_hd__nor2_1
+        1    7.507   sky130_fd_sc_hd__or4_1
+        4   40.038   sky130_fd_sc_hd__or4b_1
+
+   Chip area for module '\ct_rtu_expand_64': 419.152000
+     of which used for sequential elements: 0.000000 (0.00%)
+
+=== ct_rtu_expand_32 ===
+
+        +----------Local Count, excluding submodules.
+        |        +-Local Area, excluding submodules.
+        |        | 
+       16        - wires
+       51        - wire bits
+        2        - public wires
+       37        - public wire bits
+        2        - ports
+       37        - port bits
+       46  269.008 cells
+        2   12.512   sky130_fd_sc_hd__and2_0
+       16  100.096   sky130_fd_sc_hd__and3_1
+        1    8.758   sky130_fd_sc_hd__and3b_1
+        4   25.024   sky130_fd_sc_hd__lpflow_isobufsrc_1
+        2    7.507   sky130_fd_sc_hd__nand2_1
+        4   25.024   sky130_fd_sc_hd__nand2b_1
+        2    7.507   sky130_fd_sc_hd__nor2_1
+        9   45.043   sky130_fd_sc_hd__nor3_1
+        6   37.536   sky130_fd_sc_hd__nor4_1
+
+   Chip area for module '\ct_rtu_expand_32': 269.008000
+     of which used for sequential elements: 0.000000 (0.00%)
+
+=== gated_clk_cell ===
+
+        +----------Local Count, excluding submodules.
+        |        +-Local Area, excluding submodules.
+        |        | 
+        8        - wires
+        8        - wire bits
+        8        - public wires
+        8        - public wire bits
+        7        - ports
+        7        - port bits
+
+=== design hierarchy ===
+
+        +----------Count including submodules.
+        |        +-Area including submodules.
+        |        | 
+    33263 2.34E+05 ct_rtu_pst_vreg
+       53  325.312 ct_rtu_encode_64
+       84  419.152 ct_rtu_expand_64
+      304 2.46E+03 ct_rtu_pst_vreg_entry
+       46  269.008   ct_rtu_expand_32
+       84  419.152   ct_rtu_expand_64
+
+        +----------Count including submodules.
+        |        +-Area including submodules.
+        |        | 
+    23874        - wires
+    63264        - wire bits
+     6343        - public wires
+    45477        - public wire bits
+     3993        - ports
+    25322        - port bits
+        -        - memories
+        -        - memory bits
+        -        - processes
+    33263 2.34E+05 cells
+        1   11.261   sky130_fd_sc_hd__a2111o_1
+      198 1.73E+03   sky130_fd_sc_hd__a2111oi_0
+       69   604.33   sky130_fd_sc_hd__a211o_1
+      193  1448.89   sky130_fd_sc_hd__a211oi_1
+        1    10.01   sky130_fd_sc_hd__a21bo_1
+      835 6.27E+03   sky130_fd_sc_hd__a21boi_0
+      197 1.48E+03   sky130_fd_sc_hd__a21o_1
+      366 1.83E+03   sky130_fd_sc_hd__a21oi_1
+      132 1.32E+03   sky130_fd_sc_hd__a221o_1
+      196 1.72E+03   sky130_fd_sc_hd__a221oi_1
+      960 9.61E+03   sky130_fd_sc_hd__a222oi_1
+      283 2.48E+03   sky130_fd_sc_hd__a22o_1
+       66  495.475   sky130_fd_sc_hd__a22oi_1
+      128 1.12E+03   sky130_fd_sc_hd__a2bb2oi_1
+        2   20.019   sky130_fd_sc_hd__a311o_1
+        1    8.758   sky130_fd_sc_hd__a311oi_1
+        1    8.758   sky130_fd_sc_hd__a31o_1
+       26  162.656   sky130_fd_sc_hd__a31oi_1
+       66  660.634   sky130_fd_sc_hd__a32o_1
+       72  630.605   sky130_fd_sc_hd__a32oi_1
+        3   30.029   sky130_fd_sc_hd__a41o_1
+       69   604.33   sky130_fd_sc_hd__a41oi_1
+     2727 1.71E+04   sky130_fd_sc_hd__and2_0
+     5223 3.27E+04   sky130_fd_sc_hd__and3_1
+      129 1.13E+03   sky130_fd_sc_hd__and3b_1
+       10   87.584   sky130_fd_sc_hd__and4_1
+        4   40.038   sky130_fd_sc_hd__and4b_1
+      953 3.58E+03   sky130_fd_sc_hd__clkinv_1
+     1692 4.23E+04   sky130_fd_sc_hd__dfrtp_1
+       64 1.68E+03   sky130_fd_sc_hd__dfstp_2
+      369 2.31E+03   sky130_fd_sc_hd__lpflow_inputiso1p_1
+      863  5.4E+03   sky130_fd_sc_hd__lpflow_isobufsrc_1
+        2   20.019   sky130_fd_sc_hd__maj3_1
+        3   30.029   sky130_fd_sc_hd__mux2i_1
+     1479 5.55E+03   sky130_fd_sc_hd__nand2_1
+      719  4.5E+03   sky130_fd_sc_hd__nand2b_1
+      266 1.33E+03   sky130_fd_sc_hd__nand3_1
+       67  502.982   sky130_fd_sc_hd__nand3b_1
+      801 5.01E+03   sky130_fd_sc_hd__nand4_1
+      347 3.04E+03   sky130_fd_sc_hd__nand4b_1
+      409 4.61E+03   sky130_fd_sc_hd__nand4bb_1
+     5189 1.95E+04   sky130_fd_sc_hd__nor2_1
+       13   81.328   sky130_fd_sc_hd__nor2b_1
+     1412 7.07E+03   sky130_fd_sc_hd__nor3_1
+       24  180.173   sky130_fd_sc_hd__nor3b_1
+     2597 1.62E+04   sky130_fd_sc_hd__nor4_1
+      203 1.78E+03   sky130_fd_sc_hd__nor4b_1
+        1    10.01   sky130_fd_sc_hd__nor4bb_1
+      138 1.21E+03   sky130_fd_sc_hd__o2111ai_1
+        8   60.058   sky130_fd_sc_hd__o211ai_1
+        2   15.014   sky130_fd_sc_hd__o21a_1
+     1410 7.06E+03   sky130_fd_sc_hd__o21ai_0
+        1   11.261   sky130_fd_sc_hd__o221a_1
+      135 1.18E+03   sky130_fd_sc_hd__o221ai_1
+      517 3.23E+03   sky130_fd_sc_hd__o22ai_1
+        2   17.517   sky130_fd_sc_hd__o2bb2ai_1
+        6    52.55   sky130_fd_sc_hd__o311ai_0
+        2   17.517   sky130_fd_sc_hd__o31a_1
+      140 1.05E+03   sky130_fd_sc_hd__o31ai_1
+        4   35.034   sky130_fd_sc_hd__o32ai_1
+        1   11.261   sky130_fd_sc_hd__o41a_1
+        4   35.034   sky130_fd_sc_hd__o41ai_1
+      212 1.33E+03   sky130_fd_sc_hd__or3_1
+      129 1.13E+03   sky130_fd_sc_hd__or3b_1
+      335 2.51E+03   sky130_fd_sc_hd__or4_1
+      274  2742.63   sky130_fd_sc_hd__or4b_1
+      192 1.68E+03   sky130_fd_sc_hd__xnor2_1
+      320  2.8E+03   sky130_fd_sc_hd__xor2_1
+      106 2.15E+05 submodules
+       36 1.17E+04   ct_rtu_encode_64
+        4 2.85E+04   ct_rtu_expand_64
+       64 2.01E+05   ct_rtu_pst_vreg_entry
+        2        -   gated_clk_cell
+
+   Chip area for top module '\ct_rtu_pst_vreg': 234172.089600
+     of which used for sequential elements: 44022.220800 (18.80%)
+
+11. Executing Verilog backend.
+
+11.1. Executing BMUXMAP pass.
+
+11.2. Executing DEMUXMAP pass.
+Dumping module `\ct_rtu_encode_64'.
+Dumping module `\ct_rtu_expand_32'.
+Dumping module `\ct_rtu_expand_64'.
+Dumping module `\ct_rtu_pst_vreg'.
+Dumping module `\ct_rtu_pst_vreg_entry'.
+Dumping module `\gated_clk_cell'.
+
+End of script. Logfile hash: 4be02fc7af, time: 4.56s, user: 1.29s, system: 0.09s, MEM: 70.85 MB peak
+Yosys 0.66+181 (git sha1 afe6b18f2, Release, Clang /usr/bin/clang++ 18.1.8)
+Time spent: 73% 2x abc (3 sec), 5% 17x opt_clean (0 sec), ...
