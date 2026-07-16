@@ -94,6 +94,19 @@ jobs:
           python3 -m pip install --quiet pytest
           PYTHONPATH=. python3 -m pytest -q tests/test_export_safety_gate.py
 
+      # ATH-3010: the one-command replay wrapper (replay_public_receipt.py) is the
+      # first README path for reproducing a public receipt. Its bites hide/corrupt
+      # a pinned tool (wrong yosys version, tampered Liberty bytes, missing suite)
+      # and assert the wrapper fails loud with a named provisioning error BEFORE any
+      # verdict-bearing replay -- so a regression that silently accepts an ambient or
+      # mismatched tool (reproducing nothing, or the wrong bytes) REDS in CI. Same
+      # "un-gated unless named" hazard as the verifier/gate bites above.
+      - name: Verify one-command replay wrapper bites (ATH-3010)
+        if: github.event_name == 'pull_request' || github.event_name == 'push'
+        run: |
+          python3 -m pip install --quiet pytest
+          PYTHONPATH=. python3 -m pytest -q tests/test_replay_public_receipt.py
+
       # PR body + review/issue comments are public surfaces the committed-tree
       # scan cannot see. Scan them with the SAME BLOCK_ALWAYS set (single source
       # of truth: export_safety_gate.py --scan-text). Runs on PR events AND on

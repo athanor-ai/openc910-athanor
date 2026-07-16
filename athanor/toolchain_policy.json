@@ -7,14 +7,20 @@
       "source": "oss-cad-suite-20260630",
       "required_env": "YOSYS_BIN"
     },
+    "opensta": {
+      "version": "2.2.0",
+      "required_env": "STA_BIN"
+    },
     "liberty": {
       "name": "sky130_fd_sc_hd__tt_025C_1v80.lib",
+      "sha256": "ec0e1067a35c8bf20b11e58d1e8ac53326067e4dac84a125cc1b917a3518d0d9",
       "required_env": "LIBERTY"
     }
   },
   "policy": [
     "Receipt logs must state the exact selected tool output used for claims.",
     "Replay scripts require YOSYS_BIN and LIBERTY from the caller; no internal path defaults are public.",
-    "Ambient-tool scout runs are not customer-facing proof or PPA authority."
+    "Ambient-tool scout runs are not customer-facing proof or PPA authority.",
+    "The one-command wrapper (replay_public_receipt.py) resolves the pinned suite, verifies tool identity (yosys version, OpenSTA version, Liberty sha256), and fails closed before any replay on a missing or mismatched tool."
   ]
 }

@@ -4,3 +4,7 @@
 # the export-safety gate is the committed-tree backstop.
 *.replay.log
 replay_out/
+
+# Python bytecode
+__pycache__/
+*.pyc
