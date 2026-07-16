@@ -1,6 +1,7 @@
 # C910 RTU Vreg Table Encoder-Family Candidate 1
 
-Status: replay-confirmed candidate evidence; `customer_ready=false`.
+Status: replay-confirmed parent-table proof + metric scout evidence;
+`customer_ready=false`.
 
 This package records a parent-table encoder-family scout for `ct_rtu_pst_vreg`. The
 candidate replaces the shared `ct_rtu_encode_64` priority-style encoder with bit-mask
@@ -22,7 +23,13 @@ parent-table candidate netlist recorded in `same_candidate_binding_receipt.json`
 | OpenSTA max data-arrival | `8.30 ns` | `8.30 ns` | flat at reported precision |
 | OpenSTA estimated total power | `9.41e-03 nW` | `9.39e-03 nW` | lower estimate |
 
-The vreg table keeps the parent area win and a lower OpenSTA estimated-power value, while max data-arrival is flat at the reported precision. A non-author second-seat replay on 2026-07-15 reproduced the manifest, helper proof, proof mutant, mapped-netlist hashes, area, timing, estimated power, and metric-negative controls. It remains non-customer-ready candidate evidence until an explicit promotion-row review closes.
+The vreg table keeps the parent area win and a lower OpenSTA estimated-power
+value, while max data-arrival is flat at the reported precision. A non-author
+second-seat replay on 2026-07-15 reproduced the manifest, helper proof, proof
+mutant, mapped-netlist hashes, area, timing, estimated power, and metric-negative
+controls. The parent-table proof route now also closes from the public package
+path. It remains non-customer-ready candidate evidence until an explicit
+promotion-row review closes.
 
 The power row is an OpenSTA liberty estimate with
 `set_power_activity -global -activity 0.1 -duty 0.5`. It is not signoff power
@@ -30,16 +37,25 @@ and not measured workload activity.
 
 ## Proof
 
-The proof subject is the shared helper substitution, not a new parent-table
-state relation. Yosys proves `ct_rtu_encode_64` gold versus candidate equivalent for all
-helper inputs, and the boundary-bit mutant leaves one equivalence cell unproven
-under the same check. The parent-table metric netlist is then synthesized with
-that exact candidate helper, binding proof subject and metric subject by SHA.
+The proof subject now includes both the shared helper substitution and the
+`ct_rtu_pst_vreg` parent table. Yosys proves `ct_rtu_encode_64` gold versus
+candidate equivalent for all helper inputs, and the boundary-bit mutant leaves
+one equivalence cell unproven under the same check.
+
+For the parent table, the replay flattens each side with the exact packaged
+helper, builds a generated-temp blacklist, runs `async2sync`, `dffunmap`,
+`equiv_simple -seq 8`, `equiv_induct -seq 8`, and `equiv_status -assert`, and
+proves `17263` equivalence cells with `0` unproven cells. The same helper
+boundary-bit mutant leaves `35` parent-table cells unproven, so the parent proof
+route is non-vacuous. The parent-table metric netlist is synthesized with that
+exact candidate helper, binding proof subject and metric subject by SHA.
 
 ## Negative Controls
 
 `ct_rtu_encode_64_proof_mutant.v` is a proof negative control. It removes a boundary
 index from the helper mask, and the same helper equivalence check rejects it.
+The parent-table proof route rejects the same mutant with `35` unproven cells
+across recover/dealloc outputs.
 
 `ct_rtu_pst_vreg_metric_negative.mapped.v` is a metric-only red control. It inserts a long
 buffer chain into the mapped parent-table candidate netlist and is deliberately
@@ -67,10 +83,12 @@ LIBERTY=/path/to/sky130_fd_sc_hd__tt_025C_1v80.lib \
 
 ## Boundaries
 
-- Replay-confirmed candidate evidence only; not promoted as a result row.
+- Replay-confirmed parent-table proof + metric scout evidence only; not promoted
+  as a result row.
 - Parent-table `ct_rtu_pst_vreg` only; not whole RTU or whole C910.
-- Correctness evidence is helper-substitution equivalence plus a biting helper
-  mutant; no parent-table relation theorem is claimed here.
+- Correctness evidence is helper-substitution equivalence plus parent-table
+  same-state equivalence through the packaged replay route; no Lean theorem or
+  whole-table theorem-registry authority is claimed here.
 - The metric red-control is metric-only and not a functional candidate.
 - OpenSTA estimated power is not signoff power and not workload-measured power.
 - Not whole C910/BOOM, ISA, memory consistency, speculation recovery, composed

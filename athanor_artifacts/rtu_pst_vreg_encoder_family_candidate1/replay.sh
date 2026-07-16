@@ -6,7 +6,7 @@ ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 : "${STA_BIN:?set STA_BIN to the OpenSTA executable}"
 : "${LIBERTY:?set LIBERTY to sky130_fd_sc_hd__tt_025C_1v80.lib}"
 
-OUT="$ROOT/replay_out"
+OUT="replay_out"
 rm -rf "$OUT"
 mkdir -p "$OUT"
 cd "$ROOT"
@@ -17,6 +17,46 @@ DEPS="gated_clk_cell.v ct_rtu_expand_32.v ct_rtu_expand_64.v ct_rtu_pst_vreg_ent
 
 if "$YOSYS_BIN" -p "read_verilog -sv ct_rtu_encode_64_gold.v; rename ct_rtu_encode_64 gold; read_verilog -sv ct_rtu_encode_64_proof_mutant.v; rename ct_rtu_encode_64 gate; proc; opt; equiv_make gold gate equiv; hierarchy -top equiv; flatten; opt; equiv_simple; equiv_status -assert"   > "$OUT/helper_proof_mutant_negative.replay.log" 2>&1; then
   echo "ERROR: helper proof mutant unexpectedly proved" >&2
+  exit 1
+fi
+
+flatten_parent_for_proof() {
+  local helper="$1"
+  local parent="$2"
+  local module_name="$3"
+  local out="$4"
+  "$YOSYS_BIN" -p "read_verilog -sv $DEPS $helper $parent; hierarchy -top ct_rtu_pst_vreg; proc; memory; flatten; async2sync; dffunmap; opt; rename ct_rtu_pst_vreg $module_name; clean; write_verilog -noattr -simple-lhs $OUT/$out" \
+    > "$OUT/${out%.v}.prep.replay.log" 2>&1
+}
+
+write_generated_temp_blacklist() {
+  awk '
+    /^[[:space:]]*(wire|reg)[[:space:]]/ {
+      line = $0
+      sub(/;.*/, "", line)
+      n = split(line, fields, /[[:space:]]+/)
+      name = fields[n]
+      sub(/^\\\\/, "", name)
+      if (name ~ /^_/) print name
+    }
+  ' "$@" | sort -u
+}
+
+flatten_parent_for_proof ct_rtu_encode_64_gold.v ct_rtu_pst_vreg_gold.v gold parent_gold_flat.v
+flatten_parent_for_proof ct_rtu_encode_64_gate_candidate.v ct_rtu_pst_vreg_gate_candidate.v gate parent_gate_flat.v
+flatten_parent_for_proof ct_rtu_encode_64_proof_mutant.v ct_rtu_pst_vreg_gate_candidate.v gate parent_gate_mutant_flat.v
+write_generated_temp_blacklist \
+  "$OUT/parent_gold_flat.v" \
+  "$OUT/parent_gate_flat.v" \
+  "$OUT/parent_gate_mutant_flat.v" \
+  > "$OUT/parent_generated_temps.blacklist"
+
+"$YOSYS_BIN" -p "read_verilog -sv $OUT/parent_gold_flat.v; read_verilog -sv $OUT/parent_gate_flat.v; proc; memory; opt; equiv_make -blacklist $OUT/parent_generated_temps.blacklist gold gate equiv; hierarchy -top equiv; flatten; async2sync; dffunmap; opt; equiv_simple -seq 8; equiv_induct -seq 8; equiv_status -assert" \
+  > "$OUT/parent_same_state_equiv.replay.log" 2>&1
+
+if "$YOSYS_BIN" -p "read_verilog -sv $OUT/parent_gold_flat.v; read_verilog -sv $OUT/parent_gate_mutant_flat.v; proc; memory; opt; equiv_make -blacklist $OUT/parent_generated_temps.blacklist gold gate equiv; hierarchy -top equiv; flatten; async2sync; dffunmap; opt; equiv_simple -seq 8; equiv_induct -seq 8; equiv_status -assert" \
+  > "$OUT/parent_proof_mutant_negative.replay.log" 2>&1; then
+  echo "ERROR: parent proof mutant unexpectedly proved" >&2
   exit 1
 fi
 
@@ -62,6 +102,10 @@ write_sta_tcl "$ROOT/ct_rtu_pst_vreg_metric_negative.mapped.v" "$OUT/metric_nega
 
 grep -qF "Equivalence successfully proven" "$OUT/helper_same_state_equiv.replay.log"
 grep -qF "Found a total of 1 unproven" "$OUT/helper_proof_mutant_negative.replay.log"
+grep -qF "Of those cells 17263 are proven and 0 are unproven" "$OUT/parent_same_state_equiv.replay.log"
+grep -qF "Equivalence successfully proven" "$OUT/parent_same_state_equiv.replay.log"
+grep -qF "Of those cells 17228 are proven and 35 are unproven" "$OUT/parent_proof_mutant_negative.replay.log"
+grep -qF "Found a total of 35 unproven" "$OUT/parent_proof_mutant_negative.replay.log"
 grep -qF "Chip area for top module '\\ct_rtu_pst_vreg': 234172.089600" "$OUT/gold_map.replay.log"
 grep -qF "Chip area for top module '\\ct_rtu_pst_vreg': 233181.139200" "$OUT/gate_map.replay.log"
 grep -qF "Chip area for top module '\\ct_rtu_pst_vreg': 235823.673600" "$OUT/metric_negative_area.replay.log"
@@ -72,4 +116,4 @@ grep -qF "Total                  6.26e-03   3.15e-03   9.00e-08   9.41e-03" "$OU
 grep -qF "Total                  6.25e-03   3.14e-03   8.99e-08   9.39e-03" "$OUT/gate_opensta_area_timing_power.replay.log"
 grep -qF "Total                  8.28e-03   3.59e-03   9.11e-08   1.19e-02" "$OUT/metric_negative_opensta_area_timing_power.replay.log"
 
-echo "PASS: ct_rtu_pst_vreg encoder-family helper proof, proof mutant, parent area, OpenSTA timing, OpenSTA estimated-power, and metric negative controls reproduced"
+echo "PASS: ct_rtu_pst_vreg encoder-family helper proof, parent-table proof, proof mutants, parent area, OpenSTA timing, OpenSTA estimated-power, and metric negative controls reproduced"
