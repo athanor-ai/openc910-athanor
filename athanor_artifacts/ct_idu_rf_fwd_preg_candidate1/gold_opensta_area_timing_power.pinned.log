@@ -1,0 +1,51 @@
+OpenSTA 2.2.0 02b129d48f Copyright (c) 2019, Parallax Software, Inc.
+License GPLv3: GNU GPL version 3 <http://gnu.org/licenses/gpl.html>
+
+This is free software, and you are free to change and redistribute it
+under certain conditions; type `show_copying' for details. 
+This program comes with ABSOLUTELY NO WARRANTY; for details type `show_warranty'.
+Startpoint: x_src_reg[5] (input port clocked by virtual_clk)
+Endpoint: x_src_data[42] (output port clocked by virtual_clk)
+Path Group: virtual_clk
+Path Type: max
+
+  Delay    Time   Description
+---------------------------------------------------------
+   0.00    0.00   clock virtual_clk (rise edge)
+   0.00    0.00   clock network delay (ideal)
+   0.00    0.00 ^ input external delay
+   0.00    0.00 ^ x_src_reg[5] (in)
+   0.10    0.10 v _351_/Y (sky130_fd_sc_hd__clkinv_1)
+   0.23    0.33 v _441_/X (sky130_fd_sc_hd__a22o_1)
+   0.14    0.47 ^ _442_/Y (sky130_fd_sc_hd__nor4_1)
+   0.26    0.73 ^ _448_/X (sky130_fd_sc_hd__and3_1)
+   5.25    5.98 ^ _459_/Y (sky130_fd_sc_hd__nor4b_1)
+   4.22   10.21 v _468_/Y (sky130_fd_sc_hd__nor3_1)
+   1.03   11.23 v _563_/X (sky130_fd_sc_hd__a221o_1)
+   0.00   11.23 v x_src_data[42] (out)
+          11.23   data arrival time
+
+  10.00   10.00   clock virtual_clk (rise edge)
+   0.00   10.00   clock network delay (ideal)
+   0.00   10.00   clock reconvergence pessimism
+   0.00   10.00   output external delay
+          10.00   data required time
+---------------------------------------------------------
+          10.00   data required time
+         -11.23   data arrival time
+---------------------------------------------------------
+          -1.23   slack (VIOLATED)
+
+
+tns -65.35
+wns -1.23
+Group                  Internal  Switching    Leakage      Total
+                          Power      Power      Power      Power
+----------------------------------------------------------------
+Sequential             0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.0%
+Combinational          3.96e-05   3.46e-05   1.09e-09   7.42e-05 100.0%
+Macro                  0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.0%
+Pad                    0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.0%
+----------------------------------------------------------------
+Total                  3.96e-05   3.46e-05   1.09e-09   7.42e-05 100.0%
+                          53.4%      46.6%       0.0%

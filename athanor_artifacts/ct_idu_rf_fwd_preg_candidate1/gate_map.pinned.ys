@@ -1,0 +1,7 @@
+read_verilog -sv ct_idu_rf_fwd_preg_gate_candidate.v
+synth -flatten -top ct_idu_rf_fwd_preg
+dfflibmap -liberty sky130_fd_sc_hd__tt_025C_1v80.lib
+abc -liberty sky130_fd_sc_hd__tt_025C_1v80.lib
+clean
+stat -liberty sky130_fd_sc_hd__tt_025C_1v80.lib
+write_verilog -noattr ct_idu_rf_fwd_preg_gate.mapped.v
