@@ -1,6 +1,7 @@
 # C910 ct_lsu_lfb_data_entry Candidate 1
 
-Status: candidate metric scout; `customer_ready=false`.
+Status: accepted module-local proof + metric packet; `customer_ready=true` for
+the scoped packet only.
 
 This packet records an LSU line-fill-buffer data-entry decode simplification.
 The candidate replaces the eight-way case decode for `lfb_data_entry_addr_id`
@@ -24,7 +25,15 @@ and not measured workload activity.
 ## Proof
 
 The same-state Yosys equivalence check closes with `560` proven equivalence
-cells and `0` unproven cells after `equiv_simple -seq 8`.
+cells and `0` unproven cells after `equiv_simple -seq 8`. The shipped
+same-state executor path was then rerun on this package after the C910
+normalization fix: it proved the candidate with `560/560` equivalence cells and
+rejected the shifted-address mutant with `8` unproven cells.
+
+This is still recorded as `lean_fallback`: no discharged Lean theorem binds this
+exact candidate netlist yet. The current customer-ready authority is the scoped
+module-local Yosys proof plus biting controls and same-candidate-bound PPA
+receipts.
 
 ## Negative Controls
 
@@ -57,7 +66,8 @@ LIBERTY=/path/to/sky130_fd_sc_hd__tt_025C_1v80.lib \
 
 ## Boundaries
 
-- Candidate metric scout only; not promoted as a result row.
+- Customer-ready only for the scoped module-local same-state proof and
+  same-candidate-bound selected Sky130/OpenSTA metric packet.
 - Module-local `ct_lsu_lfb_data_entry` only.
 - Same-state module equivalence under the checked RTL model is the proof
   subject.

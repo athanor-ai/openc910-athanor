@@ -1,8 +1,8 @@
 {
-  "schema": "openc910.module_metric_scout.v1",
-  "status": "candidate_metric_scout_pending_independent_replay",
-  "customer_ready": false,
-  "customer_ready_scope": "none; candidate scout only",
+  "schema": "openc910.module_local_area_timing_opensta_estimated_power_packet.v1",
+  "status": "accepted_module_local_area_timing_opensta_estimated_power_packet",
+  "customer_ready": true,
+  "customer_ready_scope": "module-local ct_lsu_lfb_data_entry same-candidate-bound selected Sky130 area, OpenSTA max data-arrival under the package SDC, and reported neutral OpenSTA estimated total power under fixed global activity (flat at reported precision); shipped same-state executor proves full module equivalence (560/560) and the shifted-address mutant reds; OpenSTA estimated power is not signoff power and not measured workload activity",
   "target": {
     "module": "ct_lsu_lfb_data_entry",
     "subsystem": "lsu_lfb",
@@ -23,7 +23,7 @@
   },
   "files": {
     ".gitattributes": "dd189159ababdd3a2f5c2a0a7106f4a0bffd179e55e9db36e1476121f0bb8e7c",
-    "README.md": "e851d1bf88fd820f680c648f08804a1fb4c74fee4ec0e94f7c661a0c1b55926e",
+    "README.md": "30cf6e0599d72635ecfdffd076fb78bda69cc5c6a8d1a92e2a2fcfb82969df51",
     "cpu_cfig.h": "59a0804ea10d96c26569ee3f056b62e385cf39110efad7e5c57199e1f1637199",
     "gated_clk_cell.v": "6cfad397c18daabdff77e3a520ccbf964e4178197cc9a0f8dd825bbf928a91c8",
     "ct_lsu_lfb_data_entry_gold.v": "75d92db6b5e69094607a3b42c8f5a67997e5c03d5c7db0e588a2bde7abadd6fc",
@@ -41,7 +41,7 @@
     "gold_opensta_area_timing_power.pinned.log": "0b46dbc4395d5698a89b0d358b46a474765ce9c08e665c672cfe23e7d4124b64",
     "gate_opensta_area_timing_power.pinned.log": "084e0d1ce5c81929cc6f922f177adbc64694d51ef3985c2a97dbbc32b4bc25d5",
     "metric_negative_opensta_area_timing_power.pinned.log": "b7f319ded22aa2951ec9a76e5d20fc3ec02aeefc2681fd9556f089111812f218",
-    "same_candidate_binding_receipt.json": "2a20275193c29b8a87c4af51a7c9136adbc38d907aeb7fa009761f324fad346b",
+    "same_candidate_binding_receipt.json": "8bac6473ec1c67b6aa28b2cd921b3dca6b77c39f3f011a71a323ddc8e33d3ac1",
     "replay.sh": "3440a00abcf08e9b1004ac5438337c0ebe0b87f68889ea6843d57b0466249142"
   },
   "metrics": {
@@ -99,10 +99,10 @@
         "gate_total_power_nw": 0.00133,
         "gold_internal_power_nw": 0.00125,
         "gate_internal_power_nw": 0.00125,
-        "gold_switching_power_nw": 0.0000773,
-        "gate_switching_power_nw": 0.0000773,
-        "gold_leakage_power_nw": 0.00000000686,
-        "gate_leakage_power_nw": 0.00000000685,
+        "gold_switching_power_nw": 7.73e-05,
+        "gate_switching_power_nw": 7.73e-05,
+        "gold_leakage_power_nw": 6.86e-09,
+        "gate_leakage_power_nw": 6.85e-09,
         "interpretation": "flat at reported precision",
         "methodology_boundary": "OpenSTA liberty estimate under fixed global activity; not signoff power and not measured workload activity"
       },
@@ -148,14 +148,48 @@
     }
   },
   "known_boundaries": [
-    "candidate metric scout only; not promoted as a result row",
+    "customer_ready only for the scoped module-local same-state proof and same-candidate-bound selected Sky130/OpenSTA metric packet; not a whole-LSU or whole-C910 result row",
     "module-local ct_lsu_lfb_data_entry only",
     "same-state module equivalence under the checked RTL model is the proof subject",
     "the timing movement is small and the OpenSTA estimated-power result is flat at reported precision",
     "OpenSTA estimated power is not signoff power and not measured workload activity",
     "not whole LSU, whole C910/BOOM, ISA, memory consistency, speculation recovery, composed optimization, or whole-chip authority"
   ],
-  "next_independent_check": {
-    "ask": "Reproduce replay.sh with pinned public-style Yosys/OpenSTA/Liberty; confirm proof mutant fails and metric red-control reds all three axes before any promotion discussion."
+  "production_executor_receipt": {
+    "status": "passed",
+    "date": "2026-07-15",
+    "executor": "same_state_full_equiv",
+    "source_commit": "93ce85eeb",
+    "script_shape": "proc; memory; opt; equiv_make; hierarchy; flatten; async2sync; dffunmap; opt; equiv_simple -seq 8; equiv_induct -seq 8; equiv_status -assert",
+    "candidate": {
+      "return_code": 0,
+      "proven_equiv_cells": 560,
+      "unproven_equiv_cells": 0,
+      "verdict": "proved"
+    },
+    "shifted_address_mutant": {
+      "return_code": 1,
+      "proven_equiv_cells": 552,
+      "unproven_equiv_cells": 8,
+      "verdict": "failed_as_expected"
+    },
+    "input_preparation": "gold/gate public package modules were copied to scratch with the gate top renamed to ct_lsu_lfb_data_entry_gate so the shipped emitter can avoid self-compare; source bytes and candidate hashes are unchanged"
+  },
+  "independent_reviews": [
+    {
+      "reviewer": "quan",
+      "date": "2026-07-15",
+      "status": "confirmed_non_author_replay",
+      "summary": "fresh scratch replay under pinned Yosys 0.66+181 and OpenSTA 2.2.0 reproduced SHA256SUMS, 560/560 same-state proof, shifted-address mutant red with 8 unproven cells, byte-exact mapped netlists, area, timing, estimated power, and metric-negative controls"
+    }
+  ],
+  "lean_fallback": {
+    "reason": "no discharged Lean theorem binds THIS candidate netlist; strongest current authority is shipped Yosys same-state full equivalence plus biting mutant control and same-candidate-bound PPA receipts. Graduation to lean_authority requires a Lean refinement theorem SHA-bound to this candidate.",
+    "strongest_evidence": "same-state full equivalence through the shipped executor proves 560/560 equivalence cells; shifted-address mutant leaves 8 cells unproven; same-candidate-bound Sky130 area, OpenSTA max data-arrival, and OpenSTA estimated power reproduce with metric-negative controls",
+    "scope_boundary": "module-local ct_lsu_lfb_data_entry under the checked RTL model; not whole LSU, whole C910/BOOM, ISA, memory consistency, speculation recovery, composed optimization, or whole-chip authority",
+    "candidate_binding": {
+      "gold_sha256": "75d92db6b5e69094607a3b42c8f5a67997e5c03d5c7db0e588a2bde7abadd6fc",
+      "gate_sha256": "a6b33c99cff4964607137d78db400f1473db2eb11a636b81d8cca7943e3e8355"
+    }
   }
 }
