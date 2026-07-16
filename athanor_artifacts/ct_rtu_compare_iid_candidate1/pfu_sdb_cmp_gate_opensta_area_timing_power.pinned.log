@@ -1,0 +1,111 @@
+OpenSTA 2.2.0 02b129d48f Copyright (c) 2019, Parallax Software, Inc.
+License GPLv3: GNU GPL version 3 <http://gnu.org/licenses/gpl.html>
+
+This is free software, and you are free to change and redistribute it
+under certain conditions; type `show_copying' for details.
+This program comes with ABSOLUTELY NO WARRANTY; for details type `show_warranty'.
+Warning: 63, 8 port 'lsu_special_clk' not found.
+Warning: 63, 10 port 'rst_b' not found.
+Warning: 63, 10 port 'ifu_xx_sync_reset' not found.
+Startpoint: _2428_ (rising edge-triggered flip-flop clocked by forever_cpuclk)
+Endpoint: _2291_ (rising edge-triggered flip-flop clocked by entry_clk)
+Path Group: entry_clk
+Path Type: max
+
+  Delay    Time   Description
+---------------------------------------------------------
+   0.00    0.00   clock forever_cpuclk (rise edge)
+   0.00    0.00   clock network delay (ideal)
+   0.00    0.00 ^ _2428_/CLK (sky130_fd_sc_hd__dfrtp_1)
+   0.39    0.39 v _2428_/Q (sky130_fd_sc_hd__dfrtp_1)
+   0.16    0.55 ^ x_lsu_sdb_cmp_2/_24_/X (sky130_fd_sc_hd__lpflow_isobufsrc_1)
+   0.13    0.69 v x_lsu_sdb_cmp_2/_26_/Y (sky130_fd_sc_hd__o221ai_1)
+   0.25    0.94 ^ x_lsu_sdb_cmp_2/_27_/Y (sky130_fd_sc_hd__a222oi_1)
+   0.11    1.04 v x_lsu_sdb_cmp_2/_29_/Y (sky130_fd_sc_hd__o2bb2ai_1)
+   0.16    1.20 ^ x_lsu_sdb_cmp_2/_36_/Y (sky130_fd_sc_hd__a21boi_0)
+   0.07    1.27 v _1193_/Y (sky130_fd_sc_hd__nand2b_1)
+   5.38    6.65 ^ _1195_/Y (sky130_fd_sc_hd__a211oi_1)
+   0.00    6.65 v _1526_/Y (sky130_fd_sc_hd__nor2_1)
+   0.25    6.90 ^ _1530_/Y (sky130_fd_sc_hd__nor2_1)
+   0.00    6.91 ^ _2291_/D (sky130_fd_sc_hd__dfrtp_1)
+           6.91   data arrival time
+
+  10.00   10.00   clock entry_clk (rise edge)
+   0.00   10.00   clock network delay (ideal)
+   0.00   10.00   clock reconvergence pessimism
+          10.00 ^ _2291_/CLK (sky130_fd_sc_hd__dfrtp_1)
+  -0.09    9.91   library setup time
+           9.91   data required time
+---------------------------------------------------------
+           9.91   data required time
+          -6.91   data arrival time
+---------------------------------------------------------
+           3.00   slack (MET)
+
+
+Startpoint: _2338_ (rising edge-triggered flip-flop clocked by forever_cpuclk)
+Endpoint: _2434_ (rising edge-triggered flip-flop clocked by forever_cpuclk)
+Path Group: forever_cpuclk
+Path Type: max
+
+  Delay    Time   Description
+---------------------------------------------------------
+   0.00    0.00   clock forever_cpuclk (rise edge)
+   0.00    0.00   clock network delay (ideal)
+   0.00    0.00 ^ _2338_/CLK (sky130_fd_sc_hd__dfrtp_1)
+   0.38    0.38 v _2338_/Q (sky130_fd_sc_hd__dfrtp_1)
+   0.17    0.55 v _1985_/X (sky130_fd_sc_hd__lpflow_isobufsrc_1)
+   0.39    0.94 v _1987_/X (sky130_fd_sc_hd__maj3_1)
+   0.40    1.34 v _1989_/X (sky130_fd_sc_hd__maj3_1)
+   0.39    1.73 v _1991_/X (sky130_fd_sc_hd__maj3_1)
+   0.27    1.99 ^ _1994_/Y (sky130_fd_sc_hd__o21ai_0)
+   0.16    2.16 v _1996_/Y (sky130_fd_sc_hd__a21oi_1)
+   0.27    2.43 ^ _1999_/Y (sky130_fd_sc_hd__o211ai_1)
+   0.16    2.59 v _2002_/Y (sky130_fd_sc_hd__a311oi_1)
+   0.48    3.07 ^ _2005_/Y (sky130_fd_sc_hd__o311ai_0)
+   0.18    3.25 v _2008_/Y (sky130_fd_sc_hd__a311oi_1)
+   0.47    3.72 ^ _2011_/Y (sky130_fd_sc_hd__o311ai_0)
+   0.21    3.93 v _2014_/Y (sky130_fd_sc_hd__a311oi_1)
+   0.48    4.41 ^ _2017_/Y (sky130_fd_sc_hd__o311ai_0)
+   0.18    4.59 v _2020_/Y (sky130_fd_sc_hd__a311oi_1)
+   0.38    4.97 ^ _2023_/Y (sky130_fd_sc_hd__o311ai_0)
+   0.16    5.13 v _2026_/Y (sky130_fd_sc_hd__a311oi_1)
+   0.38    5.50 ^ _2029_/Y (sky130_fd_sc_hd__o311ai_0)
+   0.18    5.69 v _2032_/Y (sky130_fd_sc_hd__a311oi_1)
+   0.45    6.13 ^ _2035_/Y (sky130_fd_sc_hd__o311ai_0)
+   0.17    6.31 v _2038_/Y (sky130_fd_sc_hd__a311oi_1)
+   0.44    6.75 ^ _2041_/Y (sky130_fd_sc_hd__o311ai_0)
+   0.20    6.95 v _2043_/Y (sky130_fd_sc_hd__a31oi_1)
+   0.41    7.36 v _2045_/X (sky130_fd_sc_hd__maj3_1)
+   0.38    7.74 v _2047_/X (sky130_fd_sc_hd__maj3_1)
+   0.17    7.90 ^ _2123_/Y (sky130_fd_sc_hd__xnor2_1)
+   0.06    7.97 v _2125_/Y (sky130_fd_sc_hd__nor2_1)
+   0.17    8.14 v _2167_/X (sky130_fd_sc_hd__a22o_1)
+   0.00    8.14 v _2434_/D (sky130_fd_sc_hd__dfrtp_1)
+           8.14   data arrival time
+
+  10.00   10.00   clock forever_cpuclk (rise edge)
+   0.00   10.00   clock network delay (ideal)
+   0.00   10.00   clock reconvergence pessimism
+          10.00 ^ _2434_/CLK (sky130_fd_sc_hd__dfrtp_1)
+  -0.12    9.88   library setup time
+           9.88   data required time
+---------------------------------------------------------
+           9.88   data required time
+          -8.14   data arrival time
+---------------------------------------------------------
+           1.73   slack (MET)
+
+
+tns 0.00
+wns 0.00
+Group                  Internal  Switching    Leakage      Total
+                          Power      Power      Power      Power
+----------------------------------------------------------------
+Sequential             3.64e-04   3.22e-05   1.44e-09   3.96e-04  67.0%
+Combinational          9.26e-05   1.02e-04   2.71e-09   1.95e-04  33.0%
+Macro                  0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.0%
+Pad                    0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.0%
+----------------------------------------------------------------
+Total                  4.57e-04   1.34e-04   4.15e-09   5.91e-04 100.0%
+                          77.3%      22.7%       0.0%

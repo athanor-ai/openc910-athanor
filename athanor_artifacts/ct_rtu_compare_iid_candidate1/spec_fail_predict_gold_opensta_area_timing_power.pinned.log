@@ -1,0 +1,57 @@
+OpenSTA 2.2.0 02b129d48f Copyright (c) 2019, Parallax Software, Inc.
+License GPLv3: GNU GPL version 3 <http://gnu.org/licenses/gpl.html>
+
+This is free software, and you are free to change and redistribute it
+under certain conditions; type `show_copying' for details.
+This program comes with ABSOLUTELY NO WARRANTY; for details type `show_warranty'.
+Warning: 63, 8 port 'entry_clk' not found.
+Warning: 63, 8 port 'lsu_special_clk' not found.
+Warning: 63, 10 port 'rst_b' not found.
+Warning: 63, 10 port 'ifu_xx_sync_reset' not found.
+Startpoint: _1107_ (rising edge-triggered flip-flop clocked by forever_cpuclk)
+Endpoint: _1057_ (rising edge-triggered flip-flop clocked by forever_cpuclk)
+Path Group: forever_cpuclk
+Path Type: max
+
+  Delay    Time   Description
+---------------------------------------------------------
+   0.00    0.00   clock forever_cpuclk (rise edge)
+   0.00    0.00   clock network delay (ideal)
+   0.00    0.00 ^ _1107_/CLK (sky130_fd_sc_hd__dfrtp_1)
+   0.32    0.32 ^ _1107_/Q (sky130_fd_sc_hd__dfrtp_1)
+   0.16    0.48 ^ x_lsu_sf_mispred_chk_compare_iid/_27_/X (sky130_fd_sc_hd__lpflow_isobufsrc_1)
+   0.07    0.55 v x_lsu_sf_mispred_chk_compare_iid/_40_/Y (sky130_fd_sc_hd__a221oi_1)
+   0.23    0.78 v x_lsu_sf_mispred_chk_compare_iid/_41_/X (sky130_fd_sc_hd__a211o_1)
+   0.26    1.03 ^ x_lsu_sf_mispred_chk_compare_iid/_42_/Y (sky130_fd_sc_hd__a311oi_1)
+   0.14    1.17 v x_lsu_sf_mispred_chk_compare_iid/_44_/Y (sky130_fd_sc_hd__o32ai_1)
+   2.95    4.12 ^ _0710_/Y (sky130_fd_sc_hd__o21ai_0)
+   0.35    4.47 v _0860_/Y (sky130_fd_sc_hd__o21ai_0)
+   0.26    4.72 ^ _0861_/Y (sky130_fd_sc_hd__a21oi_1)
+   0.00    4.73 ^ _1057_/D (sky130_fd_sc_hd__dfrtp_1)
+           4.73   data arrival time
+
+  10.00   10.00   clock forever_cpuclk (rise edge)
+   0.00   10.00   clock network delay (ideal)
+   0.00   10.00   clock reconvergence pessimism
+          10.00 ^ _1057_/CLK (sky130_fd_sc_hd__dfrtp_1)
+  -0.09    9.91   library setup time
+           9.91   data required time
+---------------------------------------------------------
+           9.91   data required time
+          -4.73   data arrival time
+---------------------------------------------------------
+           5.18   slack (MET)
+
+
+tns 0.00
+wns 0.00
+Group                  Internal  Switching    Leakage      Total
+                          Power      Power      Power      Power
+----------------------------------------------------------------
+Sequential             2.86e-04   1.50e-05   1.13e-09   3.01e-04  79.4%
+Combinational          4.05e-05   3.73e-05   1.21e-09   7.79e-05  20.6%
+Macro                  0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.0%
+Pad                    0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.0%
+----------------------------------------------------------------
+Total                  3.26e-04   5.23e-05   2.33e-09   3.79e-04 100.0%
+                          86.2%      13.8%       0.0%
