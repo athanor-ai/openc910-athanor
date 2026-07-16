@@ -15,6 +15,6 @@ unconditionally.
 | --- | --- | --- | --- |
 | `ct_idu_rf_fwd_preg` | `2706.345600 -> 2382.284800` | `11.23 ns -> 6.10 ns` | `7.42e-05 -> 6.39e-05 nW` |
 
-The package remains `customer_ready=false`: it is a helper-level one-hot-contract
-metric scout, not a parent IDU/register-file result row. Parent integration and
-independent replay are still required before any promotion discussion.
+The package remains `customer_ready=false`: it is a replay-confirmed helper-level
+one-hot-contract metric scout, not a parent IDU/register-file result row. Parent
+integration is still required before any promotion discussion.
