@@ -31,6 +31,13 @@ The visible-output proof reuses the accepted `ct_prio` miter shape:
 `sat -seq 8 -tempinduct -set-at 1 rst_b 0 -set-at 2 rst_b 1 -prove-asserts
 -verify` closes on `sel[1:0]`.
 
+A real bridge-obligation package is committed at `lean_bridge_obligation.json`.
+It is SHA-bound to this package's gold/candidate RTL, proof receipt,
+and mutant bite, and is intended as input to the local Lean theorem batch
+worker. It does not change this package to `lean_authority`; the receipt
+stays `lean_fallback` until a kernel-checked theorem is audited and
+stamped.
+
 ## Negative Controls
 
 `ct_prio_gate_proof_mutant.v` is a proof negative control. It breaks the

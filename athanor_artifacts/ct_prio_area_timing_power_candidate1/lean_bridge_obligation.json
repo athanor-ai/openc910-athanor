@@ -1,0 +1,25 @@
+{
+  "bridge": {
+    "label": "ctPrioVisibleOutputRelation",
+    "rationale": "visible-output temporal induction closes and the proof mutant that ignores requester-1 priority fails under the same check",
+    "sv_expression": "gold and gate visible sel[1:0] behavior agrees under reset-first for the checked ct_prio RTL model"
+  },
+  "design_or_family": "CtPrio",
+  "ebmc_assumption_receipt": "visible_output_temporal_induction proved; proof_log output_miter_proof.pinned.log; proof_log_sha256 3ddeeb6fd41495f7204690808fa31e6db315826eeaec46f64ae9f60f1b8a047f; mutant_log proof_mutant_negative.pinned.log; mutant_log_sha256 4f3de4e26077f13be6c6d1c20b4df2258c6037547fefb8b09105d81bb5a568f1; proof_negative_control failed_as_expected; mutation ct_prio_gate_proof_mutant.v changes sel[0] to valid[0], ignoring valid[1] priority over requester 0",
+  "gate": {
+    "path": "athanor_artifacts/ct_prio_area_timing_power_candidate1/ct_prio_gate_candidate.v",
+    "role": "gate",
+    "sha256": "d87e69e67ca406bc7f0ba9cecca80a466c1b8f95ca0de36e04da37f817240ff1"
+  },
+  "gold": {
+    "path": "athanor_artifacts/ct_prio_area_timing_power_candidate1/ct_prio_gold.v",
+    "role": "gold",
+    "sha256": "2cd7d0e3350c6e4e3df90953570ed95915d6b38e3398ede956df0be321eb6865"
+  },
+  "receipt_kind": "sec_bridge_obligation",
+  "schema_version": 1,
+  "target_property": "ct_prio.visible_output_temporal_induction",
+  "theorem_ref": "Pythia/Hardware/SEC/CtPrio.lean::ct_prio_visible_output_temporal_induction_gold_gate_refinement",
+  "theorem_skeleton": "/-\nAuto-generated SEC bridge obligation skeleton for\ntarget_property `ct_prio.visible_output_temporal_induction` on `CtPrio`.\n\nOPEN OBLIGATION - this states the gold-vs-gate relational claim; it\ndoes NOT prove it. The property closed at runtime only UNDER the\nassumed bridge invariant `ctPrioVisibleOutputRelation`:\n    gold and gate visible sel[1:0] behavior agrees under reset-first for the checked ct_prio RTL model\n(visible-output temporal induction closes and the proof mutant that ignores requester-1 priority fails under the same check)\n\nExact obligation evidence binding:\nGold RTL: `athanor_artifacts/ct_prio_area_timing_power_candidate1/ct_prio_gold.v` sha256 `2cd7d0e3350c6e4e3df90953570ed95915d6b38e3398ede956df0be321eb6865`.\nGate RTL: `athanor_artifacts/ct_prio_area_timing_power_candidate1/ct_prio_gate_candidate.v` sha256 `d87e69e67ca406bc7f0ba9cecca80a466c1b8f95ca0de36e04da37f817240ff1`.\nAssumption receipt: visible_output_temporal_induction proved; proof_log output_miter_proof.pinned.log; proof_log_sha256 3ddeeb6fd41495f7204690808fa31e6db315826eeaec46f64ae9f60f1b8a047f; mutant_log proof_mutant_negative.pinned.log; mutant_log_sha256 4f3de4e26077f13be6c6d1c20b4df2258c6037547fefb8b09105d81bb5a568f1; proof_negative_control failed_as_expected; mutation ct_prio_gate_proof_mutant.v changes sel[0] to valid[0], ignoring valid[1] priority over requester 0\nTransition context: ct_prio module-local visible-output route; reset-first temporal induction over sel[1:0] behavior\n\nObligation id (core sha256): 80497dcd1f53fe492220fa0baeb4b69288f35c62aa65c6389b6efc1d3b177194\nRendering this as proved requires an audited\n_CANONICAL_BRIDGE_THEOREMS entry - do not stamp until\nthe proof below is discharged and the statement is audited to be\nequivalent-to-or-stronger-than the assumed invariant.\n-/\nimport Pythia.Hardware.SEC.RefinementRelation\n\nnamespace Pythia.Hardware.SEC.CtPrio\n\nopen Pythia.Hardware.SEC\n\n/-- Gate (optimized) refines gold (spec) for target `ct_prio.visible_output_temporal_induction`, with the abstraction `f` witnessed by the\n    assumed bridge invariant `gold and gate visible sel[1:0] behavior agrees under reset-first for the checked ct_prio RTL model`. -/\ntheorem ct_prio_visible_output_temporal_induction_gold_gate_refinement\n    {S_gold S_gate I O : Type*}\n    (gold : Step S_gold I O) (gate : Step S_gate I O)\n    (gold_init : ResetInitial S_gold) (gate_init : ResetInitial S_gate)\n    (f : AbstractionFunction S_gate S_gold) :\n    refines_under gate gold gate_init.init gold_init.init f := by\n  -- PROOF OBLIGATION (replace with the discharge) of `ctPrioVisibleOutputRelation` for `ct_prio.visible_output_temporal_induction`\n\nend Pythia.Hardware.SEC.CtPrio\n",
+  "transition_context": "ct_prio module-local visible-output route; reset-first temporal induction over sel[1:0] behavior"
+}

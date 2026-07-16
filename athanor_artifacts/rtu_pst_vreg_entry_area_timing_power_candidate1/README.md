@@ -35,6 +35,13 @@ relation induction under reset-first. The proof negative control is
 `ct_rtu_pst_vreg_entry_gate_dbg_mutant.v`; the same relation proof rejects it
 with `proof did fail`.
 
+A real bridge-obligation package is committed at `lean_bridge_obligation.json`.
+It is SHA-bound to this package's gold/candidate RTL, proof receipt,
+and mutant bite, and is intended as input to the local Lean theorem batch
+worker. It does not change this package to `lean_authority`; the receipt
+stays `lean_fallback` until a kernel-checked theorem is audited and
+stamped.
+
 ## Metric Red-Control
 
 `ct_rtu_pst_vreg_entry_metric_negative.mapped.v` is a metric-only red control:
