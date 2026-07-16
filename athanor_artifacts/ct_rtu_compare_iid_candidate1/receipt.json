@@ -1,60 +1,143 @@
 {
-  "schema": "openc910.helper_parent_area_scout.v1",
-  "status": "helper_parent_area_scout_pending_full_ppa",
+  "schema": "openc910.helper_parent_full_ppa_scout.v1",
+  "status": "parent_integrated_full_ppa_scout_pending_parent_proof_route",
   "customer_ready": false,
-  "customer_ready_scope": "none; helper/parent area scout only",
+  "customer_ready_scope": "none; parent-integrated scout evidence only, pending a supported parent proof route and non-author replay",
   "target": {
-    "module": "ct_rtu_compare_iid",
+    "helper_module": "ct_rtu_compare_iid",
+    "parent_modules": [
+      "ct_lsu_spec_fail_predict",
+      "ct_lsu_pfu_sdb_cmp"
+    ],
     "subsystem": "rtu_lsu_shared_iid_ordering",
-    "proof_subject": "helper-local combinational equivalence under the checked RTL model"
+    "proof_subject": "helper-local combinational equivalence under the checked RTL model; parent proof route is not claimed"
   },
   "candidate": {
     "candidate_id": "ct_rtu_compare_iid_wrapped_relation_candidate1",
     "description": "replace bit-priority wrapped-IID comparison with direct same-wrap/other-wrap relational compare",
     "candidate_sha256": "a6c9532ec501e38b40d4c6ba8f7a53f3b91331c61c2e9376b3da3c9ad9d9b246",
-    "mapped_netlist_sha256": "e85f7daf3d85c1ae187988ad67530a4c56656cff532094b69eea05d6b0484524",
-    "selected_flow": "yosys66_sky130_synth_abc_area_screen_v1",
+    "helper_mapped_netlist_sha256": "e85f7daf3d85c1ae187988ad67530a4c56656cff532094b69eea05d6b0484524",
+    "selected_flow": "yosys66_sky130_synth_dfflibmap_abc_opensta_parent_screen_v1",
     "state_change": "none"
   },
   "toolchain": {
     "yosys_version": "Yosys 0.66+181 (git sha1 afe6b18f2, Release, Clang /usr/bin/clang++ 18.1.8)",
+    "opensta_version": "OpenSTA 2.2.0 02b129d48f",
     "liberty": "sky130_fd_sc_hd__tt_025C_1v80.lib"
   },
+  "files": {
+    ".gitattributes": "a79691a93b46e49ce460c26ef22afcc03d6eca1e63bf2edbc20e96159510f6c9",
+    "README.md": "ffdf18219f66c10ce5992ab1b7309e69aa961f8e804f806d9ee9df636d32e026",
+    "ct_lsu_pfu_sdb_cmp.v": "84ae51193cc185e0a0cc556ea0ec16e526bdbeba470103beedc20608411d3aae",
+    "ct_lsu_pfu_sdb_cmp_gate.mapped.v": "94f92c27e4812e3fb1b13c78c832c1e1843853fc1cd789240ca01b7ce9d6ebc1",
+    "ct_lsu_pfu_sdb_cmp_gold.mapped.v": "7269eddd214e906623921026d340673dd3bd9db2d5fc54769cc7108a9d206538",
+    "ct_lsu_pfu_sdb_cmp_metric_negative.mapped.v": "35c76c777ddeff2f534af62d16e743c7fbf329dbd59e6e2d842603f979a17a66",
+    "ct_lsu_spec_fail_predict.v": "32f0acbf97e57353d1c93ff72fe19ae80749053716a806349a7fca682ee0a281",
+    "ct_lsu_spec_fail_predict_gate.mapped.v": "59096de1f8c21256d043a6f8def8af7779ff6fe7f0bf36fd12da85c01f0a32f7",
+    "ct_lsu_spec_fail_predict_gold.mapped.v": "25dc4da90a7a5c52a01688b2afc034dc1e8d2aead01907a077381bd0d71e7923",
+    "ct_lsu_spec_fail_predict_metric_negative.mapped.v": "57f78f84f42bf2b01f8e5829d2177964459c5bffeafca924566f493dc1b1381d",
+    "ct_rtu_compare_iid_gate_candidate.mapped.v": "e85f7daf3d85c1ae187988ad67530a4c56656cff532094b69eea05d6b0484524",
+    "ct_rtu_compare_iid_gate_candidate.v": "a6c9532ec501e38b40d4c6ba8f7a53f3b91331c61c2e9376b3da3c9ad9d9b246",
+    "ct_rtu_compare_iid_gate_proof_mutant.v": "fa53f844d8979ce5ec319acea3f20c2130c653b8771400e2e2f7192116267612",
+    "ct_rtu_compare_iid_gold.mapped.v": "253b9875c6451919d2f13940ae5a3582730bf787a8e9b7b592fc9659c6000beb",
+    "ct_rtu_compare_iid_gold.v": "bfa75c991645f3b29f512f898b5cd169584f96a4cb9a9d909b83d24e4878bc68",
+    "ct_rtu_compare_iid_metric_negative.v": "07605f50b6ba398640ba736c32b4cb348680832760685cefab85e172a5aa439d",
+    "gated_clk_cell.v": "1f65b2bff98249643b5ceeea651dc2aae43f92092554c69467e48dfa26d103da",
+    "helper_gate_map.pinned.log": "500480f6ebc36c384e0fcbccb41ae24b9814c9a071a3dbc15668f2b248cc6e52",
+    "helper_gold_map.pinned.log": "50ba676d979d1352d65fa60838a5a7cf1c4447028efbbc25e9a08f4ba83e07b4",
+    "pfu_sdb_cmp_gate_map.pinned.log": "837facd132cf474de5588d282956f692a597215f4fa7e1fa2aa7e075c810727a",
+    "pfu_sdb_cmp_gate_map_full_ppa.pinned.log": "0360a13e6ff4bb529a5fa96ff0fa9f5a818c6f034ce1801ba5bf31d2bbedf5fe",
+    "pfu_sdb_cmp_gate_opensta_area_timing_power.pinned.log": "4441650829894b1b9981c709a1cce34b8b7171c0394de09521d7464298af2663",
+    "pfu_sdb_cmp_gold_map.pinned.log": "1cc96dff84c93edcb26646b877ee7881f7c0ef868c7c22611e8eba12e6ea5abb",
+    "pfu_sdb_cmp_gold_map_full_ppa.pinned.log": "75d5c2a460c3d8bdb00d33dda02e7cf4c85cee82153721de40f954e996f65dc3",
+    "pfu_sdb_cmp_gold_opensta_area_timing_power.pinned.log": "aef26a205b5bca53b3f224f077b3fa84ca04b644d3b3f2615563b66efeb7070c",
+    "pfu_sdb_cmp_metric_negative_map.pinned.log": "170eb996c8b412d1d02dcad1ae4d4412f4c7c34026e94c37761bb96c1df9d302",
+    "pfu_sdb_cmp_metric_negative_opensta_area_timing_power.pinned.log": "7b764d97831550fb96f50700b48cd31e3dc4948849ba6b94f15a22dd5b7e402a",
+    "proof_mutant_negative.pinned.log": "e3f583566bcd7ec051c2af0b1322b2c098112f5652cb3e31b8dedf6614567dd6",
+    "replay.sh": "2f8e916aff85dfcd67a55a5694acefb4feaeae02b4b173366a5d67a40091779c",
+    "same_state_equiv.pinned.log": "95b2dc734d64c2b5b10fe1a910a84bd1df78fbbf7cf3a3a9d65dc4f8a0167f4f",
+    "spec_fail_predict_gate_map.pinned.log": "b70473b8086ab4599bc9bd77001981191e207f8351c7ec69b15d0acbeec4291c",
+    "spec_fail_predict_gate_map_full_ppa.pinned.log": "df17af00a2a695fff24753821db4c69529ec6054ef907e866a00ad74c5bfaed2",
+    "spec_fail_predict_gate_opensta_area_timing_power.pinned.log": "c149a75ff2d4ec506acaa75791eaca698e2ac6ae8aec67eb192033a4b56adff9",
+    "spec_fail_predict_gold_map.pinned.log": "9f217399a9464bfd7cbc40f6f98729dd0450f5e7f844accb76f19524e97b0caa",
+    "spec_fail_predict_gold_map_full_ppa.pinned.log": "63a4b2752f7bb0981afc8e940cfb7446035d22d7451ca187d4685330536bc021",
+    "spec_fail_predict_gold_opensta_area_timing_power.pinned.log": "e7bff666e5d6eafcc4bc50c0ff38f7a01f45faf52767f29cfd8dc01013a7e2c5",
+    "spec_fail_predict_metric_negative_map.pinned.log": "51ed04f019523e301b409750a73215e0e5f80eddac2ed69e167a76e1c9e130d5",
+    "spec_fail_predict_metric_negative_opensta_area_timing_power.pinned.log": "e6cd398ff16fcf99d67505ace7a86998434e29f0e1fce991dc8702e2e28262a2"
+  },
   "metrics": {
-    "area": {
+    "helper_area": {
       "instrument": "yosys_stat_liberty",
-      "instrument_version": "Yosys 0.66+181 (git sha1 afe6b18f2, Release, Clang /usr/bin/clang++ 18.1.8)",
-      "selected_flow": "yosys66_sky130_synth_abc_area_screen_v1",
-      "helper": {
+      "metric": {
         "gold": 142.6368,
         "gate": 127.6224,
-        "unit": "sky130_selected_area",
-        "log_refs": [
-          "helper_gold_map.pinned.log",
-          "helper_gate_map.pinned.log"
-        ]
+        "unit": "sky130_selected_area"
       },
-      "parent_screens": {
-        "ct_lsu_spec_fail_predict": {
-          "gold": 1725.4048,
-          "gate": 1695.376,
-          "unit": "sky130_selected_area",
-          "log_refs": [
-            "spec_fail_predict_gold_map.pinned.log",
-            "spec_fail_predict_gate_map.pinned.log"
-          ]
+      "log_refs": [
+        "helper_gold_map.pinned.log",
+        "helper_gate_map.pinned.log"
+      ]
+    },
+    "parent_screens": {
+      "ct_lsu_spec_fail_predict": {
+        "mapped_netlist_sha256": {
+          "gold": "25dc4da90a7a5c52a01688b2afc034dc1e8d2aead01907a077381bd0d71e7923",
+          "gate": "59096de1f8c21256d043a6f8def8af7779ff6fe7f0bf36fd12da85c01f0a32f7"
         },
-        "ct_lsu_pfu_sdb_cmp": {
-          "gold": 6052.0544,
-          "gate": 6007.0112,
-          "unit": "sky130_selected_area",
-          "log_refs": [
-            "pfu_sdb_cmp_gold_map.pinned.log",
-            "pfu_sdb_cmp_gate_map.pinned.log"
-          ]
+        "area": {
+          "gold": 6576.3072,
+          "gate": 6546.2784,
+          "unit": "sky130_selected_area"
+        },
+        "timing": {
+          "gold_max_data_arrival_ns": 4.73,
+          "gate_max_data_arrival_ns": 4.67,
+          "clock_period_ns": 10.0
+        },
+        "power": {
+          "gold_total_power_nw": 0.000379,
+          "gate_total_power_nw": 0.000378,
+          "activity_source": "set_power_activity -global -activity 0.1 -duty 0.5",
+          "methodology_boundary": "OpenSTA liberty estimate under fixed global activity; not signoff power and not measured workload activity"
+        },
+        "log_refs": {
+          "gold_map": "spec_fail_predict_gold_map_full_ppa.pinned.log",
+          "gate_map": "spec_fail_predict_gate_map_full_ppa.pinned.log",
+          "gold_opensta": "spec_fail_predict_gold_opensta_area_timing_power.pinned.log",
+          "gate_opensta": "spec_fail_predict_gate_opensta_area_timing_power.pinned.log"
         }
       },
-      "interpretation": "helper-level and two-parent-screen area-positive; full same-candidate timing/power remains pending"
+      "ct_lsu_pfu_sdb_cmp": {
+        "mapped_netlist_sha256": {
+          "gold": "7269eddd214e906623921026d340673dd3bd9db2d5fc54769cc7108a9d206538",
+          "gate": "94f92c27e4812e3fb1b13c78c832c1e1843853fc1cd789240ca01b7ce9d6ebc1"
+        },
+        "area": {
+          "gold": 11684.9568,
+          "gate": 11639.9136,
+          "unit": "sky130_selected_area"
+        },
+        "timing": {
+          "gold_max_data_arrival_ns": 8.14,
+          "gate_max_data_arrival_ns": 8.14,
+          "gold_cross_clock_data_arrival_ns": 7.0,
+          "gate_cross_clock_data_arrival_ns": 6.91,
+          "clock_period_ns": 10.0,
+          "interpretation": "worst reported max path is flat; the reported cross-clock path improves under the package SDC"
+        },
+        "power": {
+          "gold_total_power_nw": 0.000592,
+          "gate_total_power_nw": 0.000591,
+          "activity_source": "set_power_activity -global -activity 0.1 -duty 0.5",
+          "methodology_boundary": "OpenSTA liberty estimate under fixed global activity; not signoff power and not measured workload activity"
+        },
+        "log_refs": {
+          "gold_map": "pfu_sdb_cmp_gold_map_full_ppa.pinned.log",
+          "gate_map": "pfu_sdb_cmp_gate_map_full_ppa.pinned.log",
+          "gold_opensta": "pfu_sdb_cmp_gold_opensta_area_timing_power.pinned.log",
+          "gate_opensta": "pfu_sdb_cmp_gate_opensta_area_timing_power.pinned.log"
+        }
+      }
     }
   },
   "proof_receipts": {
@@ -74,6 +157,12 @@
       "log_sha256": "e3f583566bcd7ec051c2af0b1322b2c098112f5652cb3e31b8dedf6614567dd6",
       "proven_equiv_cells": 0,
       "unproven_equiv_cells": 1
+    },
+    "parent_same_state_route": {
+      "status": "unsupported_tool_error_before_verdict",
+      "attempted_route": "direct parent same-state equiv_make on ct_lsu_spec_fail_predict and ct_lsu_pfu_sdb_cmp with helper substitution",
+      "observed_error": "Yosys equiv_make count_id(wire->name)==0 assertion before any proof verdict",
+      "interpretation": "tool-error is neither proof pass nor proof fail; parent proof authority is not claimed by this packet"
     }
   },
   "negative_controls": {
@@ -81,16 +170,46 @@
       "path": "ct_rtu_compare_iid_gate_proof_mutant.v",
       "sha256": "fa53f844d8979ce5ec319acea3f20c2130c653b8771400e2e2f7192116267612",
       "interpretation": "functional proof red control; the helper equivalence check rejects the equality-boundary mutation"
+    },
+    "metric_negative": {
+      "path": "ct_rtu_compare_iid_metric_negative.v",
+      "sha256": "07605f50b6ba398640ba736c32b4cb348680832760685cefab85e172a5aa439d",
+      "interpretation": "metric red control; rebuilding both parent netlists with this helper worsens area, OpenSTA max data-arrival, and OpenSTA estimated total power",
+      "parent_results": {
+        "ct_lsu_spec_fail_predict": {
+          "mapped_netlist_sha256": "57f78f84f42bf2b01f8e5829d2177964459c5bffeafca924566f493dc1b1381d",
+          "area": 8087.7568,
+          "max_data_arrival_ns": 7.74,
+          "total_power_nw": 0.000423,
+          "log_refs": [
+            "spec_fail_predict_metric_negative_map.pinned.log",
+            "spec_fail_predict_metric_negative_opensta_area_timing_power.pinned.log"
+          ]
+        },
+        "ct_lsu_pfu_sdb_cmp": {
+          "mapped_netlist_sha256": "35c76c777ddeff2f534af62d16e743c7fbf329dbd59e6e2d842603f979a17a66",
+          "area": 13952.1312,
+          "max_data_arrival_ns": 10.05,
+          "total_power_nw": 0.000657,
+          "log_refs": [
+            "pfu_sdb_cmp_metric_negative_map.pinned.log",
+            "pfu_sdb_cmp_metric_negative_opensta_area_timing_power.pinned.log"
+          ]
+        }
+      }
     }
   },
+  "independent_replay": {
+    "status": "pending_non_author_replay",
+    "ask": "Fresh-seat replay should reproduce SHA256SUMS, helper proof, proof mutant, both parent area/timing/OpenSTA-estimated-power screens, and the metric red-control before any promotion discussion."
+  },
   "known_boundaries": [
-    "helper/parent area scout only; not promoted as a result row",
-    "customer_ready=false",
-    "timing and power are not claimed by this package",
-    "parent screens are synthesis-area screens, not full LSU or whole-core closure",
+    "customer_ready=false; parent-integrated scout evidence only",
+    "not promoted as a result row",
+    "helper proof is combinational ct_rtu_compare_iid equivalence under the checked RTL model",
+    "parent evidence is selected Sky130 area, OpenSTA max-data-arrival, and OpenSTA estimated-power screening for two LSU parent surfaces",
+    "direct parent same-state proof route currently tool-errors before verdict, so parent proof authority is not claimed",
+    "OpenSTA estimated power is not signoff power and not measured workload activity",
     "not whole LSU, whole C910/BOOM, ISA, memory consistency, speculation recovery, composed optimization, or whole-chip authority"
-  ],
-  "next_independent_check": {
-    "ask": "Run full same-candidate replay with timing and power plus a metric red-control before any promotion discussion."
-  }
+  ]
 }

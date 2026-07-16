@@ -1,6 +1,6 @@
 # C910 ct_rtu_compare_iid Candidate 1
 
-Status: helper/parent area scout; `customer_ready=false`.
+Status: parent-integrated full-PPA scout; `customer_ready=false`.
 
 This packet records a wrapped-IID comparator simplification. The candidate
 replaces the hand-built bit-priority compare with the equivalent direct
@@ -14,19 +14,20 @@ assign x_iid0_older = (x_iid0[6] == x_iid1[6])
 
 ## Metrics
 
-All numbers below are selected Sky130 synthesis area screens from the same
-pinned Yosys/liberty flow. They are not a promotion packet because timing and
-power are not yet closed on a same-candidate package.
+All numbers below are from the same pinned Yosys/OpenSTA/liberty flow. The two
+LSU parent screens substitute the same helper candidate into the parent RTL and
+rebuild the parent mapped netlist before measuring selected Sky130 area,
+OpenSTA max data-arrival, and OpenSTA estimated power.
 
-| Surface | Gold | Candidate | Result |
-| --- | ---: | ---: | --- |
-| `ct_rtu_compare_iid` helper | `142.636800` | `127.622400` | lower area |
-| `ct_lsu_spec_fail_predict` parent screen | `1725.404800` | `1695.376000` | lower area with two helper instances |
-| `ct_lsu_pfu_sdb_cmp` parent screen | `6052.054400` | `6007.011200` | lower area with three helper instances |
+| Surface | Area | OpenSTA max data-arrival | OpenSTA estimated total power | Result |
+| --- | ---: | ---: | ---: | --- |
+| `ct_rtu_compare_iid` helper | `142.636800 -> 127.622400` | not measured | not measured | helper area improves |
+| `ct_lsu_spec_fail_predict` parent | `6576.307200 -> 6546.278400` | `4.73 ns -> 4.67 ns` | `3.79e-04 -> 3.78e-04 nW` | parent area, timing, and estimated power improve |
+| `ct_lsu_pfu_sdb_cmp` parent | `11684.956800 -> 11639.913600` | `8.14 ns -> 8.14 ns` max path, with the cross-clock reported path `7.00 ns -> 6.91 ns` | `5.92e-04 -> 5.91e-04 nW` | parent area and estimated power improve; worst reported max path is flat |
 
 The parent screens use `PA_WIDTH=40` plus the shipped `gated_clk_cell` stub.
-Both parent runs report unknown area for unchanged sequential cells; the helper
-delta remains visible through the shared `ct_rtu_compare_iid` instances.
+The proof-subject helper appears twice in `ct_lsu_spec_fail_predict` and three
+times in `ct_lsu_pfu_sdb_cmp`.
 
 ## Proof
 
@@ -40,24 +41,37 @@ strict `>` to `>=`. The same helper equivalence check rejects it with `1`
 unproven equivalence cell. This bites the equality boundary, where identical
 IIDs must not mark `x_iid0` older.
 
+`ct_rtu_compare_iid_metric_negative.v` deliberately adds unrelated slow logic to
+the helper output. Rebuilding the same two parent netlists with that helper
+regresses both parent area/timing/power screens:
+
+- `ct_lsu_spec_fail_predict`: area `8087.756800`, max data-arrival `7.74 ns`,
+  estimated power `4.23e-04 nW`.
+- `ct_lsu_pfu_sdb_cmp`: area `13952.131200`, max data-arrival `10.05 ns`,
+  estimated power `6.57e-04 nW`.
+
 ## Replay
 
 ```bash
 YOSYS_BIN=/path/to/oss-cad-suite-20260630/bin/yosys \
+STA_BIN=/path/to/OpenSTA/bin/sta \
 LIBERTY=/path/to/sky130_fd_sc_hd__tt_025C_1v80.lib \
   ./replay.sh
 ```
 
-`replay.sh` writes generated logs and mapped helper netlists under ignored
-`replay_out/`.
+`replay.sh` writes generated logs and mapped netlists under ignored
+`replay_out/` and checks the committed parent mapped-netlist hashes.
 
 ## Boundaries
 
-- Helper/parent area scout only; not promoted as a result row.
-- `customer_ready=false`; no customer-ready PPA or proof-result row is claimed.
+- Parent-integrated full-PPA scout only; not promoted as a result row.
+- `customer_ready=false`; no customer-ready result row is claimed.
 - Helper proof is combinational `ct_rtu_compare_iid` equivalence under the
   checked RTL model.
-- Parent evidence is synthesis-area screening only for two LSU parent surfaces.
-- Timing and power are not claimed here.
+- Parent evidence is same-candidate-bound selected Sky130 area, OpenSTA
+  max-data-arrival, and OpenSTA estimated-power screening for two LSU parent
+  surfaces.
+- A direct parent same-state `equiv_make` route currently tool-errors before a
+  verdict on these parent shapes, so no parent proof authority is claimed.
 - Not whole LSU, whole C910/BOOM, ISA, memory consistency, speculation
   recovery, composed optimization, or whole-chip authority.
