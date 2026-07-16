@@ -1,8 +1,8 @@
 {
   "schema": "openc910.module_metric_scout.v1",
-  "status": "candidate_metric_scout_pending_independent_replay",
+  "status": "candidate_metric_scout_replay_confirmed_promotion_rejected_timing_path_regression",
   "customer_ready": false,
-  "customer_ready_scope": "none; candidate scout only",
+  "customer_ready_scope": "none; replay-confirmed mixed metric scout only",
   "target": {
     "module": "ct_lsu_rb",
     "subsystem": "lsu_rb",
@@ -88,7 +88,14 @@
           "lsu_special_clk",
           "forever_cpuclk"
         ],
-        "interpretation": "lower data-arrival and less-negative WNS under the package SDC; not timing closure"
+        "interpretation": "lower worst violating same-clock data-arrival and less-negative WNS under the package SDC; not timing closure"
+      },
+      "met_cross_clock_path": {
+        "gold_data_arrival_ns": 3.44,
+        "gate_data_arrival_ns": 3.48,
+        "gold_slack_ns": 6.42,
+        "gate_slack_ns": 6.39,
+        "interpretation": "this reported met cross-clock path regresses, so the package is not timing-positive overall"
       },
       "negative_control": {
         "regressed_candidate_sha256": "69dcc3008ae26fc36bddc4368ac76388f5f1a8bd7511c12ca016e099ddf009a6",
@@ -135,7 +142,7 @@
       "command": "read_verilog -sv cpu_cfig.h gated_clk_cell.v ct_rtu_encode_8.v ct_rtu_expand_8.v ct_lsu_idfifo_entry.v ct_lsu_idfifo_8.v ct_lsu_rb_entry.v ct_lsu_rot_data.v ct_lsu_rb_gold.v; rename ct_lsu_rb ct_lsu_rb_gold; read_verilog -sv ct_lsu_rb_gate_candidate.v; rename ct_lsu_rb ct_lsu_rb_gate; proc; memory; opt; equiv_make ct_lsu_rb_gold ct_lsu_rb_gate equiv; hierarchy -top equiv; flatten; async2sync; dffunmap; opt; equiv_simple -seq 8; equiv_status -assert",
       "log": "same_state_equiv_seq8.pinned.log",
       "log_sha256": "337a8d8192d973480f0a7e197840bed00c77e069fb07a7ab8b17303d6586d728",
-      "proven_equiv_cells": 2088,
+      "proven_equiv_cells": 2104,
       "unproven_equiv_cells": 0
     },
     "proof_negative_control": {
@@ -144,7 +151,7 @@
       "command": "same as same_state_equivalence, with ct_lsu_rb_gate_proof_mutant.v as gate",
       "log": "proof_mutant_negative.pinned.log",
       "log_sha256": "b24141550f6bc2af6043dcbe204d8da2fee2a6a3b44802007e42fe2a780d7020",
-      "proven_equiv_cells": 2088,
+      "proven_equiv_cells": 2096,
       "unproven_equiv_cells": 8
     }
   },
@@ -162,14 +169,26 @@
     }
   },
   "known_boundaries": [
-    "candidate metric scout only; not promoted as a result row",
+    "replay-confirmed mixed metric scout only; not promoted as a result row",
     "module-local ct_lsu_rb only",
     "same-state module equivalence under the checked RTL model is the proof subject",
-    "the mapped netlist violates a 10 ns ideal-clock package SDC in both gold and candidate forms; the candidate improves max data-arrival and WNS, but this is not timing closure",
+    "the mapped netlist violates a 10 ns ideal-clock package SDC in both gold and candidate forms; the candidate improves the worst violating same-clock max data-arrival and WNS, but a reported met cross-clock path regresses from 3.44 ns to 3.48 ns, so this is not a timing-positive result",
     "OpenSTA estimated power is not signoff power and not measured workload activity",
     "not whole LSU, whole C910/BOOM, ISA, memory consistency, speculation recovery, composed optimization, or whole-chip authority"
   ],
-  "next_independent_check": {
-    "ask": "Reproduce replay.sh with pinned public-style Yosys/OpenSTA/Liberty; confirm proof mutant fails and metric red-control reds all three axes before any promotion discussion."
+  "independent_replay": {
+    "reviewer": "quan",
+    "status": "confirmed_mixed_metric_scout",
+    "environment": "fresh scratch replay with pinned Yosys 0.66+181 (afe6b18f2), OpenSTA 2.2.0, and sky130_fd_sc_hd__tt_025C_1v80 liberty",
+    "receipt": [
+      "SHA256SUMS clean before replay",
+      "same-state equivalence proves 2104/2104 cells with 0 unproven",
+      "pointer mutant leaves exactly 8 unproven cells and fails equiv_status -assert",
+      "gold, gate, and metric-negative mapped netlists reproduce byte-exact",
+      "area improves 105329.7696 -> 105134.5824; metric-negative area red-control reports 107648.2432",
+      "worst violating same-clock timing path improves, but a reported met cross-clock path regresses 3.44 ns -> 3.48 ns",
+      "metric-negative timing and power controls red"
+    ],
+    "promotion_decision": "do not promote; keep customer_ready=false because a reported timing path regresses"
   }
 }
