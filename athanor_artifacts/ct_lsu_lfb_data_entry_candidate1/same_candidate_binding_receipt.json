@@ -1,7 +1,7 @@
 {
   "schema": "athanor.same_candidate_metric_binding.v1",
-  "status": "candidate_metric_scout_pending_independent_replay",
-  "customer_ready": false,
+  "status": "accepted_module_local_area_timing_opensta_estimated_power_packet",
+  "customer_ready": true,
   "candidate": {
     "candidate_sha256": "a6b33c99cff4964607137d78db400f1473db2eb11a636b81d8cca7943e3e8355",
     "mapped_netlist_sha256": "16da6514b7edbbb3289e89fc1b4c219a521b6539f734479fe1ff6e328d2af410",
@@ -62,10 +62,10 @@
         "gate_total_power_nw": 0.00133,
         "gold_internal_power_nw": 0.00125,
         "gate_internal_power_nw": 0.00125,
-        "gold_switching_power_nw": 0.0000773,
-        "gate_switching_power_nw": 0.0000773,
-        "gold_leakage_power_nw": 0.00000000686,
-        "gate_leakage_power_nw": 0.00000000685,
+        "gold_switching_power_nw": 7.73e-05,
+        "gate_switching_power_nw": 7.73e-05,
+        "gold_leakage_power_nw": 6.86e-09,
+        "gate_leakage_power_nw": 6.85e-09,
         "interpretation": "flat at reported precision",
         "methodology_boundary": "OpenSTA liberty estimate under fixed global activity; not signoff power and not measured workload activity"
       },
@@ -79,5 +79,5 @@
       }
     }
   },
-  "independent_review_summary": "Pending independent replay; this packet is candidate evidence only."
+  "independent_review_summary": "confirmed by non-author second-seat replay on 2026-07-15 and shipped same-state executor dogfood: 560/560 cells proven, shifted-address mutant reds with 8 unproven cells, mapped netlists and area/timing/power receipts reproduce. Customer-ready only for the scoped module-local packet."
 }
