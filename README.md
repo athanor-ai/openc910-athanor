@@ -21,9 +21,9 @@ Public read in 30 seconds:
 - Promoted results: three OoO control-block wins, each with area, OpenSTA max
   data-arrival, OpenSTA estimated power, replayable proof, and negative controls
   bound to the same candidate.
-- Candidate scouts: LSU queue/control candidates now include positive screens
-  and hard negatives; none becomes a result row until independent replay closes
-  the full bar.
+- Candidate scouts: LSU queue/control and RTU table-helper candidates now
+  include positive screens and hard negatives; none becomes a result row until
+  independent replay closes the full bar.
 - Gate discipline: proof-clean and area-positive is not enough. FIFO, ROB, RTU
   parent lifts, and LSU create-pointer scouts are rejected when the exact
   candidate netlist regresses timing.
@@ -90,6 +90,8 @@ metric results because the multi-axis bar above is not closed.
 | LSU load/store data-control rotate decoders | Low-value positive scout | `ct_lsu_ld_dc` and `ct_lsu_st_dc` one-hot rotate-selector rewrites are proof-clean and non-regressing across all measured axes, but the gains are too small to stand alone as an architect-facing result; useful only as part of a broader decode-cleanup packet | [`athanor_artifacts/TARGET_ATLAS.md`](athanor_artifacts/TARGET_ATLAS.md) |
 | LSU empty-slot create-pointer rewrites | Hard-negative scouts | `ct_lsu_lq` and `ct_lsu_sq` prove clean and improve area, but OpenSTA max data-arrival regresses, so the transform family is rejected for promotion | [`athanor_artifacts/KAIROS_GAP_LEDGER.md`](athanor_artifacts/KAIROS_GAP_LEDGER.md) |
 | `ct_rtu_pst_vreg` parent lift | Scout only | Replacing all 64 vreg entries improves parent area but regresses parent max data-arrival. It needs a compositional proof plus direct parent metric closure | [`athanor_artifacts/KAIROS_GAP_LEDGER.md`](athanor_artifacts/KAIROS_GAP_LEDGER.md) |
+| `ct_rtu_pst_vreg` encoder family | Candidate metric scout | Replacing the shared `ct_rtu_encode_64` helper across the parent table improves selected Sky130 area `234172.089600 -> 233181.139200` and OpenSTA estimated power `9.41e-03 nW -> 9.39e-03 nW`, with max data-arrival flat at `8.30 ns`; helper equivalence and a boundary-bit mutant bite, but this remains scout-only pending independent replay and promotion review | [`athanor_artifacts/rtu_pst_vreg_encoder_family_candidate1/`](athanor_artifacts/rtu_pst_vreg_encoder_family_candidate1/) |
+| `ct_rtu_pst_preg` encoder family | Hard-negative metric scout | Replacing the shared `ct_rtu_encode_96` helper improves selected Sky130 area `384860.361600 -> 383196.265600` and OpenSTA estimated power `1.51e-02 nW -> 1.50e-02 nW`, but OpenSTA max data-arrival regresses `11.31 ns -> 11.35 ns`; this is a receipt-backed reject, not a result row | [`athanor_artifacts/rtu_pst_preg_encoder_family_candidate1/`](athanor_artifacts/rtu_pst_preg_encoder_family_candidate1/) |
 
 ## Evidence Bar
 

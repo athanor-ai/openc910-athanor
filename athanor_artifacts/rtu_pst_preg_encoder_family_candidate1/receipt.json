@@ -1,0 +1,161 @@
+{
+  "schema": "openc910.ct_rtu_pst_preg.encoder_family_candidate.v1",
+  "status": "full_metric_promotion_rejected_timing_regression",
+  "customer_ready": false,
+  "customer_ready_scope": "none; candidate scout or hard-negative receipt only",
+  "target": {
+    "module": "ct_rtu_pst_preg",
+    "helper_module": "ct_rtu_encode_96",
+    "description": "C910 RTU parent table with encoder-family helper substitution for ct_rtu_encode_96"
+  },
+  "candidate": {
+    "candidate_id": "ct_rtu_pst_preg_ct_rtu_encode_96_mask_reduce_candidate1",
+    "description": "replace ct_rtu_encode_96 arithmetic encode with explicit bit-mask reductions in ct_rtu_pst_preg",
+    "helper_candidate_sha256": "762ddd8e9ca46dbf3f4f4c69633dfa3d0b7d1c82bac0a24b7201aeab8bbc5999",
+    "parent_source_sha256": "890a80877fbddab5556728aad1d6271fe774e2304d31f983ddccc05e8a4ead0e",
+    "mapped_netlist_sha256": "793e6c02a7d10ad8c0110a9c949ddca7c86faa792d050da484c64def59f11abc",
+    "selected_flow": "yosys66_sky130_synth_dfflibmap_abc_opensta_contract_v1",
+    "state_change": "none"
+  },
+  "encoder_family_lineage": {
+    "pattern": "explicit bit-mask reductions for RTU one-hot encoders",
+    "packaged_positive_widths": [
+      "64",
+      "96"
+    ],
+    "hard_negative_boundary": "32-bit encoder variant was proof-clean but helper area regressed, so it is banked and not packaged as a promotion candidate"
+  },
+  "toolchain": {
+    "yosys_version": "Yosys 0.66+181 (git sha1 afe6b18f2, Release, Clang /usr/bin/clang++ 18.1.8)",
+    "opensta_version": "OpenSTA 2.2.0",
+    "liberty": "sky130_fd_sc_hd__tt_025C_1v80.lib"
+  },
+  "files": {
+    ".gitattributes": "f22845bb8754b3f46e48c758faccb210d6026e0bd75f663c8beb0c3480e33924",
+    "README.md": "0fc084f8c7b9584372369b5f99c34226bf3b4a195d05d75f84387353fbdea815",
+    "ct_rtu_encode_96_gate_candidate.v": "762ddd8e9ca46dbf3f4f4c69633dfa3d0b7d1c82bac0a24b7201aeab8bbc5999",
+    "ct_rtu_encode_96_gold.v": "93b710e31372d1d51d2dd50092eab6baf5ac281fd88c9db585aca73ce40520d7",
+    "ct_rtu_encode_96_proof_mutant.v": "4fe7e2cfe2f5ecb98fc7fddfcdb4edf543af3bd4ce439b0597a464ad33c5d94a",
+    "ct_rtu_expand_32.v": "4467b90f7b447790649fa18b44b6f9425a0f6eca990e2220e2482a7dd636c27e",
+    "ct_rtu_expand_96.v": "04bf6a1cf653991ca05a82732fed2a4a2e9bc160121b807792ecbbfa8ec104ec",
+    "ct_rtu_pst_preg_entry.v": "72cab4cbc55d44e5802b6abe5ec479fb9b0e4912c3f7356da741c90e58dff624",
+    "ct_rtu_pst_preg_gate_candidate.mapped.v": "793e6c02a7d10ad8c0110a9c949ddca7c86faa792d050da484c64def59f11abc",
+    "ct_rtu_pst_preg_gate_candidate.v": "890a80877fbddab5556728aad1d6271fe774e2304d31f983ddccc05e8a4ead0e",
+    "ct_rtu_pst_preg_gold.mapped.v": "ff0dc6d4fa7b3750c69e6de8a2f1c9aab4d314f1860603fecfe1b07112b6c1be",
+    "ct_rtu_pst_preg_gold.v": "890a80877fbddab5556728aad1d6271fe774e2304d31f983ddccc05e8a4ead0e",
+    "ct_rtu_pst_preg_metric_negative.mapped.v": "0c5fc026be239f741fff310697183e597e741b6c4923b276e5ead7dafa1c0c99",
+    "gate_map.pinned.log": "5e15de7eb10c7ebea60595a6d783821516eedb31922ca087b7802d866c0e840d",
+    "gate_opensta_area_timing_power.pinned.log": "e02a6b2af2b7f27def9f5d9ddf6a24ffb728862e332923632ec10ec176d29183",
+    "gated_clk_cell.v": "6cfad397c18daabdff77e3a520ccbf964e4178197cc9a0f8dd825bbf928a91c8",
+    "gold_map.pinned.log": "8c6bbbfbc73bbfc4af342f4d2c8c038c300433638537a9d086a621d845331f78",
+    "gold_opensta_area_timing_power.pinned.log": "02c83ee3386f6963360f8c8e45a90b9428a11a30c0e280bd26f22adaf3b0979c",
+    "helper_proof_mutant_negative.pinned.log": "b77ab59061914ecf0e1dbb08a6330fe0ceb1d06f46b22de51ae74aab702031e6",
+    "helper_same_state_equiv.pinned.log": "39305d9256e32523756f296b046a17f52ee7749dcf9ef101e105e09ddbc7aaec",
+    "metric_negative_area.pinned.log": "05ab59e93d466d3412dc05bfd4d4f8a6a5784b0dee266b18dec9ac8a340e3bfb",
+    "metric_negative_opensta_area_timing_power.pinned.log": "bdeae28c29b804d2b8ccc3fb4a3266ad33aced588572f34069a90b8a1529f154",
+    "replay.sh": "0966e74d619553c2b162b3f1a7f306214b781c239065907850fb0577fd188c29",
+    "same_candidate_binding_receipt.json": "0ac0b00d3153d51a6465b75d22775b2287b534d71dced2ae027bc7f8843f58e3"
+  },
+  "metrics": {
+    "area": {
+      "candidate_sha256": "762ddd8e9ca46dbf3f4f4c69633dfa3d0b7d1c82bac0a24b7201aeab8bbc5999",
+      "mapped_netlist_sha256": "793e6c02a7d10ad8c0110a9c949ddca7c86faa792d050da484c64def59f11abc",
+      "selected_flow": "yosys66_sky130_synth_dfflibmap_abc_opensta_contract_v1",
+      "instrument": "yosys_stat_liberty",
+      "instrument_version": "Yosys 0.66+181 (git sha1 afe6b18f2, Release, Clang /usr/bin/clang++ 18.1.8)",
+      "metric": {
+        "gold": 384860.3616,
+        "gate": 383196.2656,
+        "unit": "sky130_selected_area"
+      },
+      "negative_control": {
+        "regressed_candidate_sha256": "0c5fc026be239f741fff310697183e597e741b6c4923b276e5ead7dafa1c0c99",
+        "axis_reds": true,
+        "metric": {
+          "regressed": 385838.8,
+          "unit": "sky130_selected_area"
+        },
+        "log_ref": "metric_negative_area.pinned.log"
+      }
+    },
+    "timing": {
+      "candidate_sha256": "762ddd8e9ca46dbf3f4f4c69633dfa3d0b7d1c82bac0a24b7201aeab8bbc5999",
+      "mapped_netlist_sha256": "793e6c02a7d10ad8c0110a9c949ddca7c86faa792d050da484c64def59f11abc",
+      "selected_flow": "yosys66_sky130_synth_dfflibmap_abc_opensta_contract_v1",
+      "instrument": "opensta",
+      "instrument_version": "OpenSTA 2.2.0",
+      "metric": {
+        "gold_max_data_arrival_ns": 11.31,
+        "gate_max_data_arrival_ns": 11.35,
+        "clock_period_ns": 10.0
+      },
+      "negative_control": {
+        "regressed_candidate_sha256": "0c5fc026be239f741fff310697183e597e741b6c4923b276e5ead7dafa1c0c99",
+        "axis_reds": true,
+        "metric": {
+          "regressed_max_data_arrival_ns": 18.57
+        },
+        "log_ref": "metric_negative_opensta_area_timing_power.pinned.log"
+      }
+    },
+    "power": {
+      "candidate_sha256": "762ddd8e9ca46dbf3f4f4c69633dfa3d0b7d1c82bac0a24b7201aeab8bbc5999",
+      "mapped_netlist_sha256": "793e6c02a7d10ad8c0110a9c949ddca7c86faa792d050da484c64def59f11abc",
+      "selected_flow": "yosys66_sky130_synth_dfflibmap_abc_opensta_contract_v1",
+      "instrument": "opensta_report_power",
+      "instrument_version": "OpenSTA 2.2.0",
+      "activity_source": "set_power_activity -global -activity 0.1 -duty 0.5",
+      "metric": {
+        "gold_total_power_nw": 0.0151,
+        "gate_total_power_nw": 0.015,
+        "gold_internal_power_nw": 0.00992,
+        "gate_internal_power_nw": 0.0099,
+        "gold_switching_power_nw": 0.00516,
+        "gate_switching_power_nw": 0.00513,
+        "gold_leakage_power_nw": 1.3e-07,
+        "gate_leakage_power_nw": 1.29e-07,
+        "methodology_boundary": "OpenSTA liberty estimate under fixed global activity; not signoff power and not measured workload activity"
+      },
+      "negative_control": {
+        "regressed_candidate_sha256": "0c5fc026be239f741fff310697183e597e741b6c4923b276e5ead7dafa1c0c99",
+        "axis_reds": true,
+        "metric": {
+          "regressed_total_power_nw": 0.0175
+        },
+        "log_ref": "metric_negative_opensta_area_timing_power.pinned.log"
+      }
+    }
+  },
+  "proof_receipts": {
+    "helper_same_state_equivalence": {
+      "status": "proved",
+      "interpretation": "ct_rtu_encode_96 gold and candidate are equivalent for all helper inputs",
+      "log": "helper_same_state_equiv.pinned.log",
+      "log_sha256": "39305d9256e32523756f296b046a17f52ee7749dcf9ef101e105e09ddbc7aaec"
+    },
+    "proof_negative_control": {
+      "status": "failed_as_expected",
+      "mutation": "boundary index removed from the helper mask; same equivalence check leaves one cell unproven",
+      "log": "helper_proof_mutant_negative.pinned.log",
+      "log_sha256": "b77ab59061914ecf0e1dbb08a6330fe0ceb1d06f46b22de51ae74aab702031e6"
+    }
+  },
+  "negative_controls": {
+    "proof_mutant": {
+      "path": "ct_rtu_encode_96_proof_mutant.v",
+      "sha256": "4fe7e2cfe2f5ecb98fc7fddfcdb4edf543af3bd4ce439b0597a464ad33c5d94a"
+    },
+    "metric_negative_netlist": {
+      "path": "ct_rtu_pst_preg_metric_negative.mapped.v",
+      "sha256": "0c5fc026be239f741fff310697183e597e741b6c4923b276e5ead7dafa1c0c99",
+      "interpretation": "metric-only red-control; not a functional or proof candidate"
+    }
+  },
+  "known_boundaries": [
+    "customer_ready=false; not promoted as a result row",
+    "parent-table ct_rtu_pst_preg only",
+    "correctness evidence is helper-substitution equivalence, not a parent-table state-relation theorem",
+    "OpenSTA estimated power is not signoff power and not measured workload activity",
+    "not whole RTU, whole C910, BOOM, ISA, memory consistency, speculation recovery, composed optimization, or whole-chip authority"
+  ]
+}

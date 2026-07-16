@@ -1,0 +1,138 @@
+OpenSTA 2.2.0 02b129d48f Copyright (c) 2019, Parallax Software, Inc.
+License GPLv3: GNU GPL version 3 <http://gnu.org/licenses/gpl.html>
+
+This is free software, and you are free to change and redistribute it
+under certain conditions; type `show_copying' for details. 
+This program comes with ABSOLUTELY NO WARRANTY; for details type `show_warranty'.
+Startpoint: forever_cpuclk (clock source 'forever_cpuclk')
+Endpoint: metric_red_out (output port clocked by forever_cpuclk)
+Path Group: forever_cpuclk
+Path Type: max
+
+  Delay    Time   Description
+---------------------------------------------------------
+   5.00    5.00   clock forever_cpuclk (fall edge)
+   0.00    5.00 v forever_cpuclk (in)
+   0.11    5.11 v metric_red_0/X (sky130_fd_sc_hd__buf_16)
+   0.14    5.25 v metric_red_1/X (sky130_fd_sc_hd__buf_16)
+   0.14    5.39 v metric_red_2/X (sky130_fd_sc_hd__buf_16)
+   0.14    5.53 v metric_red_3/X (sky130_fd_sc_hd__buf_16)
+   0.14    5.68 v metric_red_4/X (sky130_fd_sc_hd__buf_16)
+   0.14    5.82 v metric_red_5/X (sky130_fd_sc_hd__buf_16)
+   0.14    5.96 v metric_red_6/X (sky130_fd_sc_hd__buf_16)
+   0.14    6.10 v metric_red_7/X (sky130_fd_sc_hd__buf_16)
+   0.14    6.24 v metric_red_8/X (sky130_fd_sc_hd__buf_16)
+   0.14    6.39 v metric_red_9/X (sky130_fd_sc_hd__buf_16)
+   0.14    6.53 v metric_red_10/X (sky130_fd_sc_hd__buf_16)
+   0.14    6.67 v metric_red_11/X (sky130_fd_sc_hd__buf_16)
+   0.14    6.81 v metric_red_12/X (sky130_fd_sc_hd__buf_16)
+   0.14    6.95 v metric_red_13/X (sky130_fd_sc_hd__buf_16)
+   0.14    7.09 v metric_red_14/X (sky130_fd_sc_hd__buf_16)
+   0.14    7.24 v metric_red_15/X (sky130_fd_sc_hd__buf_16)
+   0.14    7.38 v metric_red_16/X (sky130_fd_sc_hd__buf_16)
+   0.14    7.52 v metric_red_17/X (sky130_fd_sc_hd__buf_16)
+   0.14    7.66 v metric_red_18/X (sky130_fd_sc_hd__buf_16)
+   0.14    7.80 v metric_red_19/X (sky130_fd_sc_hd__buf_16)
+   0.14    7.94 v metric_red_20/X (sky130_fd_sc_hd__buf_16)
+   0.14    8.09 v metric_red_21/X (sky130_fd_sc_hd__buf_16)
+   0.14    8.23 v metric_red_22/X (sky130_fd_sc_hd__buf_16)
+   0.14    8.37 v metric_red_23/X (sky130_fd_sc_hd__buf_16)
+   0.14    8.51 v metric_red_24/X (sky130_fd_sc_hd__buf_16)
+   0.14    8.65 v metric_red_25/X (sky130_fd_sc_hd__buf_16)
+   0.14    8.80 v metric_red_26/X (sky130_fd_sc_hd__buf_16)
+   0.14    8.94 v metric_red_27/X (sky130_fd_sc_hd__buf_16)
+   0.14    9.08 v metric_red_28/X (sky130_fd_sc_hd__buf_16)
+   0.14    9.22 v metric_red_29/X (sky130_fd_sc_hd__buf_16)
+   0.14    9.36 v metric_red_30/X (sky130_fd_sc_hd__buf_16)
+   0.14    9.50 v metric_red_31/X (sky130_fd_sc_hd__buf_16)
+   0.14    9.65 v metric_red_32/X (sky130_fd_sc_hd__buf_16)
+   0.14    9.79 v metric_red_33/X (sky130_fd_sc_hd__buf_16)
+   0.14    9.93 v metric_red_34/X (sky130_fd_sc_hd__buf_16)
+   0.14   10.07 v metric_red_35/X (sky130_fd_sc_hd__buf_16)
+   0.14   10.21 v metric_red_36/X (sky130_fd_sc_hd__buf_16)
+   0.14   10.36 v metric_red_37/X (sky130_fd_sc_hd__buf_16)
+   0.14   10.50 v metric_red_38/X (sky130_fd_sc_hd__buf_16)
+   0.14   10.64 v metric_red_39/X (sky130_fd_sc_hd__buf_16)
+   0.14   10.78 v metric_red_40/X (sky130_fd_sc_hd__buf_16)
+   0.14   10.92 v metric_red_41/X (sky130_fd_sc_hd__buf_16)
+   0.14   11.06 v metric_red_42/X (sky130_fd_sc_hd__buf_16)
+   0.14   11.21 v metric_red_43/X (sky130_fd_sc_hd__buf_16)
+   0.14   11.35 v metric_red_44/X (sky130_fd_sc_hd__buf_16)
+   0.14   11.49 v metric_red_45/X (sky130_fd_sc_hd__buf_16)
+   0.14   11.63 v metric_red_46/X (sky130_fd_sc_hd__buf_16)
+   0.14   11.77 v metric_red_47/X (sky130_fd_sc_hd__buf_16)
+   0.14   11.91 v metric_red_48/X (sky130_fd_sc_hd__buf_16)
+   0.14   12.06 v metric_red_49/X (sky130_fd_sc_hd__buf_16)
+   0.14   12.20 v metric_red_50/X (sky130_fd_sc_hd__buf_16)
+   0.14   12.34 v metric_red_51/X (sky130_fd_sc_hd__buf_16)
+   0.14   12.48 v metric_red_52/X (sky130_fd_sc_hd__buf_16)
+   0.14   12.62 v metric_red_53/X (sky130_fd_sc_hd__buf_16)
+   0.14   12.77 v metric_red_54/X (sky130_fd_sc_hd__buf_16)
+   0.14   12.91 v metric_red_55/X (sky130_fd_sc_hd__buf_16)
+   0.14   13.05 v metric_red_56/X (sky130_fd_sc_hd__buf_16)
+   0.14   13.19 v metric_red_57/X (sky130_fd_sc_hd__buf_16)
+   0.14   13.33 v metric_red_58/X (sky130_fd_sc_hd__buf_16)
+   0.14   13.47 v metric_red_59/X (sky130_fd_sc_hd__buf_16)
+   0.14   13.62 v metric_red_60/X (sky130_fd_sc_hd__buf_16)
+   0.14   13.76 v metric_red_61/X (sky130_fd_sc_hd__buf_16)
+   0.14   13.90 v metric_red_62/X (sky130_fd_sc_hd__buf_16)
+   0.14   14.04 v metric_red_63/X (sky130_fd_sc_hd__buf_16)
+   0.14   14.18 v metric_red_64/X (sky130_fd_sc_hd__buf_16)
+   0.14   14.33 v metric_red_65/X (sky130_fd_sc_hd__buf_16)
+   0.14   14.47 v metric_red_66/X (sky130_fd_sc_hd__buf_16)
+   0.14   14.61 v metric_red_67/X (sky130_fd_sc_hd__buf_16)
+   0.14   14.75 v metric_red_68/X (sky130_fd_sc_hd__buf_16)
+   0.14   14.89 v metric_red_69/X (sky130_fd_sc_hd__buf_16)
+   0.14   15.03 v metric_red_70/X (sky130_fd_sc_hd__buf_16)
+   0.14   15.18 v metric_red_71/X (sky130_fd_sc_hd__buf_16)
+   0.14   15.32 v metric_red_72/X (sky130_fd_sc_hd__buf_16)
+   0.14   15.46 v metric_red_73/X (sky130_fd_sc_hd__buf_16)
+   0.14   15.60 v metric_red_74/X (sky130_fd_sc_hd__buf_16)
+   0.14   15.74 v metric_red_75/X (sky130_fd_sc_hd__buf_16)
+   0.14   15.88 v metric_red_76/X (sky130_fd_sc_hd__buf_16)
+   0.14   16.03 v metric_red_77/X (sky130_fd_sc_hd__buf_16)
+   0.14   16.17 v metric_red_78/X (sky130_fd_sc_hd__buf_16)
+   0.14   16.31 v metric_red_79/X (sky130_fd_sc_hd__buf_16)
+   0.14   16.45 v metric_red_80/X (sky130_fd_sc_hd__buf_16)
+   0.14   16.59 v metric_red_81/X (sky130_fd_sc_hd__buf_16)
+   0.14   16.74 v metric_red_82/X (sky130_fd_sc_hd__buf_16)
+   0.14   16.88 v metric_red_83/X (sky130_fd_sc_hd__buf_16)
+   0.14   17.02 v metric_red_84/X (sky130_fd_sc_hd__buf_16)
+   0.14   17.16 v metric_red_85/X (sky130_fd_sc_hd__buf_16)
+   0.14   17.30 v metric_red_86/X (sky130_fd_sc_hd__buf_16)
+   0.14   17.44 v metric_red_87/X (sky130_fd_sc_hd__buf_16)
+   0.14   17.59 v metric_red_88/X (sky130_fd_sc_hd__buf_16)
+   0.14   17.73 v metric_red_89/X (sky130_fd_sc_hd__buf_16)
+   0.14   17.87 v metric_red_90/X (sky130_fd_sc_hd__buf_16)
+   0.14   18.01 v metric_red_91/X (sky130_fd_sc_hd__buf_16)
+   0.14   18.15 v metric_red_92/X (sky130_fd_sc_hd__buf_16)
+   0.14   18.30 v metric_red_93/X (sky130_fd_sc_hd__buf_16)
+   0.14   18.44 v metric_red_94/X (sky130_fd_sc_hd__buf_16)
+   0.14   18.57 v metric_red_95/X (sky130_fd_sc_hd__buf_16)
+   0.00   18.57 v metric_red_out (out)
+          18.57   data arrival time
+
+  10.00   10.00   clock forever_cpuclk (rise edge)
+   0.00   10.00   clock network delay (ideal)
+   0.00   10.00   clock reconvergence pessimism
+   0.00   10.00   output external delay
+          10.00   data required time
+---------------------------------------------------------
+          10.00   data required time
+         -18.57   data arrival time
+---------------------------------------------------------
+          -8.57   slack (VIOLATED)
+
+
+tns -8.57
+wns -8.57
+Group                  Internal  Switching    Leakage      Total
+                          Power      Power      Power      Power
+----------------------------------------------------------------
+Sequential             3.83e-03   7.41e-04   1.53e-08   4.57e-03  38.5%
+Combinational          4.45e-03   2.85e-03   7.58e-08   7.30e-03  61.5%
+Macro                  0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.0%
+Pad                    0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.0%
+----------------------------------------------------------------
+Total                  8.28e-03   3.59e-03   9.11e-08   1.19e-02 100.0%
+                          69.7%      30.3%       0.0%

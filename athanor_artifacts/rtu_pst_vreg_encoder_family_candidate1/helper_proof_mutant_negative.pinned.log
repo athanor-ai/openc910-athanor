@@ -1,0 +1,229 @@
+
+ /----------------------------------------------------------------------------\
+ |  yosys -- Yosys Open SYnthesis Suite                                       |
+ |  Copyright (C) 2012 - 2026  Claire Xenia Wolf <claire@yosyshq.com>         |
+ |  Distributed under an ISC-like license, type "license" to see terms        |
+ \----------------------------------------------------------------------------/
+ Yosys 0.66+181 (git sha1 afe6b18f2, Release, Clang /usr/bin/clang++ 18.1.8)
+
+-- Running command `read_verilog -sv ct_rtu_encode_64_gold.v; rename ct_rtu_encode_64 gold; read_verilog -sv ct_rtu_encode_64_proof_mutant.v; rename ct_rtu_encode_64 gate; proc; opt; equiv_make gold gate equiv; hierarchy -top equiv; flatten; opt; equiv_simple; equiv_status -assert' --
+
+1. Executing Verilog-2005 frontend: ct_rtu_encode_64_gold.v
+Parsing SystemVerilog input from `ct_rtu_encode_64_gold.v' to AST representation.
+Generating RTLIL representation for module `\ct_rtu_encode_64'.
+Successfully finished Verilog frontend.
+Renaming module \ct_rtu_encode_64 to \gold.
+
+2. Executing Verilog-2005 frontend: ct_rtu_encode_64_proof_mutant.v
+Parsing SystemVerilog input from `ct_rtu_encode_64_proof_mutant.v' to AST representation.
+Generating RTLIL representation for module `\ct_rtu_encode_64'.
+Successfully finished Verilog frontend.
+Renaming module \ct_rtu_encode_64 to \gate.
+
+3. Executing PROC pass (convert processes to netlists).
+
+3.1. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Cleaned up 0 empty switches.
+
+3.2. Executing PROC_RMDEAD pass (remove dead branches from decision trees).
+Removed a total of 0 dead cases.
+
+3.3. Executing PROC_PRUNE pass (remove redundant assignments in processes).
+Removed 0 redundant assignments.
+Promoted 0 assignments to connections.
+
+3.4. Executing PROC_INIT pass (extract init attributes).
+
+3.5. Executing PROC_ARST pass (detect async resets in processes).
+
+3.6. Executing PROC_ROM pass (convert switches to ROMs).
+Converted 0 switches.
+
+3.7. Executing PROC_MUX pass (convert decision trees to multiplexers).
+
+3.8. Executing PROC_DLATCH pass (convert process syncs to latches).
+
+3.9. Executing PROC_DFF pass (convert process syncs to FFs).
+
+3.10. Executing PROC_MEMWR pass (convert process memory writes to cells).
+
+3.11. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Cleaned up 0 empty switches.
+
+3.12. Executing OPT_EXPR pass (perform const folding).
+Optimizing module gate.
+<suppressed ~6 debug messages>
+Optimizing module gold.
+<suppressed ~65 debug messages>
+
+4. Executing OPT pass (performing simple optimizations).
+
+4.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module gate.
+Optimizing module gold.
+
+4.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\gate'.
+Computing hashes of 6 cells of `\gate'.
+Finding duplicate cells in `\gate'.
+Finding identical cells in module `\gold'.
+Computing hashes of 62 cells of `\gold'.
+Finding duplicate cells in `\gold'.
+Removed a total of 0 cells.
+
+4.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \gate..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \gold..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Removed 0 multiplexer ports.
+
+4.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \gate.
+    New input vector for $reduce_or cell $reduce_or$ct_rtu_encode_64_proof_mutant.v:41$139: \x_num_expand [63:32]
+    New input vector for $reduce_or cell $reduce_or$ct_rtu_encode_64_proof_mutant.v:36$129: { \x_num_expand [61] \x_num_expand [59] \x_num_expand [57] \x_num_expand [55] \x_num_expand [53] \x_num_expand [51] \x_num_expand [49] \x_num_expand [47] \x_num_expand [45] \x_num_expand [43] \x_num_expand [41] \x_num_expand [39] \x_num_expand [37] \x_num_expand [35] \x_num_expand [33] \x_num_expand [31] \x_num_expand [29] \x_num_expand [27] \x_num_expand [25] \x_num_expand [23] \x_num_expand [21] \x_num_expand [19] \x_num_expand [17] \x_num_expand [15] \x_num_expand [13] \x_num_expand [11] \x_num_expand [9] \x_num_expand [7] \x_num_expand [5] \x_num_expand [3] \x_num_expand [1] }
+    New input vector for $reduce_or cell $reduce_or$ct_rtu_encode_64_proof_mutant.v:39$135: { \x_num_expand [63:56] \x_num_expand [47:40] \x_num_expand [31:24] \x_num_expand [15:8] }
+    New input vector for $reduce_or cell $reduce_or$ct_rtu_encode_64_proof_mutant.v:37$131: { \x_num_expand [63:62] \x_num_expand [59:58] \x_num_expand [55:54] \x_num_expand [51:50] \x_num_expand [47:46] \x_num_expand [43:42] \x_num_expand [39:38] \x_num_expand [35:34] \x_num_expand [31:30] \x_num_expand [27:26] \x_num_expand [23:22] \x_num_expand [19:18] \x_num_expand [15:14] \x_num_expand [11:10] \x_num_expand [7:6] \x_num_expand [3:2] }
+    New input vector for $reduce_or cell $reduce_or$ct_rtu_encode_64_proof_mutant.v:40$137: { \x_num_expand [63:48] \x_num_expand [31:16] }
+    New input vector for $reduce_or cell $reduce_or$ct_rtu_encode_64_proof_mutant.v:38$133: { \x_num_expand [63:60] \x_num_expand [55:52] \x_num_expand [47:44] \x_num_expand [39:36] \x_num_expand [31:28] \x_num_expand [23:20] \x_num_expand [15:12] \x_num_expand [7:4] }
+  Optimizing cells in module \gate.
+  Optimizing cells in module \gold.
+Performed a total of 6 changes.
+
+4.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\gate'.
+Computing hashes of 6 cells of `\gate'.
+Finding duplicate cells in `\gate'.
+Finding identical cells in module `\gold'.
+Computing hashes of 62 cells of `\gold'.
+Finding duplicate cells in `\gold'.
+Removed a total of 0 cells.
+
+4.6. Executing OPT_DFF pass (perform DFF optimizations).
+
+4.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \gate..
+Finding unused cells or wires in module \gold..
+Removed 0 unused cells and 78 unused wires.
+<suppressed ~2 debug messages>
+
+4.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module gate.
+Optimizing module gold.
+
+4.9. Rerunning OPT passes. (Maybe there is more to do..)
+
+4.10. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \gate..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \gold..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Removed 0 multiplexer ports.
+
+4.11. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \gate.
+  Optimizing cells in module \gold.
+Performed a total of 0 changes.
+
+4.12. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\gate'.
+Computing hashes of 6 cells of `\gate'.
+Finding duplicate cells in `\gate'.
+Finding identical cells in module `\gold'.
+Computing hashes of 62 cells of `\gold'.
+Finding duplicate cells in `\gold'.
+Removed a total of 0 cells.
+
+4.13. Executing OPT_DFF pass (perform DFF optimizations).
+
+4.14. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \gate..
+Finding unused cells or wires in module \gold..
+
+4.15. Executing OPT_EXPR pass (perform const folding).
+Optimizing module gate.
+Optimizing module gold.
+
+4.16. Finished fast OPT passes. (There is nothing left to do.)
+
+5. Executing EQUIV_MAKE pass (creating equiv checking module).
+Presumably equivalent wires: x_num_gold (\x_num_gold), x_num_gate (\x_num_gate) -> x_num
+Presumably equivalent wires: x_num_expand_gold (\x_num_expand_gold), x_num_expand_gate (\x_num_expand_gate) -> x_num_expand
+
+6. Executing HIERARCHY pass (managing design hierarchy).
+
+6.1. Analyzing design hierarchy..
+Top module:  \equiv
+
+6.2. Analyzing design hierarchy..
+Top module:  \equiv
+Removing unused module `\gate'.
+Removing unused module `\gold'.
+Removed 2 unused modules.
+
+7. Executing FLATTEN pass (flatten design).
+
+8. Executing OPT pass (performing simple optimizations).
+
+8.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module equiv.
+
+8.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\equiv'.
+Computing hashes of 74 cells of `\equiv'.
+Finding duplicate cells in `\equiv'.
+Removed a total of 0 cells.
+
+8.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \equiv..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Removed 0 multiplexer ports.
+
+8.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \equiv.
+Performed a total of 0 changes.
+
+8.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\equiv'.
+Computing hashes of 74 cells of `\equiv'.
+Finding duplicate cells in `\equiv'.
+Removed a total of 0 cells.
+
+8.6. Executing OPT_DFF pass (perform DFF optimizations).
+
+8.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \equiv..
+
+8.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module equiv.
+
+8.9. Finished fast OPT passes. (There is nothing left to do.)
+
+9. Executing EQUIV_SIMPLE pass.
+Found 6 unproven $equiv cells (1 groups) in equiv:
+ Grouping SAT models for \x_num:
+  Trying to prove $equiv for \x_num [0]:ezsat
+ failed.
+  Trying to prove $equiv for \x_num [1]:ezsat
+ success!
+  Trying to prove $equiv for \x_num [2]:ezsat
+ success!
+  Trying to prove $equiv for \x_num [3]:ezsat
+ success!
+  Trying to prove $equiv for \x_num [4]:ezsat
+ success!
+  Trying to prove $equiv for \x_num [5]:ezsat
+ success!
+Proved 5 previously unproven $equiv cells.
+
+10. Executing EQUIV_STATUS pass.
+Found 6 $equiv cells in equiv:
+  Of those cells 5 are proven and 1 are unproven.
+  Unproven $equiv $auto$equiv_make.cc:258:find_same_wires$140: \x_num_gold [0] \x_num_gate [0]
+Found a total of 1 unproven $equiv cells.
+ERROR: Found 1 unproven $equiv cells in 'equiv_status -assert'.
