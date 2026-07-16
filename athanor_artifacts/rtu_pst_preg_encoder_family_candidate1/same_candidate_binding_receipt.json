@@ -41,7 +41,7 @@
       "metric": {
         "gold_max_data_arrival_ns": 11.31,
         "gate_max_data_arrival_ns": 11.35,
-        "clock_period_ns": 10.0
+        "clock_period_ns": 10
       },
       "negative_control": {
         "regressed_candidate_sha256": "0c5fc026be239f741fff310697183e597e741b6c4923b276e5ead7dafa1c0c99",
@@ -80,5 +80,5 @@
       }
     }
   },
-  "independent_review_summary": "pending; this public package is a scout/hard-negative receipt until non-author replay closes"
+  "independent_review_summary": "confirmed by non-author second-seat replay on 2026-07-15: SHA256SUMS clean; helper proof proved all cells; helper proof mutant left 1 unproven cell; parent-table proof proved 31716/31716 cells; parent-table mutant left 35 unproven cells; mapped netlists reproduced byte-exact; area and estimated power improved; timing regressed 11.31 -> 11.35 ns, so this remains customer_ready=false and promotion-rejected."
 }

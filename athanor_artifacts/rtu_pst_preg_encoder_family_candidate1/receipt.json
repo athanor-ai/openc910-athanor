@@ -1,12 +1,12 @@
 {
   "schema": "openc910.ct_rtu_pst_preg.encoder_family_candidate.v1",
-  "status": "full_metric_promotion_rejected_timing_regression",
+  "status": "parent_table_proof_metric_hard_negative_replay_confirmed",
   "customer_ready": false,
-  "customer_ready_scope": "none; candidate scout or hard-negative receipt only",
+  "customer_ready_scope": "none; proof-backed hard-negative receipt only",
   "target": {
     "module": "ct_rtu_pst_preg",
     "helper_module": "ct_rtu_encode_96",
-    "description": "C910 RTU parent table with encoder-family helper substitution for ct_rtu_encode_96"
+    "description": "C910 RTU parent table with encoder-family helper substitution for ct_rtu_encode_96; parent-table proof route closes but timing regression rejects promotion"
   },
   "candidate": {
     "candidate_id": "ct_rtu_pst_preg_ct_rtu_encode_96_mask_reduce_candidate1",
@@ -32,7 +32,7 @@
   },
   "files": {
     ".gitattributes": "f22845bb8754b3f46e48c758faccb210d6026e0bd75f663c8beb0c3480e33924",
-    "README.md": "0fc084f8c7b9584372369b5f99c34226bf3b4a195d05d75f84387353fbdea815",
+    "README.md": "1ececbb349eb7f0c71a226d1cf3639eab8e503750747973ab4ba8834200f0d0a",
     "ct_rtu_encode_96_gate_candidate.v": "762ddd8e9ca46dbf3f4f4c69633dfa3d0b7d1c82bac0a24b7201aeab8bbc5999",
     "ct_rtu_encode_96_gold.v": "93b710e31372d1d51d2dd50092eab6baf5ac281fd88c9db585aca73ce40520d7",
     "ct_rtu_encode_96_proof_mutant.v": "4fe7e2cfe2f5ecb98fc7fddfcdb4edf543af3bd4ce439b0597a464ad33c5d94a",
@@ -53,8 +53,10 @@
     "helper_same_state_equiv.pinned.log": "39305d9256e32523756f296b046a17f52ee7749dcf9ef101e105e09ddbc7aaec",
     "metric_negative_area.pinned.log": "05ab59e93d466d3412dc05bfd4d4f8a6a5784b0dee266b18dec9ac8a340e3bfb",
     "metric_negative_opensta_area_timing_power.pinned.log": "bdeae28c29b804d2b8ccc3fb4a3266ad33aced588572f34069a90b8a1529f154",
-    "replay.sh": "0966e74d619553c2b162b3f1a7f306214b781c239065907850fb0577fd188c29",
-    "same_candidate_binding_receipt.json": "0ac0b00d3153d51a6465b75d22775b2287b534d71dced2ae027bc7f8843f58e3"
+    "replay.sh": "12df4de9ff39b8b9a12a13ca70fb789aa07c645855eb1d70401bf49da118cc77",
+    "same_candidate_binding_receipt.json": "457cc10a66bbb87bcd002021a9f3f0fb0bf0c52c7118f48ab9a3f72bac7aa7e7",
+    "parent_same_state_equiv.pinned.log": "1aeac21e5d2d592d0d42b52734f7e6b104680bd86c54cfa0f4d19e6362c955f3",
+    "parent_proof_mutant_negative.pinned.log": "cf2e8b41ae8c6efd1bc1cd9ac2a5ca0f9df112c7d1021792eb26beda5812ca8d"
   },
   "metrics": {
     "area": {
@@ -87,7 +89,7 @@
       "metric": {
         "gold_max_data_arrival_ns": 11.31,
         "gate_max_data_arrival_ns": 11.35,
-        "clock_period_ns": 10.0
+        "clock_period_ns": 10
       },
       "negative_control": {
         "regressed_candidate_sha256": "0c5fc026be239f741fff310697183e597e741b6c4923b276e5ead7dafa1c0c99",
@@ -138,6 +140,24 @@
       "mutation": "boundary index removed from the helper mask; same equivalence check leaves one cell unproven",
       "log": "helper_proof_mutant_negative.pinned.log",
       "log_sha256": "b77ab59061914ecf0e1dbb08a6330fe0ceb1d06f46b22de51ae74aab702031e6"
+    },
+    "parent_table_same_state_equivalence": {
+      "status": "proved",
+      "interpretation": "ct_rtu_pst_preg gold and candidate parent tables are equivalent through the packaged same-state proof route",
+      "route": "per-side helper-flattened parent-table equiv_make with generated-temp blacklist, async2sync, dffunmap, equiv_simple -seq 8, equiv_induct -seq 8, and equiv_status -assert",
+      "log": "parent_same_state_equiv.pinned.log",
+      "log_sha256": "1aeac21e5d2d592d0d42b52734f7e6b104680bd86c54cfa0f4d19e6362c955f3",
+      "proven_equiv_cells": 31716,
+      "unproven_equiv_cells": 0
+    },
+    "parent_table_proof_negative_control": {
+      "status": "failed_as_expected",
+      "mutation": "boundary index removed from the helper mask and substituted through the parent table",
+      "log": "parent_proof_mutant_negative.pinned.log",
+      "log_sha256": "cf2e8b41ae8c6efd1bc1cd9ac2a5ca0f9df112c7d1021792eb26beda5812ca8d",
+      "proven_equiv_cells": 31681,
+      "unproven_equiv_cells": 35,
+      "interpretation": "the parent-table proof route discriminates the helper boundary mutant across recover/dealloc outputs"
     }
   },
   "negative_controls": {
@@ -152,10 +172,28 @@
     }
   },
   "known_boundaries": [
-    "customer_ready=false; not promoted as a result row",
+    "customer_ready=false; not promoted as a result row because timing regresses",
     "parent-table ct_rtu_pst_preg only",
-    "correctness evidence is helper-substitution equivalence, not a parent-table state-relation theorem",
+    "correctness evidence is helper-substitution equivalence plus parent-table same-state equivalence through the packaged replay route",
+    "no Lean theorem or theorem-registry authority is claimed by this receipt",
     "OpenSTA estimated power is not signoff power and not measured workload activity",
     "not whole RTU, whole C910, BOOM, ISA, memory consistency, speculation recovery, composed optimization, or whole-chip authority"
-  ]
+  ],
+  "independent_replay": {
+    "scope": "second-seat replay of the public package; confirms replayability only and does not promote the candidate to customer-ready",
+    "legs": {
+      "parent_table_same_state_equivalence": {
+        "proven_cells": 31716,
+        "unproven_cells": 0,
+        "verdict": "proved",
+        "log": "parent_same_state_equiv.pinned.log"
+      },
+      "parent_table_proof_mutant": {
+        "proven_cells": 31681,
+        "unproven_cells": 35,
+        "verdict": "failed_as_expected",
+        "log": "parent_proof_mutant_negative.pinned.log"
+      }
+    }
+  }
 }
