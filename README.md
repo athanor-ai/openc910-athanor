@@ -23,8 +23,8 @@ Public read in 30 seconds:
   bound to the same candidate. Three are metric wins on all reported axes; the
   LFB data-entry packet is area/timing-positive with neutral reported power.
 - Candidate scouts: remaining LSU queue/control and RTU table-helper candidates
-  include positive screens and hard negatives; none becomes a result row until
-  independent replay closes the full bar.
+  plus VFALU/VFMAC helper candidates include positive screens and hard negatives;
+  none becomes a result row until independent replay closes the full bar.
 - Gate discipline: proof-clean and area-positive is not enough. FIFO, ROB, RTU
   parent lifts, and LSU create-pointer scouts are rejected when the exact
   candidate netlist regresses timing.
