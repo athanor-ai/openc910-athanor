@@ -1,0 +1,9 @@
+read_verilog -sv ct_fadd_onehot_sel_d_gold.v
+rename ct_fadd_onehot_sel_d gold
+read_verilog -sv ct_fadd_onehot_sel_d_gate_candidate.v
+rename ct_fadd_onehot_sel_d gate
+read_verilog -formal ct_fadd_onehot_sel_d_onehot_miter.sv
+prep -top miter
+flatten
+opt
+sat -prove fail 0 -verify
