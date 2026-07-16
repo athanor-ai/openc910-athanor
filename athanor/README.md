@@ -43,19 +43,34 @@ read as more than it is:
 
 ## Replay
 
+One command reproduces any public package's receipt. `replay_public_receipt.py`
+self-locates the pinned verdict-bearing toolchain (the version-stamped
+oss-cad-suite Yosys, OpenSTA, and the sky130 Liberty), verifies each tool's
+identity (yosys version, OpenSTA version, Liberty sha256), and invokes that
+package's fail-closed `replay.sh`:
+
 ```
-# planned fork-local verifier for package hashes + manifest consistency
+# reproduce one package (the recommended first path)
+python3 athanor/replay_public_receipt.py <row_name>
+
+# resolve + verify the pinned toolchain without replaying
+python3 athanor/replay_public_receipt.py --print-env
+
+# list replayable packages
+python3 athanor/replay_public_receipt.py --list
+
+# verify package hashes + manifest consistency
 python3 athanor/verify_public_receipts.py
-
-# planned fork-local package replay from RTL
-cd athanor_artifacts/<row_name> && sh COMMANDS.md   # (commands are listed, run the ones for your toolchain)
 ```
 
-The current `ct_prio` replay entrypoint is the routed kairos packet linked from
-the top-level README. Fork-local packages must include `SHA256SUMS` so
-`sha256sum -c SHA256SUMS` passes inside a package. The planned verifier also
-checks each manifest's scope/assumption fields are present, so a row cannot
-silently drop its scope statement.
+A missing or mismatched Yosys/OpenSTA/Liberty is one named provisioning error
+BEFORE any proof or metric runs — never a silent substitution, never the ambient
+system yosys (which does not reproduce the pinned hashes). For a BYO / custom
+toolchain, set `YOSYS_BIN`/`STA_BIN`/`LIBERTY` and run a package's `replay.sh`
+directly. Fork-local packages must include `SHA256SUMS` so `sha256sum -c
+SHA256SUMS` passes inside a package; the verifier also checks each manifest's
+scope/assumption fields are present, so a row cannot silently drop its scope
+statement.
 
 ## Toolchain
 
