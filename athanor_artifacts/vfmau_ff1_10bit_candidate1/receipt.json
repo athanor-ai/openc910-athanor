@@ -1,6 +1,6 @@
 {
   "schema": "openc910.vfmau_ff1_10bit_helper_scout.v1",
-  "status": "candidate_metric_scout_pending_independent_replay",
+  "status": "helper_metric_scout_replay_confirmed",
   "customer_ready": false,
   "customer_ready_scope": "none; helper-level scout only",
   "target": {
@@ -71,6 +71,24 @@
     "helper-level VFMAC FF1 module only",
     "no parent ct_vfmau_mult_simd_half, full VFMAC, whole-C910, ISA, or workload claim",
     "OpenSTA estimated power is fixed-activity methodology, not signoff or workload power",
-    "independent non-author replay is still pending"
-  ]
+    "independent non-author replay confirms this helper package; parent integration is still pending"
+  ],
+  "independent_replay": {
+    "status": "passed",
+    "reviewer": "non-author replay seat",
+    "toolchain": {
+      "yosys_version": "Yosys 0.66+181 (git sha1 afe6b18f2)",
+      "opensta_version": "OpenSTA 2.2.0",
+      "liberty": "sky130_fd_sc_hd__tt_025C_1v80.lib",
+      "liberty_sha256": "ec0e1067a35c8bf20b11e58d1e8ac53326067e4dac84a125cc1b917a3518d0d9"
+    },
+    "checks": [
+      "SHA256SUMS clean before replay",
+      "gold/gate mapped netlists reproduced byte-exact",
+      "helper equivalence proves 4 cells with 0 unproven",
+      "swapped-index proof mutant leaves 2 unproven cells",
+      "area, OpenSTA max data-arrival, and OpenSTA estimated power reproduced"
+    ],
+    "boundary": "Confirms helper-local scout evidence only; customer_ready remains false until parent VFMAC integration and promotion review."
+  }
 }

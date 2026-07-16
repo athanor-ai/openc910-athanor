@@ -14,5 +14,6 @@ the helper module output only; this package does not claim parent
 | --- | --- | --- | --- |
 | `ct_vfmau_ff1_10bit` | `111.356800 -> 97.593600` | `0.89 ns -> 0.61 ns` | `2.46e-06 -> 2.06e-06 nW` |
 
-The package remains `customer_ready=false`: it is a helper-level metric scout
-pending independent replay and parent integration review.
+The package remains `customer_ready=false`: it is a replay-confirmed helper-level
+metric scout, not a parent VFMAC result row. Parent integration review is still
+required before any promotion discussion.
