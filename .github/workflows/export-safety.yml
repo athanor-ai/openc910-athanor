@@ -81,6 +81,19 @@ jobs:
           python3 -m pip install --quiet pytest
           PYTHONPATH=. python3 -m pytest -q tests/test_verify_public_receipts.py
 
+      # Export-safety GATE bites (the leak-scanner is subject-under-test). #39
+      # shipped tests/test_export_safety_gate.py but the runner names test files
+      # explicitly, so it never ran in CI -- a committed test is un-gated unless
+      # named. Pin it here beside the verifier bites: covers the kairos.<ns>
+      # namespace BLOCK, the case/hyphen-widened ticket WARN, tier-preservation,
+      # and the seeded-secret sole-discriminator bite, so a mutation to the gate
+      # patterns REDS in CI instead of passing silently.
+      - name: Verify export-safety gate bites (regression protection for the leak scanner)
+        if: github.event_name == 'pull_request' || github.event_name == 'push'
+        run: |
+          python3 -m pip install --quiet pytest
+          PYTHONPATH=. python3 -m pytest -q tests/test_export_safety_gate.py
+
       # PR body + review/issue comments are public surfaces the committed-tree
       # scan cannot see. Scan them with the SAME BLOCK_ALWAYS set (single source
       # of truth: export_safety_gate.py --scan-text). Runs on PR events AND on
