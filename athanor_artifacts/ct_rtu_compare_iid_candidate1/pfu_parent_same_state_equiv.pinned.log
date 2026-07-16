@@ -1,0 +1,1108 @@
+
+ /----------------------------------------------------------------------------\
+ |  yosys -- Yosys Open SYnthesis Suite                                       |
+ |  Copyright (C) 2012 - 2026  Claire Xenia Wolf <claire@yosyshq.com>         |
+ |  Distributed under an ISC-like license, type "license" to see terms        |
+ \----------------------------------------------------------------------------/
+ Yosys 0.66+181 (git sha1 afe6b18f2, Release, Clang /usr/bin/clang++ 18.1.8)
+
+-- Running command `read_verilog -sv replay_out/pfu_parent_gold_flat.v; read_verilog -sv replay_out/pfu_parent_gate_flat.v; proc; memory; opt; equiv_make -blacklist replay_out/pfu_parent_generated_temps.blacklist gold gate equiv; hierarchy -top equiv; flatten; async2sync; dffunmap; opt; equiv_simple -seq 8; equiv_induct -seq 8; equiv_status -assert' --
+
+1. Executing Verilog-2005 frontend: replay_out/pfu_parent_gold_flat.v
+Parsing SystemVerilog input from `replay_out/pfu_parent_gold_flat.v' to AST representation.
+Generating RTLIL representation for module `\gold'.
+Successfully finished Verilog frontend.
+
+2. Executing Verilog-2005 frontend: replay_out/pfu_parent_gate_flat.v
+Parsing SystemVerilog input from `replay_out/pfu_parent_gate_flat.v' to AST representation.
+Generating RTLIL representation for module `\gate'.
+Successfully finished Verilog frontend.
+
+3. Executing PROC pass (convert processes to netlists).
+
+3.1. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Cleaned up 0 empty switches.
+
+3.2. Executing PROC_RMDEAD pass (remove dead branches from decision trees).
+Marked 1 switch rules as full_case in process $proc$replay_out/pfu_parent_gate_flat.v:325$393 in module gate.
+Marked 1 switch rules as full_case in process $proc$replay_out/pfu_parent_gate_flat.v:322$392 in module gate.
+Marked 1 switch rules as full_case in process $proc$replay_out/pfu_parent_gate_flat.v:319$390 in module gate.
+Marked 1 switch rules as full_case in process $proc$replay_out/pfu_parent_gate_flat.v:316$388 in module gate.
+Marked 1 switch rules as full_case in process $proc$replay_out/pfu_parent_gate_flat.v:313$387 in module gate.
+Marked 1 switch rules as full_case in process $proc$replay_out/pfu_parent_gate_flat.v:310$385 in module gate.
+Marked 1 switch rules as full_case in process $proc$replay_out/pfu_parent_gate_flat.v:307$383 in module gate.
+Marked 1 switch rules as full_case in process $proc$replay_out/pfu_parent_gate_flat.v:304$382 in module gate.
+Marked 1 switch rules as full_case in process $proc$replay_out/pfu_parent_gate_flat.v:301$381 in module gate.
+Marked 1 switch rules as full_case in process $proc$replay_out/pfu_parent_gate_flat.v:298$379 in module gate.
+Marked 1 switch rules as full_case in process $proc$replay_out/pfu_parent_gate_flat.v:295$378 in module gate.
+Marked 1 switch rules as full_case in process $proc$replay_out/pfu_parent_gate_flat.v:292$377 in module gate.
+Marked 1 switch rules as full_case in process $proc$replay_out/pfu_parent_gate_flat.v:289$376 in module gate.
+Marked 1 switch rules as full_case in process $proc$replay_out/pfu_parent_gate_flat.v:286$375 in module gate.
+Marked 1 switch rules as full_case in process $proc$replay_out/pfu_parent_gate_flat.v:283$373 in module gate.
+Marked 1 switch rules as full_case in process $proc$replay_out/pfu_parent_gate_flat.v:280$371 in module gate.
+Marked 1 switch rules as full_case in process $proc$replay_out/pfu_parent_gate_flat.v:277$370 in module gate.
+Marked 1 switch rules as full_case in process $proc$replay_out/pfu_parent_gate_flat.v:274$368 in module gate.
+Marked 1 switch rules as full_case in process $proc$replay_out/pfu_parent_gate_flat.v:271$367 in module gate.
+Marked 1 switch rules as full_case in process $proc$replay_out/pfu_parent_gate_flat.v:268$366 in module gate.
+Marked 1 switch rules as full_case in process $proc$replay_out/pfu_parent_gold_flat.v:472$49 in module gold.
+Marked 1 switch rules as full_case in process $proc$replay_out/pfu_parent_gold_flat.v:469$47 in module gold.
+Marked 1 switch rules as full_case in process $proc$replay_out/pfu_parent_gold_flat.v:466$46 in module gold.
+Marked 1 switch rules as full_case in process $proc$replay_out/pfu_parent_gold_flat.v:463$45 in module gold.
+Marked 1 switch rules as full_case in process $proc$replay_out/pfu_parent_gold_flat.v:460$44 in module gold.
+Marked 1 switch rules as full_case in process $proc$replay_out/pfu_parent_gold_flat.v:457$43 in module gold.
+Marked 1 switch rules as full_case in process $proc$replay_out/pfu_parent_gold_flat.v:454$42 in module gold.
+Marked 1 switch rules as full_case in process $proc$replay_out/pfu_parent_gold_flat.v:451$40 in module gold.
+Marked 1 switch rules as full_case in process $proc$replay_out/pfu_parent_gold_flat.v:448$38 in module gold.
+Marked 1 switch rules as full_case in process $proc$replay_out/pfu_parent_gold_flat.v:445$37 in module gold.
+Marked 1 switch rules as full_case in process $proc$replay_out/pfu_parent_gold_flat.v:442$36 in module gold.
+Marked 1 switch rules as full_case in process $proc$replay_out/pfu_parent_gold_flat.v:439$34 in module gold.
+Marked 1 switch rules as full_case in process $proc$replay_out/pfu_parent_gold_flat.v:436$33 in module gold.
+Marked 1 switch rules as full_case in process $proc$replay_out/pfu_parent_gold_flat.v:433$31 in module gold.
+Marked 1 switch rules as full_case in process $proc$replay_out/pfu_parent_gold_flat.v:430$29 in module gold.
+Marked 1 switch rules as full_case in process $proc$replay_out/pfu_parent_gold_flat.v:427$28 in module gold.
+Marked 1 switch rules as full_case in process $proc$replay_out/pfu_parent_gold_flat.v:424$27 in module gold.
+Marked 1 switch rules as full_case in process $proc$replay_out/pfu_parent_gold_flat.v:421$25 in module gold.
+Marked 1 switch rules as full_case in process $proc$replay_out/pfu_parent_gold_flat.v:418$23 in module gold.
+Marked 1 switch rules as full_case in process $proc$replay_out/pfu_parent_gold_flat.v:415$22 in module gold.
+Removed a total of 0 dead cases.
+
+3.3. Executing PROC_PRUNE pass (remove redundant assignments in processes).
+Removed 40 redundant assignments.
+Promoted 0 assignments to connections.
+
+3.4. Executing PROC_INIT pass (extract init attributes).
+
+3.5. Executing PROC_ARST pass (detect async resets in processes).
+
+3.6. Executing PROC_ROM pass (convert switches to ROMs).
+Converted 0 switches.
+<suppressed ~40 debug messages>
+
+3.7. Executing PROC_MUX pass (convert decision trees to multiplexers).
+Creating decoders for process `\gate.$proc$replay_out/pfu_parent_gate_flat.v:325$393'.
+     1/1: $0\_017_[0:0]
+Creating decoders for process `\gate.$proc$replay_out/pfu_parent_gate_flat.v:322$392'.
+     1/1: $0\_018_[0:0]
+Creating decoders for process `\gate.$proc$replay_out/pfu_parent_gate_flat.v:319$390'.
+     1/1: $0\_019_[39:0]
+Creating decoders for process `\gate.$proc$replay_out/pfu_parent_gate_flat.v:316$388'.
+     1/1: $0\_020_[39:0]
+Creating decoders for process `\gate.$proc$replay_out/pfu_parent_gate_flat.v:313$387'.
+     1/1: $0\_021_[0:0]
+Creating decoders for process `\gate.$proc$replay_out/pfu_parent_gate_flat.v:310$385'.
+     1/1: $0\_022_[39:0]
+Creating decoders for process `\gate.$proc$replay_out/pfu_parent_gate_flat.v:307$383'.
+     1/1: $0\_023_[6:0]
+Creating decoders for process `\gate.$proc$replay_out/pfu_parent_gate_flat.v:304$382'.
+     1/1: $0\_024_[0:0]
+Creating decoders for process `\gate.$proc$replay_out/pfu_parent_gate_flat.v:301$381'.
+     1/1: $0\_025_[0:0]
+Creating decoders for process `\gate.$proc$replay_out/pfu_parent_gate_flat.v:298$379'.
+     1/1: $0\_026_[6:0]
+Creating decoders for process `\gate.$proc$replay_out/pfu_parent_gate_flat.v:295$378'.
+     1/1: $0\_027_[0:0]
+Creating decoders for process `\gate.$proc$replay_out/pfu_parent_gate_flat.v:292$377'.
+     1/1: $0\_013_[0:0]
+Creating decoders for process `\gate.$proc$replay_out/pfu_parent_gate_flat.v:289$376'.
+     1/1: $0\_008_[0:0]
+Creating decoders for process `\gate.$proc$replay_out/pfu_parent_gate_flat.v:286$375'.
+     1/1: $0\_014_[0:0]
+Creating decoders for process `\gate.$proc$replay_out/pfu_parent_gate_flat.v:283$373'.
+     1/1: $0\_009_[6:0]
+Creating decoders for process `\gate.$proc$replay_out/pfu_parent_gate_flat.v:280$371'.
+     1/1: $0\_015_[10:0]
+Creating decoders for process `\gate.$proc$replay_out/pfu_parent_gate_flat.v:277$370'.
+     1/1: $0\_010_[0:0]
+Creating decoders for process `\gate.$proc$replay_out/pfu_parent_gate_flat.v:274$368'.
+     1/1: $0\_016_[0:0]
+Creating decoders for process `\gate.$proc$replay_out/pfu_parent_gate_flat.v:271$367'.
+     1/1: $0\_011_[0:0]
+Creating decoders for process `\gate.$proc$replay_out/pfu_parent_gate_flat.v:268$366'.
+     1/1: $0\_012_[0:0]
+Creating decoders for process `\gold.$proc$replay_out/pfu_parent_gold_flat.v:472$49'.
+     1/1: $0\_008_[0:0]
+Creating decoders for process `\gold.$proc$replay_out/pfu_parent_gold_flat.v:469$47'.
+     1/1: $0\_009_[6:0]
+Creating decoders for process `\gold.$proc$replay_out/pfu_parent_gold_flat.v:466$46'.
+     1/1: $0\_010_[0:0]
+Creating decoders for process `\gold.$proc$replay_out/pfu_parent_gold_flat.v:463$45'.
+     1/1: $0\_011_[0:0]
+Creating decoders for process `\gold.$proc$replay_out/pfu_parent_gold_flat.v:460$44'.
+     1/1: $0\_012_[0:0]
+Creating decoders for process `\gold.$proc$replay_out/pfu_parent_gold_flat.v:457$43'.
+     1/1: $0\_013_[0:0]
+Creating decoders for process `\gold.$proc$replay_out/pfu_parent_gold_flat.v:454$42'.
+     1/1: $0\_014_[0:0]
+Creating decoders for process `\gold.$proc$replay_out/pfu_parent_gold_flat.v:451$40'.
+     1/1: $0\_015_[10:0]
+Creating decoders for process `\gold.$proc$replay_out/pfu_parent_gold_flat.v:448$38'.
+     1/1: $0\_016_[0:0]
+Creating decoders for process `\gold.$proc$replay_out/pfu_parent_gold_flat.v:445$37'.
+     1/1: $0\_017_[0:0]
+Creating decoders for process `\gold.$proc$replay_out/pfu_parent_gold_flat.v:442$36'.
+     1/1: $0\_018_[0:0]
+Creating decoders for process `\gold.$proc$replay_out/pfu_parent_gold_flat.v:439$34'.
+     1/1: $0\_019_[39:0]
+Creating decoders for process `\gold.$proc$replay_out/pfu_parent_gold_flat.v:436$33'.
+     1/1: $0\_025_[0:0]
+Creating decoders for process `\gold.$proc$replay_out/pfu_parent_gold_flat.v:433$31'.
+     1/1: $0\_020_[39:0]
+Creating decoders for process `\gold.$proc$replay_out/pfu_parent_gold_flat.v:430$29'.
+     1/1: $0\_026_[6:0]
+Creating decoders for process `\gold.$proc$replay_out/pfu_parent_gold_flat.v:427$28'.
+     1/1: $0\_021_[0:0]
+Creating decoders for process `\gold.$proc$replay_out/pfu_parent_gold_flat.v:424$27'.
+     1/1: $0\_027_[0:0]
+Creating decoders for process `\gold.$proc$replay_out/pfu_parent_gold_flat.v:421$25'.
+     1/1: $0\_022_[39:0]
+Creating decoders for process `\gold.$proc$replay_out/pfu_parent_gold_flat.v:418$23'.
+     1/1: $0\_023_[6:0]
+Creating decoders for process `\gold.$proc$replay_out/pfu_parent_gold_flat.v:415$22'.
+     1/1: $0\_024_[0:0]
+
+3.8. Executing PROC_DLATCH pass (convert process syncs to latches).
+
+3.9. Executing PROC_DFF pass (convert process syncs to FFs).
+Creating register for signal `\gate.\_017_' using process `\gate.$proc$replay_out/pfu_parent_gate_flat.v:325$393'.
+  created $dff cell `$procdff$632' with positive edge clock.
+Creating register for signal `\gate.\_018_' using process `\gate.$proc$replay_out/pfu_parent_gate_flat.v:322$392'.
+  created $dff cell `$procdff$633' with positive edge clock.
+Creating register for signal `\gate.\_019_' using process `\gate.$proc$replay_out/pfu_parent_gate_flat.v:319$390'.
+  created $dff cell `$procdff$634' with positive edge clock.
+Creating register for signal `\gate.\_020_' using process `\gate.$proc$replay_out/pfu_parent_gate_flat.v:316$388'.
+  created $dff cell `$procdff$635' with positive edge clock.
+Creating register for signal `\gate.\_021_' using process `\gate.$proc$replay_out/pfu_parent_gate_flat.v:313$387'.
+  created $dff cell `$procdff$636' with positive edge clock.
+Creating register for signal `\gate.\_022_' using process `\gate.$proc$replay_out/pfu_parent_gate_flat.v:310$385'.
+  created $dff cell `$procdff$637' with positive edge clock.
+Creating register for signal `\gate.\_023_' using process `\gate.$proc$replay_out/pfu_parent_gate_flat.v:307$383'.
+  created $dff cell `$procdff$638' with positive edge clock.
+Creating register for signal `\gate.\_024_' using process `\gate.$proc$replay_out/pfu_parent_gate_flat.v:304$382'.
+  created $dff cell `$procdff$639' with positive edge clock.
+Creating register for signal `\gate.\_025_' using process `\gate.$proc$replay_out/pfu_parent_gate_flat.v:301$381'.
+  created $dff cell `$procdff$640' with positive edge clock.
+Creating register for signal `\gate.\_026_' using process `\gate.$proc$replay_out/pfu_parent_gate_flat.v:298$379'.
+  created $dff cell `$procdff$641' with positive edge clock.
+Creating register for signal `\gate.\_027_' using process `\gate.$proc$replay_out/pfu_parent_gate_flat.v:295$378'.
+  created $dff cell `$procdff$642' with positive edge clock.
+Creating register for signal `\gate.\_013_' using process `\gate.$proc$replay_out/pfu_parent_gate_flat.v:292$377'.
+  created $dff cell `$procdff$643' with positive edge clock.
+Creating register for signal `\gate.\_008_' using process `\gate.$proc$replay_out/pfu_parent_gate_flat.v:289$376'.
+  created $dff cell `$procdff$644' with positive edge clock.
+Creating register for signal `\gate.\_014_' using process `\gate.$proc$replay_out/pfu_parent_gate_flat.v:286$375'.
+  created $dff cell `$procdff$645' with positive edge clock.
+Creating register for signal `\gate.\_009_' using process `\gate.$proc$replay_out/pfu_parent_gate_flat.v:283$373'.
+  created $dff cell `$procdff$646' with positive edge clock.
+Creating register for signal `\gate.\_015_' using process `\gate.$proc$replay_out/pfu_parent_gate_flat.v:280$371'.
+  created $dff cell `$procdff$647' with positive edge clock.
+Creating register for signal `\gate.\_010_' using process `\gate.$proc$replay_out/pfu_parent_gate_flat.v:277$370'.
+  created $dff cell `$procdff$648' with positive edge clock.
+Creating register for signal `\gate.\_016_' using process `\gate.$proc$replay_out/pfu_parent_gate_flat.v:274$368'.
+  created $dff cell `$procdff$649' with positive edge clock.
+Creating register for signal `\gate.\_011_' using process `\gate.$proc$replay_out/pfu_parent_gate_flat.v:271$367'.
+  created $dff cell `$procdff$650' with positive edge clock.
+Creating register for signal `\gate.\_012_' using process `\gate.$proc$replay_out/pfu_parent_gate_flat.v:268$366'.
+  created $dff cell `$procdff$651' with positive edge clock.
+Creating register for signal `\gold.\_008_' using process `\gold.$proc$replay_out/pfu_parent_gold_flat.v:472$49'.
+  created $dff cell `$procdff$652' with positive edge clock.
+Creating register for signal `\gold.\_009_' using process `\gold.$proc$replay_out/pfu_parent_gold_flat.v:469$47'.
+  created $dff cell `$procdff$653' with positive edge clock.
+Creating register for signal `\gold.\_010_' using process `\gold.$proc$replay_out/pfu_parent_gold_flat.v:466$46'.
+  created $dff cell `$procdff$654' with positive edge clock.
+Creating register for signal `\gold.\_011_' using process `\gold.$proc$replay_out/pfu_parent_gold_flat.v:463$45'.
+  created $dff cell `$procdff$655' with positive edge clock.
+Creating register for signal `\gold.\_012_' using process `\gold.$proc$replay_out/pfu_parent_gold_flat.v:460$44'.
+  created $dff cell `$procdff$656' with positive edge clock.
+Creating register for signal `\gold.\_013_' using process `\gold.$proc$replay_out/pfu_parent_gold_flat.v:457$43'.
+  created $dff cell `$procdff$657' with positive edge clock.
+Creating register for signal `\gold.\_014_' using process `\gold.$proc$replay_out/pfu_parent_gold_flat.v:454$42'.
+  created $dff cell `$procdff$658' with positive edge clock.
+Creating register for signal `\gold.\_015_' using process `\gold.$proc$replay_out/pfu_parent_gold_flat.v:451$40'.
+  created $dff cell `$procdff$659' with positive edge clock.
+Creating register for signal `\gold.\_016_' using process `\gold.$proc$replay_out/pfu_parent_gold_flat.v:448$38'.
+  created $dff cell `$procdff$660' with positive edge clock.
+Creating register for signal `\gold.\_017_' using process `\gold.$proc$replay_out/pfu_parent_gold_flat.v:445$37'.
+  created $dff cell `$procdff$661' with positive edge clock.
+Creating register for signal `\gold.\_018_' using process `\gold.$proc$replay_out/pfu_parent_gold_flat.v:442$36'.
+  created $dff cell `$procdff$662' with positive edge clock.
+Creating register for signal `\gold.\_019_' using process `\gold.$proc$replay_out/pfu_parent_gold_flat.v:439$34'.
+  created $dff cell `$procdff$663' with positive edge clock.
+Creating register for signal `\gold.\_025_' using process `\gold.$proc$replay_out/pfu_parent_gold_flat.v:436$33'.
+  created $dff cell `$procdff$664' with positive edge clock.
+Creating register for signal `\gold.\_020_' using process `\gold.$proc$replay_out/pfu_parent_gold_flat.v:433$31'.
+  created $dff cell `$procdff$665' with positive edge clock.
+Creating register for signal `\gold.\_026_' using process `\gold.$proc$replay_out/pfu_parent_gold_flat.v:430$29'.
+  created $dff cell `$procdff$666' with positive edge clock.
+Creating register for signal `\gold.\_021_' using process `\gold.$proc$replay_out/pfu_parent_gold_flat.v:427$28'.
+  created $dff cell `$procdff$667' with positive edge clock.
+Creating register for signal `\gold.\_027_' using process `\gold.$proc$replay_out/pfu_parent_gold_flat.v:424$27'.
+  created $dff cell `$procdff$668' with positive edge clock.
+Creating register for signal `\gold.\_022_' using process `\gold.$proc$replay_out/pfu_parent_gold_flat.v:421$25'.
+  created $dff cell `$procdff$669' with positive edge clock.
+Creating register for signal `\gold.\_023_' using process `\gold.$proc$replay_out/pfu_parent_gold_flat.v:418$23'.
+  created $dff cell `$procdff$670' with positive edge clock.
+Creating register for signal `\gold.\_024_' using process `\gold.$proc$replay_out/pfu_parent_gold_flat.v:415$22'.
+  created $dff cell `$procdff$671' with positive edge clock.
+
+3.10. Executing PROC_MEMWR pass (convert process memory writes to cells).
+
+3.11. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Found and cleaned up 1 empty switch in `\gate.$proc$replay_out/pfu_parent_gate_flat.v:325$393'.
+Removing empty process `gate.$proc$replay_out/pfu_parent_gate_flat.v:325$393'.
+Found and cleaned up 1 empty switch in `\gate.$proc$replay_out/pfu_parent_gate_flat.v:322$392'.
+Removing empty process `gate.$proc$replay_out/pfu_parent_gate_flat.v:322$392'.
+Found and cleaned up 1 empty switch in `\gate.$proc$replay_out/pfu_parent_gate_flat.v:319$390'.
+Removing empty process `gate.$proc$replay_out/pfu_parent_gate_flat.v:319$390'.
+Found and cleaned up 1 empty switch in `\gate.$proc$replay_out/pfu_parent_gate_flat.v:316$388'.
+Removing empty process `gate.$proc$replay_out/pfu_parent_gate_flat.v:316$388'.
+Found and cleaned up 1 empty switch in `\gate.$proc$replay_out/pfu_parent_gate_flat.v:313$387'.
+Removing empty process `gate.$proc$replay_out/pfu_parent_gate_flat.v:313$387'.
+Found and cleaned up 1 empty switch in `\gate.$proc$replay_out/pfu_parent_gate_flat.v:310$385'.
+Removing empty process `gate.$proc$replay_out/pfu_parent_gate_flat.v:310$385'.
+Found and cleaned up 1 empty switch in `\gate.$proc$replay_out/pfu_parent_gate_flat.v:307$383'.
+Removing empty process `gate.$proc$replay_out/pfu_parent_gate_flat.v:307$383'.
+Found and cleaned up 1 empty switch in `\gate.$proc$replay_out/pfu_parent_gate_flat.v:304$382'.
+Removing empty process `gate.$proc$replay_out/pfu_parent_gate_flat.v:304$382'.
+Found and cleaned up 1 empty switch in `\gate.$proc$replay_out/pfu_parent_gate_flat.v:301$381'.
+Removing empty process `gate.$proc$replay_out/pfu_parent_gate_flat.v:301$381'.
+Found and cleaned up 1 empty switch in `\gate.$proc$replay_out/pfu_parent_gate_flat.v:298$379'.
+Removing empty process `gate.$proc$replay_out/pfu_parent_gate_flat.v:298$379'.
+Found and cleaned up 1 empty switch in `\gate.$proc$replay_out/pfu_parent_gate_flat.v:295$378'.
+Removing empty process `gate.$proc$replay_out/pfu_parent_gate_flat.v:295$378'.
+Found and cleaned up 1 empty switch in `\gate.$proc$replay_out/pfu_parent_gate_flat.v:292$377'.
+Removing empty process `gate.$proc$replay_out/pfu_parent_gate_flat.v:292$377'.
+Found and cleaned up 1 empty switch in `\gate.$proc$replay_out/pfu_parent_gate_flat.v:289$376'.
+Removing empty process `gate.$proc$replay_out/pfu_parent_gate_flat.v:289$376'.
+Found and cleaned up 1 empty switch in `\gate.$proc$replay_out/pfu_parent_gate_flat.v:286$375'.
+Removing empty process `gate.$proc$replay_out/pfu_parent_gate_flat.v:286$375'.
+Found and cleaned up 1 empty switch in `\gate.$proc$replay_out/pfu_parent_gate_flat.v:283$373'.
+Removing empty process `gate.$proc$replay_out/pfu_parent_gate_flat.v:283$373'.
+Found and cleaned up 1 empty switch in `\gate.$proc$replay_out/pfu_parent_gate_flat.v:280$371'.
+Removing empty process `gate.$proc$replay_out/pfu_parent_gate_flat.v:280$371'.
+Found and cleaned up 1 empty switch in `\gate.$proc$replay_out/pfu_parent_gate_flat.v:277$370'.
+Removing empty process `gate.$proc$replay_out/pfu_parent_gate_flat.v:277$370'.
+Found and cleaned up 1 empty switch in `\gate.$proc$replay_out/pfu_parent_gate_flat.v:274$368'.
+Removing empty process `gate.$proc$replay_out/pfu_parent_gate_flat.v:274$368'.
+Found and cleaned up 1 empty switch in `\gate.$proc$replay_out/pfu_parent_gate_flat.v:271$367'.
+Removing empty process `gate.$proc$replay_out/pfu_parent_gate_flat.v:271$367'.
+Found and cleaned up 1 empty switch in `\gate.$proc$replay_out/pfu_parent_gate_flat.v:268$366'.
+Removing empty process `gate.$proc$replay_out/pfu_parent_gate_flat.v:268$366'.
+Found and cleaned up 1 empty switch in `\gold.$proc$replay_out/pfu_parent_gold_flat.v:472$49'.
+Removing empty process `gold.$proc$replay_out/pfu_parent_gold_flat.v:472$49'.
+Found and cleaned up 1 empty switch in `\gold.$proc$replay_out/pfu_parent_gold_flat.v:469$47'.
+Removing empty process `gold.$proc$replay_out/pfu_parent_gold_flat.v:469$47'.
+Found and cleaned up 1 empty switch in `\gold.$proc$replay_out/pfu_parent_gold_flat.v:466$46'.
+Removing empty process `gold.$proc$replay_out/pfu_parent_gold_flat.v:466$46'.
+Found and cleaned up 1 empty switch in `\gold.$proc$replay_out/pfu_parent_gold_flat.v:463$45'.
+Removing empty process `gold.$proc$replay_out/pfu_parent_gold_flat.v:463$45'.
+Found and cleaned up 1 empty switch in `\gold.$proc$replay_out/pfu_parent_gold_flat.v:460$44'.
+Removing empty process `gold.$proc$replay_out/pfu_parent_gold_flat.v:460$44'.
+Found and cleaned up 1 empty switch in `\gold.$proc$replay_out/pfu_parent_gold_flat.v:457$43'.
+Removing empty process `gold.$proc$replay_out/pfu_parent_gold_flat.v:457$43'.
+Found and cleaned up 1 empty switch in `\gold.$proc$replay_out/pfu_parent_gold_flat.v:454$42'.
+Removing empty process `gold.$proc$replay_out/pfu_parent_gold_flat.v:454$42'.
+Found and cleaned up 1 empty switch in `\gold.$proc$replay_out/pfu_parent_gold_flat.v:451$40'.
+Removing empty process `gold.$proc$replay_out/pfu_parent_gold_flat.v:451$40'.
+Found and cleaned up 1 empty switch in `\gold.$proc$replay_out/pfu_parent_gold_flat.v:448$38'.
+Removing empty process `gold.$proc$replay_out/pfu_parent_gold_flat.v:448$38'.
+Found and cleaned up 1 empty switch in `\gold.$proc$replay_out/pfu_parent_gold_flat.v:445$37'.
+Removing empty process `gold.$proc$replay_out/pfu_parent_gold_flat.v:445$37'.
+Found and cleaned up 1 empty switch in `\gold.$proc$replay_out/pfu_parent_gold_flat.v:442$36'.
+Removing empty process `gold.$proc$replay_out/pfu_parent_gold_flat.v:442$36'.
+Found and cleaned up 1 empty switch in `\gold.$proc$replay_out/pfu_parent_gold_flat.v:439$34'.
+Removing empty process `gold.$proc$replay_out/pfu_parent_gold_flat.v:439$34'.
+Found and cleaned up 1 empty switch in `\gold.$proc$replay_out/pfu_parent_gold_flat.v:436$33'.
+Removing empty process `gold.$proc$replay_out/pfu_parent_gold_flat.v:436$33'.
+Found and cleaned up 1 empty switch in `\gold.$proc$replay_out/pfu_parent_gold_flat.v:433$31'.
+Removing empty process `gold.$proc$replay_out/pfu_parent_gold_flat.v:433$31'.
+Found and cleaned up 1 empty switch in `\gold.$proc$replay_out/pfu_parent_gold_flat.v:430$29'.
+Removing empty process `gold.$proc$replay_out/pfu_parent_gold_flat.v:430$29'.
+Found and cleaned up 1 empty switch in `\gold.$proc$replay_out/pfu_parent_gold_flat.v:427$28'.
+Removing empty process `gold.$proc$replay_out/pfu_parent_gold_flat.v:427$28'.
+Found and cleaned up 1 empty switch in `\gold.$proc$replay_out/pfu_parent_gold_flat.v:424$27'.
+Removing empty process `gold.$proc$replay_out/pfu_parent_gold_flat.v:424$27'.
+Found and cleaned up 1 empty switch in `\gold.$proc$replay_out/pfu_parent_gold_flat.v:421$25'.
+Removing empty process `gold.$proc$replay_out/pfu_parent_gold_flat.v:421$25'.
+Found and cleaned up 1 empty switch in `\gold.$proc$replay_out/pfu_parent_gold_flat.v:418$23'.
+Removing empty process `gold.$proc$replay_out/pfu_parent_gold_flat.v:418$23'.
+Found and cleaned up 1 empty switch in `\gold.$proc$replay_out/pfu_parent_gold_flat.v:415$22'.
+Removing empty process `gold.$proc$replay_out/pfu_parent_gold_flat.v:415$22'.
+Cleaned up 40 empty switches.
+
+3.12. Executing OPT_EXPR pass (perform const folding).
+Optimizing module gate.
+<suppressed ~8 debug messages>
+Optimizing module gold.
+<suppressed ~8 debug messages>
+
+4. Executing MEMORY pass.
+
+4.1. Executing OPT_MEM pass (optimize memories).
+Performed a total of 0 transformations.
+
+4.2. Executing OPT_MEM_PRIORITY pass (removing unnecessary memory write priority relations).
+Performed a total of 0 transformations.
+
+4.3. Executing OPT_MEM_FEEDBACK pass (finding memory read-to-write feedback paths).
+
+4.4. Executing MEMORY_BMUX2ROM pass (converting muxes to ROMs).
+
+4.5. Executing MEMORY_DFF pass (merging $dff cells to $memrd).
+
+4.6. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \gate..
+Finding unused cells or wires in module \gold..
+Removed 16 unused cells and 551 unused wires.
+<suppressed ~18 debug messages>
+
+4.7. Executing MEMORY_SHARE pass (consolidating $memrd/$memwr cells).
+
+4.8. Executing OPT_MEM_WIDEN pass (optimize memories where all ports are wide).
+Performed a total of 0 transformations.
+
+4.9. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \gate..
+Finding unused cells or wires in module \gold..
+
+4.10. Executing MEMORY_COLLECT pass (generating $mem cells).
+
+4.11. Executing MEMORY_MAP pass (converting memories to logic and flip-flops).
+
+5. Executing OPT pass (performing simple optimizations).
+
+5.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module gate.
+Optimizing module gold.
+
+5.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\gate'.
+Computing hashes of 179 cells of `\gate'.
+Finding duplicate cells in `\gate'.
+Finding identical cells in module `\gold'.
+Computing hashes of 356 cells of `\gold'.
+Finding duplicate cells in `\gold'.
+Removed a total of 0 cells.
+
+5.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \gate..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \gold..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~218 debug messages>
+
+5.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \gate.
+  Optimizing cells in module \gold.
+Performed a total of 0 changes.
+
+5.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\gate'.
+Computing hashes of 179 cells of `\gate'.
+Finding duplicate cells in `\gate'.
+Finding identical cells in module `\gold'.
+Computing hashes of 356 cells of `\gold'.
+Finding duplicate cells in `\gold'.
+Removed a total of 0 cells.
+
+5.6. Executing OPT_DFF pass (perform DFF optimizations).
+Adding SRST signal on $procdff$651 ($dff) from module gate (D = \_089_, Q = \_012_, rval = 1'0).
+Adding SRST signal on $procdff$650 ($dff) from module gate (D = \_091_, Q = \_011_, rval = 1'0).
+Adding SRST signal on $procdff$649 ($dff) from module gate (D = \_007_, Q = \_016_, rval = 1'0).
+Adding SRST signal on $procdff$648 ($dff) from module gate (D = \_086_, Q = \_010_, rval = 1'0).
+Adding SRST signal on $procdff$647 ($dff) from module gate (D = \_006_, Q = \_015_, rval = 11'00000000000).
+Adding SRST signal on $procdff$646 ($dff) from module gate (D = \_004_, Q = \_009_, rval = 7'0000000).
+Adding SRST signal on $procdff$645 ($dff) from module gate (D = \_093_, Q = \_014_, rval = 1'0).
+Adding SRST signal on $procdff$644 ($dff) from module gate (D = \_092_, Q = \_008_, rval = 1'0).
+Adding SRST signal on $procdff$632 ($dff) from module gate (D = \_090_, Q = \_017_, rval = 1'0).
+Adding SRST signal on $procdff$633 ($dff) from module gate (D = \_084_, Q = \_018_, rval = 1'0).
+Adding SRST signal on $procdff$634 ($dff) from module gate (D = \_000_, Q = \_019_, rval = 40'0000000000000000000000000000000000000000).
+Adding SRST signal on $procdff$635 ($dff) from module gate (D = \_001_, Q = \_020_, rval = 40'0000000000000000000000000000000000000000).
+Adding SRST signal on $procdff$636 ($dff) from module gate (D = \_083_, Q = \_021_, rval = 1'0).
+Adding SRST signal on $procdff$637 ($dff) from module gate (D = \_002_, Q = \_022_, rval = 40'0000000000000000000000000000000000000000).
+Adding SRST signal on $procdff$638 ($dff) from module gate (D = \_005_, Q = \_023_, rval = 7'0000000).
+Adding SRST signal on $procdff$639 ($dff) from module gate (D = \_082_, Q = \_024_, rval = 1'0).
+Adding SRST signal on $procdff$640 ($dff) from module gate (D = \_088_, Q = \_025_, rval = 1'0).
+Adding SRST signal on $procdff$641 ($dff) from module gate (D = \_003_, Q = \_026_, rval = 7'0000000).
+Adding SRST signal on $procdff$642 ($dff) from module gate (D = \_085_, Q = \_027_, rval = 1'0).
+Adding SRST signal on $procdff$643 ($dff) from module gate (D = \_087_, Q = \_013_, rval = 1'0).
+Adding SRST signal on $procdff$671 ($dff) from module gold (D = \_214_, Q = \_024_, rval = 1'0).
+Adding SRST signal on $procdff$670 ($dff) from module gold (D = \_005_, Q = \_023_, rval = 7'0000000).
+Adding SRST signal on $procdff$669 ($dff) from module gold (D = \_002_, Q = \_022_, rval = 40'0000000000000000000000000000000000000000).
+Adding SRST signal on $procdff$668 ($dff) from module gold (D = \_217_, Q = \_027_, rval = 1'0).
+Adding SRST signal on $procdff$667 ($dff) from module gold (D = \_215_, Q = \_021_, rval = 1'0).
+Adding SRST signal on $procdff$666 ($dff) from module gold (D = \_003_, Q = \_026_, rval = 7'0000000).
+Adding SRST signal on $procdff$665 ($dff) from module gold (D = \_001_, Q = \_020_, rval = 40'0000000000000000000000000000000000000000).
+Adding SRST signal on $procdff$664 ($dff) from module gold (D = \_220_, Q = \_025_, rval = 1'0).
+Adding SRST signal on $procdff$652 ($dff) from module gold (D = \_224_, Q = \_008_, rval = 1'0).
+Adding SRST signal on $procdff$653 ($dff) from module gold (D = \_004_, Q = \_009_, rval = 7'0000000).
+Adding SRST signal on $procdff$654 ($dff) from module gold (D = \_218_, Q = \_010_, rval = 1'0).
+Adding SRST signal on $procdff$655 ($dff) from module gold (D = \_223_, Q = \_011_, rval = 1'0).
+Adding SRST signal on $procdff$656 ($dff) from module gold (D = \_221_, Q = \_012_, rval = 1'0).
+Adding SRST signal on $procdff$657 ($dff) from module gold (D = \_219_, Q = \_013_, rval = 1'0).
+Adding SRST signal on $procdff$658 ($dff) from module gold (D = \_225_, Q = \_014_, rval = 1'0).
+Adding SRST signal on $procdff$659 ($dff) from module gold (D = \_006_, Q = \_015_, rval = 11'00000000000).
+Adding SRST signal on $procdff$660 ($dff) from module gold (D = \_007_, Q = \_016_, rval = 1'0).
+Adding SRST signal on $procdff$661 ($dff) from module gold (D = \_222_, Q = \_017_, rval = 1'0).
+Adding SRST signal on $procdff$662 ($dff) from module gold (D = \_216_, Q = \_018_, rval = 1'0).
+Adding SRST signal on $procdff$663 ($dff) from module gold (D = \_000_, Q = \_019_, rval = 40'0000000000000000000000000000000000000000).
+
+5.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \gate..
+Finding unused cells or wires in module \gold..
+Removed 40 unused cells and 40 unused wires.
+<suppressed ~42 debug messages>
+
+5.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module gate.
+Optimizing module gold.
+
+5.9. Rerunning OPT passes. (Maybe there is more to do..)
+
+5.10. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \gate..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \gold..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~178 debug messages>
+
+5.11. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \gate.
+  Optimizing cells in module \gold.
+Performed a total of 0 changes.
+
+5.12. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\gate'.
+Computing hashes of 159 cells of `\gate'.
+Finding duplicate cells in `\gate'.
+Finding identical cells in module `\gold'.
+Computing hashes of 336 cells of `\gold'.
+Finding duplicate cells in `\gold'.
+Removed a total of 0 cells.
+
+5.13. Executing OPT_DFF pass (perform DFF optimizations).
+
+5.14. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \gate..
+Finding unused cells or wires in module \gold..
+
+5.15. Executing OPT_EXPR pass (perform const folding).
+Optimizing module gate.
+Optimizing module gold.
+
+5.16. Finished fast OPT passes. (There is nothing left to do.)
+
+6. Executing EQUIV_MAKE pass (creating equiv checking module).
+Presumably equivalent wires: x_lsu_sdb_cmp_2.x_iid1_gold (\entry_iid_2_gold), x_lsu_sdb_cmp_2.x_iid1_gate (\entry_iid_2_gate) -> x_lsu_sdb_cmp_2.x_iid1
+Presumably equivalent wires: x_lsu_sdb_cmp_2.x_iid0_older_gold (\x_lsu_sdb_cmp_2.x_iid0_older_gold), x_lsu_sdb_cmp_2.x_iid0_older_gate (\x_lsu_sdb_cmp_2.x_iid0_older_gate) -> x_lsu_sdb_cmp_2.x_iid0_older
+Presumably equivalent wires: x_lsu_sdb_cmp_2.x_iid0_gold (\ld_da_iid_gold), x_lsu_sdb_cmp_2.x_iid0_gate (\ld_da_iid_gate) -> x_lsu_sdb_cmp_2.x_iid0
+Presumably equivalent wires: x_lsu_sdb_cmp_1.x_iid1_gold (\entry_iid_1_gold), x_lsu_sdb_cmp_1.x_iid1_gate (\entry_iid_1_gate) -> x_lsu_sdb_cmp_1.x_iid1
+Presumably equivalent wires: x_lsu_sdb_cmp_1.x_iid0_older_gold (\x_lsu_sdb_cmp_1.x_iid0_older_gold), x_lsu_sdb_cmp_1.x_iid0_older_gate (\x_lsu_sdb_cmp_1.x_iid0_older_gate) -> x_lsu_sdb_cmp_1.x_iid0_older
+Presumably equivalent wires: x_lsu_sdb_cmp_1.x_iid0_gold (\ld_da_iid_gold), x_lsu_sdb_cmp_1.x_iid0_gate (\ld_da_iid_gate) -> x_lsu_sdb_cmp_1.x_iid0
+Presumably equivalent wires: x_lsu_sdb_cmp_0.x_iid1_gold (\entry_iid_0_gold), x_lsu_sdb_cmp_0.x_iid1_gate (\entry_iid_0_gate) -> x_lsu_sdb_cmp_0.x_iid1
+Presumably equivalent wires: x_lsu_sdb_cmp_0.x_iid0_older_gold (\x_lsu_sdb_cmp_0.x_iid0_older_gold), x_lsu_sdb_cmp_0.x_iid0_older_gate (\x_lsu_sdb_cmp_0.x_iid0_older_gate) -> x_lsu_sdb_cmp_0.x_iid0_older
+Presumably equivalent wires: x_lsu_sdb_cmp_0.x_iid0_gold (\ld_da_iid_gold), x_lsu_sdb_cmp_0.x_iid0_gate (\ld_da_iid_gate) -> x_lsu_sdb_cmp_0.x_iid0
+Presumably equivalent wires: x_lsu_entry_cmit_all_gated_clk.pad_yy_icg_scan_en_gold (\pad_yy_icg_scan_en_gold), x_lsu_entry_cmit_all_gated_clk.pad_yy_icg_scan_en_gate (\pad_yy_icg_scan_en_gate) -> x_lsu_entry_cmit_all_gated_clk.pad_yy_icg_scan_en
+Presumably equivalent wires: x_lsu_entry_cmit_all_gated_clk.module_en_gold (\cp0_lsu_icg_en_gold), x_lsu_entry_cmit_all_gated_clk.module_en_gate (\cp0_lsu_icg_en_gate) -> x_lsu_entry_cmit_all_gated_clk.module_en
+Presumably equivalent wires: x_lsu_entry_cmit_all_gated_clk.global_en_gold (\cp0_yy_clk_en_gold), x_lsu_entry_cmit_all_gated_clk.global_en_gate (\cp0_yy_clk_en_gate) -> x_lsu_entry_cmit_all_gated_clk.global_en
+Presumably equivalent wires: x_lsu_entry_cmit_all_gated_clk.external_en_gold (1'0), x_lsu_entry_cmit_all_gated_clk.external_en_gate (1'0) -> x_lsu_entry_cmit_all_gated_clk.external_en
+Presumably equivalent wires: x_lsu_entry_cmit_all_gated_clk.clk_out_gold (\forever_cpuclk_gold), x_lsu_entry_cmit_all_gated_clk.clk_out_gate (\forever_cpuclk_gate) -> x_lsu_entry_cmit_all_gated_clk.clk_out
+Presumably equivalent wires: x_lsu_entry_cmit_all_gated_clk.clk_in_gold (\forever_cpuclk_gold), x_lsu_entry_cmit_all_gated_clk.clk_in_gate (\forever_cpuclk_gate) -> x_lsu_entry_cmit_all_gated_clk.clk_in
+Presumably equivalent wires: x_lsu_entry_cmit_all_gated_clk.SE_gold (\pad_yy_icg_scan_en_gold), x_lsu_entry_cmit_all_gated_clk.SE_gate (\pad_yy_icg_scan_en_gate) -> x_lsu_entry_cmit_all_gated_clk.SE
+Presumably equivalent wires: x_lsu_entry_addr_2_gated_clk.pad_yy_icg_scan_en_gold (\pad_yy_icg_scan_en_gold), x_lsu_entry_addr_2_gated_clk.pad_yy_icg_scan_en_gate (\pad_yy_icg_scan_en_gate) -> x_lsu_entry_addr_2_gated_clk.pad_yy_icg_scan_en
+Presumably equivalent wires: x_lsu_entry_addr_2_gated_clk.module_en_gold (\cp0_lsu_icg_en_gold), x_lsu_entry_addr_2_gated_clk.module_en_gate (\cp0_lsu_icg_en_gate) -> x_lsu_entry_addr_2_gated_clk.module_en
+Presumably equivalent wires: x_lsu_entry_addr_2_gated_clk.local_en_gold (\entry_addr_2_clk_en_gold), x_lsu_entry_addr_2_gated_clk.local_en_gate (\entry_addr_2_clk_en_gate) -> x_lsu_entry_addr_2_gated_clk.local_en
+Presumably equivalent wires: x_lsu_entry_addr_2_gated_clk.global_en_gold (\cp0_yy_clk_en_gold), x_lsu_entry_addr_2_gated_clk.global_en_gate (\cp0_yy_clk_en_gate) -> x_lsu_entry_addr_2_gated_clk.global_en
+Presumably equivalent wires: x_lsu_entry_addr_2_gated_clk.external_en_gold (1'0), x_lsu_entry_addr_2_gated_clk.external_en_gate (1'0) -> x_lsu_entry_addr_2_gated_clk.external_en
+Presumably equivalent wires: x_lsu_entry_addr_2_gated_clk.clk_out_gold (\forever_cpuclk_gold), x_lsu_entry_addr_2_gated_clk.clk_out_gate (\forever_cpuclk_gate) -> x_lsu_entry_addr_2_gated_clk.clk_out
+Presumably equivalent wires: x_lsu_entry_addr_2_gated_clk.clk_in_gold (\forever_cpuclk_gold), x_lsu_entry_addr_2_gated_clk.clk_in_gate (\forever_cpuclk_gate) -> x_lsu_entry_addr_2_gated_clk.clk_in
+Presumably equivalent wires: x_lsu_entry_addr_2_gated_clk.SE_gold (\pad_yy_icg_scan_en_gold), x_lsu_entry_addr_2_gated_clk.SE_gate (\pad_yy_icg_scan_en_gate) -> x_lsu_entry_addr_2_gated_clk.SE
+Presumably equivalent wires: x_lsu_entry_addr_1_gated_clk.pad_yy_icg_scan_en_gold (\pad_yy_icg_scan_en_gold), x_lsu_entry_addr_1_gated_clk.pad_yy_icg_scan_en_gate (\pad_yy_icg_scan_en_gate) -> x_lsu_entry_addr_1_gated_clk.pad_yy_icg_scan_en
+Presumably equivalent wires: x_lsu_entry_addr_1_gated_clk.module_en_gold (\cp0_lsu_icg_en_gold), x_lsu_entry_addr_1_gated_clk.module_en_gate (\cp0_lsu_icg_en_gate) -> x_lsu_entry_addr_1_gated_clk.module_en
+Presumably equivalent wires: x_lsu_entry_addr_1_gated_clk.local_en_gold (\entry_addr_1_clk_en_gold), x_lsu_entry_addr_1_gated_clk.local_en_gate (\entry_addr_1_clk_en_gate) -> x_lsu_entry_addr_1_gated_clk.local_en
+Presumably equivalent wires: x_lsu_entry_addr_1_gated_clk.global_en_gold (\cp0_yy_clk_en_gold), x_lsu_entry_addr_1_gated_clk.global_en_gate (\cp0_yy_clk_en_gate) -> x_lsu_entry_addr_1_gated_clk.global_en
+Presumably equivalent wires: x_lsu_entry_addr_1_gated_clk.external_en_gold (1'0), x_lsu_entry_addr_1_gated_clk.external_en_gate (1'0) -> x_lsu_entry_addr_1_gated_clk.external_en
+Presumably equivalent wires: x_lsu_entry_addr_1_gated_clk.clk_out_gold (\forever_cpuclk_gold), x_lsu_entry_addr_1_gated_clk.clk_out_gate (\forever_cpuclk_gate) -> x_lsu_entry_addr_1_gated_clk.clk_out
+Presumably equivalent wires: x_lsu_entry_addr_1_gated_clk.clk_in_gold (\forever_cpuclk_gold), x_lsu_entry_addr_1_gated_clk.clk_in_gate (\forever_cpuclk_gate) -> x_lsu_entry_addr_1_gated_clk.clk_in
+Presumably equivalent wires: x_lsu_entry_addr_1_gated_clk.SE_gold (\pad_yy_icg_scan_en_gold), x_lsu_entry_addr_1_gated_clk.SE_gate (\pad_yy_icg_scan_en_gate) -> x_lsu_entry_addr_1_gated_clk.SE
+Presumably equivalent wires: x_lsu_entry_addr_0_gated_clk.pad_yy_icg_scan_en_gold (\pad_yy_icg_scan_en_gold), x_lsu_entry_addr_0_gated_clk.pad_yy_icg_scan_en_gate (\pad_yy_icg_scan_en_gate) -> x_lsu_entry_addr_0_gated_clk.pad_yy_icg_scan_en
+Presumably equivalent wires: x_lsu_entry_addr_0_gated_clk.module_en_gold (\cp0_lsu_icg_en_gold), x_lsu_entry_addr_0_gated_clk.module_en_gate (\cp0_lsu_icg_en_gate) -> x_lsu_entry_addr_0_gated_clk.module_en
+Presumably equivalent wires: x_lsu_entry_addr_0_gated_clk.local_en_gold (\entry_addr_0_clk_en_gold), x_lsu_entry_addr_0_gated_clk.local_en_gate (\entry_addr_0_clk_en_gate) -> x_lsu_entry_addr_0_gated_clk.local_en
+Presumably equivalent wires: x_lsu_entry_addr_0_gated_clk.global_en_gold (\cp0_yy_clk_en_gold), x_lsu_entry_addr_0_gated_clk.global_en_gate (\cp0_yy_clk_en_gate) -> x_lsu_entry_addr_0_gated_clk.global_en
+Presumably equivalent wires: x_lsu_entry_addr_0_gated_clk.external_en_gold (1'0), x_lsu_entry_addr_0_gated_clk.external_en_gate (1'0) -> x_lsu_entry_addr_0_gated_clk.external_en
+Presumably equivalent wires: x_lsu_entry_addr_0_gated_clk.clk_out_gold (\forever_cpuclk_gold), x_lsu_entry_addr_0_gated_clk.clk_out_gate (\forever_cpuclk_gate) -> x_lsu_entry_addr_0_gated_clk.clk_out
+Presumably equivalent wires: x_lsu_entry_addr_0_gated_clk.clk_in_gold (\forever_cpuclk_gold), x_lsu_entry_addr_0_gated_clk.clk_in_gate (\forever_cpuclk_gate) -> x_lsu_entry_addr_0_gated_clk.clk_in
+Presumably equivalent wires: x_lsu_entry_addr_0_gated_clk.SE_gold (\pad_yy_icg_scan_en_gold), x_lsu_entry_addr_0_gated_clk.SE_gate (\pad_yy_icg_scan_en_gate) -> x_lsu_entry_addr_0_gated_clk.SE
+Presumably equivalent wires: entry_stride_pos_ge_cache_line_gold (\entry_stride_pos_ge_cache_line_gold), entry_stride_pos_ge_cache_line_gate (\entry_stride_pos_ge_cache_line_gate) -> entry_stride_pos_ge_cache_line
+Presumably equivalent wires: entry_stride_neg_set_gold (\entry_stride_0to1_gold [39]), entry_stride_neg_set_gate (\entry_stride_0to1_gate [39]) -> entry_stride_neg_set
+Presumably equivalent wires: entry_stride_neg_ge_cache_line_gold (\entry_stride_neg_ge_cache_line_gold), entry_stride_neg_ge_cache_line_gate (\entry_stride_neg_ge_cache_line_gate) -> entry_stride_neg_ge_cache_line
+Presumably equivalent wires: entry_stride_ge_cache_line_gold (\entry_stride_ge_cache_line_gold), entry_stride_ge_cache_line_gate (\entry_stride_ge_cache_line_gate) -> entry_stride_ge_cache_line
+Presumably equivalent wires: entry_stride_diff_eq_set_gold (\entry_stride_diff_eq_set_gold), entry_stride_diff_eq_set_gate (\entry_stride_diff_eq_set_gate) -> entry_stride_diff_eq_set
+Presumably equivalent wires: entry_stride_diff_eq_gold (\entry_stride_diff_eq_gold), entry_stride_diff_eq_gate (\entry_stride_diff_eq_gate) -> entry_stride_diff_eq
+Presumably equivalent wires: entry_stride_create_vld_gold (\entry_stride_create_vld_gold), entry_stride_create_vld_gate (\entry_stride_create_vld_gate) -> entry_stride_create_vld
+Presumably equivalent wires: entry_stride_cmp0_eq_set_gold (\entry_stride_cmp0_eq_set_gold), entry_stride_cmp0_eq_set_gate (\entry_stride_cmp0_eq_set_gate) -> entry_stride_cmp0_eq_set
+Presumably equivalent wires: entry_stride_cmp0_eq_gold (\entry_stride_cmp0_eq_gold), entry_stride_cmp0_eq_gate (\entry_stride_cmp0_eq_gate) -> entry_stride_cmp0_eq
+Presumably equivalent wires: entry_stride_1to2_gold (\entry_stride_1to2_gold), entry_stride_1to2_gate (\entry_stride_1to2_gate) -> entry_stride_1to2
+Presumably equivalent wires: entry_stride_1to0_gold (\entry_stride_1to0_gold), entry_stride_1to0_gate (\entry_stride_1to0_gate) -> entry_stride_1to0
+Presumably equivalent wires: entry_stride_0to1_zero_set_gold (\entry_stride_0to1_zero_set_gold), entry_stride_0to1_zero_set_gate (\entry_stride_0to1_zero_set_gate) -> entry_stride_0to1_zero_set
+Presumably equivalent wires: entry_stride_0to1_zero_gold (\entry_stride_0to1_zero_gold), entry_stride_0to1_zero_gate (\entry_stride_0to1_zero_gate) -> entry_stride_0to1_zero
+Presumably equivalent wires: entry_stride_0to1_pos_cross_2k_set_gold (\entry_stride_0to1_pos_cross_2k_set_gold), entry_stride_0to1_pos_cross_2k_set_gate (\entry_stride_0to1_pos_cross_2k_set_gate) -> entry_stride_0to1_pos_cross_2k_set
+Presumably equivalent wires: entry_stride_0to1_pos_cross_2k_gold (\entry_stride_0to1_pos_cross_2k_gold), entry_stride_0to1_pos_cross_2k_gate (\entry_stride_0to1_pos_cross_2k_gate) -> entry_stride_0to1_pos_cross_2k
+Presumably equivalent wires: entry_stride_0to1_neg_cross_2k_set_gold (\entry_stride_0to1_neg_cross_2k_set_gold), entry_stride_0to1_neg_cross_2k_set_gate (\entry_stride_0to1_neg_cross_2k_set_gate) -> entry_stride_0to1_neg_cross_2k_set
+Presumably equivalent wires: entry_stride_0to1_neg_cross_2k_gold (\entry_stride_0to1_neg_cross_2k_gold), entry_stride_0to1_neg_cross_2k_gate (\entry_stride_0to1_neg_cross_2k_gate) -> entry_stride_0to1_neg_cross_2k
+Presumably equivalent wires: entry_stride_0to1_cross_2k_gold (\entry_stride_0to1_cross_2k_gold), entry_stride_0to1_cross_2k_gate (\entry_stride_0to1_cross_2k_gate) -> entry_stride_0to1_cross_2k
+Presumably equivalent wires: entry_stride_0to1_gold (\entry_stride_0to1_gold), entry_stride_0to1_gate (\entry_stride_0to1_gate) -> entry_stride_0to1
+Presumably equivalent wires: entry_sel_2_gold (\entry_sel_2_gold), entry_sel_2_gate (\entry_sel_2_gate) -> entry_sel_2
+Presumably equivalent wires: entry_newer_than_ld_da_gold ({ \entry_newer_than_ld_da_gold [2] \entry_sel_2_gold \entry_newer_than_ld_da_gold [0] }), entry_newer_than_ld_da_gate ({ \entry_newer_than_ld_da_gate [2] \entry_sel_2_gate \entry_newer_than_ld_da_gate [0] }) -> entry_newer_than_ld_da
+Presumably equivalent wires: entry_iid_newer_than_ld_da_gold ({ \x_lsu_sdb_cmp_2.x_iid0_older_gold \x_lsu_sdb_cmp_1.x_iid0_older_gold \x_lsu_sdb_cmp_0.x_iid0_older_gold }), entry_iid_newer_than_ld_da_gate ({ \x_lsu_sdb_cmp_2.x_iid0_older_gate \x_lsu_sdb_cmp_1.x_iid0_older_gate \x_lsu_sdb_cmp_0.x_iid0_older_gate }) -> entry_iid_newer_than_ld_da
+Presumably equivalent wires: entry_iid_2_next_gold (\entry_iid_2_next_gold), entry_iid_2_next_gate (\entry_iid_2_next_gate) -> entry_iid_2_next
+Presumably equivalent wires: entry_iid_2_gold (\entry_iid_2_gold), entry_iid_2_gate (\entry_iid_2_gate) -> entry_iid_2
+Presumably equivalent wires: entry_iid_1_next_gold (\ld_da_iid_gold), entry_iid_1_next_gate (\ld_da_iid_gate) -> entry_iid_1_next
+Presumably equivalent wires: entry_iid_1_gold (\entry_iid_1_gold), entry_iid_1_gate (\entry_iid_1_gate) -> entry_iid_1
+Presumably equivalent wires: entry_iid_0_next_gold (\ld_da_iid_gold), entry_iid_0_next_gate (\ld_da_iid_gate) -> entry_iid_0_next
+Presumably equivalent wires: entry_iid_0_gold (\entry_iid_0_gold), entry_iid_0_gate (\entry_iid_0_gate) -> entry_iid_0
+Presumably equivalent wires: entry_flush_uncmit_gold (\entry_flush_uncmit_gold), entry_flush_uncmit_gate (\entry_flush_uncmit_gate) -> entry_flush_uncmit
+Presumably equivalent wires: entry_cmit_set_gold (\entry_cmit_set_gold), entry_cmit_set_gate (\entry_cmit_set_gate) -> entry_cmit_set
+Presumably equivalent wires: entry_cmit_hit2_gold (\entry_cmit_hit2_gold), entry_cmit_hit2_gate (\entry_cmit_hit2_gate) -> entry_cmit_hit2
+Presumably equivalent wires: entry_cmit_hit1_gold (\entry_cmit_hit1_gold), entry_cmit_hit1_gate (\entry_cmit_hit1_gate) -> entry_cmit_hit1
+Presumably equivalent wires: entry_cmit_hit0_gold (\entry_cmit_hit0_gold), entry_cmit_hit0_gate (\entry_cmit_hit0_gate) -> entry_cmit_hit0
+Presumably equivalent wires: entry_cmit_all_clk_gold (\forever_cpuclk_gold), entry_cmit_all_clk_gate (\forever_cpuclk_gate) -> entry_cmit_all_clk
+Presumably equivalent wires: entry_cmit_all_gold (\entry_cmit_all_gold), entry_cmit_all_gate (\entry_cmit_all_gate) -> entry_cmit_all
+Presumably equivalent wires: entry_cmit_gold (\entry_cmit_gold), entry_cmit_gate (\entry_cmit_gate) -> entry_cmit
+Presumably equivalent wires: entry_clr_addr_info_vld_gold (\entry_clr_addr_info_vld_gold), entry_clr_addr_info_vld_gate (\entry_clr_addr_info_vld_gate) -> entry_clr_addr_info_vld
+Presumably equivalent wires: entry_addr_vld_gold (\entry_addr_vld_gold), entry_addr_vld_gate (\entry_addr_vld_gate) -> entry_addr_vld
+Presumably equivalent wires: entry_addr_set_gold ({ \entry_addr_2_clk_en_gold \entry_addr_1_clk_en_gold \entry_addr_set_gold [0] }), entry_addr_set_gate ({ \entry_addr_2_clk_en_gate \entry_addr_1_clk_en_gate \entry_addr_set_gate [0] }) -> entry_addr_set
+Presumably equivalent wires: entry_addr_dp_set_gold ({ \entry_addr_2_clk_en_gold \entry_addr_1_clk_en_gold \entry_addr_0_clk_en_gold }), entry_addr_dp_set_gate ({ \entry_addr_2_clk_en_gate \entry_addr_1_clk_en_gate \entry_addr_0_clk_en_gate }) -> entry_addr_dp_set
+Presumably equivalent wires: entry_addr_2_next_gold (\entry_addr_2_next_gold), entry_addr_2_next_gate (\entry_addr_2_next_gate) -> entry_addr_2_next
+Presumably equivalent wires: entry_addr_2_clk_en_gold (\entry_addr_2_clk_en_gold), entry_addr_2_clk_en_gate (\entry_addr_2_clk_en_gate) -> entry_addr_2_clk_en
+Presumably equivalent wires: entry_addr_2_clk_gold (\forever_cpuclk_gold), entry_addr_2_clk_gate (\forever_cpuclk_gate) -> entry_addr_2_clk
+Presumably equivalent wires: entry_addr_2_gold (\entry_addr_2_gold), entry_addr_2_gate (\entry_addr_2_gate) -> entry_addr_2
+Presumably equivalent wires: entry_addr_1_next_gold (\pipe_va_gold), entry_addr_1_next_gate (\pipe_va_gate) -> entry_addr_1_next
+Presumably equivalent wires: entry_addr_1_clk_en_gold (\entry_addr_1_clk_en_gold), entry_addr_1_clk_en_gate (\entry_addr_1_clk_en_gate) -> entry_addr_1_clk_en
+Presumably equivalent wires: entry_addr_1_clk_gold (\forever_cpuclk_gold), entry_addr_1_clk_gate (\forever_cpuclk_gate) -> entry_addr_1_clk
+Presumably equivalent wires: entry_addr_1_gold (\entry_addr_1_gold), entry_addr_1_gate (\entry_addr_1_gate) -> entry_addr_1
+Presumably equivalent wires: entry_addr_0_next_gold (\pipe_va_gold), entry_addr_0_next_gate (\pipe_va_gate) -> entry_addr_0_next
+Presumably equivalent wires: entry_addr_0_clk_en_gold (\entry_addr_0_clk_en_gold), entry_addr_0_clk_en_gate (\entry_addr_0_clk_en_gate) -> entry_addr_0_clk_en
+Presumably equivalent wires: entry_addr_0_clk_gold (\forever_cpuclk_gold), entry_addr_0_clk_gate (\forever_cpuclk_gate) -> entry_addr_0_clk
+Presumably equivalent wires: entry_addr_0_gold (\entry_addr_0_gold), entry_addr_0_gate (\entry_addr_0_gate) -> entry_addr_0
+Presumably equivalent wires: rtu_yy_xx_flush_gold (\rtu_yy_xx_flush_gold), rtu_yy_xx_flush_gate (\rtu_yy_xx_flush_gate) -> rtu_yy_xx_flush
+Presumably equivalent wires: rtu_yy_xx_commit2_iid_gold (\rtu_yy_xx_commit2_iid_gold), rtu_yy_xx_commit2_iid_gate (\rtu_yy_xx_commit2_iid_gate) -> rtu_yy_xx_commit2_iid
+Presumably equivalent wires: rtu_yy_xx_commit2_gold (\rtu_yy_xx_commit2_gold), rtu_yy_xx_commit2_gate (\rtu_yy_xx_commit2_gate) -> rtu_yy_xx_commit2
+Presumably equivalent wires: rtu_yy_xx_commit1_iid_gold (\rtu_yy_xx_commit1_iid_gold), rtu_yy_xx_commit1_iid_gate (\rtu_yy_xx_commit1_iid_gate) -> rtu_yy_xx_commit1_iid
+Presumably equivalent wires: rtu_yy_xx_commit1_gold (\rtu_yy_xx_commit1_gold), rtu_yy_xx_commit1_gate (\rtu_yy_xx_commit1_gate) -> rtu_yy_xx_commit1
+Presumably equivalent wires: rtu_yy_xx_commit0_iid_gold (\rtu_yy_xx_commit0_iid_gold), rtu_yy_xx_commit0_iid_gate (\rtu_yy_xx_commit0_iid_gate) -> rtu_yy_xx_commit0_iid
+Presumably equivalent wires: rtu_yy_xx_commit0_gold (\rtu_yy_xx_commit0_gold), rtu_yy_xx_commit0_gate (\rtu_yy_xx_commit0_gate) -> rtu_yy_xx_commit0
+Presumably equivalent wires: pipe_va_gold (\pipe_va_gold), pipe_va_gate (\pipe_va_gate) -> pipe_va
+Presumably equivalent wires: pad_yy_icg_scan_en_gold (\pad_yy_icg_scan_en_gold), pad_yy_icg_scan_en_gate (\pad_yy_icg_scan_en_gate) -> pad_yy_icg_scan_en
+Presumably equivalent wires: ld_da_iid_gold (\ld_da_iid_gold), ld_da_iid_gate (\ld_da_iid_gate) -> ld_da_iid
+Presumably equivalent wires: forever_cpuclk_gold (\forever_cpuclk_gold), forever_cpuclk_gate (\forever_cpuclk_gate) -> forever_cpuclk
+Presumably equivalent wires: entry_vld_gold (\entry_vld_gold), entry_vld_gate (\entry_vld_gate) -> entry_vld
+Presumably equivalent wires: entry_strideh_6to0_gold (\entry_strideh_6to0_gold), entry_strideh_6to0_gate (\entry_strideh_6to0_gate) -> entry_strideh_6to0
+Presumably equivalent wires: entry_stride_neg_gold (\entry_stride_neg_gold), entry_stride_neg_gate (\entry_stride_neg_gate) -> entry_stride_neg
+Presumably equivalent wires: entry_stride_keep_gold (\entry_stride_keep_gold), entry_stride_keep_gate (\entry_stride_keep_gate) -> entry_stride_keep
+Presumably equivalent wires: entry_stride_gold (\entry_stride_gold), entry_stride_gate (\entry_stride_gate) -> entry_stride
+Presumably equivalent wires: entry_pf_inst_vld_gold (\entry_pf_inst_vld_gold), entry_pf_inst_vld_gate (\entry_pf_inst_vld_gate) -> entry_pf_inst_vld
+Presumably equivalent wires: entry_normal_stride_gold (\entry_normal_stride_gold), entry_normal_stride_gate (\entry_normal_stride_gate) -> entry_normal_stride
+Presumably equivalent wires: entry_create_gateclk_en_gold (\entry_create_gateclk_en_gold), entry_create_gateclk_en_gate (\entry_create_gateclk_en_gate) -> entry_create_gateclk_en
+Presumably equivalent wires: entry_create_dp_vld_gold (\entry_create_dp_vld_gold), entry_create_dp_vld_gate (\entry_create_dp_vld_gate) -> entry_create_dp_vld
+Presumably equivalent wires: entry_clk_gold (\entry_clk_gold), entry_clk_gate (\entry_clk_gate) -> entry_clk
+Presumably equivalent wires: entry_check_stride_success_gold (\entry_check_stride_success_gold), entry_check_stride_success_gate (\entry_check_stride_success_gate) -> entry_check_stride_success
+Presumably equivalent wires: entry_addr_cmp_info_vld_gold (\entry_addr_cmp_info_vld_gold), entry_addr_cmp_info_vld_gate (\entry_addr_cmp_info_vld_gate) -> entry_addr_cmp_info_vld
+Presumably equivalent wires: entry_addr0_act_gold (\entry_addr0_act_gold), entry_addr0_act_gate (\entry_addr0_act_gate) -> entry_addr0_act
+Presumably equivalent wires: cpurst_b_gold (\cpurst_b_gold), cpurst_b_gate (\cpurst_b_gate) -> cpurst_b
+Presumably equivalent wires: cp0_yy_clk_en_gold (\cp0_yy_clk_en_gold), cp0_yy_clk_en_gate (\cp0_yy_clk_en_gate) -> cp0_yy_clk_en
+Presumably equivalent wires: cp0_lsu_icg_en_gold (\cp0_lsu_icg_en_gold), cp0_lsu_icg_en_gate (\cp0_lsu_icg_en_gate) -> cp0_lsu_icg_en
+Changing input S of cell $ternary$replay_out/pfu_parent_gate_flat.v:445$511_gate ($mux): \entry_stride_ge_cache_line_gate -> \entry_stride_ge_cache_line
+Changing input B of cell $ternary$replay_out/pfu_parent_gate_flat.v:445$511_gate ($mux): \entry_stride_gate [6:0] -> \entry_stride [6:0]
+Changing input S of cell $ternary$replay_out/pfu_parent_gate_flat.v:444$510_gate ($mux): \entry_stride_neg_gate -> \entry_stride_neg
+Changing input B of cell $ternary$replay_out/pfu_parent_gate_flat.v:444$510_gate ($mux): \entry_stride_neg_ge_cache_line_gate -> \entry_stride_neg_ge_cache_line
+Changing input A of cell $ternary$replay_out/pfu_parent_gate_flat.v:444$510_gate ($mux): \entry_stride_pos_ge_cache_line_gate -> \entry_stride_pos_ge_cache_line
+Changing input S of cell $ternary$replay_out/pfu_parent_gate_flat.v:443$509_gate ($mux): \entry_sel_2_gate -> \entry_sel_2
+Changing input B of cell $ternary$replay_out/pfu_parent_gate_flat.v:443$509_gate ($mux): \entry_iid_1_gate -> \entry_iid_1
+Changing input S of cell $ternary$replay_out/pfu_parent_gate_flat.v:442$508_gate ($mux): \entry_sel_2_gate -> \entry_sel_2
+Changing input B of cell $ternary$replay_out/pfu_parent_gate_flat.v:442$508_gate ($mux): \entry_addr_1_gate -> \entry_addr_1
+Changing input B of cell $sub$replay_out/pfu_parent_gate_flat.v:441$507_gate ($sub): \entry_addr_1_gate -> \entry_addr_1
+Changing input A of cell $sub$replay_out/pfu_parent_gate_flat.v:441$507_gate ($sub): \entry_addr_2_gate -> \entry_addr_2
+Changing input B of cell $sub$replay_out/pfu_parent_gate_flat.v:440$506_gate ($sub): \entry_addr_0_gate -> \entry_addr_0
+Changing input A of cell $sub$replay_out/pfu_parent_gate_flat.v:440$506_gate ($sub): \entry_addr_1_gate -> \entry_addr_1
+Changing input B of cell $sub$replay_out/pfu_parent_gate_flat.v:439$505_gate ($sub): \entry_addr_1_gate -> \entry_addr_1
+Changing input A of cell $sub$replay_out/pfu_parent_gate_flat.v:439$505_gate ($sub): \entry_addr_0_gate -> \entry_addr_0
+Changing input A of cell $reduce_or$replay_out/pfu_parent_gate_flat.v:438$504_gate ($reduce_or): \entry_stride_gate [10:6] -> \entry_stride [10:6]
+Changing input A of cell $reduce_or$replay_out/pfu_parent_gate_flat.v:437$503_gate ($reduce_or): \entry_stride_0to1_gate -> \entry_stride_0to1
+Changing input A of cell $reduce_or$replay_out/pfu_parent_gate_flat.v:436$502_gate ($reduce_or): \entry_stride_1to0_gate [39:12] -> \entry_stride_1to0 [39:12]
+Changing input A of cell $reduce_or$replay_out/pfu_parent_gate_flat.v:435$501_gate ($reduce_or): \entry_stride_0to1_gate [39:12] -> \entry_stride_0to1 [39:12]
+Changing input A of cell $reduce_and$replay_out/pfu_parent_gate_flat.v:434$500_gate ($reduce_and): \entry_stride_gate [10:6] -> \entry_stride [10:6]
+Changing input A of cell $reduce_and$replay_out/pfu_parent_gate_flat.v:433$499_gate ($reduce_and): \entry_cmit_gate -> \entry_cmit
+Changing input S of cell $ternary$replay_out/pfu_parent_gate_flat.v:432$498_gate ($mux): \entry_addr_0_clk_en_gate -> \entry_addr_0_clk_en
+Changing input A of cell $ternary$replay_out/pfu_parent_gate_flat.v:432$498_gate ($mux): \entry_addr_0_gate -> \entry_addr_0
+Changing input S of cell $ternary$replay_out/pfu_parent_gate_flat.v:431$497_gate ($mux): \entry_addr_0_clk_en_gate -> \entry_addr_0_clk_en
+Changing input A of cell $ternary$replay_out/pfu_parent_gate_flat.v:431$497_gate ($mux): \entry_iid_0_gate -> \entry_iid_0
+Changing input S of cell $ternary$replay_out/pfu_parent_gate_flat.v:430$496_gate ($mux): \entry_addr_set_gate [0] -> \entry_addr_set [0]
+Changing input A of cell $ternary$replay_out/pfu_parent_gate_flat.v:430$496_gate ($mux): \entry_addr_vld_gate [0] -> \entry_addr_vld [0]
+Changing input S of cell $ternary$replay_out/pfu_parent_gate_flat.v:429$495_gate ($mux): \entry_cmit_set_gate [0] -> \entry_cmit_set [0]
+Changing input A of cell $ternary$replay_out/pfu_parent_gate_flat.v:429$495_gate ($mux): \entry_cmit_gate [0] -> \entry_cmit [0]
+Changing input S of cell $ternary$replay_out/pfu_parent_gate_flat.v:428$494_gate ($mux): \entry_addr_1_clk_en_gate -> \entry_addr_1_clk_en
+Changing input A of cell $ternary$replay_out/pfu_parent_gate_flat.v:428$494_gate ($mux): \entry_addr_1_gate -> \entry_addr_1
+Changing input S of cell $ternary$replay_out/pfu_parent_gate_flat.v:427$493_gate ($mux): \entry_addr_1_clk_en_gate -> \entry_addr_1_clk_en
+Changing input A of cell $ternary$replay_out/pfu_parent_gate_flat.v:427$493_gate ($mux): \entry_iid_1_gate -> \entry_iid_1
+Changing input S of cell $ternary$replay_out/pfu_parent_gate_flat.v:426$492_gate ($mux): \entry_addr_1_clk_en_gate -> \entry_addr_1_clk_en
+Changing input A of cell $ternary$replay_out/pfu_parent_gate_flat.v:426$492_gate ($mux): \entry_addr_vld_gate [1] -> \entry_addr_vld [1]
+Changing input S of cell $ternary$replay_out/pfu_parent_gate_flat.v:425$491_gate ($mux): \entry_cmit_set_gate [1] -> \entry_cmit_set [1]
+Changing input A of cell $ternary$replay_out/pfu_parent_gate_flat.v:425$491_gate ($mux): \entry_cmit_gate [1] -> \entry_cmit [1]
+Changing input S of cell $ternary$replay_out/pfu_parent_gate_flat.v:424$490_gate ($mux): \entry_addr_2_clk_en_gate -> \entry_addr_2_clk_en
+Changing input B of cell $ternary$replay_out/pfu_parent_gate_flat.v:424$490_gate ($mux): \entry_addr_2_next_gate -> \entry_addr_2_next
+Changing input A of cell $ternary$replay_out/pfu_parent_gate_flat.v:424$490_gate ($mux): \entry_addr_2_gate -> \entry_addr_2
+Changing input S of cell $ternary$replay_out/pfu_parent_gate_flat.v:423$489_gate ($mux): \entry_addr_2_clk_en_gate -> \entry_addr_2_clk_en
+Changing input B of cell $ternary$replay_out/pfu_parent_gate_flat.v:423$489_gate ($mux): \entry_iid_2_next_gate -> \entry_iid_2_next
+Changing input A of cell $ternary$replay_out/pfu_parent_gate_flat.v:423$489_gate ($mux): \entry_iid_2_gate -> \entry_iid_2
+Changing input S of cell $ternary$replay_out/pfu_parent_gate_flat.v:422$488_gate ($mux): \entry_addr_2_clk_en_gate -> \entry_addr_2_clk_en
+Changing input A of cell $ternary$replay_out/pfu_parent_gate_flat.v:422$488_gate ($mux): \entry_addr_vld_gate [2] -> \entry_addr_vld [2]
+Changing input S of cell $ternary$replay_out/pfu_parent_gate_flat.v:421$487_gate ($mux): \entry_cmit_set_gate [2] -> \entry_cmit_set [2]
+Changing input A of cell $ternary$replay_out/pfu_parent_gate_flat.v:421$487_gate ($mux): \entry_cmit_gate [2] -> \entry_cmit [2]
+Changing input S of cell $ternary$replay_out/pfu_parent_gate_flat.v:420$486_gate ($mux): \entry_stride_create_vld_gate -> \entry_stride_create_vld
+Changing input B of cell $ternary$replay_out/pfu_parent_gate_flat.v:420$486_gate ($mux): \entry_stride_0to1_gate [10:0] -> \entry_stride_0to1 [10:0]
+Changing input A of cell $ternary$replay_out/pfu_parent_gate_flat.v:420$486_gate ($mux): \entry_stride_gate -> \entry_stride
+Changing input S of cell $ternary$replay_out/pfu_parent_gate_flat.v:419$485_gate ($mux): \entry_stride_create_vld_gate -> \entry_stride_create_vld
+Changing input B of cell $ternary$replay_out/pfu_parent_gate_flat.v:419$485_gate ($mux): \entry_stride_0to1_gate [39] -> \entry_stride_0to1 [39]
+Changing input A of cell $ternary$replay_out/pfu_parent_gate_flat.v:419$485_gate ($mux): \entry_stride_neg_gate -> \entry_stride_neg
+Changing input A of cell $ternary$replay_out/pfu_parent_gate_flat.v:418$484_gate ($mux): \entry_addr_cmp_info_vld_gate -> \entry_addr_cmp_info_vld
+Changing input B of cell $ternary$replay_out/pfu_parent_gate_flat.v:417$483_gate ($mux): \entry_stride_0to1_neg_cross_2k_set_gate -> \entry_stride_0to1_neg_cross_2k_set
+Changing input A of cell $ternary$replay_out/pfu_parent_gate_flat.v:417$483_gate ($mux): \entry_stride_0to1_neg_cross_2k_gate -> \entry_stride_0to1_neg_cross_2k
+Changing input B of cell $ternary$replay_out/pfu_parent_gate_flat.v:416$482_gate ($mux): \entry_stride_0to1_pos_cross_2k_set_gate -> \entry_stride_0to1_pos_cross_2k_set
+Changing input A of cell $ternary$replay_out/pfu_parent_gate_flat.v:416$482_gate ($mux): \entry_stride_0to1_pos_cross_2k_gate -> \entry_stride_0to1_pos_cross_2k
+Changing input B of cell $ternary$replay_out/pfu_parent_gate_flat.v:415$481_gate ($mux): \entry_stride_0to1_zero_set_gate -> \entry_stride_0to1_zero_set
+Changing input A of cell $ternary$replay_out/pfu_parent_gate_flat.v:415$481_gate ($mux): \entry_stride_0to1_zero_gate -> \entry_stride_0to1_zero
+Changing input B of cell $ternary$replay_out/pfu_parent_gate_flat.v:414$480_gate ($mux): \entry_stride_cmp0_eq_set_gate -> \entry_stride_cmp0_eq_set
+Changing input A of cell $ternary$replay_out/pfu_parent_gate_flat.v:414$480_gate ($mux): \entry_stride_cmp0_eq_gate -> \entry_stride_cmp0_eq
+Changing input B of cell $ternary$replay_out/pfu_parent_gate_flat.v:413$479_gate ($mux): \entry_stride_diff_eq_set_gate -> \entry_stride_diff_eq_set
+Changing input A of cell $ternary$replay_out/pfu_parent_gate_flat.v:413$479_gate ($mux): \entry_stride_diff_eq_gate -> \entry_stride_diff_eq
+Changing input A of cell $not$replay_out/pfu_parent_gate_flat.v:411$477_gate ($not): \entry_cmit_gate -> \entry_cmit
+Changing input B of cell $logic_or$replay_out/pfu_parent_gate_flat.v:409$475_gate ($logic_or): \entry_newer_than_ld_da_gate [2] -> \entry_newer_than_ld_da [2]
+Changing input B of cell $logic_or$replay_out/pfu_parent_gate_flat.v:408$474_gate ($logic_or): \entry_sel_2_gate -> \entry_sel_2
+Changing input B of cell $logic_or$replay_out/pfu_parent_gate_flat.v:407$473_gate ($logic_or): \entry_cmit_hit2_gate [2] -> \entry_cmit_hit2 [2]
+Changing input B of cell $logic_or$replay_out/pfu_parent_gate_flat.v:406$472_gate ($logic_or): \entry_cmit_hit1_gate [2] -> \entry_cmit_hit1 [2]
+Changing input A of cell $logic_or$replay_out/pfu_parent_gate_flat.v:406$472_gate ($logic_or): \entry_cmit_hit0_gate [2] -> \entry_cmit_hit0 [2]
+Changing input B of cell $logic_or$replay_out/pfu_parent_gate_flat.v:405$471_gate ($logic_or): \entry_cmit_hit2_gate [1] -> \entry_cmit_hit2 [1]
+Changing input B of cell $logic_or$replay_out/pfu_parent_gate_flat.v:404$470_gate ($logic_or): \entry_cmit_hit1_gate [1] -> \entry_cmit_hit1 [1]
+Changing input A of cell $logic_or$replay_out/pfu_parent_gate_flat.v:404$470_gate ($logic_or): \entry_cmit_hit0_gate [1] -> \entry_cmit_hit0 [1]
+Changing input B of cell $logic_or$replay_out/pfu_parent_gate_flat.v:403$469_gate ($logic_or): \entry_cmit_hit2_gate [0] -> \entry_cmit_hit2 [0]
+Changing input B of cell $logic_or$replay_out/pfu_parent_gate_flat.v:402$468_gate ($logic_or): \entry_cmit_hit1_gate [0] -> \entry_cmit_hit1 [0]
+Changing input A of cell $logic_or$replay_out/pfu_parent_gate_flat.v:402$468_gate ($logic_or): \entry_cmit_hit0_gate [0] -> \entry_cmit_hit0 [0]
+Changing input B of cell $logic_or$replay_out/pfu_parent_gate_flat.v:401$467_gate ($logic_or): \entry_clr_addr_info_vld_gate -> \entry_clr_addr_info_vld
+Changing input B of cell $logic_or$replay_out/pfu_parent_gate_flat.v:400$466_gate ($logic_or): \entry_clr_addr_info_vld_gate -> \entry_clr_addr_info_vld
+Changing input B of cell $logic_or$replay_out/pfu_parent_gate_flat.v:399$465_gate ($logic_or): \entry_flush_uncmit_gate [2] -> \entry_flush_uncmit [2]
+Changing input B of cell $logic_or$replay_out/pfu_parent_gate_flat.v:398$464_gate ($logic_or): \entry_clr_addr_info_vld_gate -> \entry_clr_addr_info_vld
+Changing input B of cell $logic_or$replay_out/pfu_parent_gate_flat.v:397$463_gate ($logic_or): \entry_flush_uncmit_gate [1] -> \entry_flush_uncmit [1]
+Changing input B of cell $logic_or$replay_out/pfu_parent_gate_flat.v:396$462_gate ($logic_or): \entry_clr_addr_info_vld_gate -> \entry_clr_addr_info_vld
+Changing input B of cell $logic_or$replay_out/pfu_parent_gate_flat.v:395$461_gate ($logic_or): \entry_flush_uncmit_gate [0] -> \entry_flush_uncmit [0]
+Changing input A of cell $logic_not$replay_out/pfu_parent_gate_flat.v:393$459_gate ($logic_not): \entry_addr_cmp_info_vld_gate -> \entry_addr_cmp_info_vld
+Changing input A of cell $logic_not$replay_out/pfu_parent_gate_flat.v:391$457_gate ($logic_not): \entry_stride_0to1_cross_2k_gate -> \entry_stride_0to1_cross_2k
+Changing input A of cell $logic_not$replay_out/pfu_parent_gate_flat.v:390$456_gate ($logic_not): \entry_stride_0to1_zero_gate -> \entry_stride_0to1_zero
+Changing input A of cell $logic_not$replay_out/pfu_parent_gate_flat.v:389$455_gate ($logic_not): \entry_stride_neg_gate -> \entry_stride_neg
+Changing input A of cell $logic_not$replay_out/pfu_parent_gate_flat.v:388$454_gate ($logic_not): \entry_cmit_gate [2] -> \entry_cmit [2]
+Changing input A of cell $logic_not$replay_out/pfu_parent_gate_flat.v:387$453_gate ($logic_not): \entry_cmit_gate [1] -> \entry_cmit [1]
+Changing input A of cell $logic_not$replay_out/pfu_parent_gate_flat.v:386$452_gate ($logic_not): \entry_cmit_gate [0] -> \entry_cmit [0]
+Changing input A of cell $logic_not$replay_out/pfu_parent_gate_flat.v:385$451_gate ($logic_not): \entry_addr_vld_gate [2] -> \entry_addr_vld [2]
+Changing input A of cell $logic_not$replay_out/pfu_parent_gate_flat.v:384$450_gate ($logic_not): \entry_newer_than_ld_da_gate [0] -> \entry_newer_than_ld_da [0]
+Changing input A of cell $logic_not$replay_out/pfu_parent_gate_flat.v:383$449_gate ($logic_not): \entry_addr_vld_gate [1] -> \entry_addr_vld [1]
+Changing input A of cell $logic_not$replay_out/pfu_parent_gate_flat.v:382$448_gate ($logic_not): \entry_addr_vld_gate [0] -> \entry_addr_vld [0]
+Changing input B of cell $logic_and$replay_out/pfu_parent_gate_flat.v:381$447_gate ($logic_and): \entry_addr_cmp_info_vld_gate -> \entry_addr_cmp_info_vld
+Changing input A of cell $logic_and$replay_out/pfu_parent_gate_flat.v:381$447_gate ($logic_and): \entry_cmit_all_gate -> \entry_cmit_all
+Changing input A of cell $logic_and$replay_out/pfu_parent_gate_flat.v:379$445_gate ($logic_and): \entry_cmit_all_gate -> \entry_cmit_all
+Changing input B of cell $logic_and$replay_out/pfu_parent_gate_flat.v:378$444_gate ($logic_and): \entry_stride_cmp0_eq_gate -> \entry_stride_cmp0_eq
+Changing input A of cell $logic_and$replay_out/pfu_parent_gate_flat.v:378$444_gate ($logic_and): \entry_normal_stride_gate -> \entry_normal_stride
+Changing input B of cell $logic_and$replay_out/pfu_parent_gate_flat.v:377$443_gate ($logic_and): \entry_stride_diff_eq_gate -> \entry_stride_diff_eq
+Changing input B of cell $logic_and$replay_out/pfu_parent_gate_flat.v:375$441_gate ($logic_and): \entry_stride_0to1_pos_cross_2k_gate -> \entry_stride_0to1_pos_cross_2k
+Changing input B of cell $logic_and$replay_out/pfu_parent_gate_flat.v:374$440_gate ($logic_and): \entry_stride_0to1_neg_cross_2k_gate -> \entry_stride_0to1_neg_cross_2k
+Changing input A of cell $logic_and$replay_out/pfu_parent_gate_flat.v:374$440_gate ($logic_and): \entry_stride_neg_gate -> \entry_stride_neg
+Changing input B of cell $logic_and$replay_out/pfu_parent_gate_flat.v:373$439_gate ($logic_and): \entry_addr_vld_gate [2] -> \entry_addr_vld [2]
+Changing input A of cell $logic_and$replay_out/pfu_parent_gate_flat.v:372$438_gate ($logic_and): \x_lsu_sdb_cmp_2.x_iid0_older_gate -> \x_lsu_sdb_cmp_2.x_iid0_older
+Changing input B of cell $logic_and$replay_out/pfu_parent_gate_flat.v:371$437_gate ($logic_and): \entry_addr_vld_gate [1] -> \entry_addr_vld [1]
+Changing input A of cell $logic_and$replay_out/pfu_parent_gate_flat.v:370$436_gate ($logic_and): \x_lsu_sdb_cmp_1.x_iid0_older_gate -> \x_lsu_sdb_cmp_1.x_iid0_older
+Changing input B of cell $logic_and$replay_out/pfu_parent_gate_flat.v:369$435_gate ($logic_and): \entry_addr_vld_gate [0] -> \entry_addr_vld [0]
+Changing input A of cell $logic_and$replay_out/pfu_parent_gate_flat.v:368$434_gate ($logic_and): \x_lsu_sdb_cmp_0.x_iid0_older_gate -> \x_lsu_sdb_cmp_0.x_iid0_older
+Changing input A of cell $logic_and$replay_out/pfu_parent_gate_flat.v:367$433_gate ($logic_and): \entry_addr_0_clk_en_gate -> \entry_addr_0_clk_en
+Changing input B of cell $logic_and$replay_out/pfu_parent_gate_flat.v:365$431_gate ($logic_and): \entry_addr_vld_gate [1] -> \entry_addr_vld [1]
+Changing input A of cell $logic_and$replay_out/pfu_parent_gate_flat.v:365$431_gate ($logic_and): \entry_addr_vld_gate [0] -> \entry_addr_vld [0]
+Changing input A of cell $logic_and$replay_out/pfu_parent_gate_flat.v:362$428_gate ($logic_and): \entry_addr_vld_gate [0] -> \entry_addr_vld [0]
+Changing input B of cell $logic_and$replay_out/pfu_parent_gate_flat.v:359$425_gate ($logic_and): \entry_addr_vld_gate [2] -> \entry_addr_vld [2]
+Changing input B of cell $logic_and$replay_out/pfu_parent_gate_flat.v:358$424_gate ($logic_and): \entry_addr_vld_gate [1] -> \entry_addr_vld [1]
+Changing input B of cell $logic_and$replay_out/pfu_parent_gate_flat.v:357$423_gate ($logic_and): \entry_addr_vld_gate [0] -> \entry_addr_vld [0]
+Changing input B of cell $logic_and$replay_out/pfu_parent_gate_flat.v:356$422_gate ($logic_and): \entry_cmit_all_gate -> \entry_cmit_all
+Changing input B of cell $gt$replay_out/pfu_parent_gate_flat.v:354$420_gate ($gt): \entry_iid_2_gate [5:0] -> \entry_iid_2 [5:0]
+Changing input A of cell $gt$replay_out/pfu_parent_gate_flat.v:353$419_gate ($gt): \entry_iid_2_gate [5:0] -> \entry_iid_2 [5:0]
+Changing input B of cell $eq$replay_out/pfu_parent_gate_flat.v:352$418_gate ($eq): \entry_iid_2_gate [6] -> \entry_iid_2 [6]
+Changing input B of cell $gt$replay_out/pfu_parent_gate_flat.v:350$416_gate ($gt): \entry_iid_1_gate [5:0] -> \entry_iid_1 [5:0]
+Changing input A of cell $gt$replay_out/pfu_parent_gate_flat.v:349$415_gate ($gt): \entry_iid_1_gate [5:0] -> \entry_iid_1 [5:0]
+Changing input B of cell $eq$replay_out/pfu_parent_gate_flat.v:348$414_gate ($eq): \entry_iid_1_gate [6] -> \entry_iid_1 [6]
+Changing input B of cell $gt$replay_out/pfu_parent_gate_flat.v:346$412_gate ($gt): \entry_iid_0_gate [5:0] -> \entry_iid_0 [5:0]
+Changing input A of cell $gt$replay_out/pfu_parent_gate_flat.v:345$411_gate ($gt): \entry_iid_0_gate [5:0] -> \entry_iid_0 [5:0]
+Changing input B of cell $eq$replay_out/pfu_parent_gate_flat.v:344$410_gate ($eq): \entry_iid_0_gate [6] -> \entry_iid_0 [6]
+Changing input B of cell $eq$replay_out/pfu_parent_gate_flat.v:343$409_gate ($eq): { \entry_stride_neg_gate \entry_stride_gate } -> { \entry_stride_neg \entry_stride }
+Changing input A of cell $eq$replay_out/pfu_parent_gate_flat.v:343$409_gate ($eq): \entry_stride_0to1_gate [11:0] -> \entry_stride_0to1 [11:0]
+Changing input B of cell $eq$replay_out/pfu_parent_gate_flat.v:342$408_gate ($eq): \entry_stride_1to2_gate -> \entry_stride_1to2
+Changing input A of cell $eq$replay_out/pfu_parent_gate_flat.v:342$408_gate ($eq): \entry_stride_0to1_gate -> \entry_stride_0to1
+Changing input B of cell $eq$replay_out/pfu_parent_gate_flat.v:341$407_gate ($eq): { 1'1 \entry_iid_2_gate } -> { 1'1 \entry_iid_2 }
+Changing input B of cell $eq$replay_out/pfu_parent_gate_flat.v:340$406_gate ($eq): { 1'1 \entry_iid_2_gate } -> { 1'1 \entry_iid_2 }
+Changing input B of cell $eq$replay_out/pfu_parent_gate_flat.v:339$405_gate ($eq): { 1'1 \entry_iid_2_gate } -> { 1'1 \entry_iid_2 }
+Changing input B of cell $eq$replay_out/pfu_parent_gate_flat.v:338$404_gate ($eq): { 1'1 \entry_iid_1_gate } -> { 1'1 \entry_iid_1 }
+Changing input B of cell $eq$replay_out/pfu_parent_gate_flat.v:337$403_gate ($eq): { 1'1 \entry_iid_1_gate } -> { 1'1 \entry_iid_1 }
+Changing input B of cell $eq$replay_out/pfu_parent_gate_flat.v:336$402_gate ($eq): { 1'1 \entry_iid_1_gate } -> { 1'1 \entry_iid_1 }
+Changing input B of cell $eq$replay_out/pfu_parent_gate_flat.v:335$401_gate ($eq): { 1'1 \entry_iid_0_gate } -> { 1'1 \entry_iid_0 }
+Changing input B of cell $eq$replay_out/pfu_parent_gate_flat.v:334$400_gate ($eq): { 1'1 \entry_iid_0_gate } -> { 1'1 \entry_iid_0 }
+Changing input B of cell $eq$replay_out/pfu_parent_gate_flat.v:333$399_gate ($eq): { 1'1 \entry_iid_0_gate } -> { 1'1 \entry_iid_0 }
+Changing input S of cell $ternary$replay_out/pfu_parent_gold_flat.v:769$344_gold ($mux): \entry_stride_ge_cache_line_gold -> \entry_stride_ge_cache_line
+Changing input B of cell $ternary$replay_out/pfu_parent_gold_flat.v:769$344_gold ($mux): \entry_stride_gold [6:0] -> \entry_stride [6:0]
+Changing input S of cell $ternary$replay_out/pfu_parent_gold_flat.v:768$343_gold ($mux): \entry_stride_neg_gold -> \entry_stride_neg
+Changing input B of cell $ternary$replay_out/pfu_parent_gold_flat.v:768$343_gold ($mux): \entry_stride_neg_ge_cache_line_gold -> \entry_stride_neg_ge_cache_line
+Changing input A of cell $ternary$replay_out/pfu_parent_gold_flat.v:768$343_gold ($mux): \entry_stride_pos_ge_cache_line_gold -> \entry_stride_pos_ge_cache_line
+Changing input S of cell $ternary$replay_out/pfu_parent_gold_flat.v:767$342_gold ($mux): \entry_sel_2_gold -> \entry_sel_2
+Changing input B of cell $ternary$replay_out/pfu_parent_gold_flat.v:767$342_gold ($mux): \entry_iid_1_gold -> \entry_iid_1
+Changing input S of cell $ternary$replay_out/pfu_parent_gold_flat.v:766$341_gold ($mux): \entry_sel_2_gold -> \entry_sel_2
+Changing input B of cell $ternary$replay_out/pfu_parent_gold_flat.v:766$341_gold ($mux): \entry_addr_1_gold -> \entry_addr_1
+Changing input B of cell $sub$replay_out/pfu_parent_gold_flat.v:765$340_gold ($sub): \entry_addr_1_gold -> \entry_addr_1
+Changing input A of cell $sub$replay_out/pfu_parent_gold_flat.v:765$340_gold ($sub): \entry_addr_2_gold -> \entry_addr_2
+Changing input B of cell $sub$replay_out/pfu_parent_gold_flat.v:764$339_gold ($sub): \entry_addr_0_gold -> \entry_addr_0
+Changing input A of cell $sub$replay_out/pfu_parent_gold_flat.v:764$339_gold ($sub): \entry_addr_1_gold -> \entry_addr_1
+Changing input B of cell $sub$replay_out/pfu_parent_gold_flat.v:763$338_gold ($sub): \entry_addr_1_gold -> \entry_addr_1
+Changing input A of cell $sub$replay_out/pfu_parent_gold_flat.v:763$338_gold ($sub): \entry_addr_0_gold -> \entry_addr_0
+Changing input A of cell $reduce_or$replay_out/pfu_parent_gold_flat.v:762$337_gold ($reduce_or): \entry_stride_gold [10:6] -> \entry_stride [10:6]
+Changing input A of cell $reduce_or$replay_out/pfu_parent_gold_flat.v:761$336_gold ($reduce_or): \entry_stride_0to1_gold -> \entry_stride_0to1
+Changing input A of cell $reduce_or$replay_out/pfu_parent_gold_flat.v:760$335_gold ($reduce_or): \entry_stride_1to0_gold [39:12] -> \entry_stride_1to0 [39:12]
+Changing input A of cell $reduce_or$replay_out/pfu_parent_gold_flat.v:759$334_gold ($reduce_or): \entry_stride_0to1_gold [39:12] -> \entry_stride_0to1 [39:12]
+Changing input A of cell $reduce_and$replay_out/pfu_parent_gold_flat.v:758$333_gold ($reduce_and): \entry_stride_gold [10:6] -> \entry_stride [10:6]
+Changing input A of cell $reduce_and$replay_out/pfu_parent_gold_flat.v:757$332_gold ($reduce_and): \entry_cmit_gold -> \entry_cmit
+Changing input S of cell $ternary$replay_out/pfu_parent_gold_flat.v:756$331_gold ($mux): \entry_addr_0_clk_en_gold -> \entry_addr_0_clk_en
+Changing input A of cell $ternary$replay_out/pfu_parent_gold_flat.v:756$331_gold ($mux): \entry_addr_0_gold -> \entry_addr_0
+Changing input S of cell $ternary$replay_out/pfu_parent_gold_flat.v:755$330_gold ($mux): \entry_addr_0_clk_en_gold -> \entry_addr_0_clk_en
+Changing input A of cell $ternary$replay_out/pfu_parent_gold_flat.v:755$330_gold ($mux): \entry_iid_0_gold -> \entry_iid_0
+Changing input S of cell $ternary$replay_out/pfu_parent_gold_flat.v:754$329_gold ($mux): \entry_addr_set_gold [0] -> \entry_addr_set [0]
+Changing input A of cell $ternary$replay_out/pfu_parent_gold_flat.v:754$329_gold ($mux): \entry_addr_vld_gold [0] -> \entry_addr_vld [0]
+Changing input S of cell $ternary$replay_out/pfu_parent_gold_flat.v:753$328_gold ($mux): \entry_cmit_set_gold [0] -> \entry_cmit_set [0]
+Changing input A of cell $ternary$replay_out/pfu_parent_gold_flat.v:753$328_gold ($mux): \entry_cmit_gold [0] -> \entry_cmit [0]
+Changing input S of cell $ternary$replay_out/pfu_parent_gold_flat.v:752$327_gold ($mux): \entry_addr_1_clk_en_gold -> \entry_addr_1_clk_en
+Changing input A of cell $ternary$replay_out/pfu_parent_gold_flat.v:752$327_gold ($mux): \entry_addr_1_gold -> \entry_addr_1
+Changing input S of cell $ternary$replay_out/pfu_parent_gold_flat.v:751$326_gold ($mux): \entry_addr_1_clk_en_gold -> \entry_addr_1_clk_en
+Changing input A of cell $ternary$replay_out/pfu_parent_gold_flat.v:751$326_gold ($mux): \entry_iid_1_gold -> \entry_iid_1
+Changing input S of cell $ternary$replay_out/pfu_parent_gold_flat.v:750$325_gold ($mux): \entry_addr_1_clk_en_gold -> \entry_addr_1_clk_en
+Changing input A of cell $ternary$replay_out/pfu_parent_gold_flat.v:750$325_gold ($mux): \entry_addr_vld_gold [1] -> \entry_addr_vld [1]
+Changing input S of cell $ternary$replay_out/pfu_parent_gold_flat.v:749$324_gold ($mux): \entry_cmit_set_gold [1] -> \entry_cmit_set [1]
+Changing input A of cell $ternary$replay_out/pfu_parent_gold_flat.v:749$324_gold ($mux): \entry_cmit_gold [1] -> \entry_cmit [1]
+Changing input S of cell $ternary$replay_out/pfu_parent_gold_flat.v:748$323_gold ($mux): \entry_addr_2_clk_en_gold -> \entry_addr_2_clk_en
+Changing input B of cell $ternary$replay_out/pfu_parent_gold_flat.v:748$323_gold ($mux): \entry_addr_2_next_gold -> \entry_addr_2_next
+Changing input A of cell $ternary$replay_out/pfu_parent_gold_flat.v:748$323_gold ($mux): \entry_addr_2_gold -> \entry_addr_2
+Changing input S of cell $ternary$replay_out/pfu_parent_gold_flat.v:747$322_gold ($mux): \entry_addr_2_clk_en_gold -> \entry_addr_2_clk_en
+Changing input B of cell $ternary$replay_out/pfu_parent_gold_flat.v:747$322_gold ($mux): \entry_iid_2_next_gold -> \entry_iid_2_next
+Changing input A of cell $ternary$replay_out/pfu_parent_gold_flat.v:747$322_gold ($mux): \entry_iid_2_gold -> \entry_iid_2
+Changing input S of cell $ternary$replay_out/pfu_parent_gold_flat.v:746$321_gold ($mux): \entry_addr_2_clk_en_gold -> \entry_addr_2_clk_en
+Changing input A of cell $ternary$replay_out/pfu_parent_gold_flat.v:746$321_gold ($mux): \entry_addr_vld_gold [2] -> \entry_addr_vld [2]
+Changing input S of cell $ternary$replay_out/pfu_parent_gold_flat.v:745$320_gold ($mux): \entry_cmit_set_gold [2] -> \entry_cmit_set [2]
+Changing input A of cell $ternary$replay_out/pfu_parent_gold_flat.v:745$320_gold ($mux): \entry_cmit_gold [2] -> \entry_cmit [2]
+Changing input S of cell $ternary$replay_out/pfu_parent_gold_flat.v:744$319_gold ($mux): \entry_stride_create_vld_gold -> \entry_stride_create_vld
+Changing input B of cell $ternary$replay_out/pfu_parent_gold_flat.v:744$319_gold ($mux): \entry_stride_0to1_gold [10:0] -> \entry_stride_0to1 [10:0]
+Changing input A of cell $ternary$replay_out/pfu_parent_gold_flat.v:744$319_gold ($mux): \entry_stride_gold -> \entry_stride
+Changing input S of cell $ternary$replay_out/pfu_parent_gold_flat.v:743$318_gold ($mux): \entry_stride_create_vld_gold -> \entry_stride_create_vld
+Changing input B of cell $ternary$replay_out/pfu_parent_gold_flat.v:743$318_gold ($mux): \entry_stride_0to1_gold [39] -> \entry_stride_0to1 [39]
+Changing input A of cell $ternary$replay_out/pfu_parent_gold_flat.v:743$318_gold ($mux): \entry_stride_neg_gold -> \entry_stride_neg
+Changing input A of cell $ternary$replay_out/pfu_parent_gold_flat.v:742$317_gold ($mux): \entry_addr_cmp_info_vld_gold -> \entry_addr_cmp_info_vld
+Changing input B of cell $ternary$replay_out/pfu_parent_gold_flat.v:741$316_gold ($mux): \entry_stride_0to1_neg_cross_2k_set_gold -> \entry_stride_0to1_neg_cross_2k_set
+Changing input A of cell $ternary$replay_out/pfu_parent_gold_flat.v:741$316_gold ($mux): \entry_stride_0to1_neg_cross_2k_gold -> \entry_stride_0to1_neg_cross_2k
+Changing input B of cell $ternary$replay_out/pfu_parent_gold_flat.v:740$315_gold ($mux): \entry_stride_0to1_pos_cross_2k_set_gold -> \entry_stride_0to1_pos_cross_2k_set
+Changing input A of cell $ternary$replay_out/pfu_parent_gold_flat.v:740$315_gold ($mux): \entry_stride_0to1_pos_cross_2k_gold -> \entry_stride_0to1_pos_cross_2k
+Changing input B of cell $ternary$replay_out/pfu_parent_gold_flat.v:739$314_gold ($mux): \entry_stride_0to1_zero_set_gold -> \entry_stride_0to1_zero_set
+Changing input A of cell $ternary$replay_out/pfu_parent_gold_flat.v:739$314_gold ($mux): \entry_stride_0to1_zero_gold -> \entry_stride_0to1_zero
+Changing input B of cell $ternary$replay_out/pfu_parent_gold_flat.v:738$313_gold ($mux): \entry_stride_cmp0_eq_set_gold -> \entry_stride_cmp0_eq_set
+Changing input A of cell $ternary$replay_out/pfu_parent_gold_flat.v:738$313_gold ($mux): \entry_stride_cmp0_eq_gold -> \entry_stride_cmp0_eq
+Changing input B of cell $ternary$replay_out/pfu_parent_gold_flat.v:737$312_gold ($mux): \entry_stride_diff_eq_set_gold -> \entry_stride_diff_eq_set
+Changing input A of cell $ternary$replay_out/pfu_parent_gold_flat.v:737$312_gold ($mux): \entry_stride_diff_eq_gold -> \entry_stride_diff_eq
+Changing input A of cell $not$replay_out/pfu_parent_gold_flat.v:735$310_gold ($not): \entry_cmit_gold -> \entry_cmit
+Changing input B of cell $logic_or$replay_out/pfu_parent_gold_flat.v:733$308_gold ($logic_or): \entry_newer_than_ld_da_gold [2] -> \entry_newer_than_ld_da [2]
+Changing input B of cell $logic_or$replay_out/pfu_parent_gold_flat.v:732$307_gold ($logic_or): \entry_sel_2_gold -> \entry_sel_2
+Changing input B of cell $logic_or$replay_out/pfu_parent_gold_flat.v:731$306_gold ($logic_or): \entry_cmit_hit2_gold [2] -> \entry_cmit_hit2 [2]
+Changing input B of cell $logic_or$replay_out/pfu_parent_gold_flat.v:730$305_gold ($logic_or): \entry_cmit_hit1_gold [2] -> \entry_cmit_hit1 [2]
+Changing input A of cell $logic_or$replay_out/pfu_parent_gold_flat.v:730$305_gold ($logic_or): \entry_cmit_hit0_gold [2] -> \entry_cmit_hit0 [2]
+Changing input B of cell $logic_or$replay_out/pfu_parent_gold_flat.v:729$304_gold ($logic_or): \entry_cmit_hit2_gold [1] -> \entry_cmit_hit2 [1]
+Changing input B of cell $logic_or$replay_out/pfu_parent_gold_flat.v:728$303_gold ($logic_or): \entry_cmit_hit1_gold [1] -> \entry_cmit_hit1 [1]
+Changing input A of cell $logic_or$replay_out/pfu_parent_gold_flat.v:728$303_gold ($logic_or): \entry_cmit_hit0_gold [1] -> \entry_cmit_hit0 [1]
+Changing input B of cell $logic_or$replay_out/pfu_parent_gold_flat.v:727$302_gold ($logic_or): \entry_cmit_hit2_gold [0] -> \entry_cmit_hit2 [0]
+Changing input B of cell $logic_or$replay_out/pfu_parent_gold_flat.v:726$301_gold ($logic_or): \entry_cmit_hit1_gold [0] -> \entry_cmit_hit1 [0]
+Changing input A of cell $logic_or$replay_out/pfu_parent_gold_flat.v:726$301_gold ($logic_or): \entry_cmit_hit0_gold [0] -> \entry_cmit_hit0 [0]
+Changing input B of cell $logic_or$replay_out/pfu_parent_gold_flat.v:725$300_gold ($logic_or): \entry_clr_addr_info_vld_gold -> \entry_clr_addr_info_vld
+Changing input B of cell $logic_or$replay_out/pfu_parent_gold_flat.v:724$299_gold ($logic_or): \entry_clr_addr_info_vld_gold -> \entry_clr_addr_info_vld
+Changing input B of cell $logic_or$replay_out/pfu_parent_gold_flat.v:723$298_gold ($logic_or): \entry_flush_uncmit_gold [2] -> \entry_flush_uncmit [2]
+Changing input B of cell $logic_or$replay_out/pfu_parent_gold_flat.v:722$297_gold ($logic_or): \entry_clr_addr_info_vld_gold -> \entry_clr_addr_info_vld
+Changing input B of cell $logic_or$replay_out/pfu_parent_gold_flat.v:721$296_gold ($logic_or): \entry_flush_uncmit_gold [1] -> \entry_flush_uncmit [1]
+Changing input B of cell $logic_or$replay_out/pfu_parent_gold_flat.v:720$295_gold ($logic_or): \entry_clr_addr_info_vld_gold -> \entry_clr_addr_info_vld
+Changing input B of cell $logic_or$replay_out/pfu_parent_gold_flat.v:719$294_gold ($logic_or): \entry_flush_uncmit_gold [0] -> \entry_flush_uncmit [0]
+Changing input A of cell $logic_not$replay_out/pfu_parent_gold_flat.v:717$292_gold ($logic_not): \entry_addr_cmp_info_vld_gold -> \entry_addr_cmp_info_vld
+Changing input A of cell $logic_not$replay_out/pfu_parent_gold_flat.v:715$290_gold ($logic_not): \entry_stride_0to1_cross_2k_gold -> \entry_stride_0to1_cross_2k
+Changing input A of cell $logic_not$replay_out/pfu_parent_gold_flat.v:714$289_gold ($logic_not): \entry_stride_0to1_zero_gold -> \entry_stride_0to1_zero
+Changing input A of cell $logic_not$replay_out/pfu_parent_gold_flat.v:713$288_gold ($logic_not): \entry_stride_neg_gold -> \entry_stride_neg
+Changing input A of cell $logic_not$replay_out/pfu_parent_gold_flat.v:712$287_gold ($logic_not): \entry_cmit_gold [2] -> \entry_cmit [2]
+Changing input A of cell $logic_not$replay_out/pfu_parent_gold_flat.v:711$286_gold ($logic_not): \entry_cmit_gold [1] -> \entry_cmit [1]
+Changing input A of cell $logic_not$replay_out/pfu_parent_gold_flat.v:710$285_gold ($logic_not): \entry_cmit_gold [0] -> \entry_cmit [0]
+Changing input A of cell $logic_not$replay_out/pfu_parent_gold_flat.v:709$284_gold ($logic_not): \entry_addr_vld_gold [2] -> \entry_addr_vld [2]
+Changing input A of cell $logic_not$replay_out/pfu_parent_gold_flat.v:708$283_gold ($logic_not): \entry_newer_than_ld_da_gold [0] -> \entry_newer_than_ld_da [0]
+Changing input A of cell $logic_not$replay_out/pfu_parent_gold_flat.v:707$282_gold ($logic_not): \entry_addr_vld_gold [1] -> \entry_addr_vld [1]
+Changing input A of cell $logic_not$replay_out/pfu_parent_gold_flat.v:706$281_gold ($logic_not): \entry_addr_vld_gold [0] -> \entry_addr_vld [0]
+Changing input B of cell $logic_and$replay_out/pfu_parent_gold_flat.v:705$280_gold ($logic_and): \entry_addr_cmp_info_vld_gold -> \entry_addr_cmp_info_vld
+Changing input A of cell $logic_and$replay_out/pfu_parent_gold_flat.v:705$280_gold ($logic_and): \entry_cmit_all_gold -> \entry_cmit_all
+Changing input A of cell $logic_and$replay_out/pfu_parent_gold_flat.v:703$278_gold ($logic_and): \entry_cmit_all_gold -> \entry_cmit_all
+Changing input B of cell $logic_and$replay_out/pfu_parent_gold_flat.v:702$277_gold ($logic_and): \entry_stride_cmp0_eq_gold -> \entry_stride_cmp0_eq
+Changing input A of cell $logic_and$replay_out/pfu_parent_gold_flat.v:702$277_gold ($logic_and): \entry_normal_stride_gold -> \entry_normal_stride
+Changing input B of cell $logic_and$replay_out/pfu_parent_gold_flat.v:701$276_gold ($logic_and): \entry_stride_diff_eq_gold -> \entry_stride_diff_eq
+Changing input B of cell $logic_and$replay_out/pfu_parent_gold_flat.v:699$274_gold ($logic_and): \entry_stride_0to1_pos_cross_2k_gold -> \entry_stride_0to1_pos_cross_2k
+Changing input B of cell $logic_and$replay_out/pfu_parent_gold_flat.v:698$273_gold ($logic_and): \entry_stride_0to1_neg_cross_2k_gold -> \entry_stride_0to1_neg_cross_2k
+Changing input A of cell $logic_and$replay_out/pfu_parent_gold_flat.v:698$273_gold ($logic_and): \entry_stride_neg_gold -> \entry_stride_neg
+Changing input B of cell $logic_and$replay_out/pfu_parent_gold_flat.v:697$272_gold ($logic_and): \entry_addr_vld_gold [2] -> \entry_addr_vld [2]
+Changing input A of cell $logic_and$replay_out/pfu_parent_gold_flat.v:696$271_gold ($logic_and): \x_lsu_sdb_cmp_2.x_iid0_older_gold -> \x_lsu_sdb_cmp_2.x_iid0_older
+Changing input B of cell $logic_and$replay_out/pfu_parent_gold_flat.v:695$270_gold ($logic_and): \entry_addr_vld_gold [1] -> \entry_addr_vld [1]
+Changing input A of cell $logic_and$replay_out/pfu_parent_gold_flat.v:694$269_gold ($logic_and): \x_lsu_sdb_cmp_1.x_iid0_older_gold -> \x_lsu_sdb_cmp_1.x_iid0_older
+Changing input B of cell $logic_and$replay_out/pfu_parent_gold_flat.v:693$268_gold ($logic_and): \entry_addr_vld_gold [0] -> \entry_addr_vld [0]
+Changing input A of cell $logic_and$replay_out/pfu_parent_gold_flat.v:692$267_gold ($logic_and): \x_lsu_sdb_cmp_0.x_iid0_older_gold -> \x_lsu_sdb_cmp_0.x_iid0_older
+Changing input A of cell $logic_and$replay_out/pfu_parent_gold_flat.v:691$266_gold ($logic_and): \entry_addr_0_clk_en_gold -> \entry_addr_0_clk_en
+Changing input B of cell $logic_and$replay_out/pfu_parent_gold_flat.v:689$264_gold ($logic_and): \entry_addr_vld_gold [1] -> \entry_addr_vld [1]
+Changing input A of cell $logic_and$replay_out/pfu_parent_gold_flat.v:689$264_gold ($logic_and): \entry_addr_vld_gold [0] -> \entry_addr_vld [0]
+Changing input A of cell $logic_and$replay_out/pfu_parent_gold_flat.v:686$261_gold ($logic_and): \entry_addr_vld_gold [0] -> \entry_addr_vld [0]
+Changing input B of cell $logic_and$replay_out/pfu_parent_gold_flat.v:683$258_gold ($logic_and): \entry_addr_vld_gold [2] -> \entry_addr_vld [2]
+Changing input B of cell $logic_and$replay_out/pfu_parent_gold_flat.v:682$257_gold ($logic_and): \entry_addr_vld_gold [1] -> \entry_addr_vld [1]
+Changing input B of cell $logic_and$replay_out/pfu_parent_gold_flat.v:681$256_gold ($logic_and): \entry_addr_vld_gold [0] -> \entry_addr_vld [0]
+Changing input B of cell $logic_and$replay_out/pfu_parent_gold_flat.v:680$255_gold ($logic_and): \entry_cmit_all_gold -> \entry_cmit_all
+Changing input B of cell $xor$replay_out/pfu_parent_gold_flat.v:679$254_gold ($xor): \entry_iid_2_gold [6] -> \entry_iid_2 [6]
+Changing input A of cell $logic_not$replay_out/pfu_parent_gold_flat.v:642$217_gold ($logic_not): \entry_iid_2_gold [0] -> \entry_iid_2 [0]
+Changing input A of cell $logic_not$replay_out/pfu_parent_gold_flat.v:641$216_gold ($logic_not): \entry_iid_2_gold [1] -> \entry_iid_2 [1]
+Changing input A of cell $logic_not$replay_out/pfu_parent_gold_flat.v:640$215_gold ($logic_not): \entry_iid_2_gold [2] -> \entry_iid_2 [2]
+Changing input A of cell $logic_not$replay_out/pfu_parent_gold_flat.v:639$214_gold ($logic_not): \entry_iid_2_gold [3] -> \entry_iid_2 [3]
+Changing input A of cell $logic_not$replay_out/pfu_parent_gold_flat.v:638$213_gold ($logic_not): \entry_iid_2_gold [4] -> \entry_iid_2 [4]
+Changing input A of cell $logic_not$replay_out/pfu_parent_gold_flat.v:637$212_gold ($logic_not): \entry_iid_2_gold [5] -> \entry_iid_2 [5]
+Changing input B of cell $logic_and$replay_out/pfu_parent_gold_flat.v:624$199_gold ($logic_and): \entry_iid_2_gold [0] -> \entry_iid_2 [0]
+Changing input B of cell $logic_and$replay_out/pfu_parent_gold_flat.v:623$198_gold ($logic_and): \entry_iid_2_gold [1] -> \entry_iid_2 [1]
+Changing input B of cell $logic_and$replay_out/pfu_parent_gold_flat.v:622$197_gold ($logic_and): \entry_iid_2_gold [2] -> \entry_iid_2 [2]
+Changing input B of cell $logic_and$replay_out/pfu_parent_gold_flat.v:621$196_gold ($logic_and): \entry_iid_2_gold [3] -> \entry_iid_2 [3]
+Changing input B of cell $logic_and$replay_out/pfu_parent_gold_flat.v:620$195_gold ($logic_and): \entry_iid_2_gold [4] -> \entry_iid_2 [4]
+Changing input B of cell $logic_and$replay_out/pfu_parent_gold_flat.v:619$194_gold ($logic_and): \entry_iid_2_gold [5] -> \entry_iid_2 [5]
+Changing input B of cell $xor$replay_out/pfu_parent_gold_flat.v:612$187_gold ($xor): \entry_iid_1_gold [6] -> \entry_iid_1 [6]
+Changing input A of cell $logic_not$replay_out/pfu_parent_gold_flat.v:581$156_gold ($logic_not): \entry_iid_1_gold [0] -> \entry_iid_1 [0]
+Changing input A of cell $logic_not$replay_out/pfu_parent_gold_flat.v:580$155_gold ($logic_not): \entry_iid_1_gold [1] -> \entry_iid_1 [1]
+Changing input A of cell $logic_not$replay_out/pfu_parent_gold_flat.v:579$154_gold ($logic_not): \entry_iid_1_gold [2] -> \entry_iid_1 [2]
+Changing input A of cell $logic_not$replay_out/pfu_parent_gold_flat.v:578$153_gold ($logic_not): \entry_iid_1_gold [3] -> \entry_iid_1 [3]
+Changing input A of cell $logic_not$replay_out/pfu_parent_gold_flat.v:577$152_gold ($logic_not): \entry_iid_1_gold [4] -> \entry_iid_1 [4]
+Changing input A of cell $logic_not$replay_out/pfu_parent_gold_flat.v:576$151_gold ($logic_not): \entry_iid_1_gold [5] -> \entry_iid_1 [5]
+Changing input B of cell $logic_and$replay_out/pfu_parent_gold_flat.v:563$138_gold ($logic_and): \entry_iid_1_gold [0] -> \entry_iid_1 [0]
+Changing input B of cell $logic_and$replay_out/pfu_parent_gold_flat.v:562$137_gold ($logic_and): \entry_iid_1_gold [1] -> \entry_iid_1 [1]
+Changing input B of cell $logic_and$replay_out/pfu_parent_gold_flat.v:561$136_gold ($logic_and): \entry_iid_1_gold [2] -> \entry_iid_1 [2]
+Changing input B of cell $logic_and$replay_out/pfu_parent_gold_flat.v:560$135_gold ($logic_and): \entry_iid_1_gold [3] -> \entry_iid_1 [3]
+Changing input B of cell $logic_and$replay_out/pfu_parent_gold_flat.v:559$134_gold ($logic_and): \entry_iid_1_gold [4] -> \entry_iid_1 [4]
+Changing input B of cell $logic_and$replay_out/pfu_parent_gold_flat.v:558$133_gold ($logic_and): \entry_iid_1_gold [5] -> \entry_iid_1 [5]
+Changing input B of cell $xor$replay_out/pfu_parent_gold_flat.v:551$126_gold ($xor): \entry_iid_0_gold [6] -> \entry_iid_0 [6]
+Changing input A of cell $logic_not$replay_out/pfu_parent_gold_flat.v:520$95_gold ($logic_not): \entry_iid_0_gold [0] -> \entry_iid_0 [0]
+Changing input A of cell $logic_not$replay_out/pfu_parent_gold_flat.v:519$94_gold ($logic_not): \entry_iid_0_gold [1] -> \entry_iid_0 [1]
+Changing input A of cell $logic_not$replay_out/pfu_parent_gold_flat.v:518$93_gold ($logic_not): \entry_iid_0_gold [2] -> \entry_iid_0 [2]
+Changing input A of cell $logic_not$replay_out/pfu_parent_gold_flat.v:517$92_gold ($logic_not): \entry_iid_0_gold [3] -> \entry_iid_0 [3]
+Changing input A of cell $logic_not$replay_out/pfu_parent_gold_flat.v:516$91_gold ($logic_not): \entry_iid_0_gold [4] -> \entry_iid_0 [4]
+Changing input A of cell $logic_not$replay_out/pfu_parent_gold_flat.v:515$90_gold ($logic_not): \entry_iid_0_gold [5] -> \entry_iid_0 [5]
+Changing input B of cell $logic_and$replay_out/pfu_parent_gold_flat.v:502$77_gold ($logic_and): \entry_iid_0_gold [0] -> \entry_iid_0 [0]
+Changing input B of cell $logic_and$replay_out/pfu_parent_gold_flat.v:501$76_gold ($logic_and): \entry_iid_0_gold [1] -> \entry_iid_0 [1]
+Changing input B of cell $logic_and$replay_out/pfu_parent_gold_flat.v:500$75_gold ($logic_and): \entry_iid_0_gold [2] -> \entry_iid_0 [2]
+Changing input B of cell $logic_and$replay_out/pfu_parent_gold_flat.v:499$74_gold ($logic_and): \entry_iid_0_gold [3] -> \entry_iid_0 [3]
+Changing input B of cell $logic_and$replay_out/pfu_parent_gold_flat.v:498$73_gold ($logic_and): \entry_iid_0_gold [4] -> \entry_iid_0 [4]
+Changing input B of cell $logic_and$replay_out/pfu_parent_gold_flat.v:497$72_gold ($logic_and): \entry_iid_0_gold [5] -> \entry_iid_0 [5]
+Changing input B of cell $eq$replay_out/pfu_parent_gold_flat.v:490$65_gold ($eq): { \entry_stride_neg_gold \entry_stride_gold } -> { \entry_stride_neg \entry_stride }
+Changing input A of cell $eq$replay_out/pfu_parent_gold_flat.v:490$65_gold ($eq): \entry_stride_0to1_gold [11:0] -> \entry_stride_0to1 [11:0]
+Changing input B of cell $eq$replay_out/pfu_parent_gold_flat.v:489$64_gold ($eq): \entry_stride_1to2_gold -> \entry_stride_1to2
+Changing input A of cell $eq$replay_out/pfu_parent_gold_flat.v:489$64_gold ($eq): \entry_stride_0to1_gold -> \entry_stride_0to1
+Changing input B of cell $eq$replay_out/pfu_parent_gold_flat.v:488$63_gold ($eq): { 1'1 \entry_iid_2_gold } -> { 1'1 \entry_iid_2 }
+Changing input B of cell $eq$replay_out/pfu_parent_gold_flat.v:487$62_gold ($eq): { 1'1 \entry_iid_2_gold } -> { 1'1 \entry_iid_2 }
+Changing input B of cell $eq$replay_out/pfu_parent_gold_flat.v:486$61_gold ($eq): { 1'1 \entry_iid_2_gold } -> { 1'1 \entry_iid_2 }
+Changing input B of cell $eq$replay_out/pfu_parent_gold_flat.v:485$60_gold ($eq): { 1'1 \entry_iid_1_gold } -> { 1'1 \entry_iid_1 }
+Changing input B of cell $eq$replay_out/pfu_parent_gold_flat.v:484$59_gold ($eq): { 1'1 \entry_iid_1_gold } -> { 1'1 \entry_iid_1 }
+Changing input B of cell $eq$replay_out/pfu_parent_gold_flat.v:483$58_gold ($eq): { 1'1 \entry_iid_1_gold } -> { 1'1 \entry_iid_1 }
+Changing input B of cell $eq$replay_out/pfu_parent_gold_flat.v:482$57_gold ($eq): { 1'1 \entry_iid_0_gold } -> { 1'1 \entry_iid_0 }
+Changing input B of cell $eq$replay_out/pfu_parent_gold_flat.v:481$56_gold ($eq): { 1'1 \entry_iid_0_gold } -> { 1'1 \entry_iid_0 }
+Changing input B of cell $eq$replay_out/pfu_parent_gold_flat.v:480$55_gold ($eq): { 1'1 \entry_iid_0_gold } -> { 1'1 \entry_iid_0 }
+
+7. Executing HIERARCHY pass (managing design hierarchy).
+
+7.1. Analyzing design hierarchy..
+Top module:  \equiv
+
+7.2. Analyzing design hierarchy..
+Top module:  \equiv
+Removing unused module `\gate'.
+Removing unused module `\gold'.
+Removed 2 unused modules.
+
+8. Executing FLATTEN pass (flatten design).
+
+9. Executing ASYNC2SYNC pass.
+
+10. Executing DFFUNMAP pass (unmap clock enable and synchronous reset from FFs).
+
+11. Executing OPT pass (performing simple optimizations).
+
+11.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module equiv.
+
+11.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\equiv'.
+Computing hashes of 1094 cells of `\equiv'.
+Finding duplicate cells in `\equiv'.
+Computing hashes of 918 cells of `\equiv'.
+Finding duplicate cells in `\equiv'.
+Computing hashes of 898 cells of `\equiv'.
+Finding duplicate cells in `\equiv'.
+Computing hashes of 884 cells of `\equiv'.
+Finding duplicate cells in `\equiv'.
+Computing hashes of 882 cells of `\equiv'.
+Finding duplicate cells in `\equiv'.
+<suppressed ~636 debug messages>
+Removed a total of 212 cells.
+
+11.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \equiv..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~222 debug messages>
+
+11.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \equiv.
+Performed a total of 0 changes.
+
+11.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\equiv'.
+Computing hashes of 882 cells of `\equiv'.
+Finding duplicate cells in `\equiv'.
+Computing hashes of 858 cells of `\equiv'.
+Finding duplicate cells in `\equiv'.
+Computing hashes of 838 cells of `\equiv'.
+Finding duplicate cells in `\equiv'.
+Computing hashes of 818 cells of `\equiv'.
+Finding duplicate cells in `\equiv'.
+Computing hashes of 798 cells of `\equiv'.
+Finding duplicate cells in `\equiv'.
+<suppressed ~252 debug messages>
+Removed a total of 84 cells.
+
+11.6. Executing OPT_DFF pass (perform DFF optimizations).
+Adding SRST signal on $auto$ff.cc:337:slice$677_gate ($dff) from module equiv (D = \_004__gate, Q = \_009__gate, rval = 7'0000000).
+Adding SRST signal on $auto$ff.cc:337:slice$681_gate ($dff) from module equiv (D = \_084__gate, Q = \_018__gate, rval = 1'0).
+Adding SRST signal on $auto$ff.cc:337:slice$682_gate ($dff) from module equiv (D = \_000__gate, Q = \_019__gate, rval = 40'0000000000000000000000000000000000000000).
+Adding SRST signal on $auto$ff.cc:337:slice$683_gate ($dff) from module equiv (D = \_001__gate, Q = \_020__gate, rval = 40'0000000000000000000000000000000000000000).
+Adding SRST signal on $auto$ff.cc:337:slice$684_gate ($dff) from module equiv (D = \_083__gate, Q = \_021__gate, rval = 1'0).
+Adding SRST signal on $auto$ff.cc:337:slice$685_gate ($dff) from module equiv (D = \_002__gate, Q = \_022__gate, rval = 40'0000000000000000000000000000000000000000).
+Adding SRST signal on $auto$ff.cc:337:slice$686_gate ($dff) from module equiv (D = \_005__gate, Q = \_023__gate, rval = 7'0000000).
+Adding SRST signal on $auto$ff.cc:337:slice$687_gate ($dff) from module equiv (D = \_082__gate, Q = \_024__gate, rval = 1'0).
+Adding SRST signal on $auto$ff.cc:337:slice$688_gate ($dff) from module equiv (D = \_088__gate, Q = \_025__gate, rval = 1'0).
+Adding SRST signal on $auto$ff.cc:337:slice$689_gate ($dff) from module equiv (D = \_003__gate, Q = \_026__gate, rval = 7'0000000).
+Adding SRST signal on $auto$ff.cc:337:slice$690_gate ($dff) from module equiv (D = \_085__gate, Q = \_027__gate, rval = 1'0).
+Adding SRST signal on $auto$ff.cc:337:slice$691_gate ($dff) from module equiv (D = \_087__gate, Q = \_013__gate, rval = 1'0).
+Adding SRST signal on $auto$ff.cc:337:slice$679_gate ($dff) from module equiv (D = \_092__gate, Q = \_008__gate, rval = 1'0).
+Adding SRST signal on $auto$ff.cc:337:slice$678_gate ($dff) from module equiv (D = \_093__gate, Q = \_014__gate, rval = 1'0).
+
+11.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \equiv..
+Removed 78 unused cells and 73 unused wires.
+<suppressed ~118 debug messages>
+
+11.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module equiv.
+
+11.9. Rerunning OPT passes. (Maybe there is more to do..)
+
+11.10. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \equiv..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~100 debug messages>
+
+11.11. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \equiv.
+Performed a total of 0 changes.
+
+11.12. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\equiv'.
+Computing hashes of 720 cells of `\equiv'.
+Finding duplicate cells in `\equiv'.
+Removed a total of 0 cells.
+
+11.13. Executing OPT_DFF pass (perform DFF optimizations).
+Adding SRST signal on $auto$ff.cc:337:slice$702_gold ($dff) from module equiv (D = \_086__gate, Q = \_010__gold, rval = 1'0).
+Adding SRST signal on $auto$ff.cc:337:slice$703_gold ($dff) from module equiv (D = \_091__gate, Q = \_011__gold, rval = 1'0).
+Adding SRST signal on $auto$ff.cc:337:slice$704_gold ($dff) from module equiv (D = \_089__gate, Q = \_012__gold, rval = 1'0).
+Adding SRST signal on $auto$ff.cc:337:slice$707_gold ($dff) from module equiv (D = \_006__gate, Q = \_015__gold, rval = 11'00000000000).
+Adding SRST signal on $auto$ff.cc:337:slice$708_gold ($dff) from module equiv (D = \_007__gate, Q = \_016__gold, rval = 1'0).
+Adding SRST signal on $auto$ff.cc:337:slice$709_gold ($dff) from module equiv (D = \_090__gate, Q = \_017__gold, rval = 1'0).
+
+11.14. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \equiv..
+Removed 6 unused cells and 6 unused wires.
+<suppressed ~7 debug messages>
+
+11.15. Executing OPT_EXPR pass (perform const folding).
+Optimizing module equiv.
+
+11.16. Rerunning OPT passes. (Maybe there is more to do..)
+
+11.17. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \equiv..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~94 debug messages>
+
+11.18. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \equiv.
+Performed a total of 0 changes.
+
+11.19. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\equiv'.
+Computing hashes of 714 cells of `\equiv'.
+Finding duplicate cells in `\equiv'.
+Removed a total of 0 cells.
+
+11.20. Executing OPT_DFF pass (perform DFF optimizations).
+
+11.21. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \equiv..
+
+11.22. Executing OPT_EXPR pass (perform const folding).
+Optimizing module equiv.
+
+11.23. Finished fast OPT passes. (There is nothing left to do.)
+
+12. Executing EQUIV_SIMPLE pass.
+Found 3 unproven $equiv cells (3 groups) in equiv:
+  Trying to prove $equiv for \x_lsu_sdb_cmp_0.x_iid0_older:ezsat
+ success!
+  Trying to prove $equiv for \x_lsu_sdb_cmp_1.x_iid0_older:ezsat
+ success!
+  Trying to prove $equiv for \x_lsu_sdb_cmp_2.x_iid0_older:ezsat
+ success!
+Proved 3 previously unproven $equiv cells.
+
+13. Executing EQUIV_INDUCT pass.
+No selected unproven $equiv cells found in equiv.
+Proved 0 previously unproven $equiv cells.
+
+14. Executing EQUIV_STATUS pass.
+Found 366 $equiv cells in equiv:
+  Of those cells 366 are proven and 0 are unproven.
+  Equivalence successfully proven!
+
+End of script. Logfile hash: f0edd75ed1, time: 0.10s, user: 0.09s, system: 0.01s, MEM: 24.65 MB peak
+Yosys 0.66+181 (git sha1 afe6b18f2, Release, Clang /usr/bin/clang++ 18.1.8)
+Time spent: 24% 4x read_verilog (0 sec), 20% 7x opt_clean (0 sec), ...

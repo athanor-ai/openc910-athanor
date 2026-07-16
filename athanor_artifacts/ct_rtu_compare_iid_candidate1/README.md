@@ -1,6 +1,7 @@
 # C910 ct_rtu_compare_iid Candidate 1
 
-Status: parent-integrated full-PPA scout; `customer_ready=false`.
+Status: parent-integrated `ct_lsu_pfu_sdb_cmp` proof + full-PPA scout;
+`customer_ready=false`.
 
 This packet records a wrapped-IID comparator simplification. The candidate
 replaces the hand-built bit-priority compare with the equivalent direct
@@ -34,12 +35,23 @@ times in `ct_lsu_pfu_sdb_cmp`.
 The helper-level Yosys equivalence check closes with `1` proven equivalence
 cell and `0` unproven cells.
 
+The `ct_lsu_pfu_sdb_cmp` parent same-state route now closes through the replayed
+parent proof construction: per-side helper flattening, generated-temp blacklist,
+`async2sync`, `dffunmap`, `equiv_simple -seq 8`, `equiv_induct -seq 8`, and
+`equiv_status -assert`. The parent proof log records `366` proven equivalence
+cells and `0` unproven cells. The `ct_lsu_spec_fail_predict` parent remains
+PPA-screen evidence only; no proof authority is claimed for that parent.
+
 ## Negative Control
 
 `ct_rtu_compare_iid_gate_proof_mutant.v` weakens the same-wrap branch from
 strict `>` to `>=`. The same helper equivalence check rejects it with `1`
 unproven equivalence cell. This bites the equality boundary, where identical
 IIDs must not mark `x_iid0` older.
+
+The same equality-boundary mutant also bites in the `ct_lsu_pfu_sdb_cmp` parent
+proof route: the parent mutant replay leaves exactly `3` unproven cells at the
+three helper comparator sites.
 
 `ct_rtu_compare_iid_metric_negative.v` deliberately adds unrelated slow logic to
 the helper output. Rebuilding the same two parent netlists with that helper
@@ -68,10 +80,12 @@ LIBERTY=/path/to/sky130_fd_sc_hd__tt_025C_1v80.lib \
 - `customer_ready=false`; no customer-ready result row is claimed.
 - Helper proof is combinational `ct_rtu_compare_iid` equivalence under the
   checked RTL model.
+- `ct_lsu_pfu_sdb_cmp` parent proof is same-state equivalence with `366/366`
+  cells proven and a `3`-cell equality-boundary mutant bite.
 - Parent evidence is same-candidate-bound selected Sky130 area, OpenSTA
   max-data-arrival, and OpenSTA estimated-power screening for two LSU parent
   surfaces.
-- A direct parent same-state `equiv_make` route currently tool-errors before a
-  verdict on these parent shapes, so no parent proof authority is claimed.
+- `ct_lsu_spec_fail_predict` parent same-state proof remains unsupported before
+  verdict, so no proof authority is claimed for that parent.
 - Not whole LSU, whole C910/BOOM, ISA, memory consistency, speculation
   recovery, composed optimization, or whole-chip authority.

@@ -6,7 +6,7 @@ ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 : "${STA_BIN:?set STA_BIN to the OpenSTA executable}"
 : "${LIBERTY:?set LIBERTY to sky130_fd_sc_hd__tt_025C_1v80.lib}"
 
-OUT="$ROOT/replay_out"
+OUT="replay_out"
 rm -rf "$OUT"
 mkdir -p "$OUT"
 cd "$ROOT"
@@ -25,6 +25,45 @@ fi
   > "$OUT/helper_gold_map.replay.log" 2>&1
 "$YOSYS_BIN" -p "read_verilog -sv ct_rtu_compare_iid_gate_candidate.v; synth -top ct_rtu_compare_iid; abc -liberty $LIBERTY; clean; stat -liberty $LIBERTY; write_verilog -noattr -simple-lhs $OUT/ct_rtu_compare_iid_gate_candidate.mapped.v" \
   > "$OUT/helper_gate_map.replay.log" 2>&1
+
+flatten_pfu_parent_for_proof() {
+  local helper="$1"
+  local module_name="$2"
+  local out="$3"
+  "$YOSYS_BIN" -p "read_verilog -sv -D PA_WIDTH=40 gated_clk_cell.v $helper ct_lsu_pfu_sdb_cmp.v; hierarchy -top ct_lsu_pfu_sdb_cmp; proc; memory; flatten; async2sync; dffunmap; opt; rename ct_lsu_pfu_sdb_cmp $module_name; clean; write_verilog -noattr -simple-lhs $OUT/$out" \
+    > "$OUT/${out%.v}.prep.replay.log" 2>&1
+}
+
+write_generated_temp_blacklist() {
+  awk '
+    /^[[:space:]]*(wire|reg)[[:space:]]/ {
+      line = $0
+      sub(/;.*/, "", line)
+      n = split(line, fields, /[[:space:]]+/)
+      name = fields[n]
+      sub(/^\\\\/, "", name)
+      if (name ~ /^_/) print name
+    }
+  ' "$@" | sort -u
+}
+
+flatten_pfu_parent_for_proof ct_rtu_compare_iid_gold.v gold pfu_parent_gold_flat.v
+flatten_pfu_parent_for_proof ct_rtu_compare_iid_gate_candidate.v gate pfu_parent_gate_flat.v
+flatten_pfu_parent_for_proof ct_rtu_compare_iid_gate_proof_mutant.v gate pfu_parent_gate_mutant_flat.v
+write_generated_temp_blacklist \
+  "$OUT/pfu_parent_gold_flat.v" \
+  "$OUT/pfu_parent_gate_flat.v" \
+  "$OUT/pfu_parent_gate_mutant_flat.v" \
+  > "$OUT/pfu_parent_generated_temps.blacklist"
+
+"$YOSYS_BIN" -p "read_verilog -sv $OUT/pfu_parent_gold_flat.v; read_verilog -sv $OUT/pfu_parent_gate_flat.v; proc; memory; opt; equiv_make -blacklist $OUT/pfu_parent_generated_temps.blacklist gold gate equiv; hierarchy -top equiv; flatten; async2sync; dffunmap; opt; equiv_simple -seq 8; equiv_induct -seq 8; equiv_status -assert" \
+  > "$OUT/pfu_parent_same_state_equiv.replay.log" 2>&1
+
+if "$YOSYS_BIN" -p "read_verilog -sv $OUT/pfu_parent_gold_flat.v; read_verilog -sv $OUT/pfu_parent_gate_mutant_flat.v; proc; memory; opt; equiv_make -blacklist $OUT/pfu_parent_generated_temps.blacklist gold gate equiv; hierarchy -top equiv; flatten; async2sync; dffunmap; opt; equiv_simple -seq 8; equiv_induct -seq 8; equiv_status -assert" \
+  > "$OUT/pfu_parent_proof_mutant_negative.replay.log" 2>&1; then
+  echo "ERROR: pfu parent proof mutant unexpectedly proved" >&2
+  exit 1
+fi
 
 map_parent() {
   local top="$1"
@@ -108,6 +147,10 @@ write_sta_tcl ct_lsu_pfu_sdb_cmp "$OUT/ct_lsu_pfu_sdb_cmp_metric_negative.mapped
 
 grep -q "Equivalence successfully proven" "$OUT/same_state_equiv.replay.log"
 grep -q "Found a total of 1 unproven" "$OUT/proof_mutant_negative.replay.log"
+grep -q "Of those cells 366 are proven and 0 are unproven" "$OUT/pfu_parent_same_state_equiv.replay.log"
+grep -q "Equivalence successfully proven" "$OUT/pfu_parent_same_state_equiv.replay.log"
+grep -q "Of those cells 363 are proven and 3 are unproven" "$OUT/pfu_parent_proof_mutant_negative.replay.log"
+grep -q "Found a total of 3 unproven" "$OUT/pfu_parent_proof_mutant_negative.replay.log"
 grep -q "Chip area for module '\\\\ct_rtu_compare_iid': 142.636800" "$OUT/helper_gold_map.replay.log"
 grep -q "Chip area for module '\\\\ct_rtu_compare_iid': 127.622400" "$OUT/helper_gate_map.replay.log"
 grep -q "Chip area for top module '\\\\ct_lsu_spec_fail_predict': 6576.307200" "$OUT/spec_fail_predict_gold_map.replay.log"
@@ -131,4 +174,4 @@ grep -q "Total                  4.57e-04   1.34e-04   4.17e-09   5.92e-04" "$OUT
 grep -q "Total                  4.57e-04   1.34e-04   4.15e-09   5.91e-04" "$OUT/pfu_sdb_cmp_gate_opensta_area_timing_power.replay.log"
 grep -q "Total                  4.85e-04   1.73e-04   5.03e-09   6.57e-04" "$OUT/pfu_sdb_cmp_metric_negative_opensta_area_timing_power.replay.log"
 
-echo "PASS: ct_rtu_compare_iid helper equivalence, equality-boundary mutant, two LSU parent area/timing/OpenSTA-estimated-power screens, and metric negative controls reproduced"
+echo "PASS: ct_rtu_compare_iid helper equivalence, pfu parent same-state proof, equality-boundary mutants, two LSU parent area/timing/OpenSTA-estimated-power screens, and metric negative controls reproduced"
