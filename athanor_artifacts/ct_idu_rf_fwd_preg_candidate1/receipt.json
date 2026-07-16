@@ -1,0 +1,78 @@
+{
+  "schema": "openc910.idu_rf_fwd_preg_helper_scout.v1",
+  "status": "helper_metric_scout_pending_independent_replay",
+  "customer_ready": false,
+  "customer_ready_scope": "none; helper-level one-hot-contract scout only",
+  "target": {
+    "modules": [
+      "ct_idu_rf_fwd_preg"
+    ],
+    "subsystem": "idu_register_read_forwarding",
+    "proof_subject": "helper-local one-hot forwarding contract"
+  },
+  "candidate": {
+    "candidate_id": "ct_idu_rf_fwd_preg_masked_or_candidate1",
+    "description": "replace priority casez forwarding mux with explicit one-hot lane matching and masked OR data selection",
+    "selected_flow": "yosys66_sky130_synth_dfflibmap_abc_opensta_v1",
+    "state_change": "none",
+    "contract_boundary": "data output equivalence is required only when exactly one forwarding lane matches; no-forward output equivalence is unconditional",
+    "candidate_sha256": "6986248511e75f84d9b2d4beb89736fdc5b9e4cf5593ef6f6373b59f69fd1194",
+    "mapped_netlist_sha256": "7a6b492e4d035d5776ac7b4dd6e25724d5a92143ceb51e5668c1f279c9ecc3b7"
+  },
+  "toolchain": {
+    "yosys_version": "Yosys 0.66+181 (git sha1 afe6b18f2, Release, Clang /usr/bin/clang++ 18.1.8)",
+    "opensta_version": "OpenSTA 2.2.0",
+    "liberty": "sky130_fd_sc_hd__tt_025C_1v80.lib",
+    "liberty_sha256": "ec0e1067a35c8bf20b11e58d1e8ac53326067e4dac84a125cc1b917a3518d0d9"
+  },
+  "metrics": {
+    "area": {
+      "instrument": "yosys_stat_liberty",
+      "unit": "sky130_selected_area",
+      "gold": 2706.3456,
+      "gate": 2382.2848,
+      "log_refs": [
+        "gold_map.pinned.log",
+        "gate_map.pinned.log"
+      ]
+    },
+    "timing": {
+      "instrument": "opensta",
+      "unit": "ns max data-arrival",
+      "gold": 11.23,
+      "gate": 6.10,
+      "log_refs": [
+        "gold_opensta_area_timing_power.pinned.log",
+        "gate_opensta_area_timing_power.pinned.log"
+      ]
+    },
+    "power": {
+      "instrument": "opensta_report_power",
+      "unit": "nW OpenSTA estimated total power under fixed global activity 0.1",
+      "gold": 7.42e-05,
+      "gate": 6.39e-05,
+      "methodology_boundary": "OpenSTA liberty estimate under fixed global activity; not signoff power and not measured workload activity"
+    }
+  },
+  "proof_receipts": {
+    "onehot_contract": {
+      "status": "passed",
+      "log": "onehot_contract.pinned.log",
+      "log_sha256": "9660d03f4ac9a114ff3c656df9172c4b7a0dbf985999f65c6f7857deab30b931"
+    },
+    "proof_mutant": {
+      "status": "failed_as_expected",
+      "log": "proof_mutant_negative.pinned.log",
+      "log_sha256": "9f302a960f8ab6a6ab3a67367c4a2defb2d258a6a180b225f37aa79d8e40b43b",
+      "mutation": "reuse lane-0 forwarded data on lane 1 while preserving the one-hot selector contract"
+    }
+  },
+  "known_boundaries": [
+    "customer_ready=false; not promoted as a result row",
+    "helper-level IDU PREG forwarding mux only",
+    "forwarded data equivalence is one-hot-contract scoped because the original design emits X on no-hit or multi-hit data cases",
+    "no parent IDU, register-file, whole-C910, ISA, or workload claim",
+    "OpenSTA estimated power is fixed-activity methodology, not signoff or workload power",
+    "the sibling VREG forwarding transform is not packaged here because it regresses area and power under the same flow"
+  ]
+}

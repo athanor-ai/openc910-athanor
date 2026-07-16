@@ -1,0 +1,8 @@
+read_verilog -formal -sv ct_idu_rf_fwd_preg_gold.v
+rename ct_idu_rf_fwd_preg gold
+read_verilog -formal -sv ct_idu_rf_fwd_preg_gate_candidate.v
+rename ct_idu_rf_fwd_preg gate
+read_verilog -formal -sv ct_idu_rf_fwd_preg_onehot_contract.sv
+prep -top contract_top
+flatten; opt
+sat -verify -prove bad 0

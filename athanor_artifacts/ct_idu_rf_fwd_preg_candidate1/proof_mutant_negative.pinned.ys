@@ -1,0 +1,8 @@
+read_verilog -formal -sv ct_idu_rf_fwd_preg_gold.v
+rename ct_idu_rf_fwd_preg gold
+read_verilog -formal -sv ct_idu_rf_fwd_preg_proof_mutant.v
+rename ct_idu_rf_fwd_preg mutant
+read_verilog -formal -sv ct_idu_rf_fwd_preg_mutant_contract.sv
+prep -top contract_top
+flatten; opt
+sat -verify -prove bad 0
