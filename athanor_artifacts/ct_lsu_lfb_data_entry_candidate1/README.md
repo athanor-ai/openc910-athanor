@@ -35,6 +35,12 @@ exact candidate netlist yet. The current customer-ready authority is the scoped
 module-local Yosys proof plus biting controls and same-candidate-bound PPA
 receipts.
 
+A real bridge-obligation package is committed at `lean_bridge_obligation.json`.
+It is SHA-bound to the gold/candidate RTL, the same-state proof receipt, and
+the shifted-address mutant bite, and is intended as input to the Lean theorem
+batch worker. It does not change this package to `lean_authority`; the receipt
+stays `lean_fallback` until a kernel-checked theorem is audited and stamped.
+
 ## Negative Controls
 
 `ct_lsu_lfb_data_entry_gate_proof_mutant.v` is a proof negative control. It

@@ -1,0 +1,25 @@
+{
+  "bridge": {
+    "label": "ctLsuLfbDataEntrySameState",
+    "rationale": "the shipped same-state executor proves all 560 equivalence cells and the shifted-address mutant leaves 8 cells unproven",
+    "sv_expression": "gold and gate module state plus visible outputs agree under the checked same-state RTL model"
+  },
+  "design_or_family": "CtLsuLfbDataEntry",
+  "ebmc_assumption_receipt": "same_state_equivalence passed: 560 proven / 0 unproven; proof_negative_control failed_as_expected: shifted-address mutant leaves 8 unproven cells; production_executor_receipt source_commit 93ce85eeb",
+  "gate": {
+    "path": "athanor_artifacts/ct_lsu_lfb_data_entry_candidate1/ct_lsu_lfb_data_entry_gate_candidate.v",
+    "role": "gate",
+    "sha256": "a6b33c99cff4964607137d78db400f1473db2eb11a636b81d8cca7943e3e8355"
+  },
+  "gold": {
+    "path": "athanor_artifacts/ct_lsu_lfb_data_entry_candidate1/ct_lsu_lfb_data_entry_gold.v",
+    "role": "gold",
+    "sha256": "75d92db6b5e69094607a3b42c8f5a67997e5c03d5c7db0e588a2bde7abadd6fc"
+  },
+  "receipt_kind": "sec_bridge_obligation",
+  "schema_version": 1,
+  "target_property": "ct_lsu_lfb_data_entry.same_state_equivalence",
+  "theorem_ref": "Pythia/Hardware/SEC/CtLsuLfbDataEntry.lean::ct_lsu_lfb_data_entry_same_state_equivalence_gold_gate_refinement",
+  "theorem_skeleton": "/-\nAuto-generated SEC bridge obligation skeleton for\ntarget_property `ct_lsu_lfb_data_entry.same_state_equivalence` on `CtLsuLfbDataEntry`.\n\nOPEN OBLIGATION \u2014 this states the gold-vs-gate relational claim; it\ndoes NOT prove it. The property closed at runtime only UNDER the\nassumed bridge invariant `ctLsuLfbDataEntrySameState`:\n    gold and gate module state plus visible outputs agree under the checked same-state RTL model\n(the shipped same-state executor proves all 560 equivalence cells and the shifted-address mutant leaves 8 cells unproven)\n\nExact obligation evidence binding:\nGold RTL: `athanor_artifacts/ct_lsu_lfb_data_entry_candidate1/ct_lsu_lfb_data_entry_gold.v` sha256 `75d92db6b5e69094607a3b42c8f5a67997e5c03d5c7db0e588a2bde7abadd6fc`.\nGate RTL: `athanor_artifacts/ct_lsu_lfb_data_entry_candidate1/ct_lsu_lfb_data_entry_gate_candidate.v` sha256 `a6b33c99cff4964607137d78db400f1473db2eb11a636b81d8cca7943e3e8355`.\nAssumption receipt: same_state_equivalence passed: 560 proven / 0 unproven; proof_negative_control failed_as_expected: shifted-address mutant leaves 8 unproven cells; production_executor_receipt source_commit 93ce85eeb\nTransition context: ct_lsu_lfb_data_entry module-local same-state route; proc/memory/opt, equiv_make, flatten/async2sync/dffunmap/opt, equiv_simple/equiv_induct seq8, equiv_status -assert\n\nObligation id (core sha256): 646aa63b4abdd8b8586f71c58a94f5907a3b60372fc88c86942490c8b6a9204b\nRendering this as proved requires an audited\n_CANONICAL_BRIDGE_THEOREMS entry \u2014 do not stamp until\nthe proof below is discharged and the statement is audited to be\nequivalent-to-or-stronger-than the assumed invariant.\n-/\nimport Pythia.Hardware.SEC.RefinementRelation\n\nnamespace Pythia.Hardware.SEC.CtLsuLfbDataEntry\n\nopen Pythia.Hardware.SEC\n\n/-- Gate (optimized) refines gold (spec) for target `ct_lsu_lfb_data_entry.same_state_equivalence`, with the abstraction `f` witnessed by the\n    assumed bridge invariant `gold and gate module state plus visible outputs agree under the checked same-state RTL model`. -/\ntheorem ct_lsu_lfb_data_entry_same_state_equivalence_gold_gate_refinement\n    {S_gold S_gate I O : Type*}\n    (gold : Step S_gold I O) (gate : Step S_gate I O)\n    (gold_init : ResetInitial S_gold) (gate_init : ResetInitial S_gate)\n    (f : AbstractionFunction S_gate S_gold) :\n    refines_under gate gold gate_init.init gold_init.init f := by\n  -- PROOF OBLIGATION (replace with the discharge) of `ctLsuLfbDataEntrySameState` for `ct_lsu_lfb_data_entry.same_state_equivalence`\n\nend Pythia.Hardware.SEC.CtLsuLfbDataEntry\n",
+  "transition_context": "ct_lsu_lfb_data_entry module-local same-state route; proc/memory/opt, equiv_make, flatten/async2sync/dffunmap/opt, equiv_simple/equiv_induct seq8, equiv_status -assert"
+}
