@@ -1,6 +1,6 @@
 {
   "schema": "athanor.same_candidate_metric_binding.v1",
-  "status": "candidate_metric_scout_pending_independent_replay",
+  "status": "candidate_metric_scout_replay_confirmed_promotion_rejected_timing_path_regression",
   "customer_ready": false,
   "candidate": {
     "candidate_sha256": "b977abd3cbdef14aa50c17ef3d3d188e4980778b78b90fd716904969c8e5b266",
@@ -45,7 +45,14 @@
           "lsu_special_clk",
           "forever_cpuclk"
         ],
-        "interpretation": "lower data-arrival and less-negative WNS under the package SDC; not timing closure"
+        "interpretation": "lower worst violating same-clock data-arrival and less-negative WNS under the package SDC; not timing closure"
+      },
+      "met_cross_clock_path": {
+        "gold_data_arrival_ns": 3.44,
+        "gate_data_arrival_ns": 3.48,
+        "gold_slack_ns": 6.42,
+        "gate_slack_ns": 6.39,
+        "interpretation": "this reported met cross-clock path regresses, so the package is not timing-positive overall"
       },
       "negative_control": {
         "regressed_candidate_sha256": "69dcc3008ae26fc36bddc4368ac76388f5f1a8bd7511c12ca016e099ddf009a6",
@@ -86,5 +93,5 @@
       }
     }
   },
-  "independent_review_summary": "Pending independent replay; this packet is candidate evidence only."
+  "independent_review_summary": "Independent non-author replay confirmed the proof, mapped netlists, area improvement, estimated-power improvement, and metric red-controls, but also confirmed a reported met cross-clock timing path regresses 3.44 ns -> 3.48 ns. Keep customer_ready=false and do not promote as a result row."
 }
