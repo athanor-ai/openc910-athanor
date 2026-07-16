@@ -18,10 +18,10 @@ Every row below is that discipline applied.
 
 Public read in 30 seconds:
 
-- Promoted results: three OoO control-block wins, each with area, OpenSTA max
+- Promoted results: four C910 module-local wins, each with area, OpenSTA max
   data-arrival, OpenSTA estimated power, replayable proof, and negative controls
   bound to the same candidate.
-- Candidate scouts: LSU queue/control and RTU table-helper candidates now
+- Candidate scouts: remaining LSU queue/control and RTU table-helper candidates
   include positive screens and hard negatives; none becomes a result row until
   independent replay closes the full bar.
 - Gate discipline: proof-clean and area-positive is not enough. FIFO, ROB, RTU
@@ -40,8 +40,9 @@ denominator, or product-learning artifact.
 | `ct_prio` | CIU priority arbiter | Sky130 area `158.902400 -> 60.057600`; OpenSTA max data-arrival `0.85 ns -> 0.67 ns`; OpenSTA estimated total power `1.08e-05 nW -> 2.89e-06 nW` | Visible `sel[1:0]` temporal-induction proof under reset-first; functional mutant fails the same miter; metric red-control worsens all three axes | [`athanor_artifacts/ct_prio_area_timing_power_candidate1/`](athanor_artifacts/ct_prio_area_timing_power_candidate1/) |
 | `ct_rtu_pst_preg_entry` | RTU physical-register-status lifecycle | Top-with-deps Sky130 area `3510.867200 -> 3482.089600`; max data-arrival `3.23 ns -> 2.91 ns`; estimated total power `1.38e-04 nW -> 1.35e-04 nW` | Passive-debug bridge plus lifecycle-encoding relation induction under reset-first; relation mutant fails; metric red-control worsens all three axes | [`athanor_artifacts/rtu_pst_preg_entry_area_timing_power_candidate1/`](athanor_artifacts/rtu_pst_preg_entry_area_timing_power_candidate1/) |
 | `ct_rtu_pst_vreg_entry` | RTU vector-register-status lifecycle | Top-with-deps Sky130 area `3148.019200 -> 3057.932800`; max data-arrival `2.82 ns -> 2.81 ns` (small delta, not a material timing claim); estimated total power `1.28e-04 nW -> 1.24e-04 nW` | Passive-debug bridge plus lifecycle-encoding relation induction under reset-first; relation mutant fails; metric red-control worsens all three axes | [`athanor_artifacts/rtu_pst_vreg_entry_area_timing_power_candidate1/`](athanor_artifacts/rtu_pst_vreg_entry_area_timing_power_candidate1/) |
+| `ct_lsu_lfb_data_entry` | LSU line-fill-buffer data-entry decode | Sky130 area `19467.420800 -> 19456.160000`; OpenSTA max data-arrival `8.17 ns -> 8.14 ns`; estimated total power flat at `1.33e-03 nW` reported precision | Shipped same-state executor proves `560/560` equivalence cells; shifted-address mutant leaves `8` cells unproven; metric red-control worsens all three axes; recorded as Lean fallback until a theorem binds this candidate | [`athanor_artifacts/ct_lsu_lfb_data_entry_candidate1/`](athanor_artifacts/ct_lsu_lfb_data_entry_candidate1/) |
 
-Metric methodology: all three result rows are same-candidate-bound. Area,
+Metric methodology: all promoted result rows are same-candidate-bound. Area,
 timing, and OpenSTA estimated power are produced from the recorded candidate and
 mapped netlist under one selected flow. OpenSTA power is a liberty estimate under
 fixed activity, not silicon signoff and not workload-measured power.
