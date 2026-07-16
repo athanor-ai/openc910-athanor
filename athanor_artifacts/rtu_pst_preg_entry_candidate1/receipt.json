@@ -1,5 +1,5 @@
 {
-  "artifact": "ath2950_c910_rtu_pst_preg_entry_candidate1",
+  "artifact": "c910_rtu_pst_preg_entry_candidate1",
   "status": "accepted_module_local_visible_output_relation_packet",
   "customer_ready": true,
   "customer_ready_scope": "module-local visible-output equivalence for C910 ct_rtu_pst_preg_entry under reset-first via passive debug bridge plus closed lifecycle-encoding relation induction; legacy proof packet only; full-PPA authority lives in the separate same-candidate metric packet",

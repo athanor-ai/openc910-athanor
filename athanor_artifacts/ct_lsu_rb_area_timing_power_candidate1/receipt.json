@@ -1,6 +1,5 @@
 {
-  "schema": "kairos.ath2950.module_metric_scout.v1",
-  "ticket": "ATH-2950",
+  "schema": "openc910.module_metric_scout.v1",
   "status": "candidate_metric_scout_pending_independent_replay",
   "customer_ready": false,
   "customer_ready_scope": "none; candidate scout only",

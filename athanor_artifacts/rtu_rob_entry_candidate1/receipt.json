@@ -1,6 +1,5 @@
 {
-  "schema": "kairos.ath2950.module_candidate.v1",
-  "ticket": "ATH-2950",
+  "schema": "openc910.module_candidate.v1",
   "created_by": "dexter",
   "created_utc": "2026-07-13T14:20:00Z",
   "target": {
