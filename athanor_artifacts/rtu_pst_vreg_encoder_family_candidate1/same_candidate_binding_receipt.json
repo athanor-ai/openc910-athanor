@@ -41,7 +41,7 @@
       "metric": {
         "gold_max_data_arrival_ns": 8.3,
         "gate_max_data_arrival_ns": 8.3,
-        "clock_period_ns": 10.0
+        "clock_period_ns": 10
       },
       "negative_control": {
         "regressed_candidate_sha256": "b5faadd0b50c884c0e5d63b6f75aedd3a2a0e9a23d9087212669c276a7f2d169",
@@ -80,5 +80,5 @@
       }
     }
   },
-  "independent_review_summary": "confirmed by non-author second-seat replay on 2026-07-15: SHA256SUMS clean; helper proof proved 6/6 cells; proof mutant left 1 unproven cell and failed as expected; mapped netlists reproduced byte-exact; area, flat timing, estimated power, and metric-negative controls reproduced. Still customer_ready=false and not a promoted result row."
+  "independent_review_summary": "confirmed by non-author second-seat replay on 2026-07-15: SHA256SUMS clean; helper proof proved 6/6 cells; helper proof mutant left 1 unproven cell; parent-table proof proved 17263/17263 cells; parent-table mutant left 35 unproven cells; mapped netlists reproduced byte-exact; area, flat timing, estimated power, and metric-negative controls reproduced. Still customer_ready=false and not a promoted result row."
 }

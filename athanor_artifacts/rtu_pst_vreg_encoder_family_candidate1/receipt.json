@@ -1,12 +1,12 @@
 {
   "schema": "openc910.ct_rtu_pst_vreg.encoder_family_candidate.v1",
-  "status": "candidate_metric_scout_replay_confirmed",
+  "status": "parent_table_proof_and_metric_scout_replay_confirmed",
   "customer_ready": false,
-  "customer_ready_scope": "none; candidate scout or hard-negative receipt only",
+  "customer_ready_scope": "none; replay-confirmed parent-table proof and metric scout evidence only",
   "target": {
     "module": "ct_rtu_pst_vreg",
     "helper_module": "ct_rtu_encode_64",
-    "description": "C910 RTU parent table with encoder-family helper substitution for ct_rtu_encode_64"
+    "description": "C910 RTU parent table with encoder-family helper substitution for ct_rtu_encode_64; parent-table proof route now closes for this table"
   },
   "candidate": {
     "candidate_id": "ct_rtu_pst_vreg_ct_rtu_encode_64_mask_reduce_candidate1",
@@ -63,12 +63,24 @@
         "timing": "8.30 -> 8.30 ns max data-arrival",
         "power": "9.41e-03 -> 9.39e-03 nW OpenSTA estimated total power",
         "metric_negative_controls": "area, timing, and power controls all red"
+      },
+      "parent_table_same_state_equivalence": {
+        "proven_cells": 17263,
+        "unproven_cells": 0,
+        "verdict": "proved",
+        "log": "parent_same_state_equiv.pinned.log"
+      },
+      "parent_table_proof_mutant": {
+        "proven_cells": 17228,
+        "unproven_cells": 35,
+        "verdict": "failed_as_expected",
+        "log": "parent_proof_mutant_negative.pinned.log"
       }
     }
   },
   "files": {
     ".gitattributes": "f22845bb8754b3f46e48c758faccb210d6026e0bd75f663c8beb0c3480e33924",
-    "README.md": "27cb5e4706761591458e357752798f7826650a9f0d0f41494d81134158674cae",
+    "README.md": "a4ffc052f17542349c2de0025082d2f46a312fc7b22795807c133feeacf01f99",
     "ct_rtu_encode_64_gate_candidate.v": "c33c823977cb7915625f5534d80722a02b78e87504bcaf9ca4af0182f835c576",
     "ct_rtu_encode_64_gold.v": "b6c552220af70c8448a14e571ac98086661e2f03606bc1a66ff47d6f2b3a094f",
     "ct_rtu_encode_64_proof_mutant.v": "521ea1f9631119ec44210c81a47c2c9e214294cb16d901dbd3f92b464950ffee",
@@ -89,8 +101,10 @@
     "helper_same_state_equiv.pinned.log": "22015da69eed99343d346763dbcd84e8a62f881fb46d0691be9ed64ea01bcf9f",
     "metric_negative_area.pinned.log": "943e174fe69990b35450db60ef505420ca7509e616fad19b9692a494387c483f",
     "metric_negative_opensta_area_timing_power.pinned.log": "e8bb89183f4223a11485422db3eda48411606ca13ac6eccadfc366686364166b",
-    "replay.sh": "c0a34ed54e648470956d2b726a363bad5dda8ef1d27162cff4ca95eb6ecb847d",
-    "same_candidate_binding_receipt.json": "688d05879103a33179691231a57cfd2ca4b1b560ea171d5f446893f89596262b"
+    "replay.sh": "f23b72ab322cc5ce7f305fa652319a2630b44ea5548a6cd96a4db008f0ccb551",
+    "same_candidate_binding_receipt.json": "10a426cef9998a028fe2aabe5ca16a778f61dcb3bb34f5ca6ebaf177d2da01f1",
+    "parent_same_state_equiv.pinned.log": "b0c539a06989922a3bf305090b3d889cc04640620b69f04c9145407aaa435c77",
+    "parent_proof_mutant_negative.pinned.log": "ea4c3c2f86f04ab3e36036d7c5390a6309ed7c97f4afaadf08d5d64c72bebe06"
   },
   "metrics": {
     "area": {
@@ -123,7 +137,7 @@
       "metric": {
         "gold_max_data_arrival_ns": 8.3,
         "gate_max_data_arrival_ns": 8.3,
-        "clock_period_ns": 10.0
+        "clock_period_ns": 10
       },
       "negative_control": {
         "regressed_candidate_sha256": "b5faadd0b50c884c0e5d63b6f75aedd3a2a0e9a23d9087212669c276a7f2d169",
@@ -174,6 +188,24 @@
       "mutation": "boundary index removed from the helper mask; same equivalence check leaves one cell unproven",
       "log": "helper_proof_mutant_negative.pinned.log",
       "log_sha256": "199b9d69e015fe6207214ff01814156400360b625e97fc9a732242b72de03276"
+    },
+    "parent_table_same_state_equivalence": {
+      "status": "proved",
+      "interpretation": "ct_rtu_pst_vreg gold and candidate parent tables are equivalent through the packaged same-state proof route",
+      "route": "per-side helper-flattened parent-table equiv_make with generated-temp blacklist, async2sync, dffunmap, equiv_simple -seq 8, equiv_induct -seq 8, and equiv_status -assert",
+      "log": "parent_same_state_equiv.pinned.log",
+      "log_sha256": "b0c539a06989922a3bf305090b3d889cc04640620b69f04c9145407aaa435c77",
+      "proven_equiv_cells": 17263,
+      "unproven_equiv_cells": 0
+    },
+    "parent_table_proof_negative_control": {
+      "status": "failed_as_expected",
+      "mutation": "boundary index removed from the helper mask and substituted through the parent table",
+      "log": "parent_proof_mutant_negative.pinned.log",
+      "log_sha256": "ea4c3c2f86f04ab3e36036d7c5390a6309ed7c97f4afaadf08d5d64c72bebe06",
+      "proven_equiv_cells": 17228,
+      "unproven_equiv_cells": 35,
+      "interpretation": "the parent-table proof route discriminates the helper boundary mutant across recover/dealloc outputs"
     }
   },
   "negative_controls": {
@@ -190,7 +222,8 @@
   "known_boundaries": [
     "customer_ready=false; not promoted as a result row",
     "parent-table ct_rtu_pst_vreg only",
-    "correctness evidence is helper-substitution equivalence, not a parent-table state-relation theorem",
+    "correctness evidence is helper-substitution equivalence plus parent-table same-state equivalence through the packaged replay route",
+    "no Lean theorem or theorem-registry authority is claimed by this receipt",
     "OpenSTA estimated power is not signoff power and not measured workload activity",
     "not whole RTU, whole C910, BOOM, ISA, memory consistency, speculation recovery, composed optimization, or whole-chip authority"
   ]
