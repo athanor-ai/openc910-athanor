@@ -287,11 +287,41 @@ def _print_resolved(resolved: dict[str, tuple[Path, str]]) -> None:
         print(f"  {var}={path}  [{ident}]")
 
 
+def _read_replay_out_logs(out_dir: Path, cap: int = 65536) -> str:
+    """Bounded text of a package's replay_out logs.
+
+    Real replay scripts redirect tool stdout/stderr INTO ``replay_out/*.log``, so a
+    crash-before-verdict signature lives in the logs, not in the wrapper's captured
+    stdout/stderr. Read them (bounded) so tool-error classification can see it.
+    """
+    if not out_dir.is_dir():
+        return ""
+    chunks: list[str] = []
+    total = 0
+    for log in sorted(out_dir.glob("*.log")):
+        try:
+            text = log.read_text(encoding="utf-8", errors="replace")
+        except OSError:
+            continue
+        chunks.append(text[:cap])
+        total += len(text)
+        if total >= cap * 8:  # hard ceiling across many logs
+            break
+    return "\n".join(chunks)
+
+
 def replay_package(pkg: Path, policy: dict) -> int:
     replay = pkg / "replay.sh"
     if not replay.is_file():
         print(f"::provisioning-error:: {pkg.name}: no replay.sh in package", file=sys.stderr)
         return EXIT_PROVISIONING
+
+    # Clear any stale replay_out BEFORE provisioning resolution, so a provisioning
+    # failure leaves NO stale output from a prior successful run -- the "exit 3 /
+    # no replay_out" contract must hold even after an earlier PASS (Dexter #53).
+    out_dir = pkg / "replay_out"
+    if out_dir.exists():
+        shutil.rmtree(out_dir, ignore_errors=True)
 
     # Resolve + verify exactly the tools THIS package needs, before running any
     # verdict-bearing replay.
@@ -336,12 +366,24 @@ def replay_package(pkg: Path, policy: dict) -> int:
         return EXIT_OK
 
     # Non-zero: distinguish a tool crash from a verdict-red reproduction miss.
-    blob = proc.stdout + proc.stderr
-    tool_signatures = ("command not found", "No such file or directory",
-                       "Segmentation fault", "core dumped", "cannot execute")
+    # Real replay scripts redirect tool output INTO replay_out/*.log, so scan the
+    # bounded log text there too -- a crash-before-verdict (e.g. a yosys internal
+    # Assert failure, cf. ATH-3011) is a tool-error, NOT a verdict red, even though
+    # its signature never reaches the wrapper's stdout/stderr (Dexter #53).
+    blob = proc.stdout + proc.stderr + _read_replay_out_logs(out_dir)
+    tool_signatures = (
+        "Assert `",              # yosys internal C++ assertion (crash-before-verdict)
+        "Segmentation fault",
+        "core dumped",
+        "terminate called",
+        "Stack dump",
+        "command not found",
+        "cannot execute",
+        "No such file or directory",
+    )
     if any(sig in blob for sig in tool_signatures):
-        print(f"::tool-error:: {pkg.name}: a resolved tool failed during replay "
-              f"(exit {proc.returncode}).", file=sys.stderr)
+        print(f"::tool-error:: {pkg.name}: a resolved tool crashed during replay "
+              f"(exit {proc.returncode}); see the replay_out logs.", file=sys.stderr)
         return EXIT_TOOL_ERROR
 
     print(f"::verdict-red:: {pkg.name}: replay ran but did not reproduce a "
@@ -352,7 +394,7 @@ def replay_package(pkg: Path, policy: dict) -> int:
 
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(
-        description="One-command replay for public openc910 receipt packages (ATH-3010).",
+        description="One-command replay for public openc910 receipt packages.",
     )
     parser.add_argument(
         "package",

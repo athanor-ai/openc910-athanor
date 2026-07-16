@@ -151,6 +151,63 @@ def test_only_needed_tools_are_resolved(tmp_path, liberty, monkeypatch):
     assert set(resolved) == {"YOSYS_BIN", "LIBERTY"}
 
 
+def test_stale_replay_out_cleared_on_provisioning_failure(tmp_path, liberty, monkeypatch):
+    """Dexter #53 hold 1: a provisioning failure must leave NO stale replay_out,
+    even after a prior successful run left one behind -- the exit-3 / no-output
+    customer contract has to survive a re-run."""
+    pkg = tmp_path / "pkg"
+    pkg.mkdir()
+    (pkg / "replay.sh").write_text('#!/usr/bin/env bash\n"$YOSYS_BIN" -V\n')
+    stale = pkg / "replay_out"
+    stale.mkdir()
+    (stale / "old.replay.log").write_text("stale output from a prior PASS\n")
+
+    monkeypatch.setenv("YOSYS_BIN", str(tmp_path / "no_such_yosys"))
+    rc = rp.replay_package(pkg, _policy_for(liberty))
+
+    assert rc == rp.EXIT_PROVISIONING
+    assert not stale.exists(), "stale replay_out survived a provisioning failure"
+
+
+def test_tool_crash_in_replay_log_is_tool_error_not_verdict(tmp_path, liberty, monkeypatch):
+    """Dexter #53 hold 2: a tool crash whose signature is REDIRECTED into a
+    replay_out log (not the wrapper's stdout/stderr) must classify as tool-error
+    (exit 2), not verdict-red. This is the real failure shape -- replay scripts
+    send tool output to replay_out/*.log."""
+    pkg = tmp_path / "pkg"
+    pkg.mkdir()
+    (pkg / "replay.sh").write_text(
+        "#!/usr/bin/env bash\n"
+        '"$YOSYS_BIN" -V >/dev/null 2>&1 || true\n'
+        "mkdir -p replay_out\n"
+        "cat > replay_out/tool.replay.log <<'LOG'\n"
+        "ERROR: Assert `count_id(wire->name) == 0' failed in kernel/rtlil.cc:2886.\n"
+        "LOG\n"
+        "exit 1\n"
+    )
+    monkeypatch.setenv("YOSYS_BIN", str(_make_tool(tmp_path / "yosys", f"{PINNED_YOSYS} x")))
+    rc = rp.replay_package(pkg, _policy_for(liberty))
+    assert rc == rp.EXIT_TOOL_ERROR
+
+
+def test_reproduction_mismatch_stays_verdict_red(tmp_path, liberty, monkeypatch):
+    """Control for the above: a normal reproduction mismatch (no crash signature
+    in the logs) must stay verdict-red, so tool-error detection does not over-fire
+    on every nonzero replay."""
+    pkg = tmp_path / "pkg"
+    pkg.mkdir()
+    (pkg / "replay.sh").write_text(
+        "#!/usr/bin/env bash\n"
+        '"$YOSYS_BIN" -V >/dev/null 2>&1 || true\n'
+        "mkdir -p replay_out\n"
+        "echo 'Chip area 19467.4 (expected 19456.1) -- assertion mismatch' > replay_out/map.replay.log\n"
+        "exit 1\n"
+    )
+    monkeypatch.setenv("YOSYS_BIN", str(_make_tool(tmp_path / "yosys", f"{PINNED_YOSYS} x")))
+    rc = rp.replay_package(pkg, _policy_for(liberty))
+    assert rc == rp.EXIT_VERDICT_RED
+
+
 def test_exit_codes_are_distinct() -> None:
     # provisioning / verdict-red / tool-error / ok must never collapse.
     assert len({rp.EXIT_OK, rp.EXIT_VERDICT_RED, rp.EXIT_TOOL_ERROR,
