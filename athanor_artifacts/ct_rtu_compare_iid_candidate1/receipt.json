@@ -1,0 +1,96 @@
+{
+  "schema": "openc910.helper_parent_area_scout.v1",
+  "status": "helper_parent_area_scout_pending_full_ppa",
+  "customer_ready": false,
+  "customer_ready_scope": "none; helper/parent area scout only",
+  "target": {
+    "module": "ct_rtu_compare_iid",
+    "subsystem": "rtu_lsu_shared_iid_ordering",
+    "proof_subject": "helper-local combinational equivalence under the checked RTL model"
+  },
+  "candidate": {
+    "candidate_id": "ct_rtu_compare_iid_wrapped_relation_candidate1",
+    "description": "replace bit-priority wrapped-IID comparison with direct same-wrap/other-wrap relational compare",
+    "candidate_sha256": "a6c9532ec501e38b40d4c6ba8f7a53f3b91331c61c2e9376b3da3c9ad9d9b246",
+    "mapped_netlist_sha256": "e85f7daf3d85c1ae187988ad67530a4c56656cff532094b69eea05d6b0484524",
+    "selected_flow": "yosys66_sky130_synth_abc_area_screen_v1",
+    "state_change": "none"
+  },
+  "toolchain": {
+    "yosys_version": "Yosys 0.66+181 (git sha1 afe6b18f2, Release, Clang /usr/bin/clang++ 18.1.8)",
+    "liberty": "sky130_fd_sc_hd__tt_025C_1v80.lib"
+  },
+  "metrics": {
+    "area": {
+      "instrument": "yosys_stat_liberty",
+      "instrument_version": "Yosys 0.66+181 (git sha1 afe6b18f2, Release, Clang /usr/bin/clang++ 18.1.8)",
+      "selected_flow": "yosys66_sky130_synth_abc_area_screen_v1",
+      "helper": {
+        "gold": 142.6368,
+        "gate": 127.6224,
+        "unit": "sky130_selected_area",
+        "log_refs": [
+          "helper_gold_map.pinned.log",
+          "helper_gate_map.pinned.log"
+        ]
+      },
+      "parent_screens": {
+        "ct_lsu_spec_fail_predict": {
+          "gold": 1725.4048,
+          "gate": 1695.376,
+          "unit": "sky130_selected_area",
+          "log_refs": [
+            "spec_fail_predict_gold_map.pinned.log",
+            "spec_fail_predict_gate_map.pinned.log"
+          ]
+        },
+        "ct_lsu_pfu_sdb_cmp": {
+          "gold": 6052.0544,
+          "gate": 6007.0112,
+          "unit": "sky130_selected_area",
+          "log_refs": [
+            "pfu_sdb_cmp_gold_map.pinned.log",
+            "pfu_sdb_cmp_gate_map.pinned.log"
+          ]
+        }
+      },
+      "interpretation": "helper-level and two-parent-screen area-positive; full same-candidate timing/power remains pending"
+    }
+  },
+  "proof_receipts": {
+    "helper_equivalence": {
+      "status": "passed",
+      "command": "read_verilog -sv ct_rtu_compare_iid_gold.v; rename ct_rtu_compare_iid ct_rtu_compare_iid_gold; read_verilog -sv ct_rtu_compare_iid_gate_candidate.v; proc; opt; equiv_make ct_rtu_compare_iid_gold ct_rtu_compare_iid equiv; hierarchy -top equiv; flatten; opt; equiv_simple; equiv_status -assert",
+      "log": "same_state_equiv.pinned.log",
+      "log_sha256": "95b2dc734d64c2b5b10fe1a910a84bd1df78fbbf7cf3a3a9d65dc4f8a0167f4f",
+      "proven_equiv_cells": 1,
+      "unproven_equiv_cells": 0
+    },
+    "proof_negative_control": {
+      "status": "failed_as_expected",
+      "mutation": "weaken same-wrap strict comparison from > to >=",
+      "command": "same as helper_equivalence, with ct_rtu_compare_iid_gate_proof_mutant.v as gate",
+      "log": "proof_mutant_negative.pinned.log",
+      "log_sha256": "e3f583566bcd7ec051c2af0b1322b2c098112f5652cb3e31b8dedf6614567dd6",
+      "proven_equiv_cells": 0,
+      "unproven_equiv_cells": 1
+    }
+  },
+  "negative_controls": {
+    "proof_mutant": {
+      "path": "ct_rtu_compare_iid_gate_proof_mutant.v",
+      "sha256": "fa53f844d8979ce5ec319acea3f20c2130c653b8771400e2e2f7192116267612",
+      "interpretation": "functional proof red control; the helper equivalence check rejects the equality-boundary mutation"
+    }
+  },
+  "known_boundaries": [
+    "helper/parent area scout only; not promoted as a result row",
+    "customer_ready=false",
+    "timing and power are not claimed by this package",
+    "parent screens are synthesis-area screens, not full LSU or whole-core closure",
+    "not whole LSU, whole C910/BOOM, ISA, memory consistency, speculation recovery, composed optimization, or whole-chip authority"
+  ],
+  "next_independent_check": {
+    "ask": "Run full same-candidate replay with timing and power plus a metric red-control before any promotion discussion."
+  }
+}
