@@ -21,7 +21,7 @@
   },
   "files": {
     ".gitattributes": "dd189159ababdd3a2f5c2a0a7106f4a0bffd179e55e9db36e1476121f0bb8e7c",
-    "README.md": "4599d1263a6da511f200759b27895215990ab1cf53e08744134396ad871344c0",
+    "README.md": "a45f27bb66706f21494cf9d363070597b3505e471f82e43ac66af1006e9f9076",
     "bridge_passivity_check.pinned.log": "1ba4463bb0cd00db354ee38b0638bd036720931a5f08923dae4c5696afa649df",
     "bridge_passivity_check.py": "18d86aafb51eb7706e0abf4dba5fbb47fe2a54a0a32668ae98d6ef2e4f4d7af5",
     "ct_rtu_expand_32.v": "4467b90f7b447790649fa18b44b6f9425a0f6eca990e2220e2482a7dd636c27e",
@@ -45,7 +45,8 @@
     "relation_miter_mutant_negative_tempinduct_seq8.pinned.log": "668f0056f7f21de7277d3e93bf4f56e3bf823eb6356e1ae3a14b09d608e97aeb",
     "relation_miter_tempinduct_seq8.pinned.log": "13f1c771884496ef6a00db487d6a60b0fd5c24a7f4a3207c9d307a70f76b9bfe",
     "replay.sh": "8f65c426a6b78227729f723c651239a59bac0f71c85554dc2b6b590972d1e061",
-    "same_candidate_binding_receipt.json": "a94e2ec31aa40924c87afa9ef2f1d03865dfb2cc4af06984c99d9fd86c57508f"
+    "same_candidate_binding_receipt.json": "a94e2ec31aa40924c87afa9ef2f1d03865dfb2cc4af06984c99d9fd86c57508f",
+    "lean_bridge_obligation.json": "372e8b3d99ff12ae209f62e41b6c011126fc565871744d35334001bd61916f9b"
   },
   "metrics": {
     "area": {
@@ -195,6 +196,17 @@
     "candidate_binding": {
       "gold_sha256": "72cab4cbc55d44e5802b6abe5ec479fb9b0e4912c3f7356da741c90e58dff624",
       "gate_sha256": "e6cbb7c5e95ed80fc01516f642b49091fdf6024966c7b71d1fce4834d99fc81d"
+    },
+    "pending_obligation": {
+      "path": "lean_bridge_obligation.json",
+      "receipt_kind": "sec_bridge_obligation",
+      "schema_version": 1,
+      "target_property": "ct_rtu_pst_preg_entry.lifecycle_relation",
+      "theorem_ref": "Pythia/Hardware/SEC/CtRtuPstPregEntry.lean::ct_rtu_pst_preg_entry_lifecycle_relation_gold_gate_refinement",
+      "obligation_content_sha256": "cf9e259fb48f72f9b6b11b3f6e8ee88ade6d8cd1587370e75ffc6b2f273205da",
+      "obligation_core_sha256": "23df4b5afd236ea7d4d9c2f8fcbc8d909add4a320bf54e093a9643560986333d",
+      "file_sha256": "372e8b3d99ff12ae209f62e41b6c011126fc565871744d35334001bd61916f9b",
+      "worker_intent": "batch theorem worker input; open obligation only, not Lean authority"
     }
   }
 }
