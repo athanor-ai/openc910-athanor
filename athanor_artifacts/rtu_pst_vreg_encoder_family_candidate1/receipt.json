@@ -1,6 +1,6 @@
 {
   "schema": "openc910.ct_rtu_pst_vreg.encoder_family_candidate.v1",
-  "status": "candidate_metric_scout_pending_independent_replay",
+  "status": "candidate_metric_scout_replay_confirmed",
   "customer_ready": false,
   "customer_ready_scope": "none; candidate scout or hard-negative receipt only",
   "target": {
@@ -30,9 +30,45 @@
     "opensta_version": "OpenSTA 2.2.0",
     "liberty": "sky130_fd_sc_hd__tt_025C_1v80.lib"
   },
+  "independent_replay": {
+    "status": "confirmed_non_author_replay",
+    "date": "2026-07-15",
+    "scope": "second-seat replay of the public package; confirms replayability only and does not promote the candidate to customer-ready",
+    "toolchain": {
+      "yosys_version": "Yosys 0.66+181 (git sha1 afe6b18f2, Release, Clang /usr/bin/clang++ 18.1.8)",
+      "opensta_version": "OpenSTA 2.2.0",
+      "liberty": "sky130_fd_sc_hd__tt_025C_1v80.lib",
+      "liberty_sha256": "ec0e1067a35c8bf20b11e58d1e8ac53326067e4dac84a125cc1b917a3518d0d9"
+    },
+    "legs": {
+      "manifest": {
+        "sha256sums_clean": true
+      },
+      "helper_same_state_equivalence": {
+        "proven_cells": 6,
+        "unproven_cells": 0,
+        "verdict": "proved"
+      },
+      "proof_mutant": {
+        "unproven_cells": 1,
+        "verdict": "failed_as_expected"
+      },
+      "mapped_netlist_binding": {
+        "gold_sha256": "027de2cf7e4adc32ce491b9ab8be1d98bd7f6a50909eb9dfb33c2ca03e753607",
+        "gate_sha256": "12278f70ac193d9345ce53c1380a68d344569498fb144c1fdedafde5cee16727",
+        "verdict": "byte_exact"
+      },
+      "metrics": {
+        "area": "234172.0896 -> 233181.1392 sky130_selected_area",
+        "timing": "8.30 -> 8.30 ns max data-arrival",
+        "power": "9.41e-03 -> 9.39e-03 nW OpenSTA estimated total power",
+        "metric_negative_controls": "area, timing, and power controls all red"
+      }
+    }
+  },
   "files": {
     ".gitattributes": "f22845bb8754b3f46e48c758faccb210d6026e0bd75f663c8beb0c3480e33924",
-    "README.md": "cec9e908ea6528e6ed6690210f5181407a89ac624b95afe2a0fddf91611749bc",
+    "README.md": "27cb5e4706761591458e357752798f7826650a9f0d0f41494d81134158674cae",
     "ct_rtu_encode_64_gate_candidate.v": "c33c823977cb7915625f5534d80722a02b78e87504bcaf9ca4af0182f835c576",
     "ct_rtu_encode_64_gold.v": "b6c552220af70c8448a14e571ac98086661e2f03606bc1a66ff47d6f2b3a094f",
     "ct_rtu_encode_64_proof_mutant.v": "521ea1f9631119ec44210c81a47c2c9e214294cb16d901dbd3f92b464950ffee",
@@ -54,7 +90,7 @@
     "metric_negative_area.pinned.log": "943e174fe69990b35450db60ef505420ca7509e616fad19b9692a494387c483f",
     "metric_negative_opensta_area_timing_power.pinned.log": "e8bb89183f4223a11485422db3eda48411606ca13ac6eccadfc366686364166b",
     "replay.sh": "c0a34ed54e648470956d2b726a363bad5dda8ef1d27162cff4ca95eb6ecb847d",
-    "same_candidate_binding_receipt.json": "f64a19f1966f93cb45aafe75fc0fc4e032e104407d99be4e585012f1cd3945f6"
+    "same_candidate_binding_receipt.json": "688d05879103a33179691231a57cfd2ca4b1b560ea171d5f446893f89596262b"
   },
   "metrics": {
     "area": {
