@@ -18,9 +18,10 @@ Every row below is that discipline applied.
 
 Public read in 30 seconds:
 
-- Promoted results: four C910 module-local wins, each with area, OpenSTA max
+- Promoted results: four C910 module-local packets, each with area, OpenSTA max
   data-arrival, OpenSTA estimated power, replayable proof, and negative controls
-  bound to the same candidate.
+  bound to the same candidate. Three are metric wins on all reported axes; the
+  LFB data-entry packet is area/timing-positive with neutral reported power.
 - Candidate scouts: remaining LSU queue/control and RTU table-helper candidates
   include positive screens and hard negatives; none becomes a result row until
   independent replay closes the full bar.
@@ -30,7 +31,7 @@ Public read in 30 seconds:
 - Next bar: a subsystem win, measured on the composed parent netlist and closed
   with a reusable relation or Lean invariant.
 
-The table below is the promoted result set; anything outside it is a candidate,
+The table below is the promoted packet set; anything outside it is a candidate,
 denominator, or product-learning artifact.
 
 ## Executive Scoreboard
