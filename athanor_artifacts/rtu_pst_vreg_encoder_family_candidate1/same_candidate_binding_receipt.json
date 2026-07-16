@@ -1,6 +1,6 @@
 {
   "schema": "openc910.same_candidate_metric_binding.v1",
-  "status": "candidate_metric_scout_pending_independent_replay",
+  "status": "candidate_metric_scout_replay_confirmed",
   "customer_ready": false,
   "candidate": {
     "table_module": "ct_rtu_pst_vreg",
@@ -80,5 +80,5 @@
       }
     }
   },
-  "independent_review_summary": "pending; this public package is a scout/hard-negative receipt until non-author replay closes"
+  "independent_review_summary": "confirmed by non-author second-seat replay on 2026-07-15: SHA256SUMS clean; helper proof proved 6/6 cells; proof mutant left 1 unproven cell and failed as expected; mapped netlists reproduced byte-exact; area, flat timing, estimated power, and metric-negative controls reproduced. Still customer_ready=false and not a promoted result row."
 }

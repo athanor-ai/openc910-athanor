@@ -1,6 +1,6 @@
 # C910 RTU Vreg Table Encoder-Family Candidate 1
 
-Status: candidate metric scout; `customer_ready=false`.
+Status: replay-confirmed candidate evidence; `customer_ready=false`.
 
 This package records a parent-table encoder-family scout for `ct_rtu_pst_vreg`. The
 candidate replaces the shared `ct_rtu_encode_64` priority-style encoder with bit-mask
@@ -22,7 +22,7 @@ parent-table candidate netlist recorded in `same_candidate_binding_receipt.json`
 | OpenSTA max data-arrival | `8.30 ns` | `8.30 ns` | flat at reported precision |
 | OpenSTA estimated total power | `9.41e-03 nW` | `9.39e-03 nW` | lower estimate |
 
-The vreg table keeps the parent area win and a lower OpenSTA estimated-power value, while max data-arrival is flat at the reported precision. It remains a scout until independent replay and promotion review close.
+The vreg table keeps the parent area win and a lower OpenSTA estimated-power value, while max data-arrival is flat at the reported precision. A non-author second-seat replay on 2026-07-15 reproduced the manifest, helper proof, proof mutant, mapped-netlist hashes, area, timing, estimated power, and metric-negative controls. It remains non-customer-ready candidate evidence until an explicit promotion-row review closes.
 
 The power row is an OpenSTA liberty estimate with
 `set_power_activity -global -activity 0.1 -duty 0.5`. It is not signoff power
@@ -67,7 +67,7 @@ LIBERTY=/path/to/sky130_fd_sc_hd__tt_025C_1v80.lib \
 
 ## Boundaries
 
-- Candidate scout only; not promoted as a result row.
+- Replay-confirmed candidate evidence only; not promoted as a result row.
 - Parent-table `ct_rtu_pst_vreg` only; not whole RTU or whole C910.
 - Correctness evidence is helper-substitution equivalence plus a biting helper
   mutant; no parent-table relation theorem is claimed here.
