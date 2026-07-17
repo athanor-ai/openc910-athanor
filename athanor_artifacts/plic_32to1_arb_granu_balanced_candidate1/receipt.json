@@ -1,9 +1,9 @@
 {
   "schema": "openc910.module_local_area_timing_opensta_estimated_power_packet.v1",
   "ticket": "ATH-2852",
-  "status": "candidate_module_local_area_timing_opensta_estimated_power_packet",
-  "customer_ready": false,
-  "customer_ready_scope": "pending independent non-author replay; local evidence proves helper SAT miter, parent same-state boundary, and selected parent area/timing/OpenSTA estimated-power improvements",
+  "status": "accepted_module_local_area_timing_opensta_estimated_power_packet",
+  "customer_ready": true,
+  "customer_ready_scope": "module-local plic_32to1_arb balanced second-stage selector parent packet: helper SAT miter proves, tie-rule mutant reds, flattened parent same-state proof closes 66557/66557 with only implementation-internal helper ID wires blacklisted from matching, and same-candidate-bound parent selected Sky130 area, real-clock OpenSTA max data-arrival, and OpenSTA estimated total power improve; non-author replay reproduced mapped netlists byte-exact; OpenSTA estimated power is not signoff power and not measured workload activity",
   "target": {
     "helper_module": "plic_granu_arb",
     "parent_module": "plic_32to1_arb",
@@ -95,7 +95,7 @@
     }
   },
   "known_boundaries": [
-    "customer_ready=false until independent non-author replay closes next_independent_check",
+    "customer_ready=true only for this module-local plic_32to1_arb parent packet under the pinned public replay flow",
     "module-local plic_32to1_arb second-stage PLIC priority selector evidence only",
     "parent same-state proof uses an internal blacklist for helper ID wires; parent outputs are checked",
     "OpenSTA estimated power is not signoff power and not measured workload activity",
@@ -111,10 +111,11 @@
     }
   },
   "independent_replay": {
-    "status": "pending"
+    "status": "passed",
+    "reviewer": "platypus",
+    "summary": "non-author replay reproduced the packet from the public package path under the pinned Yosys/OpenSTA/Sky130 suite: parent proof closed 66557 proven / 0 unproven, all four mapped netlists matched package sha256s byte-exact, helper proof passed, tie-rule proof mutant failed as required, parent real-clock timing reproduced 13.26 -> 7.39 ns, parent area and OpenSTA estimated-power improvements matched, and the 2-entry parent blacklist was audited as internal-only with no parent ports blacklisted"
   },
   "next_independent_check": {
-    "status": "pending",
-    "requested_check": "fresh non-author replay from public package path: SHA256SUMS, helper proof, proof mutant, parent proof, mapped netlist byte hashes, parent/helper area, real-clock parent timing, and OpenSTA estimated power"
+    "status": "closed_by_non_author_replay"
   }
 }

@@ -4,9 +4,10 @@ Module-local OpenC910 PLIC scout packet for replacing the second-stage
 `plic_granu_arb` priority selector inside `plic_32to1_arb` with a balanced
 9-way comparator tree.
 
-Status: `customer_ready=false`. The local evidence chain is complete, but this
-packet is not promoted until an independent non-author replay reproduces it from
-the public package path.
+Status: `customer_ready=true` for the module-local `plic_32to1_arb` parent
+packet under the pinned public replay flow. A non-author replay reproduced the
+parent proof, helper proof, proof mutant, mapped netlist hashes, and recorded
+area/timing/OpenSTA estimated-power metrics from the public package path.
 
 ## Evidence
 
@@ -32,7 +33,9 @@ This is a module-local PLIC packet, not a whole-C910 interrupt-controller,
 privilege, platform, timing-signoff, workload-power, or Lean theorem-registry
 claim. OpenSTA power is estimated under fixed global activity and is not signoff
 power. The parent timing screen uses a real `arb_clk` constraint; the helper
-screen uses the package's virtual-clock combinational convention.
+screen uses the package's virtual-clock combinational convention. Both
+blacklisted parent-equivalence names are implementation-internal helper-ID wires;
+no parent ports are blacklisted.
 
 ## Replay
 
