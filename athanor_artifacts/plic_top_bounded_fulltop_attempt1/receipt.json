@@ -1,0 +1,103 @@
+{
+  "schema": "openc910.bounded_composed_ppa_attempt.v1",
+  "ticket": "ATH-3121",
+  "status": "bounded_composed_plic_top_ppa_attempt",
+  "customer_ready": false,
+  "customer_ready_scope": "none; first bounded plic_top composed screen only",
+  "target": {
+    "boundary_module": "plic_top",
+    "subsystem": "plic",
+    "claim_scope": "bounded_plic_top_only",
+    "not_whole_c910": true,
+    "source_candidate_package": "athanor_artifacts/plic_32to1_arb_granu_balanced_candidate1"
+  },
+  "selected_flow": "yosys66_sky130_hierarchical_mapped_opensta_screen_v1",
+  "toolchain": {
+    "yosys_version": "Yosys 0.66+181 (git sha1 afe6b18f2, Release, Clang 18.1.8)",
+    "opensta_version": "OpenSTA 2.2.0",
+    "liberty": "sky130_fd_sc_hd__tt_025C_1v80.lib",
+    "liberty_sha256": "ec0e1067a35c8bf20b11e58d1e8ac53326067e4dac84a125cc1b917a3518d0d9"
+  },
+  "toolchain_sha256": "97040f2b872cab22fccb5f394199b684454bb3137f94d60c31abbb3048fb8434",
+  "source_manifest_sha256": "562fb91fc92d115a5e20105ae2dda6c6b4562ee6e3e9130b569d959780f11d7f",
+  "overlay_source_sha256": "41805698f2b1c2cbba349a3a89074c44eca84e2af685f35d903720805b215c0d",
+  "overlay_sha256": "b57863acc068d449c2f3b49c4d01eefe065ee20cecd421bfb4990d8b85580df6",
+  "screen": {
+    "screen_config_sha256": "7833d4a7954a74aed96379108179a8d8b234122524a9ea72a1b8d2f3d2da88c8",
+    "path": "screen_config.json",
+    "comparability_rule": "Only runs with the same screen_config_sha256 are comparable; otherwise report incomparable and use timing-flat wording."
+  },
+  "cache": {
+    "cache_keys": "cache_keys.json",
+    "gold_cache_key": "57709dd0674c006becfe8c59cd18f579776ac4bcc2140e2a19a93b1addb646c5",
+    "gate_cache_key": "087b2a8254cc7bf5fa79044975500b87dde3c49393a474039c1ce571db80f071",
+    "key_inputs": [
+      "boundary scope",
+      "source manifest hash",
+      "gate overlay hash",
+      "screen config hash",
+      "selected flow",
+      "toolchain hash"
+    ]
+  },
+  "metrics": {
+    "composed_area": {
+      "gold": 1039075.3056,
+      "gate": 1006879.4272,
+      "unit": "recursive_yosys_hierarchical_sky130_area",
+      "log_ref": "composed_area.pinned.log",
+      "direction": "improves"
+    },
+    "timing": {
+      "screen_config_sha256": "7833d4a7954a74aed96379108179a8d8b234122524a9ea72a1b8d2f3d2da88c8",
+      "gold_wns_ns": -130.87,
+      "gate_wns_ns": -130.42,
+      "gold_max_data_arrival_ns": 140.74,
+      "gate_max_data_arrival_ns": 140.29,
+      "demo_wording": "timing-flat until screen reconciliation",
+      "log_ref": "sta_screen.pinned.log"
+    },
+    "power": {
+      "screen_config_sha256": "7833d4a7954a74aed96379108179a8d8b234122524a9ea72a1b8d2f3d2da88c8",
+      "gold_total_power_nw": 0.0971,
+      "gate_total_power_nw": 0.096,
+      "methodology_boundary": "OpenSTA estimated power under fixed global activity; not signoff power and not measured workload activity",
+      "log_ref": "sta_screen.pinned.log",
+      "direction": "improves"
+    }
+  },
+  "audit_hooks": {
+    "content_hash_cache_key": true,
+    "composed_not_whole_top": true,
+    "named_partial_receipts": true,
+    "screen_config_hash": true
+  },
+  "legs": {
+    "gold_hierarchical_synth": {
+      "status": "passed",
+      "elapsed_seconds": 74,
+      "mapped_netlist_sha256": "3ee24e70934fb28dcd03b0c60217b999819c0631f7ce3467855e228beaa5ecd6"
+    },
+    "gate_hierarchical_synth": {
+      "status": "passed",
+      "elapsed_seconds": 73,
+      "mapped_netlist_sha256": "afe52aae52b3095a98c2a22f99f78b2c47d6e8e6e3e0ad67df373c4d97c0af51"
+    },
+    "gold_screen_sta": {
+      "status": "passed",
+      "elapsed_seconds": 13
+    },
+    "gate_screen_sta": {
+      "status": "passed",
+      "elapsed_seconds": 12
+    }
+  },
+  "known_boundaries": [
+    "bounded plic_top composed screen only",
+    "not a whole-C910 or whole-chip claim",
+    "not a customer-ready promoted result",
+    "timing wording remains timing-flat until all compared runs use the same screen_config_sha256",
+    "OpenSTA estimated power is not signoff power and not measured workload activity",
+    "large mapped netlists are not shipped in this first MVP; cache keys bind their source, overlay, toolchain, flow, and screen inputs"
+  ]
+}
