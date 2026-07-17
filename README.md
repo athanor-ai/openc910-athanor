@@ -24,7 +24,7 @@ Public read in 30 seconds:
   LFB data-entry packet is area/timing-positive with neutral reported power.
 - Candidate scouts: remaining LSU queue/control and RTU table-helper candidates
   plus VFALU/VFMAC helper candidates include positive screens and hard negatives;
-  none becomes a result row until independent replay closes the full bar.
+  they are not result rows unless independent replay closes the full bar.
 - Gate discipline: proof-clean and area-positive is not enough. FIFO, ROB, RTU
   parent lifts, and LSU create-pointer scouts are rejected when the exact
   candidate netlist regresses timing.
@@ -41,7 +41,7 @@ denominator, or product-learning artifact.
 | `ct_prio` | CIU priority arbiter | Sky130 area `158.902400 -> 60.057600`; OpenSTA max data-arrival `0.85 ns -> 0.67 ns`; OpenSTA estimated total power `1.08e-05 nW -> 2.89e-06 nW` | Visible `sel[1:0]` temporal-induction proof under reset-first; functional mutant fails the same miter; metric red-control worsens all three axes | [`athanor_artifacts/ct_prio_area_timing_power_candidate1/`](athanor_artifacts/ct_prio_area_timing_power_candidate1/) |
 | `ct_rtu_pst_preg_entry` | RTU physical-register-status lifecycle | Top-with-deps Sky130 area `3510.867200 -> 3482.089600`; max data-arrival `3.23 ns -> 2.91 ns`; estimated total power `1.38e-04 nW -> 1.35e-04 nW` | Passive-debug bridge plus lifecycle-encoding relation induction under reset-first; relation mutant fails; metric red-control worsens all three axes | [`athanor_artifacts/rtu_pst_preg_entry_area_timing_power_candidate1/`](athanor_artifacts/rtu_pst_preg_entry_area_timing_power_candidate1/) |
 | `ct_rtu_pst_vreg_entry` | RTU vector-register-status lifecycle | Top-with-deps Sky130 area `3148.019200 -> 3057.932800`; max data-arrival `2.82 ns -> 2.81 ns` (small delta, not a material timing claim); estimated total power `1.28e-04 nW -> 1.24e-04 nW` | Passive-debug bridge plus lifecycle-encoding relation induction under reset-first; relation mutant fails; metric red-control worsens all three axes | [`athanor_artifacts/rtu_pst_vreg_entry_area_timing_power_candidate1/`](athanor_artifacts/rtu_pst_vreg_entry_area_timing_power_candidate1/) |
-| `ct_lsu_lfb_data_entry` | LSU line-fill-buffer data-entry decode | Sky130 area `19467.420800 -> 19456.160000`; OpenSTA max data-arrival `8.17 ns -> 8.14 ns`; estimated total power flat at `1.33e-03 nW` reported precision | Shipped same-state executor proves `560/560` equivalence cells; shifted-address mutant leaves `8` cells unproven; metric red-control worsens all three axes; recorded as Lean fallback until a theorem binds this candidate | [`athanor_artifacts/ct_lsu_lfb_data_entry_candidate1/`](athanor_artifacts/ct_lsu_lfb_data_entry_candidate1/) |
+| `ct_lsu_lfb_data_entry` | LSU line-fill-buffer data-entry decode | Sky130 area `19467.420800 -> 19456.160000`; OpenSTA max data-arrival `8.17 ns -> 8.14 ns`; estimated total power flat at `1.33e-03 nW` reported precision | Shipped same-state executor proves `560/560` equivalence cells; shifted-address mutant leaves `8` cells unproven; metric red-control worsens all three axes; recorded as Lean fallback, with no theorem authority claimed for this C910 candidate | [`athanor_artifacts/ct_lsu_lfb_data_entry_candidate1/`](athanor_artifacts/ct_lsu_lfb_data_entry_candidate1/) |
 
 Metric methodology: all promoted result rows are same-candidate-bound. Area,
 timing, and OpenSTA estimated power are produced from the recorded candidate and
@@ -60,10 +60,11 @@ fixed activity, not silicon signoff and not workload-measured power.
   speculation recovery, memory consistency, ISA correctness, and composed
   subsystem results require separate receipts.
 
-## Next Ambitious Target
+## Composition Frontier
 
-The current campaign target is a parent/subsystem result that a CPU architect can
-audit, not a bundle of unrelated local edits:
+The current frontier is a parent/subsystem result that a CPU architect can
+audit, not a bundle of unrelated local edits. A future promoted parent result
+must demonstrate all of the following:
 
 1. Reuse a proven entry relation across repeated RTU instances by symmetry.
 2. Prove the parent interconnect is unchanged except for the substituted entries.
@@ -74,29 +75,31 @@ audit, not a bundle of unrelated local edits:
    justify.
 
 Naive parent lifts have already produced useful hard negatives: area can improve
-while parent timing regresses. Those rejects are kept in the ledger because they
-teach Kairos that composition must be proof-aware and metric-aware at the parent
-netlist, not just locally attractive.
+while parent timing regresses. Those rejects are kept in the evidence ledger
+because they show that composition must be proof-aware and metric-aware at the
+parent netlist, not just locally attractive.
 
-## Proof Artifacts Awaiting Metric Closure
+## Evidence Ledger: Scouts And Hard Negatives
 
-These packets are useful engineering evidence, but they are not promoted as
-metric results because the multi-axis bar above is not closed.
+These packets have been looked at. They are useful engineering evidence, not a
+task board. Each row is deliberately classified as a hard negative,
+scout, helper-only result, or review-bound candidate because it does not meet the
+promoted-result bar above.
 
-| Target | Status | Why it is not in the scoreboard | Artifact |
+| Target | Evidence status | Why it is not in the scoreboard | Artifact |
 | --- | --- | --- | --- |
 | `ct_fifo` | Accepted module-local proof packet; metric hard negative | Visible-output relation proof is replayable and non-vacuous. Same-candidate metrics are measured: area improves and OpenSTA estimated power improves, but OpenSTA max data-arrival regresses `1.02 ns -> 1.14 ns`, so it is not a result row | [`athanor_artifacts/ct_fifo/`](athanor_artifacts/ct_fifo/) |
 | `ct_rtu_rob_entry` | Candidate packet | Same-state equivalence and area screening are positive, but metric promotion was rejected by OpenSTA timing regression; it remains a hard-negative / learning packet | [`athanor_artifacts/rtu_rob_entry_candidate1/`](athanor_artifacts/rtu_rob_entry_candidate1/) |
-| `ct_lsu_vb` | Candidate metric scout | Same-candidate area, OpenSTA max data-arrival, and OpenSTA estimated power all improve, with a reset-first output miter and biting proof mutant; pending non-author replay before any result-row discussion | [`athanor_artifacts/ct_lsu_vb_area_timing_power_candidate1/`](athanor_artifacts/ct_lsu_vb_area_timing_power_candidate1/) |
+| `ct_lsu_vb` | Candidate metric scout | Same-candidate area, OpenSTA max data-arrival, and OpenSTA estimated power all improve, with a reset-first output miter and biting proof mutant; requires non-author replay before any result-row discussion | [`athanor_artifacts/ct_lsu_vb_area_timing_power_candidate1/`](athanor_artifacts/ct_lsu_vb_area_timing_power_candidate1/) |
 | `ct_lsu_rb` | Replay-confirmed mixed metric scout | Same-candidate area, worst violating same-clock data-arrival, WNS, and OpenSTA estimated power improve under a two-clock package SDC, with same-state equivalence and a biting proof mutant independently replayed; a reported met cross-clock path regresses `3.44 ns -> 3.48 ns`, so this is not a result row | [`athanor_artifacts/ct_lsu_rb_area_timing_power_candidate1/`](athanor_artifacts/ct_lsu_rb_area_timing_power_candidate1/) |
 | LSU load/store data-control rotate decoders | Low-value positive scout | `ct_lsu_ld_dc` and `ct_lsu_st_dc` one-hot rotate-selector rewrites are proof-clean and non-regressing across all measured axes, but the gains are too small to stand alone as an architect-facing result; useful only as part of a broader decode-cleanup packet | [`athanor_artifacts/TARGET_ATLAS.md`](athanor_artifacts/TARGET_ATLAS.md) |
 | LSU empty-slot create-pointer rewrites | Hard-negative scouts | `ct_lsu_lq` and `ct_lsu_sq` prove clean and improve area, but OpenSTA max data-arrival regresses, so the transform family is rejected for promotion | [`athanor_artifacts/KAIROS_GAP_LEDGER.md`](athanor_artifacts/KAIROS_GAP_LEDGER.md) |
-| `ct_rtu_pst_vreg` parent lift | Scout only | Replacing all 64 vreg entries improves parent area but regresses parent max data-arrival. It needs a compositional proof plus direct parent metric closure | [`athanor_artifacts/KAIROS_GAP_LEDGER.md`](athanor_artifacts/KAIROS_GAP_LEDGER.md) |
+| `ct_rtu_pst_vreg` parent lift | Scout only | Replacing all 64 vreg entries improves parent area but regresses parent max data-arrival; no compositional proof or direct parent metric closure is claimed | [`athanor_artifacts/KAIROS_GAP_LEDGER.md`](athanor_artifacts/KAIROS_GAP_LEDGER.md) |
 | `ct_rtu_pst_vreg` encoder family | Replay-confirmed parent-table proof + metric scout | Replacing the shared `ct_rtu_encode_64` helper across the parent table improves selected Sky130 area `234172.089600 -> 233181.139200` and OpenSTA estimated power `9.41e-03 nW -> 9.39e-03 nW`, with max data-arrival flat at `8.30 ns`; helper equivalence, parent-table equivalence `17263/17263`, boundary-bit mutants, metric red-controls, and non-author replay all bite, but this remains scout-only without a promotion-row review or theorem-registry authority | [`athanor_artifacts/rtu_pst_vreg_encoder_family_candidate1/`](athanor_artifacts/rtu_pst_vreg_encoder_family_candidate1/) |
 | `ct_rtu_pst_preg` encoder family | Proof-backed hard negative | Replacing the shared `ct_rtu_encode_96` helper proves equivalent at parent-table scope (`31716/31716`) and improves selected Sky130 area `384860.361600 -> 383196.265600` plus OpenSTA estimated power `1.51e-02 nW -> 1.50e-02 nW`, but OpenSTA max data-arrival regresses `11.31 ns -> 11.35 ns`; correctness is real and still insufficient for promotion | [`athanor_artifacts/rtu_pst_preg_encoder_family_candidate1/`](athanor_artifacts/rtu_pst_preg_encoder_family_candidate1/) |
 | `ct_rtu_compare_iid` | Parent-integrated proof/PPA scout | Replacing the shared wrapped-IID helper improves selected Sky130 area and OpenSTA estimated power in two LSU parents; `ct_lsu_spec_fail_predict` max data-arrival improves `4.73 ns -> 4.67 ns`, while `ct_lsu_pfu_sdb_cmp` worst max path stays flat at `8.14 ns` and its cross-clock reported path improves `7.00 ns -> 6.91 ns`; helper equivalence and metric red-controls bite, and the `ct_lsu_pfu_sdb_cmp` parent proof now closes `366/366` with a 3-cell mutant red-control. `ct_lsu_spec_fail_predict` proof routing remains unsupported, so this remains scout-only. | [`athanor_artifacts/ct_rtu_compare_iid_candidate1/`](athanor_artifacts/ct_rtu_compare_iid_candidate1/) |
-| `ct_fadd_onehot_sel_h/d` | Replay-confirmed helper metric scout | Replacing case-based FADD onehot selectors with masked-shift OR reductions improves helper-local selected Sky130 area, OpenSTA max data-arrival, and OpenSTA estimated power for both half and double selectors under a onehot-or-zero input contract; it remains helper-only until parent VFALU/FADD integration closes | [`athanor_artifacts/vfalu_fadd_onehot_selector_candidate1/`](athanor_artifacts/vfalu_fadd_onehot_selector_candidate1/) |
-| `ct_idu_rf_fwd_preg` | Replay-confirmed helper metric scout | Helper-local Sky130 area improves `2706.345600 -> 2382.284800`; OpenSTA max data-arrival improves `11.23 ns -> 6.10 ns`; OpenSTA estimated power improves `7.42e-05 -> 6.39e-05 nW` under a one-hot forwarding contract; parent IDU/register-file integration is still pending | [`athanor_artifacts/ct_idu_rf_fwd_preg_candidate1/`](athanor_artifacts/ct_idu_rf_fwd_preg_candidate1/) |
+| `ct_fadd_onehot_sel_h/d` | Replay-confirmed helper metric scout | Replacing case-based FADD onehot selectors with masked-shift OR reductions improves helper-local selected Sky130 area, OpenSTA max data-arrival, and OpenSTA estimated power for both half and double selectors under a onehot-or-zero input contract; no parent VFALU/FADD result is claimed | [`athanor_artifacts/vfalu_fadd_onehot_selector_candidate1/`](athanor_artifacts/vfalu_fadd_onehot_selector_candidate1/) |
+| `ct_idu_rf_fwd_preg` | Replay-confirmed helper metric scout | Helper-local Sky130 area improves `2706.345600 -> 2382.284800`; OpenSTA max data-arrival improves `11.23 ns -> 6.10 ns`; OpenSTA estimated power improves `7.42e-05 -> 6.39e-05 nW` under a one-hot forwarding contract; no parent IDU/register-file result is claimed | [`athanor_artifacts/ct_idu_rf_fwd_preg_candidate1/`](athanor_artifacts/ct_idu_rf_fwd_preg_candidate1/) |
 
 ## Evidence Bar
 
@@ -115,7 +118,7 @@ not a result.
 
 ## Lean / Formal Moat
 
-The next proof layer is Lean-backed composition, not longer bounded searches.
+The proof frontier is Lean-backed composition, not longer bounded searches.
 The goal is to turn every manual proof intervention into a reusable Kairos
 obligation template. Concrete obligations now visible from this campaign:
 
@@ -125,15 +128,15 @@ obligation template. Concrete obligations now visible from this campaign:
 | Repeated-entry composition for RTU parent lifts | Reuse one proven entry relation across many identical instances, prove parent interconnect identity, and require a seam mutant before reporting a composed win. |
 | ROB / free-list / rename invariants | Move from module-local equivalence to OoO architectural facts: commit order, no duplicate physical registers, and rename/free-list consistency. |
 
-Lean obligations should live beside the artifact package that needs them and must
+Lean obligations should live beside the artifact package that relies on them and must
 do real proof work: no-sorry, RTL-bound, closes the failed proof route, and has a
 theorem-level mutant or weakened-invariant check that fails.
 
-## Active Target Map
+## Research Frontier Map
 
-| Subsystem | Next target | Needed receipt |
+| Subsystem | Frontier area | Evidence gate |
 | --- | --- | --- |
-| CIU FIFO | `ct_fifo` | Metric screen closed as hard negative; next FIFO work needs a different candidate or a candidate-bound Lean refinement, not promotion of the current timing-regressing candidate |
+| CIU FIFO | `ct_fifo` | Metric screen closed as hard negative; the current timing-regressing candidate is not eligible for promotion |
 | RTU ROB | `ct_rtu_rob_entry`, then `ct_rtu_rob` | Timing-safe candidate or hard negative; ROB commit-order invariant before whole-ROB wording |
 | RTU physical status | `ct_rtu_pst_preg`, `ct_rtu_pst_vreg` | Entry-to-parent composition proof and parent-level metric closure |
 | IDU issue/dependency | `ct_idu_is_lsiq_entry`, AIQ entries | Issue wakeup/select and age-order invariant candidates |
