@@ -1,0 +1,18 @@
+CT_IU_TOP_DIV_FF1_COMPOSITION_EDGE_SCREEN_V1
+selected_flow: yosys66_sky130_ct_iu_top_bounded_screen_v1
+screen_clock: forever_cpuclk period 10ns
+gold_mapped_netlist_sha256: d06b50960678e5d91f9de446d239d823c3c34239064db310798817d8fb06594c
+gate_mapped_netlist_sha256: a5eff6846380d0532ab05cfd019e90b65e3f0d983ef9e69e0161274eb0bf8b00
+gold_area: 729976.355200
+gate_area: 728213.414400
+gold_ct_iu_div_area: 23092.147200
+gate_ct_iu_div_area: 21329.206400
+gold_max_data_arrival_ns: 34.3786
+gate_max_data_arrival_ns: 34.3786
+gold_wns_ns: -24.53
+gate_wns_ns: -24.53
+gold_tns_ns: -47241.97
+gate_tns_ns: -47221.35
+gold_total_power_nw: 8.23e-02
+gate_total_power_nw: 8.21e-02
+screen_interpretation: area/power-positive and timing-flat at ct_iu_top under this bounded screen; not signoff timing or workload power.
