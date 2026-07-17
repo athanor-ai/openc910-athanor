@@ -1,0 +1,135 @@
+OpenSTA 2.2.0 02b129d48f Copyright (c) 2019, Parallax Software, Inc.
+License GPLv3: GNU GPL version 3 <http://gnu.org/licenses/gpl.html>
+
+This is free software, and you are free to change and redistribute it
+under certain conditions; type `show_copying' for details. 
+This program comes with ABSOLUTELY NO WARRANTY; for details type `show_warranty'.
+Startpoint: x_ct_pmp_regs/_2561_
+            (rising edge-triggered flip-flop clocked by forever_cpuclk)
+Endpoint: x_ct_pmp_regs/_2716_
+          (rising edge-triggered flip-flop clocked by forever_cpuclk)
+Path Group: forever_cpuclk
+Path Type: max
+
+Fanout       Cap      Slew     Delay      Time   Description
+-------------------------------------------------------------------------------------
+                              0.0000    0.0000   clock forever_cpuclk (rise edge)
+                              0.0013    0.0013   clock network delay (propagated)
+                    0.0000    0.0000    0.0013 ^ x_ct_pmp_regs/_2561_/CLK (sky130_fd_sc_hd__dfrtp_1)
+                    0.7540    0.7464    0.7476 ^ x_ct_pmp_regs/_2561_/Q (sky130_fd_sc_hd__dfrtp_1)
+    31    0.0773                                 pmpcfg0_value[4] (net)
+                    0.7540    0.0018    0.7494 ^ x_ct_pmp_regs/_1525_/A (sky130_fd_sc_hd__nand2_1)
+                    0.1633    0.1461    0.8955 v x_ct_pmp_regs/_1525_/Y (sky130_fd_sc_hd__nand2_1)
+     2    0.0054                                 x_ct_pmp_regs/_0333_ (net)
+                    0.1634    0.0030    0.8985 v x_ct_pmp_regs/_1591_/A (sky130_fd_sc_hd__xnor3_1)
+                    0.0948    0.4244    1.3230 v x_ct_pmp_regs/_1591_/X (sky130_fd_sc_hd__xnor3_1)
+     2    0.0064                                 x_ct_pmp_regs/_0399_ (net)
+                    0.0953    0.0056    1.3285 v x_ct_pmp_regs/_1609_/B (sky130_fd_sc_hd__xnor2_1)
+                    0.2193    0.2128    1.5414 ^ x_ct_pmp_regs/_1609_/Y (sky130_fd_sc_hd__xnor2_1)
+     2    0.0074                                 x_ct_pmp_regs/_0417_ (net)
+                    0.2195    0.0056    1.5470 ^ x_ct_pmp_regs/_1622_/B (sky130_fd_sc_hd__xor2_1)
+                    0.3070    0.2889    1.8359 ^ x_ct_pmp_regs/_1622_/X (sky130_fd_sc_hd__xor2_1)
+     3    0.0123                                 x_ct_pmp_regs/_0430_ (net)
+                    0.3072    0.0068    1.8427 ^ x_ct_pmp_regs/_1638_/B (sky130_fd_sc_hd__xnor3_1)
+                    0.0826    0.3789    2.2216 v x_ct_pmp_regs/_1638_/X (sky130_fd_sc_hd__xnor3_1)
+     1    0.0045                                 x_ct_pmp_regs/_0446_ (net)
+                    0.0837    0.0077    2.2294 v x_ct_pmp_regs/_1651_/B (sky130_fd_sc_hd__xor2_1)
+                    0.2107    0.2029    2.4322 ^ x_ct_pmp_regs/_1651_/X (sky130_fd_sc_hd__xor2_1)
+     2    0.0078                                 x_ct_pmp_regs/_0459_ (net)
+                    0.2107    0.0034    2.4357 ^ x_ct_pmp_regs/_1668_/B (sky130_fd_sc_hd__maj3_1)
+                    0.1030    0.2231    2.6588 ^ x_ct_pmp_regs/_1668_/X (sky130_fd_sc_hd__maj3_1)
+     2    0.0074                                 x_ct_pmp_regs/_0476_ (net)
+                    0.1032    0.0032    2.6619 ^ x_ct_pmp_regs/_1670_/A1 (sky130_fd_sc_hd__a21oi_1)
+                    0.0945    0.0975    2.7594 v x_ct_pmp_regs/_1670_/Y (sky130_fd_sc_hd__a21oi_1)
+     2    0.0078                                 x_ct_pmp_regs/_0478_ (net)
+                    0.0948    0.0038    2.7632 v x_ct_pmp_regs/_1672_/C (sky130_fd_sc_hd__maj3_1)
+                    0.0922    0.3836    3.1468 v x_ct_pmp_regs/_1672_/X (sky130_fd_sc_hd__maj3_1)
+     2    0.0063                                 x_ct_pmp_regs/_0480_ (net)
+                    0.0923    0.0023    3.1491 v x_ct_pmp_regs/_1674_/A1 (sky130_fd_sc_hd__o21ai_0)
+                    0.2850    0.2654    3.4145 ^ x_ct_pmp_regs/_1674_/Y (sky130_fd_sc_hd__o21ai_0)
+     2    0.0076                                 x_ct_pmp_regs/_0482_ (net)
+                    0.2850    0.0032    3.4177 ^ x_ct_pmp_regs/_1676_/A1 (sky130_fd_sc_hd__a21oi_1)
+                    0.1123    0.1367    3.5544 v x_ct_pmp_regs/_1676_/Y (sky130_fd_sc_hd__a21oi_1)
+     2    0.0063                                 x_ct_pmp_regs/_0484_ (net)
+                    0.1123    0.0023    3.5566 v x_ct_pmp_regs/_1678_/A1 (sky130_fd_sc_hd__o21ai_0)
+                    0.2849    0.2728    3.8295 ^ x_ct_pmp_regs/_1678_/Y (sky130_fd_sc_hd__o21ai_0)
+     2    0.0076                                 x_ct_pmp_regs/_0486_ (net)
+                    0.2850    0.0032    3.8326 ^ x_ct_pmp_regs/_1680_/A1 (sky130_fd_sc_hd__a21oi_1)
+                    0.1123    0.1367    3.9693 v x_ct_pmp_regs/_1680_/Y (sky130_fd_sc_hd__a21oi_1)
+     2    0.0063                                 x_ct_pmp_regs/_0488_ (net)
+                    0.1123    0.0023    3.9716 v x_ct_pmp_regs/_1682_/A1 (sky130_fd_sc_hd__o21ai_0)
+                    0.2806    0.2702    4.2418 ^ x_ct_pmp_regs/_1682_/Y (sky130_fd_sc_hd__o21ai_0)
+     2    0.0074                                 x_ct_pmp_regs/_0490_ (net)
+                    0.2806    0.0032    4.2450 ^ x_ct_pmp_regs/_1685_/A1 (sky130_fd_sc_hd__a21oi_1)
+                    0.1129    0.1368    4.3818 v x_ct_pmp_regs/_1685_/Y (sky130_fd_sc_hd__a21oi_1)
+     2    0.0065                                 x_ct_pmp_regs/_0493_ (net)
+                    0.1129    0.0023    4.3841 v x_ct_pmp_regs/_1688_/A1 (sky130_fd_sc_hd__o21ai_0)
+                    0.2848    0.2730    4.6571 ^ x_ct_pmp_regs/_1688_/Y (sky130_fd_sc_hd__o21ai_0)
+     2    0.0076                                 x_ct_pmp_regs/_0496_ (net)
+                    0.2849    0.0032    4.6603 ^ x_ct_pmp_regs/_1691_/A1 (sky130_fd_sc_hd__a21oi_1)
+                    0.1225    0.1537    4.8140 v x_ct_pmp_regs/_1691_/Y (sky130_fd_sc_hd__a21oi_1)
+     3    0.0088                                 x_ct_pmp_regs/_0499_ (net)
+                    0.1226    0.0030    4.8169 v x_ct_pmp_regs/_1694_/A1 (sky130_fd_sc_hd__o211ai_1)
+                    0.1882    0.2304    5.0474 ^ x_ct_pmp_regs/_1694_/Y (sky130_fd_sc_hd__o211ai_1)
+     2    0.0053                                 x_ct_pmp_regs/_0502_ (net)
+                    0.1883    0.0032    5.0505 ^ x_ct_pmp_regs/_1813_/A3 (sky130_fd_sc_hd__a31oi_1)
+                    0.1044    0.1333    5.1838 v x_ct_pmp_regs/_1813_/Y (sky130_fd_sc_hd__a31oi_1)
+     2    0.0065                                 x_ct_pmp_regs/_0620_ (net)
+                    0.1045    0.0023    5.1861 v x_ct_pmp_regs/_1816_/A1 (sky130_fd_sc_hd__o21ai_0)
+                    0.3731    0.3259    5.5120 ^ x_ct_pmp_regs/_1816_/Y (sky130_fd_sc_hd__o21ai_0)
+     3    0.0103                                 x_ct_pmp_regs/_0623_ (net)
+                    0.3731    0.0033    5.5153 ^ x_ct_pmp_regs/_1820_/A1 (sky130_fd_sc_hd__a211oi_1)
+                    0.1158    0.1485    5.6638 v x_ct_pmp_regs/_1820_/Y (sky130_fd_sc_hd__a211oi_1)
+     2    0.0050                                 x_ct_pmp_regs/_0627_ (net)
+                    0.1159    0.0030    5.6668 v x_ct_pmp_regs/_1823_/A3 (sky130_fd_sc_hd__o31ai_1)
+                    0.3288    0.3095    5.9763 ^ x_ct_pmp_regs/_1823_/Y (sky130_fd_sc_hd__o31ai_1)
+     2    0.0075                                 x_ct_pmp_regs/_0630_ (net)
+                    0.3288    0.0032    5.9796 ^ x_ct_pmp_regs/_1851_/B2 (sky130_fd_sc_hd__a22oi_1)
+                    0.1210    0.1486    6.1282 v x_ct_pmp_regs/_1851_/Y (sky130_fd_sc_hd__a22oi_1)
+     2    0.0071                                 x_ct_pmp_regs/_0654_ (net)
+                    0.1211    0.0030    6.1311 v x_ct_pmp_regs/_1900_/A1 (sky130_fd_sc_hd__o21a_1)
+                    0.0593    0.2228    6.3539 v x_ct_pmp_regs/_1900_/X (sky130_fd_sc_hd__o21a_1)
+     2    0.0063                                 x_ct_pmp_regs/_0696_ (net)
+                    0.0594    0.0023    6.3562 v x_ct_pmp_regs/_1902_/A1 (sky130_fd_sc_hd__o21ai_0)
+                    0.2925    0.2581    6.6142 ^ x_ct_pmp_regs/_1902_/Y (sky130_fd_sc_hd__o21ai_0)
+     2    0.0078                                 x_ct_pmp_regs/_0698_ (net)
+                    0.2926    0.0034    6.6177 ^ x_ct_pmp_regs/_1937_/B (sky130_fd_sc_hd__maj3_1)
+                    0.1074    0.2461    6.8638 ^ x_ct_pmp_regs/_1937_/X (sky130_fd_sc_hd__maj3_1)
+     2    0.0077                                 x_ct_pmp_regs/_0727_ (net)
+                    0.1075    0.0033    6.8671 ^ x_ct_pmp_regs/_1939_/A1 (sky130_fd_sc_hd__a21bo_1)
+                    0.1406    0.1771    7.0442 ^ x_ct_pmp_regs/_1939_/X (sky130_fd_sc_hd__a21bo_1)
+     3    0.0139                                 x_ct_pmp_regs/_0729_ (net)
+                    0.1410    0.0068    7.0510 ^ x_ct_pmp_regs/_2460_/B (sky130_fd_sc_hd__xor3_1)
+                    0.0647    0.2186    7.2695 ^ x_ct_pmp_regs/_2460_/X (sky130_fd_sc_hd__xor3_1)
+     1    0.0028                                 x_ct_pmp_regs/_0912_ (net)
+                    0.0653    0.0047    7.2743 ^ x_ct_pmp_regs/_2461_/A2 (sky130_fd_sc_hd__a21oi_1)
+                    0.4701    0.0607    7.3350 v x_ct_pmp_regs/_2461_/Y (sky130_fd_sc_hd__a21oi_1)
+     1    0.0023                                 x_ct_pmp_regs/_0271_ (net)
+                    0.4701    0.0040    7.3389 v x_ct_pmp_regs/_2716_/D (sky130_fd_sc_hd__dfrtp_1)
+                                        7.3389   data arrival time
+
+                             10.0000   10.0000   clock forever_cpuclk (rise edge)
+                              0.0013   10.0013   clock network delay (propagated)
+                              0.0000   10.0013   clock reconvergence pessimism
+                                       10.0013 ^ x_ct_pmp_regs/_2716_/CLK (sky130_fd_sc_hd__dfrtp_1)
+                             -0.3105    9.6907   library setup time
+                                        9.6907   data required time
+-------------------------------------------------------------------------------------
+                                        9.6907   data required time
+                                       -7.3389   data arrival time
+-------------------------------------------------------------------------------------
+                                        2.3518   slack (MET)
+
+
+wns 0.00
+tns 0.00
+Group                  Internal  Switching    Leakage      Total
+                          Power      Power      Power      Power
+----------------------------------------------------------------
+Sequential             5.92e-04   2.92e-04   2.45e-09   8.84e-04  34.6%
+Combinational          9.31e-04   7.40e-04   1.85e-08   1.67e-03  65.4%
+Macro                  0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.0%
+Pad                    0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.0%
+----------------------------------------------------------------
+Total                  1.52e-03   1.03e-03   2.09e-08   2.56e-03 100.0%
+                          59.6%      40.4%       0.0%
