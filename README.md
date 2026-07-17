@@ -22,6 +22,17 @@ RTL candidate to metrics, proof, negative controls, and replayable artifacts.
 | `ct_rtu_pst_vreg_entry` | RTU vector-register-status entry | Area `3148.019200 -> 3057.932800`; max data-arrival `2.82 ns -> 2.81 ns`; estimated power `1.28e-04 -> 1.24e-04 nW` | Passive-debug bridge plus lifecycle relation induction; relation mutant fails | [`rtu_pst_vreg_entry_area_timing_power_candidate1`](athanor_artifacts/rtu_pst_vreg_entry_area_timing_power_candidate1/) |
 | `ct_lsu_lfb_data_entry` | LSU line-fill-buffer data-entry decode | Area `19467.420800 -> 19456.160000`; max data-arrival `8.17 ns -> 8.14 ns`; reported power flat at `1.33e-03 nW` precision | Same-state executor proves `560/560`; shifted-address mutant leaves `8` cells unproven; no C910 Lean-authority theorem is claimed for this packet | [`ct_lsu_lfb_data_entry_candidate1`](athanor_artifacts/ct_lsu_lfb_data_entry_candidate1/) |
 
+## Proofs And Receipts
+
+Proofs and replay receipts live inside the package linked from each row.
+
+| Evidence | Where to look |
+| --- | --- |
+| Lean bridge obligations | `lean_bridge_obligation.json` in each promoted package |
+| Temporal induction / equivalence | `output_miter_proof.pinned.log`, `relation_miter_tempinduct_seq8.pinned.log`, or `same_state_equiv_seq8.pinned.log` in the package |
+| Negative controls | `proof_mutant_negative.pinned.log` or `relation_miter_mutant_negative_tempinduct_seq8.pinned.log` in the package |
+| Metrics and replay | `receipt.json`, `same_candidate_binding_receipt.json`, `SHA256SUMS`, package-local `replay.sh`, and `python3 athanor/verify_public_receipts.py` |
+
 ## Evidence Ledger
 
 Non-promoted packages are kept as an audit ledger, not as an open task list. They are
