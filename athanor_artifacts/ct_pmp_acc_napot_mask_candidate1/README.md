@@ -1,7 +1,7 @@
 # ct_pmp_acc NAPOT mask candidate 1
 
-Status: parent-positive replay package; `customer_ready=false` until an
-independent non-author replay closes.
+Status: accepted module-local metric packet; `customer_ready=true` only for the
+scoped `ct_pmp_acc` parent packet under the pinned selected flow.
 
 This packet records a C910 PMP candidate. The source `ct_pmp_comp_hit` computes
 the NAPOT address mask through a long `casez` table. The candidate replaces that
@@ -29,11 +29,19 @@ timing leg regresses, but the selected parent path improves.
 - Parent selected-flow area improves `7826.256000 -> 7415.862400`.
 - Parent OpenSTA max data-arrival improves `3.58 ns -> 3.51 ns`.
 - Parent OpenSTA estimated total power improves `1.72e-04 nW -> 1.67e-04 nW`.
+- The metric-negative control reverts the accepted helper rewrite back to the
+  original `casez` mask and reproduces the worse parent area, timing, and
+  estimated-power point (`7826.256000`, `3.58 ns`, `1.72e-04 nW`).
+- Independent non-author replay reproduced the mapped netlists byte-exact,
+  re-proved both routes, reproduced the mutant red, and matched the parent and
+  helper metric logs to the recorded values, including the helper timing
+  regression caveat.
 
 ## Boundaries
 
-This is a parent-positive scout package for `ct_pmp_acc` using the package's
-pinned Yosys/OpenSTA/Sky130 selected flow. It is not a customer-ready promoted
-row yet, not a whole-PMP or whole-C910 claim, not a Lean theorem-registry claim,
-and not signoff timing or workload power. The next gate is an independent
-non-author public-path replay of this package.
+This is a promoted module-local packet for `ct_pmp_acc` using the package's
+pinned Yosys/OpenSTA/Sky130 selected flow. It is not a whole-PMP, whole-MMU,
+whole-C910, ISA, privilege-model, or composed optimization claim. It is not a
+Lean theorem-registry claim, and OpenSTA timing and estimated power are not
+signoff timing or measured workload power. The helper-local timing regression is
+carried explicitly; the promotion rests on the checked parent path.
