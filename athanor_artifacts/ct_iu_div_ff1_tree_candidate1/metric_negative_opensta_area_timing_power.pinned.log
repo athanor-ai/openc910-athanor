@@ -1,0 +1,81 @@
+OpenSTA 2.2.0 02b129d48f Copyright (c) 2019, Parallax Software, Inc.
+License GPLv3: GNU GPL version 3 <http://gnu.org/licenses/gpl.html>
+
+This is free software, and you are free to change and redistribute it
+under certain conditions; type `show_copying' for details. 
+This program comes with ABSOLUTELY NO WARRANTY; for details type `show_warranty'.
+Error: replay_out/ct_iu_div_metric_negative.mapped.v, line 156566 syntax error.
+Error: replay_out/ct_iu_div_metric_negative.mapped.v, line 156568 syntax error.
+Error: replay_out/ct_iu_div_metric_negative.mapped.v, line 156569 syntax error.
+Error: replay_out/ct_iu_div_metric_negative.mapped.v, line 156570 syntax error.
+Error: replay_out/ct_iu_div_metric_negative.mapped.v, line 156575 syntax error.
+Error: replay_out/ct_iu_div_metric_negative.mapped.v, line 156576 syntax error.
+Error: replay_out/ct_iu_div_metric_negative.mapped.v, line 156577 syntax error.
+Error: replay_out/ct_iu_div_metric_negative.mapped.v, line 156578 syntax error.
+Error: replay_out/ct_iu_div_metric_negative.mapped.v, line 156579 syntax error.
+Error: replay_out/ct_iu_div_metric_negative.mapped.v, line 156598 syntax error.
+Error: replay_out/ct_iu_div_metric_negative.mapped.v, line 156605 syntax error.
+Error: replay_out/ct_iu_div_metric_negative.mapped.v, line 156606 syntax error.
+Error: replay_out/ct_iu_div_metric_negative.mapped.v, line 156607 syntax error.
+Error: replay_out/ct_iu_div_metric_negative.mapped.v, line 156741 syntax error.
+Error: replay_out/ct_iu_div_metric_negative.mapped.v, line 156743 syntax error.
+Error: replay_out/ct_iu_div_metric_negative.mapped.v, line 156766 syntax error.
+Error: replay_out/ct_iu_div_metric_negative.mapped.v, line 156770 syntax error.
+Error: replay_out/ct_iu_div_metric_negative.mapped.v, line 156785 syntax error.
+Error: replay_out/ct_iu_div_metric_negative.mapped.v, line 156854 syntax error.
+Error: replay_out/ct_iu_div_metric_negative.mapped.v, line 156870 syntax error.
+Startpoint: _43901_ (rising edge-triggered flip-flop clocked by forever_cpuclk)
+Endpoint: _43562_ (rising edge-triggered flip-flop clocked by forever_cpuclk)
+Path Group: forever_cpuclk
+Path Type: max
+
+  Delay    Time   Description
+---------------------------------------------------------
+   0.00    0.00   clock forever_cpuclk (rise edge)
+   0.00    0.00   clock network delay (ideal)
+   0.00    0.00 ^ _43901_/CLK (sky130_fd_sc_hd__dfrtp_1)
+  11.96   11.96 ^ _43901_/Q (sky130_fd_sc_hd__dfrtp_1)
+  10.82   22.78 v _21644_/Y (sky130_fd_sc_hd__clkinv_1)
+   0.08   22.86 ^ _23908_/Y (sky130_fd_sc_hd__nand2_1)
+   0.23   23.09 v _23911_/Y (sky130_fd_sc_hd__nand2_1)
+   0.36   23.45 ^ _24011_/Y (sky130_fd_sc_hd__o31ai_1)
+   0.09   23.54 v _24014_/Y (sky130_fd_sc_hd__nor3_1)
+   7.86   31.40 ^ _24017_/Y (sky130_fd_sc_hd__nor3_1)
+   8.88   40.28 v _27517_/Y (sky130_fd_sc_hd__nor2_1)
+   3.17   43.44 ^ _28084_/Y (sky130_fd_sc_hd__nor2_1)
+   0.18   43.63 v _28088_/Y (sky130_fd_sc_hd__nand2_1)
+   0.40   44.03 ^ _28112_/Y (sky130_fd_sc_hd__nor4_1)
+   0.84   44.87 v _28114_/Y (sky130_fd_sc_hd__nand2_1)
+   0.40   45.27 ^ _28306_/Y (sky130_fd_sc_hd__nand2_1)
+   0.14   45.41 v _28308_/Y (sky130_fd_sc_hd__o31ai_1)
+   0.19   45.60 ^ _28315_/Y (sky130_fd_sc_hd__o2111ai_1)
+   0.10   45.70 v _28316_/Y (sky130_fd_sc_hd__o21ai_0)
+   0.30   46.01 ^ _28491_/Y (sky130_fd_sc_hd__a31oi_1)
+   0.00   46.01 ^ _43562_/D (sky130_fd_sc_hd__dfrtp_1)
+          46.01   data arrival time
+
+  10.00   10.00   clock forever_cpuclk (rise edge)
+   0.00   10.00   clock network delay (ideal)
+   0.00   10.00   clock reconvergence pessimism
+          10.00 ^ _43562_/CLK (sky130_fd_sc_hd__dfrtp_1)
+  -0.09    9.91   library setup time
+           9.91   data required time
+---------------------------------------------------------
+           9.91   data required time
+         -46.01   data arrival time
+---------------------------------------------------------
+         -36.10   slack (VIOLATED)
+
+
+tns -13136.97
+wns -36.10
+Group                  Internal  Switching    Leakage      Total
+                          Power      Power      Power      Power
+----------------------------------------------------------------
+Sequential             2.72e-03   5.12e-04   1.05e-08   3.23e-03  45.2%
+Combinational          1.71e-03   2.20e-03   4.14e-08   3.91e-03  54.8%
+Macro                  0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.0%
+Pad                    0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.0%
+----------------------------------------------------------------
+Total                  4.42e-03   2.72e-03   5.19e-08   7.14e-03 100.0%
+                          61.9%      38.0%       0.0%

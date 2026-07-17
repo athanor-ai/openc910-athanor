@@ -9,7 +9,7 @@ RTL candidate to metrics, proof, negative controls, and replayable artifacts.
 | Field | Status |
 | --- | --- |
 | Core | T-Head XuanTie OpenC910 |
-| Evidence level | Four promoted module-local packets; no whole-core C910 claim |
+| Evidence level | Five promoted module-local packets; no whole-core C910 claim |
 | Latest public bar | Same-candidate area, OpenSTA max data-arrival, OpenSTA estimated power, proof, metric red-control, and non-author replay |
 | Claim boundary | Module-local results only. No ISA, memory-consistency, speculation-recovery, or full-core performance claim is made here. |
 
@@ -21,6 +21,7 @@ RTL candidate to metrics, proof, negative controls, and replayable artifacts.
 | `ct_rtu_pst_preg_entry` | RTU physical-register-status entry | Area `3510.867200 -> 3482.089600`; max data-arrival `3.23 ns -> 2.91 ns`; estimated power `1.38e-04 -> 1.35e-04 nW` | Passive-debug bridge plus lifecycle relation induction; relation mutant fails | [`rtu_pst_preg_entry_area_timing_power_candidate1`](athanor_artifacts/rtu_pst_preg_entry_area_timing_power_candidate1/) |
 | `ct_rtu_pst_vreg_entry` | RTU vector-register-status entry | Area `3148.019200 -> 3057.932800`; max data-arrival `2.82 ns -> 2.81 ns`; estimated power `1.28e-04 -> 1.24e-04 nW` | Passive-debug bridge plus lifecycle relation induction; relation mutant fails | [`rtu_pst_vreg_entry_area_timing_power_candidate1`](athanor_artifacts/rtu_pst_vreg_entry_area_timing_power_candidate1/) |
 | `ct_lsu_lfb_data_entry` | LSU line-fill-buffer data-entry decode | Area `19467.420800 -> 19456.160000`; max data-arrival `8.17 ns -> 8.14 ns`; reported power flat at `1.33e-03 nW` precision | Same-state executor proves `560/560`; shifted-address mutant leaves `8` cells unproven; no C910 Lean-authority theorem is claimed for this packet | [`ct_lsu_lfb_data_entry_candidate1`](athanor_artifacts/ct_lsu_lfb_data_entry_candidate1/) |
+| `ct_iu_div` | IU divider FF1 normalization | Area `158090.371200 -> 156941.769600`; max data-arrival `39.67 ns -> 34.03 ns`; estimated power `7.06e-03 -> 7.03e-03 nW` | Same-state proof closes `1966/1966`; FF1 proof mutant leaves `2` cells unproven; non-author replay reproduced mapped netlists bit-exact; no C910 Lean-authority theorem is claimed for this packet | [`ct_iu_div_ff1_tree_candidate1`](athanor_artifacts/ct_iu_div_ff1_tree_candidate1/) |
 
 ## Proofs And Receipts
 
@@ -28,7 +29,7 @@ Proofs and replay receipts live inside the package linked from each row.
 
 | Evidence | Where to look |
 | --- | --- |
-| Lean bridge obligations | `lean_bridge_obligation.json` in each promoted package |
+| Lean bridge obligations | `lean_bridge_obligation.json` where present; packets without Lean authority state that boundary explicitly |
 | Temporal induction / equivalence | `output_miter_proof.pinned.log`, `relation_miter_tempinduct_seq8.pinned.log`, or `same_state_equiv_seq8.pinned.log` in the package |
 | Negative controls | `proof_mutant_negative.pinned.log` or `relation_miter_mutant_negative_tempinduct_seq8.pinned.log` in the package |
 | Metrics and replay | `receipt.json`, `same_candidate_binding_receipt.json`, `SHA256SUMS`, package-local `replay.sh`, and `python3 athanor/verify_public_receipts.py` |

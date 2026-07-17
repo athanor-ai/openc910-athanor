@@ -1,0 +1,82 @@
+OpenSTA 2.2.0 02b129d48f Copyright (c) 2019, Parallax Software, Inc.
+License GPLv3: GNU GPL version 3 <http://gnu.org/licenses/gpl.html>
+
+This is free software, and you are free to change and redistribute it
+under certain conditions; type `show_copying' for details. 
+This program comes with ABSOLUTELY NO WARRANTY; for details type `show_warranty'.
+Error: replay_out/ct_iu_div_gate_candidate.mapped.v, line 153417 syntax error.
+Error: replay_out/ct_iu_div_gate_candidate.mapped.v, line 153419 syntax error.
+Error: replay_out/ct_iu_div_gate_candidate.mapped.v, line 153420 syntax error.
+Error: replay_out/ct_iu_div_gate_candidate.mapped.v, line 153421 syntax error.
+Error: replay_out/ct_iu_div_gate_candidate.mapped.v, line 153426 syntax error.
+Error: replay_out/ct_iu_div_gate_candidate.mapped.v, line 153427 syntax error.
+Error: replay_out/ct_iu_div_gate_candidate.mapped.v, line 153428 syntax error.
+Error: replay_out/ct_iu_div_gate_candidate.mapped.v, line 153429 syntax error.
+Error: replay_out/ct_iu_div_gate_candidate.mapped.v, line 153430 syntax error.
+Error: replay_out/ct_iu_div_gate_candidate.mapped.v, line 153449 syntax error.
+Error: replay_out/ct_iu_div_gate_candidate.mapped.v, line 153456 syntax error.
+Error: replay_out/ct_iu_div_gate_candidate.mapped.v, line 153457 syntax error.
+Error: replay_out/ct_iu_div_gate_candidate.mapped.v, line 153458 syntax error.
+Error: replay_out/ct_iu_div_gate_candidate.mapped.v, line 153592 syntax error.
+Error: replay_out/ct_iu_div_gate_candidate.mapped.v, line 153594 syntax error.
+Error: replay_out/ct_iu_div_gate_candidate.mapped.v, line 153617 syntax error.
+Error: replay_out/ct_iu_div_gate_candidate.mapped.v, line 153621 syntax error.
+Error: replay_out/ct_iu_div_gate_candidate.mapped.v, line 153636 syntax error.
+Error: replay_out/ct_iu_div_gate_candidate.mapped.v, line 153705 syntax error.
+Error: replay_out/ct_iu_div_gate_candidate.mapped.v, line 153721 syntax error.
+Startpoint: _42927_ (rising edge-triggered flip-flop clocked by forever_cpuclk)
+Endpoint: _42490_ (rising edge-triggered flip-flop clocked by forever_cpuclk)
+Path Group: forever_cpuclk
+Path Type: max
+
+  Delay    Time   Description
+---------------------------------------------------------
+   0.00    0.00   clock forever_cpuclk (rise edge)
+   0.00    0.00   clock network delay (ideal)
+   0.00    0.00 ^ _42927_/CLK (sky130_fd_sc_hd__dfrtp_1)
+   7.55    7.55 ^ _42927_/Q (sky130_fd_sc_hd__dfrtp_1)
+   6.23   13.78 v _21157_/Y (sky130_fd_sc_hd__clkinv_1)
+   0.52   14.30 ^ _23204_/Y (sky130_fd_sc_hd__nor2_1)
+   0.23   14.53 v _23205_/Y (sky130_fd_sc_hd__nor2_1)
+   0.18   14.71 ^ _26308_/Y (sky130_fd_sc_hd__o21ai_0)
+   0.12   14.83 v _26309_/Y (sky130_fd_sc_hd__nand2_1)
+   0.11   14.94 ^ _26313_/Y (sky130_fd_sc_hd__o211ai_1)
+   0.07   15.01 v _26314_/Y (sky130_fd_sc_hd__nor3_1)
+   7.38   22.40 ^ _26317_/Y (sky130_fd_sc_hd__nor3_1)
+   7.41   29.80 v _27139_/Y (sky130_fd_sc_hd__nor2_1)
+   2.73   32.53 ^ _27499_/Y (sky130_fd_sc_hd__nor2_1)
+   0.22   32.75 v _39027_/Y (sky130_fd_sc_hd__o211ai_1)
+   0.27   33.02 ^ _39028_/Y (sky130_fd_sc_hd__a221oi_1)
+   0.20   33.21 v _39029_/Y (sky130_fd_sc_hd__o221ai_1)
+   0.33   33.54 ^ _39030_/Y (sky130_fd_sc_hd__a2111oi_0)
+   0.18   33.72 v _39031_/Y (sky130_fd_sc_hd__o2111ai_1)
+   0.18   33.90 ^ _39033_/Y (sky130_fd_sc_hd__a21oi_1)
+   0.12   34.02 v _39039_/Y (sky130_fd_sc_hd__o221ai_1)
+   0.00   34.03 v _42490_/D (sky130_fd_sc_hd__dfrtp_1)
+          34.03   data arrival time
+
+  10.00   10.00   clock forever_cpuclk (rise edge)
+   0.00   10.00   clock network delay (ideal)
+   0.00   10.00   clock reconvergence pessimism
+          10.00 ^ _42490_/CLK (sky130_fd_sc_hd__dfrtp_1)
+  -0.17    9.83   library setup time
+           9.83   data required time
+---------------------------------------------------------
+           9.83   data required time
+         -34.03   data arrival time
+---------------------------------------------------------
+         -24.20   slack (VIOLATED)
+
+
+tns -9113.79
+wns -24.20
+Group                  Internal  Switching    Leakage      Total
+                          Power      Power      Power      Power
+----------------------------------------------------------------
+Sequential             2.72e-03   4.95e-04   1.05e-08   3.21e-03  45.7%
+Combinational          1.63e-03   2.18e-03   4.04e-08   3.81e-03  54.3%
+Macro                  0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.0%
+Pad                    0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.0%
+----------------------------------------------------------------
+Total                  4.35e-03   2.67e-03   5.09e-08   7.03e-03 100.0%
+                          61.9%      38.1%       0.0%
