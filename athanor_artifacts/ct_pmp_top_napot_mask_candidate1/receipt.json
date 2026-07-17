@@ -1,9 +1,9 @@
 {
   "schema": "openc910.subsystem_top_area_timing_opensta_estimated_power_packet.v1",
   "ticket": "ATH-3118",
-  "status": "subsystem_top_metric_packet_pending_independent_replay",
-  "customer_ready": false,
-  "customer_ready_scope": "pending non-author replay; scoped ct_pmp_top subsystem packet only",
+  "status": "accepted_subsystem_top_area_timing_opensta_estimated_power_packet",
+  "customer_ready": true,
+  "customer_ready_scope": "subsystem-top ct_pmp_top NAPOT-mask packet: flattened subsystem same-state proof closes 831/831, proof mutant leaves exactly 48 unproven cells, same-candidate-bound selected Sky130 area and OpenSTA estimated total power improve while OpenSTA max data-arrival is flat, SHA-bound metric-negative reds area/timing/power, and non-author replay reproduced mapped netlists byte-exact; OpenSTA estimated power is not signoff power and not measured workload activity",
   "target": {
     "helper_module": "ct_pmp_comp_hit",
     "parent_module": "ct_pmp_acc",
@@ -79,7 +79,7 @@
     }
   },
   "known_boundaries": [
-    "pending independent non-author replay before public promotion",
+    "customer_ready=true only for this subsystem-top ct_pmp_top packet under the pinned public replay flow",
     "subsystem-top ct_pmp_top evidence only",
     "same-state equivalence under the checked RTL model",
     "OpenSTA estimated power is not signoff power and not measured workload activity",
@@ -96,12 +96,11 @@
     }
   },
   "independent_replay": {
-    "status": "pending",
+    "status": "passed",
     "reviewer": "platypus",
-    "summary": "packet cut for non-author replay"
+    "summary": "non-author replay reproduced the packet from the public package path under the pinned Yosys/OpenSTA/Sky130 suite: all three replay-produced mapped netlists matched SHA256SUMS byte-exact, the subsystem same-state proof closed 831 proven / 0 unproven, the proof mutant left exactly 48 unproven cells, selected-flow area/power/timing metrics matched the receipt including flat 3.2370 ns OpenSTA max data-arrival, and the SHA-bound metric-negative reproduced the three-axis red with 7.3389 ns arrival"
   },
   "next_independent_check": {
-    "status": "pending_non_author_replay",
-    "requested_reviewer": "platypus"
+    "status": "closed_by_non_author_replay"
   }
 }

@@ -1711,7 +1711,7 @@ Mapping DFF cells in module `\gated_clk_cell':
 10. Executing ABC pass (technology mapping using ABC).
 
 10.1. Extracting gate netlist of module `\ct_pmp_top' to `<abc-temp-dir>/input.blif'..
-ABC: using cached merged SCL: /tmp/yosys-liberty-scl-cache/yosys_merged_33924531.scl (1 files)
+ABC: using cached merged SCL: <scl-cache>/yosys_merged.scl (1 files)
 
 10.1.1. Executed ABC.
 Extracted 1616 gates and 1688 wires to a netlist network with 72 inputs and 102 outputs.
@@ -1720,7 +1720,7 @@ ABC: UC Berkeley, ABC 1.01 (compiled Jun 30 2026 04:50:19)
 ABC: abc 01> empty
 ABC: abc 01> source <abc-temp-dir>/abc.script
 ABC: + read_blif <abc-temp-dir>/input.blif 
-ABC: + read_scl /tmp/yosys-liberty-scl-cache/yosys_merged_33924531.scl 
+ABC: + read_scl <scl-cache>/yosys_merged.scl 
 ABC: Warning: Detected 9 multi-output cells (for example, "sky130_fd_sc_hd__fa_1").
 ABC: + strash 
 ABC: + &get -n 
@@ -1789,7 +1789,7 @@ ABC RESULTS:          output signals:      102
 Removing temp directory.
 
 10.2. Extracting gate netlist of module `\ct_pmp_regs' to `<abc-temp-dir>/input.blif'..
-ABC: using cached merged SCL: /tmp/yosys-liberty-scl-cache/yosys_merged_33924531.scl (1 files)
+ABC: using cached merged SCL: <scl-cache>/yosys_merged.scl (1 files)
 
 10.2.1. Executed ABC.
 Extracted 1760 gates and 2113 wires to a netlist network with 353 inputs and 366 outputs.
@@ -1798,7 +1798,7 @@ ABC: UC Berkeley, ABC 1.01 (compiled Jun 30 2026 04:50:19)
 ABC: abc 01> empty
 ABC: abc 01> source <abc-temp-dir>/abc.script
 ABC: + read_blif <abc-temp-dir>/input.blif 
-ABC: + read_scl /tmp/yosys-liberty-scl-cache/yosys_merged_33924531.scl 
+ABC: + read_scl <scl-cache>/yosys_merged.scl 
 ABC: Warning: Detected 9 multi-output cells (for example, "sky130_fd_sc_hd__fa_1").
 ABC: + strash 
 ABC: + &get -n 
@@ -1865,7 +1865,7 @@ ABC RESULTS:          output signals:      366
 Removing temp directory.
 
 10.3. Extracting gate netlist of module `\ct_pmp_acc' to `<abc-temp-dir>/input.blif'..
-ABC: using cached merged SCL: /tmp/yosys-liberty-scl-cache/yosys_merged_33924531.scl (1 files)
+ABC: using cached merged SCL: <scl-cache>/yosys_merged.scl (1 files)
 
 10.3.1. Executed ABC.
 Extracted 86 gates and 131 wires to a netlist network with 45 inputs and 4 outputs.
@@ -1874,7 +1874,7 @@ ABC: UC Berkeley, ABC 1.01 (compiled Jun 30 2026 04:50:19)
 ABC: abc 01> empty
 ABC: abc 01> source <abc-temp-dir>/abc.script
 ABC: + read_blif <abc-temp-dir>/input.blif 
-ABC: + read_scl /tmp/yosys-liberty-scl-cache/yosys_merged_33924531.scl 
+ABC: + read_scl <scl-cache>/yosys_merged.scl 
 ABC: Warning: Detected 9 multi-output cells (for example, "sky130_fd_sc_hd__fa_1").
 ABC: + strash 
 ABC: + &get -n 
@@ -1918,7 +1918,7 @@ ABC RESULTS:          output signals:        4
 Removing temp directory.
 
 10.4. Extracting gate netlist of module `\ct_pmp_comp_hit' to `<abc-temp-dir>/input.blif'..
-ABC: using cached merged SCL: /tmp/yosys-liberty-scl-cache/yosys_merged_33924531.scl (1 files)
+ABC: using cached merged SCL: <scl-cache>/yosys_merged.scl (1 files)
 
 10.4.1. Executed ABC.
 Extracted 227 gates and 287 wires to a netlist network with 60 inputs and 2 outputs.
@@ -1927,7 +1927,7 @@ ABC: UC Berkeley, ABC 1.01 (compiled Jun 30 2026 04:50:19)
 ABC: abc 01> empty
 ABC: abc 01> source <abc-temp-dir>/abc.script
 ABC: + read_blif <abc-temp-dir>/input.blif 
-ABC: + read_scl /tmp/yosys-liberty-scl-cache/yosys_merged_33924531.scl 
+ABC: + read_scl <scl-cache>/yosys_merged.scl 
 ABC: Warning: Detected 9 multi-output cells (for example, "sky130_fd_sc_hd__fa_1").
 ABC: + strash 
 ABC: + &get -n 
@@ -1985,7 +1985,7 @@ ABC RESULTS:          output signals:        2
 Removing temp directory.
 
 10.5. Extracting gate netlist of module `\gated_clk_cell' to `<abc-temp-dir>/input.blif'..
-ABC: using cached merged SCL: /tmp/yosys-liberty-scl-cache/yosys_merged_33924531.scl (1 files)
+ABC: using cached merged SCL: <scl-cache>/yosys_merged.scl (1 files)
 
 10.5.1. Executed ABC.
 Extracted 0 gates and 0 wires to a netlist network with 0 inputs and 0 outputs.

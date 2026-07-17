@@ -9,9 +9,9 @@ RTL candidate to metrics, proof, negative controls, and replayable artifacts.
 | Field | Status |
 | --- | --- |
 | Core | T-Head XuanTie OpenC910 |
-| Evidence level | Seven promoted module-local packets plus one replay-pending subsystem-top packet; no whole-core C910 claim |
+| Evidence level | Seven promoted module-local packets plus one promoted subsystem-top packet; no whole-core C910 claim |
 | Latest public bar | Same-candidate area, OpenSTA max data-arrival, OpenSTA estimated power, proof, metric red-control, and non-author replay |
-| Claim boundary | Module-local results only. No ISA, memory-consistency, speculation-recovery, or full-core performance claim is made here. |
+| Claim boundary | Promoted rows are module-local except the scoped `ct_pmp_top` subsystem-top packet. No ISA, memory-consistency, speculation-recovery, or full-core performance claim is made here. |
 
 ## Promoted Evidence
 
@@ -23,7 +23,7 @@ RTL candidate to metrics, proof, negative controls, and replayable artifacts.
 | `ct_lsu_lfb_data_entry` | LSU line-fill-buffer data-entry decode | Area `19467.420800 -> 19456.160000`; max data-arrival `8.17 ns -> 8.14 ns`; reported power flat at `1.33e-03 nW` precision | Same-state executor proves `560/560`; shifted-address mutant leaves `8` cells unproven; no C910 Lean-authority theorem is claimed for this packet | [`ct_lsu_lfb_data_entry_candidate1`](athanor_artifacts/ct_lsu_lfb_data_entry_candidate1/) |
 | `ct_iu_div` | IU divider FF1 normalization | Area `158090.371200 -> 156941.769600`; max data-arrival `39.67 ns -> 34.03 ns`; estimated power `7.06e-03 -> 7.03e-03 nW` | Same-state proof closes `1966/1966`; FF1 proof mutant leaves `2` cells unproven; non-author replay reproduced mapped netlists bit-exact; no C910 Lean-authority theorem is claimed for this packet | [`ct_iu_div_ff1_tree_candidate1`](athanor_artifacts/ct_iu_div_ff1_tree_candidate1/) |
 | `ct_pmp_acc` | PMP access permission parent | Parent area `7826.256000 -> 7415.862400`; max data-arrival `3.58 ns -> 3.51 ns`; estimated power `1.72e-04 -> 1.67e-04 nW`; helper timing regression is carried as a caveat | Helper proof closes `33/33`; parent proof closes `273/273`; NAPOT mask mutant leaves `2` cells unproven; non-author replay reproduced mapped netlists bit-exact; no whole-PMP/C910 or Lean-authority theorem is claimed for this packet | [`ct_pmp_acc_napot_mask_candidate1`](athanor_artifacts/ct_pmp_acc_napot_mask_candidate1/) |
-| `ct_pmp_top` | PMP subsystem top | Area `50325.766400 -> 49474.950400`; max data-arrival flat at `3.2370 ns`; estimated power `1.92e-03 -> 1.90e-03 nW` | Same-state proof closes `831/831`; proof mutant leaves `48` cells unproven; three-axis metric-negative control reds; awaiting non-author replay before promotion; no whole-PMP/C910 or Lean-authority theorem is claimed for this packet | [`ct_pmp_top_napot_mask_candidate1`](athanor_artifacts/ct_pmp_top_napot_mask_candidate1/) |
+| `ct_pmp_top` | PMP subsystem top | Area `50325.766400 -> 49474.950400`; max data-arrival flat at `3.2370 ns`; estimated power `1.92e-03 -> 1.90e-03 nW` | Same-state proof closes `831/831`; proof mutant leaves `48` cells unproven; three-axis metric-negative control reds; non-author replay reproduced mapped netlists byte-exact; no whole-PMP/C910 or Lean-authority theorem is claimed for this packet | [`ct_pmp_top_napot_mask_candidate1`](athanor_artifacts/ct_pmp_top_napot_mask_candidate1/) |
 | `plic_32to1_arb` | PLIC interrupt arbiter parent | Parent area `140709.952000 -> 136564.726400`; real `arb_clk` max data-arrival `13.26 ns -> 7.39 ns`; estimated power `3.73e-03 -> 3.59e-03 nW` | Helper SAT miter proves; tie-rule mutant fails; parent proof closes `66557/66557` with internal-only helper-ID blacklist; non-author replay reproduced mapped netlists bit-exact; no whole-PLIC/C910 or Lean-authority theorem is claimed for this packet | [`plic_32to1_arb_granu_balanced_candidate1`](athanor_artifacts/plic_32to1_arb_granu_balanced_candidate1/) |
 
 ## Proofs And Receipts

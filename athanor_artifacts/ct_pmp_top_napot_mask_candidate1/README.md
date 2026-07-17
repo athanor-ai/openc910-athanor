@@ -1,6 +1,9 @@
 # ct_pmp_top NAPOT mask candidate 1
 
-Status: subsystem-top metric packet pending independent replay.
+Status: `customer_ready=true` for the subsystem-top `ct_pmp_top` packet under
+the pinned public replay flow. A non-author replay reproduced the proof,
+proof-mutant, mapped netlist hashes, metric-negative control, and recorded
+area/timing/OpenSTA estimated-power metrics from the public package path.
 
 This packet lifts the promoted `ct_pmp_acc` NAPOT mask candidate through the
 `ct_pmp_top` subsystem. The only accepted RTL delta is still the
@@ -27,6 +30,9 @@ the subsystem proof.
 - A synthetic metric-negative control is SHA-bound in this package and reds all
   three metric axes: area `63387.043200`, max data-arrival `7.3389 ns`, and
   estimated power `2.56e-03 nW`.
+- Non-author replay reproduced all three replay-produced mapped netlists
+  byte-exact against `SHA256SUMS`, the `831/831` same-state proof, the exact
+  `48`-cell proof-mutant failure, and the three-axis metric-negative red.
 
 ## Boundaries
 
@@ -36,6 +42,3 @@ Lean-authority theorem claim. The metric-negative control is deliberately
 synthetic and exists only to prove the measurement gate can reject a worse
 same-flow point. OpenSTA timing and estimated power are not signoff timing or
 measured workload power.
-
-Independent non-author replay is the next gate before promotion to the public
-results table.
