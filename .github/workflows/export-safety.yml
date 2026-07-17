@@ -56,6 +56,10 @@ jobs:
         if: github.event_name == 'pull_request' || github.event_name == 'push'
         run: python3 athanor/verify_public_receipts.py
 
+      - name: Public README contract
+        if: github.event_name == 'pull_request' || github.event_name == 'push'
+        run: python3 athanor/check_public_readme.py
+
       # ATH-2966 (part 2): every public replay.sh must REQUIRE its pinned tool env
       # vars via ${VAR:?...} (fail-loud if unset) and NEVER default them -- so a
       # future packet cannot ship a ${VAR:-<internal path>} default that both
