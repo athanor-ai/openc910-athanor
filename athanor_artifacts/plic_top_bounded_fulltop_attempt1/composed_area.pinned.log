@@ -1,0 +1,6 @@
+PLIC_TOP_BOUNDED_COMPOSED_AREA_V1
+method: recursive expansion of Yosys hierarchical stat module areas
+scope: plic_top boundary only
+gold_composed_area: 1039075.305600
+gate_composed_area: 1006879.427200
+interpretation: lower selected Sky130 area under this bounded composed screen

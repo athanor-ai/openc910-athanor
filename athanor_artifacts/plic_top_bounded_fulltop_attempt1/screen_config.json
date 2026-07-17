@@ -1,0 +1,27 @@
+{
+  "schema": "openc910.opensta_screen.v1",
+  "target": "plic_top",
+  "clock": {
+    "port": "plic_clk",
+    "period_ns": 10.0
+  },
+  "input_delay": {
+    "policy": "zero_delay_except_clock",
+    "clock": "plic_clk"
+  },
+  "output_delay": {
+    "policy": "zero_delay_all_outputs",
+    "clock": "plic_clk"
+  },
+  "power_activity": {
+    "global_activity": 0.1,
+    "duty": 0.5
+  },
+  "extraction_mode": "hierarchical_mapped_netlist",
+  "reports": [
+    "report_checks",
+    "report_tns",
+    "report_wns",
+    "report_power"
+  ]
+}

@@ -1,0 +1,86 @@
+{
+  "schema": "openc910.plic_top_source_manifest.v1",
+  "target": "plic_top",
+  "sources": [
+    {
+      "path": "C910_RTL_FACTORY/gen_rtl/cpu/rtl/cpu_cfig.h",
+      "role": "gold_and_gate",
+      "sha256": "f95edd68a9a93f0214ec0f2d1c09e03c4c6efbb2d43c5997a4c99ef14dcc097e"
+    },
+    {
+      "path": "C910_RTL_FACTORY/gen_rtl/clk/rtl/gated_clk_cell.v",
+      "role": "gold_and_gate",
+      "sha256": "6cfad397c18daabdff77e3a520ccbf964e4178197cc9a0f8dd825bbf928a91c8"
+    },
+    {
+      "path": "C910_RTL_FACTORY/gen_rtl/common/rtl/sync_level2level.v",
+      "role": "gold_and_gate",
+      "sha256": "7530a4e8a17cd2ed2fcc9710634e10e9ae5754f1262e5a0f84619e9cbcfeeef1"
+    },
+    {
+      "path": "C910_RTL_FACTORY/gen_rtl/common/rtl/sync_level2pulse.v",
+      "role": "gold_and_gate",
+      "sha256": "774051f9aad6aed2c6aad8536d3c9e60eb17740abfe84838ac659f5cffb44588"
+    },
+    {
+      "path": "C910_RTL_FACTORY/gen_rtl/plic/rtl/csky_apb_1tox_matrix.v",
+      "role": "gold_and_gate",
+      "sha256": "6dbf8b4f07214f179e4e1d92d5d6239e6a6a582378de6f9a515254fd92145229"
+    },
+    {
+      "path": "C910_RTL_FACTORY/gen_rtl/plic/rtl/plic_32to1_arb.v",
+      "role": "gold_and_gate",
+      "sha256": "23f640a6f9ee83202c9532667f991aa72f087d812cd6185d56882536e2f02b81"
+    },
+    {
+      "path": "C910_RTL_FACTORY/gen_rtl/plic/rtl/plic_arb_ctrl.v",
+      "role": "gold_and_gate",
+      "sha256": "23b4bd5f62340928a8e877f5ec4bf003a8f5c4ccfc1584a113fb2830e6c6da61"
+    },
+    {
+      "path": "C910_RTL_FACTORY/gen_rtl/plic/rtl/plic_ctrl.v",
+      "role": "gold_and_gate",
+      "sha256": "173c0e1e02bc81310b762666c38ef9a227513e57fbb1e1f2f6fa5c31ea3c2730"
+    },
+    {
+      "path": "C910_RTL_FACTORY/gen_rtl/plic/rtl/plic_granu2_arb.v",
+      "role": "gold_and_gate",
+      "sha256": "2177ca71c987171e10823c0deab2ff39ec826544034a662a082ca6a57a6c4e24"
+    },
+    {
+      "path": "C910_RTL_FACTORY/gen_rtl/plic/rtl/plic_granu_arb.v",
+      "role": "gold_only_replaced_by_candidate_overlay_for_gate",
+      "sha256": "e314cff5ce6e05698d73c362d4ec5f7444032b5387d31ea8a5e768cf2a20563d"
+    },
+    {
+      "path": "C910_RTL_FACTORY/gen_rtl/plic/rtl/plic_hart_arb.v",
+      "role": "gold_and_gate",
+      "sha256": "2b5021fdc83ef734b92f15f65a4cfed929389775e438268d629c2860d79418c8"
+    },
+    {
+      "path": "C910_RTL_FACTORY/gen_rtl/plic/rtl/plic_hreg_busif.v",
+      "role": "gold_and_gate",
+      "sha256": "a81cccc22349e124615b95203d94a89a9e67124aa70ce3706e1f4199289bb9cc"
+    },
+    {
+      "path": "C910_RTL_FACTORY/gen_rtl/plic/rtl/plic_int_kid.v",
+      "role": "gold_and_gate",
+      "sha256": "874a926923599f99b2788a819b0ade1e9048979f459ff029443eb38e070d9490"
+    },
+    {
+      "path": "C910_RTL_FACTORY/gen_rtl/plic/rtl/plic_kid_busif.v",
+      "role": "gold_and_gate",
+      "sha256": "b3cf604242a6be80da5b337e3d6b6d0e48e14944884e8a7d76ec38d266179215"
+    },
+    {
+      "path": "C910_RTL_FACTORY/gen_rtl/plic/rtl/plic_top.v",
+      "role": "gold_and_gate",
+      "sha256": "4fd6189023d93401c2898bf9335f5a21f620e177fc448039867d6c86cb8b17b1"
+    }
+  ],
+  "gate_overlay": {
+    "role": "gate_only_replaces_plic_granu_arb",
+    "sha256": "b57863acc068d449c2f3b49c4d01eefe065ee20cecd421bfb4990d8b85580df6"
+  },
+  "source_manifest_sha256": "562fb91fc92d115a5e20105ae2dda6c6b4562ee6e3e9130b569d959780f11d7f"
+}
