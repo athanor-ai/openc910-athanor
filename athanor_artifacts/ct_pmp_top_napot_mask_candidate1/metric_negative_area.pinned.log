@@ -1,0 +1,2318 @@
+
+ /----------------------------------------------------------------------------\
+ |  yosys -- Yosys Open SYnthesis Suite                                       |
+ |  Copyright (C) 2012 - 2026  Claire Xenia Wolf <claire@yosyshq.com>         |
+ |  Distributed under an ISC-like license, type "license" to see terms        |
+ \----------------------------------------------------------------------------/
+ Yosys 0.66+181 (git sha1 afe6b18f2, Release, Clang /usr/bin/clang++ 18.1.8)
+
+-- Running command `read_liberty -lib sky130_fd_sc_hd__tt_025C_1v80.lib; read_verilog -sv cpu_cfig.h gated_clk_cell.v ct_pmp_comp_hit_gate_candidate.v ct_pmp_acc_gold.v ct_pmp_regs_metric_negative.v ct_pmp_top_metric_negative.v; synth -top ct_pmp_top; dfflibmap -liberty sky130_fd_sc_hd__tt_025C_1v80.lib; abc -liberty sky130_fd_sc_hd__tt_025C_1v80.lib; clean -purge; rename -unescape; stat -liberty sky130_fd_sc_hd__tt_025C_1v80.lib; write_verilog -simple-lhs -noattr replay_out/ct_pmp_top_metric_negative.mapped.v' --
+
+1. Executing Liberty frontend: sky130_fd_sc_hd__tt_025C_1v80.lib
+Imported 428 cell types from liberty file.
+
+2. Executing Verilog-2005 frontend: cpu_cfig.h
+Parsing SystemVerilog input from `cpu_cfig.h' to AST representation.
+Successfully finished Verilog frontend.
+
+3. Executing Verilog-2005 frontend: gated_clk_cell.v
+Parsing SystemVerilog input from `gated_clk_cell.v' to AST representation.
+Generating RTLIL representation for module `\gated_clk_cell'.
+Successfully finished Verilog frontend.
+
+4. Executing Verilog-2005 frontend: ct_pmp_comp_hit_gate_candidate.v
+Parsing SystemVerilog input from `ct_pmp_comp_hit_gate_candidate.v' to AST representation.
+Generating RTLIL representation for module `\ct_pmp_comp_hit'.
+Note: Assuming pure combinatorial block at ct_pmp_comp_hit_gate_candidate.v:58.1-71.4 in
+compliance with IEC 62142(E):2005 / IEEE Std. 1364.1(E):2002. Recommending
+use of @* instead of @(...) for better match of synthesis and simulation.
+Successfully finished Verilog frontend.
+
+5. Executing Verilog-2005 frontend: ct_pmp_acc_gold.v
+Parsing SystemVerilog input from `ct_pmp_acc_gold.v' to AST representation.
+Generating RTLIL representation for module `\ct_pmp_acc'.
+Note: Assuming pure combinatorial block at ct_pmp_acc_gold.v:259.1-301.4 in
+compliance with IEC 62142(E):2005 / IEEE Std. 1364.1(E):2002. Recommending
+use of @* instead of @(...) for better match of synthesis and simulation.
+Successfully finished Verilog frontend.
+
+6. Executing Verilog-2005 frontend: ct_pmp_regs_metric_negative.v
+Parsing SystemVerilog input from `ct_pmp_regs_metric_negative.v' to AST representation.
+Generating RTLIL representation for module `\ct_pmp_regs'.
+Successfully finished Verilog frontend.
+
+7. Executing Verilog-2005 frontend: ct_pmp_top_metric_negative.v
+Parsing SystemVerilog input from `ct_pmp_top_metric_negative.v' to AST representation.
+Generating RTLIL representation for module `\ct_pmp_top'.
+Successfully finished Verilog frontend.
+
+8. Executing SYNTH pass.
+
+8.1. Executing HIERARCHY pass (managing design hierarchy).
+
+8.1.1. Analyzing design hierarchy..
+Top module:  \ct_pmp_top
+Used module:     \ct_pmp_acc
+Used module:         \ct_pmp_comp_hit
+Used module:     \ct_pmp_regs
+Used module:     \gated_clk_cell
+
+8.1.2. Analyzing design hierarchy..
+Top module:  \ct_pmp_top
+Used module:     \ct_pmp_acc
+Used module:         \ct_pmp_comp_hit
+Used module:     \ct_pmp_regs
+Used module:     \gated_clk_cell
+Removed 0 unused modules.
+
+8.2. Executing PROC pass (convert processes to netlists).
+
+8.2.1. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Cleaned up 0 empty switches.
+
+8.2.2. Executing PROC_RMDEAD pass (remove dead branches from decision trees).
+Marked 2 switch rules as full_case in process $proc$ct_pmp_regs_metric_negative.v:491$166 in module ct_pmp_regs.
+Marked 2 switch rules as full_case in process $proc$ct_pmp_regs_metric_negative.v:479$158 in module ct_pmp_regs.
+Marked 2 switch rules as full_case in process $proc$ct_pmp_regs_metric_negative.v:467$150 in module ct_pmp_regs.
+Marked 2 switch rules as full_case in process $proc$ct_pmp_regs_metric_negative.v:455$142 in module ct_pmp_regs.
+Marked 2 switch rules as full_case in process $proc$ct_pmp_regs_metric_negative.v:443$134 in module ct_pmp_regs.
+Marked 2 switch rules as full_case in process $proc$ct_pmp_regs_metric_negative.v:431$126 in module ct_pmp_regs.
+Marked 2 switch rules as full_case in process $proc$ct_pmp_regs_metric_negative.v:419$118 in module ct_pmp_regs.
+Marked 2 switch rules as full_case in process $proc$ct_pmp_regs_metric_negative.v:406$109 in module ct_pmp_regs.
+Marked 2 switch rules as full_case in process $proc$ct_pmp_regs_metric_negative.v:351$100 in module ct_pmp_regs.
+Marked 2 switch rules as full_case in process $proc$ct_pmp_regs_metric_negative.v:322$96 in module ct_pmp_regs.
+Marked 2 switch rules as full_case in process $proc$ct_pmp_regs_metric_negative.v:293$92 in module ct_pmp_regs.
+Marked 2 switch rules as full_case in process $proc$ct_pmp_regs_metric_negative.v:264$88 in module ct_pmp_regs.
+Marked 2 switch rules as full_case in process $proc$ct_pmp_regs_metric_negative.v:235$84 in module ct_pmp_regs.
+Marked 2 switch rules as full_case in process $proc$ct_pmp_regs_metric_negative.v:206$80 in module ct_pmp_regs.
+Marked 2 switch rules as full_case in process $proc$ct_pmp_regs_metric_negative.v:177$76 in module ct_pmp_regs.
+Marked 2 switch rules as full_case in process $proc$ct_pmp_regs_metric_negative.v:148$72 in module ct_pmp_regs.
+Removed 1 dead cases from process $proc$ct_pmp_acc_gold.v:259$69 in module ct_pmp_acc.
+Marked 1 switch rules as full_case in process $proc$ct_pmp_acc_gold.v:259$69 in module ct_pmp_acc.
+Removed 1 dead cases from process $proc$ct_pmp_comp_hit_gate_candidate.v:58$4 in module ct_pmp_comp_hit.
+Marked 1 switch rules as full_case in process $proc$ct_pmp_comp_hit_gate_candidate.v:58$4 in module ct_pmp_comp_hit.
+Removed a total of 2 dead cases.
+
+8.2.3. Executing PROC_PRUNE pass (remove redundant assignments in processes).
+Removed 48 redundant assignments.
+Promoted 2 assignments to connections.
+
+8.2.4. Executing PROC_INIT pass (extract init attributes).
+
+8.2.5. Executing PROC_ARST pass (detect async resets in processes).
+Found async reset \cpurst_b in `\ct_pmp_regs.$proc$ct_pmp_regs_metric_negative.v:491$166'.
+Found async reset \cpurst_b in `\ct_pmp_regs.$proc$ct_pmp_regs_metric_negative.v:479$158'.
+Found async reset \cpurst_b in `\ct_pmp_regs.$proc$ct_pmp_regs_metric_negative.v:467$150'.
+Found async reset \cpurst_b in `\ct_pmp_regs.$proc$ct_pmp_regs_metric_negative.v:455$142'.
+Found async reset \cpurst_b in `\ct_pmp_regs.$proc$ct_pmp_regs_metric_negative.v:443$134'.
+Found async reset \cpurst_b in `\ct_pmp_regs.$proc$ct_pmp_regs_metric_negative.v:431$126'.
+Found async reset \cpurst_b in `\ct_pmp_regs.$proc$ct_pmp_regs_metric_negative.v:419$118'.
+Found async reset \cpurst_b in `\ct_pmp_regs.$proc$ct_pmp_regs_metric_negative.v:406$109'.
+Found async reset \cpurst_b in `\ct_pmp_regs.$proc$ct_pmp_regs_metric_negative.v:351$100'.
+Found async reset \cpurst_b in `\ct_pmp_regs.$proc$ct_pmp_regs_metric_negative.v:322$96'.
+Found async reset \cpurst_b in `\ct_pmp_regs.$proc$ct_pmp_regs_metric_negative.v:293$92'.
+Found async reset \cpurst_b in `\ct_pmp_regs.$proc$ct_pmp_regs_metric_negative.v:264$88'.
+Found async reset \cpurst_b in `\ct_pmp_regs.$proc$ct_pmp_regs_metric_negative.v:235$84'.
+Found async reset \cpurst_b in `\ct_pmp_regs.$proc$ct_pmp_regs_metric_negative.v:206$80'.
+Found async reset \cpurst_b in `\ct_pmp_regs.$proc$ct_pmp_regs_metric_negative.v:177$76'.
+Found async reset \cpurst_b in `\ct_pmp_regs.$proc$ct_pmp_regs_metric_negative.v:148$72'.
+
+8.2.6. Executing PROC_ROM pass (convert switches to ROMs).
+Converted 0 switches.
+<suppressed ~18 debug messages>
+
+8.2.7. Executing PROC_MUX pass (convert decision trees to multiplexers).
+Creating decoders for process `\ct_pmp_regs.$proc$ct_pmp_regs_metric_negative.v:491$166'.
+     1/1: $0\pmpaddr7_value[28:0]
+Creating decoders for process `\ct_pmp_regs.$proc$ct_pmp_regs_metric_negative.v:479$158'.
+     1/1: $0\pmpaddr6_value[28:0]
+Creating decoders for process `\ct_pmp_regs.$proc$ct_pmp_regs_metric_negative.v:467$150'.
+     1/1: $0\pmpaddr5_value[28:0]
+Creating decoders for process `\ct_pmp_regs.$proc$ct_pmp_regs_metric_negative.v:455$142'.
+     1/1: $0\pmpaddr4_value[28:0]
+Creating decoders for process `\ct_pmp_regs.$proc$ct_pmp_regs_metric_negative.v:443$134'.
+     1/1: $0\pmpaddr3_value[28:0]
+Creating decoders for process `\ct_pmp_regs.$proc$ct_pmp_regs_metric_negative.v:431$126'.
+     1/1: $0\pmpaddr2_value[28:0]
+Creating decoders for process `\ct_pmp_regs.$proc$ct_pmp_regs_metric_negative.v:419$118'.
+     1/1: $0\pmpaddr1_value[28:0]
+Creating decoders for process `\ct_pmp_regs.$proc$ct_pmp_regs_metric_negative.v:406$109'.
+     1/1: $0\pmpaddr0_value[28:0]
+Creating decoders for process `\ct_pmp_regs.$proc$ct_pmp_regs_metric_negative.v:351$100'.
+     1/5: $0\pmp7cfg_lock[0:0]
+     2/5: $0\pmp7cfg_addr_mode[1:0]
+     3/5: $0\pmp7cfg_executeable[0:0]
+     4/5: $0\pmp7cfg_writable[0:0]
+     5/5: $0\pmp7cfg_readable[0:0]
+Creating decoders for process `\ct_pmp_regs.$proc$ct_pmp_regs_metric_negative.v:322$96'.
+     1/5: $0\pmp6cfg_lock[0:0]
+     2/5: $0\pmp6cfg_addr_mode[1:0]
+     3/5: $0\pmp6cfg_executeable[0:0]
+     4/5: $0\pmp6cfg_writable[0:0]
+     5/5: $0\pmp6cfg_readable[0:0]
+Creating decoders for process `\ct_pmp_regs.$proc$ct_pmp_regs_metric_negative.v:293$92'.
+     1/5: $0\pmp5cfg_lock[0:0]
+     2/5: $0\pmp5cfg_addr_mode[1:0]
+     3/5: $0\pmp5cfg_executeable[0:0]
+     4/5: $0\pmp5cfg_writable[0:0]
+     5/5: $0\pmp5cfg_readable[0:0]
+Creating decoders for process `\ct_pmp_regs.$proc$ct_pmp_regs_metric_negative.v:264$88'.
+     1/5: $0\pmp4cfg_lock[0:0]
+     2/5: $0\pmp4cfg_addr_mode[1:0]
+     3/5: $0\pmp4cfg_executeable[0:0]
+     4/5: $0\pmp4cfg_writable[0:0]
+     5/5: $0\pmp4cfg_readable[0:0]
+Creating decoders for process `\ct_pmp_regs.$proc$ct_pmp_regs_metric_negative.v:235$84'.
+     1/5: $0\pmp3cfg_lock[0:0]
+     2/5: $0\pmp3cfg_addr_mode[1:0]
+     3/5: $0\pmp3cfg_executeable[0:0]
+     4/5: $0\pmp3cfg_writable[0:0]
+     5/5: $0\pmp3cfg_readable[0:0]
+Creating decoders for process `\ct_pmp_regs.$proc$ct_pmp_regs_metric_negative.v:206$80'.
+     1/5: $0\pmp2cfg_lock[0:0]
+     2/5: $0\pmp2cfg_addr_mode[1:0]
+     3/5: $0\pmp2cfg_executeable[0:0]
+     4/5: $0\pmp2cfg_writable[0:0]
+     5/5: $0\pmp2cfg_readable[0:0]
+Creating decoders for process `\ct_pmp_regs.$proc$ct_pmp_regs_metric_negative.v:177$76'.
+     1/5: $0\pmp1cfg_lock[0:0]
+     2/5: $0\pmp1cfg_addr_mode[1:0]
+     3/5: $0\pmp1cfg_executeable[0:0]
+     4/5: $0\pmp1cfg_writable[0:0]
+     5/5: $0\pmp1cfg_readable[0:0]
+Creating decoders for process `\ct_pmp_regs.$proc$ct_pmp_regs_metric_negative.v:148$72'.
+     1/5: $0\pmp0cfg_lock[0:0]
+     2/5: $0\pmp0cfg_addr_mode[1:0]
+     3/5: $0\pmp0cfg_executeable[0:0]
+     4/5: $0\pmp0cfg_writable[0:0]
+     5/5: $0\pmp0cfg_readable[0:0]
+Creating decoders for process `\ct_pmp_acc.$proc$ct_pmp_acc_gold.v:259$69'.
+     1/1: $1\pmp_mmu_flg_y[3:0]
+Creating decoders for process `\ct_pmp_comp_hit.$proc$ct_pmp_comp_hit_gate_candidate.v:58$4'.
+     1/1: $1\pmp_mmu_hit_x[0:0]
+
+8.2.8. Executing PROC_DLATCH pass (convert process syncs to latches).
+No latch inferred for signal `\ct_pmp_acc.\pmp_mmu_flg_y' from process `\ct_pmp_acc.$proc$ct_pmp_acc_gold.v:259$69'.
+No latch inferred for signal `\ct_pmp_comp_hit.\pmp_mmu_hit_x' from process `\ct_pmp_comp_hit.$proc$ct_pmp_comp_hit_gate_candidate.v:58$4'.
+
+8.2.9. Executing PROC_DFF pass (convert process syncs to FFs).
+Creating register for signal `\ct_pmp_regs.\pmpaddr7_value' using process `\ct_pmp_regs.$proc$ct_pmp_regs_metric_negative.v:491$166'.
+  created $adff cell `$procdff$398' with positive edge clock and positive level reset.
+Creating register for signal `\ct_pmp_regs.\pmpaddr6_value' using process `\ct_pmp_regs.$proc$ct_pmp_regs_metric_negative.v:479$158'.
+  created $adff cell `$procdff$403' with positive edge clock and positive level reset.
+Creating register for signal `\ct_pmp_regs.\pmpaddr5_value' using process `\ct_pmp_regs.$proc$ct_pmp_regs_metric_negative.v:467$150'.
+  created $adff cell `$procdff$408' with positive edge clock and positive level reset.
+Creating register for signal `\ct_pmp_regs.\pmpaddr4_value' using process `\ct_pmp_regs.$proc$ct_pmp_regs_metric_negative.v:455$142'.
+  created $adff cell `$procdff$413' with positive edge clock and positive level reset.
+Creating register for signal `\ct_pmp_regs.\pmpaddr3_value' using process `\ct_pmp_regs.$proc$ct_pmp_regs_metric_negative.v:443$134'.
+  created $adff cell `$procdff$418' with positive edge clock and positive level reset.
+Creating register for signal `\ct_pmp_regs.\pmpaddr2_value' using process `\ct_pmp_regs.$proc$ct_pmp_regs_metric_negative.v:431$126'.
+  created $adff cell `$procdff$423' with positive edge clock and positive level reset.
+Creating register for signal `\ct_pmp_regs.\pmpaddr1_value' using process `\ct_pmp_regs.$proc$ct_pmp_regs_metric_negative.v:419$118'.
+  created $adff cell `$procdff$428' with positive edge clock and positive level reset.
+Creating register for signal `\ct_pmp_regs.\pmpaddr0_value' using process `\ct_pmp_regs.$proc$ct_pmp_regs_metric_negative.v:406$109'.
+  created $adff cell `$procdff$433' with positive edge clock and positive level reset.
+Creating register for signal `\ct_pmp_regs.\pmp7cfg_addr_mode' using process `\ct_pmp_regs.$proc$ct_pmp_regs_metric_negative.v:351$100'.
+  created $adff cell `$procdff$438' with positive edge clock and positive level reset.
+Creating register for signal `\ct_pmp_regs.\pmp7cfg_executeable' using process `\ct_pmp_regs.$proc$ct_pmp_regs_metric_negative.v:351$100'.
+  created $adff cell `$procdff$443' with positive edge clock and positive level reset.
+Creating register for signal `\ct_pmp_regs.\pmp7cfg_lock' using process `\ct_pmp_regs.$proc$ct_pmp_regs_metric_negative.v:351$100'.
+  created $adff cell `$procdff$448' with positive edge clock and positive level reset.
+Creating register for signal `\ct_pmp_regs.\pmp7cfg_readable' using process `\ct_pmp_regs.$proc$ct_pmp_regs_metric_negative.v:351$100'.
+  created $adff cell `$procdff$453' with positive edge clock and positive level reset.
+Creating register for signal `\ct_pmp_regs.\pmp7cfg_writable' using process `\ct_pmp_regs.$proc$ct_pmp_regs_metric_negative.v:351$100'.
+  created $adff cell `$procdff$458' with positive edge clock and positive level reset.
+Creating register for signal `\ct_pmp_regs.\pmp6cfg_addr_mode' using process `\ct_pmp_regs.$proc$ct_pmp_regs_metric_negative.v:322$96'.
+  created $adff cell `$procdff$463' with positive edge clock and positive level reset.
+Creating register for signal `\ct_pmp_regs.\pmp6cfg_executeable' using process `\ct_pmp_regs.$proc$ct_pmp_regs_metric_negative.v:322$96'.
+  created $adff cell `$procdff$468' with positive edge clock and positive level reset.
+Creating register for signal `\ct_pmp_regs.\pmp6cfg_lock' using process `\ct_pmp_regs.$proc$ct_pmp_regs_metric_negative.v:322$96'.
+  created $adff cell `$procdff$473' with positive edge clock and positive level reset.
+Creating register for signal `\ct_pmp_regs.\pmp6cfg_readable' using process `\ct_pmp_regs.$proc$ct_pmp_regs_metric_negative.v:322$96'.
+  created $adff cell `$procdff$478' with positive edge clock and positive level reset.
+Creating register for signal `\ct_pmp_regs.\pmp6cfg_writable' using process `\ct_pmp_regs.$proc$ct_pmp_regs_metric_negative.v:322$96'.
+  created $adff cell `$procdff$483' with positive edge clock and positive level reset.
+Creating register for signal `\ct_pmp_regs.\pmp5cfg_addr_mode' using process `\ct_pmp_regs.$proc$ct_pmp_regs_metric_negative.v:293$92'.
+  created $adff cell `$procdff$488' with positive edge clock and positive level reset.
+Creating register for signal `\ct_pmp_regs.\pmp5cfg_executeable' using process `\ct_pmp_regs.$proc$ct_pmp_regs_metric_negative.v:293$92'.
+  created $adff cell `$procdff$493' with positive edge clock and positive level reset.
+Creating register for signal `\ct_pmp_regs.\pmp5cfg_lock' using process `\ct_pmp_regs.$proc$ct_pmp_regs_metric_negative.v:293$92'.
+  created $adff cell `$procdff$498' with positive edge clock and positive level reset.
+Creating register for signal `\ct_pmp_regs.\pmp5cfg_readable' using process `\ct_pmp_regs.$proc$ct_pmp_regs_metric_negative.v:293$92'.
+  created $adff cell `$procdff$503' with positive edge clock and positive level reset.
+Creating register for signal `\ct_pmp_regs.\pmp5cfg_writable' using process `\ct_pmp_regs.$proc$ct_pmp_regs_metric_negative.v:293$92'.
+  created $adff cell `$procdff$508' with positive edge clock and positive level reset.
+Creating register for signal `\ct_pmp_regs.\pmp4cfg_addr_mode' using process `\ct_pmp_regs.$proc$ct_pmp_regs_metric_negative.v:264$88'.
+  created $adff cell `$procdff$513' with positive edge clock and positive level reset.
+Creating register for signal `\ct_pmp_regs.\pmp4cfg_executeable' using process `\ct_pmp_regs.$proc$ct_pmp_regs_metric_negative.v:264$88'.
+  created $adff cell `$procdff$518' with positive edge clock and positive level reset.
+Creating register for signal `\ct_pmp_regs.\pmp4cfg_lock' using process `\ct_pmp_regs.$proc$ct_pmp_regs_metric_negative.v:264$88'.
+  created $adff cell `$procdff$523' with positive edge clock and positive level reset.
+Creating register for signal `\ct_pmp_regs.\pmp4cfg_readable' using process `\ct_pmp_regs.$proc$ct_pmp_regs_metric_negative.v:264$88'.
+  created $adff cell `$procdff$528' with positive edge clock and positive level reset.
+Creating register for signal `\ct_pmp_regs.\pmp4cfg_writable' using process `\ct_pmp_regs.$proc$ct_pmp_regs_metric_negative.v:264$88'.
+  created $adff cell `$procdff$533' with positive edge clock and positive level reset.
+Creating register for signal `\ct_pmp_regs.\pmp3cfg_addr_mode' using process `\ct_pmp_regs.$proc$ct_pmp_regs_metric_negative.v:235$84'.
+  created $adff cell `$procdff$538' with positive edge clock and positive level reset.
+Creating register for signal `\ct_pmp_regs.\pmp3cfg_executeable' using process `\ct_pmp_regs.$proc$ct_pmp_regs_metric_negative.v:235$84'.
+  created $adff cell `$procdff$543' with positive edge clock and positive level reset.
+Creating register for signal `\ct_pmp_regs.\pmp3cfg_lock' using process `\ct_pmp_regs.$proc$ct_pmp_regs_metric_negative.v:235$84'.
+  created $adff cell `$procdff$548' with positive edge clock and positive level reset.
+Creating register for signal `\ct_pmp_regs.\pmp3cfg_readable' using process `\ct_pmp_regs.$proc$ct_pmp_regs_metric_negative.v:235$84'.
+  created $adff cell `$procdff$553' with positive edge clock and positive level reset.
+Creating register for signal `\ct_pmp_regs.\pmp3cfg_writable' using process `\ct_pmp_regs.$proc$ct_pmp_regs_metric_negative.v:235$84'.
+  created $adff cell `$procdff$558' with positive edge clock and positive level reset.
+Creating register for signal `\ct_pmp_regs.\pmp2cfg_addr_mode' using process `\ct_pmp_regs.$proc$ct_pmp_regs_metric_negative.v:206$80'.
+  created $adff cell `$procdff$563' with positive edge clock and positive level reset.
+Creating register for signal `\ct_pmp_regs.\pmp2cfg_executeable' using process `\ct_pmp_regs.$proc$ct_pmp_regs_metric_negative.v:206$80'.
+  created $adff cell `$procdff$568' with positive edge clock and positive level reset.
+Creating register for signal `\ct_pmp_regs.\pmp2cfg_lock' using process `\ct_pmp_regs.$proc$ct_pmp_regs_metric_negative.v:206$80'.
+  created $adff cell `$procdff$573' with positive edge clock and positive level reset.
+Creating register for signal `\ct_pmp_regs.\pmp2cfg_readable' using process `\ct_pmp_regs.$proc$ct_pmp_regs_metric_negative.v:206$80'.
+  created $adff cell `$procdff$578' with positive edge clock and positive level reset.
+Creating register for signal `\ct_pmp_regs.\pmp2cfg_writable' using process `\ct_pmp_regs.$proc$ct_pmp_regs_metric_negative.v:206$80'.
+  created $adff cell `$procdff$583' with positive edge clock and positive level reset.
+Creating register for signal `\ct_pmp_regs.\pmp1cfg_addr_mode' using process `\ct_pmp_regs.$proc$ct_pmp_regs_metric_negative.v:177$76'.
+  created $adff cell `$procdff$588' with positive edge clock and positive level reset.
+Creating register for signal `\ct_pmp_regs.\pmp1cfg_executeable' using process `\ct_pmp_regs.$proc$ct_pmp_regs_metric_negative.v:177$76'.
+  created $adff cell `$procdff$593' with positive edge clock and positive level reset.
+Creating register for signal `\ct_pmp_regs.\pmp1cfg_lock' using process `\ct_pmp_regs.$proc$ct_pmp_regs_metric_negative.v:177$76'.
+  created $adff cell `$procdff$598' with positive edge clock and positive level reset.
+Creating register for signal `\ct_pmp_regs.\pmp1cfg_readable' using process `\ct_pmp_regs.$proc$ct_pmp_regs_metric_negative.v:177$76'.
+  created $adff cell `$procdff$603' with positive edge clock and positive level reset.
+Creating register for signal `\ct_pmp_regs.\pmp1cfg_writable' using process `\ct_pmp_regs.$proc$ct_pmp_regs_metric_negative.v:177$76'.
+  created $adff cell `$procdff$608' with positive edge clock and positive level reset.
+Creating register for signal `\ct_pmp_regs.\pmp0cfg_addr_mode' using process `\ct_pmp_regs.$proc$ct_pmp_regs_metric_negative.v:148$72'.
+  created $adff cell `$procdff$613' with positive edge clock and positive level reset.
+Creating register for signal `\ct_pmp_regs.\pmp0cfg_executeable' using process `\ct_pmp_regs.$proc$ct_pmp_regs_metric_negative.v:148$72'.
+  created $adff cell `$procdff$618' with positive edge clock and positive level reset.
+Creating register for signal `\ct_pmp_regs.\pmp0cfg_lock' using process `\ct_pmp_regs.$proc$ct_pmp_regs_metric_negative.v:148$72'.
+  created $adff cell `$procdff$623' with positive edge clock and positive level reset.
+Creating register for signal `\ct_pmp_regs.\pmp0cfg_readable' using process `\ct_pmp_regs.$proc$ct_pmp_regs_metric_negative.v:148$72'.
+  created $adff cell `$procdff$628' with positive edge clock and positive level reset.
+Creating register for signal `\ct_pmp_regs.\pmp0cfg_writable' using process `\ct_pmp_regs.$proc$ct_pmp_regs_metric_negative.v:148$72'.
+  created $adff cell `$procdff$633' with positive edge clock and positive level reset.
+
+8.2.10. Executing PROC_MEMWR pass (convert process memory writes to cells).
+
+8.2.11. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Found and cleaned up 1 empty switch in `\ct_pmp_regs.$proc$ct_pmp_regs_metric_negative.v:491$166'.
+Removing empty process `ct_pmp_regs.$proc$ct_pmp_regs_metric_negative.v:491$166'.
+Found and cleaned up 1 empty switch in `\ct_pmp_regs.$proc$ct_pmp_regs_metric_negative.v:479$158'.
+Removing empty process `ct_pmp_regs.$proc$ct_pmp_regs_metric_negative.v:479$158'.
+Found and cleaned up 1 empty switch in `\ct_pmp_regs.$proc$ct_pmp_regs_metric_negative.v:467$150'.
+Removing empty process `ct_pmp_regs.$proc$ct_pmp_regs_metric_negative.v:467$150'.
+Found and cleaned up 1 empty switch in `\ct_pmp_regs.$proc$ct_pmp_regs_metric_negative.v:455$142'.
+Removing empty process `ct_pmp_regs.$proc$ct_pmp_regs_metric_negative.v:455$142'.
+Found and cleaned up 1 empty switch in `\ct_pmp_regs.$proc$ct_pmp_regs_metric_negative.v:443$134'.
+Removing empty process `ct_pmp_regs.$proc$ct_pmp_regs_metric_negative.v:443$134'.
+Found and cleaned up 1 empty switch in `\ct_pmp_regs.$proc$ct_pmp_regs_metric_negative.v:431$126'.
+Removing empty process `ct_pmp_regs.$proc$ct_pmp_regs_metric_negative.v:431$126'.
+Found and cleaned up 1 empty switch in `\ct_pmp_regs.$proc$ct_pmp_regs_metric_negative.v:419$118'.
+Removing empty process `ct_pmp_regs.$proc$ct_pmp_regs_metric_negative.v:419$118'.
+Found and cleaned up 1 empty switch in `\ct_pmp_regs.$proc$ct_pmp_regs_metric_negative.v:406$109'.
+Removing empty process `ct_pmp_regs.$proc$ct_pmp_regs_metric_negative.v:406$109'.
+Found and cleaned up 1 empty switch in `\ct_pmp_regs.$proc$ct_pmp_regs_metric_negative.v:351$100'.
+Removing empty process `ct_pmp_regs.$proc$ct_pmp_regs_metric_negative.v:351$100'.
+Found and cleaned up 1 empty switch in `\ct_pmp_regs.$proc$ct_pmp_regs_metric_negative.v:322$96'.
+Removing empty process `ct_pmp_regs.$proc$ct_pmp_regs_metric_negative.v:322$96'.
+Found and cleaned up 1 empty switch in `\ct_pmp_regs.$proc$ct_pmp_regs_metric_negative.v:293$92'.
+Removing empty process `ct_pmp_regs.$proc$ct_pmp_regs_metric_negative.v:293$92'.
+Found and cleaned up 1 empty switch in `\ct_pmp_regs.$proc$ct_pmp_regs_metric_negative.v:264$88'.
+Removing empty process `ct_pmp_regs.$proc$ct_pmp_regs_metric_negative.v:264$88'.
+Found and cleaned up 1 empty switch in `\ct_pmp_regs.$proc$ct_pmp_regs_metric_negative.v:235$84'.
+Removing empty process `ct_pmp_regs.$proc$ct_pmp_regs_metric_negative.v:235$84'.
+Found and cleaned up 1 empty switch in `\ct_pmp_regs.$proc$ct_pmp_regs_metric_negative.v:206$80'.
+Removing empty process `ct_pmp_regs.$proc$ct_pmp_regs_metric_negative.v:206$80'.
+Found and cleaned up 1 empty switch in `\ct_pmp_regs.$proc$ct_pmp_regs_metric_negative.v:177$76'.
+Removing empty process `ct_pmp_regs.$proc$ct_pmp_regs_metric_negative.v:177$76'.
+Found and cleaned up 1 empty switch in `\ct_pmp_regs.$proc$ct_pmp_regs_metric_negative.v:148$72'.
+Removing empty process `ct_pmp_regs.$proc$ct_pmp_regs_metric_negative.v:148$72'.
+Found and cleaned up 1 empty switch in `\ct_pmp_acc.$proc$ct_pmp_acc_gold.v:259$69'.
+Removing empty process `ct_pmp_acc.$proc$ct_pmp_acc_gold.v:259$69'.
+Found and cleaned up 1 empty switch in `\ct_pmp_comp_hit.$proc$ct_pmp_comp_hit_gate_candidate.v:58$4'.
+Removing empty process `ct_pmp_comp_hit.$proc$ct_pmp_comp_hit_gate_candidate.v:58$4'.
+Cleaned up 18 empty switches.
+
+8.2.12. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_pmp_top.
+Optimizing module ct_pmp_regs.
+<suppressed ~119 debug messages>
+Optimizing module ct_pmp_acc.
+<suppressed ~1 debug messages>
+Optimizing module ct_pmp_comp_hit.
+<suppressed ~1 debug messages>
+Optimizing module gated_clk_cell.
+
+8.3. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_pmp_top.
+Optimizing module ct_pmp_regs.
+Optimizing module ct_pmp_acc.
+Optimizing module ct_pmp_comp_hit.
+Optimizing module gated_clk_cell.
+
+8.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_pmp_top..
+Finding unused cells or wires in module \ct_pmp_regs..
+Finding unused cells or wires in module \ct_pmp_acc..
+Finding unused cells or wires in module \ct_pmp_comp_hit..
+Finding unused cells or wires in module \gated_clk_cell..
+Removed 67 unused cells and 317 unused wires.
+<suppressed ~73 debug messages>
+
+8.5. Executing CHECK pass (checking for obvious problems).
+Checking module ct_pmp_top...
+Checking module ct_pmp_regs...
+Checking module ct_pmp_acc...
+Checking module ct_pmp_comp_hit...
+Checking module gated_clk_cell...
+Found and reported 0 problems.
+
+8.6. Executing OPT pass (performing simple optimizations).
+
+8.6.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_pmp_top.
+<suppressed ~1 debug messages>
+Optimizing module ct_pmp_regs.
+Optimizing module ct_pmp_acc.
+<suppressed ~8 debug messages>
+Optimizing module ct_pmp_comp_hit.
+Optimizing module gated_clk_cell.
+
+8.6.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_pmp_top'.
+Computing hashes of 31 cells of `\ct_pmp_top'.
+Finding duplicate cells in `\ct_pmp_top'.
+Finding identical cells in module `\ct_pmp_regs'.
+Computing hashes of 175 cells of `\ct_pmp_regs'.
+Finding duplicate cells in `\ct_pmp_regs'.
+Computing hashes of 167 cells of `\ct_pmp_regs'.
+Finding duplicate cells in `\ct_pmp_regs'.
+<suppressed ~24 debug messages>
+Finding identical cells in module `\ct_pmp_acc'.
+Computing hashes of 20 cells of `\ct_pmp_acc'.
+Finding duplicate cells in `\ct_pmp_acc'.
+Finding identical cells in module `\ct_pmp_comp_hit'.
+Computing hashes of 66 cells of `\ct_pmp_comp_hit'.
+Finding duplicate cells in `\ct_pmp_comp_hit'.
+Finding identical cells in module `\gated_clk_cell'.
+Computing hashes of 0 cells of `\gated_clk_cell'.
+Finding duplicate cells in `\gated_clk_cell'.
+Removed a total of 8 cells.
+
+8.6.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \ct_pmp_top..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \ct_pmp_regs..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \ct_pmp_acc..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+    dead port 2/18 on $pmux $procmux$371.
+    dead port 3/18 on $pmux $procmux$371.
+    dead port 4/18 on $pmux $procmux$371.
+    dead port 5/18 on $pmux $procmux$371.
+    dead port 6/18 on $pmux $procmux$371.
+    dead port 7/18 on $pmux $procmux$371.
+    dead port 8/18 on $pmux $procmux$371.
+    dead port 9/18 on $pmux $procmux$371.
+Running muxtree optimizer on module \ct_pmp_comp_hit..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \gated_clk_cell..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Removed 8 multiplexer ports.
+<suppressed ~103 debug messages>
+
+8.6.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \ct_pmp_top.
+  Optimizing cells in module \ct_pmp_regs.
+  Optimizing cells in module \ct_pmp_acc.
+  Optimizing cells in module \ct_pmp_comp_hit.
+    New ctrl vector for $pmux cell $procmux$389: { $procmux$390_CMP $auto$opt_reduce.cc:135:opt_pmux$635 $procmux$392_CMP }
+  Optimizing cells in module \ct_pmp_comp_hit.
+  Optimizing cells in module \gated_clk_cell.
+Performed a total of 1 changes.
+
+8.6.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_pmp_top'.
+Computing hashes of 31 cells of `\ct_pmp_top'.
+Finding duplicate cells in `\ct_pmp_top'.
+Finding identical cells in module `\ct_pmp_regs'.
+Computing hashes of 167 cells of `\ct_pmp_regs'.
+Finding duplicate cells in `\ct_pmp_regs'.
+Finding identical cells in module `\ct_pmp_acc'.
+Computing hashes of 20 cells of `\ct_pmp_acc'.
+Finding duplicate cells in `\ct_pmp_acc'.
+Finding identical cells in module `\ct_pmp_comp_hit'.
+Computing hashes of 67 cells of `\ct_pmp_comp_hit'.
+Finding duplicate cells in `\ct_pmp_comp_hit'.
+Finding identical cells in module `\gated_clk_cell'.
+Computing hashes of 0 cells of `\gated_clk_cell'.
+Finding duplicate cells in `\gated_clk_cell'.
+Removed a total of 0 cells.
+
+8.6.6. Executing OPT_DFF pass (perform DFF optimizations).
+
+8.6.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_pmp_top..
+Finding unused cells or wires in module \ct_pmp_regs..
+Finding unused cells or wires in module \ct_pmp_acc..
+Finding unused cells or wires in module \ct_pmp_comp_hit..
+Finding unused cells or wires in module \gated_clk_cell..
+Removed 0 unused cells and 16 unused wires.
+<suppressed ~2 debug messages>
+
+8.6.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_pmp_top.
+Optimizing module ct_pmp_regs.
+Optimizing module ct_pmp_acc.
+Optimizing module ct_pmp_comp_hit.
+Optimizing module gated_clk_cell.
+
+8.6.9. Rerunning OPT passes. (Maybe there is more to do..)
+
+8.6.10. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \ct_pmp_top..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \ct_pmp_regs..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \ct_pmp_acc..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \ct_pmp_comp_hit..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \gated_clk_cell..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Removed 0 multiplexer ports.
+<suppressed ~103 debug messages>
+
+8.6.11. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \ct_pmp_top.
+  Optimizing cells in module \ct_pmp_regs.
+  Optimizing cells in module \ct_pmp_acc.
+  Optimizing cells in module \ct_pmp_comp_hit.
+  Optimizing cells in module \gated_clk_cell.
+Performed a total of 0 changes.
+
+8.6.12. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_pmp_top'.
+Computing hashes of 31 cells of `\ct_pmp_top'.
+Finding duplicate cells in `\ct_pmp_top'.
+Finding identical cells in module `\ct_pmp_regs'.
+Computing hashes of 167 cells of `\ct_pmp_regs'.
+Finding duplicate cells in `\ct_pmp_regs'.
+Finding identical cells in module `\ct_pmp_acc'.
+Computing hashes of 20 cells of `\ct_pmp_acc'.
+Finding duplicate cells in `\ct_pmp_acc'.
+Finding identical cells in module `\ct_pmp_comp_hit'.
+Computing hashes of 67 cells of `\ct_pmp_comp_hit'.
+Finding duplicate cells in `\ct_pmp_comp_hit'.
+Finding identical cells in module `\gated_clk_cell'.
+Computing hashes of 0 cells of `\gated_clk_cell'.
+Finding duplicate cells in `\gated_clk_cell'.
+Removed a total of 0 cells.
+
+8.6.13. Executing OPT_DFF pass (perform DFF optimizations).
+
+8.6.14. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_pmp_top..
+Finding unused cells or wires in module \ct_pmp_regs..
+Finding unused cells or wires in module \ct_pmp_acc..
+Finding unused cells or wires in module \ct_pmp_comp_hit..
+Finding unused cells or wires in module \gated_clk_cell..
+
+8.6.15. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_pmp_top.
+Optimizing module ct_pmp_regs.
+Optimizing module ct_pmp_acc.
+Optimizing module ct_pmp_comp_hit.
+Optimizing module gated_clk_cell.
+
+8.6.16. Finished fast OPT passes. (There is nothing left to do.)
+
+8.7. Executing FSM pass (extract and optimize FSM).
+
+8.7.1. Executing FSM_DETECT pass (finding FSMs in design).
+
+8.7.2. Executing FSM_EXTRACT pass (extracting FSM from design).
+
+8.7.3. Executing FSM_OPT pass (simple optimizations of FSMs).
+
+8.7.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_pmp_top..
+Finding unused cells or wires in module \ct_pmp_regs..
+Finding unused cells or wires in module \ct_pmp_acc..
+Finding unused cells or wires in module \ct_pmp_comp_hit..
+Finding unused cells or wires in module \gated_clk_cell..
+
+8.7.5. Executing FSM_OPT pass (simple optimizations of FSMs).
+
+8.7.6. Executing FSM_RECODE pass (re-assigning FSM state encoding).
+
+8.7.7. Executing FSM_INFO pass (dumping all available information on FSM cells).
+
+8.7.8. Executing FSM_MAP pass (mapping FSMs to basic logic).
+
+8.8. Executing OPT pass (performing simple optimizations).
+
+8.8.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_pmp_top.
+Optimizing module ct_pmp_regs.
+Optimizing module ct_pmp_acc.
+Optimizing module ct_pmp_comp_hit.
+Optimizing module gated_clk_cell.
+
+8.8.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_pmp_top'.
+Computing hashes of 31 cells of `\ct_pmp_top'.
+Finding duplicate cells in `\ct_pmp_top'.
+Finding identical cells in module `\ct_pmp_regs'.
+Computing hashes of 167 cells of `\ct_pmp_regs'.
+Finding duplicate cells in `\ct_pmp_regs'.
+Finding identical cells in module `\ct_pmp_acc'.
+Computing hashes of 20 cells of `\ct_pmp_acc'.
+Finding duplicate cells in `\ct_pmp_acc'.
+Finding identical cells in module `\ct_pmp_comp_hit'.
+Computing hashes of 67 cells of `\ct_pmp_comp_hit'.
+Finding duplicate cells in `\ct_pmp_comp_hit'.
+Finding identical cells in module `\gated_clk_cell'.
+Computing hashes of 0 cells of `\gated_clk_cell'.
+Finding duplicate cells in `\gated_clk_cell'.
+Removed a total of 0 cells.
+
+8.8.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \ct_pmp_top..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \ct_pmp_regs..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \ct_pmp_acc..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \ct_pmp_comp_hit..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \gated_clk_cell..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Removed 0 multiplexer ports.
+<suppressed ~103 debug messages>
+
+8.8.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \ct_pmp_top.
+  Optimizing cells in module \ct_pmp_regs.
+  Optimizing cells in module \ct_pmp_acc.
+  Optimizing cells in module \ct_pmp_comp_hit.
+  Optimizing cells in module \gated_clk_cell.
+Performed a total of 0 changes.
+
+8.8.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_pmp_top'.
+Computing hashes of 31 cells of `\ct_pmp_top'.
+Finding duplicate cells in `\ct_pmp_top'.
+Finding identical cells in module `\ct_pmp_regs'.
+Computing hashes of 167 cells of `\ct_pmp_regs'.
+Finding duplicate cells in `\ct_pmp_regs'.
+Finding identical cells in module `\ct_pmp_acc'.
+Computing hashes of 20 cells of `\ct_pmp_acc'.
+Finding duplicate cells in `\ct_pmp_acc'.
+Finding identical cells in module `\ct_pmp_comp_hit'.
+Computing hashes of 67 cells of `\ct_pmp_comp_hit'.
+Finding duplicate cells in `\ct_pmp_comp_hit'.
+Finding identical cells in module `\gated_clk_cell'.
+Computing hashes of 0 cells of `\gated_clk_cell'.
+Finding duplicate cells in `\gated_clk_cell'.
+Removed a total of 0 cells.
+
+8.8.6. Executing OPT_DFF pass (perform DFF optimizations).
+Adding EN signal on $procdff$398 ($adff) from module ct_pmp_regs (D = \cp0_pmp_wdata [37:9], Q = \pmpaddr7_value).
+Adding EN signal on $procdff$568 ($adff) from module ct_pmp_regs (D = \cp0_pmp_wdata [18], Q = \pmp2cfg_executeable).
+Adding EN signal on $procdff$453 ($adff) from module ct_pmp_regs (D = \cp0_pmp_wdata [56], Q = \pmp7cfg_readable).
+Adding EN signal on $procdff$573 ($adff) from module ct_pmp_regs (D = \cp0_pmp_wdata [23], Q = \pmp2cfg_lock).
+Adding EN signal on $procdff$608 ($adff) from module ct_pmp_regs (D = \cp0_pmp_wdata [9], Q = \pmp1cfg_writable).
+Adding EN signal on $procdff$433 ($adff) from module ct_pmp_regs (D = $xor$ct_pmp_regs_metric_negative.v:411$111_Y, Q = \pmpaddr0_value).
+Adding EN signal on $procdff$403 ($adff) from module ct_pmp_regs (D = \cp0_pmp_wdata [37:9], Q = \pmpaddr6_value).
+Adding EN signal on $procdff$633 ($adff) from module ct_pmp_regs (D = \cp0_pmp_wdata [1], Q = \pmp0cfg_writable).
+Adding EN signal on $procdff$588 ($adff) from module ct_pmp_regs (D = \cp0_pmp_wdata [12:11], Q = \pmp1cfg_addr_mode).
+Adding EN signal on $procdff$498 ($adff) from module ct_pmp_regs (D = \cp0_pmp_wdata [47], Q = \pmp5cfg_lock).
+Adding EN signal on $procdff$558 ($adff) from module ct_pmp_regs (D = \cp0_pmp_wdata [25], Q = \pmp3cfg_writable).
+Adding EN signal on $procdff$428 ($adff) from module ct_pmp_regs (D = \cp0_pmp_wdata [37:9], Q = \pmpaddr1_value).
+Adding EN signal on $procdff$408 ($adff) from module ct_pmp_regs (D = \cp0_pmp_wdata [37:9], Q = \pmpaddr5_value).
+Adding EN signal on $procdff$473 ($adff) from module ct_pmp_regs (D = \cp0_pmp_wdata [55], Q = \pmp6cfg_lock).
+Adding EN signal on $procdff$443 ($adff) from module ct_pmp_regs (D = \cp0_pmp_wdata [58], Q = \pmp7cfg_executeable).
+Adding EN signal on $procdff$448 ($adff) from module ct_pmp_regs (D = \cp0_pmp_wdata [63], Q = \pmp7cfg_lock).
+Adding EN signal on $procdff$423 ($adff) from module ct_pmp_regs (D = \cp0_pmp_wdata [37:9], Q = \pmpaddr2_value).
+Adding EN signal on $procdff$563 ($adff) from module ct_pmp_regs (D = \cp0_pmp_wdata [20:19], Q = \pmp2cfg_addr_mode).
+Adding EN signal on $procdff$613 ($adff) from module ct_pmp_regs (D = \cp0_pmp_wdata [4:3], Q = \pmp0cfg_addr_mode).
+Adding EN signal on $procdff$418 ($adff) from module ct_pmp_regs (D = \cp0_pmp_wdata [37:9], Q = \pmpaddr3_value).
+Adding EN signal on $procdff$628 ($adff) from module ct_pmp_regs (D = \cp0_pmp_wdata [0], Q = \pmp0cfg_readable).
+Adding EN signal on $procdff$458 ($adff) from module ct_pmp_regs (D = \cp0_pmp_wdata [57], Q = \pmp7cfg_writable).
+Adding EN signal on $procdff$413 ($adff) from module ct_pmp_regs (D = \cp0_pmp_wdata [37:9], Q = \pmpaddr4_value).
+Adding EN signal on $procdff$518 ($adff) from module ct_pmp_regs (D = \cp0_pmp_wdata [34], Q = \pmp4cfg_executeable).
+Adding EN signal on $procdff$553 ($adff) from module ct_pmp_regs (D = \cp0_pmp_wdata [24], Q = \pmp3cfg_readable).
+Adding EN signal on $procdff$478 ($adff) from module ct_pmp_regs (D = \cp0_pmp_wdata [48], Q = \pmp6cfg_readable).
+Adding EN signal on $procdff$463 ($adff) from module ct_pmp_regs (D = \cp0_pmp_wdata [52:51], Q = \pmp6cfg_addr_mode).
+Adding EN signal on $procdff$493 ($adff) from module ct_pmp_regs (D = \cp0_pmp_wdata [42], Q = \pmp5cfg_executeable).
+Adding EN signal on $procdff$548 ($adff) from module ct_pmp_regs (D = \cp0_pmp_wdata [31], Q = \pmp3cfg_lock).
+Adding EN signal on $procdff$508 ($adff) from module ct_pmp_regs (D = \cp0_pmp_wdata [41], Q = \pmp5cfg_writable).
+Adding EN signal on $procdff$488 ($adff) from module ct_pmp_regs (D = \cp0_pmp_wdata [44:43], Q = \pmp5cfg_addr_mode).
+Adding EN signal on $procdff$543 ($adff) from module ct_pmp_regs (D = \cp0_pmp_wdata [26], Q = \pmp3cfg_executeable).
+Adding EN signal on $procdff$603 ($adff) from module ct_pmp_regs (D = \cp0_pmp_wdata [8], Q = \pmp1cfg_readable).
+Adding EN signal on $procdff$503 ($adff) from module ct_pmp_regs (D = \cp0_pmp_wdata [40], Q = \pmp5cfg_readable).
+Adding EN signal on $procdff$538 ($adff) from module ct_pmp_regs (D = \cp0_pmp_wdata [28:27], Q = \pmp3cfg_addr_mode).
+Adding EN signal on $procdff$623 ($adff) from module ct_pmp_regs (D = \cp0_pmp_wdata [7], Q = \pmp0cfg_lock).
+Adding EN signal on $procdff$468 ($adff) from module ct_pmp_regs (D = \cp0_pmp_wdata [50], Q = \pmp6cfg_executeable).
+Adding EN signal on $procdff$533 ($adff) from module ct_pmp_regs (D = \cp0_pmp_wdata [33], Q = \pmp4cfg_writable).
+Adding EN signal on $procdff$513 ($adff) from module ct_pmp_regs (D = \cp0_pmp_wdata [36:35], Q = \pmp4cfg_addr_mode).
+Adding EN signal on $procdff$483 ($adff) from module ct_pmp_regs (D = \cp0_pmp_wdata [49], Q = \pmp6cfg_writable).
+Adding EN signal on $procdff$528 ($adff) from module ct_pmp_regs (D = \cp0_pmp_wdata [32], Q = \pmp4cfg_readable).
+Adding EN signal on $procdff$598 ($adff) from module ct_pmp_regs (D = \cp0_pmp_wdata [15], Q = \pmp1cfg_lock).
+Adding EN signal on $procdff$583 ($adff) from module ct_pmp_regs (D = \cp0_pmp_wdata [17], Q = \pmp2cfg_writable).
+Adding EN signal on $procdff$523 ($adff) from module ct_pmp_regs (D = \cp0_pmp_wdata [39], Q = \pmp4cfg_lock).
+Adding EN signal on $procdff$593 ($adff) from module ct_pmp_regs (D = \cp0_pmp_wdata [10], Q = \pmp1cfg_executeable).
+Adding EN signal on $procdff$578 ($adff) from module ct_pmp_regs (D = \cp0_pmp_wdata [16], Q = \pmp2cfg_readable).
+Adding EN signal on $procdff$438 ($adff) from module ct_pmp_regs (D = \cp0_pmp_wdata [60:59], Q = \pmp7cfg_addr_mode).
+Adding EN signal on $procdff$618 ($adff) from module ct_pmp_regs (D = \cp0_pmp_wdata [2], Q = \pmp0cfg_executeable).
+
+8.8.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_pmp_top..
+Finding unused cells or wires in module \ct_pmp_regs..
+Finding unused cells or wires in module \ct_pmp_acc..
+Finding unused cells or wires in module \ct_pmp_comp_hit..
+Finding unused cells or wires in module \gated_clk_cell..
+Removed 48 unused cells and 48 unused wires.
+<suppressed ~49 debug messages>
+
+8.8.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_pmp_top.
+Optimizing module ct_pmp_regs.
+Optimizing module ct_pmp_acc.
+Optimizing module ct_pmp_comp_hit.
+Optimizing module gated_clk_cell.
+
+8.8.9. Rerunning OPT passes. (Maybe there is more to do..)
+
+8.8.10. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \ct_pmp_top..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \ct_pmp_regs..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \ct_pmp_acc..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \ct_pmp_comp_hit..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \gated_clk_cell..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Removed 0 multiplexer ports.
+<suppressed ~7 debug messages>
+
+8.8.11. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \ct_pmp_top.
+  Optimizing cells in module \ct_pmp_regs.
+  Optimizing cells in module \ct_pmp_acc.
+  Optimizing cells in module \ct_pmp_comp_hit.
+  Optimizing cells in module \gated_clk_cell.
+Performed a total of 0 changes.
+
+8.8.12. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_pmp_top'.
+Computing hashes of 31 cells of `\ct_pmp_top'.
+Finding duplicate cells in `\ct_pmp_top'.
+Finding identical cells in module `\ct_pmp_regs'.
+Computing hashes of 119 cells of `\ct_pmp_regs'.
+Finding duplicate cells in `\ct_pmp_regs'.
+Finding identical cells in module `\ct_pmp_acc'.
+Computing hashes of 20 cells of `\ct_pmp_acc'.
+Finding duplicate cells in `\ct_pmp_acc'.
+Finding identical cells in module `\ct_pmp_comp_hit'.
+Computing hashes of 67 cells of `\ct_pmp_comp_hit'.
+Finding duplicate cells in `\ct_pmp_comp_hit'.
+Finding identical cells in module `\gated_clk_cell'.
+Computing hashes of 0 cells of `\gated_clk_cell'.
+Finding duplicate cells in `\gated_clk_cell'.
+Removed a total of 0 cells.
+
+8.8.13. Executing OPT_DFF pass (perform DFF optimizations).
+
+8.8.14. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_pmp_top..
+Finding unused cells or wires in module \ct_pmp_regs..
+Finding unused cells or wires in module \ct_pmp_acc..
+Finding unused cells or wires in module \ct_pmp_comp_hit..
+Finding unused cells or wires in module \gated_clk_cell..
+
+8.8.15. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_pmp_top.
+Optimizing module ct_pmp_regs.
+Optimizing module ct_pmp_acc.
+Optimizing module ct_pmp_comp_hit.
+Optimizing module gated_clk_cell.
+
+8.8.16. Finished fast OPT passes. (There is nothing left to do.)
+
+8.9. Executing WREDUCE pass (reducing word size of cells).
+Removed top 3 bits (of 5) from port B of cell ct_pmp_top.$eq$ct_pmp_top_metric_negative.v:167$204 ($eq).
+Removed top 32 bits (of 64) from port B of cell ct_pmp_top.$xor$ct_pmp_top_metric_negative.v:190$224 ($xor).
+Removed top 1 bits (of 2) from port B of cell ct_pmp_regs.$eq$ct_pmp_regs_metric_negative.v:405$105 ($eq).
+Removed top 1 bits (of 2) from port B of cell ct_pmp_regs.$eq$ct_pmp_regs_metric_negative.v:418$114 ($eq).
+Removed top 1 bits (of 2) from port B of cell ct_pmp_regs.$eq$ct_pmp_regs_metric_negative.v:430$122 ($eq).
+Removed top 1 bits (of 2) from port B of cell ct_pmp_regs.$eq$ct_pmp_regs_metric_negative.v:442$130 ($eq).
+Removed top 1 bits (of 2) from port B of cell ct_pmp_regs.$eq$ct_pmp_regs_metric_negative.v:454$138 ($eq).
+Removed top 1 bits (of 2) from port B of cell ct_pmp_regs.$eq$ct_pmp_regs_metric_negative.v:466$146 ($eq).
+Removed top 1 bits (of 2) from port B of cell ct_pmp_regs.$eq$ct_pmp_regs_metric_negative.v:478$154 ($eq).
+Removed top 26 bits (of 64) from port B of cell ct_pmp_regs.$and$ct_pmp_regs_metric_negative.v:526$171 ($and).
+Removed top 26 bits (of 64) from port B of cell ct_pmp_regs.$and$ct_pmp_regs_metric_negative.v:527$173 ($and).
+Removed top 26 bits (of 64) from port B of cell ct_pmp_regs.$and$ct_pmp_regs_metric_negative.v:528$175 ($and).
+Removed top 26 bits (of 64) from port B of cell ct_pmp_regs.$and$ct_pmp_regs_metric_negative.v:529$177 ($and).
+Removed top 26 bits (of 64) from port B of cell ct_pmp_regs.$and$ct_pmp_regs_metric_negative.v:530$179 ($and).
+Removed top 26 bits (of 64) from port B of cell ct_pmp_regs.$and$ct_pmp_regs_metric_negative.v:531$181 ($and).
+Removed top 26 bits (of 64) from port B of cell ct_pmp_regs.$and$ct_pmp_regs_metric_negative.v:532$183 ($and).
+Removed top 26 bits (of 64) from port B of cell ct_pmp_regs.$and$ct_pmp_regs_metric_negative.v:533$185 ($and).
+Removed top 1 bits (of 4) from mux cell ct_pmp_acc.$ternary$ct_pmp_acc_gold.v:256$68 ($mux).
+Removed top 8 bits (of 16) from wire ct_pmp_acc.pmp_hit.
+Removed top 1 bits (of 4) from wire ct_pmp_acc.pmp_default_flg.
+Removed top 1 bits (of 29) from port A of cell ct_pmp_comp_hit.$sub$ct_pmp_comp_hit_gate_candidate.v:75$5 ($sub).
+Removed top 1 bits (of 29) from port B of cell ct_pmp_comp_hit.$sub$ct_pmp_comp_hit_gate_candidate.v:75$5 ($sub).
+Removed top 1 bits (of 2) from port B of cell ct_pmp_comp_hit.$procmux$392_CMP0 ($eq).
+
+8.10. Executing PEEPOPT pass (run peephole optimizers).
+
+8.11. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_pmp_top..
+Finding unused cells or wires in module \ct_pmp_regs..
+Finding unused cells or wires in module \ct_pmp_acc..
+Finding unused cells or wires in module \ct_pmp_comp_hit..
+Finding unused cells or wires in module \gated_clk_cell..
+Removed 0 unused cells and 2 unused wires.
+<suppressed ~1 debug messages>
+
+8.12. Executing ALUMACC pass (create $alu and $macc cells).
+Extracting $alu and $macc cells in module ct_pmp_top:
+  creating $macc model for $mul$ct_pmp_top_metric_negative.v:189$223 ($mul).
+  creating $macc cell for $mul$ct_pmp_top_metric_negative.v:189$223: $auto$alumacc.cc:382:replace_macc$686
+  created 0 $alu and 1 $macc cells.
+Extracting $alu and $macc cells in module ct_pmp_regs:
+  creating $macc model for $mul$ct_pmp_regs_metric_negative.v:396$102 ($mul).
+  creating $macc cell for $mul$ct_pmp_regs_metric_negative.v:396$102: $auto$alumacc.cc:382:replace_macc$687
+  created 0 $alu and 1 $macc cells.
+Extracting $alu and $macc cells in module ct_pmp_acc:
+  created 0 $alu and 0 $macc cells.
+Extracting $alu and $macc cells in module ct_pmp_comp_hit:
+  creating $macc model for $sub$ct_pmp_comp_hit_gate_candidate.v:75$5 ($sub).
+  creating $alu model for $macc $sub$ct_pmp_comp_hit_gate_candidate.v:75$5.
+  creating $alu cell for $sub$ct_pmp_comp_hit_gate_candidate.v:75$5: $auto$alumacc.cc:512:replace_alu$688
+  created 1 $alu and 0 $macc cells.
+Extracting $alu and $macc cells in module gated_clk_cell:
+  created 0 $alu and 0 $macc cells.
+
+8.13. Executing SHARE pass (SAT-based resource sharing).
+
+8.14. Executing OPT pass (performing simple optimizations).
+
+8.14.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_pmp_top.
+Optimizing module ct_pmp_regs.
+Optimizing module ct_pmp_acc.
+Optimizing module ct_pmp_comp_hit.
+Optimizing module gated_clk_cell.
+
+8.14.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_pmp_top'.
+Computing hashes of 31 cells of `\ct_pmp_top'.
+Finding duplicate cells in `\ct_pmp_top'.
+Finding identical cells in module `\ct_pmp_regs'.
+Computing hashes of 119 cells of `\ct_pmp_regs'.
+Finding duplicate cells in `\ct_pmp_regs'.
+Finding identical cells in module `\ct_pmp_acc'.
+Computing hashes of 20 cells of `\ct_pmp_acc'.
+Finding duplicate cells in `\ct_pmp_acc'.
+Finding identical cells in module `\ct_pmp_comp_hit'.
+Computing hashes of 67 cells of `\ct_pmp_comp_hit'.
+Finding duplicate cells in `\ct_pmp_comp_hit'.
+Finding identical cells in module `\gated_clk_cell'.
+Computing hashes of 0 cells of `\gated_clk_cell'.
+Finding duplicate cells in `\gated_clk_cell'.
+Removed a total of 0 cells.
+
+8.14.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \ct_pmp_top..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \ct_pmp_regs..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \ct_pmp_acc..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \ct_pmp_comp_hit..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \gated_clk_cell..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Removed 0 multiplexer ports.
+<suppressed ~7 debug messages>
+
+8.14.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \ct_pmp_top.
+  Optimizing cells in module \ct_pmp_regs.
+  Optimizing cells in module \ct_pmp_acc.
+  Optimizing cells in module \ct_pmp_comp_hit.
+  Optimizing cells in module \gated_clk_cell.
+Performed a total of 0 changes.
+
+8.14.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_pmp_top'.
+Computing hashes of 31 cells of `\ct_pmp_top'.
+Finding duplicate cells in `\ct_pmp_top'.
+Finding identical cells in module `\ct_pmp_regs'.
+Computing hashes of 119 cells of `\ct_pmp_regs'.
+Finding duplicate cells in `\ct_pmp_regs'.
+Finding identical cells in module `\ct_pmp_acc'.
+Computing hashes of 20 cells of `\ct_pmp_acc'.
+Finding duplicate cells in `\ct_pmp_acc'.
+Finding identical cells in module `\ct_pmp_comp_hit'.
+Computing hashes of 67 cells of `\ct_pmp_comp_hit'.
+Finding duplicate cells in `\ct_pmp_comp_hit'.
+Finding identical cells in module `\gated_clk_cell'.
+Computing hashes of 0 cells of `\gated_clk_cell'.
+Finding duplicate cells in `\gated_clk_cell'.
+Removed a total of 0 cells.
+
+8.14.6. Executing OPT_DFF pass (perform DFF optimizations).
+
+8.14.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_pmp_top..
+Finding unused cells or wires in module \ct_pmp_regs..
+Finding unused cells or wires in module \ct_pmp_acc..
+Finding unused cells or wires in module \ct_pmp_comp_hit..
+Finding unused cells or wires in module \gated_clk_cell..
+
+8.14.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_pmp_top.
+Optimizing module ct_pmp_regs.
+Optimizing module ct_pmp_acc.
+Optimizing module ct_pmp_comp_hit.
+Optimizing module gated_clk_cell.
+
+8.14.9. Finished fast OPT passes. (There is nothing left to do.)
+
+8.15. Executing MEMORY pass.
+
+8.15.1. Executing OPT_MEM pass (optimize memories).
+Performed a total of 0 transformations.
+
+8.15.2. Executing OPT_MEM_PRIORITY pass (removing unnecessary memory write priority relations).
+Performed a total of 0 transformations.
+
+8.15.3. Executing OPT_MEM_FEEDBACK pass (finding memory read-to-write feedback paths).
+
+8.15.4. Executing MEMORY_BMUX2ROM pass (converting muxes to ROMs).
+
+8.15.5. Executing MEMORY_DFF pass (merging $dff cells to $memrd).
+
+8.15.6. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_pmp_top..
+Finding unused cells or wires in module \ct_pmp_regs..
+Finding unused cells or wires in module \ct_pmp_acc..
+Finding unused cells or wires in module \ct_pmp_comp_hit..
+Finding unused cells or wires in module \gated_clk_cell..
+
+8.15.7. Executing MEMORY_SHARE pass (consolidating $memrd/$memwr cells).
+
+8.15.8. Executing OPT_MEM_WIDEN pass (optimize memories where all ports are wide).
+Performed a total of 0 transformations.
+
+8.15.9. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_pmp_top..
+Finding unused cells or wires in module \ct_pmp_regs..
+Finding unused cells or wires in module \ct_pmp_acc..
+Finding unused cells or wires in module \ct_pmp_comp_hit..
+Finding unused cells or wires in module \gated_clk_cell..
+
+8.15.10. Executing MEMORY_COLLECT pass (generating $mem cells).
+
+8.16. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_pmp_top..
+Finding unused cells or wires in module \ct_pmp_regs..
+Finding unused cells or wires in module \ct_pmp_acc..
+Finding unused cells or wires in module \ct_pmp_comp_hit..
+Finding unused cells or wires in module \gated_clk_cell..
+
+8.17. Executing OPT pass (performing simple optimizations).
+
+8.17.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_pmp_top.
+<suppressed ~5 debug messages>
+Optimizing module ct_pmp_regs.
+<suppressed ~116 debug messages>
+Optimizing module ct_pmp_acc.
+<suppressed ~2 debug messages>
+Optimizing module ct_pmp_comp_hit.
+<suppressed ~1 debug messages>
+Optimizing module gated_clk_cell.
+
+8.17.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_pmp_top'.
+Computing hashes of 31 cells of `\ct_pmp_top'.
+Finding duplicate cells in `\ct_pmp_top'.
+Finding identical cells in module `\ct_pmp_regs'.
+Computing hashes of 119 cells of `\ct_pmp_regs'.
+Finding duplicate cells in `\ct_pmp_regs'.
+Finding identical cells in module `\ct_pmp_acc'.
+Computing hashes of 20 cells of `\ct_pmp_acc'.
+Finding duplicate cells in `\ct_pmp_acc'.
+Finding identical cells in module `\ct_pmp_comp_hit'.
+Computing hashes of 67 cells of `\ct_pmp_comp_hit'.
+Finding duplicate cells in `\ct_pmp_comp_hit'.
+Finding identical cells in module `\gated_clk_cell'.
+Computing hashes of 0 cells of `\gated_clk_cell'.
+Finding duplicate cells in `\gated_clk_cell'.
+Removed a total of 0 cells.
+
+8.17.3. Executing OPT_DFF pass (perform DFF optimizations).
+
+8.17.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_pmp_top..
+Finding unused cells or wires in module \ct_pmp_regs..
+Finding unused cells or wires in module \ct_pmp_acc..
+Finding unused cells or wires in module \ct_pmp_comp_hit..
+Finding unused cells or wires in module \gated_clk_cell..
+Removed 1 unused cells and 38 unused wires.
+<suppressed ~4 debug messages>
+
+8.17.5. Finished fast OPT passes.
+
+8.18. Executing MEMORY_MAP pass (converting memories to logic and flip-flops).
+
+8.19. Executing OPT pass (performing simple optimizations).
+
+8.19.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_pmp_top.
+Optimizing module ct_pmp_regs.
+Optimizing module ct_pmp_acc.
+Optimizing module ct_pmp_comp_hit.
+Optimizing module gated_clk_cell.
+
+8.19.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_pmp_top'.
+Computing hashes of 31 cells of `\ct_pmp_top'.
+Finding duplicate cells in `\ct_pmp_top'.
+Finding identical cells in module `\ct_pmp_regs'.
+Computing hashes of 119 cells of `\ct_pmp_regs'.
+Finding duplicate cells in `\ct_pmp_regs'.
+Finding identical cells in module `\ct_pmp_acc'.
+Computing hashes of 20 cells of `\ct_pmp_acc'.
+Finding duplicate cells in `\ct_pmp_acc'.
+Finding identical cells in module `\ct_pmp_comp_hit'.
+Computing hashes of 66 cells of `\ct_pmp_comp_hit'.
+Finding duplicate cells in `\ct_pmp_comp_hit'.
+Finding identical cells in module `\gated_clk_cell'.
+Computing hashes of 0 cells of `\gated_clk_cell'.
+Finding duplicate cells in `\gated_clk_cell'.
+Removed a total of 0 cells.
+
+8.19.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \ct_pmp_top..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \ct_pmp_regs..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \ct_pmp_acc..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \ct_pmp_comp_hit..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \gated_clk_cell..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Removed 0 multiplexer ports.
+<suppressed ~7 debug messages>
+
+8.19.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \ct_pmp_top.
+  Optimizing cells in module \ct_pmp_regs.
+  Optimizing cells in module \ct_pmp_acc.
+    Consolidated identical input bits for $mux cell $ternary$ct_pmp_acc_gold.v:256$68:
+      Old ports: A=3'000, B=3'111, Y=\pmp_default_flg
+      New ports: A=1'0, B=1'1, Y=\pmp_default_flg [0]
+      New connections: \pmp_default_flg [2:1] = { \pmp_default_flg [0] \pmp_default_flg [0] }
+  Optimizing cells in module \ct_pmp_acc.
+  Optimizing cells in module \ct_pmp_comp_hit.
+  Optimizing cells in module \gated_clk_cell.
+Performed a total of 1 changes.
+
+8.19.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_pmp_top'.
+Computing hashes of 31 cells of `\ct_pmp_top'.
+Finding duplicate cells in `\ct_pmp_top'.
+Finding identical cells in module `\ct_pmp_regs'.
+Computing hashes of 119 cells of `\ct_pmp_regs'.
+Finding duplicate cells in `\ct_pmp_regs'.
+Finding identical cells in module `\ct_pmp_acc'.
+Computing hashes of 20 cells of `\ct_pmp_acc'.
+Finding duplicate cells in `\ct_pmp_acc'.
+Finding identical cells in module `\ct_pmp_comp_hit'.
+Computing hashes of 66 cells of `\ct_pmp_comp_hit'.
+Finding duplicate cells in `\ct_pmp_comp_hit'.
+Finding identical cells in module `\gated_clk_cell'.
+Computing hashes of 0 cells of `\gated_clk_cell'.
+Finding duplicate cells in `\gated_clk_cell'.
+Removed a total of 0 cells.
+
+8.19.6. Executing OPT_SHARE pass.
+
+8.19.7. Executing OPT_DFF pass (perform DFF optimizations).
+
+8.19.8. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_pmp_top..
+Finding unused cells or wires in module \ct_pmp_regs..
+Finding unused cells or wires in module \ct_pmp_acc..
+Finding unused cells or wires in module \ct_pmp_comp_hit..
+Finding unused cells or wires in module \gated_clk_cell..
+
+8.19.9. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_pmp_top.
+Optimizing module ct_pmp_regs.
+Optimizing module ct_pmp_acc.
+<suppressed ~1 debug messages>
+Optimizing module ct_pmp_comp_hit.
+Optimizing module gated_clk_cell.
+
+8.19.10. Rerunning OPT passes. (Maybe there is more to do..)
+
+8.19.11. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \ct_pmp_top..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \ct_pmp_regs..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \ct_pmp_acc..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \ct_pmp_comp_hit..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \gated_clk_cell..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Removed 0 multiplexer ports.
+<suppressed ~6 debug messages>
+
+8.19.12. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \ct_pmp_top.
+  Optimizing cells in module \ct_pmp_regs.
+  Optimizing cells in module \ct_pmp_acc.
+  Optimizing cells in module \ct_pmp_comp_hit.
+  Optimizing cells in module \gated_clk_cell.
+Performed a total of 0 changes.
+
+8.19.13. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_pmp_top'.
+Computing hashes of 31 cells of `\ct_pmp_top'.
+Finding duplicate cells in `\ct_pmp_top'.
+Finding identical cells in module `\ct_pmp_regs'.
+Computing hashes of 119 cells of `\ct_pmp_regs'.
+Finding duplicate cells in `\ct_pmp_regs'.
+Finding identical cells in module `\ct_pmp_acc'.
+Computing hashes of 19 cells of `\ct_pmp_acc'.
+Finding duplicate cells in `\ct_pmp_acc'.
+Finding identical cells in module `\ct_pmp_comp_hit'.
+Computing hashes of 66 cells of `\ct_pmp_comp_hit'.
+Finding duplicate cells in `\ct_pmp_comp_hit'.
+Finding identical cells in module `\gated_clk_cell'.
+Computing hashes of 0 cells of `\gated_clk_cell'.
+Finding duplicate cells in `\gated_clk_cell'.
+Removed a total of 0 cells.
+
+8.19.14. Executing OPT_SHARE pass.
+
+8.19.15. Executing OPT_DFF pass (perform DFF optimizations).
+
+8.19.16. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_pmp_top..
+Finding unused cells or wires in module \ct_pmp_regs..
+Finding unused cells or wires in module \ct_pmp_acc..
+Finding unused cells or wires in module \ct_pmp_comp_hit..
+Finding unused cells or wires in module \gated_clk_cell..
+
+8.19.17. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_pmp_top.
+Optimizing module ct_pmp_regs.
+Optimizing module ct_pmp_acc.
+Optimizing module ct_pmp_comp_hit.
+Optimizing module gated_clk_cell.
+
+8.19.18. Finished fast OPT passes. (There is nothing left to do.)
+
+8.20. Executing TECHMAP pass (map to technology primitives).
+
+8.20.1. Executing Verilog-2005 frontend: yosys/share/techmap.v
+Parsing Verilog input from `yosys/share/techmap.v' to AST representation.
+Generating RTLIL representation for module `\_90_simplemap_bool_ops'.
+Generating RTLIL representation for module `\_90_simplemap_reduce_ops'.
+Generating RTLIL representation for module `\_90_simplemap_logic_ops'.
+Generating RTLIL representation for module `\_90_simplemap_compare_ops'.
+Generating RTLIL representation for module `\_90_simplemap_various'.
+Generating RTLIL representation for module `\_90_simplemap_registers'.
+Generating RTLIL representation for module `\_90_shift_ops_shr_shl_sshl_sshr'.
+Generating RTLIL representation for module `\_90_shift_shiftx'.
+Generating RTLIL representation for module `\_90_fa'.
+Generating RTLIL representation for module `\_90_lcu_brent_kung'.
+Generating RTLIL representation for module `\_90_alu'.
+Generating RTLIL representation for module `\_90_macc'.
+Generating RTLIL representation for module `\_90_alumacc'.
+Generating RTLIL representation for module `$__div_mod_u'.
+Generating RTLIL representation for module `$__div_mod_trunc'.
+Generating RTLIL representation for module `\_90_div'.
+Generating RTLIL representation for module `\_90_mod'.
+Generating RTLIL representation for module `$__div_mod_floor'.
+Generating RTLIL representation for module `\_90_divfloor'.
+Generating RTLIL representation for module `\_90_modfloor'.
+Generating RTLIL representation for module `\_90_pow'.
+Generating RTLIL representation for module `\_90_demux'.
+Generating RTLIL representation for module `\_90_lut'.
+Generating RTLIL representation for module `$connect'.
+Generating RTLIL representation for module `$input_port'.
+Successfully finished Verilog frontend.
+
+8.20.2. Continuing TECHMAP pass.
+Using template $paramod$a79829ecb0e788ec7aa3f7b706e815f4dac39f02\_90_alu for cells of type $alu.
+Using extmapper simplemap for cells of type $reduce_or.
+Using extmapper simplemap for cells of type $logic_and.
+Using extmapper simplemap for cells of type $logic_not.
+Using extmapper simplemap for cells of type $and.
+Using extmapper simplemap for cells of type $eq.
+Using extmapper simplemap for cells of type $not.
+Using extmapper simplemap for cells of type $reduce_and.
+Using extmapper simplemap for cells of type $pmux.
+Using extmapper simplemap for cells of type $mux.
+Using extmapper simplemap for cells of type $pos.
+Using template $paramod\_90_fa\WIDTH=32'00000000000000000000000000011101 for cells of type $fa.
+Using template $paramod\_90_lcu_brent_kung\WIDTH=32'00000000000000000000000000011101 for cells of type $lcu.
+Using extmapper simplemap for cells of type $xor.
+Using extmapper simplemap for cells of type $or.
+Using extmapper maccmap for cells of type $macc_v2.
+  add { \pmp1cfg_lock 2'00 \pmp1cfg_addr_mode \pmp1cfg_executeable \pmp1cfg_writable \pmp1cfg_readable \pmp0cfg_lock 2'00 \pmp0cfg_addr_mode \pmp0cfg_executeable \pmp0cfg_writable \pmp0cfg_readable } * { \pmp3cfg_lock 2'00 \pmp3cfg_addr_mode \pmp3cfg_executeable \pmp3cfg_writable \pmp3cfg_readable \pmp2cfg_lock 2'00 \pmp2cfg_addr_mode \pmp2cfg_executeable \pmp2cfg_writable \pmp2cfg_readable } (16x16 bits, unsigned)
+Using extmapper simplemap for cells of type $adffe.
+Using template $paramod\_90_fa\WIDTH=32'00000000000000000000000000100000 for cells of type $fa.
+Using template $paramod$fbc7873bff55778c0b3173955b7e4bce1d9d6834\_90_alu for cells of type $alu.
+Using template $paramod\_90_lcu_brent_kung\WIDTH=32'00000000000000000000000000100000 for cells of type $lcu.
+  add \cp0_pmp_wdata [15:0] * \cp0_pmp_wdata [31:16] (16x16 bits, unsigned)
+No more expansions possible.
+<suppressed ~1275 debug messages>
+
+8.21. Executing OPT pass (performing simple optimizations).
+
+8.21.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_pmp_top.
+<suppressed ~1611 debug messages>
+Optimizing module ct_pmp_regs.
+<suppressed ~2149 debug messages>
+Optimizing module ct_pmp_acc.
+<suppressed ~39 debug messages>
+Optimizing module ct_pmp_comp_hit.
+<suppressed ~133 debug messages>
+Optimizing module gated_clk_cell.
+
+8.21.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_pmp_top'.
+Computing hashes of 1840 cells of `\ct_pmp_top'.
+Finding duplicate cells in `\ct_pmp_top'.
+Computing hashes of 1787 cells of `\ct_pmp_top'.
+Finding duplicate cells in `\ct_pmp_top'.
+Computing hashes of 1767 cells of `\ct_pmp_top'.
+Finding duplicate cells in `\ct_pmp_top'.
+Computing hashes of 1766 cells of `\ct_pmp_top'.
+Finding duplicate cells in `\ct_pmp_top'.
+<suppressed ~222 debug messages>
+Finding identical cells in module `\ct_pmp_regs'.
+Computing hashes of 1896 cells of `\ct_pmp_regs'.
+Finding duplicate cells in `\ct_pmp_regs'.
+Finding identical cells in module `\ct_pmp_acc'.
+Computing hashes of 133 cells of `\ct_pmp_acc'.
+Finding duplicate cells in `\ct_pmp_acc'.
+Computing hashes of 119 cells of `\ct_pmp_acc'.
+Finding duplicate cells in `\ct_pmp_acc'.
+Computing hashes of 115 cells of `\ct_pmp_acc'.
+Finding duplicate cells in `\ct_pmp_acc'.
+<suppressed ~54 debug messages>
+Finding identical cells in module `\ct_pmp_comp_hit'.
+Computing hashes of 762 cells of `\ct_pmp_comp_hit'.
+Finding duplicate cells in `\ct_pmp_comp_hit'.
+Computing hashes of 580 cells of `\ct_pmp_comp_hit'.
+Finding duplicate cells in `\ct_pmp_comp_hit'.
+Computing hashes of 496 cells of `\ct_pmp_comp_hit'.
+Finding duplicate cells in `\ct_pmp_comp_hit'.
+Computing hashes of 460 cells of `\ct_pmp_comp_hit'.
+Finding duplicate cells in `\ct_pmp_comp_hit'.
+Computing hashes of 448 cells of `\ct_pmp_comp_hit'.
+Finding duplicate cells in `\ct_pmp_comp_hit'.
+<suppressed ~942 debug messages>
+Finding identical cells in module `\gated_clk_cell'.
+Computing hashes of 0 cells of `\gated_clk_cell'.
+Finding duplicate cells in `\gated_clk_cell'.
+Removed a total of 406 cells.
+
+8.21.3. Executing OPT_DFF pass (perform DFF optimizations).
+
+8.21.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_pmp_top..
+Finding unused cells or wires in module \ct_pmp_regs..
+Finding unused cells or wires in module \ct_pmp_acc..
+Finding unused cells or wires in module \ct_pmp_comp_hit..
+Finding unused cells or wires in module \gated_clk_cell..
+Removed 147 unused cells and 696 unused wires.
+<suppressed ~151 debug messages>
+
+8.21.5. Finished fast OPT passes.
+
+8.22. Executing ABC pass (technology mapping using ABC).
+
+8.22.1. Extracting gate netlist of module `\ct_pmp_top' to `<abc-temp-dir>/input.blif'..
+
+8.22.1.1. Executed ABC.
+Extracted 1711 gates and 1783 wires to a netlist network with 72 inputs and 102 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: UC Berkeley, ABC 1.01 (compiled Jun 30 2026 04:50:19)
+ABC: abc 01> empty
+ABC: abc 01> source <abc-temp-dir>/abc.script
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_library <abc-temp-dir>/stdcells.genlib 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &fraig -x 
+ABC: + &put 
+ABC: + scorr 
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2 
+ABC: + dretime 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &dch -f 
+ABC: + &nf 
+ABC: + &put 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+ABC: 
+ABC: YOSYS_ABC_DONE 
+
+8.22.1.2. Re-integrating ABC results.
+ABC RESULTS:               AND cells:      384
+ABC RESULTS:            ANDNOT cells:        9
+ABC RESULTS:              NAND cells:      649
+ABC RESULTS:               NOR cells:       14
+ABC RESULTS:                OR cells:        4
+ABC RESULTS:             ORNOT cells:       16
+ABC RESULTS:              XNOR cells:       40
+ABC RESULTS:               XOR cells:      500
+ABC RESULTS:        internal signals:     1609
+ABC RESULTS:           input signals:       72
+ABC RESULTS:          output signals:      102
+Removing temp directory.
+
+8.22.2. Extracting gate netlist of module `\ct_pmp_regs' to `<abc-temp-dir>/input.blif'..
+
+8.22.2.1. Executed ABC.
+Extracted 1587 gates and 1914 wires to a netlist network with 327 inputs and 132 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: UC Berkeley, ABC 1.01 (compiled Jun 30 2026 04:50:19)
+ABC: abc 01> empty
+ABC: abc 01> source <abc-temp-dir>/abc.script
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_library <abc-temp-dir>/stdcells.genlib 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &fraig -x 
+ABC: + &put 
+ABC: + scorr 
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2 
+ABC: + dretime 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &dch -f 
+ABC: + &nf 
+ABC: + &put 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+ABC: 
+ABC: YOSYS_ABC_DONE 
+
+8.22.2.2. Re-integrating ABC results.
+ABC RESULTS:               AND cells:      469
+ABC RESULTS:            ANDNOT cells:       21
+ABC RESULTS:              NAND cells:      620
+ABC RESULTS:               NOR cells:        3
+ABC RESULTS:                OR cells:        7
+ABC RESULTS:             ORNOT cells:       15
+ABC RESULTS:              XNOR cells:       54
+ABC RESULTS:               XOR cells:      291
+ABC RESULTS:              ZERO cells:        1
+ABC RESULTS:        internal signals:     1455
+ABC RESULTS:           input signals:      327
+ABC RESULTS:          output signals:      132
+Removing temp directory.
+
+8.22.3. Extracting gate netlist of module `\ct_pmp_acc' to `<abc-temp-dir>/input.blif'..
+
+8.22.3.1. Executed ABC.
+Extracted 107 gates and 152 wires to a netlist network with 45 inputs and 4 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: UC Berkeley, ABC 1.01 (compiled Jun 30 2026 04:50:19)
+ABC: abc 01> empty
+ABC: abc 01> source <abc-temp-dir>/abc.script
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_library <abc-temp-dir>/stdcells.genlib 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &fraig -x 
+ABC: + &put 
+ABC: + scorr 
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2 
+ABC: + dretime 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &dch -f 
+ABC: + &nf 
+ABC: + &put 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+ABC: 
+ABC: YOSYS_ABC_DONE 
+
+8.22.3.2. Re-integrating ABC results.
+ABC RESULTS:               AND cells:       38
+ABC RESULTS:            ANDNOT cells:        5
+ABC RESULTS:              NAND cells:       39
+ABC RESULTS:               NOR cells:        4
+ABC RESULTS:        internal signals:      103
+ABC RESULTS:           input signals:       45
+ABC RESULTS:          output signals:        4
+Removing temp directory.
+
+8.22.4. Extracting gate netlist of module `\ct_pmp_comp_hit' to `<abc-temp-dir>/input.blif'..
+
+8.22.4.1. Executed ABC.
+Extracted 378 gates and 438 wires to a netlist network with 60 inputs and 2 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: UC Berkeley, ABC 1.01 (compiled Jun 30 2026 04:50:19)
+ABC: abc 01> empty
+ABC: abc 01> source <abc-temp-dir>/abc.script
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_library <abc-temp-dir>/stdcells.genlib 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &fraig -x 
+ABC: + &put 
+ABC: + scorr 
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2 
+ABC: + dretime 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &dch -f 
+ABC: + &nf 
+ABC: + &put 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+ABC: 
+ABC: YOSYS_ABC_DONE 
+
+8.22.4.2. Re-integrating ABC results.
+ABC RESULTS:               AND cells:      105
+ABC RESULTS:            ANDNOT cells:        9
+ABC RESULTS:              NAND cells:       34
+ABC RESULTS:               NOR cells:        1
+ABC RESULTS:                OR cells:       28
+ABC RESULTS:             ORNOT cells:       40
+ABC RESULTS:              XNOR cells:       10
+ABC RESULTS:        internal signals:      376
+ABC RESULTS:           input signals:       60
+ABC RESULTS:          output signals:        2
+Removing temp directory.
+
+8.22.5. Extracting gate netlist of module `\gated_clk_cell' to `<abc-temp-dir>/input.blif'..
+
+8.22.5.1. Executed ABC.
+Extracted 0 gates and 0 wires to a netlist network with 0 inputs and 0 outputs.
+Don't call ABC as there is nothing to map.
+Removing temp directory.
+Removing global temp directory.
+
+8.23. Executing OPT pass (performing simple optimizations).
+
+8.23.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_pmp_top.
+Optimizing module ct_pmp_regs.
+Optimizing module ct_pmp_acc.
+Optimizing module ct_pmp_comp_hit.
+Optimizing module gated_clk_cell.
+
+8.23.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_pmp_top'.
+Computing hashes of 1623 cells of `\ct_pmp_top'.
+Finding duplicate cells in `\ct_pmp_top'.
+Finding identical cells in module `\ct_pmp_regs'.
+Computing hashes of 1760 cells of `\ct_pmp_regs'.
+Finding duplicate cells in `\ct_pmp_regs'.
+Finding identical cells in module `\ct_pmp_acc'.
+Computing hashes of 94 cells of `\ct_pmp_acc'.
+Finding duplicate cells in `\ct_pmp_acc'.
+Finding identical cells in module `\ct_pmp_comp_hit'.
+Computing hashes of 227 cells of `\ct_pmp_comp_hit'.
+Finding duplicate cells in `\ct_pmp_comp_hit'.
+Finding identical cells in module `\gated_clk_cell'.
+Computing hashes of 0 cells of `\gated_clk_cell'.
+Finding duplicate cells in `\gated_clk_cell'.
+Removed a total of 0 cells.
+
+8.23.3. Executing OPT_DFF pass (perform DFF optimizations).
+
+8.23.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_pmp_top..
+Finding unused cells or wires in module \ct_pmp_regs..
+Finding unused cells or wires in module \ct_pmp_acc..
+Finding unused cells or wires in module \ct_pmp_comp_hit..
+Finding unused cells or wires in module \gated_clk_cell..
+Removed 0 unused cells and 1407 unused wires.
+<suppressed ~12 debug messages>
+
+8.23.5. Finished fast OPT passes.
+
+8.24. Executing HIERARCHY pass (managing design hierarchy).
+Attribute `top' found on module `ct_pmp_top'. Setting top module to ct_pmp_top.
+
+8.24.1. Analyzing design hierarchy..
+Top module:  \ct_pmp_top
+Used module:     \ct_pmp_acc
+Used module:         \ct_pmp_comp_hit
+Used module:     \ct_pmp_regs
+Used module:     \gated_clk_cell
+
+8.24.2. Analyzing design hierarchy..
+Top module:  \ct_pmp_top
+Used module:     \ct_pmp_acc
+Used module:         \ct_pmp_comp_hit
+Used module:     \ct_pmp_regs
+Used module:     \gated_clk_cell
+Removed 0 unused modules.
+
+8.25. Printing statistics.
+
+=== ct_pmp_top ===
+
+        +----------Local Count, excluding submodules.
+        | 
+     1559 wires
+     2331 wire bits
+       45 public wires
+      817 public wire bits
+       22 ports
+      304 port bits
+     1616 cells
+        9   $_ANDNOT_
+      384   $_AND_
+      649   $_NAND_
+       14   $_NOR_
+       16   $_ORNOT_
+        4   $_OR_
+       40   $_XNOR_
+      500   $_XOR_
+        7 submodules
+        5   ct_pmp_acc
+        1   ct_pmp_regs
+        1   gated_clk_cell
+
+=== ct_pmp_regs ===
+
+        +----------Local Count, excluding submodules.
+        | 
+     1459 wires
+     2232 wire bits
+       81 public wires
+      854 public wire bits
+       16 ports
+      526 port bits
+     1760 cells
+       21   $_ANDNOT_
+      469   $_AND_
+      280   $_DFFE_PN0P_
+      620   $_NAND_
+        3   $_NOR_
+       15   $_ORNOT_
+        7   $_OR_
+       54   $_XNOR_
+      291   $_XOR_
+
+=== ct_pmp_acc ===
+
+        +----------Local Count, excluding submodules.
+        | 
+      130 wires
+      527 wire bits
+       48 public wires
+      445 public wire bits
+       15 ports
+      397 port bits
+       86 cells
+        5   $_ANDNOT_
+       38   $_AND_
+       39   $_NAND_
+        4   $_NOR_
+        8 submodules
+        8   ct_pmp_comp_hit
+
+=== ct_pmp_comp_hit ===
+
+        +----------Local Count, excluding submodules.
+        | 
+      232 wires
+      288 wire bits
+        7 public wires
+       63 public wire bits
+        6 ports
+       62 port bits
+      227 cells
+        9   $_ANDNOT_
+      105   $_AND_
+       34   $_NAND_
+        1   $_NOR_
+       40   $_ORNOT_
+       28   $_OR_
+       10   $_XNOR_
+
+=== gated_clk_cell ===
+
+        +----------Local Count, excluding submodules.
+        | 
+        8 wires
+        8 wire bits
+        8 public wires
+        8 public wire bits
+        7 ports
+        7 port bits
+
+=== design hierarchy ===
+
+        +----------Count including submodules.
+        | 
+    12886 ct_pmp_top
+       86 ct_pmp_acc
+      227   ct_pmp_comp_hit
+     1760 ct_pmp_regs
+
+        +----------Count including submodules.
+        | 
+    12956 wires
+    18726 wire bits
+      654 public wires
+     6424 public wire bits
+      360 ports
+     5302 port bits
+        - memories
+        - memory bits
+        - processes
+    12886 cells
+      415   $_ANDNOT_
+     5243   $_AND_
+      280   $_DFFE_PN0P_
+     2824   $_NAND_
+       77   $_NOR_
+     1631   $_ORNOT_
+     1131   $_OR_
+      494   $_XNOR_
+      791   $_XOR_
+        7 submodules
+        5   ct_pmp_acc
+        1   ct_pmp_regs
+        1   gated_clk_cell
+
+8.26. Executing CHECK pass (checking for obvious problems).
+Checking module ct_pmp_top...
+Checking module ct_pmp_regs...
+Checking module ct_pmp_acc...
+Checking module ct_pmp_comp_hit...
+Checking module gated_clk_cell...
+Found and reported 0 problems.
+
+9. Executing DFFLIBMAP pass (mapping DFF cells to sequential cells from liberty file).
+  cell sky130_fd_sc_hd__dfxtp_1 (noninv, pins=3, area=20.02) is a direct match for cell type $_DFF_P_.
+  cell sky130_fd_sc_hd__dfrtn_1 (noninv, pins=4, area=25.02) is a direct match for cell type $_DFF_NN0_.
+  cell sky130_fd_sc_hd__dfrtp_1 (noninv, pins=4, area=25.02) is a direct match for cell type $_DFF_PN0_.
+  cell sky130_fd_sc_hd__dfstp_2 (noninv, pins=4, area=26.28) is a direct match for cell type $_DFF_PN1_.
+  cell sky130_fd_sc_hd__edfxtp_1 (noninv, pins=4, area=30.03) is a direct match for cell type $_DFFE_PP_.
+  cell sky130_fd_sc_hd__dfbbn_1 (noninv, pins=6, area=32.53) is a direct match for cell type $_DFFSR_NNN_.
+  cell sky130_fd_sc_hd__dfbbp_1 (noninv, pins=6, area=32.53) is a direct match for cell type $_DFFSR_PNN_.
+  final dff cell mappings:
+    unmapped dff cell: $_DFF_N_
+    \sky130_fd_sc_hd__dfxtp_1 _DFF_P_ (.CLK( C), .D( D), .Q( Q));
+    \sky130_fd_sc_hd__dfrtn_1 _DFF_NN0_ (.CLK_N( C), .D( D), .Q( Q), .RESET_B( R));
+    unmapped dff cell: $_DFF_NN1_
+    unmapped dff cell: $_DFF_NP0_
+    unmapped dff cell: $_DFF_NP1_
+    \sky130_fd_sc_hd__dfrtp_1 _DFF_PN0_ (.CLK( C), .D( D), .Q( Q), .RESET_B( R));
+    \sky130_fd_sc_hd__dfstp_2 _DFF_PN1_ (.CLK( C), .D( D), .Q( Q), .SET_B( R));
+    unmapped dff cell: $_DFF_PP0_
+    unmapped dff cell: $_DFF_PP1_
+    unmapped dff cell: $_DFFE_NN_
+    unmapped dff cell: $_DFFE_NP_
+    unmapped dff cell: $_DFFE_PN_
+    \sky130_fd_sc_hd__edfxtp_1 _DFFE_PP_ (.CLK( C), .D( D), .DE( E), .Q( Q));
+    \sky130_fd_sc_hd__dfbbn_1 _DFFSR_NNN_ (.CLK_N( C), .D( D), .Q( Q), .Q_N(~Q), .RESET_B( R), .SET_B( S));
+    unmapped dff cell: $_DFFSR_NNP_
+    unmapped dff cell: $_DFFSR_NPN_
+    unmapped dff cell: $_DFFSR_NPP_
+    \sky130_fd_sc_hd__dfbbp_1 _DFFSR_PNN_ (.CLK( C), .D( D), .Q( Q), .Q_N(~Q), .RESET_B( R), .SET_B( S));
+    unmapped dff cell: $_DFFSR_PNP_
+    unmapped dff cell: $_DFFSR_PPN_
+    unmapped dff cell: $_DFFSR_PPP_
+
+9.1. Executing DFFLEGALIZE pass (convert FFs to types supported by the target).
+<suppressed ~24 debug messages>
+Mapping DFF cells in module `\ct_pmp_top':
+Mapping DFF cells in module `\ct_pmp_regs':
+  mapped 280 $_DFF_PN0_ cells to \sky130_fd_sc_hd__dfrtp_1 cells.
+Mapping DFF cells in module `\ct_pmp_acc':
+Mapping DFF cells in module `\ct_pmp_comp_hit':
+Mapping DFF cells in module `\gated_clk_cell':
+
+10. Executing ABC pass (technology mapping using ABC).
+
+10.1. Extracting gate netlist of module `\ct_pmp_top' to `<abc-temp-dir>/input.blif'..
+ABC: using cached merged SCL: <scl-cache>/yosys_merged.scl (1 files)
+
+10.1.1. Executed ABC.
+Extracted 1616 gates and 1688 wires to a netlist network with 72 inputs and 102 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: UC Berkeley, ABC 1.01 (compiled Jun 30 2026 04:50:19)
+ABC: abc 01> empty
+ABC: abc 01> source <abc-temp-dir>/abc.script
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_scl <scl-cache>/yosys_merged.scl 
+ABC: Warning: Detected 9 multi-output cells (for example, "sky130_fd_sc_hd__fa_1").
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &fraig -x 
+ABC: + &put 
+ABC: + scorr 
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2 
+ABC: + dretime 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &dch -f 
+ABC: + &nf 
+ABC: + &put 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+ABC: 
+ABC: YOSYS_ABC_DONE 
+
+10.1.2. Re-integrating ABC results.
+ABC RESULTS:   sky130_fd_sc_hd__a211oi_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__a21boi_0 cells:        4
+ABC RESULTS:   sky130_fd_sc_hd__a21o_1 cells:        9
+ABC RESULTS:   sky130_fd_sc_hd__a21oi_1 cells:       39
+ABC RESULTS:   sky130_fd_sc_hd__a22o_1 cells:       10
+ABC RESULTS:   sky130_fd_sc_hd__a22oi_1 cells:       19
+ABC RESULTS:   sky130_fd_sc_hd__a311o_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__a31o_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__a31oi_1 cells:        7
+ABC RESULTS:   sky130_fd_sc_hd__a32o_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__and2_0 cells:       29
+ABC RESULTS:   sky130_fd_sc_hd__and3_1 cells:       13
+ABC RESULTS:   sky130_fd_sc_hd__and4_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__clkinv_1 cells:       16
+ABC RESULTS:   sky130_fd_sc_hd__lpflow_inputiso1p_1 cells:        6
+ABC RESULTS:   sky130_fd_sc_hd__lpflow_isobufsrc_1 cells:       57
+ABC RESULTS:   sky130_fd_sc_hd__maj3_1 cells:      102
+ABC RESULTS:   sky130_fd_sc_hd__nand2_1 cells:      268
+ABC RESULTS:   sky130_fd_sc_hd__nand2b_1 cells:       19
+ABC RESULTS:   sky130_fd_sc_hd__nand3_1 cells:       16
+ABC RESULTS:   sky130_fd_sc_hd__nand3b_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__nand4_1 cells:       20
+ABC RESULTS:   sky130_fd_sc_hd__nand4b_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__nor2_1 cells:      102
+ABC RESULTS:   sky130_fd_sc_hd__nor2b_1 cells:       16
+ABC RESULTS:   sky130_fd_sc_hd__nor3_1 cells:       26
+ABC RESULTS:   sky130_fd_sc_hd__nor3b_1 cells:        2
+ABC RESULTS:   sky130_fd_sc_hd__nor4_1 cells:        4
+ABC RESULTS:   sky130_fd_sc_hd__nor4b_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__o211ai_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__o21a_1 cells:       11
+ABC RESULTS:   sky130_fd_sc_hd__o21ai_0 cells:       42
+ABC RESULTS:   sky130_fd_sc_hd__o21bai_1 cells:        5
+ABC RESULTS:   sky130_fd_sc_hd__o22a_1 cells:       11
+ABC RESULTS:   sky130_fd_sc_hd__o22ai_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__o31a_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__o31ai_1 cells:        2
+ABC RESULTS:   sky130_fd_sc_hd__or3_1 cells:        4
+ABC RESULTS:   sky130_fd_sc_hd__or4_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__xnor2_1 cells:      228
+ABC RESULTS:   sky130_fd_sc_hd__xnor3_1 cells:       26
+ABC RESULTS:   sky130_fd_sc_hd__xor2_1 cells:      163
+ABC RESULTS:   sky130_fd_sc_hd__xor3_1 cells:        6
+ABC RESULTS:        internal signals:     1514
+ABC RESULTS:           input signals:       72
+ABC RESULTS:          output signals:      102
+Removing temp directory.
+
+10.2. Extracting gate netlist of module `\ct_pmp_regs' to `<abc-temp-dir>/input.blif'..
+ABC: using cached merged SCL: <scl-cache>/yosys_merged.scl (1 files)
+
+10.2.1. Executed ABC.
+Extracted 1760 gates and 2113 wires to a netlist network with 353 inputs and 366 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: UC Berkeley, ABC 1.01 (compiled Jun 30 2026 04:50:19)
+ABC: abc 01> empty
+ABC: abc 01> source <abc-temp-dir>/abc.script
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_scl <scl-cache>/yosys_merged.scl 
+ABC: Warning: Detected 9 multi-output cells (for example, "sky130_fd_sc_hd__fa_1").
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &fraig -x 
+ABC: + &put 
+ABC: + scorr 
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2 
+ABC: + dretime 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &dch -f 
+ABC: + &nf 
+ABC: + &put 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+ABC: 
+ABC: YOSYS_ABC_DONE 
+
+10.2.2. Re-integrating ABC results.
+ABC RESULTS:   sky130_fd_sc_hd__a211oi_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__a21bo_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__a21boi_0 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__a21o_1 cells:       15
+ABC RESULTS:   sky130_fd_sc_hd__a21oi_1 cells:       57
+ABC RESULTS:   sky130_fd_sc_hd__a222oi_1 cells:       79
+ABC RESULTS:   sky130_fd_sc_hd__a22o_1 cells:        3
+ABC RESULTS:   sky130_fd_sc_hd__a22oi_1 cells:       26
+ABC RESULTS:   sky130_fd_sc_hd__a31oi_1 cells:        3
+ABC RESULTS:   sky130_fd_sc_hd__a32o_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__and2_0 cells:       40
+ABC RESULTS:   sky130_fd_sc_hd__and3_1 cells:       11
+ABC RESULTS:   sky130_fd_sc_hd__clkinv_1 cells:       33
+ABC RESULTS:   sky130_fd_sc_hd__lpflow_inputiso1p_1 cells:        5
+ABC RESULTS:   sky130_fd_sc_hd__lpflow_isobufsrc_1 cells:       39
+ABC RESULTS:   sky130_fd_sc_hd__maj3_1 cells:       49
+ABC RESULTS:   sky130_fd_sc_hd__mux2_1 cells:      243
+ABC RESULTS:   sky130_fd_sc_hd__mux2i_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__nand2_1 cells:      143
+ABC RESULTS:   sky130_fd_sc_hd__nand2b_1 cells:       11
+ABC RESULTS:   sky130_fd_sc_hd__nand3_1 cells:       44
+ABC RESULTS:   sky130_fd_sc_hd__nand3b_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__nand4_1 cells:       17
+ABC RESULTS:   sky130_fd_sc_hd__nor2_1 cells:      105
+ABC RESULTS:   sky130_fd_sc_hd__nor2b_1 cells:       12
+ABC RESULTS:   sky130_fd_sc_hd__nor3_1 cells:        5
+ABC RESULTS:   sky130_fd_sc_hd__nor3b_1 cells:        2
+ABC RESULTS:   sky130_fd_sc_hd__o211ai_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__o21a_1 cells:        4
+ABC RESULTS:   sky130_fd_sc_hd__o21ai_0 cells:       30
+ABC RESULTS:   sky130_fd_sc_hd__o21ba_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__o22a_1 cells:        2
+ABC RESULTS:   sky130_fd_sc_hd__o22ai_1 cells:        3
+ABC RESULTS:   sky130_fd_sc_hd__o31ai_1 cells:        3
+ABC RESULTS:   sky130_fd_sc_hd__or3_1 cells:        5
+ABC RESULTS:   sky130_fd_sc_hd__or4_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__or4b_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__xnor2_1 cells:      152
+ABC RESULTS:   sky130_fd_sc_hd__xnor3_1 cells:        7
+ABC RESULTS:   sky130_fd_sc_hd__xor2_1 cells:      118
+ABC RESULTS:   sky130_fd_sc_hd__xor3_1 cells:        2
+ABC RESULTS:        internal signals:     1394
+ABC RESULTS:           input signals:      353
+ABC RESULTS:          output signals:      366
+Removing temp directory.
+
+10.3. Extracting gate netlist of module `\ct_pmp_acc' to `<abc-temp-dir>/input.blif'..
+ABC: using cached merged SCL: <scl-cache>/yosys_merged.scl (1 files)
+
+10.3.1. Executed ABC.
+Extracted 86 gates and 131 wires to a netlist network with 45 inputs and 4 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: UC Berkeley, ABC 1.01 (compiled Jun 30 2026 04:50:19)
+ABC: abc 01> empty
+ABC: abc 01> source <abc-temp-dir>/abc.script
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_scl <scl-cache>/yosys_merged.scl 
+ABC: Warning: Detected 9 multi-output cells (for example, "sky130_fd_sc_hd__fa_1").
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &fraig -x 
+ABC: + &put 
+ABC: + scorr 
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2 
+ABC: + dretime 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &dch -f 
+ABC: + &nf 
+ABC: + &put 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+ABC: 
+ABC: YOSYS_ABC_DONE 
+
+10.3.2. Re-integrating ABC results.
+ABC RESULTS:   sky130_fd_sc_hd__a211oi_1 cells:        2
+ABC RESULTS:   sky130_fd_sc_hd__a21oi_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__a221oi_1 cells:        2
+ABC RESULTS:   sky130_fd_sc_hd__a222oi_1 cells:        3
+ABC RESULTS:   sky130_fd_sc_hd__a22oi_1 cells:        3
+ABC RESULTS:   sky130_fd_sc_hd__a32o_1 cells:        4
+ABC RESULTS:   sky130_fd_sc_hd__and2_0 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__and3_1 cells:        2
+ABC RESULTS:   sky130_fd_sc_hd__and4b_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__lpflow_isobufsrc_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__nand2_1 cells:        6
+ABC RESULTS:   sky130_fd_sc_hd__nand3_1 cells:        3
+ABC RESULTS:   sky130_fd_sc_hd__nand4_1 cells:        2
+ABC RESULTS:   sky130_fd_sc_hd__nor2_1 cells:        2
+ABC RESULTS:   sky130_fd_sc_hd__nor3b_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__nor4_1 cells:        2
+ABC RESULTS:   sky130_fd_sc_hd__nor4b_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__or4_1 cells:        1
+ABC RESULTS:        internal signals:       82
+ABC RESULTS:           input signals:       45
+ABC RESULTS:          output signals:        4
+Removing temp directory.
+
+10.4. Extracting gate netlist of module `\ct_pmp_comp_hit' to `<abc-temp-dir>/input.blif'..
+ABC: using cached merged SCL: <scl-cache>/yosys_merged.scl (1 files)
+
+10.4.1. Executed ABC.
+Extracted 227 gates and 287 wires to a netlist network with 60 inputs and 2 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: UC Berkeley, ABC 1.01 (compiled Jun 30 2026 04:50:19)
+ABC: abc 01> empty
+ABC: abc 01> source <abc-temp-dir>/abc.script
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_scl <scl-cache>/yosys_merged.scl 
+ABC: Warning: Detected 9 multi-output cells (for example, "sky130_fd_sc_hd__fa_1").
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &fraig -x 
+ABC: + &put 
+ABC: + scorr 
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2 
+ABC: + dretime 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &dch -f 
+ABC: + &nf 
+ABC: + &put 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+ABC: 
+ABC: YOSYS_ABC_DONE 
+
+10.4.2. Re-integrating ABC results.
+ABC RESULTS:   sky130_fd_sc_hd__a2111oi_0 cells:        2
+ABC RESULTS:   sky130_fd_sc_hd__a211oi_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__a21boi_0 cells:        3
+ABC RESULTS:   sky130_fd_sc_hd__a21o_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__a21oi_1 cells:       10
+ABC RESULTS:   sky130_fd_sc_hd__a311oi_1 cells:        2
+ABC RESULTS:   sky130_fd_sc_hd__a31oi_1 cells:        2
+ABC RESULTS:   sky130_fd_sc_hd__and2_0 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__and3_1 cells:        4
+ABC RESULTS:   sky130_fd_sc_hd__clkinv_1 cells:       17
+ABC RESULTS:   sky130_fd_sc_hd__lpflow_inputiso1p_1 cells:        2
+ABC RESULTS:   sky130_fd_sc_hd__lpflow_isobufsrc_1 cells:       14
+ABC RESULTS:   sky130_fd_sc_hd__maj3_1 cells:        7
+ABC RESULTS:   sky130_fd_sc_hd__nand2_1 cells:       11
+ABC RESULTS:   sky130_fd_sc_hd__nand2b_1 cells:       10
+ABC RESULTS:   sky130_fd_sc_hd__nand3_1 cells:        2
+ABC RESULTS:   sky130_fd_sc_hd__nand4_1 cells:        2
+ABC RESULTS:   sky130_fd_sc_hd__nor2_1 cells:        7
+ABC RESULTS:   sky130_fd_sc_hd__nor3_1 cells:        4
+ABC RESULTS:   sky130_fd_sc_hd__nor3b_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__nor4_1 cells:        3
+ABC RESULTS:   sky130_fd_sc_hd__nor4b_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__o2111ai_1 cells:        2
+ABC RESULTS:   sky130_fd_sc_hd__o211ai_1 cells:        3
+ABC RESULTS:   sky130_fd_sc_hd__o21a_1 cells:        2
+ABC RESULTS:   sky130_fd_sc_hd__o21ai_0 cells:        5
+ABC RESULTS:   sky130_fd_sc_hd__o221ai_1 cells:        2
+ABC RESULTS:   sky130_fd_sc_hd__o22ai_1 cells:        3
+ABC RESULTS:   sky130_fd_sc_hd__o2bb2ai_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__o311ai_0 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__xnor2_1 cells:       14
+ABC RESULTS:   sky130_fd_sc_hd__xor2_1 cells:        5
+ABC RESULTS:        internal signals:      225
+ABC RESULTS:           input signals:       60
+ABC RESULTS:          output signals:        2
+Removing temp directory.
+
+10.5. Extracting gate netlist of module `\gated_clk_cell' to `<abc-temp-dir>/input.blif'..
+ABC: using cached merged SCL: <scl-cache>/yosys_merged.scl (1 files)
+
+10.5.1. Executed ABC.
+Extracted 0 gates and 0 wires to a netlist network with 0 inputs and 0 outputs.
+Don't call ABC as there is nothing to map.
+Removing temp directory.
+Removing global temp directory.
+Removed 0 unused cells and 4260 unused wires.
+
+11. Printing statistics.
+
+=== ct_pmp_top ===
+
+        +----------Local Count, excluding submodules.
+        |        +-Local Area, excluding submodules.
+        |        | 
+     1231        - wires
+     1991        - wire bits
+       39        - public wires
+      799        - public wire bits
+       22        - ports
+      304        - port bits
+     1294 9.01E+03 cells
+        1    7.507   sky130_fd_sc_hd__a211oi_1
+        4   30.029   sky130_fd_sc_hd__a21boi_0
+        9   67.565   sky130_fd_sc_hd__a21o_1
+       39  195.187   sky130_fd_sc_hd__a21oi_1
+       10   87.584   sky130_fd_sc_hd__a22o_1
+       19  142.637   sky130_fd_sc_hd__a22oi_1
+        1    10.01   sky130_fd_sc_hd__a311o_1
+        1    8.758   sky130_fd_sc_hd__a31o_1
+        7   43.792   sky130_fd_sc_hd__a31oi_1
+        1    10.01   sky130_fd_sc_hd__a32o_1
+       29  181.424   sky130_fd_sc_hd__and2_0
+       13   81.328   sky130_fd_sc_hd__and3_1
+        1    8.758   sky130_fd_sc_hd__and4_1
+       16   60.058   sky130_fd_sc_hd__clkinv_1
+        6   37.536   sky130_fd_sc_hd__lpflow_inputiso1p_1
+       57  356.592   sky130_fd_sc_hd__lpflow_isobufsrc_1
+      102 1.02E+03   sky130_fd_sc_hd__maj3_1
+      268 1.01E+03   sky130_fd_sc_hd__nand2_1
+       19  118.864   sky130_fd_sc_hd__nand2b_1
+       16   80.077   sky130_fd_sc_hd__nand3_1
+        1    7.507   sky130_fd_sc_hd__nand3b_1
+       20   125.12   sky130_fd_sc_hd__nand4_1
+        1    8.758   sky130_fd_sc_hd__nand4b_1
+      102  382.867   sky130_fd_sc_hd__nor2_1
+       16  100.096   sky130_fd_sc_hd__nor2b_1
+       26  130.125   sky130_fd_sc_hd__nor3_1
+        2   15.014   sky130_fd_sc_hd__nor3b_1
+        4   25.024   sky130_fd_sc_hd__nor4_1
+        1    8.758   sky130_fd_sc_hd__nor4b_1
+        1    7.507   sky130_fd_sc_hd__o211ai_1
+       11   82.579   sky130_fd_sc_hd__o21a_1
+       42  210.202   sky130_fd_sc_hd__o21ai_0
+        5   37.536   sky130_fd_sc_hd__o21bai_1
+       11   96.342   sky130_fd_sc_hd__o22a_1
+        1    6.256   sky130_fd_sc_hd__o22ai_1
+        1    8.758   sky130_fd_sc_hd__o31a_1
+        2   15.014   sky130_fd_sc_hd__o31ai_1
+        4   25.024   sky130_fd_sc_hd__or3_1
+        1    7.507   sky130_fd_sc_hd__or4_1
+      228    2E+03   sky130_fd_sc_hd__xnor2_1
+       26  585.562   sky130_fd_sc_hd__xnor3_1
+      163 1.43E+03   sky130_fd_sc_hd__xor2_1
+        6  142.637   sky130_fd_sc_hd__xor3_1
+        7        - submodules
+        5        -   ct_pmp_acc
+        1        -   ct_pmp_regs
+        1        -   gated_clk_cell
+
+   Chip area for module '\ct_pmp_top': 9007.388800
+     of which used for sequential elements: 0.000000 (0.00%)
+
+=== ct_pmp_regs ===
+
+        +----------Local Count, excluding submodules.
+        |        +-Local Area, excluding submodules.
+        |        | 
+     1241        - wires
+     1782        - wire bits
+       49        - public wires
+      590        - public wire bits
+       16        - ports
+      526        - port bits
+     1558 1.67E+04 cells
+        1    7.507   sky130_fd_sc_hd__a211oi_1
+        1    10.01   sky130_fd_sc_hd__a21bo_1
+        1    7.507   sky130_fd_sc_hd__a21boi_0
+       15  112.608   sky130_fd_sc_hd__a21o_1
+       57  285.274   sky130_fd_sc_hd__a21oi_1
+       79  790.758   sky130_fd_sc_hd__a222oi_1
+        3   26.275   sky130_fd_sc_hd__a22o_1
+       26  195.187   sky130_fd_sc_hd__a22oi_1
+        3   18.768   sky130_fd_sc_hd__a31oi_1
+        1    10.01   sky130_fd_sc_hd__a32o_1
+       40   250.24   sky130_fd_sc_hd__and2_0
+       11   68.816   sky130_fd_sc_hd__and3_1
+       33  123.869   sky130_fd_sc_hd__clkinv_1
+      280  7006.72   sky130_fd_sc_hd__dfrtp_1
+        5    31.28   sky130_fd_sc_hd__lpflow_inputiso1p_1
+       39  243.984   sky130_fd_sc_hd__lpflow_isobufsrc_1
+       49   490.47   sky130_fd_sc_hd__maj3_1
+      243 2.74E+03   sky130_fd_sc_hd__mux2_1
+        1    10.01   sky130_fd_sc_hd__mux2i_1
+      143  536.765   sky130_fd_sc_hd__nand2_1
+       11   68.816   sky130_fd_sc_hd__nand2b_1
+       44  220.211   sky130_fd_sc_hd__nand3_1
+        1    7.507   sky130_fd_sc_hd__nand3b_1
+       17  106.352   sky130_fd_sc_hd__nand4_1
+      105  394.128   sky130_fd_sc_hd__nor2_1
+       12   75.072   sky130_fd_sc_hd__nor2b_1
+        5   25.024   sky130_fd_sc_hd__nor3_1
+        2   15.014   sky130_fd_sc_hd__nor3b_1
+        1    7.507   sky130_fd_sc_hd__o211ai_1
+        4   30.029   sky130_fd_sc_hd__o21a_1
+       30  150.144   sky130_fd_sc_hd__o21ai_0
+        1    10.01   sky130_fd_sc_hd__o21ba_1
+        2   17.517   sky130_fd_sc_hd__o22a_1
+        3   18.768   sky130_fd_sc_hd__o22ai_1
+        3   22.522   sky130_fd_sc_hd__o31ai_1
+        5    31.28   sky130_fd_sc_hd__or3_1
+        1    7.507   sky130_fd_sc_hd__or4_1
+        1    10.01   sky130_fd_sc_hd__or4b_1
+      152 1.33E+03   sky130_fd_sc_hd__xnor2_1
+        7  157.651   sky130_fd_sc_hd__xnor3_1
+      118 1.03E+03   sky130_fd_sc_hd__xor2_1
+        2   47.546   sky130_fd_sc_hd__xor3_1
+
+   Chip area for module '\ct_pmp_regs': 16749.814400
+     of which used for sequential elements: 7006.720000 (41.83%)
+
+=== ct_pmp_acc ===
+
+        +----------Local Count, excluding submodules.
+        |        +-Local Area, excluding submodules.
+        |        | 
+       65        - wires
+      447        - wire bits
+       31        - public wires
+      413        - public wire bits
+       15        - ports
+      397        - port bits
+       38  258.998 cells
+        2   15.014   sky130_fd_sc_hd__a211oi_1
+        1    5.005   sky130_fd_sc_hd__a21oi_1
+        2   17.517   sky130_fd_sc_hd__a221oi_1
+        3   30.029   sky130_fd_sc_hd__a222oi_1
+        3   22.522   sky130_fd_sc_hd__a22oi_1
+        4   40.038   sky130_fd_sc_hd__a32o_1
+        1    6.256   sky130_fd_sc_hd__and2_0
+        2   12.512   sky130_fd_sc_hd__and3_1
+        1    10.01   sky130_fd_sc_hd__and4b_1
+        1    6.256   sky130_fd_sc_hd__lpflow_isobufsrc_1
+        6   22.522   sky130_fd_sc_hd__nand2_1
+        3   15.014   sky130_fd_sc_hd__nand3_1
+        2   12.512   sky130_fd_sc_hd__nand4_1
+        2    7.507   sky130_fd_sc_hd__nor2_1
+        1    7.507   sky130_fd_sc_hd__nor3b_1
+        2   12.512   sky130_fd_sc_hd__nor4_1
+        1    8.758   sky130_fd_sc_hd__nor4b_1
+        1    7.507   sky130_fd_sc_hd__or4_1
+        8        - submodules
+        8        -   ct_pmp_comp_hit
+
+   Chip area for module '\ct_pmp_acc': 258.998400
+     of which used for sequential elements: 0.000000 (0.00%)
+
+=== ct_pmp_comp_hit ===
+
+        +----------Local Count, excluding submodules.
+        |        +-Local Area, excluding submodules.
+        |        | 
+      149        - wires
+      205        - wire bits
+        6        - public wires
+       62        - public wire bits
+        6        - ports
+       62        - port bits
+      145  908.371 cells
+        2   17.517   sky130_fd_sc_hd__a2111oi_0
+        1    7.507   sky130_fd_sc_hd__a211oi_1
+        3   22.522   sky130_fd_sc_hd__a21boi_0
+        1    7.507   sky130_fd_sc_hd__a21o_1
+       10   50.048   sky130_fd_sc_hd__a21oi_1
+        2   17.517   sky130_fd_sc_hd__a311oi_1
+        2   12.512   sky130_fd_sc_hd__a31oi_1
+        1    6.256   sky130_fd_sc_hd__and2_0
+        4   25.024   sky130_fd_sc_hd__and3_1
+       17   63.811   sky130_fd_sc_hd__clkinv_1
+        2   12.512   sky130_fd_sc_hd__lpflow_inputiso1p_1
+       14   87.584   sky130_fd_sc_hd__lpflow_isobufsrc_1
+        7   70.067   sky130_fd_sc_hd__maj3_1
+       11    41.29   sky130_fd_sc_hd__nand2_1
+       10    62.56   sky130_fd_sc_hd__nand2b_1
+        2    10.01   sky130_fd_sc_hd__nand3_1
+        2   12.512   sky130_fd_sc_hd__nand4_1
+        7   26.275   sky130_fd_sc_hd__nor2_1
+        4   20.019   sky130_fd_sc_hd__nor3_1
+        1    7.507   sky130_fd_sc_hd__nor3b_1
+        3   18.768   sky130_fd_sc_hd__nor4_1
+        1    8.758   sky130_fd_sc_hd__nor4b_1
+        2   17.517   sky130_fd_sc_hd__o2111ai_1
+        3   22.522   sky130_fd_sc_hd__o211ai_1
+        2   15.014   sky130_fd_sc_hd__o21a_1
+        5   25.024   sky130_fd_sc_hd__o21ai_0
+        2   17.517   sky130_fd_sc_hd__o221ai_1
+        3   18.768   sky130_fd_sc_hd__o22ai_1
+        1    8.758   sky130_fd_sc_hd__o2bb2ai_1
+        1    8.758   sky130_fd_sc_hd__o311ai_0
+       14  122.618   sky130_fd_sc_hd__xnor2_1
+        5   43.792   sky130_fd_sc_hd__xor2_1
+
+   Chip area for module '\ct_pmp_comp_hit': 908.371200
+     of which used for sequential elements: 0.000000 (0.00%)
+
+=== gated_clk_cell ===
+
+        +----------Local Count, excluding submodules.
+        |        +-Local Area, excluding submodules.
+        |        | 
+        7        - wires
+        7        - wire bits
+        7        - public wires
+        7        - public wire bits
+        7        - ports
+        7        - port bits
+
+=== design hierarchy ===
+
+        +----------Count including submodules.
+        |        +-Area including submodules.
+        |        | 
+     8842 6.34E+04 ct_pmp_top
+       38  258.998 ct_pmp_acc
+      145  908.371   ct_pmp_comp_hit
+     1558 1.67E+04 ct_pmp_regs
+
+        +----------Count including submodules.
+        |        +-Area including submodules.
+        |        | 
+     8764        - wires
+    14215        - wire bits
+      490        - public wires
+     5941        - public wire bits
+      360        - ports
+     5302        - port bits
+        -        - memories
+        -        - memory bits
+        -        - processes
+     8842 6.34E+04 cells
+       80  700.672   sky130_fd_sc_hd__a2111oi_0
+       52  390.374   sky130_fd_sc_hd__a211oi_1
+        1    10.01   sky130_fd_sc_hd__a21bo_1
+      125    938.4   sky130_fd_sc_hd__a21boi_0
+       64  480.461   sky130_fd_sc_hd__a21o_1
+      501 2.51E+03   sky130_fd_sc_hd__a21oi_1
+       10   87.584   sky130_fd_sc_hd__a221oi_1
+       94  940.902   sky130_fd_sc_hd__a222oi_1
+       13  113.859   sky130_fd_sc_hd__a22o_1
+       60  450.432   sky130_fd_sc_hd__a22oi_1
+        1    10.01   sky130_fd_sc_hd__a311o_1
+       80  700.672   sky130_fd_sc_hd__a311oi_1
+        1    8.758   sky130_fd_sc_hd__a31o_1
+       90   563.04   sky130_fd_sc_hd__a31oi_1
+       22  220.211   sky130_fd_sc_hd__a32o_1
+      114  713.184   sky130_fd_sc_hd__and2_0
+      194 1.21E+03   sky130_fd_sc_hd__and3_1
+        1    8.758   sky130_fd_sc_hd__and4_1
+        5   50.048   sky130_fd_sc_hd__and4b_1
+      729 2.74E+03   sky130_fd_sc_hd__clkinv_1
+      280  7006.72   sky130_fd_sc_hd__dfrtp_1
+       91  569.296   sky130_fd_sc_hd__lpflow_inputiso1p_1
+      661 4.14E+03   sky130_fd_sc_hd__lpflow_isobufsrc_1
+      431 4.31E+03   sky130_fd_sc_hd__maj3_1
+      243 2.74E+03   sky130_fd_sc_hd__mux2_1
+        1    10.01   sky130_fd_sc_hd__mux2i_1
+      881 3.31E+03   sky130_fd_sc_hd__nand2_1
+      430  2690.08   sky130_fd_sc_hd__nand2b_1
+      155  775.744   sky130_fd_sc_hd__nand3_1
+        2   15.014   sky130_fd_sc_hd__nand3b_1
+      127  794.512   sky130_fd_sc_hd__nand4_1
+        1    8.758   sky130_fd_sc_hd__nand4b_1
+      497 1.87E+03   sky130_fd_sc_hd__nor2_1
+       28  175.168   sky130_fd_sc_hd__nor2b_1
+      191  955.917   sky130_fd_sc_hd__nor3_1
+       49  367.853   sky130_fd_sc_hd__nor3b_1
+      134  838.304   sky130_fd_sc_hd__nor4_1
+       46  402.886   sky130_fd_sc_hd__nor4b_1
+       80  700.672   sky130_fd_sc_hd__o2111ai_1
+      122  915.878   sky130_fd_sc_hd__o211ai_1
+       95  713.184   sky130_fd_sc_hd__o21a_1
+      272 1.36E+03   sky130_fd_sc_hd__o21ai_0
+        1    10.01   sky130_fd_sc_hd__o21ba_1
+        5   37.536   sky130_fd_sc_hd__o21bai_1
+       80  700.672   sky130_fd_sc_hd__o221ai_1
+       13  113.859   sky130_fd_sc_hd__o22a_1
+      124  775.744   sky130_fd_sc_hd__o22ai_1
+       40  350.336   sky130_fd_sc_hd__o2bb2ai_1
+       40  350.336   sky130_fd_sc_hd__o311ai_0
+        1    8.758   sky130_fd_sc_hd__o31a_1
+        5   37.536   sky130_fd_sc_hd__o31ai_1
+        9   56.304   sky130_fd_sc_hd__or3_1
+        7    52.55   sky130_fd_sc_hd__or4_1
+        1    10.01   sky130_fd_sc_hd__or4b_1
+      940 8.23E+03   sky130_fd_sc_hd__xnor2_1
+       33  743.213   sky130_fd_sc_hd__xnor3_1
+      481  4212.79   sky130_fd_sc_hd__xor2_1
+        8  190.182   sky130_fd_sc_hd__xor3_1
+        7 5.44E+04 submodules
+        5 3.76E+04   ct_pmp_acc
+        1 1.67E+04   ct_pmp_regs
+        1        -   gated_clk_cell
+
+   Chip area for top module '\ct_pmp_top': 63387.043200
+     of which used for sequential elements: 7006.720000 (11.05%)
+
+12. Executing Verilog backend.
+
+12.1. Executing BMUXMAP pass.
+
+12.2. Executing DEMUXMAP pass.
+Dumping module `\ct_pmp_acc'.
+Dumping module `\ct_pmp_comp_hit'.
+Dumping module `\ct_pmp_regs'.
+Dumping module `\ct_pmp_top'.
+Dumping module `\gated_clk_cell'.
+
+End of script. Logfile hash: 890a219bda, time: 1.93s, user: 0.62s, system: 0.41s, MEM: 52.75 MB peak
+Yosys 0.66+181 (git sha1 afe6b18f2, Release, Clang /usr/bin/clang++ 18.1.8)
+Time spent: 51% 2x abc (0 sec), 9% 1x synth (0 sec), ...

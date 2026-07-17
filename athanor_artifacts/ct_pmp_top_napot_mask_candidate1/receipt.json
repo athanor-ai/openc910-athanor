@@ -1,0 +1,106 @@
+{
+  "schema": "openc910.subsystem_top_area_timing_opensta_estimated_power_packet.v1",
+  "ticket": "ATH-3118",
+  "status": "accepted_subsystem_top_area_timing_opensta_estimated_power_packet",
+  "customer_ready": true,
+  "customer_ready_scope": "subsystem-top ct_pmp_top NAPOT-mask packet: flattened subsystem same-state proof closes 831/831, proof mutant leaves exactly 48 unproven cells, same-candidate-bound selected Sky130 area and OpenSTA estimated total power improve while OpenSTA max data-arrival is flat, SHA-bound metric-negative reds area/timing/power, and non-author replay reproduced mapped netlists byte-exact; OpenSTA estimated power is not signoff power and not measured workload activity",
+  "target": {
+    "helper_module": "ct_pmp_comp_hit",
+    "parent_module": "ct_pmp_acc",
+    "subsystem_top": "ct_pmp_top",
+    "subsystem": "pmp",
+    "proof_subject": "flattened ct_pmp_top same-state equivalence under the checked RTL model"
+  },
+  "candidate": {
+    "candidate_id": "ct_pmp_top_napot_mask_candidate1",
+    "description": "lift the promoted ct_pmp_comp_hit NAPOT prefix-AND mask identity through ct_pmp_top",
+    "candidate_sha256": "776f58498548ec1c2b87bd384d17b412a98900aba6c2305c8f597f934cbba57f",
+    "mapped_netlist_sha256": "f5c17dce321c3b897020f3ebdaa8c752120d22adf5859b23ba5c95e8ea41ae07",
+    "subsystem_top_mapped_netlist_sha256": "f5c17dce321c3b897020f3ebdaa8c752120d22adf5859b23ba5c95e8ea41ae07",
+    "selected_flow": "yosys66_sky130_ct_pmp_top_opensta_contract_v1",
+    "state_change": "none"
+  },
+  "toolchain": {
+    "yosys_version": "Yosys 0.66+181 (git sha1 afe6b18f2, Release, Clang /usr/bin/clang++ 18.1.8)",
+    "opensta_version": "OpenSTA 2.2.0",
+    "liberty": "sky130_fd_sc_hd__tt_025C_1v80.lib",
+    "liberty_sha256": "ec0e1067a35c8bf20b11e58d1e8ac53326067e4dac84a125cc1b917a3518d0d9"
+  },
+  "metrics": {
+    "subsystem_top": {
+      "area": {
+        "gold": 50325.7664,
+        "gate": 49474.9504,
+        "unit": "sky130_selected_area",
+        "direction": "improves"
+      },
+      "timing": {
+        "gold_max_data_arrival_ns": 3.237,
+        "gate_max_data_arrival_ns": 3.237,
+        "direction": "flat_nonregressing"
+      },
+      "power": {
+        "gold_total_power_nw": 0.00192,
+        "gate_total_power_nw": 0.0019,
+        "methodology_boundary": "OpenSTA estimated power under fixed global activity; not signoff power and not measured workload activity",
+        "direction": "improves"
+      }
+    },
+    "metric_negative": {
+      "area": {
+        "gate": 63387.0432,
+        "unit": "sky130_selected_area",
+        "axis_reds": true
+      },
+      "timing": {
+        "gate_max_data_arrival_ns": 7.3389,
+        "axis_reds": true
+      },
+      "power": {
+        "gate_total_power_nw": 0.00256,
+        "methodology_boundary": "OpenSTA estimated power under fixed global activity; not signoff power and not measured workload activity",
+        "axis_reds": true
+      }
+    }
+  },
+  "proof_receipts": {
+    "subsystem_top_same_state_equivalence": {
+      "status": "passed",
+      "log": "ct_pmp_top_same_state.pinned.log",
+      "proven_equiv_cells": 831,
+      "unproven_equiv_cells": 0
+    },
+    "proof_negative_control": {
+      "status": "failed_as_expected",
+      "mutation": "reuse the promoted NAPOT proof mutant inside ct_pmp_top",
+      "log": "ct_pmp_top_proof_mutant_negative.pinned.log",
+      "proven_equiv_cells": 783,
+      "unproven_equiv_cells": 48
+    }
+  },
+  "known_boundaries": [
+    "customer_ready=true only for this subsystem-top ct_pmp_top packet under the pinned public replay flow",
+    "subsystem-top ct_pmp_top evidence only",
+    "same-state equivalence under the checked RTL model",
+    "OpenSTA estimated power is not signoff power and not measured workload activity",
+    "OpenSTA timing is not signoff timing",
+    "not a whole PMP, whole MMU, whole C910/BOOM, ISA, privilege model, composed optimization, or theorem-registry claim"
+  ],
+  "lean_fallback": {
+    "reason": "no discharged Lean theorem binds this candidate netlist; strongest current authority is Yosys ct_pmp_top same-state equivalence plus a biting proof mutant",
+    "strongest_evidence": "ct_pmp_top same-state Yosys equivalence proves 831/831 cells; the package proof mutant leaves 48 cells unproven; selected subsystem Sky130 area and OpenSTA estimated power improve while OpenSTA max data-arrival is flat under the package screen",
+    "scope_boundary": "ct_pmp_top subsystem packet under the checked RTL model; not a whole-PMP, whole-C910/BOOM, ISA, privilege model, signoff timing, workload-power, or theorem-registry claim",
+    "candidate_binding": {
+      "gold_sha256": "624bdeb9496abb864f58bd9fea9df41dc2b13f760fb0203e6f83a801c47e85c9",
+      "gate_sha256": "776f58498548ec1c2b87bd384d17b412a98900aba6c2305c8f597f934cbba57f"
+    }
+  },
+  "independent_replay": {
+    "status": "passed",
+    "reviewer": "platypus",
+    "summary": "non-author replay reproduced the packet from the public package path under the pinned Yosys/OpenSTA/Sky130 suite: all three replay-produced mapped netlists matched SHA256SUMS byte-exact, the subsystem same-state proof closed 831 proven / 0 unproven, the proof mutant left exactly 48 unproven cells, selected-flow area/power/timing metrics matched the receipt including flat 3.2370 ns OpenSTA max data-arrival, and the SHA-bound metric-negative reproduced the three-axis red with 7.3389 ns arrival"
+  },
+  "next_independent_check": {
+    "status": "closed_by_non_author_replay"
+  }
+}
