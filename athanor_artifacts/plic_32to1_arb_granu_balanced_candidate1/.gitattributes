@@ -1,0 +1,5 @@
+*.log text
+*.mapped.v text
+*.v text
+*.json text
+*.sh text eol=lf

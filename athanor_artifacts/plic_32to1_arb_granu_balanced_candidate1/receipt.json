@@ -1,0 +1,121 @@
+{
+  "schema": "openc910.module_local_area_timing_opensta_estimated_power_packet.v1",
+  "ticket": "ATH-2852",
+  "status": "accepted_module_local_area_timing_opensta_estimated_power_packet",
+  "customer_ready": true,
+  "customer_ready_scope": "module-local plic_32to1_arb balanced second-stage selector parent packet: helper SAT miter proves, tie-rule mutant reds, flattened parent same-state proof closes 66557/66557 with only implementation-internal helper ID wires blacklisted from matching, and same-candidate-bound parent selected Sky130 area, real-clock OpenSTA max data-arrival, and OpenSTA estimated total power improve; non-author replay reproduced mapped netlists byte-exact; OpenSTA estimated power is not signoff power and not measured workload activity",
+  "target": {
+    "helper_module": "plic_granu_arb",
+    "parent_module": "plic_32to1_arb",
+    "subsystem": "plic",
+    "proof_subject": "9-way second-stage PLIC priority selector helper and flattened plic_32to1_arb parent boundary"
+  },
+  "candidate": {
+    "candidate_id": "plic_32to1_arb_granu_balanced_candidate1",
+    "description": "replace second-stage plic_granu_arb priority-select expansion with a balanced 9-way comparator tree preserving lower-index tie priority",
+    "candidate_sha256": "41805698f2b1c2cbba349a3a89074c44eca84e2af685f35d903720805b215c0d",
+    "mapped_netlist_sha256": "ba7a68b2b847ebe1a64eea029637bd0f8d106b6316fb38d98b91b01ef08a874a",
+    "helper_candidate_sha256": "41805698f2b1c2cbba349a3a89074c44eca84e2af685f35d903720805b215c0d",
+    "helper_mapped_netlist_sha256": "b40d87d863efdb53c914ae759470d2a4d83e34049e48c268bdc4ca1718c2b0c3",
+    "parent_mapped_netlist_sha256": "ba7a68b2b847ebe1a64eea029637bd0f8d106b6316fb38d98b91b01ef08a874a",
+    "selected_flow": "yosys66_sky130_synth_dfflibmap_abc_opensta_realclk_v1",
+    "state_change": "none"
+  },
+  "toolchain": {
+    "yosys_version": "Yosys 0.66+181 (git sha1 afe6b18f2, Release, Clang /usr/bin/clang++ 18.1.8)",
+    "opensta_version": "OpenSTA 2.2.0",
+    "liberty": "sky130_fd_sc_hd__tt_025C_1v80.lib",
+    "liberty_sha256": "ec0e1067a35c8bf20b11e58d1e8ac53326067e4dac84a125cc1b917a3518d0d9"
+  },
+  "metrics": {
+    "helper": {
+      "area": {
+        "gold": 5975.7312,
+        "gate": 1671.6032,
+        "unit": "sky130_selected_area",
+        "direction": "improves"
+      },
+      "timing": {
+        "gold_max_data_arrival_ns": 12.56,
+        "gate_max_data_arrival_ns": 6.42,
+        "direction": "improves"
+      },
+      "power": {
+        "gold_total_power_nw": 1.82e-04,
+        "gate_total_power_nw": 4.48e-05,
+        "methodology_boundary": "OpenSTA estimated power under fixed global activity; not signoff power and not measured workload activity",
+        "direction": "improves"
+      }
+    },
+    "parent": {
+      "area": {
+        "gold": 140709.952,
+        "gate": 136564.7264,
+        "unit": "sky130_selected_area",
+        "direction": "improves"
+      },
+      "plic_granu_arb_module_area": {
+        "gold": 2665.056,
+        "gate": 1830.5056,
+        "unit": "sky130_selected_area",
+        "direction": "improves"
+      },
+      "timing": {
+        "gold_max_data_arrival_ns": 13.26,
+        "gate_max_data_arrival_ns": 7.39,
+        "methodology_boundary": "OpenSTA screen uses the real arb_clk port with zero input/output delay; both gold and candidate are measured under the same package constraint",
+        "direction": "improves"
+      },
+      "power": {
+        "gold_total_power_nw": 3.73e-03,
+        "gate_total_power_nw": 3.59e-03,
+        "methodology_boundary": "OpenSTA estimated power under fixed global activity; not signoff power and not measured workload activity",
+        "direction": "improves"
+      }
+    }
+  },
+  "proof_receipts": {
+    "helper_sat_miter": {
+      "status": "passed",
+      "log": "helper_same_state.pinned.log",
+      "property": "bad == 0 for all 9-way selector inputs"
+    },
+    "parent_flattened_same_state_equivalence": {
+      "status": "passed",
+      "log": "parent_same_state.pinned.log",
+      "proven_equiv_cells": 66557,
+      "unproven_equiv_cells": 0,
+      "internal_blacklist": "parent_internal_blacklist.txt",
+      "blacklist_reason": "exclude implementation-internal helper ID wires from same-name matching; top-level parent outputs remain checked"
+    },
+    "proof_negative_control": {
+      "status": "failed_as_expected",
+      "mutation": "change all tie comparisons from lower-index-wins >= to later-index-wins >",
+      "log": "helper_proof_mutant_negative.pinned.log"
+    }
+  },
+  "known_boundaries": [
+    "customer_ready=true only for this module-local plic_32to1_arb parent packet under the pinned public replay flow",
+    "module-local plic_32to1_arb second-stage PLIC priority selector evidence only",
+    "parent same-state proof uses an internal blacklist for helper ID wires; parent outputs are checked",
+    "OpenSTA estimated power is not signoff power and not measured workload activity",
+    "not a whole PLIC, whole C910/BOOM, privilege, platform, ISA, composed optimization, or whole-chip authority claim"
+  ],
+  "lean_fallback": {
+    "reason": "no discharged Lean theorem binds this candidate netlist; strongest current authority is Yosys helper SAT miter, flattened-parent same-state equivalence, and a biting tie-rule proof mutant",
+    "strongest_evidence": "helper SAT miter proves no mismatch; parent same-state equivalence proves 66557/66557 cells with 0 unproven after excluding implementation-internal helper ID wires; tie-rule mutant fails; selected parent Sky130 area, real-clock OpenSTA max data-arrival, and OpenSTA estimated power improve",
+    "scope_boundary": "plic_32to1_arb parent packet under the checked RTL model; not a whole-PLIC, whole-C910/BOOM, ISA, privilege, signoff timing, workload-power, or theorem-registry claim",
+    "candidate_binding": {
+      "gold_sha256": "e314cff5ce6e05698d73c362d4ec5f7444032b5387d31ea8a5e768cf2a20563d",
+      "gate_sha256": "41805698f2b1c2cbba349a3a89074c44eca84e2af685f35d903720805b215c0d"
+    }
+  },
+  "independent_replay": {
+    "status": "passed",
+    "reviewer": "platypus",
+    "summary": "non-author replay reproduced the packet from the public package path under the pinned Yosys/OpenSTA/Sky130 suite: parent proof closed 66557 proven / 0 unproven, all four mapped netlists matched package sha256s byte-exact, helper proof passed, tie-rule proof mutant failed as required, parent real-clock timing reproduced 13.26 -> 7.39 ns, parent area and OpenSTA estimated-power improvements matched, and the 2-entry parent blacklist was audited as internal-only with no parent ports blacklisted"
+  },
+  "next_independent_check": {
+    "status": "closed_by_non_author_replay"
+  }
+}

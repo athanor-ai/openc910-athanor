@@ -1,0 +1,58 @@
+Startpoint: int_in_prio[11] (input port clocked by virtual_clk)
+Endpoint: int_out_id[0] (output port clocked by virtual_clk)
+Path Group: virtual_clk
+Path Type: max
+
+  Delay    Time   Description
+---------------------------------------------------------
+   0.00    0.00   clock virtual_clk (rise edge)
+   0.00    0.00   clock network delay (ideal)
+   0.00    0.00 v input external delay
+   0.00    0.00 v int_in_prio[11] (in)
+   0.10    0.10 v _257_/X (sky130_fd_sc_hd__lpflow_isobufsrc_1)
+   0.27    0.37 ^ _260_/Y (sky130_fd_sc_hd__o311ai_0)
+   0.18    0.55 v _265_/Y (sky130_fd_sc_hd__a311oi_1)
+   0.28    0.83 ^ _269_/Y (sky130_fd_sc_hd__o21ai_0)
+   0.47    1.29 ^ _270_/X (sky130_fd_sc_hd__and2_0)
+   0.25    1.54 ^ _297_/X (sky130_fd_sc_hd__a22o_1)
+   0.14    1.68 ^ _302_/X (sky130_fd_sc_hd__o22a_1)
+   0.06    1.74 v _303_/Y (sky130_fd_sc_hd__a222oi_1)
+   0.96    2.70 ^ _304_/Y (sky130_fd_sc_hd__o22ai_1)
+   0.31    3.00 v _305_/Y (sky130_fd_sc_hd__mux2i_1)
+   0.24    3.25 ^ _359_/Y (sky130_fd_sc_hd__nor3_1)
+   0.15    3.40 v _370_/Y (sky130_fd_sc_hd__o311ai_0)
+   0.30    3.69 ^ _379_/Y (sky130_fd_sc_hd__a31oi_1)
+   0.40    4.10 ^ _380_/X (sky130_fd_sc_hd__o21a_1)
+   0.31    4.41 ^ _389_/Y (sky130_fd_sc_hd__mux2i_1)
+   0.16    4.57 v _391_/Y (sky130_fd_sc_hd__o221ai_1)
+   0.31    4.88 ^ _397_/Y (sky130_fd_sc_hd__a222oi_1)
+   0.81    5.68 ^ _400_/Y (sky130_fd_sc_hd__a2bb2oi_1)
+   0.40    6.09 v _401_/X (sky130_fd_sc_hd__lpflow_isobufsrc_1)
+   0.33    6.42 v _496_/X (sky130_fd_sc_hd__a32o_1)
+   0.00    6.42 v int_out_id[0] (out)
+           6.42   data arrival time
+
+  10.00   10.00   clock virtual_clk (rise edge)
+   0.00   10.00   clock network delay (ideal)
+   0.00   10.00   clock reconvergence pessimism
+   0.00   10.00   output external delay
+          10.00   data required time
+---------------------------------------------------------
+          10.00   data required time
+          -6.42   data arrival time
+---------------------------------------------------------
+           3.58   slack (MET)
+
+
+tns 0.00
+wns 0.00
+Group                  Internal  Switching    Leakage      Total
+                          Power      Power      Power      Power
+----------------------------------------------------------------
+Sequential             0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.0%
+Combinational          2.15e-05   2.33e-05   5.80e-10   4.48e-05 100.0%
+Macro                  0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.0%
+Pad                    0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.0%
+----------------------------------------------------------------
+Total                  2.15e-05   2.33e-05   5.80e-10   4.48e-05 100.0%
+                          48.0%      52.0%       0.0%
