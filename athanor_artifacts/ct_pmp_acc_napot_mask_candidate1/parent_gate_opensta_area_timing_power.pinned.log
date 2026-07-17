@@ -1,0 +1,61 @@
+OpenSTA 2.2.0 02b129d48f Copyright (c) 2019, Parallax Software, Inc.
+License GPLv3: GNU GPL version 3 <http://gnu.org/licenses/gpl.html>
+
+This is free software, and you are free to change and redistribute it
+under certain conditions; type `show_copying' for details. 
+This program comes with ABSOLUTELY NO WARRANTY; for details type `show_warranty'.
+Startpoint: pmpaddr3_value[0] (input port clocked by virtual_clk)
+Endpoint: pmp_mmu_flg_y[3] (output port clocked by virtual_clk)
+Path Group: virtual_clk
+Path Type: max
+
+  Delay    Time   Description
+---------------------------------------------------------
+   0.00    0.00   clock virtual_clk (rise edge)
+   0.00    0.00   clock network delay (ideal)
+   0.00    0.00 ^ input external delay
+   0.00    0.00 ^ pmpaddr3_value[0] (in)
+   0.10    0.10 v x_ct_pmp_comp_hit_3/_235_/Y (sky130_fd_sc_hd__nand4_1)
+   0.17    0.26 ^ x_ct_pmp_comp_hit_3/_236_/Y (sky130_fd_sc_hd__nor2_1)
+   0.11    0.38 v x_ct_pmp_comp_hit_3/_237_/Y (sky130_fd_sc_hd__nand3_1)
+   0.16    0.54 ^ x_ct_pmp_comp_hit_3/_238_/Y (sky130_fd_sc_hd__nor2_1)
+   0.12    0.66 v x_ct_pmp_comp_hit_3/_239_/Y (sky130_fd_sc_hd__nand3_1)
+   0.20    0.86 ^ x_ct_pmp_comp_hit_3/_240_/X (sky130_fd_sc_hd__lpflow_isobufsrc_1)
+   0.28    1.13 ^ x_ct_pmp_comp_hit_3/_241_/X (sky130_fd_sc_hd__and4_1)
+   0.08    1.21 v x_ct_pmp_comp_hit_3/_247_/Y (sky130_fd_sc_hd__a21oi_1)
+   0.51    1.73 v x_ct_pmp_comp_hit_3/_269_/X (sky130_fd_sc_hd__or4_1)
+   0.24    1.97 ^ x_ct_pmp_comp_hit_3/_274_/Y (sky130_fd_sc_hd__nor4_1)
+   0.11    2.08 v x_ct_pmp_comp_hit_3/_275_/Y (sky130_fd_sc_hd__o21ai_0)
+   0.35    2.43 ^ x_ct_pmp_comp_hit_3/_280_/Y (sky130_fd_sc_hd__a2111oi_0)
+   0.18    2.61 ^ x_ct_pmp_comp_hit_3/_281_/X (sky130_fd_sc_hd__o21a_1)
+   0.47    3.08 ^ _49_/Y (sky130_fd_sc_hd__nor4b_1)
+   0.17    3.25 v _68_/Y (sky130_fd_sc_hd__a22oi_1)
+   0.20    3.45 v _69_/X (sky130_fd_sc_hd__and3_1)
+   0.06    3.51 ^ _71_/Y (sky130_fd_sc_hd__nand3_1)
+   0.00    3.51 ^ pmp_mmu_flg_y[3] (out)
+           3.51   data arrival time
+
+  10.00   10.00   clock virtual_clk (rise edge)
+   0.00   10.00   clock network delay (ideal)
+   0.00   10.00   clock reconvergence pessimism
+   0.00   10.00   output external delay
+          10.00   data required time
+---------------------------------------------------------
+          10.00   data required time
+          -3.51   data arrival time
+---------------------------------------------------------
+           6.49   slack (MET)
+
+
+tns 0.00
+wns 0.00
+Group                  Internal  Switching    Leakage      Total
+                          Power      Power      Power      Power
+----------------------------------------------------------------
+Sequential             0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.0%
+Combinational          9.16e-05   7.49e-05   2.16e-09   1.67e-04 100.0%
+Macro                  0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.0%
+Pad                    0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.0%
+----------------------------------------------------------------
+Total                  9.16e-05   7.49e-05   2.16e-09   1.67e-04 100.0%
+                          55.0%      45.0%       0.0%

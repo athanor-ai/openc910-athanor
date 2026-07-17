@@ -1,0 +1,410 @@
+
+ /----------------------------------------------------------------------------\
+ |  yosys -- Yosys Open SYnthesis Suite                                       |
+ |  Copyright (C) 2012 - 2026  Claire Xenia Wolf <claire@yosyshq.com>         |
+ |  Distributed under an ISC-like license, type "license" to see terms        |
+ \----------------------------------------------------------------------------/
+ Yosys 0.66+181 (git sha1 afe6b18f2, Release, Clang /usr/bin/clang++ 18.1.8)
+
+-- Running command `read_verilog -sv cpu_cfig.h; read_verilog -sv ct_pmp_comp_hit_gold.v; read_verilog -sv ct_pmp_acc_gold.v; hierarchy -top ct_pmp_acc; proc; opt; memory; opt; flatten; opt; rename ct_pmp_acc gold; write_rtlil replay_out/ct_pmp_acc_gold.il' --
+
+1. Executing Verilog-2005 frontend: cpu_cfig.h
+Parsing SystemVerilog input from `cpu_cfig.h' to AST representation.
+Successfully finished Verilog frontend.
+
+2. Executing Verilog-2005 frontend: ct_pmp_comp_hit_gold.v
+Parsing SystemVerilog input from `ct_pmp_comp_hit_gold.v' to AST representation.
+Generating RTLIL representation for module `\ct_pmp_comp_hit'.
+Note: Assuming pure combinatorial block at ct_pmp_comp_hit_gold.v:58.1-71.4 in
+compliance with IEC 62142(E):2005 / IEEE Std. 1364.1(E):2002. Recommending
+use of @* instead of @(...) for better match of synthesis and simulation.
+Note: Assuming pure combinatorial block at ct_pmp_comp_hit_gold.v:96.1-131.4 in
+compliance with IEC 62142(E):2005 / IEEE Std. 1364.1(E):2002. Recommending
+use of @* instead of @(...) for better match of synthesis and simulation.
+Successfully finished Verilog frontend.
+
+3. Executing Verilog-2005 frontend: ct_pmp_acc_gold.v
+Parsing SystemVerilog input from `ct_pmp_acc_gold.v' to AST representation.
+Generating RTLIL representation for module `\ct_pmp_acc'.
+Note: Assuming pure combinatorial block at ct_pmp_acc_gold.v:259.1-301.4 in
+compliance with IEC 62142(E):2005 / IEEE Std. 1364.1(E):2002. Recommending
+use of @* instead of @(...) for better match of synthesis and simulation.
+Successfully finished Verilog frontend.
+
+4. Executing HIERARCHY pass (managing design hierarchy).
+
+4.1. Analyzing design hierarchy..
+Top module:  \ct_pmp_acc
+Used module:     \ct_pmp_comp_hit
+
+4.2. Analyzing design hierarchy..
+Top module:  \ct_pmp_acc
+Used module:     \ct_pmp_comp_hit
+Removed 0 unused modules.
+
+5. Executing PROC pass (convert processes to netlists).
+
+5.1. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Cleaned up 0 empty switches.
+
+5.2. Executing PROC_RMDEAD pass (remove dead branches from decision trees).
+Removed 1 dead cases from process $proc$ct_pmp_acc_gold.v:259$12 in module ct_pmp_acc.
+Marked 1 switch rules as full_case in process $proc$ct_pmp_acc_gold.v:259$12 in module ct_pmp_acc.
+Marked 1 switch rules as full_case in process $proc$ct_pmp_comp_hit_gold.v:96$8 in module ct_pmp_comp_hit.
+Removed 1 dead cases from process $proc$ct_pmp_comp_hit_gold.v:58$1 in module ct_pmp_comp_hit.
+Marked 1 switch rules as full_case in process $proc$ct_pmp_comp_hit_gold.v:58$1 in module ct_pmp_comp_hit.
+Removed a total of 2 dead cases.
+
+5.3. Executing PROC_PRUNE pass (remove redundant assignments in processes).
+Removed 0 redundant assignments.
+Promoted 3 assignments to connections.
+
+5.4. Executing PROC_INIT pass (extract init attributes).
+
+5.5. Executing PROC_ARST pass (detect async resets in processes).
+
+5.6. Executing PROC_ROM pass (convert switches to ROMs).
+Converted 0 switches.
+<suppressed ~3 debug messages>
+
+5.7. Executing PROC_MUX pass (convert decision trees to multiplexers).
+Creating decoders for process `\ct_pmp_acc.$proc$ct_pmp_acc_gold.v:259$12'.
+     1/1: $1\pmp_mmu_flg_y[3:0]
+Creating decoders for process `\ct_pmp_comp_hit.$proc$ct_pmp_comp_hit_gold.v:96$8'.
+     1/1: $1\addr_mask[27:0]
+Creating decoders for process `\ct_pmp_comp_hit.$proc$ct_pmp_comp_hit_gold.v:58$1'.
+     1/1: $1\pmp_mmu_hit_x[0:0]
+
+5.8. Executing PROC_DLATCH pass (convert process syncs to latches).
+No latch inferred for signal `\ct_pmp_acc.\pmp_mmu_flg_y' from process `\ct_pmp_acc.$proc$ct_pmp_acc_gold.v:259$12'.
+No latch inferred for signal `\ct_pmp_comp_hit.\addr_mask' from process `\ct_pmp_comp_hit.$proc$ct_pmp_comp_hit_gold.v:96$8'.
+No latch inferred for signal `\ct_pmp_comp_hit.\pmp_mmu_hit_x' from process `\ct_pmp_comp_hit.$proc$ct_pmp_comp_hit_gold.v:58$1'.
+
+5.9. Executing PROC_DFF pass (convert process syncs to FFs).
+
+5.10. Executing PROC_MEMWR pass (convert process memory writes to cells).
+
+5.11. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Found and cleaned up 1 empty switch in `\ct_pmp_acc.$proc$ct_pmp_acc_gold.v:259$12'.
+Removing empty process `ct_pmp_acc.$proc$ct_pmp_acc_gold.v:259$12'.
+Found and cleaned up 1 empty switch in `\ct_pmp_comp_hit.$proc$ct_pmp_comp_hit_gold.v:96$8'.
+Removing empty process `ct_pmp_comp_hit.$proc$ct_pmp_comp_hit_gold.v:96$8'.
+Found and cleaned up 1 empty switch in `\ct_pmp_comp_hit.$proc$ct_pmp_comp_hit_gold.v:58$1'.
+Removing empty process `ct_pmp_comp_hit.$proc$ct_pmp_comp_hit_gold.v:58$1'.
+Cleaned up 3 empty switches.
+
+5.12. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_pmp_acc.
+<suppressed ~1 debug messages>
+Optimizing module ct_pmp_comp_hit.
+<suppressed ~2 debug messages>
+
+6. Executing OPT pass (performing simple optimizations).
+
+6.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_pmp_acc.
+Optimizing module ct_pmp_comp_hit.
+
+6.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_pmp_acc'.
+Computing hashes of 28 cells of `\ct_pmp_acc'.
+Finding duplicate cells in `\ct_pmp_acc'.
+Finding identical cells in module `\ct_pmp_comp_hit'.
+Computing hashes of 40 cells of `\ct_pmp_comp_hit'.
+Finding duplicate cells in `\ct_pmp_comp_hit'.
+Removed a total of 0 cells.
+
+6.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \ct_pmp_acc..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \ct_pmp_comp_hit..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~9 debug messages>
+
+6.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \ct_pmp_acc.
+  Optimizing cells in module \ct_pmp_comp_hit.
+    New ctrl vector for $pmux cell $procmux$62: { $procmux$63_CMP $auto$opt_reduce.cc:135:opt_pmux$68 $procmux$65_CMP }
+  Optimizing cells in module \ct_pmp_comp_hit.
+Performed a total of 1 changes.
+
+6.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_pmp_acc'.
+Computing hashes of 28 cells of `\ct_pmp_acc'.
+Finding duplicate cells in `\ct_pmp_acc'.
+Finding identical cells in module `\ct_pmp_comp_hit'.
+Computing hashes of 41 cells of `\ct_pmp_comp_hit'.
+Finding duplicate cells in `\ct_pmp_comp_hit'.
+Removed a total of 0 cells.
+
+6.6. Executing OPT_DFF pass (perform DFF optimizations).
+
+6.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_pmp_acc..
+Finding unused cells or wires in module \ct_pmp_comp_hit..
+Removed 0 unused cells and 17 unused wires.
+<suppressed ~2 debug messages>
+
+6.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_pmp_acc.
+<suppressed ~8 debug messages>
+Optimizing module ct_pmp_comp_hit.
+
+6.9. Rerunning OPT passes. (Maybe there is more to do..)
+
+6.10. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \ct_pmp_acc..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+    dead port 2/18 on $pmux $procmux$13.
+    dead port 3/18 on $pmux $procmux$13.
+    dead port 4/18 on $pmux $procmux$13.
+    dead port 5/18 on $pmux $procmux$13.
+    dead port 6/18 on $pmux $procmux$13.
+    dead port 7/18 on $pmux $procmux$13.
+    dead port 8/18 on $pmux $procmux$13.
+    dead port 9/18 on $pmux $procmux$13.
+Running muxtree optimizer on module \ct_pmp_comp_hit..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 8 multiplexer ports.
+<suppressed ~9 debug messages>
+
+6.11. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \ct_pmp_acc.
+  Optimizing cells in module \ct_pmp_comp_hit.
+Performed a total of 0 changes.
+
+6.12. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_pmp_acc'.
+Computing hashes of 20 cells of `\ct_pmp_acc'.
+Finding duplicate cells in `\ct_pmp_acc'.
+Finding identical cells in module `\ct_pmp_comp_hit'.
+Computing hashes of 41 cells of `\ct_pmp_comp_hit'.
+Finding duplicate cells in `\ct_pmp_comp_hit'.
+Removed a total of 0 cells.
+
+6.13. Executing OPT_DFF pass (perform DFF optimizations).
+
+6.14. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_pmp_acc..
+Finding unused cells or wires in module \ct_pmp_comp_hit..
+Removed 0 unused cells and 8 unused wires.
+<suppressed ~1 debug messages>
+
+6.15. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_pmp_acc.
+Optimizing module ct_pmp_comp_hit.
+
+6.16. Rerunning OPT passes. (Maybe there is more to do..)
+
+6.17. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \ct_pmp_acc..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \ct_pmp_comp_hit..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~9 debug messages>
+
+6.18. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \ct_pmp_acc.
+  Optimizing cells in module \ct_pmp_comp_hit.
+Performed a total of 0 changes.
+
+6.19. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_pmp_acc'.
+Computing hashes of 20 cells of `\ct_pmp_acc'.
+Finding duplicate cells in `\ct_pmp_acc'.
+Finding identical cells in module `\ct_pmp_comp_hit'.
+Computing hashes of 41 cells of `\ct_pmp_comp_hit'.
+Finding duplicate cells in `\ct_pmp_comp_hit'.
+Removed a total of 0 cells.
+
+6.20. Executing OPT_DFF pass (perform DFF optimizations).
+
+6.21. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_pmp_acc..
+Finding unused cells or wires in module \ct_pmp_comp_hit..
+
+6.22. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_pmp_acc.
+Optimizing module ct_pmp_comp_hit.
+
+6.23. Finished fast OPT passes. (There is nothing left to do.)
+
+7. Executing MEMORY pass.
+
+7.1. Executing OPT_MEM pass (optimize memories).
+Performed a total of 0 transformations.
+
+7.2. Executing OPT_MEM_PRIORITY pass (removing unnecessary memory write priority relations).
+Performed a total of 0 transformations.
+
+7.3. Executing OPT_MEM_FEEDBACK pass (finding memory read-to-write feedback paths).
+
+7.4. Executing MEMORY_BMUX2ROM pass (converting muxes to ROMs).
+
+7.5. Executing MEMORY_DFF pass (merging $dff cells to $memrd).
+
+7.6. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_pmp_acc..
+Finding unused cells or wires in module \ct_pmp_comp_hit..
+
+7.7. Executing MEMORY_SHARE pass (consolidating $memrd/$memwr cells).
+
+7.8. Executing OPT_MEM_WIDEN pass (optimize memories where all ports are wide).
+Performed a total of 0 transformations.
+
+7.9. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_pmp_acc..
+Finding unused cells or wires in module \ct_pmp_comp_hit..
+
+7.10. Executing MEMORY_COLLECT pass (generating $mem cells).
+
+7.11. Executing MEMORY_MAP pass (converting memories to logic and flip-flops).
+
+8. Executing OPT pass (performing simple optimizations).
+
+8.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_pmp_acc.
+Optimizing module ct_pmp_comp_hit.
+
+8.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_pmp_acc'.
+Computing hashes of 20 cells of `\ct_pmp_acc'.
+Finding duplicate cells in `\ct_pmp_acc'.
+Finding identical cells in module `\ct_pmp_comp_hit'.
+Computing hashes of 41 cells of `\ct_pmp_comp_hit'.
+Finding duplicate cells in `\ct_pmp_comp_hit'.
+Removed a total of 0 cells.
+
+8.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \ct_pmp_acc..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \ct_pmp_comp_hit..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~9 debug messages>
+
+8.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \ct_pmp_acc.
+  Optimizing cells in module \ct_pmp_comp_hit.
+Performed a total of 0 changes.
+
+8.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_pmp_acc'.
+Computing hashes of 20 cells of `\ct_pmp_acc'.
+Finding duplicate cells in `\ct_pmp_acc'.
+Finding identical cells in module `\ct_pmp_comp_hit'.
+Computing hashes of 41 cells of `\ct_pmp_comp_hit'.
+Finding duplicate cells in `\ct_pmp_comp_hit'.
+Removed a total of 0 cells.
+
+8.6. Executing OPT_DFF pass (perform DFF optimizations).
+
+8.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_pmp_acc..
+Finding unused cells or wires in module \ct_pmp_comp_hit..
+
+8.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_pmp_acc.
+Optimizing module ct_pmp_comp_hit.
+
+8.9. Finished fast OPT passes. (There is nothing left to do.)
+
+9. Executing FLATTEN pass (flatten design).
+Deleting now unused module ct_pmp_comp_hit.
+<suppressed ~8 debug messages>
+
+10. Executing OPT pass (performing simple optimizations).
+
+10.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_pmp_acc.
+<suppressed ~1 debug messages>
+
+10.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_pmp_acc'.
+Computing hashes of 347 cells of `\ct_pmp_acc'.
+Finding duplicate cells in `\ct_pmp_acc'.
+Removed a total of 0 cells.
+
+10.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \ct_pmp_acc..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~37 debug messages>
+
+10.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \ct_pmp_acc.
+Performed a total of 0 changes.
+
+10.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_pmp_acc'.
+Computing hashes of 347 cells of `\ct_pmp_acc'.
+Finding duplicate cells in `\ct_pmp_acc'.
+Removed a total of 0 cells.
+
+10.6. Executing OPT_DFF pass (perform DFF optimizations).
+
+10.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_pmp_acc..
+Removed 1 unused cells and 2 unused wires.
+<suppressed ~3 debug messages>
+
+10.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_pmp_acc.
+
+10.9. Rerunning OPT passes. (Maybe there is more to do..)
+
+10.10. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \ct_pmp_acc..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~37 debug messages>
+
+10.11. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \ct_pmp_acc.
+Performed a total of 0 changes.
+
+10.12. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_pmp_acc'.
+Computing hashes of 346 cells of `\ct_pmp_acc'.
+Finding duplicate cells in `\ct_pmp_acc'.
+Removed a total of 0 cells.
+
+10.13. Executing OPT_DFF pass (perform DFF optimizations).
+
+10.14. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_pmp_acc..
+
+10.15. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_pmp_acc.
+
+10.16. Finished fast OPT passes. (There is nothing left to do.)
+Renaming module \ct_pmp_acc to \gold.
+
+11. Executing RTLIL backend.
+Output filename: replay_out/ct_pmp_acc_gold.il
+
+End of script. Logfile hash: f5498a03ac, time: 0.04s, user: 0.04s, system: 0.01s, MEM: 18.38 MB peak
+Yosys 0.66+181 (git sha1 afe6b18f2, Release, Clang /usr/bin/clang++ 18.1.8)
+Time spent: 22% 8x opt_clean (0 sec), 19% 10x opt_expr (0 sec), ...

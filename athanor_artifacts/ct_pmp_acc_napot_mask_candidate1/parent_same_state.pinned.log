@@ -1,0 +1,1188 @@
+
+ /----------------------------------------------------------------------------\
+ |  yosys -- Yosys Open SYnthesis Suite                                       |
+ |  Copyright (C) 2012 - 2026  Claire Xenia Wolf <claire@yosyshq.com>         |
+ |  Distributed under an ISC-like license, type "license" to see terms        |
+ \----------------------------------------------------------------------------/
+ Yosys 0.66+181 (git sha1 afe6b18f2, Release, Clang /usr/bin/clang++ 18.1.8)
+
+-- Running command `read_rtlil replay_out/ct_pmp_acc_gold.il; read_rtlil replay_out/ct_pmp_acc_gate.il; equiv_make gold gate equiv; prep -top equiv; equiv_simple; equiv_status -assert' --
+
+1. Executing RTLIL frontend.
+Input filename: replay_out/ct_pmp_acc_gold.il
+
+2. Executing RTLIL frontend.
+Input filename: replay_out/ct_pmp_acc_gate.il
+
+3. Executing EQUIV_MAKE pass (creating equiv checking module).
+Presumably equivalent wires: x_ct_pmp_comp_hit_7.mmu_pmp_pa_y_gold (\mmu_pmp_pa_y_gold), x_ct_pmp_comp_hit_7.mmu_pmp_pa_y_gate (\mmu_pmp_pa_y_gate) -> x_ct_pmp_comp_hit_7.mmu_pmp_pa_y
+Presumably equivalent wires: x_ct_pmp_comp_hit_7.pmpaddr_x_value_gold (\pmpaddr7_value_gold), x_ct_pmp_comp_hit_7.pmpaddr_x_value_gate (\pmpaddr7_value_gate) -> x_ct_pmp_comp_hit_7.pmpaddr_x_value
+Presumably equivalent wires: x_ct_pmp_comp_hit_7.mmu_addr_ge_bottom_x_gold (\x_ct_pmp_comp_hit_6.mmu_addr_ge_upaddr_x_gold), x_ct_pmp_comp_hit_7.mmu_addr_ge_bottom_x_gate (\x_ct_pmp_comp_hit_6.mmu_addr_ge_upaddr_x_gate) -> x_ct_pmp_comp_hit_7.mmu_addr_ge_bottom_x
+Presumably equivalent wires: x_ct_pmp_comp_hit_7.pmp_mmu_hit_x_gold (\pmp_mmu_hit7_gold), x_ct_pmp_comp_hit_7.pmp_mmu_hit_x_gate (\pmp_mmu_hit7_gate) -> x_ct_pmp_comp_hit_7.pmp_mmu_hit_x
+Presumably equivalent wires: x_ct_pmp_comp_hit_7.addr_mask_gold (\x_ct_pmp_comp_hit_7.addr_mask_gold), x_ct_pmp_comp_hit_7.addr_mask_gate (\x_ct_pmp_comp_hit_7.addr_mask_gate) -> x_ct_pmp_comp_hit_7.addr_mask
+Presumably equivalent wires: x_ct_pmp_comp_hit_7.mmu_addr_ls_top_gold (\x_ct_pmp_comp_hit_7.mmu_comp_adder_gold [28]), x_ct_pmp_comp_hit_7.mmu_addr_ls_top_gate (\x_ct_pmp_comp_hit_7.mmu_comp_adder_gate [28]) -> x_ct_pmp_comp_hit_7.mmu_addr_ls_top
+Presumably equivalent wires: x_ct_pmp_comp_hit_7.mmu_comp_adder_gold (\x_ct_pmp_comp_hit_7.mmu_comp_adder_gold), x_ct_pmp_comp_hit_7.mmu_comp_adder_gate (\x_ct_pmp_comp_hit_7.mmu_comp_adder_gate) -> x_ct_pmp_comp_hit_7.mmu_comp_adder
+Presumably equivalent wires: x_ct_pmp_comp_hit_7.mmu_na4_addr_match_gold (1'0), x_ct_pmp_comp_hit_7.mmu_na4_addr_match_gate (1'0) -> x_ct_pmp_comp_hit_7.mmu_na4_addr_match
+Presumably equivalent wires: x_ct_pmp_comp_hit_7.mmu_napot_addr_match_gold (\x_ct_pmp_comp_hit_7.mmu_napot_addr_match_gold), x_ct_pmp_comp_hit_7.mmu_napot_addr_match_gate (\x_ct_pmp_comp_hit_7.mmu_napot_addr_match_gate) -> x_ct_pmp_comp_hit_7.mmu_napot_addr_match
+Presumably equivalent wires: x_ct_pmp_comp_hit_7.mmu_tor_addr_match_gold (\x_ct_pmp_comp_hit_7.mmu_tor_addr_match_gold), x_ct_pmp_comp_hit_7.mmu_tor_addr_match_gate (\x_ct_pmp_comp_hit_7.mmu_tor_addr_match_gate) -> x_ct_pmp_comp_hit_7.mmu_tor_addr_match
+Presumably equivalent wires: x_ct_pmp_comp_hit_6.addr_match_mode_x_gold (\pmpcfg0_value_gold [52:51]), x_ct_pmp_comp_hit_6.addr_match_mode_x_gate (\pmpcfg0_value_gate [52:51]) -> x_ct_pmp_comp_hit_6.addr_match_mode_x
+Presumably equivalent wires: x_ct_pmp_comp_hit_6.mmu_addr_ge_bottom_x_gold (\x_ct_pmp_comp_hit_5.mmu_addr_ge_upaddr_x_gold), x_ct_pmp_comp_hit_6.mmu_addr_ge_bottom_x_gate (\x_ct_pmp_comp_hit_5.mmu_addr_ge_upaddr_x_gate) -> x_ct_pmp_comp_hit_6.mmu_addr_ge_bottom_x
+Presumably equivalent wires: x_ct_pmp_comp_hit_6.mmu_pmp_pa_y_gold (\mmu_pmp_pa_y_gold), x_ct_pmp_comp_hit_6.mmu_pmp_pa_y_gate (\mmu_pmp_pa_y_gate) -> x_ct_pmp_comp_hit_6.mmu_pmp_pa_y
+Presumably equivalent wires: x_ct_pmp_comp_hit_6.pmpaddr_x_value_gold (\pmpaddr6_value_gold), x_ct_pmp_comp_hit_6.pmpaddr_x_value_gate (\pmpaddr6_value_gate) -> x_ct_pmp_comp_hit_6.pmpaddr_x_value
+Presumably equivalent wires: x_ct_pmp_comp_hit_6.mmu_addr_ge_upaddr_x_gold (\x_ct_pmp_comp_hit_6.mmu_addr_ge_upaddr_x_gold), x_ct_pmp_comp_hit_6.mmu_addr_ge_upaddr_x_gate (\x_ct_pmp_comp_hit_6.mmu_addr_ge_upaddr_x_gate) -> x_ct_pmp_comp_hit_6.mmu_addr_ge_upaddr_x
+Presumably equivalent wires: x_ct_pmp_comp_hit_6.pmp_mmu_hit_x_gold (\pmp_mmu_hit6_gold), x_ct_pmp_comp_hit_6.pmp_mmu_hit_x_gate (\pmp_mmu_hit6_gate) -> x_ct_pmp_comp_hit_6.pmp_mmu_hit_x
+Presumably equivalent wires: x_ct_pmp_comp_hit_6.addr_mask_gold (\x_ct_pmp_comp_hit_6.addr_mask_gold), x_ct_pmp_comp_hit_6.addr_mask_gate (\x_ct_pmp_comp_hit_6.addr_mask_gate) -> x_ct_pmp_comp_hit_6.addr_mask
+Presumably equivalent wires: x_ct_pmp_comp_hit_6.mmu_addr_ls_top_gold (\x_ct_pmp_comp_hit_6.mmu_comp_adder_gold [28]), x_ct_pmp_comp_hit_6.mmu_addr_ls_top_gate (\x_ct_pmp_comp_hit_6.mmu_comp_adder_gate [28]) -> x_ct_pmp_comp_hit_6.mmu_addr_ls_top
+Presumably equivalent wires: x_ct_pmp_comp_hit_6.mmu_comp_adder_gold (\x_ct_pmp_comp_hit_6.mmu_comp_adder_gold), x_ct_pmp_comp_hit_6.mmu_comp_adder_gate (\x_ct_pmp_comp_hit_6.mmu_comp_adder_gate) -> x_ct_pmp_comp_hit_6.mmu_comp_adder
+Presumably equivalent wires: x_ct_pmp_comp_hit_6.mmu_na4_addr_match_gold (1'0), x_ct_pmp_comp_hit_6.mmu_na4_addr_match_gate (1'0) -> x_ct_pmp_comp_hit_6.mmu_na4_addr_match
+Presumably equivalent wires: x_ct_pmp_comp_hit_6.mmu_napot_addr_match_gold (\x_ct_pmp_comp_hit_6.mmu_napot_addr_match_gold), x_ct_pmp_comp_hit_6.mmu_napot_addr_match_gate (\x_ct_pmp_comp_hit_6.mmu_napot_addr_match_gate) -> x_ct_pmp_comp_hit_6.mmu_napot_addr_match
+Presumably equivalent wires: x_ct_pmp_comp_hit_6.mmu_tor_addr_match_gold (\x_ct_pmp_comp_hit_6.mmu_tor_addr_match_gold), x_ct_pmp_comp_hit_6.mmu_tor_addr_match_gate (\x_ct_pmp_comp_hit_6.mmu_tor_addr_match_gate) -> x_ct_pmp_comp_hit_6.mmu_tor_addr_match
+Presumably equivalent wires: x_ct_pmp_comp_hit_5.addr_match_mode_x_gold (\pmpcfg0_value_gold [44:43]), x_ct_pmp_comp_hit_5.addr_match_mode_x_gate (\pmpcfg0_value_gate [44:43]) -> x_ct_pmp_comp_hit_5.addr_match_mode_x
+Presumably equivalent wires: x_ct_pmp_comp_hit_5.mmu_addr_ge_bottom_x_gold (\x_ct_pmp_comp_hit_4.mmu_addr_ge_upaddr_x_gold), x_ct_pmp_comp_hit_5.mmu_addr_ge_bottom_x_gate (\x_ct_pmp_comp_hit_4.mmu_addr_ge_upaddr_x_gate) -> x_ct_pmp_comp_hit_5.mmu_addr_ge_bottom_x
+Presumably equivalent wires: x_ct_pmp_comp_hit_5.mmu_pmp_pa_y_gold (\mmu_pmp_pa_y_gold), x_ct_pmp_comp_hit_5.mmu_pmp_pa_y_gate (\mmu_pmp_pa_y_gate) -> x_ct_pmp_comp_hit_5.mmu_pmp_pa_y
+Presumably equivalent wires: x_ct_pmp_comp_hit_5.pmpaddr_x_value_gold (\pmpaddr5_value_gold), x_ct_pmp_comp_hit_5.pmpaddr_x_value_gate (\pmpaddr5_value_gate) -> x_ct_pmp_comp_hit_5.pmpaddr_x_value
+Presumably equivalent wires: x_ct_pmp_comp_hit_5.mmu_addr_ge_upaddr_x_gold (\x_ct_pmp_comp_hit_5.mmu_addr_ge_upaddr_x_gold), x_ct_pmp_comp_hit_5.mmu_addr_ge_upaddr_x_gate (\x_ct_pmp_comp_hit_5.mmu_addr_ge_upaddr_x_gate) -> x_ct_pmp_comp_hit_5.mmu_addr_ge_upaddr_x
+Presumably equivalent wires: x_ct_pmp_comp_hit_5.pmp_mmu_hit_x_gold (\pmp_mmu_hit5_gold), x_ct_pmp_comp_hit_5.pmp_mmu_hit_x_gate (\pmp_mmu_hit5_gate) -> x_ct_pmp_comp_hit_5.pmp_mmu_hit_x
+Presumably equivalent wires: x_ct_pmp_comp_hit_5.addr_mask_gold (\x_ct_pmp_comp_hit_5.addr_mask_gold), x_ct_pmp_comp_hit_5.addr_mask_gate (\x_ct_pmp_comp_hit_5.addr_mask_gate) -> x_ct_pmp_comp_hit_5.addr_mask
+Presumably equivalent wires: x_ct_pmp_comp_hit_5.mmu_addr_ls_top_gold (\x_ct_pmp_comp_hit_5.mmu_comp_adder_gold [28]), x_ct_pmp_comp_hit_5.mmu_addr_ls_top_gate (\x_ct_pmp_comp_hit_5.mmu_comp_adder_gate [28]) -> x_ct_pmp_comp_hit_5.mmu_addr_ls_top
+Presumably equivalent wires: x_ct_pmp_comp_hit_5.mmu_comp_adder_gold (\x_ct_pmp_comp_hit_5.mmu_comp_adder_gold), x_ct_pmp_comp_hit_5.mmu_comp_adder_gate (\x_ct_pmp_comp_hit_5.mmu_comp_adder_gate) -> x_ct_pmp_comp_hit_5.mmu_comp_adder
+Presumably equivalent wires: x_ct_pmp_comp_hit_5.mmu_na4_addr_match_gold (1'0), x_ct_pmp_comp_hit_5.mmu_na4_addr_match_gate (1'0) -> x_ct_pmp_comp_hit_5.mmu_na4_addr_match
+Presumably equivalent wires: x_ct_pmp_comp_hit_5.mmu_napot_addr_match_gold (\x_ct_pmp_comp_hit_5.mmu_napot_addr_match_gold), x_ct_pmp_comp_hit_5.mmu_napot_addr_match_gate (\x_ct_pmp_comp_hit_5.mmu_napot_addr_match_gate) -> x_ct_pmp_comp_hit_5.mmu_napot_addr_match
+Presumably equivalent wires: x_ct_pmp_comp_hit_5.mmu_tor_addr_match_gold (\x_ct_pmp_comp_hit_5.mmu_tor_addr_match_gold), x_ct_pmp_comp_hit_5.mmu_tor_addr_match_gate (\x_ct_pmp_comp_hit_5.mmu_tor_addr_match_gate) -> x_ct_pmp_comp_hit_5.mmu_tor_addr_match
+Presumably equivalent wires: x_ct_pmp_comp_hit_4.addr_match_mode_x_gold (\pmpcfg0_value_gold [36:35]), x_ct_pmp_comp_hit_4.addr_match_mode_x_gate (\pmpcfg0_value_gate [36:35]) -> x_ct_pmp_comp_hit_4.addr_match_mode_x
+Presumably equivalent wires: x_ct_pmp_comp_hit_4.mmu_addr_ge_bottom_x_gold (\x_ct_pmp_comp_hit_3.mmu_addr_ge_upaddr_x_gold), x_ct_pmp_comp_hit_4.mmu_addr_ge_bottom_x_gate (\x_ct_pmp_comp_hit_3.mmu_addr_ge_upaddr_x_gate) -> x_ct_pmp_comp_hit_4.mmu_addr_ge_bottom_x
+Presumably equivalent wires: x_ct_pmp_comp_hit_4.mmu_pmp_pa_y_gold (\mmu_pmp_pa_y_gold), x_ct_pmp_comp_hit_4.mmu_pmp_pa_y_gate (\mmu_pmp_pa_y_gate) -> x_ct_pmp_comp_hit_4.mmu_pmp_pa_y
+Presumably equivalent wires: x_ct_pmp_comp_hit_4.pmpaddr_x_value_gold (\pmpaddr4_value_gold), x_ct_pmp_comp_hit_4.pmpaddr_x_value_gate (\pmpaddr4_value_gate) -> x_ct_pmp_comp_hit_4.pmpaddr_x_value
+Presumably equivalent wires: x_ct_pmp_comp_hit_4.mmu_addr_ge_upaddr_x_gold (\x_ct_pmp_comp_hit_4.mmu_addr_ge_upaddr_x_gold), x_ct_pmp_comp_hit_4.mmu_addr_ge_upaddr_x_gate (\x_ct_pmp_comp_hit_4.mmu_addr_ge_upaddr_x_gate) -> x_ct_pmp_comp_hit_4.mmu_addr_ge_upaddr_x
+Presumably equivalent wires: x_ct_pmp_comp_hit_4.pmp_mmu_hit_x_gold (\pmp_mmu_hit4_gold), x_ct_pmp_comp_hit_4.pmp_mmu_hit_x_gate (\pmp_mmu_hit4_gate) -> x_ct_pmp_comp_hit_4.pmp_mmu_hit_x
+Presumably equivalent wires: x_ct_pmp_comp_hit_4.addr_mask_gold (\x_ct_pmp_comp_hit_4.addr_mask_gold), x_ct_pmp_comp_hit_4.addr_mask_gate (\x_ct_pmp_comp_hit_4.addr_mask_gate) -> x_ct_pmp_comp_hit_4.addr_mask
+Presumably equivalent wires: x_ct_pmp_comp_hit_4.mmu_addr_ls_top_gold (\x_ct_pmp_comp_hit_4.mmu_comp_adder_gold [28]), x_ct_pmp_comp_hit_4.mmu_addr_ls_top_gate (\x_ct_pmp_comp_hit_4.mmu_comp_adder_gate [28]) -> x_ct_pmp_comp_hit_4.mmu_addr_ls_top
+Presumably equivalent wires: x_ct_pmp_comp_hit_4.mmu_comp_adder_gold (\x_ct_pmp_comp_hit_4.mmu_comp_adder_gold), x_ct_pmp_comp_hit_4.mmu_comp_adder_gate (\x_ct_pmp_comp_hit_4.mmu_comp_adder_gate) -> x_ct_pmp_comp_hit_4.mmu_comp_adder
+Presumably equivalent wires: x_ct_pmp_comp_hit_4.mmu_na4_addr_match_gold (1'0), x_ct_pmp_comp_hit_4.mmu_na4_addr_match_gate (1'0) -> x_ct_pmp_comp_hit_4.mmu_na4_addr_match
+Presumably equivalent wires: x_ct_pmp_comp_hit_4.mmu_napot_addr_match_gold (\x_ct_pmp_comp_hit_4.mmu_napot_addr_match_gold), x_ct_pmp_comp_hit_4.mmu_napot_addr_match_gate (\x_ct_pmp_comp_hit_4.mmu_napot_addr_match_gate) -> x_ct_pmp_comp_hit_4.mmu_napot_addr_match
+Presumably equivalent wires: x_ct_pmp_comp_hit_4.mmu_tor_addr_match_gold (\x_ct_pmp_comp_hit_4.mmu_tor_addr_match_gold), x_ct_pmp_comp_hit_4.mmu_tor_addr_match_gate (\x_ct_pmp_comp_hit_4.mmu_tor_addr_match_gate) -> x_ct_pmp_comp_hit_4.mmu_tor_addr_match
+Presumably equivalent wires: x_ct_pmp_comp_hit_3.addr_match_mode_x_gold (\pmpcfg0_value_gold [28:27]), x_ct_pmp_comp_hit_3.addr_match_mode_x_gate (\pmpcfg0_value_gate [28:27]) -> x_ct_pmp_comp_hit_3.addr_match_mode_x
+Presumably equivalent wires: x_ct_pmp_comp_hit_3.mmu_addr_ge_bottom_x_gold (\x_ct_pmp_comp_hit_2.mmu_addr_ge_upaddr_x_gold), x_ct_pmp_comp_hit_3.mmu_addr_ge_bottom_x_gate (\x_ct_pmp_comp_hit_2.mmu_addr_ge_upaddr_x_gate) -> x_ct_pmp_comp_hit_3.mmu_addr_ge_bottom_x
+Presumably equivalent wires: x_ct_pmp_comp_hit_3.mmu_pmp_pa_y_gold (\mmu_pmp_pa_y_gold), x_ct_pmp_comp_hit_3.mmu_pmp_pa_y_gate (\mmu_pmp_pa_y_gate) -> x_ct_pmp_comp_hit_3.mmu_pmp_pa_y
+Presumably equivalent wires: x_ct_pmp_comp_hit_3.pmpaddr_x_value_gold (\pmpaddr3_value_gold), x_ct_pmp_comp_hit_3.pmpaddr_x_value_gate (\pmpaddr3_value_gate) -> x_ct_pmp_comp_hit_3.pmpaddr_x_value
+Presumably equivalent wires: x_ct_pmp_comp_hit_3.mmu_addr_ge_upaddr_x_gold (\x_ct_pmp_comp_hit_3.mmu_addr_ge_upaddr_x_gold), x_ct_pmp_comp_hit_3.mmu_addr_ge_upaddr_x_gate (\x_ct_pmp_comp_hit_3.mmu_addr_ge_upaddr_x_gate) -> x_ct_pmp_comp_hit_3.mmu_addr_ge_upaddr_x
+Presumably equivalent wires: x_ct_pmp_comp_hit_3.pmp_mmu_hit_x_gold (\pmp_mmu_hit3_gold), x_ct_pmp_comp_hit_3.pmp_mmu_hit_x_gate (\pmp_mmu_hit3_gate) -> x_ct_pmp_comp_hit_3.pmp_mmu_hit_x
+Presumably equivalent wires: x_ct_pmp_comp_hit_3.addr_mask_gold (\x_ct_pmp_comp_hit_3.addr_mask_gold), x_ct_pmp_comp_hit_3.addr_mask_gate (\x_ct_pmp_comp_hit_3.addr_mask_gate) -> x_ct_pmp_comp_hit_3.addr_mask
+Presumably equivalent wires: x_ct_pmp_comp_hit_3.mmu_addr_ls_top_gold (\x_ct_pmp_comp_hit_3.mmu_comp_adder_gold [28]), x_ct_pmp_comp_hit_3.mmu_addr_ls_top_gate (\x_ct_pmp_comp_hit_3.mmu_comp_adder_gate [28]) -> x_ct_pmp_comp_hit_3.mmu_addr_ls_top
+Presumably equivalent wires: x_ct_pmp_comp_hit_3.mmu_comp_adder_gold (\x_ct_pmp_comp_hit_3.mmu_comp_adder_gold), x_ct_pmp_comp_hit_3.mmu_comp_adder_gate (\x_ct_pmp_comp_hit_3.mmu_comp_adder_gate) -> x_ct_pmp_comp_hit_3.mmu_comp_adder
+Presumably equivalent wires: x_ct_pmp_comp_hit_3.mmu_na4_addr_match_gold (1'0), x_ct_pmp_comp_hit_3.mmu_na4_addr_match_gate (1'0) -> x_ct_pmp_comp_hit_3.mmu_na4_addr_match
+Presumably equivalent wires: x_ct_pmp_comp_hit_3.mmu_napot_addr_match_gold (\x_ct_pmp_comp_hit_3.mmu_napot_addr_match_gold), x_ct_pmp_comp_hit_3.mmu_napot_addr_match_gate (\x_ct_pmp_comp_hit_3.mmu_napot_addr_match_gate) -> x_ct_pmp_comp_hit_3.mmu_napot_addr_match
+Presumably equivalent wires: x_ct_pmp_comp_hit_3.mmu_tor_addr_match_gold (\x_ct_pmp_comp_hit_3.mmu_tor_addr_match_gold), x_ct_pmp_comp_hit_3.mmu_tor_addr_match_gate (\x_ct_pmp_comp_hit_3.mmu_tor_addr_match_gate) -> x_ct_pmp_comp_hit_3.mmu_tor_addr_match
+Presumably equivalent wires: x_ct_pmp_comp_hit_2.addr_match_mode_x_gold (\pmpcfg0_value_gold [20:19]), x_ct_pmp_comp_hit_2.addr_match_mode_x_gate (\pmpcfg0_value_gate [20:19]) -> x_ct_pmp_comp_hit_2.addr_match_mode_x
+Presumably equivalent wires: x_ct_pmp_comp_hit_2.mmu_addr_ge_bottom_x_gold (\x_ct_pmp_comp_hit_1.mmu_addr_ge_upaddr_x_gold), x_ct_pmp_comp_hit_2.mmu_addr_ge_bottom_x_gate (\x_ct_pmp_comp_hit_1.mmu_addr_ge_upaddr_x_gate) -> x_ct_pmp_comp_hit_2.mmu_addr_ge_bottom_x
+Presumably equivalent wires: x_ct_pmp_comp_hit_2.mmu_pmp_pa_y_gold (\mmu_pmp_pa_y_gold), x_ct_pmp_comp_hit_2.mmu_pmp_pa_y_gate (\mmu_pmp_pa_y_gate) -> x_ct_pmp_comp_hit_2.mmu_pmp_pa_y
+Presumably equivalent wires: x_ct_pmp_comp_hit_2.pmpaddr_x_value_gold (\pmpaddr2_value_gold), x_ct_pmp_comp_hit_2.pmpaddr_x_value_gate (\pmpaddr2_value_gate) -> x_ct_pmp_comp_hit_2.pmpaddr_x_value
+Presumably equivalent wires: x_ct_pmp_comp_hit_2.mmu_addr_ge_upaddr_x_gold (\x_ct_pmp_comp_hit_2.mmu_addr_ge_upaddr_x_gold), x_ct_pmp_comp_hit_2.mmu_addr_ge_upaddr_x_gate (\x_ct_pmp_comp_hit_2.mmu_addr_ge_upaddr_x_gate) -> x_ct_pmp_comp_hit_2.mmu_addr_ge_upaddr_x
+Presumably equivalent wires: x_ct_pmp_comp_hit_2.pmp_mmu_hit_x_gold (\pmp_mmu_hit2_gold), x_ct_pmp_comp_hit_2.pmp_mmu_hit_x_gate (\pmp_mmu_hit2_gate) -> x_ct_pmp_comp_hit_2.pmp_mmu_hit_x
+Presumably equivalent wires: x_ct_pmp_comp_hit_2.addr_mask_gold (\x_ct_pmp_comp_hit_2.addr_mask_gold), x_ct_pmp_comp_hit_2.addr_mask_gate (\x_ct_pmp_comp_hit_2.addr_mask_gate) -> x_ct_pmp_comp_hit_2.addr_mask
+Presumably equivalent wires: x_ct_pmp_comp_hit_2.mmu_addr_ls_top_gold (\x_ct_pmp_comp_hit_2.mmu_comp_adder_gold [28]), x_ct_pmp_comp_hit_2.mmu_addr_ls_top_gate (\x_ct_pmp_comp_hit_2.mmu_comp_adder_gate [28]) -> x_ct_pmp_comp_hit_2.mmu_addr_ls_top
+Presumably equivalent wires: x_ct_pmp_comp_hit_2.mmu_comp_adder_gold (\x_ct_pmp_comp_hit_2.mmu_comp_adder_gold), x_ct_pmp_comp_hit_2.mmu_comp_adder_gate (\x_ct_pmp_comp_hit_2.mmu_comp_adder_gate) -> x_ct_pmp_comp_hit_2.mmu_comp_adder
+Presumably equivalent wires: x_ct_pmp_comp_hit_2.mmu_na4_addr_match_gold (1'0), x_ct_pmp_comp_hit_2.mmu_na4_addr_match_gate (1'0) -> x_ct_pmp_comp_hit_2.mmu_na4_addr_match
+Presumably equivalent wires: x_ct_pmp_comp_hit_2.mmu_napot_addr_match_gold (\x_ct_pmp_comp_hit_2.mmu_napot_addr_match_gold), x_ct_pmp_comp_hit_2.mmu_napot_addr_match_gate (\x_ct_pmp_comp_hit_2.mmu_napot_addr_match_gate) -> x_ct_pmp_comp_hit_2.mmu_napot_addr_match
+Presumably equivalent wires: x_ct_pmp_comp_hit_2.mmu_tor_addr_match_gold (\x_ct_pmp_comp_hit_2.mmu_tor_addr_match_gold), x_ct_pmp_comp_hit_2.mmu_tor_addr_match_gate (\x_ct_pmp_comp_hit_2.mmu_tor_addr_match_gate) -> x_ct_pmp_comp_hit_2.mmu_tor_addr_match
+Presumably equivalent wires: x_ct_pmp_comp_hit_1.addr_match_mode_x_gold (\pmpcfg0_value_gold [12:11]), x_ct_pmp_comp_hit_1.addr_match_mode_x_gate (\pmpcfg0_value_gate [12:11]) -> x_ct_pmp_comp_hit_1.addr_match_mode_x
+Presumably equivalent wires: x_ct_pmp_comp_hit_1.mmu_addr_ge_bottom_x_gold (\x_ct_pmp_comp_hit_0.mmu_addr_ge_upaddr_x_gold), x_ct_pmp_comp_hit_1.mmu_addr_ge_bottom_x_gate (\x_ct_pmp_comp_hit_0.mmu_addr_ge_upaddr_x_gate) -> x_ct_pmp_comp_hit_1.mmu_addr_ge_bottom_x
+Presumably equivalent wires: x_ct_pmp_comp_hit_1.mmu_pmp_pa_y_gold (\mmu_pmp_pa_y_gold), x_ct_pmp_comp_hit_1.mmu_pmp_pa_y_gate (\mmu_pmp_pa_y_gate) -> x_ct_pmp_comp_hit_1.mmu_pmp_pa_y
+Presumably equivalent wires: x_ct_pmp_comp_hit_1.pmpaddr_x_value_gold (\pmpaddr1_value_gold), x_ct_pmp_comp_hit_1.pmpaddr_x_value_gate (\pmpaddr1_value_gate) -> x_ct_pmp_comp_hit_1.pmpaddr_x_value
+Presumably equivalent wires: x_ct_pmp_comp_hit_1.mmu_addr_ge_upaddr_x_gold (\x_ct_pmp_comp_hit_1.mmu_addr_ge_upaddr_x_gold), x_ct_pmp_comp_hit_1.mmu_addr_ge_upaddr_x_gate (\x_ct_pmp_comp_hit_1.mmu_addr_ge_upaddr_x_gate) -> x_ct_pmp_comp_hit_1.mmu_addr_ge_upaddr_x
+Presumably equivalent wires: x_ct_pmp_comp_hit_1.pmp_mmu_hit_x_gold (\pmp_mmu_hit1_gold), x_ct_pmp_comp_hit_1.pmp_mmu_hit_x_gate (\pmp_mmu_hit1_gate) -> x_ct_pmp_comp_hit_1.pmp_mmu_hit_x
+Presumably equivalent wires: x_ct_pmp_comp_hit_1.addr_mask_gold (\x_ct_pmp_comp_hit_1.addr_mask_gold), x_ct_pmp_comp_hit_1.addr_mask_gate (\x_ct_pmp_comp_hit_1.addr_mask_gate) -> x_ct_pmp_comp_hit_1.addr_mask
+Presumably equivalent wires: x_ct_pmp_comp_hit_1.mmu_addr_ls_top_gold (\x_ct_pmp_comp_hit_1.mmu_comp_adder_gold [28]), x_ct_pmp_comp_hit_1.mmu_addr_ls_top_gate (\x_ct_pmp_comp_hit_1.mmu_comp_adder_gate [28]) -> x_ct_pmp_comp_hit_1.mmu_addr_ls_top
+Presumably equivalent wires: x_ct_pmp_comp_hit_1.mmu_comp_adder_gold (\x_ct_pmp_comp_hit_1.mmu_comp_adder_gold), x_ct_pmp_comp_hit_1.mmu_comp_adder_gate (\x_ct_pmp_comp_hit_1.mmu_comp_adder_gate) -> x_ct_pmp_comp_hit_1.mmu_comp_adder
+Presumably equivalent wires: x_ct_pmp_comp_hit_1.mmu_na4_addr_match_gold (1'0), x_ct_pmp_comp_hit_1.mmu_na4_addr_match_gate (1'0) -> x_ct_pmp_comp_hit_1.mmu_na4_addr_match
+Presumably equivalent wires: x_ct_pmp_comp_hit_1.mmu_napot_addr_match_gold (\x_ct_pmp_comp_hit_1.mmu_napot_addr_match_gold), x_ct_pmp_comp_hit_1.mmu_napot_addr_match_gate (\x_ct_pmp_comp_hit_1.mmu_napot_addr_match_gate) -> x_ct_pmp_comp_hit_1.mmu_napot_addr_match
+Presumably equivalent wires: x_ct_pmp_comp_hit_1.mmu_tor_addr_match_gold (\x_ct_pmp_comp_hit_1.mmu_tor_addr_match_gold), x_ct_pmp_comp_hit_1.mmu_tor_addr_match_gate (\x_ct_pmp_comp_hit_1.mmu_tor_addr_match_gate) -> x_ct_pmp_comp_hit_1.mmu_tor_addr_match
+Presumably equivalent wires: x_ct_pmp_comp_hit_0.addr_match_mode_x_gold (\pmpcfg0_value_gold [4:3]), x_ct_pmp_comp_hit_0.addr_match_mode_x_gate (\pmpcfg0_value_gate [4:3]) -> x_ct_pmp_comp_hit_0.addr_match_mode_x
+Presumably equivalent wires: x_ct_pmp_comp_hit_0.mmu_addr_ge_bottom_x_gold (1'1), x_ct_pmp_comp_hit_0.mmu_addr_ge_bottom_x_gate (1'1) -> x_ct_pmp_comp_hit_0.mmu_addr_ge_bottom_x
+Presumably equivalent wires: x_ct_pmp_comp_hit_0.mmu_pmp_pa_y_gold (\mmu_pmp_pa_y_gold), x_ct_pmp_comp_hit_0.mmu_pmp_pa_y_gate (\mmu_pmp_pa_y_gate) -> x_ct_pmp_comp_hit_0.mmu_pmp_pa_y
+Presumably equivalent wires: x_ct_pmp_comp_hit_0.pmpaddr_x_value_gold (\pmpaddr0_value_gold), x_ct_pmp_comp_hit_0.pmpaddr_x_value_gate (\pmpaddr0_value_gate) -> x_ct_pmp_comp_hit_0.pmpaddr_x_value
+Presumably equivalent wires: x_ct_pmp_comp_hit_0.mmu_addr_ge_upaddr_x_gold (\x_ct_pmp_comp_hit_0.mmu_addr_ge_upaddr_x_gold), x_ct_pmp_comp_hit_0.mmu_addr_ge_upaddr_x_gate (\x_ct_pmp_comp_hit_0.mmu_addr_ge_upaddr_x_gate) -> x_ct_pmp_comp_hit_0.mmu_addr_ge_upaddr_x
+Presumably equivalent wires: x_ct_pmp_comp_hit_0.pmp_mmu_hit_x_gold (\pmp_mmu_hit0_gold), x_ct_pmp_comp_hit_0.pmp_mmu_hit_x_gate (\pmp_mmu_hit0_gate) -> x_ct_pmp_comp_hit_0.pmp_mmu_hit_x
+Presumably equivalent wires: x_ct_pmp_comp_hit_0.addr_mask_gold (\x_ct_pmp_comp_hit_0.addr_mask_gold), x_ct_pmp_comp_hit_0.addr_mask_gate (\x_ct_pmp_comp_hit_0.addr_mask_gate) -> x_ct_pmp_comp_hit_0.addr_mask
+Presumably equivalent wires: x_ct_pmp_comp_hit_0.mmu_addr_ls_top_gold (\x_ct_pmp_comp_hit_0.mmu_comp_adder_gold [28]), x_ct_pmp_comp_hit_0.mmu_addr_ls_top_gate (\x_ct_pmp_comp_hit_0.mmu_comp_adder_gate [28]) -> x_ct_pmp_comp_hit_0.mmu_addr_ls_top
+Presumably equivalent wires: x_ct_pmp_comp_hit_0.mmu_comp_adder_gold (\x_ct_pmp_comp_hit_0.mmu_comp_adder_gold), x_ct_pmp_comp_hit_0.mmu_comp_adder_gate (\x_ct_pmp_comp_hit_0.mmu_comp_adder_gate) -> x_ct_pmp_comp_hit_0.mmu_comp_adder
+Presumably equivalent wires: x_ct_pmp_comp_hit_0.mmu_na4_addr_match_gold (1'0), x_ct_pmp_comp_hit_0.mmu_na4_addr_match_gate (1'0) -> x_ct_pmp_comp_hit_0.mmu_na4_addr_match
+Presumably equivalent wires: x_ct_pmp_comp_hit_0.mmu_napot_addr_match_gold (\x_ct_pmp_comp_hit_0.mmu_napot_addr_match_gold), x_ct_pmp_comp_hit_0.mmu_napot_addr_match_gate (\x_ct_pmp_comp_hit_0.mmu_napot_addr_match_gate) -> x_ct_pmp_comp_hit_0.mmu_napot_addr_match
+Presumably equivalent wires: x_ct_pmp_comp_hit_0.mmu_tor_addr_match_gold (\x_ct_pmp_comp_hit_0.mmu_comp_adder_gold [28]), x_ct_pmp_comp_hit_0.mmu_tor_addr_match_gate (\x_ct_pmp_comp_hit_0.mmu_comp_adder_gate [28]) -> x_ct_pmp_comp_hit_0.mmu_tor_addr_match
+Presumably equivalent wires: pmp_mmu_hit7_gold (\pmp_mmu_hit7_gold), pmp_mmu_hit7_gate (\pmp_mmu_hit7_gate) -> pmp_mmu_hit7
+Presumably equivalent wires: pmp_mmu_hit6_gold (\pmp_mmu_hit6_gold), pmp_mmu_hit6_gate (\pmp_mmu_hit6_gate) -> pmp_mmu_hit6
+Presumably equivalent wires: pmp_mmu_hit5_gold (\pmp_mmu_hit5_gold), pmp_mmu_hit5_gate (\pmp_mmu_hit5_gate) -> pmp_mmu_hit5
+Presumably equivalent wires: pmp_mmu_hit4_gold (\pmp_mmu_hit4_gold), pmp_mmu_hit4_gate (\pmp_mmu_hit4_gate) -> pmp_mmu_hit4
+Presumably equivalent wires: pmp_mmu_hit3_gold (\pmp_mmu_hit3_gold), pmp_mmu_hit3_gate (\pmp_mmu_hit3_gate) -> pmp_mmu_hit3
+Presumably equivalent wires: pmp_mmu_hit2_gold (\pmp_mmu_hit2_gold), pmp_mmu_hit2_gate (\pmp_mmu_hit2_gate) -> pmp_mmu_hit2
+Presumably equivalent wires: pmp_mmu_hit1_gold (\pmp_mmu_hit1_gold), pmp_mmu_hit1_gate (\pmp_mmu_hit1_gate) -> pmp_mmu_hit1
+Presumably equivalent wires: pmp_mmu_hit0_gold (\pmp_mmu_hit0_gold), pmp_mmu_hit0_gate (\pmp_mmu_hit0_gate) -> pmp_mmu_hit0
+Presumably equivalent wires: pmp_hit_gold ({ 8'00000000 \pmp_mmu_hit7_gold \pmp_mmu_hit6_gold \pmp_mmu_hit5_gold \pmp_mmu_hit4_gold \pmp_mmu_hit3_gold \pmp_mmu_hit2_gold \pmp_mmu_hit1_gold \pmp_mmu_hit0_gold }), pmp_hit_gate ({ 8'00000000 \pmp_mmu_hit7_gate \pmp_mmu_hit6_gate \pmp_mmu_hit5_gate \pmp_mmu_hit4_gate \pmp_mmu_hit3_gate \pmp_mmu_hit2_gate \pmp_mmu_hit1_gate \pmp_mmu_hit0_gate }) -> pmp_hit
+Presumably equivalent wires: pmp_default_flg_gold (\pmp_default_flg_gold), pmp_default_flg_gate (\pmp_default_flg_gate) -> pmp_default_flg
+Presumably equivalent wires: x_ct_pmp_comp_hit_7.addr_match_mode_x_gold (\pmpcfg0_value_gold [60:59]), x_ct_pmp_comp_hit_7.addr_match_mode_x_gate (\pmpcfg0_value_gate [60:59]) -> x_ct_pmp_comp_hit_7.addr_match_mode_x
+Presumably equivalent wires: mmu_addr_ge_upaddr6_gold (\x_ct_pmp_comp_hit_6.mmu_addr_ge_upaddr_x_gold), mmu_addr_ge_upaddr6_gate (\x_ct_pmp_comp_hit_6.mmu_addr_ge_upaddr_x_gate) -> mmu_addr_ge_upaddr6
+Presumably equivalent wires: mmu_addr_ge_upaddr5_gold (\x_ct_pmp_comp_hit_5.mmu_addr_ge_upaddr_x_gold), mmu_addr_ge_upaddr5_gate (\x_ct_pmp_comp_hit_5.mmu_addr_ge_upaddr_x_gate) -> mmu_addr_ge_upaddr5
+Presumably equivalent wires: mmu_addr_ge_upaddr4_gold (\x_ct_pmp_comp_hit_4.mmu_addr_ge_upaddr_x_gold), mmu_addr_ge_upaddr4_gate (\x_ct_pmp_comp_hit_4.mmu_addr_ge_upaddr_x_gate) -> mmu_addr_ge_upaddr4
+Presumably equivalent wires: mmu_addr_ge_upaddr3_gold (\x_ct_pmp_comp_hit_3.mmu_addr_ge_upaddr_x_gold), mmu_addr_ge_upaddr3_gate (\x_ct_pmp_comp_hit_3.mmu_addr_ge_upaddr_x_gate) -> mmu_addr_ge_upaddr3
+Presumably equivalent wires: mmu_addr_ge_upaddr2_gold (\x_ct_pmp_comp_hit_2.mmu_addr_ge_upaddr_x_gold), mmu_addr_ge_upaddr2_gate (\x_ct_pmp_comp_hit_2.mmu_addr_ge_upaddr_x_gate) -> mmu_addr_ge_upaddr2
+Presumably equivalent wires: mmu_addr_ge_upaddr1_gold (\x_ct_pmp_comp_hit_1.mmu_addr_ge_upaddr_x_gold), mmu_addr_ge_upaddr1_gate (\x_ct_pmp_comp_hit_1.mmu_addr_ge_upaddr_x_gate) -> mmu_addr_ge_upaddr1
+Presumably equivalent wires: mmu_addr_ge_upaddr0_gold (\x_ct_pmp_comp_hit_0.mmu_addr_ge_upaddr_x_gold), mmu_addr_ge_upaddr0_gate (\x_ct_pmp_comp_hit_0.mmu_addr_ge_upaddr_x_gate) -> mmu_addr_ge_upaddr0
+Presumably equivalent wires: mmu_addr_ge_bottom7_gold (\x_ct_pmp_comp_hit_6.mmu_addr_ge_upaddr_x_gold), mmu_addr_ge_bottom7_gate (\x_ct_pmp_comp_hit_6.mmu_addr_ge_upaddr_x_gate) -> mmu_addr_ge_bottom7
+Presumably equivalent wires: mmu_addr_ge_bottom6_gold (\x_ct_pmp_comp_hit_5.mmu_addr_ge_upaddr_x_gold), mmu_addr_ge_bottom6_gate (\x_ct_pmp_comp_hit_5.mmu_addr_ge_upaddr_x_gate) -> mmu_addr_ge_bottom6
+Presumably equivalent wires: mmu_addr_ge_bottom5_gold (\x_ct_pmp_comp_hit_4.mmu_addr_ge_upaddr_x_gold), mmu_addr_ge_bottom5_gate (\x_ct_pmp_comp_hit_4.mmu_addr_ge_upaddr_x_gate) -> mmu_addr_ge_bottom5
+Presumably equivalent wires: mmu_addr_ge_bottom4_gold (\x_ct_pmp_comp_hit_3.mmu_addr_ge_upaddr_x_gold), mmu_addr_ge_bottom4_gate (\x_ct_pmp_comp_hit_3.mmu_addr_ge_upaddr_x_gate) -> mmu_addr_ge_bottom4
+Presumably equivalent wires: mmu_addr_ge_bottom3_gold (\x_ct_pmp_comp_hit_2.mmu_addr_ge_upaddr_x_gold), mmu_addr_ge_bottom3_gate (\x_ct_pmp_comp_hit_2.mmu_addr_ge_upaddr_x_gate) -> mmu_addr_ge_bottom3
+Presumably equivalent wires: mmu_addr_ge_bottom2_gold (\x_ct_pmp_comp_hit_1.mmu_addr_ge_upaddr_x_gold), mmu_addr_ge_bottom2_gate (\x_ct_pmp_comp_hit_1.mmu_addr_ge_upaddr_x_gate) -> mmu_addr_ge_bottom2
+Presumably equivalent wires: mmu_addr_ge_bottom1_gold (\x_ct_pmp_comp_hit_0.mmu_addr_ge_upaddr_x_gold), mmu_addr_ge_bottom1_gate (\x_ct_pmp_comp_hit_0.mmu_addr_ge_upaddr_x_gate) -> mmu_addr_ge_bottom1
+Presumably equivalent wires: mmu_addr_ge_bottom0_gold (1'1), mmu_addr_ge_bottom0_gate (1'1) -> mmu_addr_ge_bottom0
+Presumably equivalent wires: cp0_priv_mode_gold (\cp0_priv_mode_gold), cp0_priv_mode_gate (\cp0_priv_mode_gate) -> cp0_priv_mode
+Presumably equivalent wires: cp0_mach_mode_gold (\cp0_mach_mode_gold), cp0_mach_mode_gate (\cp0_mach_mode_gate) -> cp0_mach_mode
+Presumably equivalent wires: addr_match_mode7_gold (\pmpcfg0_value_gold [60:59]), addr_match_mode7_gate (\pmpcfg0_value_gate [60:59]) -> addr_match_mode7
+Presumably equivalent wires: addr_match_mode6_gold (\pmpcfg0_value_gold [52:51]), addr_match_mode6_gate (\pmpcfg0_value_gate [52:51]) -> addr_match_mode6
+Presumably equivalent wires: addr_match_mode5_gold (\pmpcfg0_value_gold [44:43]), addr_match_mode5_gate (\pmpcfg0_value_gate [44:43]) -> addr_match_mode5
+Presumably equivalent wires: addr_match_mode4_gold (\pmpcfg0_value_gold [36:35]), addr_match_mode4_gate (\pmpcfg0_value_gate [36:35]) -> addr_match_mode4
+Presumably equivalent wires: addr_match_mode3_gold (\pmpcfg0_value_gold [28:27]), addr_match_mode3_gate (\pmpcfg0_value_gate [28:27]) -> addr_match_mode3
+Presumably equivalent wires: addr_match_mode2_gold (\pmpcfg0_value_gold [20:19]), addr_match_mode2_gate (\pmpcfg0_value_gate [20:19]) -> addr_match_mode2
+Presumably equivalent wires: addr_match_mode1_gold (\pmpcfg0_value_gold [12:11]), addr_match_mode1_gate (\pmpcfg0_value_gate [12:11]) -> addr_match_mode1
+Presumably equivalent wires: addr_match_mode0_gold (\pmpcfg0_value_gold [4:3]), addr_match_mode0_gate (\pmpcfg0_value_gate [4:3]) -> addr_match_mode0
+Presumably equivalent wires: pmp_mmu_flg_y_gold (\pmp_mmu_flg_y_gold), pmp_mmu_flg_y_gate (\pmp_mmu_flg_y_gate) -> pmp_mmu_flg_y
+Presumably equivalent wires: pmpcfg2_value_gold (\pmpcfg2_value_gold), pmpcfg2_value_gate (\pmpcfg2_value_gate) -> pmpcfg2_value
+Presumably equivalent wires: pmpcfg0_value_gold (\pmpcfg0_value_gold), pmpcfg0_value_gate (\pmpcfg0_value_gate) -> pmpcfg0_value
+Presumably equivalent wires: pmpaddr7_value_gold (\pmpaddr7_value_gold), pmpaddr7_value_gate (\pmpaddr7_value_gate) -> pmpaddr7_value
+Presumably equivalent wires: pmpaddr6_value_gold (\pmpaddr6_value_gold), pmpaddr6_value_gate (\pmpaddr6_value_gate) -> pmpaddr6_value
+Presumably equivalent wires: pmpaddr5_value_gold (\pmpaddr5_value_gold), pmpaddr5_value_gate (\pmpaddr5_value_gate) -> pmpaddr5_value
+Presumably equivalent wires: pmpaddr4_value_gold (\pmpaddr4_value_gold), pmpaddr4_value_gate (\pmpaddr4_value_gate) -> pmpaddr4_value
+Presumably equivalent wires: pmpaddr3_value_gold (\pmpaddr3_value_gold), pmpaddr3_value_gate (\pmpaddr3_value_gate) -> pmpaddr3_value
+Presumably equivalent wires: pmpaddr2_value_gold (\pmpaddr2_value_gold), pmpaddr2_value_gate (\pmpaddr2_value_gate) -> pmpaddr2_value
+Presumably equivalent wires: pmpaddr1_value_gold (\pmpaddr1_value_gold), pmpaddr1_value_gate (\pmpaddr1_value_gate) -> pmpaddr1_value
+Presumably equivalent wires: pmpaddr0_value_gold (\pmpaddr0_value_gold), pmpaddr0_value_gate (\pmpaddr0_value_gate) -> pmpaddr0_value
+Presumably equivalent wires: pmp_mprv_status_y_gold (\pmp_mprv_status_y_gold), pmp_mprv_status_y_gate (\pmp_mprv_status_y_gate) -> pmp_mprv_status_y
+Presumably equivalent wires: mmu_pmp_pa_y_gold (\mmu_pmp_pa_y_gold), mmu_pmp_pa_y_gate (\mmu_pmp_pa_y_gate) -> mmu_pmp_pa_y
+Presumably equivalent wires: cur_priv_mode_gold (\cur_priv_mode_gold), cur_priv_mode_gate (\cur_priv_mode_gate) -> cur_priv_mode
+Presumably equivalent wires: cp0_pmp_mpp_gold (\cp0_pmp_mpp_gold), cp0_pmp_mpp_gate (\cp0_pmp_mpp_gate) -> cp0_pmp_mpp
+Changing input A of cell $flatten\x_ct_pmp_comp_hit_7.$and$ct_pmp_comp_hit_gate_candidate.v:84$5_gate ($and): \x_ct_pmp_comp_hit_7.addr_mask_gate -> \x_ct_pmp_comp_hit_7.addr_mask
+Changing input A of cell $flatten\x_ct_pmp_comp_hit_7.$and$ct_pmp_comp_hit_gate_candidate.v:84$6_gate ($and): \x_ct_pmp_comp_hit_7.addr_mask_gate -> \x_ct_pmp_comp_hit_7.addr_mask
+Changing input B of cell $flatten\x_ct_pmp_comp_hit_7.$procmux$85_gate ($pmux): { \x_ct_pmp_comp_hit_7.mmu_napot_addr_match_gate 1'0 \x_ct_pmp_comp_hit_7.mmu_tor_addr_match_gate } -> { \x_ct_pmp_comp_hit_7.mmu_napot_addr_match 1'0 \x_ct_pmp_comp_hit_7.mmu_tor_addr_match }
+Changing input B of cell $flatten\x_ct_pmp_comp_hit_6.$logic_and$ct_pmp_comp_hit_gate_candidate.v:78$3_gate ($logic_and): \x_ct_pmp_comp_hit_6.mmu_comp_adder_gate [28] -> \x_ct_pmp_comp_hit_6.mmu_comp_adder [28]
+Changing input A of cell $flatten\x_ct_pmp_comp_hit_6.$logic_and$ct_pmp_comp_hit_gate_candidate.v:78$3_gate ($logic_and): \x_ct_pmp_comp_hit_5.mmu_addr_ge_upaddr_x_gate -> \x_ct_pmp_comp_hit_5.mmu_addr_ge_upaddr_x
+Changing input A of cell $flatten\x_ct_pmp_comp_hit_6.$logic_not$ct_pmp_comp_hit_gate_candidate.v:81$4_gate ($logic_not): \x_ct_pmp_comp_hit_6.mmu_comp_adder_gate [28] -> \x_ct_pmp_comp_hit_6.mmu_comp_adder [28]
+Changing input A of cell $flatten\x_ct_pmp_comp_hit_6.$and$ct_pmp_comp_hit_gate_candidate.v:84$5_gate ($and): \x_ct_pmp_comp_hit_6.addr_mask_gate -> \x_ct_pmp_comp_hit_6.addr_mask
+Changing input A of cell $flatten\x_ct_pmp_comp_hit_6.$and$ct_pmp_comp_hit_gate_candidate.v:84$6_gate ($and): \x_ct_pmp_comp_hit_6.addr_mask_gate -> \x_ct_pmp_comp_hit_6.addr_mask
+Changing input B of cell $flatten\x_ct_pmp_comp_hit_6.$procmux$85_gate ($pmux): { \x_ct_pmp_comp_hit_6.mmu_napot_addr_match_gate 1'0 \x_ct_pmp_comp_hit_6.mmu_tor_addr_match_gate } -> { \x_ct_pmp_comp_hit_6.mmu_napot_addr_match 1'0 \x_ct_pmp_comp_hit_6.mmu_tor_addr_match }
+Changing input B of cell $flatten\x_ct_pmp_comp_hit_5.$logic_and$ct_pmp_comp_hit_gate_candidate.v:78$3_gate ($logic_and): \x_ct_pmp_comp_hit_5.mmu_comp_adder_gate [28] -> \x_ct_pmp_comp_hit_5.mmu_comp_adder [28]
+Changing input A of cell $flatten\x_ct_pmp_comp_hit_5.$logic_and$ct_pmp_comp_hit_gate_candidate.v:78$3_gate ($logic_and): \x_ct_pmp_comp_hit_4.mmu_addr_ge_upaddr_x_gate -> \x_ct_pmp_comp_hit_4.mmu_addr_ge_upaddr_x
+Changing input A of cell $flatten\x_ct_pmp_comp_hit_5.$logic_not$ct_pmp_comp_hit_gate_candidate.v:81$4_gate ($logic_not): \x_ct_pmp_comp_hit_5.mmu_comp_adder_gate [28] -> \x_ct_pmp_comp_hit_5.mmu_comp_adder [28]
+Changing input A of cell $flatten\x_ct_pmp_comp_hit_5.$and$ct_pmp_comp_hit_gate_candidate.v:84$5_gate ($and): \x_ct_pmp_comp_hit_5.addr_mask_gate -> \x_ct_pmp_comp_hit_5.addr_mask
+Changing input A of cell $flatten\x_ct_pmp_comp_hit_5.$and$ct_pmp_comp_hit_gate_candidate.v:84$6_gate ($and): \x_ct_pmp_comp_hit_5.addr_mask_gate -> \x_ct_pmp_comp_hit_5.addr_mask
+Changing input B of cell $flatten\x_ct_pmp_comp_hit_5.$procmux$85_gate ($pmux): { \x_ct_pmp_comp_hit_5.mmu_napot_addr_match_gate 1'0 \x_ct_pmp_comp_hit_5.mmu_tor_addr_match_gate } -> { \x_ct_pmp_comp_hit_5.mmu_napot_addr_match 1'0 \x_ct_pmp_comp_hit_5.mmu_tor_addr_match }
+Changing input B of cell $flatten\x_ct_pmp_comp_hit_4.$logic_and$ct_pmp_comp_hit_gate_candidate.v:78$3_gate ($logic_and): \x_ct_pmp_comp_hit_4.mmu_comp_adder_gate [28] -> \x_ct_pmp_comp_hit_4.mmu_comp_adder [28]
+Changing input A of cell $flatten\x_ct_pmp_comp_hit_4.$logic_and$ct_pmp_comp_hit_gate_candidate.v:78$3_gate ($logic_and): \x_ct_pmp_comp_hit_3.mmu_addr_ge_upaddr_x_gate -> \x_ct_pmp_comp_hit_3.mmu_addr_ge_upaddr_x
+Changing input A of cell $flatten\x_ct_pmp_comp_hit_4.$logic_not$ct_pmp_comp_hit_gate_candidate.v:81$4_gate ($logic_not): \x_ct_pmp_comp_hit_4.mmu_comp_adder_gate [28] -> \x_ct_pmp_comp_hit_4.mmu_comp_adder [28]
+Changing input A of cell $flatten\x_ct_pmp_comp_hit_4.$and$ct_pmp_comp_hit_gate_candidate.v:84$5_gate ($and): \x_ct_pmp_comp_hit_4.addr_mask_gate -> \x_ct_pmp_comp_hit_4.addr_mask
+Changing input A of cell $flatten\x_ct_pmp_comp_hit_4.$and$ct_pmp_comp_hit_gate_candidate.v:84$6_gate ($and): \x_ct_pmp_comp_hit_4.addr_mask_gate -> \x_ct_pmp_comp_hit_4.addr_mask
+Changing input B of cell $flatten\x_ct_pmp_comp_hit_4.$procmux$85_gate ($pmux): { \x_ct_pmp_comp_hit_4.mmu_napot_addr_match_gate 1'0 \x_ct_pmp_comp_hit_4.mmu_tor_addr_match_gate } -> { \x_ct_pmp_comp_hit_4.mmu_napot_addr_match 1'0 \x_ct_pmp_comp_hit_4.mmu_tor_addr_match }
+Changing input B of cell $flatten\x_ct_pmp_comp_hit_3.$logic_and$ct_pmp_comp_hit_gate_candidate.v:78$3_gate ($logic_and): \x_ct_pmp_comp_hit_3.mmu_comp_adder_gate [28] -> \x_ct_pmp_comp_hit_3.mmu_comp_adder [28]
+Changing input A of cell $flatten\x_ct_pmp_comp_hit_3.$logic_and$ct_pmp_comp_hit_gate_candidate.v:78$3_gate ($logic_and): \x_ct_pmp_comp_hit_2.mmu_addr_ge_upaddr_x_gate -> \x_ct_pmp_comp_hit_2.mmu_addr_ge_upaddr_x
+Changing input A of cell $flatten\x_ct_pmp_comp_hit_3.$logic_not$ct_pmp_comp_hit_gate_candidate.v:81$4_gate ($logic_not): \x_ct_pmp_comp_hit_3.mmu_comp_adder_gate [28] -> \x_ct_pmp_comp_hit_3.mmu_comp_adder [28]
+Changing input A of cell $flatten\x_ct_pmp_comp_hit_3.$and$ct_pmp_comp_hit_gate_candidate.v:84$5_gate ($and): \x_ct_pmp_comp_hit_3.addr_mask_gate -> \x_ct_pmp_comp_hit_3.addr_mask
+Changing input A of cell $flatten\x_ct_pmp_comp_hit_3.$and$ct_pmp_comp_hit_gate_candidate.v:84$6_gate ($and): \x_ct_pmp_comp_hit_3.addr_mask_gate -> \x_ct_pmp_comp_hit_3.addr_mask
+Changing input B of cell $flatten\x_ct_pmp_comp_hit_3.$procmux$85_gate ($pmux): { \x_ct_pmp_comp_hit_3.mmu_napot_addr_match_gate 1'0 \x_ct_pmp_comp_hit_3.mmu_tor_addr_match_gate } -> { \x_ct_pmp_comp_hit_3.mmu_napot_addr_match 1'0 \x_ct_pmp_comp_hit_3.mmu_tor_addr_match }
+Changing input B of cell $flatten\x_ct_pmp_comp_hit_2.$logic_and$ct_pmp_comp_hit_gate_candidate.v:78$3_gate ($logic_and): \x_ct_pmp_comp_hit_2.mmu_comp_adder_gate [28] -> \x_ct_pmp_comp_hit_2.mmu_comp_adder [28]
+Changing input A of cell $flatten\x_ct_pmp_comp_hit_2.$logic_and$ct_pmp_comp_hit_gate_candidate.v:78$3_gate ($logic_and): \x_ct_pmp_comp_hit_1.mmu_addr_ge_upaddr_x_gate -> \x_ct_pmp_comp_hit_1.mmu_addr_ge_upaddr_x
+Changing input A of cell $flatten\x_ct_pmp_comp_hit_2.$logic_not$ct_pmp_comp_hit_gate_candidate.v:81$4_gate ($logic_not): \x_ct_pmp_comp_hit_2.mmu_comp_adder_gate [28] -> \x_ct_pmp_comp_hit_2.mmu_comp_adder [28]
+Changing input A of cell $flatten\x_ct_pmp_comp_hit_2.$and$ct_pmp_comp_hit_gate_candidate.v:84$5_gate ($and): \x_ct_pmp_comp_hit_2.addr_mask_gate -> \x_ct_pmp_comp_hit_2.addr_mask
+Changing input A of cell $flatten\x_ct_pmp_comp_hit_2.$and$ct_pmp_comp_hit_gate_candidate.v:84$6_gate ($and): \x_ct_pmp_comp_hit_2.addr_mask_gate -> \x_ct_pmp_comp_hit_2.addr_mask
+Changing input B of cell $flatten\x_ct_pmp_comp_hit_2.$procmux$85_gate ($pmux): { \x_ct_pmp_comp_hit_2.mmu_napot_addr_match_gate 1'0 \x_ct_pmp_comp_hit_2.mmu_tor_addr_match_gate } -> { \x_ct_pmp_comp_hit_2.mmu_napot_addr_match 1'0 \x_ct_pmp_comp_hit_2.mmu_tor_addr_match }
+Changing input B of cell $flatten\x_ct_pmp_comp_hit_1.$logic_and$ct_pmp_comp_hit_gate_candidate.v:78$3_gate ($logic_and): \x_ct_pmp_comp_hit_1.mmu_comp_adder_gate [28] -> \x_ct_pmp_comp_hit_1.mmu_comp_adder [28]
+Changing input A of cell $flatten\x_ct_pmp_comp_hit_1.$logic_and$ct_pmp_comp_hit_gate_candidate.v:78$3_gate ($logic_and): \x_ct_pmp_comp_hit_0.mmu_addr_ge_upaddr_x_gate -> \x_ct_pmp_comp_hit_0.mmu_addr_ge_upaddr_x
+Changing input A of cell $flatten\x_ct_pmp_comp_hit_1.$logic_not$ct_pmp_comp_hit_gate_candidate.v:81$4_gate ($logic_not): \x_ct_pmp_comp_hit_1.mmu_comp_adder_gate [28] -> \x_ct_pmp_comp_hit_1.mmu_comp_adder [28]
+Changing input A of cell $flatten\x_ct_pmp_comp_hit_1.$and$ct_pmp_comp_hit_gate_candidate.v:84$5_gate ($and): \x_ct_pmp_comp_hit_1.addr_mask_gate -> \x_ct_pmp_comp_hit_1.addr_mask
+Changing input A of cell $flatten\x_ct_pmp_comp_hit_1.$and$ct_pmp_comp_hit_gate_candidate.v:84$6_gate ($and): \x_ct_pmp_comp_hit_1.addr_mask_gate -> \x_ct_pmp_comp_hit_1.addr_mask
+Changing input B of cell $flatten\x_ct_pmp_comp_hit_1.$procmux$85_gate ($pmux): { \x_ct_pmp_comp_hit_1.mmu_napot_addr_match_gate 1'0 \x_ct_pmp_comp_hit_1.mmu_tor_addr_match_gate } -> { \x_ct_pmp_comp_hit_1.mmu_napot_addr_match 1'0 \x_ct_pmp_comp_hit_1.mmu_tor_addr_match }
+Changing input A of cell $flatten\x_ct_pmp_comp_hit_0.$logic_not$ct_pmp_comp_hit_gate_candidate.v:81$4_gate ($logic_not): \x_ct_pmp_comp_hit_0.mmu_comp_adder_gate [28] -> \x_ct_pmp_comp_hit_0.mmu_comp_adder [28]
+Changing input A of cell $flatten\x_ct_pmp_comp_hit_0.$and$ct_pmp_comp_hit_gate_candidate.v:84$5_gate ($and): \x_ct_pmp_comp_hit_0.addr_mask_gate -> \x_ct_pmp_comp_hit_0.addr_mask
+Changing input A of cell $flatten\x_ct_pmp_comp_hit_0.$and$ct_pmp_comp_hit_gate_candidate.v:84$6_gate ($and): \x_ct_pmp_comp_hit_0.addr_mask_gate -> \x_ct_pmp_comp_hit_0.addr_mask
+Changing input B of cell $flatten\x_ct_pmp_comp_hit_0.$procmux$85_gate ($pmux): { \x_ct_pmp_comp_hit_0.mmu_napot_addr_match_gate 1'0 \x_ct_pmp_comp_hit_0.mmu_comp_adder_gate [28] } -> { \x_ct_pmp_comp_hit_0.mmu_napot_addr_match 1'0 \x_ct_pmp_comp_hit_0.mmu_comp_adder [28] }
+Changing input A of cell $procmux$77_CMP0_gate ($eq): { \pmp_mmu_hit7_gate \pmp_mmu_hit6_gate \pmp_mmu_hit5_gate \pmp_mmu_hit4_gate \pmp_mmu_hit3_gate \pmp_mmu_hit2_gate \pmp_mmu_hit1_gate \pmp_mmu_hit0_gate } -> { \pmp_mmu_hit7 \pmp_mmu_hit6 \pmp_mmu_hit5 \pmp_mmu_hit4 \pmp_mmu_hit3 \pmp_mmu_hit2 \pmp_mmu_hit1 \pmp_mmu_hit0 }
+Changing input A of cell $procmux$78_CMP0_gate ($eq): { \pmp_mmu_hit6_gate \pmp_mmu_hit5_gate \pmp_mmu_hit4_gate \pmp_mmu_hit3_gate \pmp_mmu_hit2_gate \pmp_mmu_hit1_gate \pmp_mmu_hit0_gate } -> { \pmp_mmu_hit6 \pmp_mmu_hit5 \pmp_mmu_hit4 \pmp_mmu_hit3 \pmp_mmu_hit2 \pmp_mmu_hit1 \pmp_mmu_hit0 }
+Changing input A of cell $procmux$79_CMP0_gate ($eq): { \pmp_mmu_hit5_gate \pmp_mmu_hit4_gate \pmp_mmu_hit3_gate \pmp_mmu_hit2_gate \pmp_mmu_hit1_gate \pmp_mmu_hit0_gate } -> { \pmp_mmu_hit5 \pmp_mmu_hit4 \pmp_mmu_hit3 \pmp_mmu_hit2 \pmp_mmu_hit1 \pmp_mmu_hit0 }
+Changing input A of cell $procmux$80_CMP0_gate ($eq): { \pmp_mmu_hit4_gate \pmp_mmu_hit3_gate \pmp_mmu_hit2_gate \pmp_mmu_hit1_gate \pmp_mmu_hit0_gate } -> { \pmp_mmu_hit4 \pmp_mmu_hit3 \pmp_mmu_hit2 \pmp_mmu_hit1 \pmp_mmu_hit0 }
+Changing input A of cell $procmux$81_CMP0_gate ($eq): { \pmp_mmu_hit3_gate \pmp_mmu_hit2_gate \pmp_mmu_hit1_gate \pmp_mmu_hit0_gate } -> { \pmp_mmu_hit3 \pmp_mmu_hit2 \pmp_mmu_hit1 \pmp_mmu_hit0 }
+Changing input A of cell $procmux$82_CMP0_gate ($eq): { \pmp_mmu_hit2_gate \pmp_mmu_hit1_gate \pmp_mmu_hit0_gate } -> { \pmp_mmu_hit2 \pmp_mmu_hit1 \pmp_mmu_hit0 }
+Changing input A of cell $procmux$83_CMP0_gate ($eq): { \pmp_mmu_hit1_gate \pmp_mmu_hit0_gate } -> { \pmp_mmu_hit1 \pmp_mmu_hit0 }
+Changing input S of cell $procmux$67_gate ($pmux): { \pmp_mmu_hit0_gate $procmux$83_CMP_gate $procmux$82_CMP_gate $procmux$81_CMP_gate $procmux$80_CMP_gate $procmux$79_CMP_gate $procmux$78_CMP_gate $procmux$77_CMP_gate $procmux$68_CMP_gate } -> { \pmp_mmu_hit0 $procmux$83_CMP_gate $procmux$82_CMP_gate $procmux$81_CMP_gate $procmux$80_CMP_gate $procmux$79_CMP_gate $procmux$78_CMP_gate $procmux$77_CMP_gate $procmux$68_CMP_gate }
+Changing input B of cell $procmux$67_gate ($pmux): { \pmpcfg0_value_gate [7] \pmpcfg0_value_gate [2:0] \pmpcfg0_value_gate [15] \pmpcfg0_value_gate [10:8] \pmpcfg0_value_gate [23] \pmpcfg0_value_gate [18:16] \pmpcfg0_value_gate [31] \pmpcfg0_value_gate [26:24] \pmpcfg0_value_gate [39] \pmpcfg0_value_gate [34:32] \pmpcfg0_value_gate [47] \pmpcfg0_value_gate [42:40] \pmpcfg0_value_gate [55] \pmpcfg0_value_gate [50:48] \pmpcfg0_value_gate [63] \pmpcfg0_value_gate [58:56] \pmp_default_flg_gate } -> { \pmpcfg0_value_gate [7] \pmpcfg0_value_gate [2:0] \pmpcfg0_value_gate [15] \pmpcfg0_value_gate [10:8] \pmpcfg0_value_gate [23] \pmpcfg0_value_gate [18:16] \pmpcfg0_value_gate [31] \pmpcfg0_value_gate [26:24] \pmpcfg0_value_gate [39] \pmpcfg0_value_gate [34:32] \pmpcfg0_value_gate [47] \pmpcfg0_value_gate [42:40] \pmpcfg0_value_gate [55] \pmpcfg0_value_gate [50:48] \pmpcfg0_value_gate [63] \pmpcfg0_value_gate [58:56] \pmp_default_flg }
+Changing input A of cell $procmux$68_CMP0_gate ($logic_not): { 8'00000000 \pmp_mmu_hit7_gate \pmp_mmu_hit6_gate \pmp_mmu_hit5_gate \pmp_mmu_hit4_gate \pmp_mmu_hit3_gate \pmp_mmu_hit2_gate \pmp_mmu_hit1_gate \pmp_mmu_hit0_gate } -> { 8'00000000 \pmp_mmu_hit7 \pmp_mmu_hit6 \pmp_mmu_hit5 \pmp_mmu_hit4 \pmp_mmu_hit3 \pmp_mmu_hit2 \pmp_mmu_hit1 \pmp_mmu_hit0 }
+Changing input S of cell $ternary$ct_pmp_acc_gold.v:256$65_gate ($mux): \cp0_mach_mode_gate -> \cp0_mach_mode
+Changing input A of cell $eq$ct_pmp_acc_gold.v:109$64_gate ($eq): \cp0_priv_mode_gate -> \cp0_priv_mode
+Changing input B of cell $flatten\x_ct_pmp_comp_hit_7.$logic_and$ct_pmp_comp_hit_gate_candidate.v:78$3_gate ($logic_and): \x_ct_pmp_comp_hit_7.mmu_comp_adder_gate [28] -> \x_ct_pmp_comp_hit_7.mmu_comp_adder [28]
+Changing input A of cell $flatten\x_ct_pmp_comp_hit_7.$logic_and$ct_pmp_comp_hit_gate_candidate.v:78$3_gate ($logic_and): \x_ct_pmp_comp_hit_6.mmu_addr_ge_upaddr_x_gate -> \x_ct_pmp_comp_hit_6.mmu_addr_ge_upaddr_x
+Changing input A of cell $flatten\x_ct_pmp_comp_hit_7.$and$ct_pmp_comp_hit_gold.v:84$5_gold ($and): \x_ct_pmp_comp_hit_7.addr_mask_gold -> \x_ct_pmp_comp_hit_7.addr_mask
+Changing input A of cell $flatten\x_ct_pmp_comp_hit_7.$and$ct_pmp_comp_hit_gold.v:84$6_gold ($and): \x_ct_pmp_comp_hit_7.addr_mask_gold -> \x_ct_pmp_comp_hit_7.addr_mask
+Changing input B of cell $flatten\x_ct_pmp_comp_hit_7.$procmux$62_gold ($pmux): { \x_ct_pmp_comp_hit_7.mmu_napot_addr_match_gold 1'0 \x_ct_pmp_comp_hit_7.mmu_tor_addr_match_gold } -> { \x_ct_pmp_comp_hit_7.mmu_napot_addr_match 1'0 \x_ct_pmp_comp_hit_7.mmu_tor_addr_match }
+Changing input B of cell $flatten\x_ct_pmp_comp_hit_6.$logic_and$ct_pmp_comp_hit_gold.v:78$3_gold ($logic_and): \x_ct_pmp_comp_hit_6.mmu_comp_adder_gold [28] -> \x_ct_pmp_comp_hit_6.mmu_comp_adder [28]
+Changing input A of cell $flatten\x_ct_pmp_comp_hit_6.$logic_and$ct_pmp_comp_hit_gold.v:78$3_gold ($logic_and): \x_ct_pmp_comp_hit_5.mmu_addr_ge_upaddr_x_gold -> \x_ct_pmp_comp_hit_5.mmu_addr_ge_upaddr_x
+Changing input A of cell $flatten\x_ct_pmp_comp_hit_6.$logic_not$ct_pmp_comp_hit_gold.v:81$4_gold ($logic_not): \x_ct_pmp_comp_hit_6.mmu_comp_adder_gold [28] -> \x_ct_pmp_comp_hit_6.mmu_comp_adder [28]
+Changing input A of cell $flatten\x_ct_pmp_comp_hit_6.$and$ct_pmp_comp_hit_gold.v:84$5_gold ($and): \x_ct_pmp_comp_hit_6.addr_mask_gold -> \x_ct_pmp_comp_hit_6.addr_mask
+Changing input A of cell $flatten\x_ct_pmp_comp_hit_6.$and$ct_pmp_comp_hit_gold.v:84$6_gold ($and): \x_ct_pmp_comp_hit_6.addr_mask_gold -> \x_ct_pmp_comp_hit_6.addr_mask
+Changing input B of cell $flatten\x_ct_pmp_comp_hit_6.$procmux$62_gold ($pmux): { \x_ct_pmp_comp_hit_6.mmu_napot_addr_match_gold 1'0 \x_ct_pmp_comp_hit_6.mmu_tor_addr_match_gold } -> { \x_ct_pmp_comp_hit_6.mmu_napot_addr_match 1'0 \x_ct_pmp_comp_hit_6.mmu_tor_addr_match }
+Changing input B of cell $flatten\x_ct_pmp_comp_hit_5.$logic_and$ct_pmp_comp_hit_gold.v:78$3_gold ($logic_and): \x_ct_pmp_comp_hit_5.mmu_comp_adder_gold [28] -> \x_ct_pmp_comp_hit_5.mmu_comp_adder [28]
+Changing input A of cell $flatten\x_ct_pmp_comp_hit_5.$logic_and$ct_pmp_comp_hit_gold.v:78$3_gold ($logic_and): \x_ct_pmp_comp_hit_4.mmu_addr_ge_upaddr_x_gold -> \x_ct_pmp_comp_hit_4.mmu_addr_ge_upaddr_x
+Changing input A of cell $flatten\x_ct_pmp_comp_hit_5.$logic_not$ct_pmp_comp_hit_gold.v:81$4_gold ($logic_not): \x_ct_pmp_comp_hit_5.mmu_comp_adder_gold [28] -> \x_ct_pmp_comp_hit_5.mmu_comp_adder [28]
+Changing input A of cell $flatten\x_ct_pmp_comp_hit_5.$and$ct_pmp_comp_hit_gold.v:84$5_gold ($and): \x_ct_pmp_comp_hit_5.addr_mask_gold -> \x_ct_pmp_comp_hit_5.addr_mask
+Changing input A of cell $flatten\x_ct_pmp_comp_hit_5.$and$ct_pmp_comp_hit_gold.v:84$6_gold ($and): \x_ct_pmp_comp_hit_5.addr_mask_gold -> \x_ct_pmp_comp_hit_5.addr_mask
+Changing input B of cell $flatten\x_ct_pmp_comp_hit_5.$procmux$62_gold ($pmux): { \x_ct_pmp_comp_hit_5.mmu_napot_addr_match_gold 1'0 \x_ct_pmp_comp_hit_5.mmu_tor_addr_match_gold } -> { \x_ct_pmp_comp_hit_5.mmu_napot_addr_match 1'0 \x_ct_pmp_comp_hit_5.mmu_tor_addr_match }
+Changing input B of cell $flatten\x_ct_pmp_comp_hit_4.$logic_and$ct_pmp_comp_hit_gold.v:78$3_gold ($logic_and): \x_ct_pmp_comp_hit_4.mmu_comp_adder_gold [28] -> \x_ct_pmp_comp_hit_4.mmu_comp_adder [28]
+Changing input A of cell $flatten\x_ct_pmp_comp_hit_4.$logic_and$ct_pmp_comp_hit_gold.v:78$3_gold ($logic_and): \x_ct_pmp_comp_hit_3.mmu_addr_ge_upaddr_x_gold -> \x_ct_pmp_comp_hit_3.mmu_addr_ge_upaddr_x
+Changing input A of cell $flatten\x_ct_pmp_comp_hit_4.$logic_not$ct_pmp_comp_hit_gold.v:81$4_gold ($logic_not): \x_ct_pmp_comp_hit_4.mmu_comp_adder_gold [28] -> \x_ct_pmp_comp_hit_4.mmu_comp_adder [28]
+Changing input A of cell $flatten\x_ct_pmp_comp_hit_4.$and$ct_pmp_comp_hit_gold.v:84$5_gold ($and): \x_ct_pmp_comp_hit_4.addr_mask_gold -> \x_ct_pmp_comp_hit_4.addr_mask
+Changing input A of cell $flatten\x_ct_pmp_comp_hit_4.$and$ct_pmp_comp_hit_gold.v:84$6_gold ($and): \x_ct_pmp_comp_hit_4.addr_mask_gold -> \x_ct_pmp_comp_hit_4.addr_mask
+Changing input B of cell $flatten\x_ct_pmp_comp_hit_4.$procmux$62_gold ($pmux): { \x_ct_pmp_comp_hit_4.mmu_napot_addr_match_gold 1'0 \x_ct_pmp_comp_hit_4.mmu_tor_addr_match_gold } -> { \x_ct_pmp_comp_hit_4.mmu_napot_addr_match 1'0 \x_ct_pmp_comp_hit_4.mmu_tor_addr_match }
+Changing input B of cell $flatten\x_ct_pmp_comp_hit_3.$logic_and$ct_pmp_comp_hit_gold.v:78$3_gold ($logic_and): \x_ct_pmp_comp_hit_3.mmu_comp_adder_gold [28] -> \x_ct_pmp_comp_hit_3.mmu_comp_adder [28]
+Changing input A of cell $flatten\x_ct_pmp_comp_hit_3.$logic_and$ct_pmp_comp_hit_gold.v:78$3_gold ($logic_and): \x_ct_pmp_comp_hit_2.mmu_addr_ge_upaddr_x_gold -> \x_ct_pmp_comp_hit_2.mmu_addr_ge_upaddr_x
+Changing input A of cell $flatten\x_ct_pmp_comp_hit_3.$logic_not$ct_pmp_comp_hit_gold.v:81$4_gold ($logic_not): \x_ct_pmp_comp_hit_3.mmu_comp_adder_gold [28] -> \x_ct_pmp_comp_hit_3.mmu_comp_adder [28]
+Changing input A of cell $flatten\x_ct_pmp_comp_hit_3.$and$ct_pmp_comp_hit_gold.v:84$5_gold ($and): \x_ct_pmp_comp_hit_3.addr_mask_gold -> \x_ct_pmp_comp_hit_3.addr_mask
+Changing input A of cell $flatten\x_ct_pmp_comp_hit_3.$and$ct_pmp_comp_hit_gold.v:84$6_gold ($and): \x_ct_pmp_comp_hit_3.addr_mask_gold -> \x_ct_pmp_comp_hit_3.addr_mask
+Changing input B of cell $flatten\x_ct_pmp_comp_hit_3.$procmux$62_gold ($pmux): { \x_ct_pmp_comp_hit_3.mmu_napot_addr_match_gold 1'0 \x_ct_pmp_comp_hit_3.mmu_tor_addr_match_gold } -> { \x_ct_pmp_comp_hit_3.mmu_napot_addr_match 1'0 \x_ct_pmp_comp_hit_3.mmu_tor_addr_match }
+Changing input B of cell $flatten\x_ct_pmp_comp_hit_2.$logic_and$ct_pmp_comp_hit_gold.v:78$3_gold ($logic_and): \x_ct_pmp_comp_hit_2.mmu_comp_adder_gold [28] -> \x_ct_pmp_comp_hit_2.mmu_comp_adder [28]
+Changing input A of cell $flatten\x_ct_pmp_comp_hit_2.$logic_and$ct_pmp_comp_hit_gold.v:78$3_gold ($logic_and): \x_ct_pmp_comp_hit_1.mmu_addr_ge_upaddr_x_gold -> \x_ct_pmp_comp_hit_1.mmu_addr_ge_upaddr_x
+Changing input A of cell $flatten\x_ct_pmp_comp_hit_2.$logic_not$ct_pmp_comp_hit_gold.v:81$4_gold ($logic_not): \x_ct_pmp_comp_hit_2.mmu_comp_adder_gold [28] -> \x_ct_pmp_comp_hit_2.mmu_comp_adder [28]
+Changing input A of cell $flatten\x_ct_pmp_comp_hit_2.$and$ct_pmp_comp_hit_gold.v:84$5_gold ($and): \x_ct_pmp_comp_hit_2.addr_mask_gold -> \x_ct_pmp_comp_hit_2.addr_mask
+Changing input A of cell $flatten\x_ct_pmp_comp_hit_2.$and$ct_pmp_comp_hit_gold.v:84$6_gold ($and): \x_ct_pmp_comp_hit_2.addr_mask_gold -> \x_ct_pmp_comp_hit_2.addr_mask
+Changing input B of cell $flatten\x_ct_pmp_comp_hit_2.$procmux$62_gold ($pmux): { \x_ct_pmp_comp_hit_2.mmu_napot_addr_match_gold 1'0 \x_ct_pmp_comp_hit_2.mmu_tor_addr_match_gold } -> { \x_ct_pmp_comp_hit_2.mmu_napot_addr_match 1'0 \x_ct_pmp_comp_hit_2.mmu_tor_addr_match }
+Changing input B of cell $flatten\x_ct_pmp_comp_hit_1.$logic_and$ct_pmp_comp_hit_gold.v:78$3_gold ($logic_and): \x_ct_pmp_comp_hit_1.mmu_comp_adder_gold [28] -> \x_ct_pmp_comp_hit_1.mmu_comp_adder [28]
+Changing input A of cell $flatten\x_ct_pmp_comp_hit_1.$logic_and$ct_pmp_comp_hit_gold.v:78$3_gold ($logic_and): \x_ct_pmp_comp_hit_0.mmu_addr_ge_upaddr_x_gold -> \x_ct_pmp_comp_hit_0.mmu_addr_ge_upaddr_x
+Changing input A of cell $flatten\x_ct_pmp_comp_hit_1.$logic_not$ct_pmp_comp_hit_gold.v:81$4_gold ($logic_not): \x_ct_pmp_comp_hit_1.mmu_comp_adder_gold [28] -> \x_ct_pmp_comp_hit_1.mmu_comp_adder [28]
+Changing input A of cell $flatten\x_ct_pmp_comp_hit_1.$and$ct_pmp_comp_hit_gold.v:84$5_gold ($and): \x_ct_pmp_comp_hit_1.addr_mask_gold -> \x_ct_pmp_comp_hit_1.addr_mask
+Changing input A of cell $flatten\x_ct_pmp_comp_hit_1.$and$ct_pmp_comp_hit_gold.v:84$6_gold ($and): \x_ct_pmp_comp_hit_1.addr_mask_gold -> \x_ct_pmp_comp_hit_1.addr_mask
+Changing input B of cell $flatten\x_ct_pmp_comp_hit_1.$procmux$62_gold ($pmux): { \x_ct_pmp_comp_hit_1.mmu_napot_addr_match_gold 1'0 \x_ct_pmp_comp_hit_1.mmu_tor_addr_match_gold } -> { \x_ct_pmp_comp_hit_1.mmu_napot_addr_match 1'0 \x_ct_pmp_comp_hit_1.mmu_tor_addr_match }
+Changing input A of cell $flatten\x_ct_pmp_comp_hit_0.$logic_not$ct_pmp_comp_hit_gold.v:81$4_gold ($logic_not): \x_ct_pmp_comp_hit_0.mmu_comp_adder_gold [28] -> \x_ct_pmp_comp_hit_0.mmu_comp_adder [28]
+Changing input A of cell $flatten\x_ct_pmp_comp_hit_0.$and$ct_pmp_comp_hit_gold.v:84$5_gold ($and): \x_ct_pmp_comp_hit_0.addr_mask_gold -> \x_ct_pmp_comp_hit_0.addr_mask
+Changing input A of cell $flatten\x_ct_pmp_comp_hit_0.$and$ct_pmp_comp_hit_gold.v:84$6_gold ($and): \x_ct_pmp_comp_hit_0.addr_mask_gold -> \x_ct_pmp_comp_hit_0.addr_mask
+Changing input B of cell $flatten\x_ct_pmp_comp_hit_0.$procmux$62_gold ($pmux): { \x_ct_pmp_comp_hit_0.mmu_napot_addr_match_gold 1'0 \x_ct_pmp_comp_hit_0.mmu_comp_adder_gold [28] } -> { \x_ct_pmp_comp_hit_0.mmu_napot_addr_match 1'0 \x_ct_pmp_comp_hit_0.mmu_comp_adder [28] }
+Changing input A of cell $procmux$23_CMP0_gold ($eq): { \pmp_mmu_hit7_gold \pmp_mmu_hit6_gold \pmp_mmu_hit5_gold \pmp_mmu_hit4_gold \pmp_mmu_hit3_gold \pmp_mmu_hit2_gold \pmp_mmu_hit1_gold \pmp_mmu_hit0_gold } -> { \pmp_mmu_hit7 \pmp_mmu_hit6 \pmp_mmu_hit5 \pmp_mmu_hit4 \pmp_mmu_hit3 \pmp_mmu_hit2 \pmp_mmu_hit1 \pmp_mmu_hit0 }
+Changing input A of cell $procmux$24_CMP0_gold ($eq): { \pmp_mmu_hit6_gold \pmp_mmu_hit5_gold \pmp_mmu_hit4_gold \pmp_mmu_hit3_gold \pmp_mmu_hit2_gold \pmp_mmu_hit1_gold \pmp_mmu_hit0_gold } -> { \pmp_mmu_hit6 \pmp_mmu_hit5 \pmp_mmu_hit4 \pmp_mmu_hit3 \pmp_mmu_hit2 \pmp_mmu_hit1 \pmp_mmu_hit0 }
+Changing input A of cell $procmux$25_CMP0_gold ($eq): { \pmp_mmu_hit5_gold \pmp_mmu_hit4_gold \pmp_mmu_hit3_gold \pmp_mmu_hit2_gold \pmp_mmu_hit1_gold \pmp_mmu_hit0_gold } -> { \pmp_mmu_hit5 \pmp_mmu_hit4 \pmp_mmu_hit3 \pmp_mmu_hit2 \pmp_mmu_hit1 \pmp_mmu_hit0 }
+Changing input A of cell $procmux$26_CMP0_gold ($eq): { \pmp_mmu_hit4_gold \pmp_mmu_hit3_gold \pmp_mmu_hit2_gold \pmp_mmu_hit1_gold \pmp_mmu_hit0_gold } -> { \pmp_mmu_hit4 \pmp_mmu_hit3 \pmp_mmu_hit2 \pmp_mmu_hit1 \pmp_mmu_hit0 }
+Changing input A of cell $procmux$27_CMP0_gold ($eq): { \pmp_mmu_hit3_gold \pmp_mmu_hit2_gold \pmp_mmu_hit1_gold \pmp_mmu_hit0_gold } -> { \pmp_mmu_hit3 \pmp_mmu_hit2 \pmp_mmu_hit1 \pmp_mmu_hit0 }
+Changing input A of cell $procmux$28_CMP0_gold ($eq): { \pmp_mmu_hit2_gold \pmp_mmu_hit1_gold \pmp_mmu_hit0_gold } -> { \pmp_mmu_hit2 \pmp_mmu_hit1 \pmp_mmu_hit0 }
+Changing input A of cell $procmux$29_CMP0_gold ($eq): { \pmp_mmu_hit1_gold \pmp_mmu_hit0_gold } -> { \pmp_mmu_hit1 \pmp_mmu_hit0 }
+Changing input S of cell $procmux$13_gold ($pmux): { \pmp_mmu_hit0_gold $procmux$29_CMP_gold $procmux$28_CMP_gold $procmux$27_CMP_gold $procmux$26_CMP_gold $procmux$25_CMP_gold $procmux$24_CMP_gold $procmux$23_CMP_gold $procmux$14_CMP_gold } -> { \pmp_mmu_hit0 $procmux$29_CMP_gold $procmux$28_CMP_gold $procmux$27_CMP_gold $procmux$26_CMP_gold $procmux$25_CMP_gold $procmux$24_CMP_gold $procmux$23_CMP_gold $procmux$14_CMP_gold }
+Changing input B of cell $procmux$13_gold ($pmux): { \pmpcfg0_value_gold [7] \pmpcfg0_value_gold [2:0] \pmpcfg0_value_gold [15] \pmpcfg0_value_gold [10:8] \pmpcfg0_value_gold [23] \pmpcfg0_value_gold [18:16] \pmpcfg0_value_gold [31] \pmpcfg0_value_gold [26:24] \pmpcfg0_value_gold [39] \pmpcfg0_value_gold [34:32] \pmpcfg0_value_gold [47] \pmpcfg0_value_gold [42:40] \pmpcfg0_value_gold [55] \pmpcfg0_value_gold [50:48] \pmpcfg0_value_gold [63] \pmpcfg0_value_gold [58:56] \pmp_default_flg_gold } -> { \pmpcfg0_value_gold [7] \pmpcfg0_value_gold [2:0] \pmpcfg0_value_gold [15] \pmpcfg0_value_gold [10:8] \pmpcfg0_value_gold [23] \pmpcfg0_value_gold [18:16] \pmpcfg0_value_gold [31] \pmpcfg0_value_gold [26:24] \pmpcfg0_value_gold [39] \pmpcfg0_value_gold [34:32] \pmpcfg0_value_gold [47] \pmpcfg0_value_gold [42:40] \pmpcfg0_value_gold [55] \pmpcfg0_value_gold [50:48] \pmpcfg0_value_gold [63] \pmpcfg0_value_gold [58:56] \pmp_default_flg }
+Changing input A of cell $procmux$14_CMP0_gold ($logic_not): { 8'00000000 \pmp_mmu_hit7_gold \pmp_mmu_hit6_gold \pmp_mmu_hit5_gold \pmp_mmu_hit4_gold \pmp_mmu_hit3_gold \pmp_mmu_hit2_gold \pmp_mmu_hit1_gold \pmp_mmu_hit0_gold } -> { 8'00000000 \pmp_mmu_hit7 \pmp_mmu_hit6 \pmp_mmu_hit5 \pmp_mmu_hit4 \pmp_mmu_hit3 \pmp_mmu_hit2 \pmp_mmu_hit1 \pmp_mmu_hit0 }
+Changing input S of cell $ternary$ct_pmp_acc_gold.v:256$11_gold ($mux): \cp0_mach_mode_gold -> \cp0_mach_mode
+Changing input A of cell $eq$ct_pmp_acc_gold.v:109$10_gold ($eq): \cp0_priv_mode_gold -> \cp0_priv_mode
+Changing input B of cell $flatten\x_ct_pmp_comp_hit_7.$logic_and$ct_pmp_comp_hit_gold.v:78$3_gold ($logic_and): \x_ct_pmp_comp_hit_7.mmu_comp_adder_gold [28] -> \x_ct_pmp_comp_hit_7.mmu_comp_adder [28]
+Changing input A of cell $flatten\x_ct_pmp_comp_hit_7.$logic_and$ct_pmp_comp_hit_gold.v:78$3_gold ($logic_and): \x_ct_pmp_comp_hit_6.mmu_addr_ge_upaddr_x_gold -> \x_ct_pmp_comp_hit_6.mmu_addr_ge_upaddr_x
+Presumably equivalent cells: x_ct_pmp_comp_hit_6_gold x_ct_pmp_comp_hit_6_gate ($scopeinfo) -> x_ct_pmp_comp_hit_6
+Presumably equivalent cells: x_ct_pmp_comp_hit_5_gold x_ct_pmp_comp_hit_5_gate ($scopeinfo) -> x_ct_pmp_comp_hit_5
+Presumably equivalent cells: x_ct_pmp_comp_hit_4_gold x_ct_pmp_comp_hit_4_gate ($scopeinfo) -> x_ct_pmp_comp_hit_4
+Presumably equivalent cells: x_ct_pmp_comp_hit_3_gold x_ct_pmp_comp_hit_3_gate ($scopeinfo) -> x_ct_pmp_comp_hit_3
+Presumably equivalent cells: x_ct_pmp_comp_hit_2_gold x_ct_pmp_comp_hit_2_gate ($scopeinfo) -> x_ct_pmp_comp_hit_2
+Presumably equivalent cells: x_ct_pmp_comp_hit_1_gold x_ct_pmp_comp_hit_1_gate ($scopeinfo) -> x_ct_pmp_comp_hit_1
+Presumably equivalent cells: x_ct_pmp_comp_hit_0_gold x_ct_pmp_comp_hit_0_gate ($scopeinfo) -> x_ct_pmp_comp_hit_0
+Presumably equivalent cells: x_ct_pmp_comp_hit_7_gold x_ct_pmp_comp_hit_7_gate ($scopeinfo) -> x_ct_pmp_comp_hit_7
+
+4. Executing PREP pass.
+
+4.1. Executing HIERARCHY pass (managing design hierarchy).
+
+4.1.1. Analyzing design hierarchy..
+Top module:  \equiv
+
+4.1.2. Analyzing design hierarchy..
+Top module:  \equiv
+Removing unused module `\gate'.
+Removing unused module `\gold'.
+Removed 2 unused modules.
+
+4.2. Executing PROC pass (convert processes to netlists).
+
+4.2.1. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Cleaned up 0 empty switches.
+
+4.2.2. Executing PROC_RMDEAD pass (remove dead branches from decision trees).
+Removed a total of 0 dead cases.
+
+4.2.3. Executing PROC_PRUNE pass (remove redundant assignments in processes).
+Removed 0 redundant assignments.
+Promoted 0 assignments to connections.
+
+4.2.4. Executing PROC_INIT pass (extract init attributes).
+
+4.2.5. Executing PROC_ARST pass (detect async resets in processes).
+
+4.2.6. Executing PROC_ROM pass (convert switches to ROMs).
+Converted 0 switches.
+
+4.2.7. Executing PROC_MUX pass (convert decision trees to multiplexers).
+
+4.2.8. Executing PROC_DLATCH pass (convert process syncs to latches).
+
+4.2.9. Executing PROC_DFF pass (convert process syncs to FFs).
+
+4.2.10. Executing PROC_MEMWR pass (convert process memory writes to cells).
+
+4.2.11. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Cleaned up 0 empty switches.
+
+4.2.12. Executing OPT_EXPR pass (perform const folding).
+Optimizing module equiv.
+
+4.3. Executing FUTURE pass.
+
+4.4. Executing OPT_EXPR pass (perform const folding).
+Optimizing module equiv.
+
+4.5. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \equiv..
+Removed 776 unused cells and 81 unused wires.
+<suppressed ~857 debug messages>
+
+4.6. Executing CHECK pass (checking for obvious problems).
+Checking module equiv...
+Found and reported 0 problems.
+
+4.7. Executing OPT pass (performing simple optimizations).
+
+4.7.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module equiv.
+
+4.7.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\equiv'.
+Computing hashes of 1165 cells of `\equiv'.
+Finding duplicate cells in `\equiv'.
+Computing hashes of 1078 cells of `\equiv'.
+Finding duplicate cells in `\equiv'.
+Computing hashes of 1062 cells of `\equiv'.
+Finding duplicate cells in `\equiv'.
+<suppressed ~309 debug messages>
+Removed a total of 103 cells.
+
+4.7.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \equiv..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~60 debug messages>
+
+4.7.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \equiv.
+Performed a total of 0 changes.
+
+4.7.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\equiv'.
+Computing hashes of 1062 cells of `\equiv'.
+Finding duplicate cells in `\equiv'.
+Computing hashes of 1051 cells of `\equiv'.
+Finding duplicate cells in `\equiv'.
+<suppressed ~33 debug messages>
+Removed a total of 11 cells.
+
+4.7.6. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \equiv..
+Removed 0 unused cells and 72 unused wires.
+<suppressed ~1 debug messages>
+
+4.7.7. Executing OPT_EXPR pass (perform const folding).
+Optimizing module equiv.
+
+4.7.8. Rerunning OPT passes. (Maybe there is more to do..)
+
+4.7.9. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \equiv..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~38 debug messages>
+
+4.7.10. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \equiv.
+Performed a total of 0 changes.
+
+4.7.11. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\equiv'.
+Computing hashes of 1051 cells of `\equiv'.
+Finding duplicate cells in `\equiv'.
+Removed a total of 0 cells.
+
+4.7.12. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \equiv..
+
+4.7.13. Executing OPT_EXPR pass (perform const folding).
+Optimizing module equiv.
+
+4.7.14. Finished fast OPT passes. (There is nothing left to do.)
+
+4.8. Executing WREDUCE pass (reducing word size of cells).
+Removed top 1 bits (of 2) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_0.$procmux$60_CMP0_gold ($eq).
+Removed top 1 bits (of 3) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_0.$procmux$59_CMP0_gold ($eq).
+Removed top 1 bits (of 4) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_0.$procmux$58_CMP0_gold ($eq).
+Removed top 1 bits (of 5) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_0.$procmux$57_CMP0_gold ($eq).
+Removed top 1 bits (of 6) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_0.$procmux$56_CMP0_gold ($eq).
+Removed top 1 bits (of 7) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_0.$procmux$55_CMP0_gold ($eq).
+Removed top 1 bits (of 8) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_0.$procmux$54_CMP0_gold ($eq).
+Removed top 1 bits (of 9) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_0.$procmux$53_CMP0_gold ($eq).
+Removed top 1 bits (of 10) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_0.$procmux$52_CMP0_gold ($eq).
+Removed top 1 bits (of 11) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_0.$procmux$51_CMP0_gold ($eq).
+Removed top 1 bits (of 12) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_0.$procmux$50_CMP0_gold ($eq).
+Removed top 1 bits (of 13) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_0.$procmux$49_CMP0_gold ($eq).
+Removed top 1 bits (of 14) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_0.$procmux$48_CMP0_gold ($eq).
+Removed top 1 bits (of 15) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_0.$procmux$47_CMP0_gold ($eq).
+Removed top 1 bits (of 16) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_0.$procmux$46_CMP0_gold ($eq).
+Removed top 1 bits (of 17) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_0.$procmux$45_CMP0_gold ($eq).
+Removed top 1 bits (of 18) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_0.$procmux$44_CMP0_gold ($eq).
+Removed top 1 bits (of 19) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_0.$procmux$43_CMP0_gold ($eq).
+Removed top 1 bits (of 20) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_0.$procmux$42_CMP0_gold ($eq).
+Removed top 1 bits (of 21) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_0.$procmux$41_CMP0_gold ($eq).
+Removed top 1 bits (of 22) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_0.$procmux$40_CMP0_gold ($eq).
+Removed top 1 bits (of 23) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_0.$procmux$39_CMP0_gold ($eq).
+Removed top 1 bits (of 24) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_0.$procmux$38_CMP0_gold ($eq).
+Removed top 1 bits (of 25) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_0.$procmux$37_CMP0_gold ($eq).
+Removed top 1 bits (of 26) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_0.$procmux$36_CMP0_gold ($eq).
+Removed top 1 bits (of 27) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_0.$procmux$35_CMP0_gold ($eq).
+Removed top 1 bits (of 28) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_0.$procmux$34_CMP0_gold ($eq).
+Removed top 1 bits (of 2) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_1.$procmux$60_CMP0_gold ($eq).
+Removed top 1 bits (of 3) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_1.$procmux$59_CMP0_gold ($eq).
+Removed top 1 bits (of 4) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_1.$procmux$58_CMP0_gold ($eq).
+Removed top 1 bits (of 5) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_1.$procmux$57_CMP0_gold ($eq).
+Removed top 1 bits (of 6) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_1.$procmux$56_CMP0_gold ($eq).
+Removed top 1 bits (of 7) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_1.$procmux$55_CMP0_gold ($eq).
+Removed top 1 bits (of 8) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_1.$procmux$54_CMP0_gold ($eq).
+Removed top 1 bits (of 9) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_1.$procmux$53_CMP0_gold ($eq).
+Removed top 1 bits (of 10) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_1.$procmux$52_CMP0_gold ($eq).
+Removed top 1 bits (of 11) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_1.$procmux$51_CMP0_gold ($eq).
+Removed top 1 bits (of 12) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_1.$procmux$50_CMP0_gold ($eq).
+Removed top 1 bits (of 13) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_1.$procmux$49_CMP0_gold ($eq).
+Removed top 1 bits (of 14) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_1.$procmux$48_CMP0_gold ($eq).
+Removed top 1 bits (of 15) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_1.$procmux$47_CMP0_gold ($eq).
+Removed top 1 bits (of 16) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_1.$procmux$46_CMP0_gold ($eq).
+Removed top 1 bits (of 17) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_1.$procmux$45_CMP0_gold ($eq).
+Removed top 1 bits (of 18) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_1.$procmux$44_CMP0_gold ($eq).
+Removed top 1 bits (of 19) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_1.$procmux$43_CMP0_gold ($eq).
+Removed top 1 bits (of 20) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_1.$procmux$42_CMP0_gold ($eq).
+Removed top 1 bits (of 21) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_1.$procmux$41_CMP0_gold ($eq).
+Removed top 1 bits (of 22) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_1.$procmux$40_CMP0_gold ($eq).
+Removed top 1 bits (of 23) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_1.$procmux$39_CMP0_gold ($eq).
+Removed top 1 bits (of 24) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_1.$procmux$38_CMP0_gold ($eq).
+Removed top 1 bits (of 25) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_1.$procmux$37_CMP0_gold ($eq).
+Removed top 1 bits (of 26) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_1.$procmux$36_CMP0_gold ($eq).
+Removed top 1 bits (of 27) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_1.$procmux$35_CMP0_gold ($eq).
+Removed top 1 bits (of 28) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_1.$procmux$34_CMP0_gold ($eq).
+Removed top 1 bits (of 2) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_2.$procmux$60_CMP0_gold ($eq).
+Removed top 1 bits (of 3) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_2.$procmux$59_CMP0_gold ($eq).
+Removed top 1 bits (of 4) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_2.$procmux$58_CMP0_gold ($eq).
+Removed top 1 bits (of 5) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_2.$procmux$57_CMP0_gold ($eq).
+Removed top 1 bits (of 6) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_2.$procmux$56_CMP0_gold ($eq).
+Removed top 1 bits (of 7) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_2.$procmux$55_CMP0_gold ($eq).
+Removed top 1 bits (of 8) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_2.$procmux$54_CMP0_gold ($eq).
+Removed top 1 bits (of 9) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_2.$procmux$53_CMP0_gold ($eq).
+Removed top 1 bits (of 10) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_2.$procmux$52_CMP0_gold ($eq).
+Removed top 1 bits (of 11) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_2.$procmux$51_CMP0_gold ($eq).
+Removed top 1 bits (of 12) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_2.$procmux$50_CMP0_gold ($eq).
+Removed top 1 bits (of 13) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_2.$procmux$49_CMP0_gold ($eq).
+Removed top 1 bits (of 14) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_2.$procmux$48_CMP0_gold ($eq).
+Removed top 1 bits (of 15) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_2.$procmux$47_CMP0_gold ($eq).
+Removed top 1 bits (of 16) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_2.$procmux$46_CMP0_gold ($eq).
+Removed top 1 bits (of 17) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_2.$procmux$45_CMP0_gold ($eq).
+Removed top 1 bits (of 18) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_2.$procmux$44_CMP0_gold ($eq).
+Removed top 1 bits (of 19) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_2.$procmux$43_CMP0_gold ($eq).
+Removed top 1 bits (of 20) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_2.$procmux$42_CMP0_gold ($eq).
+Removed top 1 bits (of 21) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_2.$procmux$41_CMP0_gold ($eq).
+Removed top 1 bits (of 22) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_2.$procmux$40_CMP0_gold ($eq).
+Removed top 1 bits (of 23) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_2.$procmux$39_CMP0_gold ($eq).
+Removed top 1 bits (of 24) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_2.$procmux$38_CMP0_gold ($eq).
+Removed top 1 bits (of 25) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_2.$procmux$37_CMP0_gold ($eq).
+Removed top 1 bits (of 26) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_2.$procmux$36_CMP0_gold ($eq).
+Removed top 1 bits (of 27) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_2.$procmux$35_CMP0_gold ($eq).
+Removed top 1 bits (of 28) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_2.$procmux$34_CMP0_gold ($eq).
+Removed top 1 bits (of 2) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_3.$procmux$60_CMP0_gold ($eq).
+Removed top 1 bits (of 3) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_3.$procmux$59_CMP0_gold ($eq).
+Removed top 1 bits (of 4) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_3.$procmux$58_CMP0_gold ($eq).
+Removed top 1 bits (of 5) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_3.$procmux$57_CMP0_gold ($eq).
+Removed top 1 bits (of 6) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_3.$procmux$56_CMP0_gold ($eq).
+Removed top 1 bits (of 7) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_3.$procmux$55_CMP0_gold ($eq).
+Removed top 1 bits (of 8) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_3.$procmux$54_CMP0_gold ($eq).
+Removed top 1 bits (of 9) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_3.$procmux$53_CMP0_gold ($eq).
+Removed top 1 bits (of 10) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_3.$procmux$52_CMP0_gold ($eq).
+Removed top 1 bits (of 11) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_3.$procmux$51_CMP0_gold ($eq).
+Removed top 1 bits (of 12) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_3.$procmux$50_CMP0_gold ($eq).
+Removed top 1 bits (of 13) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_3.$procmux$49_CMP0_gold ($eq).
+Removed top 1 bits (of 14) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_3.$procmux$48_CMP0_gold ($eq).
+Removed top 1 bits (of 15) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_3.$procmux$47_CMP0_gold ($eq).
+Removed top 1 bits (of 16) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_3.$procmux$46_CMP0_gold ($eq).
+Removed top 1 bits (of 17) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_3.$procmux$45_CMP0_gold ($eq).
+Removed top 1 bits (of 18) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_3.$procmux$44_CMP0_gold ($eq).
+Removed top 1 bits (of 19) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_3.$procmux$43_CMP0_gold ($eq).
+Removed top 1 bits (of 20) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_3.$procmux$42_CMP0_gold ($eq).
+Removed top 1 bits (of 21) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_3.$procmux$41_CMP0_gold ($eq).
+Removed top 1 bits (of 22) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_3.$procmux$40_CMP0_gold ($eq).
+Removed top 1 bits (of 23) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_3.$procmux$39_CMP0_gold ($eq).
+Removed top 1 bits (of 24) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_3.$procmux$38_CMP0_gold ($eq).
+Removed top 1 bits (of 25) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_3.$procmux$37_CMP0_gold ($eq).
+Removed top 1 bits (of 26) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_3.$procmux$36_CMP0_gold ($eq).
+Removed top 1 bits (of 27) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_3.$procmux$35_CMP0_gold ($eq).
+Removed top 1 bits (of 28) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_3.$procmux$34_CMP0_gold ($eq).
+Removed top 1 bits (of 2) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_4.$procmux$60_CMP0_gold ($eq).
+Removed top 1 bits (of 3) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_4.$procmux$59_CMP0_gold ($eq).
+Removed top 1 bits (of 4) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_4.$procmux$58_CMP0_gold ($eq).
+Removed top 1 bits (of 5) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_4.$procmux$57_CMP0_gold ($eq).
+Removed top 1 bits (of 6) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_4.$procmux$56_CMP0_gold ($eq).
+Removed top 1 bits (of 7) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_4.$procmux$55_CMP0_gold ($eq).
+Removed top 1 bits (of 8) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_4.$procmux$54_CMP0_gold ($eq).
+Removed top 1 bits (of 9) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_4.$procmux$53_CMP0_gold ($eq).
+Removed top 1 bits (of 10) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_4.$procmux$52_CMP0_gold ($eq).
+Removed top 1 bits (of 11) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_4.$procmux$51_CMP0_gold ($eq).
+Removed top 1 bits (of 12) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_4.$procmux$50_CMP0_gold ($eq).
+Removed top 1 bits (of 13) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_4.$procmux$49_CMP0_gold ($eq).
+Removed top 1 bits (of 14) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_4.$procmux$48_CMP0_gold ($eq).
+Removed top 1 bits (of 15) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_4.$procmux$47_CMP0_gold ($eq).
+Removed top 1 bits (of 16) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_4.$procmux$46_CMP0_gold ($eq).
+Removed top 1 bits (of 17) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_4.$procmux$45_CMP0_gold ($eq).
+Removed top 1 bits (of 18) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_4.$procmux$44_CMP0_gold ($eq).
+Removed top 1 bits (of 19) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_4.$procmux$43_CMP0_gold ($eq).
+Removed top 1 bits (of 20) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_4.$procmux$42_CMP0_gold ($eq).
+Removed top 1 bits (of 21) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_4.$procmux$41_CMP0_gold ($eq).
+Removed top 1 bits (of 22) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_4.$procmux$40_CMP0_gold ($eq).
+Removed top 1 bits (of 23) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_4.$procmux$39_CMP0_gold ($eq).
+Removed top 1 bits (of 24) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_4.$procmux$38_CMP0_gold ($eq).
+Removed top 1 bits (of 25) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_4.$procmux$37_CMP0_gold ($eq).
+Removed top 1 bits (of 26) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_4.$procmux$36_CMP0_gold ($eq).
+Removed top 1 bits (of 27) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_4.$procmux$35_CMP0_gold ($eq).
+Removed top 1 bits (of 28) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_4.$procmux$34_CMP0_gold ($eq).
+Removed top 1 bits (of 2) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_5.$procmux$60_CMP0_gold ($eq).
+Removed top 1 bits (of 3) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_5.$procmux$59_CMP0_gold ($eq).
+Removed top 1 bits (of 4) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_5.$procmux$58_CMP0_gold ($eq).
+Removed top 1 bits (of 5) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_5.$procmux$57_CMP0_gold ($eq).
+Removed top 1 bits (of 6) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_5.$procmux$56_CMP0_gold ($eq).
+Removed top 1 bits (of 7) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_5.$procmux$55_CMP0_gold ($eq).
+Removed top 1 bits (of 8) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_5.$procmux$54_CMP0_gold ($eq).
+Removed top 1 bits (of 9) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_5.$procmux$53_CMP0_gold ($eq).
+Removed top 1 bits (of 10) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_5.$procmux$52_CMP0_gold ($eq).
+Removed top 1 bits (of 11) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_5.$procmux$51_CMP0_gold ($eq).
+Removed top 1 bits (of 12) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_5.$procmux$50_CMP0_gold ($eq).
+Removed top 1 bits (of 13) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_5.$procmux$49_CMP0_gold ($eq).
+Removed top 1 bits (of 14) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_5.$procmux$48_CMP0_gold ($eq).
+Removed top 1 bits (of 15) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_5.$procmux$47_CMP0_gold ($eq).
+Removed top 1 bits (of 16) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_5.$procmux$46_CMP0_gold ($eq).
+Removed top 1 bits (of 17) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_5.$procmux$45_CMP0_gold ($eq).
+Removed top 1 bits (of 18) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_5.$procmux$44_CMP0_gold ($eq).
+Removed top 1 bits (of 19) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_5.$procmux$43_CMP0_gold ($eq).
+Removed top 1 bits (of 20) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_5.$procmux$42_CMP0_gold ($eq).
+Removed top 1 bits (of 21) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_5.$procmux$41_CMP0_gold ($eq).
+Removed top 1 bits (of 22) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_5.$procmux$40_CMP0_gold ($eq).
+Removed top 1 bits (of 23) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_5.$procmux$39_CMP0_gold ($eq).
+Removed top 1 bits (of 24) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_5.$procmux$38_CMP0_gold ($eq).
+Removed top 1 bits (of 25) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_5.$procmux$37_CMP0_gold ($eq).
+Removed top 1 bits (of 26) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_5.$procmux$36_CMP0_gold ($eq).
+Removed top 1 bits (of 27) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_5.$procmux$35_CMP0_gold ($eq).
+Removed top 1 bits (of 28) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_5.$procmux$34_CMP0_gold ($eq).
+Removed top 1 bits (of 2) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_6.$procmux$60_CMP0_gold ($eq).
+Removed top 1 bits (of 3) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_6.$procmux$59_CMP0_gold ($eq).
+Removed top 1 bits (of 4) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_6.$procmux$58_CMP0_gold ($eq).
+Removed top 1 bits (of 5) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_6.$procmux$57_CMP0_gold ($eq).
+Removed top 1 bits (of 6) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_6.$procmux$56_CMP0_gold ($eq).
+Removed top 1 bits (of 7) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_6.$procmux$55_CMP0_gold ($eq).
+Removed top 1 bits (of 8) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_6.$procmux$54_CMP0_gold ($eq).
+Removed top 1 bits (of 9) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_6.$procmux$53_CMP0_gold ($eq).
+Removed top 1 bits (of 10) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_6.$procmux$52_CMP0_gold ($eq).
+Removed top 1 bits (of 11) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_6.$procmux$51_CMP0_gold ($eq).
+Removed top 1 bits (of 12) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_6.$procmux$50_CMP0_gold ($eq).
+Removed top 1 bits (of 13) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_6.$procmux$49_CMP0_gold ($eq).
+Removed top 1 bits (of 14) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_6.$procmux$48_CMP0_gold ($eq).
+Removed top 1 bits (of 15) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_6.$procmux$47_CMP0_gold ($eq).
+Removed top 1 bits (of 16) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_6.$procmux$46_CMP0_gold ($eq).
+Removed top 1 bits (of 17) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_6.$procmux$45_CMP0_gold ($eq).
+Removed top 1 bits (of 18) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_6.$procmux$44_CMP0_gold ($eq).
+Removed top 1 bits (of 19) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_6.$procmux$43_CMP0_gold ($eq).
+Removed top 1 bits (of 20) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_6.$procmux$42_CMP0_gold ($eq).
+Removed top 1 bits (of 21) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_6.$procmux$41_CMP0_gold ($eq).
+Removed top 1 bits (of 22) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_6.$procmux$40_CMP0_gold ($eq).
+Removed top 1 bits (of 23) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_6.$procmux$39_CMP0_gold ($eq).
+Removed top 1 bits (of 24) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_6.$procmux$38_CMP0_gold ($eq).
+Removed top 1 bits (of 25) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_6.$procmux$37_CMP0_gold ($eq).
+Removed top 1 bits (of 26) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_6.$procmux$36_CMP0_gold ($eq).
+Removed top 1 bits (of 27) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_6.$procmux$35_CMP0_gold ($eq).
+Removed top 1 bits (of 28) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_6.$procmux$34_CMP0_gold ($eq).
+Removed top 1 bits (of 2) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_7.$procmux$60_CMP0_gold ($eq).
+Removed top 1 bits (of 3) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_7.$procmux$59_CMP0_gold ($eq).
+Removed top 1 bits (of 4) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_7.$procmux$58_CMP0_gold ($eq).
+Removed top 1 bits (of 5) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_7.$procmux$57_CMP0_gold ($eq).
+Removed top 1 bits (of 6) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_7.$procmux$56_CMP0_gold ($eq).
+Removed top 1 bits (of 7) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_7.$procmux$55_CMP0_gold ($eq).
+Removed top 1 bits (of 8) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_7.$procmux$54_CMP0_gold ($eq).
+Removed top 1 bits (of 9) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_7.$procmux$53_CMP0_gold ($eq).
+Removed top 1 bits (of 10) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_7.$procmux$52_CMP0_gold ($eq).
+Removed top 1 bits (of 11) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_7.$procmux$51_CMP0_gold ($eq).
+Removed top 1 bits (of 12) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_7.$procmux$50_CMP0_gold ($eq).
+Removed top 1 bits (of 13) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_7.$procmux$49_CMP0_gold ($eq).
+Removed top 1 bits (of 14) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_7.$procmux$48_CMP0_gold ($eq).
+Removed top 1 bits (of 15) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_7.$procmux$47_CMP0_gold ($eq).
+Removed top 1 bits (of 16) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_7.$procmux$46_CMP0_gold ($eq).
+Removed top 1 bits (of 17) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_7.$procmux$45_CMP0_gold ($eq).
+Removed top 1 bits (of 18) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_7.$procmux$44_CMP0_gold ($eq).
+Removed top 1 bits (of 19) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_7.$procmux$43_CMP0_gold ($eq).
+Removed top 1 bits (of 20) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_7.$procmux$42_CMP0_gold ($eq).
+Removed top 1 bits (of 21) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_7.$procmux$41_CMP0_gold ($eq).
+Removed top 1 bits (of 22) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_7.$procmux$40_CMP0_gold ($eq).
+Removed top 1 bits (of 23) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_7.$procmux$39_CMP0_gold ($eq).
+Removed top 1 bits (of 24) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_7.$procmux$38_CMP0_gold ($eq).
+Removed top 1 bits (of 25) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_7.$procmux$37_CMP0_gold ($eq).
+Removed top 1 bits (of 26) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_7.$procmux$36_CMP0_gold ($eq).
+Removed top 1 bits (of 27) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_7.$procmux$35_CMP0_gold ($eq).
+Removed top 1 bits (of 28) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_7.$procmux$34_CMP0_gold ($eq).
+Removed top 1 bits (of 29) from port A of cell equiv.$flatten\x_ct_pmp_comp_hit_0.$sub$ct_pmp_comp_hit_gate_candidate.v:75$2_gate ($sub).
+Removed top 1 bits (of 29) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_0.$sub$ct_pmp_comp_hit_gate_candidate.v:75$2_gate ($sub).
+Removed top 1 bits (of 29) from port A of cell equiv.$flatten\x_ct_pmp_comp_hit_1.$sub$ct_pmp_comp_hit_gate_candidate.v:75$2_gate ($sub).
+Removed top 1 bits (of 29) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_1.$sub$ct_pmp_comp_hit_gate_candidate.v:75$2_gate ($sub).
+Removed top 1 bits (of 29) from port A of cell equiv.$flatten\x_ct_pmp_comp_hit_2.$sub$ct_pmp_comp_hit_gate_candidate.v:75$2_gate ($sub).
+Removed top 1 bits (of 29) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_2.$sub$ct_pmp_comp_hit_gate_candidate.v:75$2_gate ($sub).
+Removed top 1 bits (of 29) from port A of cell equiv.$flatten\x_ct_pmp_comp_hit_3.$sub$ct_pmp_comp_hit_gate_candidate.v:75$2_gate ($sub).
+Removed top 1 bits (of 29) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_3.$sub$ct_pmp_comp_hit_gate_candidate.v:75$2_gate ($sub).
+Removed top 1 bits (of 29) from port A of cell equiv.$flatten\x_ct_pmp_comp_hit_4.$sub$ct_pmp_comp_hit_gate_candidate.v:75$2_gate ($sub).
+Removed top 1 bits (of 29) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_4.$sub$ct_pmp_comp_hit_gate_candidate.v:75$2_gate ($sub).
+Removed top 1 bits (of 29) from port A of cell equiv.$flatten\x_ct_pmp_comp_hit_5.$sub$ct_pmp_comp_hit_gate_candidate.v:75$2_gate ($sub).
+Removed top 1 bits (of 29) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_5.$sub$ct_pmp_comp_hit_gate_candidate.v:75$2_gate ($sub).
+Removed top 1 bits (of 29) from port A of cell equiv.$flatten\x_ct_pmp_comp_hit_6.$sub$ct_pmp_comp_hit_gate_candidate.v:75$2_gate ($sub).
+Removed top 1 bits (of 29) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_6.$sub$ct_pmp_comp_hit_gate_candidate.v:75$2_gate ($sub).
+Removed top 1 bits (of 29) from port A of cell equiv.$flatten\x_ct_pmp_comp_hit_7.$sub$ct_pmp_comp_hit_gate_candidate.v:75$2_gate ($sub).
+Removed top 1 bits (of 29) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_7.$sub$ct_pmp_comp_hit_gate_candidate.v:75$2_gate ($sub).
+Removed top 1 bits (of 4) from mux cell equiv.$ternary$ct_pmp_acc_gold.v:256$65_gate ($mux).
+Removed top 1 bits (of 2) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_0.$procmux$88_CMP0_gate ($eq).
+Removed top 1 bits (of 2) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_1.$procmux$88_CMP0_gate ($eq).
+Removed top 1 bits (of 2) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_2.$procmux$88_CMP0_gate ($eq).
+Removed top 1 bits (of 2) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_3.$procmux$88_CMP0_gate ($eq).
+Removed top 1 bits (of 2) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_4.$procmux$88_CMP0_gate ($eq).
+Removed top 1 bits (of 2) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_5.$procmux$88_CMP0_gate ($eq).
+Removed top 1 bits (of 2) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_6.$procmux$88_CMP0_gate ($eq).
+Removed top 1 bits (of 2) from port B of cell equiv.$flatten\x_ct_pmp_comp_hit_7.$procmux$88_CMP0_gate ($eq).
+Removed top 8 bits (of 16) from wire equiv.pmp_hit_gate.
+Removed top 1 bits (of 4) from wire equiv.pmp_default_flg_gate.
+Removed top 8 bits (of 16) from wire equiv.pmp_hit_gold.
+Removed top 1 bits (of 4) from wire equiv.pmp_default_flg_gold.
+
+4.9. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \equiv..
+Removed 0 unused cells and 4 unused wires.
+<suppressed ~1 debug messages>
+
+4.10. Executing MEMORY_COLLECT pass (generating $mem cells).
+
+4.11. Executing OPT pass (performing simple optimizations).
+
+4.11.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module equiv.
+
+4.11.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\equiv'.
+Computing hashes of 1051 cells of `\equiv'.
+Finding duplicate cells in `\equiv'.
+Removed a total of 0 cells.
+
+4.11.3. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \equiv..
+
+4.11.4. Finished fast OPT passes.
+
+4.12. Executing SORT pass.
+
+4.13. Printing statistics.
+
+=== equiv ===
+
+        +----------Local Count, excluding submodules.
+        | 
+      850 wires
+     4684 wire bits
+      354 public wires
+     3756 public wire bits
+       15 ports
+      397 port bits
+     1051 cells
+       16   $and
+      256   $eq
+      273   $equiv
+        7   $logic_and
+      232   $logic_not
+        2   $mux
+        8   $not
+       17   $pmux
+      216   $reduce_and
+        8   $reduce_or
+        8   $scopeinfo
+        8   $sub
+
+4.14. Executing CHECK pass (checking for obvious problems).
+Checking module equiv...
+Found and reported 0 problems.
+
+5. Executing EQUIV_SIMPLE pass.
+Found 224 unproven $equiv cells (8 groups) in equiv:
+ Grouping SAT models for \x_ct_pmp_comp_hit_0.addr_mask:
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_0.addr_mask [0]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_0.addr_mask [1]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_0.addr_mask [2]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_0.addr_mask [3]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_0.addr_mask [4]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_0.addr_mask [5]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_0.addr_mask [6]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_0.addr_mask [7]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_0.addr_mask [8]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_0.addr_mask [9]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_0.addr_mask [10]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_0.addr_mask [11]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_0.addr_mask [12]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_0.addr_mask [13]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_0.addr_mask [14]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_0.addr_mask [15]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_0.addr_mask [16]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_0.addr_mask [17]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_0.addr_mask [18]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_0.addr_mask [19]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_0.addr_mask [20]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_0.addr_mask [21]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_0.addr_mask [22]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_0.addr_mask [23]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_0.addr_mask [24]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_0.addr_mask [25]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_0.addr_mask [26]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_0.addr_mask [27]:ezsat
+ success!
+ Grouping SAT models for \x_ct_pmp_comp_hit_1.addr_mask:
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_1.addr_mask [0]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_1.addr_mask [1]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_1.addr_mask [2]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_1.addr_mask [3]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_1.addr_mask [4]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_1.addr_mask [5]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_1.addr_mask [6]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_1.addr_mask [7]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_1.addr_mask [8]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_1.addr_mask [9]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_1.addr_mask [10]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_1.addr_mask [11]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_1.addr_mask [12]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_1.addr_mask [13]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_1.addr_mask [14]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_1.addr_mask [15]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_1.addr_mask [16]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_1.addr_mask [17]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_1.addr_mask [18]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_1.addr_mask [19]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_1.addr_mask [20]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_1.addr_mask [21]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_1.addr_mask [22]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_1.addr_mask [23]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_1.addr_mask [24]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_1.addr_mask [25]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_1.addr_mask [26]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_1.addr_mask [27]:ezsat
+ success!
+ Grouping SAT models for \x_ct_pmp_comp_hit_2.addr_mask:
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_2.addr_mask [0]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_2.addr_mask [1]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_2.addr_mask [2]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_2.addr_mask [3]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_2.addr_mask [4]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_2.addr_mask [5]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_2.addr_mask [6]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_2.addr_mask [7]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_2.addr_mask [8]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_2.addr_mask [9]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_2.addr_mask [10]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_2.addr_mask [11]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_2.addr_mask [12]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_2.addr_mask [13]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_2.addr_mask [14]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_2.addr_mask [15]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_2.addr_mask [16]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_2.addr_mask [17]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_2.addr_mask [18]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_2.addr_mask [19]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_2.addr_mask [20]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_2.addr_mask [21]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_2.addr_mask [22]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_2.addr_mask [23]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_2.addr_mask [24]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_2.addr_mask [25]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_2.addr_mask [26]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_2.addr_mask [27]:ezsat
+ success!
+ Grouping SAT models for \x_ct_pmp_comp_hit_3.addr_mask:
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_3.addr_mask [0]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_3.addr_mask [1]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_3.addr_mask [2]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_3.addr_mask [3]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_3.addr_mask [4]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_3.addr_mask [5]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_3.addr_mask [6]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_3.addr_mask [7]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_3.addr_mask [8]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_3.addr_mask [9]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_3.addr_mask [10]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_3.addr_mask [11]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_3.addr_mask [12]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_3.addr_mask [13]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_3.addr_mask [14]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_3.addr_mask [15]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_3.addr_mask [16]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_3.addr_mask [17]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_3.addr_mask [18]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_3.addr_mask [19]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_3.addr_mask [20]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_3.addr_mask [21]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_3.addr_mask [22]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_3.addr_mask [23]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_3.addr_mask [24]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_3.addr_mask [25]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_3.addr_mask [26]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_3.addr_mask [27]:ezsat
+ success!
+ Grouping SAT models for \x_ct_pmp_comp_hit_4.addr_mask:
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_4.addr_mask [0]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_4.addr_mask [1]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_4.addr_mask [2]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_4.addr_mask [3]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_4.addr_mask [4]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_4.addr_mask [5]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_4.addr_mask [6]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_4.addr_mask [7]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_4.addr_mask [8]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_4.addr_mask [9]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_4.addr_mask [10]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_4.addr_mask [11]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_4.addr_mask [12]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_4.addr_mask [13]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_4.addr_mask [14]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_4.addr_mask [15]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_4.addr_mask [16]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_4.addr_mask [17]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_4.addr_mask [18]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_4.addr_mask [19]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_4.addr_mask [20]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_4.addr_mask [21]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_4.addr_mask [22]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_4.addr_mask [23]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_4.addr_mask [24]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_4.addr_mask [25]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_4.addr_mask [26]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_4.addr_mask [27]:ezsat
+ success!
+ Grouping SAT models for \x_ct_pmp_comp_hit_5.addr_mask:
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_5.addr_mask [0]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_5.addr_mask [1]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_5.addr_mask [2]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_5.addr_mask [3]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_5.addr_mask [4]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_5.addr_mask [5]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_5.addr_mask [6]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_5.addr_mask [7]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_5.addr_mask [8]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_5.addr_mask [9]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_5.addr_mask [10]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_5.addr_mask [11]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_5.addr_mask [12]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_5.addr_mask [13]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_5.addr_mask [14]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_5.addr_mask [15]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_5.addr_mask [16]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_5.addr_mask [17]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_5.addr_mask [18]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_5.addr_mask [19]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_5.addr_mask [20]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_5.addr_mask [21]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_5.addr_mask [22]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_5.addr_mask [23]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_5.addr_mask [24]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_5.addr_mask [25]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_5.addr_mask [26]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_5.addr_mask [27]:ezsat
+ success!
+ Grouping SAT models for \x_ct_pmp_comp_hit_6.addr_mask:
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_6.addr_mask [0]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_6.addr_mask [1]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_6.addr_mask [2]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_6.addr_mask [3]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_6.addr_mask [4]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_6.addr_mask [5]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_6.addr_mask [6]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_6.addr_mask [7]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_6.addr_mask [8]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_6.addr_mask [9]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_6.addr_mask [10]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_6.addr_mask [11]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_6.addr_mask [12]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_6.addr_mask [13]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_6.addr_mask [14]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_6.addr_mask [15]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_6.addr_mask [16]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_6.addr_mask [17]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_6.addr_mask [18]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_6.addr_mask [19]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_6.addr_mask [20]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_6.addr_mask [21]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_6.addr_mask [22]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_6.addr_mask [23]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_6.addr_mask [24]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_6.addr_mask [25]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_6.addr_mask [26]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_6.addr_mask [27]:ezsat
+ success!
+ Grouping SAT models for \x_ct_pmp_comp_hit_7.addr_mask:
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_7.addr_mask [0]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_7.addr_mask [1]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_7.addr_mask [2]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_7.addr_mask [3]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_7.addr_mask [4]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_7.addr_mask [5]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_7.addr_mask [6]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_7.addr_mask [7]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_7.addr_mask [8]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_7.addr_mask [9]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_7.addr_mask [10]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_7.addr_mask [11]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_7.addr_mask [12]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_7.addr_mask [13]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_7.addr_mask [14]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_7.addr_mask [15]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_7.addr_mask [16]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_7.addr_mask [17]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_7.addr_mask [18]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_7.addr_mask [19]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_7.addr_mask [20]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_7.addr_mask [21]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_7.addr_mask [22]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_7.addr_mask [23]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_7.addr_mask [24]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_7.addr_mask [25]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_7.addr_mask [26]:ezsat
+ success!
+  Trying to prove $equiv for \x_ct_pmp_comp_hit_7.addr_mask [27]:ezsat
+ success!
+Proved 224 previously unproven $equiv cells.
+
+6. Executing EQUIV_STATUS pass.
+Found 273 $equiv cells in equiv:
+  Of those cells 273 are proven and 0 are unproven.
+  Equivalence successfully proven!
+
+End of script. Logfile hash: aca4330615, time: 0.17s, user: 0.17s, system: 0.01s, MEM: 22.09 MB peak
+Yosys 0.66+181 (git sha1 afe6b18f2, Release, Clang /usr/bin/clang++ 18.1.8)
+Time spent: 45% 1x equiv_simple (0 sec), 14% 2x check (0 sec), ...
