@@ -388,3 +388,13 @@ def test_valid_customer_ready_metric_packet_passes_receipt_gate(tmp_path: Path) 
     _write_package(tmp_path)
 
     assert verify_public_receipts.verify(tmp_path) == []
+
+
+def test_replay_out_generated_files_do_not_self_trip_manifest_gate(tmp_path: Path) -> None:
+    package = _write_package(tmp_path)
+    replay_out = package / "replay_out"
+    replay_out.mkdir()
+    (replay_out / "generated.tcl").write_text("read_liberty $LIBERTY\n", encoding="utf-8")
+    (replay_out / "generated.mapped.v").write_text("module generated; endmodule\n", encoding="utf-8")
+
+    assert verify_public_receipts.verify(tmp_path) == []
