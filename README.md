@@ -1,13 +1,12 @@
-# Athanor OpenC910 Evidence Surface
+# Athanor OpenC910 Results
 
-OpenC910 is a real 64-bit superscalar out-of-order RISC-V core. This fork is
-Athanor's public evidence surface for C910 optimization work: every promoted row
-must bind the exact RTL candidate to metrics, proof, negative controls, and
-replayable artifacts.
+OpenC910 is a real 64-bit superscalar out-of-order RISC-V core. This fork
+publishes Athanor C910 optimization results. Every promoted row binds the exact
+RTL candidate to metrics, proof, negative controls, and replayable artifacts.
 
 ## Status
 
-| Field | Current read |
+| Field | Status |
 | --- | --- |
 | Core | T-Head XuanTie OpenC910 |
 | Evidence level | Four promoted module-local packets; no whole-core C910 claim |
