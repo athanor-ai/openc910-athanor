@@ -1,0 +1,88 @@
+{
+  "schema": "openc910.composition_edge_attempt.v1",
+  "ticket": "ATH-3118",
+  "status": "ct_iu_top_div_ff1_composition_edge_attempt",
+  "customer_ready": false,
+  "customer_ready_scope": "none; internal composition-edge route evidence only",
+  "target": {
+    "boundary_module": "ct_iu_top",
+    "changed_module": "ct_iu_div",
+    "subsystem": "iu",
+    "source_candidate_package": "athanor_artifacts/ct_iu_div_ff1_tree_candidate1",
+    "claim_scope": "composition_edge_only",
+    "not_whole_c910": true
+  },
+  "selected_flow": "yosys66_sky130_ct_iu_top_bounded_screen_v1",
+  "toolchain": {
+    "yosys_version": "Yosys 0.66+181 (git sha1 afe6b18f2, Release, Clang /usr/bin/clang++ 18.1.8)",
+    "opensta_version": "OpenSTA 2.2.0",
+    "liberty": "sky130_fd_sc_hd__tt_025C_1v80.lib",
+    "liberty_sha256": "ec0e1067a35c8bf20b11e58d1e8ac53326067e4dac84a125cc1b917a3518d0d9"
+  },
+  "composition_edge": {
+    "status": "passed",
+    "log_ref": "boundary_identity.json",
+    "only_changed_file": [
+      "ct_iu_div.v"
+    ],
+    "top_file_byte_identical": true,
+    "changed_module_interface_identical": true,
+    "changed_module_port_count": 30,
+    "gold_changed_module_sha256": "e51738e1d2c9c25c39d4a00e4f640217d258a6f1ade5ac95fa36ba1b7a34e860",
+    "gate_changed_module_sha256": "2ea9f277f6853d07d0a9da208834cf3bbb1f28266d816485da1b4daf7676579a"
+  },
+  "metrics": {
+    "bounded_ct_iu_top_screen": {
+      "area": {
+        "gold": 729976.3552,
+        "gate": 728213.4144,
+        "unit": "sky130_selected_area",
+        "direction": "improves",
+        "log_ref": "metric_screen.pinned.log"
+      },
+      "timing": {
+        "gold_max_data_arrival_ns": 34.3786,
+        "gate_max_data_arrival_ns": 34.3786,
+        "gold_wns_ns": -24.53,
+        "gate_wns_ns": -24.53,
+        "gold_tns_ns": -47241.97,
+        "gate_tns_ns": -47221.35,
+        "direction": "timing-flat",
+        "log_ref": "metric_screen.pinned.log"
+      },
+      "power": {
+        "gold_total_power_nw": 0.0823,
+        "gate_total_power_nw": 0.0821,
+        "methodology_boundary": "OpenSTA estimated power under fixed global activity; not signoff power and not measured workload activity",
+        "direction": "improves",
+        "log_ref": "metric_screen.pinned.log"
+      }
+    }
+  },
+  "proof_route": {
+    "module_local_source": "athanor_artifacts/ct_iu_div_ff1_tree_candidate1",
+    "module_local_proof": {
+      "status": "passed",
+      "proven_equiv_cells": 1966,
+      "unproven_equiv_cells": 0,
+      "proof_mutant_unproven_cells": 2
+    },
+    "flat_ct_iu_top_attempt": {
+      "status": "capout_partial_receipt",
+      "boundary_cells": 7775,
+      "boundary_groups": 716,
+      "cap_seconds": 2700,
+      "completed_prove_batches": 0,
+      "log_ref": "proof_route.pinned.log"
+    },
+    "route_recommendation": "composition authority: module-local ct_iu_div proof plus hash identity of unchanged modules plus unchanged-boundary/interface check at ct_iu_top"
+  },
+  "known_boundaries": [
+    "customer_ready=false; not an accepted customer packet",
+    "composition-edge route receipt only",
+    "bounded ct_iu_top selected-flow screen only",
+    "flat ct_iu_top proof is not claimed",
+    "not whole IU, whole C910/BOOM, ISA, architectural retire, signoff timing, workload power, or Lean-authority theorem evidence",
+    "OpenSTA estimated power is not signoff power and not measured workload activity"
+  ]
+}

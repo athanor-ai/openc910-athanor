@@ -1,0 +1,11 @@
+CT_IU_TOP_DIV_FF1_COMPOSITION_ROUTE_V1
+module_local_source: athanor_artifacts/ct_iu_div_ff1_tree_candidate1
+module_local_same_state: 1966 proven, 0 unproven
+module_local_proof_mutant: 2 unproven
+flat_ct_iu_top_attempt_status: capout_partial_receipt
+flat_ct_iu_top_boundary: 7775 cells, 716 groups
+flat_ct_iu_top_cap_seconds: 2700
+flat_ct_iu_top_completed_prove_batches: 0
+flat_ct_iu_top_observed_dominant_clusters: BJU PCFIFO, writeback and forwarding buses, ALU source cones, mostly unchanged logic
+route_recommendation: composition authority; module proof plus hash identity of unchanged modules plus unchanged-boundary/interface check
+claim_boundary: flat ct_iu_top proof is not claimed by this package.
