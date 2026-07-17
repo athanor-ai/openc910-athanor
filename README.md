@@ -37,6 +37,17 @@ promotion; parent RTU encoder-family packets are proof/PPA scouts until parent
 metric and authority review close; helper-local VFALU/IDU rows are not promoted
 without parent integration.
 
+## Formal Verification Map
+
+The package directory named in each row is the proof entry point. Methods not
+listed in that package are not part of its public claim.
+
+| Evidence | Where | Boundary |
+| --- | --- | --- |
+| Lean bridge inputs | `lean_bridge_obligation.json` in promoted C910 packages | Names the bridge obligation for Kairos import. It is not a Lean-authority claim unless the package receipt says so. |
+| Yosys SAT / temporal induction | Package `replay.sh`, `*_proof*.pinned.log`, and relation-miter logs | Proves only the named output, relation, or parent-table subject. |
+| Red controls | `*_proof_mutant*`, `*_negative*`, and metric red-control logs | Shows the proof or metric gate fails on a wrong candidate. |
+
 ## Evidence Bar
 
 A promoted row requires:
