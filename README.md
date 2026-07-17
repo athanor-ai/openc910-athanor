@@ -4,6 +4,12 @@ OpenC910 is a real 64-bit superscalar out-of-order RISC-V core. This fork
 publishes Athanor C910 optimization results. Every promoted row binds the exact
 RTL candidate to metrics, proof, negative controls, and replayable artifacts.
 
+## Customer Summary
+Eight promoted packets are public: seven module-local results and one
+subsystem-top result. Headline receipts include `plic_32to1_arb`
+`13.26 ns -> 7.39 ns`, `ct_pmp_top` `831/831`, and `ct_iu_div`
+`39.67 ns -> 34.03 ns`. No whole-core C910, signoff, or PnR claim is made.
+
 ## Status
 
 | Field | Status |
