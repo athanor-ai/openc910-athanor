@@ -35,7 +35,9 @@ runs share the same screen hash.
 
 ## Replay
 
-One command checks the hash-bound receipt contract and pinned tool identities:
+One command checks the hash-bound receipt contract, regenerates the gate overlay,
+runs Yosys mapping for gold and candidate `plic_top`, runs OpenSTA under the
+pinned screen, and verifies the mapped-netlist hashes and metric values:
 
 ```bash
 YOSYS_BIN=/path/to/oss-cad-suite-20260630/bin/yosys \
@@ -44,7 +46,8 @@ LIBERTY=/path/to/sky130_fd_sc_hd__tt_025C_1v80.lib \
   ./replay.sh
 ```
 
-`replay.sh` writes local logs under ignored `replay_out/`. The first public MVP
-does not ship the large mapped netlists; the cache keys bind the source bytes
-that produced them. The next ATH-3121 leg adds cache invalidation bites around
-the full rerun path.
+`replay.sh` writes local logs, Tcl files, and large mapped netlists under ignored
+`replay_out/`. The public package does not ship those large netlists; the cache
+keys bind the source, overlay, toolchain, flow, and screen inputs that produce
+them. The next ATH-3121 leg adds cache invalidation bites around persistent
+cache reuse.
