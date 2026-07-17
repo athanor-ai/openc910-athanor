@@ -1,7 +1,7 @@
 {
   "schema": "athanor.same_candidate_metric_binding.v1",
-  "status": "subsystem_top_metric_packet_pending_independent_replay",
-  "customer_ready": false,
+  "status": "accepted_subsystem_top_area_timing_opensta_estimated_power_packet",
+  "customer_ready": true,
   "candidate": {
     "candidate_sha256": "776f58498548ec1c2b87bd384d17b412a98900aba6c2305c8f597f934cbba57f",
     "mapped_netlist_sha256": "f5c17dce321c3b897020f3ebdaa8c752120d22adf5859b23ba5c95e8ea41ae07",
@@ -74,5 +74,5 @@
       }
     }
   },
-  "independent_review_summary": "Pending Platypus non-author replay. Public claim remains unpromoted until replay closes."
+  "independent_review_summary": "Platypus non-author replay reproduced all replay-produced mapped netlists byte-exact against SHA256SUMS, the 831/831 subsystem proof, the exact 48-cell proof-mutant failure, the flat 3.2370 ns metric leg, and the three-axis metric-negative red. Public claim is promoted only for the scoped ct_pmp_top subsystem packet."
 }
