@@ -1,0 +1,4 @@
+*.log binary
+*.h binary
+*.sv binary
+*.v binary

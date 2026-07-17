@@ -1,0 +1,1095 @@
+
+ /----------------------------------------------------------------------------\
+ |  yosys -- Yosys Open SYnthesis Suite                                       |
+ |  Copyright (C) 2012 - 2026  Claire Xenia Wolf <claire@yosyshq.com>         |
+ |  Distributed under an ISC-like license, type "license" to see terms        |
+ \----------------------------------------------------------------------------/
+ Yosys 0.66+181 (git sha1 afe6b18f2, Release, Clang /usr/bin/clang++ 18.1.8)
+
+-- Running command `read_verilog -sv cpu_cfig.h; read_verilog -sv ct_pmp_comp_hit_gate_candidate.v; read_verilog -sv ct_pmp_acc_gold.v; synth -top ct_pmp_acc; abc -liberty sky130_fd_sc_hd__tt_025C_1v80.lib; clean; stat -liberty sky130_fd_sc_hd__tt_025C_1v80.lib; write_verilog -noattr -noexpr replay_out/ct_pmp_acc_gate_candidate.mapped.v' --
+
+1. Executing Verilog-2005 frontend: cpu_cfig.h
+Parsing SystemVerilog input from `cpu_cfig.h' to AST representation.
+Successfully finished Verilog frontend.
+
+2. Executing Verilog-2005 frontend: ct_pmp_comp_hit_gate_candidate.v
+Parsing SystemVerilog input from `ct_pmp_comp_hit_gate_candidate.v' to AST representation.
+Generating RTLIL representation for module `\ct_pmp_comp_hit'.
+Note: Assuming pure combinatorial block at ct_pmp_comp_hit_gate_candidate.v:58.1-71.4 in
+compliance with IEC 62142(E):2005 / IEEE Std. 1364.1(E):2002. Recommending
+use of @* instead of @(...) for better match of synthesis and simulation.
+Successfully finished Verilog frontend.
+
+3. Executing Verilog-2005 frontend: ct_pmp_acc_gold.v
+Parsing SystemVerilog input from `ct_pmp_acc_gold.v' to AST representation.
+Generating RTLIL representation for module `\ct_pmp_acc'.
+Note: Assuming pure combinatorial block at ct_pmp_acc_gold.v:259.1-301.4 in
+compliance with IEC 62142(E):2005 / IEEE Std. 1364.1(E):2002. Recommending
+use of @* instead of @(...) for better match of synthesis and simulation.
+Successfully finished Verilog frontend.
+
+4. Executing SYNTH pass.
+
+4.1. Executing HIERARCHY pass (managing design hierarchy).
+
+4.1.1. Analyzing design hierarchy..
+Top module:  \ct_pmp_acc
+Used module:     \ct_pmp_comp_hit
+
+4.1.2. Analyzing design hierarchy..
+Top module:  \ct_pmp_acc
+Used module:     \ct_pmp_comp_hit
+Removed 0 unused modules.
+
+4.2. Executing PROC pass (convert processes to netlists).
+
+4.2.1. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Cleaned up 0 empty switches.
+
+4.2.2. Executing PROC_RMDEAD pass (remove dead branches from decision trees).
+Removed 1 dead cases from process $proc$ct_pmp_acc_gold.v:259$66 in module ct_pmp_acc.
+Marked 1 switch rules as full_case in process $proc$ct_pmp_acc_gold.v:259$66 in module ct_pmp_acc.
+Removed 1 dead cases from process $proc$ct_pmp_comp_hit_gate_candidate.v:58$1 in module ct_pmp_comp_hit.
+Marked 1 switch rules as full_case in process $proc$ct_pmp_comp_hit_gate_candidate.v:58$1 in module ct_pmp_comp_hit.
+Removed a total of 2 dead cases.
+
+4.2.3. Executing PROC_PRUNE pass (remove redundant assignments in processes).
+Removed 0 redundant assignments.
+Promoted 2 assignments to connections.
+
+4.2.4. Executing PROC_INIT pass (extract init attributes).
+
+4.2.5. Executing PROC_ARST pass (detect async resets in processes).
+
+4.2.6. Executing PROC_ROM pass (convert switches to ROMs).
+Converted 0 switches.
+<suppressed ~2 debug messages>
+
+4.2.7. Executing PROC_MUX pass (convert decision trees to multiplexers).
+Creating decoders for process `\ct_pmp_acc.$proc$ct_pmp_acc_gold.v:259$66'.
+     1/1: $1\pmp_mmu_flg_y[3:0]
+Creating decoders for process `\ct_pmp_comp_hit.$proc$ct_pmp_comp_hit_gate_candidate.v:58$1'.
+     1/1: $1\pmp_mmu_hit_x[0:0]
+
+4.2.8. Executing PROC_DLATCH pass (convert process syncs to latches).
+No latch inferred for signal `\ct_pmp_acc.\pmp_mmu_flg_y' from process `\ct_pmp_acc.$proc$ct_pmp_acc_gold.v:259$66'.
+No latch inferred for signal `\ct_pmp_comp_hit.\pmp_mmu_hit_x' from process `\ct_pmp_comp_hit.$proc$ct_pmp_comp_hit_gate_candidate.v:58$1'.
+
+4.2.9. Executing PROC_DFF pass (convert process syncs to FFs).
+
+4.2.10. Executing PROC_MEMWR pass (convert process memory writes to cells).
+
+4.2.11. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Found and cleaned up 1 empty switch in `\ct_pmp_acc.$proc$ct_pmp_acc_gold.v:259$66'.
+Removing empty process `ct_pmp_acc.$proc$ct_pmp_acc_gold.v:259$66'.
+Found and cleaned up 1 empty switch in `\ct_pmp_comp_hit.$proc$ct_pmp_comp_hit_gate_candidate.v:58$1'.
+Removing empty process `ct_pmp_comp_hit.$proc$ct_pmp_comp_hit_gate_candidate.v:58$1'.
+Cleaned up 2 empty switches.
+
+4.2.12. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_pmp_acc.
+<suppressed ~1 debug messages>
+Optimizing module ct_pmp_comp_hit.
+<suppressed ~1 debug messages>
+
+4.3. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_pmp_acc.
+Optimizing module ct_pmp_comp_hit.
+
+4.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_pmp_acc..
+Finding unused cells or wires in module \ct_pmp_comp_hit..
+Removed 0 unused cells and 42 unused wires.
+<suppressed ~2 debug messages>
+
+4.5. Executing CHECK pass (checking for obvious problems).
+Checking module ct_pmp_acc...
+Checking module ct_pmp_comp_hit...
+Found and reported 0 problems.
+
+4.6. Executing OPT pass (performing simple optimizations).
+
+4.6.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_pmp_acc.
+<suppressed ~8 debug messages>
+Optimizing module ct_pmp_comp_hit.
+
+4.6.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_pmp_acc'.
+Computing hashes of 20 cells of `\ct_pmp_acc'.
+Finding duplicate cells in `\ct_pmp_acc'.
+Finding identical cells in module `\ct_pmp_comp_hit'.
+Computing hashes of 66 cells of `\ct_pmp_comp_hit'.
+Finding duplicate cells in `\ct_pmp_comp_hit'.
+Removed a total of 0 cells.
+
+4.6.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \ct_pmp_acc..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+    dead port 2/18 on $pmux $procmux$67.
+    dead port 3/18 on $pmux $procmux$67.
+    dead port 4/18 on $pmux $procmux$67.
+    dead port 5/18 on $pmux $procmux$67.
+    dead port 6/18 on $pmux $procmux$67.
+    dead port 7/18 on $pmux $procmux$67.
+    dead port 8/18 on $pmux $procmux$67.
+    dead port 9/18 on $pmux $procmux$67.
+Running muxtree optimizer on module \ct_pmp_comp_hit..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 8 multiplexer ports.
+<suppressed ~7 debug messages>
+
+4.6.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \ct_pmp_acc.
+  Optimizing cells in module \ct_pmp_comp_hit.
+    New ctrl vector for $pmux cell $procmux$85: { $procmux$86_CMP $auto$opt_reduce.cc:135:opt_pmux$91 $procmux$88_CMP }
+  Optimizing cells in module \ct_pmp_comp_hit.
+Performed a total of 1 changes.
+
+4.6.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_pmp_acc'.
+Computing hashes of 20 cells of `\ct_pmp_acc'.
+Finding duplicate cells in `\ct_pmp_acc'.
+Finding identical cells in module `\ct_pmp_comp_hit'.
+Computing hashes of 67 cells of `\ct_pmp_comp_hit'.
+Finding duplicate cells in `\ct_pmp_comp_hit'.
+Removed a total of 0 cells.
+
+4.6.6. Executing OPT_DFF pass (perform DFF optimizations).
+
+4.6.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_pmp_acc..
+Finding unused cells or wires in module \ct_pmp_comp_hit..
+Removed 0 unused cells and 8 unused wires.
+<suppressed ~1 debug messages>
+
+4.6.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_pmp_acc.
+Optimizing module ct_pmp_comp_hit.
+
+4.6.9. Rerunning OPT passes. (Maybe there is more to do..)
+
+4.6.10. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \ct_pmp_acc..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \ct_pmp_comp_hit..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~7 debug messages>
+
+4.6.11. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \ct_pmp_acc.
+  Optimizing cells in module \ct_pmp_comp_hit.
+Performed a total of 0 changes.
+
+4.6.12. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_pmp_acc'.
+Computing hashes of 20 cells of `\ct_pmp_acc'.
+Finding duplicate cells in `\ct_pmp_acc'.
+Finding identical cells in module `\ct_pmp_comp_hit'.
+Computing hashes of 67 cells of `\ct_pmp_comp_hit'.
+Finding duplicate cells in `\ct_pmp_comp_hit'.
+Removed a total of 0 cells.
+
+4.6.13. Executing OPT_DFF pass (perform DFF optimizations).
+
+4.6.14. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_pmp_acc..
+Finding unused cells or wires in module \ct_pmp_comp_hit..
+
+4.6.15. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_pmp_acc.
+Optimizing module ct_pmp_comp_hit.
+
+4.6.16. Finished fast OPT passes. (There is nothing left to do.)
+
+4.7. Executing FSM pass (extract and optimize FSM).
+
+4.7.1. Executing FSM_DETECT pass (finding FSMs in design).
+
+4.7.2. Executing FSM_EXTRACT pass (extracting FSM from design).
+
+4.7.3. Executing FSM_OPT pass (simple optimizations of FSMs).
+
+4.7.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_pmp_acc..
+Finding unused cells or wires in module \ct_pmp_comp_hit..
+
+4.7.5. Executing FSM_OPT pass (simple optimizations of FSMs).
+
+4.7.6. Executing FSM_RECODE pass (re-assigning FSM state encoding).
+
+4.7.7. Executing FSM_INFO pass (dumping all available information on FSM cells).
+
+4.7.8. Executing FSM_MAP pass (mapping FSMs to basic logic).
+
+4.8. Executing OPT pass (performing simple optimizations).
+
+4.8.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_pmp_acc.
+Optimizing module ct_pmp_comp_hit.
+
+4.8.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_pmp_acc'.
+Computing hashes of 20 cells of `\ct_pmp_acc'.
+Finding duplicate cells in `\ct_pmp_acc'.
+Finding identical cells in module `\ct_pmp_comp_hit'.
+Computing hashes of 67 cells of `\ct_pmp_comp_hit'.
+Finding duplicate cells in `\ct_pmp_comp_hit'.
+Removed a total of 0 cells.
+
+4.8.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \ct_pmp_acc..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \ct_pmp_comp_hit..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~7 debug messages>
+
+4.8.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \ct_pmp_acc.
+  Optimizing cells in module \ct_pmp_comp_hit.
+Performed a total of 0 changes.
+
+4.8.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_pmp_acc'.
+Computing hashes of 20 cells of `\ct_pmp_acc'.
+Finding duplicate cells in `\ct_pmp_acc'.
+Finding identical cells in module `\ct_pmp_comp_hit'.
+Computing hashes of 67 cells of `\ct_pmp_comp_hit'.
+Finding duplicate cells in `\ct_pmp_comp_hit'.
+Removed a total of 0 cells.
+
+4.8.6. Executing OPT_DFF pass (perform DFF optimizations).
+
+4.8.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_pmp_acc..
+Finding unused cells or wires in module \ct_pmp_comp_hit..
+
+4.8.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_pmp_acc.
+Optimizing module ct_pmp_comp_hit.
+
+4.8.9. Finished fast OPT passes. (There is nothing left to do.)
+
+4.9. Executing WREDUCE pass (reducing word size of cells).
+Removed top 1 bits (of 4) from mux cell ct_pmp_acc.$ternary$ct_pmp_acc_gold.v:256$65 ($mux).
+Removed top 8 bits (of 16) from wire ct_pmp_acc.pmp_hit.
+Removed top 1 bits (of 4) from wire ct_pmp_acc.pmp_default_flg.
+Removed top 1 bits (of 29) from port A of cell ct_pmp_comp_hit.$sub$ct_pmp_comp_hit_gate_candidate.v:75$2 ($sub).
+Removed top 1 bits (of 29) from port B of cell ct_pmp_comp_hit.$sub$ct_pmp_comp_hit_gate_candidate.v:75$2 ($sub).
+Removed top 1 bits (of 2) from port B of cell ct_pmp_comp_hit.$procmux$88_CMP0 ($eq).
+
+4.10. Executing PEEPOPT pass (run peephole optimizers).
+
+4.11. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_pmp_acc..
+Finding unused cells or wires in module \ct_pmp_comp_hit..
+Removed 0 unused cells and 2 unused wires.
+<suppressed ~1 debug messages>
+
+4.12. Executing ALUMACC pass (create $alu and $macc cells).
+Extracting $alu and $macc cells in module ct_pmp_acc:
+  created 0 $alu and 0 $macc cells.
+Extracting $alu and $macc cells in module ct_pmp_comp_hit:
+  creating $macc model for $sub$ct_pmp_comp_hit_gate_candidate.v:75$2 ($sub).
+  creating $alu model for $macc $sub$ct_pmp_comp_hit_gate_candidate.v:75$2.
+  creating $alu cell for $sub$ct_pmp_comp_hit_gate_candidate.v:75$2: $auto$alumacc.cc:512:replace_alu$94
+  created 1 $alu and 0 $macc cells.
+
+4.13. Executing SHARE pass (SAT-based resource sharing).
+
+4.14. Executing OPT pass (performing simple optimizations).
+
+4.14.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_pmp_acc.
+Optimizing module ct_pmp_comp_hit.
+
+4.14.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_pmp_acc'.
+Computing hashes of 20 cells of `\ct_pmp_acc'.
+Finding duplicate cells in `\ct_pmp_acc'.
+Finding identical cells in module `\ct_pmp_comp_hit'.
+Computing hashes of 67 cells of `\ct_pmp_comp_hit'.
+Finding duplicate cells in `\ct_pmp_comp_hit'.
+Removed a total of 0 cells.
+
+4.14.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \ct_pmp_acc..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \ct_pmp_comp_hit..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~7 debug messages>
+
+4.14.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \ct_pmp_acc.
+  Optimizing cells in module \ct_pmp_comp_hit.
+Performed a total of 0 changes.
+
+4.14.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_pmp_acc'.
+Computing hashes of 20 cells of `\ct_pmp_acc'.
+Finding duplicate cells in `\ct_pmp_acc'.
+Finding identical cells in module `\ct_pmp_comp_hit'.
+Computing hashes of 67 cells of `\ct_pmp_comp_hit'.
+Finding duplicate cells in `\ct_pmp_comp_hit'.
+Removed a total of 0 cells.
+
+4.14.6. Executing OPT_DFF pass (perform DFF optimizations).
+
+4.14.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_pmp_acc..
+Finding unused cells or wires in module \ct_pmp_comp_hit..
+
+4.14.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_pmp_acc.
+Optimizing module ct_pmp_comp_hit.
+
+4.14.9. Finished fast OPT passes. (There is nothing left to do.)
+
+4.15. Executing MEMORY pass.
+
+4.15.1. Executing OPT_MEM pass (optimize memories).
+Performed a total of 0 transformations.
+
+4.15.2. Executing OPT_MEM_PRIORITY pass (removing unnecessary memory write priority relations).
+Performed a total of 0 transformations.
+
+4.15.3. Executing OPT_MEM_FEEDBACK pass (finding memory read-to-write feedback paths).
+
+4.15.4. Executing MEMORY_BMUX2ROM pass (converting muxes to ROMs).
+
+4.15.5. Executing MEMORY_DFF pass (merging $dff cells to $memrd).
+
+4.15.6. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_pmp_acc..
+Finding unused cells or wires in module \ct_pmp_comp_hit..
+
+4.15.7. Executing MEMORY_SHARE pass (consolidating $memrd/$memwr cells).
+
+4.15.8. Executing OPT_MEM_WIDEN pass (optimize memories where all ports are wide).
+Performed a total of 0 transformations.
+
+4.15.9. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_pmp_acc..
+Finding unused cells or wires in module \ct_pmp_comp_hit..
+
+4.15.10. Executing MEMORY_COLLECT pass (generating $mem cells).
+
+4.16. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_pmp_acc..
+Finding unused cells or wires in module \ct_pmp_comp_hit..
+
+4.17. Executing OPT pass (performing simple optimizations).
+
+4.17.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_pmp_acc.
+<suppressed ~2 debug messages>
+Optimizing module ct_pmp_comp_hit.
+<suppressed ~1 debug messages>
+
+4.17.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_pmp_acc'.
+Computing hashes of 20 cells of `\ct_pmp_acc'.
+Finding duplicate cells in `\ct_pmp_acc'.
+Finding identical cells in module `\ct_pmp_comp_hit'.
+Computing hashes of 67 cells of `\ct_pmp_comp_hit'.
+Finding duplicate cells in `\ct_pmp_comp_hit'.
+Removed a total of 0 cells.
+
+4.17.3. Executing OPT_DFF pass (perform DFF optimizations).
+
+4.17.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_pmp_acc..
+Finding unused cells or wires in module \ct_pmp_comp_hit..
+Removed 1 unused cells and 1 unused wires.
+<suppressed ~2 debug messages>
+
+4.17.5. Finished fast OPT passes.
+
+4.18. Executing MEMORY_MAP pass (converting memories to logic and flip-flops).
+
+4.19. Executing OPT pass (performing simple optimizations).
+
+4.19.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_pmp_acc.
+Optimizing module ct_pmp_comp_hit.
+
+4.19.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_pmp_acc'.
+Computing hashes of 20 cells of `\ct_pmp_acc'.
+Finding duplicate cells in `\ct_pmp_acc'.
+Finding identical cells in module `\ct_pmp_comp_hit'.
+Computing hashes of 66 cells of `\ct_pmp_comp_hit'.
+Finding duplicate cells in `\ct_pmp_comp_hit'.
+Removed a total of 0 cells.
+
+4.19.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \ct_pmp_acc..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \ct_pmp_comp_hit..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~7 debug messages>
+
+4.19.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \ct_pmp_acc.
+    Consolidated identical input bits for $mux cell $ternary$ct_pmp_acc_gold.v:256$65:
+      Old ports: A=3'000, B=3'111, Y=\pmp_default_flg
+      New ports: A=1'0, B=1'1, Y=\pmp_default_flg [0]
+      New connections: \pmp_default_flg [2:1] = { \pmp_default_flg [0] \pmp_default_flg [0] }
+  Optimizing cells in module \ct_pmp_acc.
+  Optimizing cells in module \ct_pmp_comp_hit.
+Performed a total of 1 changes.
+
+4.19.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_pmp_acc'.
+Computing hashes of 20 cells of `\ct_pmp_acc'.
+Finding duplicate cells in `\ct_pmp_acc'.
+Finding identical cells in module `\ct_pmp_comp_hit'.
+Computing hashes of 66 cells of `\ct_pmp_comp_hit'.
+Finding duplicate cells in `\ct_pmp_comp_hit'.
+Removed a total of 0 cells.
+
+4.19.6. Executing OPT_SHARE pass.
+
+4.19.7. Executing OPT_DFF pass (perform DFF optimizations).
+
+4.19.8. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_pmp_acc..
+Finding unused cells or wires in module \ct_pmp_comp_hit..
+
+4.19.9. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_pmp_acc.
+<suppressed ~1 debug messages>
+Optimizing module ct_pmp_comp_hit.
+
+4.19.10. Rerunning OPT passes. (Maybe there is more to do..)
+
+4.19.11. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \ct_pmp_acc..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \ct_pmp_comp_hit..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~6 debug messages>
+
+4.19.12. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \ct_pmp_acc.
+  Optimizing cells in module \ct_pmp_comp_hit.
+Performed a total of 0 changes.
+
+4.19.13. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_pmp_acc'.
+Computing hashes of 19 cells of `\ct_pmp_acc'.
+Finding duplicate cells in `\ct_pmp_acc'.
+Finding identical cells in module `\ct_pmp_comp_hit'.
+Computing hashes of 66 cells of `\ct_pmp_comp_hit'.
+Finding duplicate cells in `\ct_pmp_comp_hit'.
+Removed a total of 0 cells.
+
+4.19.14. Executing OPT_SHARE pass.
+
+4.19.15. Executing OPT_DFF pass (perform DFF optimizations).
+
+4.19.16. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_pmp_acc..
+Finding unused cells or wires in module \ct_pmp_comp_hit..
+
+4.19.17. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_pmp_acc.
+Optimizing module ct_pmp_comp_hit.
+
+4.19.18. Finished fast OPT passes. (There is nothing left to do.)
+
+4.20. Executing TECHMAP pass (map to technology primitives).
+
+4.20.1. Executing Verilog-2005 frontend: oss-cad-suite-20260630/lib/../share/yosys/techmap.v
+Parsing Verilog input from `oss-cad-suite-20260630/lib/../share/yosys/techmap.v' to AST representation.
+Generating RTLIL representation for module `\_90_simplemap_bool_ops'.
+Generating RTLIL representation for module `\_90_simplemap_reduce_ops'.
+Generating RTLIL representation for module `\_90_simplemap_logic_ops'.
+Generating RTLIL representation for module `\_90_simplemap_compare_ops'.
+Generating RTLIL representation for module `\_90_simplemap_various'.
+Generating RTLIL representation for module `\_90_simplemap_registers'.
+Generating RTLIL representation for module `\_90_shift_ops_shr_shl_sshl_sshr'.
+Generating RTLIL representation for module `\_90_shift_shiftx'.
+Generating RTLIL representation for module `\_90_fa'.
+Generating RTLIL representation for module `\_90_lcu_brent_kung'.
+Generating RTLIL representation for module `\_90_alu'.
+Generating RTLIL representation for module `\_90_macc'.
+Generating RTLIL representation for module `\_90_alumacc'.
+Generating RTLIL representation for module `$__div_mod_u'.
+Generating RTLIL representation for module `$__div_mod_trunc'.
+Generating RTLIL representation for module `\_90_div'.
+Generating RTLIL representation for module `\_90_mod'.
+Generating RTLIL representation for module `$__div_mod_floor'.
+Generating RTLIL representation for module `\_90_divfloor'.
+Generating RTLIL representation for module `\_90_modfloor'.
+Generating RTLIL representation for module `\_90_pow'.
+Generating RTLIL representation for module `\_90_demux'.
+Generating RTLIL representation for module `\_90_lut'.
+Generating RTLIL representation for module `$connect'.
+Generating RTLIL representation for module `$input_port'.
+Successfully finished Verilog frontend.
+
+4.20.2. Continuing TECHMAP pass.
+Using template $paramod$a79829ecb0e788ec7aa3f7b706e815f4dac39f02\_90_alu for cells of type $alu.
+Using extmapper simplemap for cells of type $reduce_or.
+Using extmapper simplemap for cells of type $logic_and.
+Using extmapper simplemap for cells of type $logic_not.
+Using extmapper simplemap for cells of type $and.
+Using extmapper simplemap for cells of type $eq.
+Using extmapper simplemap for cells of type $not.
+Using extmapper simplemap for cells of type $reduce_and.
+Using extmapper simplemap for cells of type $pmux.
+Using extmapper simplemap for cells of type $xor.
+Using template $paramod\_90_fa\WIDTH=32'00000000000000000000000000011101 for cells of type $fa.
+Using template $paramod\_90_lcu_brent_kung\WIDTH=32'00000000000000000000000000011101 for cells of type $lcu.
+Using extmapper simplemap for cells of type $pos.
+Using extmapper simplemap for cells of type $mux.
+Using extmapper simplemap for cells of type $or.
+No more expansions possible.
+<suppressed ~453 debug messages>
+
+4.21. Executing OPT pass (performing simple optimizations).
+
+4.21.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_pmp_acc.
+<suppressed ~39 debug messages>
+Optimizing module ct_pmp_comp_hit.
+<suppressed ~133 debug messages>
+
+4.21.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_pmp_acc'.
+Computing hashes of 133 cells of `\ct_pmp_acc'.
+Finding duplicate cells in `\ct_pmp_acc'.
+Computing hashes of 119 cells of `\ct_pmp_acc'.
+Finding duplicate cells in `\ct_pmp_acc'.
+Computing hashes of 115 cells of `\ct_pmp_acc'.
+Finding duplicate cells in `\ct_pmp_acc'.
+<suppressed ~54 debug messages>
+Finding identical cells in module `\ct_pmp_comp_hit'.
+Computing hashes of 762 cells of `\ct_pmp_comp_hit'.
+Finding duplicate cells in `\ct_pmp_comp_hit'.
+Computing hashes of 580 cells of `\ct_pmp_comp_hit'.
+Finding duplicate cells in `\ct_pmp_comp_hit'.
+Computing hashes of 496 cells of `\ct_pmp_comp_hit'.
+Finding duplicate cells in `\ct_pmp_comp_hit'.
+Computing hashes of 460 cells of `\ct_pmp_comp_hit'.
+Finding duplicate cells in `\ct_pmp_comp_hit'.
+Computing hashes of 448 cells of `\ct_pmp_comp_hit'.
+Finding duplicate cells in `\ct_pmp_comp_hit'.
+<suppressed ~942 debug messages>
+Removed a total of 332 cells.
+
+4.21.3. Executing OPT_DFF pass (perform DFF optimizations).
+
+4.21.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_pmp_acc..
+Finding unused cells or wires in module \ct_pmp_comp_hit..
+Removed 70 unused cells and 168 unused wires.
+<suppressed ~72 debug messages>
+
+4.21.5. Finished fast OPT passes.
+
+4.22. Executing ABC pass (technology mapping using ABC).
+
+4.22.1. Extracting gate netlist of module `\ct_pmp_acc' to `<abc-temp-dir>/input.blif'..
+
+4.22.1.1. Executed ABC.
+Extracted 107 gates and 152 wires to a netlist network with 45 inputs and 4 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: UC Berkeley, ABC 1.01 (compiled Jun 30 2026 04:50:19)
+ABC: abc 01> empty
+ABC: abc 01> source <abc-temp-dir>/abc.script
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_library <abc-temp-dir>/stdcells.genlib 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &fraig -x 
+ABC: + &put 
+ABC: + scorr 
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2 
+ABC: + dretime 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &dch -f 
+ABC: + &nf 
+ABC: + &put 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+ABC: 
+ABC: YOSYS_ABC_DONE 
+
+4.22.1.2. Re-integrating ABC results.
+ABC RESULTS:               AND cells:       38
+ABC RESULTS:            ANDNOT cells:        5
+ABC RESULTS:              NAND cells:       39
+ABC RESULTS:               NOR cells:        4
+ABC RESULTS:        internal signals:      103
+ABC RESULTS:           input signals:       45
+ABC RESULTS:          output signals:        4
+Removing temp directory.
+
+4.22.2. Extracting gate netlist of module `\ct_pmp_comp_hit' to `<abc-temp-dir>/input.blif'..
+
+4.22.2.1. Executed ABC.
+Extracted 378 gates and 438 wires to a netlist network with 60 inputs and 2 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: UC Berkeley, ABC 1.01 (compiled Jun 30 2026 04:50:19)
+ABC: abc 01> empty
+ABC: abc 01> source <abc-temp-dir>/abc.script
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_library <abc-temp-dir>/stdcells.genlib 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &fraig -x 
+ABC: + &put 
+ABC: + scorr 
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2 
+ABC: + dretime 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &dch -f 
+ABC: + &nf 
+ABC: + &put 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+ABC: 
+ABC: YOSYS_ABC_DONE 
+
+4.22.2.2. Re-integrating ABC results.
+ABC RESULTS:               AND cells:       99
+ABC RESULTS:            ANDNOT cells:        9
+ABC RESULTS:              NAND cells:       39
+ABC RESULTS:                OR cells:       29
+ABC RESULTS:             ORNOT cells:       37
+ABC RESULTS:              XNOR cells:       11
+ABC RESULTS:        internal signals:      376
+ABC RESULTS:           input signals:       60
+ABC RESULTS:          output signals:        2
+Removing temp directory.
+Removing global temp directory.
+
+4.23. Executing OPT pass (performing simple optimizations).
+
+4.23.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ct_pmp_acc.
+Optimizing module ct_pmp_comp_hit.
+
+4.23.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ct_pmp_acc'.
+Computing hashes of 94 cells of `\ct_pmp_acc'.
+Finding duplicate cells in `\ct_pmp_acc'.
+Finding identical cells in module `\ct_pmp_comp_hit'.
+Computing hashes of 224 cells of `\ct_pmp_comp_hit'.
+Finding duplicate cells in `\ct_pmp_comp_hit'.
+Removed a total of 0 cells.
+
+4.23.3. Executing OPT_DFF pass (perform DFF optimizations).
+
+4.23.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ct_pmp_acc..
+Finding unused cells or wires in module \ct_pmp_comp_hit..
+Removed 0 unused cells and 351 unused wires.
+<suppressed ~10 debug messages>
+
+4.23.5. Finished fast OPT passes.
+
+4.24. Executing HIERARCHY pass (managing design hierarchy).
+Attribute `top' found on module `ct_pmp_acc'. Setting top module to ct_pmp_acc.
+
+4.24.1. Analyzing design hierarchy..
+Top module:  \ct_pmp_acc
+Used module:     \ct_pmp_comp_hit
+
+4.24.2. Analyzing design hierarchy..
+Top module:  \ct_pmp_acc
+Used module:     \ct_pmp_comp_hit
+Removed 0 unused modules.
+
+4.25. Printing statistics.
+
+=== ct_pmp_acc ===
+
+        +----------Local Count, excluding submodules.
+        | 
+      130 wires
+      527 wire bits
+       48 public wires
+      445 public wire bits
+       15 ports
+      397 port bits
+       86 cells
+        5   $_ANDNOT_
+       38   $_AND_
+       39   $_NAND_
+        4   $_NOR_
+        8 submodules
+        8   ct_pmp_comp_hit
+
+=== ct_pmp_comp_hit ===
+
+        +----------Local Count, excluding submodules.
+        | 
+      229 wires
+      285 wire bits
+        7 public wires
+       63 public wire bits
+        6 ports
+       62 port bits
+      224 cells
+        9   $_ANDNOT_
+       99   $_AND_
+       39   $_NAND_
+       37   $_ORNOT_
+       29   $_OR_
+       11   $_XNOR_
+
+=== design hierarchy ===
+
+        +----------Count including submodules.
+        | 
+     1878 ct_pmp_acc
+      224 ct_pmp_comp_hit
+
+        +----------Count including submodules.
+        | 
+     1962 wires
+     2807 wire bits
+      104 public wires
+      949 public wire bits
+       63 ports
+      893 port bits
+        - memories
+        - memory bits
+        - processes
+     1878 cells
+       77   $_ANDNOT_
+      830   $_AND_
+      351   $_NAND_
+        4   $_NOR_
+      296   $_ORNOT_
+      232   $_OR_
+       88   $_XNOR_
+        8 submodules
+        8   ct_pmp_comp_hit
+
+4.26. Executing CHECK pass (checking for obvious problems).
+Checking module ct_pmp_acc...
+Checking module ct_pmp_comp_hit...
+Found and reported 0 problems.
+
+5. Executing ABC pass (technology mapping using ABC).
+
+5.1. Extracting gate netlist of module `\ct_pmp_acc' to `<abc-temp-dir>/input.blif'..
+ABC: using cached merged SCL: yosys-liberty-scl-cache/yosys_merged_3c4ae541.scl (1 files)
+
+5.1.1. Executed ABC.
+Extracted 86 gates and 131 wires to a netlist network with 45 inputs and 4 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: UC Berkeley, ABC 1.01 (compiled Jun 30 2026 04:50:19)
+ABC: abc 01> empty
+ABC: abc 01> source <abc-temp-dir>/abc.script
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_scl yosys-liberty-scl-cache/yosys_merged_3c4ae541.scl 
+ABC: Warning: Detected 9 multi-output cells (for example, "sky130_fd_sc_hd__fa_1").
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &fraig -x 
+ABC: + &put 
+ABC: + scorr 
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2 
+ABC: + dretime 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &dch -f 
+ABC: + &nf 
+ABC: + &put 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+ABC: 
+ABC: YOSYS_ABC_DONE 
+
+5.1.2. Re-integrating ABC results.
+ABC RESULTS:   sky130_fd_sc_hd__a211oi_1 cells:        2
+ABC RESULTS:   sky130_fd_sc_hd__a21oi_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__a221oi_1 cells:        2
+ABC RESULTS:   sky130_fd_sc_hd__a222oi_1 cells:        3
+ABC RESULTS:   sky130_fd_sc_hd__a22oi_1 cells:        3
+ABC RESULTS:   sky130_fd_sc_hd__a32o_1 cells:        4
+ABC RESULTS:   sky130_fd_sc_hd__and2_0 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__and3_1 cells:        2
+ABC RESULTS:   sky130_fd_sc_hd__and4b_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__lpflow_isobufsrc_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__nand2_1 cells:        6
+ABC RESULTS:   sky130_fd_sc_hd__nand3_1 cells:        3
+ABC RESULTS:   sky130_fd_sc_hd__nand4_1 cells:        2
+ABC RESULTS:   sky130_fd_sc_hd__nor2_1 cells:        2
+ABC RESULTS:   sky130_fd_sc_hd__nor3b_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__nor4_1 cells:        2
+ABC RESULTS:   sky130_fd_sc_hd__nor4b_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__or4_1 cells:        1
+ABC RESULTS:        internal signals:       82
+ABC RESULTS:           input signals:       45
+ABC RESULTS:          output signals:        4
+Removing temp directory.
+
+5.2. Extracting gate netlist of module `\ct_pmp_comp_hit' to `<abc-temp-dir>/input.blif'..
+ABC: using cached merged SCL: yosys-liberty-scl-cache/yosys_merged_3c4ae541.scl (1 files)
+
+5.2.1. Executed ABC.
+Extracted 224 gates and 284 wires to a netlist network with 60 inputs and 2 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: UC Berkeley, ABC 1.01 (compiled Jun 30 2026 04:50:19)
+ABC: abc 01> empty
+ABC: abc 01> source <abc-temp-dir>/abc.script
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_scl yosys-liberty-scl-cache/yosys_merged_3c4ae541.scl 
+ABC: Warning: Detected 9 multi-output cells (for example, "sky130_fd_sc_hd__fa_1").
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &fraig -x 
+ABC: + &put 
+ABC: + scorr 
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2 
+ABC: + dretime 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &dch -f 
+ABC: + &nf 
+ABC: + &put 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+ABC: 
+ABC: YOSYS_ABC_DONE 
+
+5.2.2. Re-integrating ABC results.
+ABC RESULTS:   sky130_fd_sc_hd__a2111oi_0 cells:        3
+ABC RESULTS:   sky130_fd_sc_hd__a211oi_1 cells:        3
+ABC RESULTS:   sky130_fd_sc_hd__a21boi_0 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__a21o_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__a21oi_1 cells:       15
+ABC RESULTS:   sky130_fd_sc_hd__a221oi_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__a22oi_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__a2bb2oi_1 cells:        2
+ABC RESULTS:   sky130_fd_sc_hd__a31o_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__a31oi_1 cells:        4
+ABC RESULTS:   sky130_fd_sc_hd__a32oi_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__and2_0 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__and4_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__clkinv_1 cells:       17
+ABC RESULTS:   sky130_fd_sc_hd__lpflow_isobufsrc_1 cells:       17
+ABC RESULTS:   sky130_fd_sc_hd__maj3_1 cells:        7
+ABC RESULTS:   sky130_fd_sc_hd__nand2_1 cells:        4
+ABC RESULTS:   sky130_fd_sc_hd__nand2b_1 cells:        8
+ABC RESULTS:   sky130_fd_sc_hd__nand3_1 cells:        4
+ABC RESULTS:   sky130_fd_sc_hd__nand4_1 cells:        3
+ABC RESULTS:   sky130_fd_sc_hd__nor2_1 cells:        8
+ABC RESULTS:   sky130_fd_sc_hd__nor2b_1 cells:        2
+ABC RESULTS:   sky130_fd_sc_hd__nor3_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__nor3b_1 cells:        2
+ABC RESULTS:   sky130_fd_sc_hd__nor4_1 cells:        2
+ABC RESULTS:   sky130_fd_sc_hd__o2111ai_1 cells:        2
+ABC RESULTS:   sky130_fd_sc_hd__o211ai_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__o21a_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__o21ai_0 cells:        7
+ABC RESULTS:   sky130_fd_sc_hd__o22ai_1 cells:        2
+ABC RESULTS:   sky130_fd_sc_hd__o311ai_0 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__or4_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__xnor2_1 cells:       12
+ABC RESULTS:   sky130_fd_sc_hd__xor2_1 cells:        5
+ABC RESULTS:        internal signals:      222
+ABC RESULTS:           input signals:       60
+ABC RESULTS:          output signals:        2
+Removing temp directory.
+Removing global temp directory.
+Removed 0 unused cells and 415 unused wires.
+
+6. Printing statistics.
+
+=== ct_pmp_acc ===
+
+        +----------Local Count, excluding submodules.
+        |        +-Local Area, excluding submodules.
+        |        | 
+       82        - wires
+      479        - wire bits
+       48        - public wires
+      445        - public wire bits
+       15        - ports
+      397        - port bits
+       38  258.998 cells
+        2   15.014   sky130_fd_sc_hd__a211oi_1
+        1    5.005   sky130_fd_sc_hd__a21oi_1
+        2   17.517   sky130_fd_sc_hd__a221oi_1
+        3   30.029   sky130_fd_sc_hd__a222oi_1
+        3   22.522   sky130_fd_sc_hd__a22oi_1
+        4   40.038   sky130_fd_sc_hd__a32o_1
+        1    6.256   sky130_fd_sc_hd__and2_0
+        2   12.512   sky130_fd_sc_hd__and3_1
+        1    10.01   sky130_fd_sc_hd__and4b_1
+        1    6.256   sky130_fd_sc_hd__lpflow_isobufsrc_1
+        6   22.522   sky130_fd_sc_hd__nand2_1
+        3   15.014   sky130_fd_sc_hd__nand3_1
+        2   12.512   sky130_fd_sc_hd__nand4_1
+        2    7.507   sky130_fd_sc_hd__nor2_1
+        1    7.507   sky130_fd_sc_hd__nor3b_1
+        2   12.512   sky130_fd_sc_hd__nor4_1
+        1    8.758   sky130_fd_sc_hd__nor4b_1
+        1    7.507   sky130_fd_sc_hd__or4_1
+        8        - submodules
+        8        -   ct_pmp_comp_hit
+
+   Chip area for module '\ct_pmp_acc': 258.998400
+     of which used for sequential elements: 0.000000 (0.00%)
+
+=== ct_pmp_comp_hit ===
+
+        +----------Local Count, excluding submodules.
+        |        +-Local Area, excluding submodules.
+        |        | 
+      147        - wires
+      203        - wire bits
+        7        - public wires
+       63        - public wire bits
+        6        - ports
+       62        - port bits
+      142  894.608 cells
+        3   26.275   sky130_fd_sc_hd__a2111oi_0
+        3   22.522   sky130_fd_sc_hd__a211oi_1
+        1    7.507   sky130_fd_sc_hd__a21boi_0
+        1    7.507   sky130_fd_sc_hd__a21o_1
+       15   75.072   sky130_fd_sc_hd__a21oi_1
+        1    8.758   sky130_fd_sc_hd__a221oi_1
+        1    7.507   sky130_fd_sc_hd__a22oi_1
+        2   17.517   sky130_fd_sc_hd__a2bb2oi_1
+        1    8.758   sky130_fd_sc_hd__a31o_1
+        4   25.024   sky130_fd_sc_hd__a31oi_1
+        1    8.758   sky130_fd_sc_hd__a32oi_1
+        1    6.256   sky130_fd_sc_hd__and2_0
+        1    8.758   sky130_fd_sc_hd__and4_1
+       17   63.811   sky130_fd_sc_hd__clkinv_1
+       17  106.352   sky130_fd_sc_hd__lpflow_isobufsrc_1
+        7   70.067   sky130_fd_sc_hd__maj3_1
+        4   15.014   sky130_fd_sc_hd__nand2_1
+        8   50.048   sky130_fd_sc_hd__nand2b_1
+        4   20.019   sky130_fd_sc_hd__nand3_1
+        3   18.768   sky130_fd_sc_hd__nand4_1
+        8   30.029   sky130_fd_sc_hd__nor2_1
+        2   12.512   sky130_fd_sc_hd__nor2b_1
+        1    5.005   sky130_fd_sc_hd__nor3_1
+        2   15.014   sky130_fd_sc_hd__nor3b_1
+        2   12.512   sky130_fd_sc_hd__nor4_1
+        2   17.517   sky130_fd_sc_hd__o2111ai_1
+        1    7.507   sky130_fd_sc_hd__o211ai_1
+        1    7.507   sky130_fd_sc_hd__o21a_1
+        7   35.034   sky130_fd_sc_hd__o21ai_0
+        2   12.512   sky130_fd_sc_hd__o22ai_1
+        1    8.758   sky130_fd_sc_hd__o311ai_0
+        1    7.507   sky130_fd_sc_hd__or4_1
+       12  105.101   sky130_fd_sc_hd__xnor2_1
+        5   43.792   sky130_fd_sc_hd__xor2_1
+
+   Chip area for module '\ct_pmp_comp_hit': 894.608000
+     of which used for sequential elements: 0.000000 (0.00%)
+
+=== design hierarchy ===
+
+        +----------Count including submodules.
+        |        +-Area including submodules.
+        |        | 
+     1174 7.42E+03 ct_pmp_acc
+      142  894.608 ct_pmp_comp_hit
+
+        +----------Count including submodules.
+        |        +-Area including submodules.
+        |        | 
+     1258        - wires
+     2103        - wire bits
+      104        - public wires
+      949        - public wire bits
+       63        - ports
+      893        - port bits
+        -        - memories
+        -        - memory bits
+        -        - processes
+     1174 7.42E+03 cells
+       24  210.202   sky130_fd_sc_hd__a2111oi_0
+       26  195.187   sky130_fd_sc_hd__a211oi_1
+        8   60.058   sky130_fd_sc_hd__a21boi_0
+        8   60.058   sky130_fd_sc_hd__a21o_1
+      121  605.581   sky130_fd_sc_hd__a21oi_1
+       10   87.584   sky130_fd_sc_hd__a221oi_1
+        3   30.029   sky130_fd_sc_hd__a222oi_1
+       11   82.579   sky130_fd_sc_hd__a22oi_1
+       16  140.134   sky130_fd_sc_hd__a2bb2oi_1
+        8   70.067   sky130_fd_sc_hd__a31o_1
+       32  200.192   sky130_fd_sc_hd__a31oi_1
+        4   40.038   sky130_fd_sc_hd__a32o_1
+        8   70.067   sky130_fd_sc_hd__a32oi_1
+        9   56.304   sky130_fd_sc_hd__and2_0
+        2   12.512   sky130_fd_sc_hd__and3_1
+        8   70.067   sky130_fd_sc_hd__and4_1
+        1    10.01   sky130_fd_sc_hd__and4b_1
+      136   510.49   sky130_fd_sc_hd__clkinv_1
+      137  857.072   sky130_fd_sc_hd__lpflow_isobufsrc_1
+       56  560.538   sky130_fd_sc_hd__maj3_1
+       38  142.637   sky130_fd_sc_hd__nand2_1
+       64  400.384   sky130_fd_sc_hd__nand2b_1
+       35  175.168   sky130_fd_sc_hd__nand3_1
+       26  162.656   sky130_fd_sc_hd__nand4_1
+       66  247.738   sky130_fd_sc_hd__nor2_1
+       16  100.096   sky130_fd_sc_hd__nor2b_1
+        8   40.038   sky130_fd_sc_hd__nor3_1
+       17  127.622   sky130_fd_sc_hd__nor3b_1
+       18  112.608   sky130_fd_sc_hd__nor4_1
+        1    8.758   sky130_fd_sc_hd__nor4b_1
+       16  140.134   sky130_fd_sc_hd__o2111ai_1
+        8   60.058   sky130_fd_sc_hd__o211ai_1
+        8   60.058   sky130_fd_sc_hd__o21a_1
+       56  280.269   sky130_fd_sc_hd__o21ai_0
+       16  100.096   sky130_fd_sc_hd__o22ai_1
+        8   70.067   sky130_fd_sc_hd__o311ai_0
+        9   67.565   sky130_fd_sc_hd__or4_1
+       96  840.806   sky130_fd_sc_hd__xnor2_1
+       40  350.336   sky130_fd_sc_hd__xor2_1
+        8 7.16E+03 submodules
+        8 7.16E+03   ct_pmp_comp_hit
+
+   Chip area for top module '\ct_pmp_acc': 7415.862400
+     of which used for sequential elements: 0.000000 (0.00%)
+
+7. Executing Verilog backend.
+Dumping module `\ct_pmp_acc'.
+Dumping module `\ct_pmp_comp_hit'.
+
+End of script. Logfile hash: 749617a0a5, time: 0.37s, user: 0.12s, system: 0.03s, MEM: 44.88 MB peak
+Yosys 0.66+181 (git sha1 afe6b18f2, Release, Clang /usr/bin/clang++ 18.1.8)
+Time spent: 65% 2x abc (0 sec), 15% 2x stat (0 sec), ...
