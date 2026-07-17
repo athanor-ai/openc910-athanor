@@ -1,0 +1,58 @@
+Startpoint: int_in_req[4] (input port clocked by virtual_clk)
+Endpoint: int_out_id[0] (output port clocked by virtual_clk)
+Path Group: virtual_clk
+Path Type: max
+
+  Delay    Time   Description
+---------------------------------------------------------
+   0.00    0.00   clock virtual_clk (rise edge)
+   0.00    0.00   clock network delay (ideal)
+   0.00    0.00 v input external delay
+   0.00    0.00 v int_in_req[4] (in)
+   0.29    0.29 ^ _190_/Y (sky130_fd_sc_hd__nand2_1)
+   0.11    0.40 v _191_/Y (sky130_fd_sc_hd__nor3_1)
+   0.28    0.68 ^ _679_/Y (sky130_fd_sc_hd__nor4_1)
+   0.35    1.03 v _680_/Y (sky130_fd_sc_hd__nand3_1)
+   0.65    1.68 v x_priority_select/_481_/X (sky130_fd_sc_hd__or4_1)
+   1.08    2.76 ^ x_priority_select/_482_/Y (sky130_fd_sc_hd__nor4_1)
+   0.70    3.46 v x_priority_select/_484_/X (sky130_fd_sc_hd__or4b_1)
+   1.68    5.14 ^ x_priority_select/_485_/Y (sky130_fd_sc_hd__nor4_1)
+   0.72    5.86 v x_priority_select/_486_/X (sky130_fd_sc_hd__or4b_1)
+   1.07    6.93 ^ x_priority_select/_487_/Y (sky130_fd_sc_hd__nor4_1)
+   0.69    7.62 v x_priority_select/_488_/X (sky130_fd_sc_hd__or4b_1)
+   1.07    8.69 ^ x_priority_select/_489_/Y (sky130_fd_sc_hd__nor4_1)
+   0.69    9.38 v x_priority_select/_490_/X (sky130_fd_sc_hd__or4b_1)
+   1.01   10.39 ^ x_priority_select/_491_/Y (sky130_fd_sc_hd__nor4b_1)
+   0.11   10.51 v x_priority_select/_550_/Y (sky130_fd_sc_hd__nand2_1)
+   0.56   11.06 ^ x_priority_select/_582_/Y (sky130_fd_sc_hd__nand3_1)
+   0.48   11.55 v x_id_select/_101_/Y (sky130_fd_sc_hd__nor4_1)
+   0.32   11.86 v x_id_select/_102_/Y (sky130_fd_sc_hd__nor4b_1)
+   0.31   12.18 v x_id_select/_103_/X (sky130_fd_sc_hd__and2_0)
+   0.38   12.56 v x_id_select/_155_/X (sky130_fd_sc_hd__a221o_1)
+   0.00   12.56 v int_out_id[0] (out)
+          12.56   data arrival time
+
+  10.00   10.00   clock virtual_clk (rise edge)
+   0.00   10.00   clock network delay (ideal)
+   0.00   10.00   clock reconvergence pessimism
+   0.00   10.00   output external delay
+          10.00   data required time
+---------------------------------------------------------
+          10.00   data required time
+         -12.56   data arrival time
+---------------------------------------------------------
+          -2.56   slack (VIOLATED)
+
+
+tns -26.39
+wns -2.56
+Group                  Internal  Switching    Leakage      Total
+                          Power      Power      Power      Power
+----------------------------------------------------------------
+Sequential             0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.0%
+Combinational          7.12e-05   1.11e-04   1.39e-09   1.82e-04 100.0%
+Macro                  0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.0%
+Pad                    0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.0%
+----------------------------------------------------------------
+Total                  7.12e-05   1.11e-04   1.39e-09   1.82e-04 100.0%
+                          39.0%      61.0%       0.0%

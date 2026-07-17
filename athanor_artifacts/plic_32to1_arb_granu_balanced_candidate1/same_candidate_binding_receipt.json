@@ -1,0 +1,60 @@
+{
+  "schema": "openc910.same_candidate_metric_binding.v1",
+  "candidate": {
+    "candidate_sha256": "41805698f2b1c2cbba349a3a89074c44eca84e2af685f35d903720805b215c0d",
+    "mapped_netlist_sha256": "ba7a68b2b847ebe1a64eea029637bd0f8d106b6316fb38d98b91b01ef08a874a",
+    "selected_flow": "yosys66_sky130_synth_dfflibmap_abc_opensta_realclk_v1"
+  },
+  "axes": {
+    "area": {
+      "candidate_sha256": "41805698f2b1c2cbba349a3a89074c44eca84e2af685f35d903720805b215c0d",
+      "mapped_netlist_sha256": "ba7a68b2b847ebe1a64eea029637bd0f8d106b6316fb38d98b91b01ef08a874a",
+      "selected_flow": "yosys66_sky130_synth_dfflibmap_abc_opensta_realclk_v1",
+      "instrument": "yosys stat -liberty",
+      "instrument_version": "Yosys 0.66+181 afe6b18f2",
+      "metric": {
+        "gold": 140709.952,
+        "gate": 136564.7264,
+        "unit": "sky130_selected_area"
+      },
+      "negative_control": {
+        "axis_reds": true,
+        "regressed_candidate_sha256": "1b10b5482ed017edd417d76b355a1ee142289750e35fa321236639415b482fd3",
+        "log_ref": "parent_gold_map.pinned.log"
+      }
+    },
+    "timing": {
+      "candidate_sha256": "41805698f2b1c2cbba349a3a89074c44eca84e2af685f35d903720805b215c0d",
+      "mapped_netlist_sha256": "ba7a68b2b847ebe1a64eea029637bd0f8d106b6316fb38d98b91b01ef08a874a",
+      "selected_flow": "yosys66_sky130_synth_dfflibmap_abc_opensta_realclk_v1",
+      "instrument": "OpenSTA report_checks -path_delay max",
+      "instrument_version": "OpenSTA 2.2.0",
+      "metric": {
+        "gold_max_data_arrival_ns": 13.26,
+        "gate_max_data_arrival_ns": 7.39
+      },
+      "negative_control": {
+        "axis_reds": true,
+        "regressed_candidate_sha256": "1b10b5482ed017edd417d76b355a1ee142289750e35fa321236639415b482fd3",
+        "log_ref": "parent_gold_opensta_area_timing_power.pinned.log"
+      }
+    },
+    "power": {
+      "candidate_sha256": "41805698f2b1c2cbba349a3a89074c44eca84e2af685f35d903720805b215c0d",
+      "mapped_netlist_sha256": "ba7a68b2b847ebe1a64eea029637bd0f8d106b6316fb38d98b91b01ef08a874a",
+      "selected_flow": "yosys66_sky130_synth_dfflibmap_abc_opensta_realclk_v1",
+      "instrument": "OpenSTA report_power",
+      "instrument_version": "OpenSTA 2.2.0",
+      "metric": {
+        "gold_total_power_nw": 3.73e-03,
+        "gate_total_power_nw": 3.59e-03,
+        "methodology_boundary": "OpenSTA estimated power under fixed global activity; not signoff power and not measured workload"
+      },
+      "negative_control": {
+        "axis_reds": true,
+        "regressed_candidate_sha256": "1b10b5482ed017edd417d76b355a1ee142289750e35fa321236639415b482fd3",
+        "log_ref": "parent_gold_opensta_area_timing_power.pinned.log"
+      }
+    }
+  }
+}

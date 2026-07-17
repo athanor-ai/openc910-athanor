@@ -1,0 +1,88 @@
+Warning: parent_gold_opensta_realclk.tcl, 5 set_input_delay relative to a clock defined on the same port/pin not allowed.
+Startpoint: plicrst_b (input port clocked by arb_clk)
+Endpoint: _288_ (recovery check against rising-edge clock arb_clk)
+Path Group: **async_default**
+Path Type: max
+
+  Delay    Time   Description
+---------------------------------------------------------
+   0.00    0.00   clock arb_clk (rise edge)
+   0.00    0.00   clock network delay (ideal)
+   0.00    0.00 ^ input external delay
+   0.00    0.00 ^ plicrst_b (in)
+   0.00    0.00 ^ _288_/RESET_B (sky130_fd_sc_hd__dfrtp_1)
+           0.00   data arrival time
+
+  10.00   10.00   clock arb_clk (rise edge)
+   0.00   10.00   clock network delay (ideal)
+   0.00   10.00   clock reconvergence pessimism
+          10.00 ^ _288_/CLK (sky130_fd_sc_hd__dfrtp_1)
+   0.23   10.23   library recovery time
+          10.23   data required time
+---------------------------------------------------------
+          10.23   data required time
+          -0.00   data arrival time
+---------------------------------------------------------
+          10.23   slack (MET)
+
+
+Startpoint: _402_ (rising edge-triggered flip-flop clocked by arb_clk)
+Endpoint: _336_ (rising edge-triggered flip-flop clocked by arb_clk)
+Path Group: arb_clk
+Path Type: max
+
+  Delay    Time   Description
+---------------------------------------------------------
+   0.00    0.00   clock arb_clk (rise edge)
+   0.00    0.00   clock network delay (ideal)
+   0.00    0.00 ^ _402_/CLK (sky130_fd_sc_hd__dfrtp_1)
+   0.36    0.36 v _402_/Q (sky130_fd_sc_hd__dfrtp_1)
+   0.32    0.68 ^ x_secd_prio_selection10/_190_/Y (sky130_fd_sc_hd__nand2_1)
+   0.11    0.79 v x_secd_prio_selection10/_191_/Y (sky130_fd_sc_hd__nor3_1)
+   0.28    1.08 ^ x_secd_prio_selection10/_551_/Y (sky130_fd_sc_hd__nor4_1)
+   0.35    1.43 v x_secd_prio_selection10/_552_/Y (sky130_fd_sc_hd__nand3_1)
+   0.65    2.07 v x_secd_prio_selection10/x_priority_select/_481_/X (sky130_fd_sc_hd__or4_1)
+   1.08    3.16 ^ x_secd_prio_selection10/x_priority_select/_482_/Y (sky130_fd_sc_hd__nor4_1)
+   0.70    3.85 v x_secd_prio_selection10/x_priority_select/_484_/X (sky130_fd_sc_hd__or4b_1)
+   1.68    5.53 ^ x_secd_prio_selection10/x_priority_select/_485_/Y (sky130_fd_sc_hd__nor4_1)
+   0.73    6.26 v x_secd_prio_selection10/x_priority_select/_486_/X (sky130_fd_sc_hd__or4b_1)
+   1.06    7.32 ^ x_secd_prio_selection10/x_priority_select/_487_/Y (sky130_fd_sc_hd__nor4_1)
+   0.69    8.02 v x_secd_prio_selection10/x_priority_select/_488_/X (sky130_fd_sc_hd__or4b_1)
+   1.07    9.08 ^ x_secd_prio_selection10/x_priority_select/_489_/Y (sky130_fd_sc_hd__nor4_1)
+   0.69    9.78 v x_secd_prio_selection10/x_priority_select/_490_/X (sky130_fd_sc_hd__or4b_1)
+   1.01   10.79 ^ x_secd_prio_selection10/x_priority_select/_491_/Y (sky130_fd_sc_hd__nor4b_1)
+   0.11   10.90 v x_secd_prio_selection10/x_priority_select/_550_/Y (sky130_fd_sc_hd__nand2_1)
+   0.56   11.46 ^ x_secd_prio_selection10/x_priority_select/_582_/Y (sky130_fd_sc_hd__nand3_1)
+   0.48   11.94 v x_secd_prio_selection10/x_id_select/_101_/Y (sky130_fd_sc_hd__nor4_1)
+   0.32   12.26 v x_secd_prio_selection10/x_id_select/_102_/Y (sky130_fd_sc_hd__nor4b_1)
+   0.31   12.57 v x_secd_prio_selection10/x_id_select/_103_/X (sky130_fd_sc_hd__and2_0)
+   0.40   12.97 v x_secd_prio_selection10/x_id_select/_155_/X (sky130_fd_sc_hd__a221o_1)
+   0.29   13.26 v _210_/X (sky130_fd_sc_hd__mux2_1)
+   0.00   13.26 v _336_/D (sky130_fd_sc_hd__dfrtp_1)
+          13.26   data arrival time
+
+  10.00   10.00   clock arb_clk (rise edge)
+   0.00   10.00   clock network delay (ideal)
+   0.00   10.00   clock reconvergence pessimism
+          10.00 ^ _336_/CLK (sky130_fd_sc_hd__dfrtp_1)
+  -0.13    9.87   library setup time
+           9.87   data required time
+---------------------------------------------------------
+           9.87   data required time
+         -13.26   data arrival time
+---------------------------------------------------------
+          -3.39   slack (VIOLATED)
+
+
+tns -36.13
+wns -3.39
+Group                  Internal  Switching    Leakage      Total
+                          Power      Power      Power      Power
+----------------------------------------------------------------
+Sequential             3.18e-04   2.36e-05   1.26e-09   3.42e-04   9.1%
+Combinational          1.70e-03   1.70e-03   4.06e-08   3.39e-03  90.9%
+Macro                  0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.0%
+Pad                    0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.0%
+----------------------------------------------------------------
+Total                  2.01e-03   1.72e-03   4.18e-08   3.73e-03 100.0%
+                          53.9%      46.1%       0.0%
