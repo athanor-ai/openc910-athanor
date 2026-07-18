@@ -1,0 +1,90 @@
+{
+  "schema": "openc910.composition_edge_attempt.v1",
+  "ticket": "ATH-3118",
+  "status": "plic_top_granu_balanced_composition_edge_attempt",
+  "customer_ready": false,
+  "customer_ready_scope": "none; internal composition-edge route evidence only",
+  "target": {
+    "boundary_module": "plic_top",
+    "changed_module": "plic_granu_arb",
+    "subsystem": "plic",
+    "source_candidate_package": "athanor_artifacts/plic_32to1_arb_granu_balanced_candidate1",
+    "source_metric_package": "athanor_artifacts/plic_top_bounded_fulltop_attempt1",
+    "claim_scope": "composition_edge_only",
+    "not_whole_c910": true
+  },
+  "selected_flow": "yosys66_sky130_hierarchical_mapped_opensta_screen_v1",
+  "toolchain": {
+    "yosys_version": "Yosys 0.66+181 (git sha1 afe6b18f2, Release, Clang 18.1.8)",
+    "opensta_version": "OpenSTA 2.2.0",
+    "liberty": "sky130_fd_sc_hd__tt_025C_1v80.lib",
+    "liberty_sha256": "ec0e1067a35c8bf20b11e58d1e8ac53326067e4dac84a125cc1b917a3518d0d9"
+  },
+  "source_manifest_sha256": "562fb91fc92d115a5e20105ae2dda6c6b4562ee6e3e9130b569d959780f11d7f",
+  "screen_config_sha256": "7833d4a7954a74aed96379108179a8d8b234122524a9ea72a1b8d2f3d2da88c8",
+  "composition_edge": {
+    "status": "passed",
+    "log_ref": "boundary_identity.json",
+    "only_changed_file": [
+      "plic_granu_arb.v"
+    ],
+    "top_file_byte_identical": true,
+    "changed_module_interface_identical": true,
+    "changed_module_port_count": 6,
+    "gold_changed_module_sha256": "e314cff5ce6e05698d73c362d4ec5f7444032b5387d31ea8a5e768cf2a20563d",
+    "gate_candidate_sha256": "41805698f2b1c2cbba349a3a89074c44eca84e2af685f35d903720805b215c0d",
+    "gate_overlay_sha256": "b57863acc068d449c2f3b49c4d01eefe065ee20cecd421bfb4990d8b85580df6"
+  },
+  "metrics": {
+    "bounded_plic_top_screen": {
+      "area": {
+        "gold": 1039075.3056,
+        "gate": 1006879.4272,
+        "unit": "recursive_yosys_hierarchical_sky130_area",
+        "direction": "improves",
+        "log_ref": "metric_screen.pinned.log"
+      },
+      "timing": {
+        "gold_max_data_arrival_ns": 140.74,
+        "gate_max_data_arrival_ns": 140.29,
+        "gold_wns_ns": -130.87,
+        "gate_wns_ns": -130.42,
+        "direction": "timing-flat",
+        "log_ref": "metric_screen.pinned.log"
+      },
+      "power": {
+        "gold_total_power_nw": 0.0971,
+        "gate_total_power_nw": 0.096,
+        "methodology_boundary": "OpenSTA estimated power under fixed global activity; not signoff power and not measured workload activity",
+        "direction": "improves",
+        "log_ref": "metric_screen.pinned.log"
+      }
+    }
+  },
+  "proof_route": {
+    "module_parent_source": "athanor_artifacts/plic_32to1_arb_granu_balanced_candidate1",
+    "module_parent_proof": {
+      "status": "passed",
+      "proven_equiv_cells": 66557,
+      "unproven_equiv_cells": 0,
+      "proof_mutant": "tie-rule mutant failed as expected",
+      "blacklist_scope_audit": "implementation-internal only; top-visible outputs remain checked; mutant reds through exclusions"
+    },
+    "flat_plic_top_attempt": {
+      "status": "capout_partial_receipt",
+      "unproven_equiv_cells": 20812,
+      "cap_seconds": 900,
+      "completed_prove_batches": 0,
+      "log_ref": "proof_route.pinned.log"
+    },
+    "route_recommendation": "composition authority: plic_32to1_arb parent proof plus hash identity of unchanged modules plus unchanged-boundary/interface check at plic_top"
+  },
+  "known_boundaries": [
+    "customer_ready=false; not an accepted packet",
+    "composition-edge route receipt only",
+    "bounded plic_top selected-flow screen only",
+    "flat plic_top proof is not claimed",
+    "not whole PLIC, whole C910/BOOM, privilege, platform, ISA, architectural retire, signoff timing, workload power, or Lean-authority theorem evidence",
+    "OpenSTA estimated power is not signoff power and not measured workload activity"
+  ]
+}
