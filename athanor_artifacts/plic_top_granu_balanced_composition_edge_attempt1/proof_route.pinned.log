@@ -1,0 +1,12 @@
+PLIC_TOP_GRANU_BALANCED_COMPOSITION_ROUTE_V1
+module_parent_source: athanor_artifacts/plic_32to1_arb_granu_balanced_candidate1
+module_parent_same_state: 66557 proven, 0 unproven
+module_parent_proof_mutant: tie-rule mutant failed as expected
+module_parent_blacklist_audit: implementation-internal only; top-visible outputs remain checked; mutant reds through exclusions
+flat_plic_top_attempt_status: capout_partial_receipt
+flat_plic_top_boundary: 20812 unproven cells
+flat_plic_top_cap_seconds: 900
+flat_plic_top_completed_prove_batches: 0
+flat_plic_top_observed_dominant_clusters: unchanged register-bus cones
+route_recommendation: composition authority; module-parent proof plus hash identity of unchanged modules plus unchanged-boundary/interface check
+claim_boundary: flat plic_top proof is not claimed by this package.

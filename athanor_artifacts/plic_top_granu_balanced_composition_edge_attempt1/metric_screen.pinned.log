@@ -1,0 +1,16 @@
+PLIC_TOP_COMPOSITION_EDGE_METRIC_SCREEN_V1
+source: athanor_artifacts/plic_top_bounded_fulltop_attempt1
+screen_config_sha256: 7833d4a7954a74aed96379108179a8d8b234122524a9ea72a1b8d2f3d2da88c8
+scope: plic_top boundary only
+clock_port: plic_clk
+clock_period_ns: 10.0
+gold_composed_area: 1039075.305600
+gate_composed_area: 1006879.427200
+gold_wns_ns: -130.87
+gate_wns_ns: -130.42
+gold_max_data_arrival_ns: 140.74
+gate_max_data_arrival_ns: 140.29
+gold_total_power_nw: 9.71e-02
+gate_total_power_nw: 9.60e-02
+demo_timing_wording: timing-flat until every compared run uses the same screen_config_sha256
+power_boundary: OpenSTA estimated power under fixed global activity; not signoff power and not measured workload activity
