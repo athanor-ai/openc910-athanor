@@ -4,10 +4,18 @@ Module-local OpenC910 PLIC scout packet for replacing the second-stage
 `plic_granu_arb` priority selector inside `plic_32to1_arb` with a balanced
 9-way comparator tree.
 
-Status: `customer_ready=true` for the module-local `plic_32to1_arb` parent
-packet under the pinned public replay flow. A non-author replay reproduced the
-parent proof, helper proof, proof mutant, mapped netlist hashes, and recorded
-area/timing/OpenSTA estimated-power metrics from the public package path.
+Status: scoped historical evidence packet, NOT current-bar customer-ready.
+`customer_ready=false`. The current product (certified main `0a569cdb7`) either
+REJECTS the legacy package contract (`inconsistent_package`: public_path_leak,
+missing producer/top/clock/reset/binding/provenance) or emits bounded gaps on
+both parent and helper surfaces. Parent mapped: GAP, proof inconclusive
+(`gate_elaboration_failed: duplicate_module`), PPA/timing/sim/toggle unavailable.
+Helper source: GAP, generic cells 762 to 448 (-41.21%) but proof inconclusive
+(`Can't match gold port int_in_id_gold to a gate port`), no discriminator
+(`bite=false`/`no_discriminator`), timing/sim/toggle setup gaps. Legacy
+area/timing/power improvement language is NOT current-product authority.
+Helper-only evidence does not rescue the parent claim. Not whole-C910, ISA,
+composed, or customer-ready authority.
 
 ## Evidence
 

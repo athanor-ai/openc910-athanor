@@ -1,7 +1,16 @@
 # C910 ct_lsu_lfb_data_entry Candidate 1
 
-Status: accepted module-local proof + metric packet; `customer_ready=true` for
-the scoped packet only.
+Status: scoped replayable evidence packet (bounded public receipt, module-local,
+`customer_ready=false` under the current bar). The current product (certified main
+`0a569cdb7`) classifies this as a GAP with recommendation
+`add_composition_edge_or_stronger_proof`. Timing: measured/improved (3.66ns to
+3.49ns, WNS/TNS 0). Toggle: flat (4254 to 4254, 0.0%). Generic cells: regress
+1166 to 1174 (+0.69%) -- not a current-product area win. Replay: ok. Named gaps:
+proof inconclusive (`yosys_equiv_setup_gap` / `combinational_state_check_failed:
+gold design is not proven stateless`); sim unavailable (`design_compile_failed`);
+negative-control has no discriminator (`bite=false`, `bite_kind=no_discriminator`).
+Missing gates: `equivalence_proof`, `metric_negative_control`. Not whole-C910, ISA,
+composed, or customer-ready authority.
 
 This packet records an LSU line-fill-buffer data-entry decode simplification.
 The candidate replaces the eight-way case decode for `lfb_data_entry_addr_id`
@@ -86,7 +95,7 @@ LIBERTY=/path/to/sky130_fd_sc_hd__tt_025C_1v80.lib \
 
 ## Boundaries
 
-- Customer-ready only for the scoped module-local same-state proof and
+- Scoped evidence only (not current-bar customer-ready) for the scoped module-local same-state proof and
   same-candidate-bound selected Sky130/OpenSTA metric packet.
 - Module-local `ct_lsu_lfb_data_entry` only.
 - Same-state module equivalence under the checked RTL model is the proof

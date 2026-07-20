@@ -1,7 +1,11 @@
 # C910 RTU PST Preg Entry Area, Timing, and Estimated-Power Packet 1
 
-Status: accepted module-local metric packet; `customer_ready=true` for scoped
-area/timing/OpenSTA-estimated-power wording.
+Status: scoped historical metric evidence, NOT current-bar customer-ready.
+`customer_ready=false`. The current product (certified main `0a569cdb7`) rejects
+the legacy metric artifact root (`inconsistent_package`) and the mapped metric
+emit is a GAP (Sky130 SAT-model unsupported, proof/negative/PPA/timing/sim/toggle
+all named gaps). Old selected-flow OpenSTA estimated-power wording is historical
+selected-flow evidence, not current-product power authority.
 
 This package extends the accepted `ct_rtu_pst_preg_entry` relation packet with
 same-candidate-bound selected area, OpenSTA max data-arrival, and OpenSTA
@@ -88,7 +92,7 @@ axes.
 
 ## Boundaries
 
-- Customer-ready only for scoped module-local area/timing/OpenSTA-estimated-power
+- Scoped evidence only (not current-bar customer-ready) for scoped module-local area/timing/OpenSTA-estimated-power
   wording.
 - Module-local `ct_rtu_pst_preg_entry` only.
 - Correctness proof scope remains visible-output equivalence under reset-first

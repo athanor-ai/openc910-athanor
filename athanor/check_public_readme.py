@@ -13,7 +13,7 @@ MAX_LINES = 90
 EXPECTED_TITLE = "# Athanor OpenC910 Results"
 REQUIRED_SECTIONS = [
     "## Status",
-    "## Promoted Evidence",
+    "## Evidence Status",  # ATH-3180: renamed from '## Promoted Evidence' to current-bar vocabulary
     "## Evidence Ledger",
     "## Evidence Bar",
     "## Replay",

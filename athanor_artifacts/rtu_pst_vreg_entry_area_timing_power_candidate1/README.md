@@ -1,7 +1,16 @@
 # C910 RTU PST Vreg Entry Area, Timing, and Estimated-Power Packet 1
 
-Status: accepted module-local metric packet; `customer_ready=true` for scoped
-area/timing/OpenSTA-estimated-power wording.
+Status: scoped historical evidence packet, NOT current-bar customer-ready.
+`customer_ready=false`. The current product (certified main `0a569cdb7`) REJECTS
+the legacy root (`inconsistent_package`: public_path_leak, missing contract
+fields) and the fresh source emit (`replay_failed`/`replay_timeout`). Current-main
+measurements: generic cells REGRESS 578 to 599 (+3.63%); timing 3.38ns to 3.28ns
+(WNS/TNS 0); sim bounded_match; toggle flat (7534 to 7534). Proof: inconclusive
+(tempinduct seq 8, multiple unresolved state labels). No discriminator
+(`bite=false`, `port_signature_mismatch`). Mapped metric emit does not rescue
+(proof/negative inconclusive, measurement gaps). Old estimated-power/workload-power
+wording is historical evidence, not current-product authority. Not whole-C910, ISA,
+composed, or customer-ready authority.
 
 This package records a same-candidate-bound metric packet for
 `ct_rtu_pst_vreg_entry`. The candidate recodes the lifecycle FSM from the
@@ -87,7 +96,7 @@ axes.
 
 ## Boundaries
 
-- Customer-ready only for scoped module-local area/timing/OpenSTA-estimated-power
+- Scoped evidence only (not current-bar customer-ready) for scoped module-local area/timing/OpenSTA-estimated-power
   wording.
 - Module-local `ct_rtu_pst_vreg_entry` only.
 - Correctness proof scope remains visible-output equivalence under reset-first

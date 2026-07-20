@@ -1,36 +1,40 @@
 # Athanor OpenC910 Results
 
 OpenC910 is a real 64-bit superscalar out-of-order RISC-V core. This fork
-publishes Athanor C910 optimization results. Every promoted row binds the exact
-RTL candidate to metrics, proof, negative controls, and replayable artifacts.
+publishes Athanor C910 optimization evidence. Every row binds the exact RTL
+candidate to metrics, proof, negative controls, and replayable artifacts.
 
-## Optimization Summary
-Eight promoted packets are public: seven module-local results and one
-subsystem-top result. Headline receipts include `plic_32to1_arb`
-`13.26 ns -> 7.39 ns` (44.3% reduction), `ct_pmp_top` `831/831`, and `ct_iu_div`
-`39.67 ns -> 34.03 ns` (14.2% reduction). No whole-core C910, signoff, or PnR claim is made.
+## Evidence Summary (ATH-3180, re-verified on certified main `0a569cdb7`)
+Ten scoped evidence packets are public. Under the current product bar, two carry
+bounded receipts with current-product wins (ct_prio: proof + timing + toggle;
+rtu_rob_entry: area -4.79% + disclosed toggle regression). The remaining eight
+are scoped historical evidence with named gaps -- three are honest proof-timeout
+rejections that became the Lean rescue lane's live fixture set. No whole-core
+C910, signoff, or PnR claim is made.
 
 ## Status
 
 | Field | Status |
 | --- | --- |
 | Core | T-Head XuanTie OpenC910 |
-| Evidence level | Seven promoted module-local packets plus one promoted subsystem-top packet; no whole-core C910 claim |
-| Latest public bar | Same-candidate area, OpenSTA max data-arrival, OpenSTA estimated power, proof, metric red-control, and non-author replay |
-| Claim boundary | Promoted rows are module-local except the scoped `ct_pmp_top` subsystem-top packet. No ISA, memory-consistency, speculation-recovery, or full-core performance claim is made here. |
+| Evidence level | Ten scoped evidence packets (module-local + one subsystem-top); no whole-core C910 claim |
+| Latest public bar | Current-bar bounded receipt: proof + timing + sim + toggle + negative-control + replay, all measured on certified main `0a569cdb7`. Legacy `customer_ready=true` labels corrected to `false` on all rows per the ATH-3180 audit. |
+| Claim boundary | All rows are module-local except the scoped `ct_pmp_top` subsystem-top packet. No ISA, memory-consistency, speculation-recovery, or full-core performance claim is made here. |
 
-## Promoted Evidence
+## Evidence Status
 
-| Target | Scope | Metric result | Correctness receipt | Package |
+| Target | Scope | Current-bar status | Bite tier | Package |
 | --- | --- | --- | --- | --- |
-| `ct_prio` | CIU priority arbiter | Area `158.902400 -> 60.057600` (62.2% reduction); max data-arrival `0.85 ns -> 0.67 ns` (21.2% reduction); estimated power `1.08e-05 -> 2.89e-06 nW` (73.2% reduction) | Visible `sel[1:0]` temporal-induction proof; functional mutant fails | [`ct_prio_area_timing_power_candidate1`](athanor_artifacts/ct_prio_area_timing_power_candidate1/) |
-| `ct_rtu_pst_preg_entry` | RTU physical-register-status entry | Area `3510.867200 -> 3482.089600` (0.8% reduction); max data-arrival `3.23 ns -> 2.91 ns` (9.9% reduction); estimated power `1.38e-04 -> 1.35e-04 nW` (2.2% reduction) | Passive-debug bridge plus lifecycle relation induction; relation mutant fails | [`rtu_pst_preg_entry_area_timing_power_candidate1`](athanor_artifacts/rtu_pst_preg_entry_area_timing_power_candidate1/) |
-| `ct_rtu_pst_vreg_entry` | RTU vector-register-status entry | Area `3148.019200 -> 3057.932800` (2.9% reduction); max data-arrival `2.82 ns -> 2.81 ns` (0.4% reduction); estimated power `1.28e-04 -> 1.24e-04 nW` (3.1% reduction) | Passive-debug bridge plus lifecycle relation induction; relation mutant fails | [`rtu_pst_vreg_entry_area_timing_power_candidate1`](athanor_artifacts/rtu_pst_vreg_entry_area_timing_power_candidate1/) |
-| `ct_lsu_lfb_data_entry` | LSU line-fill-buffer data-entry decode | Area `19467.420800 -> 19456.160000` (0.06% reduction); max data-arrival `8.17 ns -> 8.14 ns` (0.4% reduction); reported power flat at `1.33e-03 nW` precision | Same-state executor proves `560/560`; shifted-address mutant leaves `8` cells unproven; no C910 Lean-authority theorem is claimed for this packet | [`ct_lsu_lfb_data_entry_candidate1`](athanor_artifacts/ct_lsu_lfb_data_entry_candidate1/) |
-| `ct_iu_div` | IU divider FF1 normalization | Area `158090.371200 -> 156941.769600` (0.7% reduction); max data-arrival `39.67 ns -> 34.03 ns` (14.2% reduction); estimated power `7.06e-03 -> 7.03e-03 nW` (0.4% reduction) | Same-state proof closes `1966/1966`; FF1 proof mutant leaves `2` cells unproven; non-author replay reproduced mapped netlists bit-exact; no C910 Lean-authority theorem is claimed for this packet | [`ct_iu_div_ff1_tree_candidate1`](athanor_artifacts/ct_iu_div_ff1_tree_candidate1/) |
-| `ct_pmp_acc` | PMP access permission parent | Parent area `7826.256000 -> 7415.862400` (5.2% reduction); max data-arrival `3.58 ns -> 3.51 ns` (2.0% reduction); estimated power `1.72e-04 -> 1.67e-04 nW` (2.9% reduction); helper timing regression is carried as a caveat | Helper proof closes `33/33`; parent proof closes `273/273`; NAPOT mask mutant leaves `2` cells unproven; non-author replay reproduced mapped netlists bit-exact; no whole-PMP/C910 or Lean-authority theorem is claimed for this packet | [`ct_pmp_acc_napot_mask_candidate1`](athanor_artifacts/ct_pmp_acc_napot_mask_candidate1/) |
-| `ct_pmp_top` | PMP subsystem top | Area `50325.766400 -> 49474.950400` (1.7% reduction); max data-arrival flat at `3.2370 ns`; estimated power `1.92e-03 -> 1.90e-03 nW` (1.0% reduction) | Same-state proof closes `831/831`; proof mutant leaves `48` cells unproven; three-axis metric-negative control reds; non-author replay reproduced mapped netlists byte-exact; no whole-PMP/C910 or Lean-authority theorem is claimed for this packet | [`ct_pmp_top_napot_mask_candidate1`](athanor_artifacts/ct_pmp_top_napot_mask_candidate1/) |
-| `plic_32to1_arb` | PLIC interrupt arbiter parent | Parent area `140709.952000 -> 136564.726400` (2.9% reduction); real `arb_clk` max data-arrival `13.26 ns -> 7.39 ns` (44.3% reduction); estimated power `3.73e-03 -> 3.59e-03 nW` (3.8% reduction) | Helper SAT miter proves; tie-rule mutant fails; parent proof closes `66557/66557` with internal-only helper-ID blacklist; non-author replay reproduced mapped netlists bit-exact; no whole-PLIC/C910 or Lean-authority theorem is claimed for this packet | [`plic_32to1_arb_granu_balanced_candidate1`](athanor_artifacts/plic_32to1_arb_granu_balanced_candidate1/) |
+| `ct_prio` | CIU priority arbiter | Bounded receipt: proof + timing (2.19->2.18ns) + toggle (-25.43%); area NEUTRAL under current product | Refuted | [`ct_prio_area_timing_power_candidate1`](athanor_artifacts/ct_prio_area_timing_power_candidate1/) |
+| `ct_rtu_rob_entry` | RTU reorder-buffer entry | Bounded receipt: area -4.79% + timing WNS/TNS 0 + toggle +2.29% (disclosed regression) | Refuted | [`rtu_rob_entry_candidate1`](athanor_artifacts/rtu_rob_entry_candidate1/) |
+| `ct_fifo` | FIFO buffer | Product REJECTS: proof timeout, replay fails; prover-program target (ATH-3176/3177) | Refuted | [`ct_fifo`](athanor_artifacts/ct_fifo/) |
+| `ct_iu_div` | IU divider FF1 | GAP: timing REJECTED (18.2% degradation); proof inconclusive; area -1.83% | Unproven | [`ct_iu_div_ff1_tree_candidate1`](athanor_artifacts/ct_iu_div_ff1_tree_candidate1/) |
+| `ct_lsu_lfb_data_entry` | LSU LFB data-entry decode | GAP: timing improved (3.66->3.49ns); proof/sim/discriminator gaps; cells +0.69% | No discriminator | [`ct_lsu_lfb_data_entry_candidate1`](athanor_artifacts/ct_lsu_lfb_data_entry_candidate1/) |
+| `ct_pmp_top` | PMP subsystem top | GAP: proof PROVED (11906/0) but PPA/timing/sim/toggle unavailable (mapped-cell tool gaps) | No discriminator | [`ct_pmp_top_napot_mask_candidate1`](athanor_artifacts/ct_pmp_top_napot_mask_candidate1/) |
+| `ct_pmp_acc` | PMP access permission | Parent REJECTED (degenerate mutant); helper gap-only | No discriminator | [`ct_pmp_acc_napot_mask_candidate1`](athanor_artifacts/ct_pmp_acc_napot_mask_candidate1/) |
+| `plic_32to1_arb` | PLIC interrupt arbiter | Legacy REJECTED + parent/helper gaps | No discriminator | [`plic_32to1_arb_granu_balanced_candidate1`](athanor_artifacts/plic_32to1_arb_granu_balanced_candidate1/) |
+| `ct_rtu_pst_preg_entry` | RTU preg-status entry | Legacy rejected; source replay timeout; mapped metric gap | No discriminator | [`rtu_pst_preg_entry_area_timing_power_candidate1`](athanor_artifacts/rtu_pst_preg_entry_area_timing_power_candidate1/) |
+| `ct_rtu_pst_vreg_entry` | RTU vreg-status entry | Legacy rejected; cells REGRESS +3.63%; replay timeout | No discriminator | [`rtu_pst_vreg_entry_area_timing_power_candidate1`](athanor_artifacts/rtu_pst_vreg_entry_area_timing_power_candidate1/) |
 
 ## Proofs And Receipts
 
@@ -45,23 +49,14 @@ Proofs and replay receipts live inside the package linked from each row.
 
 ## Evidence Ledger
 
-Non-promoted packages are kept as an audit ledger, not as an open task list. They are
-classified in the artifact README, target atlas, or gap ledger as scout,
-helper-only, hard negative, or proof artifact:
-
-- [`athanor_artifacts/README.md`](athanor_artifacts/README.md)
-- [`athanor_artifacts/TARGET_ATLAS.md`](athanor_artifacts/TARGET_ATLAS.md)
-- [`athanor_artifacts/KAIROS_GAP_LEDGER.md`](athanor_artifacts/KAIROS_GAP_LEDGER.md)
-- [`athanor_artifacts/PILOT_DEMO_PACKET.md`](athanor_artifacts/PILOT_DEMO_PACKET.md)
-
-Examples: `ct_fifo` is a real proof artifact but a timing hard negative for
-promotion; parent RTU encoder-family packets are proof/PPA scouts until parent
-metric and authority review close; helper-local VFALU/IDU rows are not promoted
-without parent integration.
+Other packages ([`athanor_artifacts/README.md`](athanor_artifacts/README.md),
+[`TARGET_ATLAS.md`](athanor_artifacts/TARGET_ATLAS.md),
+[`KAIROS_GAP_LEDGER.md`](athanor_artifacts/KAIROS_GAP_LEDGER.md)) are classified
+as scout, helper-only, hard negative, or proof artifact.
 
 ## Evidence Bar
 
-A promoted row requires:
+A current-bar bounded receipt requires:
 
 1. Exact RTL provenance and package hashes.
 2. Area, timing, and power-estimate measurements bound to the same candidate.
@@ -71,7 +66,7 @@ A promoted row requires:
 6. Non-author replay or adversarial QA.
 
 Anything missing one of these is a scout, hard negative, helper-only package, or
-proof artifact, not a promoted result.
+proof artifact, not a current-bar bounded receipt.
 
 ## Replay
 
@@ -80,7 +75,7 @@ proof artifact, not a promoted result.
 - Export-safety gate: `python3 athanor/export_safety_gate.py --ref HEAD`
 - Artifact packages: [`athanor_artifacts/`](athanor_artifacts/)
 
-Each promoted package carries `receipt.json`, `SHA256SUMS`, replay logs,
+Each evidence package carries `receipt.json`, `SHA256SUMS`, replay logs,
 proof/metric negative controls, and a package-local `replay.sh` where available.
 
 ## Upstream

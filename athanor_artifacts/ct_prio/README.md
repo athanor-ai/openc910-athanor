@@ -8,7 +8,7 @@ This packet is a module-local proof/optimization receipt for the PULP C910
 
 - Kairos produced a structural candidate for the C910 `ct_prio` block.
 - The selected Sky130 area replay is `158.902400 -> 93.840000`; this legacy
-  packet is not the promoted PPA result row. Use
+  packet is not the scoped evidence PPA result row. Use
   `ct_prio_area_timing_power_candidate1` for the same-candidate area, timing,
   and OpenSTA estimated-power result.
 - The visible-output miter proves `sel[1:0]` equivalence under the reset-first

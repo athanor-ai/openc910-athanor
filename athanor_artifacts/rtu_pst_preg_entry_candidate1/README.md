@@ -1,5 +1,17 @@
 # C910 RTU PST Preg Entry Relation Packet
 
+Status: scoped historical evidence packet, NOT current-bar customer-ready.
+`customer_ready=false`. The current product (certified main `0a569cdb7`) REJECTS
+both legacy artifact roots (`inconsistent_package`: public_path_leak, missing
+contract fields) and the fresh source emit (`replay_failed`/`replay_timeout`).
+Current-main measurable evidence: generic cells 680 to 669 (-1.62%), timing
+4.72ns to 4.71ns (WNS/TNS 0), sim bounded_match, toggle flat (7516 to 7516).
+Proof: inconclusive (yosys timeout 300s). No discriminator (`bite=false`,
+`port_signature_mismatch`). Mapped metric emit does not rescue (Sky130 SAT-model
+unsupported). Old selected-flow OpenSTA estimated-power is historical evidence,
+not current-product power authority. Not whole-C910, ISA, composed, or
+customer-ready authority.
+
 This package records a module-local optimization packet for
 `ct_rtu_pst_preg_entry`, the C910 RTU physical-register-status entry.
 

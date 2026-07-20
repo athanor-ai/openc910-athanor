@@ -1,7 +1,7 @@
 {
   "ticket": "ATH-2967",
   "status": "accepted_module_local_area_timing_opensta_estimated_power_packet",
-  "customer_ready": true,
+  "customer_ready": false,
   "customer_ready_scope": "module-local ct_rtu_pst_preg_entry same-candidate-bound selected Sky130 area, OpenSTA max data-arrival under the package SDC, and OpenSTA estimated total power under fixed global activity; visible-output equivalence under reset-first through passive debug bridge plus lifecycle-encoding relation induction; OpenSTA estimated power is not signoff power and not measured workload activity",
   "target": {
     "module": "ct_rtu_pst_preg_entry",
@@ -161,7 +161,7 @@
     }
   },
   "known_boundaries": [
-    "customer-ready only for scoped module-local area/timing/OpenSTA-estimated-power wording",
+    "scoped evidence only (not current-bar customer-ready) for scoped module-local area/timing/OpenSTA-estimated-power wording",
     "module-local ct_rtu_pst_preg_entry only",
     "correctness proof scope remains visible-output equivalence under reset-first through passive debug bridge plus lifecycle-encoding relation induction",
     "OpenSTA estimated power is not signoff power and not measured workload activity",

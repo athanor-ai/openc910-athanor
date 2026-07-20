@@ -1,11 +1,19 @@
 # ct_pmp_top NAPOT mask candidate 1
 
-Status: `customer_ready=true` for the subsystem-top `ct_pmp_top` packet under
-the pinned public replay flow. A non-author replay reproduced the proof,
-proof-mutant, mapped netlist hashes, metric-negative control, and recorded
-area/timing/OpenSTA estimated-power metrics from the public package path.
+Status: scoped replayable evidence packet (bounded public receipt, subsystem-top,
+`customer_ready=false` under the current bar). The current product (certified main
+`0a569cdb7`) classifies this as a GAP with recommendation `run_ppa_measurement`.
+Proof: PROVED (11906 cells, 0 unproven) on the mapped-top shape. Replay: ok,
+package self-verified. Named gaps: PPA unavailable (`yosys_nonzero_exit` on
+mapped-cell route); timing unavailable (synth failed before OpenSTA); sim
+unavailable (`design_compile_failed`); toggle unavailable (`compile_failed`);
+negative-control has no discriminator (`bite=false`, `bite_kind=no_discriminator`
+-- Yosys hit a route-unsupported mapped-cell tool error). Missing gates:
+`ppa_measured`, `metric_negative_control`. The legacy parent area/timing/power
+improvement wording is NOT current-product evidence from this shape. Not
+whole-C910, ISA, composed, or customer-ready authority.
 
-This packet lifts the promoted `ct_pmp_acc` NAPOT mask candidate through the
+This packet lifts the scoped evidence `ct_pmp_acc` NAPOT mask candidate through the
 `ct_pmp_top` subsystem. The only accepted RTL delta is still the
 `ct_pmp_comp_hit` replacement:
 
@@ -15,7 +23,7 @@ addr_mask[i] = ~&pmpaddr_x_value[i:0]
 
 The subsystem result is area/power-positive and timing-flat under the pinned
 selected flow. The proof gap observed under raw sequential induction was a
-method error, not a candidate gap: the promoted-packet same-state route closes
+method error, not a candidate gap: the scoped evidence-packet same-state route closes
 the subsystem proof.
 
 ## Evidence
