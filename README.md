@@ -21,7 +21,7 @@ C910, signoff, or PnR claim is made.
 | Latest public bar | Current-bar bounded receipt: proof + timing + sim + toggle + negative-control + replay, all measured on certified main `0a569cdb7`. Legacy `customer_ready=true` labels corrected to `false` on all rows per the ATH-3180 audit. |
 | Claim boundary | All rows are module-local except the scoped `ct_pmp_top` subsystem-top packet. No ISA, memory-consistency, speculation-recovery, or full-core performance claim is made here. |
 
-## Scoped Evidence Packets
+## Evidence Status
 
 | Target | Scope | Current-bar status | Bite tier | Package |
 | --- | --- | --- | --- | --- |

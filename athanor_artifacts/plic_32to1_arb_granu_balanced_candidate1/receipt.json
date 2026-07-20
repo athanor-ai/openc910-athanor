@@ -95,7 +95,7 @@
     }
   },
   "known_boundaries": [
-    "customer_ready=true only for this module-local plic_32to1_arb parent packet under the pinned public replay flow",
+    "scoped evidence only (not current-bar customer-ready) for this module-local plic_32to1_arb parent packet under the pinned public replay flow",
     "module-local plic_32to1_arb second-stage PLIC priority selector evidence only",
     "parent same-state proof uses an internal blacklist for helper ID wires; parent outputs are checked",
     "OpenSTA estimated power is not signoff power and not measured workload activity",

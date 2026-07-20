@@ -105,7 +105,7 @@
     }
   },
   "known_boundaries": [
-    "customer_ready only for the scoped module-local ct_pmp_acc parent packet",
+    "scoped evidence only (not current-bar customer-ready) for the scoped module-local ct_pmp_acc parent packet",
     "module-local helper and parent ct_pmp_acc evidence only",
     "same-state helper and flattened-parent equivalence under the checked RTL model",
     "helper-local OpenSTA max data-arrival regresses, while selected parent path improves",

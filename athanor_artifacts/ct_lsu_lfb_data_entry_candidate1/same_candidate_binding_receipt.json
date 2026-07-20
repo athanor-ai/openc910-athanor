@@ -79,5 +79,5 @@
       }
     }
   },
-  "independent_review_summary": "confirmed by non-author second-seat replay on 2026-07-15 and shipped same-state executor dogfood: 560/560 cells proven, shifted-address mutant reds with 8 unproven cells, mapped netlists and area/timing/power receipts reproduce. Customer-ready only for the scoped module-local packet."
+  "independent_review_summary": "confirmed by non-author second-seat replay on 2026-07-15 and shipped same-state executor dogfood: 560/560 cells proven, shifted-address mutant reds with 8 unproven cells, mapped netlists and area/timing/power receipts reproduce. scoped evidence only (not current-bar customer-ready) for the scoped module-local packet."
 }

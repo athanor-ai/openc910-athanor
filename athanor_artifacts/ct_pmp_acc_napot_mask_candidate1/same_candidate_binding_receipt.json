@@ -74,5 +74,5 @@
       }
     }
   },
-  "independent_review_summary": "Platypus non-author replay reproduced all mapped netlists byte-exact, both proofs, the NAPOT proof mutant, and the parent/helper area/timing/power readings. Customer-ready only for the scoped module-local ct_pmp_acc packet."
+  "independent_review_summary": "Platypus non-author replay reproduced all mapped netlists byte-exact, both proofs, the NAPOT proof mutant, and the parent/helper area/timing/power readings. scoped evidence only (not current-bar customer-ready) for the scoped module-local ct_pmp_acc packet."
 }

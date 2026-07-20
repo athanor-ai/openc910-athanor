@@ -149,7 +149,7 @@
     }
   },
   "known_boundaries": [
-    "customer-ready only for scoped module-local area/timing/OpenSTA-estimated-power wording",
+    "scoped evidence only (not current-bar customer-ready) for scoped module-local area/timing/OpenSTA-estimated-power wording",
     "module-local ct_prio only",
     "visible-output behavior under reset-first is the proof subject",
     "not full internal-state equivalence",

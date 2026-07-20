@@ -161,7 +161,7 @@
     }
   },
   "known_boundaries": [
-    "customer-ready only for scoped module-local area/timing/OpenSTA-estimated-power wording",
+    "scoped evidence only (not current-bar customer-ready) for scoped module-local area/timing/OpenSTA-estimated-power wording",
     "module-local ct_rtu_pst_preg_entry only",
     "correctness proof scope remains visible-output equivalence under reset-first through passive debug bridge plus lifecycle-encoding relation induction",
     "OpenSTA estimated power is not signoff power and not measured workload activity",

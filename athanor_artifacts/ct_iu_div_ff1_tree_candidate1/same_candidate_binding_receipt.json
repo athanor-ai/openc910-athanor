@@ -77,5 +77,5 @@
       }
     }
   },
-  "independent_review_summary": "Platypus independent non-author replay confirmed byte-exact mapped netlists, same-state proof, proof mutant, area/timing/power, and metric-negative controls. Customer-ready only for the scoped module-local packet."
+  "independent_review_summary": "Platypus independent non-author replay confirmed byte-exact mapped netlists, same-state proof, proof mutant, area/timing/power, and metric-negative controls. scoped evidence only (not current-bar customer-ready) for the scoped module-local packet."
 }

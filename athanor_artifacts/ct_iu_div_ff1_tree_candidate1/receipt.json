@@ -137,7 +137,7 @@
     }
   },
   "known_boundaries": [
-    "customer_ready only for the scoped module-local ct_iu_div proof and same-candidate-bound selected Sky130/OpenSTA metric packet",
+    "scoped evidence only (not current-bar customer-ready) for the scoped module-local ct_iu_div proof and same-candidate-bound selected Sky130/OpenSTA metric packet",
     "module-local ct_iu_div only",
     "same-state module equivalence under the checked RTL model is the proof subject",
     "both gold and candidate violate the 10 ns ideal-clock package SDC; candidate improves max data-arrival and WNS but this is not timing closure",

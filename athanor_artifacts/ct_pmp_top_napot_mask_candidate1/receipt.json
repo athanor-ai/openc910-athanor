@@ -79,7 +79,7 @@
     }
   },
   "known_boundaries": [
-    "customer_ready=true only for this subsystem-top ct_pmp_top packet under the pinned public replay flow",
+    "scoped evidence only (not current-bar customer-ready) for this subsystem-top ct_pmp_top packet under the pinned public replay flow",
     "subsystem-top ct_pmp_top evidence only",
     "same-state equivalence under the checked RTL model",
     "OpenSTA estimated power is not signoff power and not measured workload activity",

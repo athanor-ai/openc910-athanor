@@ -103,7 +103,7 @@
     "bridge_passivity_check.py": "18d86aafb51eb7706e0abf4dba5fbb47fe2a54a0a32668ae98d6ef2e4f4d7af5"
   },
   "known_boundaries": [
-    "Customer-ready only for scoped module-local visible-output equivalence under reset-first via passive debug bridge plus lifecycle-encoding relation induction.",
+    "scoped evidence only (not current-bar customer-ready) for scoped module-local visible-output equivalence under reset-first via passive debug bridge plus lifecycle-encoding relation induction.",
     "The exact output miter is bounded to seq12; the unbounded positive path is the passive-debug lifecycle relation proof.",
     "Same-state bit equivalence is explicitly not claimed because lifecycle state encoding changes; the 304 proven / 6 unproven split is retained only as a boundary artifact.",
     "Raw exact-output temporal induction non-closure remains a boundary artifact, not the positive authority path.",

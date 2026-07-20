@@ -149,7 +149,7 @@
     }
   },
   "known_boundaries": [
-    "customer_ready only for the scoped module-local same-state proof and same-candidate-bound selected Sky130/OpenSTA metric packet; not a whole-LSU or whole-C910 result row",
+    "scoped evidence only (not current-bar customer-ready) for the scoped module-local same-state proof and same-candidate-bound selected Sky130/OpenSTA metric packet; not a whole-LSU or whole-C910 result row",
     "module-local ct_lsu_lfb_data_entry only",
     "same-state module equivalence under the checked RTL model is the proof subject",
     "the timing movement is small and the OpenSTA estimated-power result is flat at reported precision",
