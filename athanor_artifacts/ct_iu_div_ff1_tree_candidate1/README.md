@@ -1,7 +1,16 @@
 # ct_iu_div FF1 tree candidate 1
 
-Status: accepted module-local metric packet; `customer_ready=true` for the
-scoped `ct_iu_div` packet only.
+Status: scoped replayable evidence packet (bounded public receipt, module-local,
+`customer_ready=false` under the current bar). The current product (certified main
+`0a569cdb7`) classifies this as a GAP with recommendation
+`add_composition_edge_or_stronger_proof`. Proof: inconclusive (tempinduct did not
+close visible-output miter, 1 unproven cell). Generic cells: 34443 to 33811
+(-1.83%, area-positive). Timing: REJECTED by the product (gold 33.63ns to gate
+37.94ns, WNS degradation 18.17%, threshold 5.0%). Toggle: 11497 to 12141 (+5.6%,
+regression). Sim: bounded_match. Replay: ok. The legacy selected-flow
+timing/power improvement wording is NOT a current-product claim; under the strict
+grader this row is area-positive but timing/toggle-regressing and proof-incomplete.
+Not whole-C910, ISA, composed, or customer-ready authority.
 
 This packet records a C910 integer divider candidate. The source has two
 64-way positive FF1 encoders for `dvd` and `dvr`; the candidate replaces those

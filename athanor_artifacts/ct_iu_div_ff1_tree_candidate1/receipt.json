@@ -2,7 +2,7 @@
   "schema": "openc910.module_local_area_timing_opensta_estimated_power_packet.v1",
   "ticket": "ATH-2950",
   "status": "accepted_module_local_area_timing_opensta_estimated_power_packet",
-  "customer_ready": true,
+  "customer_ready": false,
   "customer_ready_scope": "module-local ct_iu_div FF1 normalization same-candidate-bound selected Sky130 area, OpenSTA max data-arrival under the package SDC, and OpenSTA estimated total power under fixed global activity; same-state proof closes full module equivalence (1966/1966) and the FF1 mutant reds with 2 unproven cells; non-author replay reproduced mapped netlists bit-exact; OpenSTA estimated power is not signoff power and not measured workload activity",
   "target": {
     "module": "ct_iu_div",
