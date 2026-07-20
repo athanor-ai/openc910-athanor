@@ -1,7 +1,7 @@
 {
   "schema": "athanor.same_candidate_metric_binding.v1",
   "status": "accepted_subsystem_top_area_timing_opensta_estimated_power_packet",
-  "customer_ready": true,
+  "customer_ready": false,
   "candidate": {
     "candidate_sha256": "776f58498548ec1c2b87bd384d17b412a98900aba6c2305c8f597f934cbba57f",
     "mapped_netlist_sha256": "f5c17dce321c3b897020f3ebdaa8c752120d22adf5859b23ba5c95e8ea41ae07",
