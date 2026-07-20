@@ -1,7 +1,7 @@
 {
   "artifact": "c910_ct_fifo_candidate1",
   "status": "module_local_visible_output_equivalence_packet",
-  "customer_ready": true,
+  "customer_ready": false,
   "customer_ready_scope": "module-local visible-output equivalence for C910 ct_fifo only; all known_boundaries travel with the packet",
   "repo": "pulp-platform/pulp-c910",
   "upstream_reference": {

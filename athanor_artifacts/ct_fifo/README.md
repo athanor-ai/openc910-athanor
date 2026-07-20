@@ -4,12 +4,18 @@ This artifact records a module-local proof/optimization packet for the PULP C910
 
 ## Customer Read
 
-This package is customer-ready only for the scoped `ct_fifo` visible-output
-equivalence receipt in `receipt.json`. It is not a promoted area/timing/power
-result row: `metric_screen_receipt.json` is deliberately
-`customer_ready=false` because the same candidate improves area and estimated
-power but regresses OpenSTA max data-arrival. Treat this packet as a replayable
-proof artifact plus a metric hard negative, not as a FIFO optimization win.
+Status: scoped proof/evidence packet, NOT current-bar customer-ready or
+packageable. The current product (certified main `0a569cdb7`) REJECTS this row:
+proof is inconclusive (yosys timeout at 300s, closure=false), and the independent
+replay times out (`replay_failed`/`replay_timeout`). What survived: negative-control
+bite refuted at seq 8 over fifo_pop_data/vld/full/empty; sim bounded_match;
+OpenSTA timing measured with WNS/TNS 0 (0.80ns to 2.73ns); generic cells 54 to 52
+(-3.70%); toggle 1836 to 1947 (+6.05%, disclosed regression). Treat this as
+measured local evidence with an open proof gap -- the induction/replay closure is
+the live target for the prover program (ATH-3176/3177). `receipt.json`
+`customer_ready=true` reflects the old scoped-proof bar; the current product
+refuses this row at the package level. `metric_screen_receipt.json` remains
+`customer_ready=false` (timing regression).
 
 ## Result
 
