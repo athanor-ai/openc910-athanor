@@ -92,7 +92,7 @@ axes.
 
 ## Boundaries
 
-- Customer-ready only for scoped module-local area/timing/OpenSTA-estimated-power
+- Scoped evidence only (not current-bar customer-ready) for scoped module-local area/timing/OpenSTA-estimated-power
   wording.
 - Module-local `ct_rtu_pst_preg_entry` only.
 - Correctness proof scope remains visible-output equivalence under reset-first

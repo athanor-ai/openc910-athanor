@@ -20,7 +20,7 @@ This artifact records a module-local optimization receipt for the PULP C910
 | Subsystem | RTU reorder buffer entry |
 | Transform | Replace enumerated completion-fold decodes with an exact popcount decode over `x_cmplt_vld[0]`, `[1]`, `[5]`, and `[6]` |
 | Generic cells | `129` to `94` in standalone pinned `proc; opt; memory; opt` stats |
-| Selected Sky130 area | `2287.193600` to `2265.923200`; legacy proof-packet metric, not a promoted PPA result row |
+| Selected Sky130 area | `2287.193600` to `2265.923200`; legacy proof-packet metric, not a scoped evidence PPA result row |
 | Equivalence check | Same-state Yosys equivalence closes with `94` proven equiv cells and `0` unproven |
 | Mutant control | A deliberate `cmplt_2_fold_inst` decode fault leaves `4` unproven equiv cells and fails under the same check |
 | Current packet status | Module-local candidate receipt, independent replay requested |

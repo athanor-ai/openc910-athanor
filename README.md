@@ -49,19 +49,10 @@ Proofs and replay receipts live inside the package linked from each row.
 
 ## Evidence Ledger
 
-Other packages are kept as an audit ledger, not as an open task list. They are
-classified in the artifact README, target atlas, or gap ledger as scout,
-helper-only, hard negative, or proof artifact:
-
-- [`athanor_artifacts/README.md`](athanor_artifacts/README.md)
-- [`athanor_artifacts/TARGET_ATLAS.md`](athanor_artifacts/TARGET_ATLAS.md)
-- [`athanor_artifacts/KAIROS_GAP_LEDGER.md`](athanor_artifacts/KAIROS_GAP_LEDGER.md)
-- [`athanor_artifacts/PILOT_DEMO_PACKET.md`](athanor_artifacts/PILOT_DEMO_PACKET.md)
-
-Examples: `ct_fifo` is a real proof artifact but a timing hard negative under
-the current bar; parent RTU encoder-family packets are proof/PPA scouts until
-parent metric and authority review close; helper-local VFALU/IDU rows are scoped
-evidence only without parent integration.
+Other packages ([`athanor_artifacts/README.md`](athanor_artifacts/README.md),
+[`TARGET_ATLAS.md`](athanor_artifacts/TARGET_ATLAS.md),
+[`KAIROS_GAP_LEDGER.md`](athanor_artifacts/KAIROS_GAP_LEDGER.md)) are classified
+as scout, helper-only, hard negative, or proof artifact.
 
 ## Evidence Bar
 

@@ -38,7 +38,7 @@ external interface is otherwise changed.
 
 ## Boundaries
 
-This is a module-local `ct_iu_div` promoted packet. It is not a whole-IU or
+This is a module-local `ct_iu_div` scoped evidence packet. It is not a whole-IU or
 whole-C910 claim, not ISA correctness, not division-algorithm authority, and not
 signoff timing or power. Both gold and candidate still violate the 10 ns ideal
 package clock; the packet reports a same-flow timing improvement, not closure.

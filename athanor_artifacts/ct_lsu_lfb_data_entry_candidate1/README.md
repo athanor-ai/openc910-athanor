@@ -95,7 +95,7 @@ LIBERTY=/path/to/sky130_fd_sc_hd__tt_025C_1v80.lib \
 
 ## Boundaries
 
-- Customer-ready only for the scoped module-local same-state proof and
+- Scoped evidence only (not current-bar customer-ready) for the scoped module-local same-state proof and
   same-candidate-bound selected Sky130/OpenSTA metric packet.
 - Module-local `ct_lsu_lfb_data_entry` only.
 - Same-state module equivalence under the checked RTL model is the proof

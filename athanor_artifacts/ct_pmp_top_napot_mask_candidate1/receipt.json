@@ -2,7 +2,7 @@
   "schema": "openc910.subsystem_top_area_timing_opensta_estimated_power_packet.v1",
   "ticket": "ATH-3118",
   "status": "accepted_subsystem_top_area_timing_opensta_estimated_power_packet",
-  "customer_ready": true,
+  "customer_ready": false,
   "customer_ready_scope": "subsystem-top ct_pmp_top NAPOT-mask packet: flattened subsystem same-state proof closes 831/831, proof mutant leaves exactly 48 unproven cells, same-candidate-bound selected Sky130 area and OpenSTA estimated total power improve while OpenSTA max data-arrival is flat, SHA-bound metric-negative reds area/timing/power, and non-author replay reproduced mapped netlists byte-exact; OpenSTA estimated power is not signoff power and not measured workload activity",
   "target": {
     "helper_module": "ct_pmp_comp_hit",

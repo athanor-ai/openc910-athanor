@@ -49,7 +49,7 @@ timing leg regresses, but the selected parent path improves.
 
 ## Boundaries
 
-This is a promoted module-local packet for `ct_pmp_acc` using the package's
+This is a scoped evidence module-local packet for `ct_pmp_acc` using the package's
 pinned Yosys/OpenSTA/Sky130 selected flow. It is not a whole-PMP, whole-MMU,
 whole-C910, ISA, privilege-model, or composed optimization claim. It is not a
 Lean theorem-registry claim, and OpenSTA timing and estimated power are not

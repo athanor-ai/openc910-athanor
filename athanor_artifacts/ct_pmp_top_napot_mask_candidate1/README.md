@@ -13,7 +13,7 @@ negative-control has no discriminator (`bite=false`, `bite_kind=no_discriminator
 improvement wording is NOT current-product evidence from this shape. Not
 whole-C910, ISA, composed, or customer-ready authority.
 
-This packet lifts the promoted `ct_pmp_acc` NAPOT mask candidate through the
+This packet lifts the scoped evidence `ct_pmp_acc` NAPOT mask candidate through the
 `ct_pmp_top` subsystem. The only accepted RTL delta is still the
 `ct_pmp_comp_hit` replacement:
 
@@ -23,7 +23,7 @@ addr_mask[i] = ~&pmpaddr_x_value[i:0]
 
 The subsystem result is area/power-positive and timing-flat under the pinned
 selected flow. The proof gap observed under raw sequential induction was a
-method error, not a candidate gap: the promoted-packet same-state route closes
+method error, not a candidate gap: the scoped evidence-packet same-state route closes
 the subsystem proof.
 
 ## Evidence

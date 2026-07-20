@@ -89,7 +89,7 @@ LIBERTY=/path/to/sky130_fd_sc_hd__tt_025C_1v80.lib \
 
 ## Boundaries
 
-- Customer-ready only for scoped module-local area/timing/OpenSTA-estimated-power
+- Scoped evidence only (not current-bar customer-ready) for scoped module-local area/timing/OpenSTA-estimated-power
   wording.
 - Module-local `ct_prio` only.
 - Visible `sel[1:0]` output behavior under reset-first is the proof subject.

@@ -74,5 +74,5 @@
       }
     }
   },
-  "independent_review_summary": "Platypus non-author replay reproduced all replay-produced mapped netlists byte-exact against SHA256SUMS, the 831/831 subsystem proof, the exact 48-cell proof-mutant failure, the flat 3.2370 ns metric leg, and the three-axis metric-negative red. Public claim is promoted only for the scoped ct_pmp_top subsystem packet."
+  "independent_review_summary": "Platypus non-author replay reproduced all replay-produced mapped netlists byte-exact against SHA256SUMS, the 831/831 subsystem proof, the exact 48-cell proof-mutant failure, the flat 3.2370 ns metric leg, and the three-axis metric-negative red. Public claim is scoped evidence only for the ct_pmp_top subsystem packet."
 }
