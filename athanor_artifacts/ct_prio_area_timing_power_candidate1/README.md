@@ -1,7 +1,13 @@
 # C910 ct_prio Area, Timing, and Estimated-Power Packet 1
 
-Status: accepted module-local metric packet; `customer_ready=true` for scoped
-area/timing/OpenSTA-estimated-power wording.
+Status: scoped replayable evidence packet (bounded public receipt, module-local,
+all required legs present, `customer_ready=false` under the current bar).
+Proof: visible-output tempinduct at seq 8 (`sel_match`) with negative-control
+refuted. Timing: measured/verified (2.19ns to 2.18ns, WNS/TNS 0). Sim:
+bounded_match. Toggle: 405 to 302 (-25.43%). Generic-cell area: neutral under
+the current product (21 to 21, 0.0%) -- the legacy branch-era overlay (17 to 8)
+reflects a different counting convention, not a current-product area claim.
+Not whole-C910, ISA, composed, or customer-ready authority.
 
 This package records a more aggressive `ct_prio` priority-encoding rewrite than
 the accepted public `ct_prio` packet. The candidate collapses the live priority

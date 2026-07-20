@@ -1,7 +1,7 @@
 {
   "ticket": "ATH-2967",
   "status": "accepted_module_local_area_timing_opensta_estimated_power_packet",
-  "customer_ready": true,
+  "customer_ready": false,
   "customer_ready_scope": "module-local ct_prio same-candidate-bound selected Sky130 area, OpenSTA max data-arrival under the package SDC, and OpenSTA estimated total power under fixed global activity; visible sel[1:0] equivalence under reset-first; OpenSTA estimated power is not signoff power and not measured workload activity",
   "target": {
     "module": "ct_prio",
