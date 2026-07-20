@@ -1,7 +1,7 @@
 {
   "schema": "openc910.module_local_area_timing_opensta_estimated_power_packet.v1",
   "status": "accepted_module_local_area_timing_opensta_estimated_power_packet",
-  "customer_ready": true,
+  "customer_ready": false,
   "customer_ready_scope": "module-local ct_lsu_lfb_data_entry same-candidate-bound selected Sky130 area, OpenSTA max data-arrival under the package SDC, and reported neutral OpenSTA estimated total power under fixed global activity (flat at reported precision); shipped same-state executor proves full module equivalence (560/560) and the shifted-address mutant reds; OpenSTA estimated power is not signoff power and not measured workload activity",
   "target": {
     "module": "ct_lsu_lfb_data_entry",
