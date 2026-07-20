@@ -1,7 +1,17 @@
 # ct_pmp_acc NAPOT mask candidate 1
 
-Status: accepted module-local metric packet; `customer_ready=true` only for the
-scoped `ct_pmp_acc` parent packet under the pinned selected flow.
+Status: scoped evidence packet, NOT current-bar customer-ready. The current
+product (certified main `0a569cdb7`) either REJECTS the parent mapped input
+contract (`negative_control_equals_gold`, `invalid_input`, package_count=0) or
+emits helper-only bounded evidence with no working discriminator or metrics.
+Helper-source shape: GAP (`bounded_public_receipt`), replay ok, but proof
+inconclusive (`combinational_state_check_failed`), no discriminator
+(`bite=false`/`no_discriminator`), PPA/timing/sim/toggle ALL unavailable
+(missing `explicit_clock`, `explicit_reset`, combinational readiness). Missing
+gates: `equivalence_proof`, `ppa_measured`, `metric_negative_control`,
+`explicit_clock`, `explicit_reset`. `customer_ready=false`. A helper-only rerun
+cannot rescue the subsystem/parent claim by itself. Not whole-C910, ISA,
+composed, or customer-ready authority.
 
 This packet records a C910 PMP candidate. The source `ct_pmp_comp_hit` computes
 the NAPOT address mask through a long `casez` table. The candidate replaces that

@@ -2,7 +2,7 @@
   "schema": "openc910.module_local_area_timing_opensta_estimated_power_packet.v1",
   "ticket": "ATH-2852",
   "status": "accepted_module_local_area_timing_opensta_estimated_power_packet",
-  "customer_ready": true,
+  "customer_ready": false,
   "customer_ready_scope": "module-local ct_pmp_acc NAPOT-mask parent packet: helper and flattened-parent same-state equivalence close, mask mutant reds, parent selected Sky130 area, OpenSTA max data-arrival, and OpenSTA estimated total power improve; helper-local timing regresses and is carried as a caveat; non-author replay reproduced all mapped netlists bit-exact; OpenSTA estimated power is not signoff power and not measured workload activity",
   "target": {
     "helper_module": "ct_pmp_comp_hit",
