@@ -13,7 +13,7 @@
   },
   "candidate": {
     "candidate_id": "ct_pmp_top_napot_mask_candidate1",
-    "description": "lift the promoted ct_pmp_comp_hit NAPOT prefix-AND mask identity through ct_pmp_top",
+    "description": "lift the scoped-evidence ct_pmp_comp_hit NAPOT prefix-AND mask identity through ct_pmp_top",
     "candidate_sha256": "776f58498548ec1c2b87bd384d17b412a98900aba6c2305c8f597f934cbba57f",
     "mapped_netlist_sha256": "f5c17dce321c3b897020f3ebdaa8c752120d22adf5859b23ba5c95e8ea41ae07",
     "subsystem_top_mapped_netlist_sha256": "f5c17dce321c3b897020f3ebdaa8c752120d22adf5859b23ba5c95e8ea41ae07",
@@ -72,7 +72,7 @@
     },
     "proof_negative_control": {
       "status": "failed_as_expected",
-      "mutation": "reuse the promoted NAPOT proof mutant inside ct_pmp_top",
+      "mutation": "reuse the scoped-evidence NAPOT proof mutant inside ct_pmp_top",
       "log": "ct_pmp_top_proof_mutant_negative.pinned.log",
       "proven_equiv_cells": 783,
       "unproven_equiv_cells": 48
