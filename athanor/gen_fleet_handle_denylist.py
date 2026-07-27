@@ -1,9 +1,6 @@
 #!/usr/bin/env python3
 """ATH-3397: generate the fork-local fleet-handle denylist from the roster SSOT.
 
-PORTED from ibex-athanor athanor/gen_fleet_handle_denylist.py @ 19be650c (ATH-3426
-pass-2 twin-sync stamp: keep the two forks' generators byte-aligned on edit).
-
 The export-safety gate must block internal fleet-agent handles from appearing
 in published customer artifacts on the public forks. asabi's ruling on this
 class: do NOT hardcode the handle list -- it goes stale the moment the
@@ -57,6 +54,18 @@ GENERIC_ROLE_TERMS: frozenset[str] = frozenset(
 )
 
 
+# Founder/staff ALT-handles (Bob's find, asabi ruling 2026-07-27): a denylist of
+# canonical names does nothing about an alternate handle -- "ai"+"dan" being
+# denied does not catch "aidan"+"by". These exist in NO machine-readable identity
+# source today; ATH-3427's roster will own alt-names, and this constant is the
+# documented stopgap that dies when it does. Fragment-built (same self-flag
+# discipline as everything else here).
+KNOWN_ALT_HANDLES: tuple[str, ...] = (
+    "aidan" + "by",
+    "hongsk" + "sam",
+)
+
+
 def extract_non_agent_names(slack_post_source: str) -> list[str]:
     """Person-name keys of ``_NON_AGENT_ROLES`` in the slack_post source.
 
@@ -94,6 +103,7 @@ def derive_handles(roles: dict, extra_names: list[str] | tuple[str, ...] = ()) -
     ``_NON_AGENT_ROLES`` names), minus the generic role-key terms.
     Sorted, lowercased."""
     names: set[str] = set(extra_names)
+    names.update(KNOWN_ALT_HANDLES)
     for key in roles.get("roles", {}):
         names.add(key)
     for alias in roles.get("_renames", {}):
