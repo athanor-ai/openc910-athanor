@@ -87,12 +87,3 @@ selected-flow measurement with any missing metric axes named; an equivalence or 
 scope stated; a non-vacuity control that a broken candidate fails; replay hashes;
 and non-author cold review. Module-local rows are never presented as whole-core
 claims, and local wins are not summed without an integrated end-to-end receipt.
-
-## Historical replay logs and internal directory names
-
-Some historical replay logs and source diffs under `athanor_artifacts/` contain
-internal working-directory names from the machines that produced them. They are
-left byte-unmodified on purpose: these files are SHA-pinned proof evidence, and
-rewriting published evidence would invalidate receipts a reader may already
-have checked. The packet producer no longer emits such names into hashed
-artifacts; historical packets are grandfathered explicitly rather than edited.
