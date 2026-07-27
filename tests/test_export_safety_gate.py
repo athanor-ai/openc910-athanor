@@ -46,6 +46,8 @@ def _scan(tmp_path, files):
     Returns (block, warn, skipped) from the SHIPPED ``_scan_committed`` -- the
     exact path CI runs, isolated from the receipt verifier.
     """
+    files = dict(files)
+    files.setdefault(esg.DENYLIST_REL, _denylist_json([_H_A, _H_B]))
     _git(["init", "-q"], tmp_path)
     _git(["config", "user.email", "t@example.invalid"], tmp_path)
     _git(["config", "user.name", "t"], tmp_path)
@@ -204,6 +206,14 @@ _H_C = "an" + "ton"
 _RK = "buil" + "der"
 
 
+def _denylist_json(handles):
+    """A denylist DATA file body with a correct integrity stamp for ``handles``."""
+    import hashlib as _hl, json as _j
+    hs = sorted(handles)
+    stamp = _hl.sha256("\n".join(hs).encode()).hexdigest()
+    return _j.dumps({"handles": hs, "stamp": stamp})
+
+
 def _load_gen():
     gen_path = Path(__file__).resolve().parent.parent / "athanor" / "gen_fleet_handle_denylist.py"
     spec = _ilu.spec_from_file_location("gen_fhd_infra", gen_path)
@@ -283,3 +293,44 @@ def test_generation_reads_declared_builder_commit_not_worktree(tmp_path):
     }
     assert _H_A in payload["handles"] and _H_B in payload["handles"]
     assert "dirtyperson" not in payload["handles"] and _H_C not in payload["handles"]
+
+
+# --- ATH-3397: fleet-agent handle GATE tests (the gate that consumes the
+# denylist; derivation tests live above from the infra split). --------------
+
+def test_agent_handle_in_customer_artifact_prose_is_block(tmp_path):
+    leak = '{"note":"cross-VM replay required (' + _H_A.capitalize() + ')"}\n'
+    block, _, _ = _scan(tmp_path, {"athanor_artifacts/pkt/receipt.json": leak})
+    assert _has(block, "fleet-agent handle")
+    assert _has(block, "receipt.json")
+
+
+def test_generic_role_key_is_not_a_handle_hit(tmp_path):
+    text = "the " + _RK + " pattern is common in this rtl\n"
+    block, _, _ = _scan(tmp_path, {"athanor_artifacts/pkt/notes.md": text})
+    assert not _has(block, "fleet-agent handle")
+
+
+def test_denylist_data_file_is_exempt_not_self_flagged(tmp_path):
+    block, _, _ = _scan(tmp_path, {})
+    assert not any("fleet-agent handle" in b and esg.DENYLIST_REL in b for b in block)
+
+
+def test_tooling_py_source_is_out_of_handle_scope(tmp_path):
+    src = "# hardening pass reviewed by " + _H_A.capitalize() + "\n"
+    block, _, _ = _scan(tmp_path, {"athanor/helper.py": src})
+    assert not _has(block, "fleet-agent handle")
+
+
+def test_denylist_stamp_mismatch_fails_closed(tmp_path):
+    import json as _j
+    (tmp_path / esg.DENYLIST_REL).parent.mkdir(parents=True, exist_ok=True)
+    bad = _j.dumps({"handles": [_H_A, _H_B], "stamp": "0" * 64})
+    (tmp_path / esg.DENYLIST_REL).write_text(bad)
+    with pytest.raises(esg.GateError):
+        esg._load_agent_handles(tmp_path)
+
+
+def test_missing_denylist_fails_closed(tmp_path):
+    with pytest.raises(esg.GateError):
+        esg._load_agent_handles(tmp_path)

@@ -51,6 +51,8 @@ Exit codes:
 from __future__ import annotations
 
 import argparse
+import hashlib
+import json
 import re
 import subprocess
 import sys
@@ -141,6 +143,65 @@ class GateError(RuntimeError):
     """The gate could not run (distinct from a leak verdict)."""
 
 
+# --- Fleet-agent handle denylist (ATH-3397; PORTED from ibex-athanor
+# athanor/export_safety_gate.py @ 19be650c — ATH-3426 pass-2 twin-sync stamp).
+#
+# Internal fleet-agent handles must not appear in published customer artifacts on
+# a public fork. The handle list is GENERATED from the roster SSOT (ATH-1343
+# roles.json UNION slack_post's _NON_AGENT_ROLES person-names) by
+# athanor/gen_fleet_handle_denylist.py -- never hardcoded here, so this gate's
+# source holds no verbatim handle and cannot self-flag on its own scan (the same
+# fragment discipline the BLOCK lists use). The denylist DATA file necessarily
+# DOES hold the handles verbatim, so it is the one path excluded from the handle
+# scan (below).
+DENYLIST_REL = "athanor/fleet_handle_denylist.json"
+
+# The handle scan targets PUBLISHED CUSTOMER-ARTIFACT PROSE (ATH-3397): receipt /
+# certificate / README text a customer reads. Two deliberate boundaries:
+#
+#  * Positive file scope: only these artifact extensions are scanned for handles.
+#    A handle inside a build/replay LOG PATH (e.g. .log / .patch) is a DIFFERENT
+#    class -- named per-agent scratch dirs -- fixed at the producer (neutral
+#    paths + regenerate), never by editing the published log, which would break
+#    the reproducibility the packet exists to offer. Tracked as ATH-3415.
+#  * Enumerated path exemptions (NOT an extension rule): specific files that are
+#    themselves .json/.md but are infra, not a customer surface. Each carries its
+#    reason so adding one is a visible decision, never a side effect.
+HANDLE_SCAN_ARTIFACT_EXTS: tuple[str, ...] = (".json", ".md")
+HANDLE_SCAN_EXEMPT_PATHS: dict[str, str] = {
+    DENYLIST_REL: "the denylist DATA file; holds every handle verbatim by design",
+}
+
+
+def _load_agent_handles(root: Path) -> list[str]:
+    """Load the fork-local fleet-handle denylist and verify its integrity stamp.
+
+    Fail-closed: a missing file, malformed json, absent stamp, or a stamp that
+    does not match the committed handles (a hand-edit that did not regenerate)
+    raises GateError -> the gate exits 2 (could-not-run) rather than silently
+    scanning with a tampered or empty denylist. This proves INTEGRITY only; a
+    correctly-stamped but stale copy still passes -- freshness against the live
+    roster is a fleet-level re-generation obligation, because a hash proves the
+    bytes are unchanged, never that they are current.
+    """
+    path = root / DENYLIST_REL
+    if not path.is_file():
+        raise GateError(f"fleet-handle denylist missing at {DENYLIST_REL} (fail-closed)")
+    try:
+        payload = json.loads(path.read_text())
+        handles = list(payload["handles"])
+        stamp = str(payload["stamp"])
+    except (ValueError, KeyError, TypeError) as exc:
+        raise GateError(f"fleet-handle denylist unreadable/malformed: {exc}")
+    expected = hashlib.sha256("\n".join(sorted(handles)).encode()).hexdigest()
+    if stamp != expected:
+        raise GateError(
+            "fleet-handle denylist stamp mismatch (hand-edited without "
+            f"regenerating?): stamp={stamp[:12]} expected={expected[:12]}"
+        )
+    return handles
+
+
 def _git(args: list[str], cwd: Path) -> subprocess.CompletedProcess[str]:
     return subprocess.run(["git", *args], cwd=cwd, capture_output=True, text=True)
 
@@ -193,6 +254,14 @@ def _scan_committed(ref: str, root: Path) -> tuple[list[str], list[str], list[st
         (label, re.compile(pat.encode()), (re.compile(ex.encode()) if ex else None))
         for label, pat, ex in WARN_PATTERNS
     ]
+    # Fleet-agent handles (ATH-3397), loaded + stamp-verified from the generated
+    # denylist. Word-boundary + case-insensitive so a handle does not fire
+    # mid-word. Scoped to OUR_ADDED_PREFIXES (our authored artifacts); upstream
+    # files that legitimately contain such a token are not our leak.
+    agent_res = [
+        ("internal fleet-agent handle", re.compile(rb"(?i)\b" + re.escape(h).encode() + rb"\b"))
+        for h in _load_agent_handles(root)
+    ]
     block: list[str] = []
     warn: list[str] = []
     skipped: list[str] = []
@@ -212,6 +281,16 @@ def _scan_committed(ref: str, root: Path) -> tuple[list[str], list[str], list[st
             for label, rx in block_res:
                 if rx.search(line):
                     block.append(f"[{label}] {path}:{lineno}: {shown}")
+            # Agent-handle scan: customer-artifact prose only (see the scope
+            # constants above). Positive extension scope + enumerated exemptions.
+            if (
+                in_our_scope
+                and path.endswith(HANDLE_SCAN_ARTIFACT_EXTS)
+                and path not in HANDLE_SCAN_EXEMPT_PATHS
+            ):
+                for label, rx in agent_res:
+                    if rx.search(line):
+                        block.append(f"[{label}] {path}:{lineno}: {shown}")
             for label, rx, ex in warn_res:
                 if rx.search(line) and not (ex and ex.search(line)):
                     warn.append(f"[{label}] {path}:{lineno}: {shown}")
