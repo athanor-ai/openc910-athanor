@@ -318,7 +318,7 @@ def replay_package(pkg: Path, policy: dict) -> int:
 
     # Clear any stale replay_out BEFORE provisioning resolution, so a provisioning
     # failure leaves NO stale output from a prior successful run -- the "exit 3 /
-    # no replay_out" contract must hold even after an earlier PASS (Dexter #53).
+    # no replay_out" contract must hold even after an earlier PASS (#53 review).
     out_dir = pkg / "replay_out"
     if out_dir.exists():
         shutil.rmtree(out_dir, ignore_errors=True)
@@ -369,7 +369,7 @@ def replay_package(pkg: Path, policy: dict) -> int:
     # Real replay scripts redirect tool output INTO replay_out/*.log, so scan the
     # bounded log text there too -- a crash-before-verdict (e.g. a yosys internal
     # Assert failure, cf. ATH-3011) is a tool-error, NOT a verdict red, even though
-    # its signature never reaches the wrapper's stdout/stderr (Dexter #53).
+    # its signature never reaches the wrapper's stdout/stderr (#53 review).
     blob = proc.stdout + proc.stderr + _read_replay_out_logs(out_dir)
     tool_signatures = (
         "Assert `",              # yosys internal C++ assertion (crash-before-verdict)
