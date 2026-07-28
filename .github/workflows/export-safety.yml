@@ -178,6 +178,18 @@ jobs:
       #       and therefore cannot hide a leak found in (1).
       # Both feed one --scan-text (verdict=exit1, tool-error=exit2, clean=exit0).
       # Text is passed via env, never interpolated into the shell (injection-safe).
+      # ATH-3445: run the test DIRECTORY, not a hand-listed set. The bites-steps
+      # above each protect one instrument and are deliberately targeted, but they
+      # enumerated 4 of 7 files -- and tests/test_ct_fifo_customer_surface.py, which
+      # pins a CUSTOMER SURFACE, sat failing for nobody to see because nothing
+      # invoked it. That is the fifth what-to-check list to fail this way and every
+      # one failed toward checking LESS. A directory cannot go stale.
+      - name: Run the whole test suite (no file may go unrun)
+        if: ${{ !cancelled() && (github.event_name == 'pull_request' || github.event_name == 'push') }}
+        run: |
+          python3 -m pip install --quiet pytest
+          PYTHONPATH=. python3 -m pytest -q tests/
+
       - name: Export-safety PR-text scan (body + conversation + review comments)
         if: >
           github.event_name == 'pull_request' ||
