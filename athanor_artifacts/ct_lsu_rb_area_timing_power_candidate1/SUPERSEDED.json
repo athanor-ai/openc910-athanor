@@ -3,8 +3,20 @@
   "note": "Each entry names a file, the hash it published before this change, and its current hash.",
   "receipt.json": {
     "superseded_sha256": "0014e6aa861d730849d2bb49700527bf849d02e2d6f3d9c9a36d2f0102253717",
-    "current_sha256": "c781c5bdedea548b417a75ed87c3c41e03d3cac33e5fc79f67b18589d74a2888",
+    "current_sha256": "eaee4d11e67c701857a15c098b05197836e38223f22ee5ca873dc4ace563fe68",
     "superseded_by": "ATH-3397 internal fleet-agent handle scrub (#82)",
-    "reason": "internal agent handles removed from published evidence. The content is otherwise unchanged; this record exists so a party holding the pre-scrub hash can confirm what it was and why it moved."
+    "reason": "internal agent handles removed from published evidence. The content is otherwise unchanged; this record exists so a party holding the pre-scrub hash can confirm what it was and why it moved.",
+    "hops": [
+      {
+        "commit": "35bb0a7aaa2e256b5ee061fc0f4e40045957a8f3",
+        "resulting_sha256": "c781c5bdedea548b417a75ed87c3c41e03d3cac33e5fc79f67b18589d74a2888",
+        "subject": "feat(ATH-3397): narrow scrub-safety check - no pre-scrub hash survives (#82)"
+      },
+      {
+        "commit": "d0695e506f7b6e87b652bd4d705a802ba533eb5c",
+        "resulting_sha256": "eaee4d11e67c701857a15c098b05197836e38223f22ee5ca873dc4ace563fe68",
+        "subject": "fix(ATH-3444) PR B commit 1: correct the 13 citations, record their lineage"
+      }
+    ]
   }
 }
