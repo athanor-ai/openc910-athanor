@@ -691,3 +691,17 @@ def test_findings_display_the_original_path_casing(tmp_path, monkeypatch):
     block, _, _ = _scan(tmp_path, {"Athanor_Artifacts/pkt/RECEIPT.JSON":
                                    '{"r": "' + _H_A + '"}\n'})
     assert any("Athanor_Artifacts/pkt/RECEIPT.JSON" in b for b in block), block
+
+
+def test_the_shipped_tier_is_enforcing():
+    """PIN THE SHIPPED CONFIGURATION.
+
+    Both tier tests monkeypatch HANDLE_FINDING_TIER, so they prove each tier
+    BEHAVES correctly and neither notices which one actually ships. Without this,
+    the constant could be reverted to "warn" and every test would still pass
+    while enforcement was silently off -- the gate present, correct, and inert.
+    """
+    assert esg.HANDLE_FINDING_TIER == "block", (
+        "the handle gate has been de-escalated to staging; if that is deliberate, "
+        "say so in the PR and change this test in the same commit"
+    )

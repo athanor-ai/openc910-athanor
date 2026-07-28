@@ -180,7 +180,16 @@ MIN_HANDLES = 8
 # time the real population is zero, so a BLOCK tier that has never blocked
 # anything would look identical to one that cannot. See
 # test_block_tier_exits_nonzero_on_a_constructed_instance.
-HANDLE_FINDING_TIER = "warn"  # "warn" (staging) | "block" (enforcing)
+# PROMOTED to enforcing (ATH-3397). Staged at "warn" while 32 live instances were
+# published, so the required context stayed green and the log named the real
+# population; promoted once the scrub took that population to ZERO.
+#
+# A promotion proved against an empty population proves nothing, so the bite is
+# proved on a CONSTRUCTED instance instead --
+# test_block_tier_exits_nonzero_on_a_constructed_instance asserts the CAUSE
+# string, not merely a nonzero exit, because a synthetic tree fail-closes on its
+# missing receipts and would produce rc != 0 even if the tier were broken.
+HANDLE_FINDING_TIER = "block"  # "warn" (staging) | "block" (enforcing)
 
 HANDLE_SCAN_ARTIFACT_EXTS: tuple[str, ...] = (".json", ".md")
 HANDLE_SCAN_EXEMPT_PATHS: dict[str, str] = {
