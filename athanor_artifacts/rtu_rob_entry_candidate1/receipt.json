@@ -1,6 +1,6 @@
 {
   "schema": "openc910.module_candidate.v1",
-  "created_by": "dexter",
+  "created_by": "athanor",
   "created_utc": "2026-07-13T14:20:00Z",
   "target": {
     "repo": "https://github.com/pulp-platform/pulp-c910",
@@ -89,7 +89,7 @@
     "not whole-chip customer authority"
   ],
   "next_independent_check": {
-    "assignee": "quan",
+    "assignee": "independent-qa",
     "ask": "Reproduce pinned area and equivalence on the exact gold/gate pair; run the auto-generated high-port output miter and reset-assumption checks against the same candidate bytes."
   }
 }

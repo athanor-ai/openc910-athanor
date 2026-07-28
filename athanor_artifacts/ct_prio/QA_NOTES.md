@@ -1,6 +1,6 @@
-# ATH-2950 ct_prio: Independent Adversarial QA Notes (quan)
+# ATH-2950 ct_prio: Independent Adversarial QA Notes
 
-Independent non-author QA pass (receipt.json `next_independent_check.assignee = quan`).
+Independent non-author QA pass (receipt.json `next_independent_check.assignee = independent-qa`).
 Every command below was re-run on pinned Yosys `0.66+181`
 (`yosys`); logs were regenerated, not read.
 

@@ -45,7 +45,7 @@
     "relation_miter_mutant_negative_tempinduct_seq8.pinned.log": "668f0056f7f21de7277d3e93bf4f56e3bf823eb6356e1ae3a14b09d608e97aeb",
     "relation_miter_tempinduct_seq8.pinned.log": "13f1c771884496ef6a00db487d6a60b0fd5c24a7f4a3207c9d307a70f76b9bfe",
     "replay.sh": "8f65c426a6b78227729f723c651239a59bac0f71c85554dc2b6b590972d1e061",
-    "same_candidate_binding_receipt.json": "a94e2ec31aa40924c87afa9ef2f1d03865dfb2cc4af06984c99d9fd86c57508f",
+    "same_candidate_binding_receipt.json": "6e7dfdb6d32f37fd15f6cefccdf3aff2678f283497a8b534feb5e6a0573675e9",
     "lean_bridge_obligation.json": "372e8b3d99ff12ae209f62e41b6c011126fc565871744d35334001bd61916f9b"
   },
   "metrics": {
@@ -168,7 +168,7 @@
     "not whole RTU, whole C910, BOOM, ISA, memory consistency, speculation recovery, composed optimization, or whole-chip authority"
   ],
   "independent_reviews": {
-    "ronald_replay": {
+    "independent_replay": {
       "status": "passed",
       "source": "Slack receipt 2026-07-13 17:46 PT on PR #8 head 1c48be3",
       "checks": [
@@ -178,7 +178,7 @@
         "export-safety, public verifier, SHA manifest, JSON, bash, bridge py_compile, and diff checks passed"
       ]
     },
-    "quan_adversarial_qa": {
+    "adversarial_qa": {
       "status": "passed",
       "source": "Slack receipts 2026-07-13 17:51 PT and 17:53 PT on routed main 5197483",
       "checks": [

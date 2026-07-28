@@ -97,7 +97,7 @@
   },
   "independent_replay": {
     "status": "passed",
-    "reviewer": "platypus",
+    "reviewer": "independent-non-author",
     "summary": "non-author replay reproduced the packet from the public package path under the pinned Yosys/OpenSTA/Sky130 suite: all three replay-produced mapped netlists matched SHA256SUMS byte-exact, the subsystem same-state proof closed 831 proven / 0 unproven, the proof mutant left exactly 48 unproven cells, selected-flow area/power/timing metrics matched the receipt including flat 3.2370 ns OpenSTA max data-arrival, and the SHA-bound metric-negative reproduced the three-axis red with 7.3389 ns arrival"
   },
   "next_independent_check": {

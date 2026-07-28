@@ -112,7 +112,7 @@
   },
   "independent_replay": {
     "status": "passed",
-    "reviewer": "platypus",
+    "reviewer": "independent-non-author",
     "summary": "non-author replay reproduced the packet from the public package path under the pinned Yosys/OpenSTA/Sky130 suite: parent proof closed 66557 proven / 0 unproven, all four mapped netlists matched package sha256s byte-exact, helper proof passed, tie-rule proof mutant failed as required, parent real-clock timing reproduced 13.26 -> 7.39 ns, parent area and OpenSTA estimated-power improvements matched, and the 2-entry parent blacklist was audited as internal-only with no parent ports blacklisted"
   },
   "next_independent_check": {

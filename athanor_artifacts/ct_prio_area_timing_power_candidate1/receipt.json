@@ -41,7 +41,7 @@
     "output_miter_proof.pinned.log": "3ddeeb6fd41495f7204690808fa31e6db315826eeaec46f64ae9f60f1b8a047f",
     "proof_mutant_negative.pinned.log": "4f3de4e26077f13be6c6d1c20b4df2258c6037547fefb8b09105d81bb5a568f1",
     "replay.sh": "3a7218c806b3293be4767d86e80c19af02841e41d84424f93814a6c0fb718d16",
-    "same_candidate_binding_receipt.json": "6cfa43d0e5f6eb184226fe0d64d61e7dbd302fc2859e93cd4c0f630081f4acc5",
+    "same_candidate_binding_receipt.json": "e559892a249f5ba1bf4c1d582e299210c66bd72186975b55f622ecf059ac1c8f",
     "lean_bridge_obligation.json": "506431ad08193efb2ada849737c753592b602c03c56c77cac917490a09f41a30"
   },
   "metrics": {
@@ -157,7 +157,7 @@
     "not whole C910/BOOM, ISA, memory consistency, speculation recovery, composed optimization, or whole-chip authority"
   ],
   "independent_reviews": {
-    "ronald_replay": {
+    "independent_replay": {
       "status": "passed",
       "source": "Slack receipt 2026-07-13 17:27 PT on PR #6 head 36e79c4",
       "checks": [
@@ -167,7 +167,7 @@
         "export-safety, public verifier, SHA manifest, JSON, bash, and diff checks passed"
       ]
     },
-    "quan_adversarial_qa": {
+    "adversarial_qa": {
       "status": "passed",
       "source": "Slack receipts 2026-07-13 17:29 PT and 17:53 PT on routed main 3cc1935",
       "checks": [

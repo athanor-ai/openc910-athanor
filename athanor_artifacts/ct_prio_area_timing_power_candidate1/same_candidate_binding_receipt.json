@@ -80,5 +80,5 @@
       }
     }
   },
-  "independent_review_summary": "Ronald and Quan independent replay cleared on PR #6 and routed main 3cc1935; customer_ready is true only for scoped module-local area/timing/OpenSTA-estimated-power wording."
+  "independent_review_summary": "Independent replay cleared on PR #6 and routed main 3cc1935; customer_ready is true only for scoped module-local area/timing/OpenSTA-estimated-power wording."
 }

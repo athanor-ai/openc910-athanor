@@ -44,7 +44,7 @@
     "relation_miter_mutant_negative_tempinduct_seq8.pinned.log": "416d047dea5dc959fa7778e48f9562e81042e8421f56e4d3b774cb6780a4ba2b",
     "relation_miter_tempinduct_seq8.pinned.log": "7b2e189507a64dda4ae0096d703e8247371121a06538005ca37e9459428831f9",
     "replay.sh": "490264ba672940200c8a7fb1a693975e92853764964c964d27e637ff75d2334e",
-    "same_candidate_binding_receipt.json": "53fd0cdde423ec6f7dc0fe0b0f3fd1914191826ec0621ab6c7180e7db2b019c9",
+    "same_candidate_binding_receipt.json": "73538a99092ec6a1600a19e5b8a6457721d336bbcb24a03ed396b26fe038db5c",
     "lean_bridge_obligation.json": "3756b918b9cf38a1c8b72e451ef3db558c93864089e2f15c101eeabf5e3b172c"
   },
   "metrics": {
@@ -167,7 +167,7 @@
     "not whole RTU, whole C910, BOOM, ISA, memory consistency, speculation recovery, composed optimization, or whole-chip authority"
   ],
   "independent_reviews": {
-    "ronald_replay": {
+    "independent_replay": {
       "status": "passed",
       "source": "Slack receipt 2026-07-13 18:31 PT on PR #11 head 4703c47",
       "checks": [
@@ -177,7 +177,7 @@
         "export-safety, public verifier, SHA manifest, JSON, bash, bridge py_compile, and diff checks passed"
       ]
     },
-    "quan_adversarial_qa": {
+    "adversarial_qa": {
       "status": "passed",
       "source": "Slack receipt 2026-07-13 18:29 PT on PR #11 head 4703c47",
       "checks": [

@@ -177,7 +177,7 @@
     "not whole LSU, whole C910/BOOM, ISA, memory consistency, speculation recovery, composed optimization, or whole-chip authority"
   ],
   "independent_replay": {
-    "reviewer": "quan",
+    "reviewer": "independent-qa",
     "status": "confirmed_mixed_metric_scout",
     "environment": "fresh scratch replay with pinned Yosys 0.66+181 (afe6b18f2), OpenSTA 2.2.0, and sky130_fd_sc_hd__tt_025C_1v80 liberty",
     "receipt": [
