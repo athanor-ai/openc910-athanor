@@ -230,17 +230,19 @@ def test_a_valid_record_does_not_exempt_an_unrelated_sibling_citation(tmp_path: 
     assert any("SUPERSEDED.json" in f for f in findings), findings
 
 
-def test_two_records_account_for_two_occurrences(tmp_path: Path) -> None:
-    """NARROWNESS companion: counting must not under-excuse legitimate records."""
+def test_a_record_only_excuses_its_OWN_files_prior_hash(tmp_path: Path) -> None:
+    """CONDITION (c), SUBJECT. A valid record for OTHER.md that happens to carry
+    NOTES.md's old hash must NOT excuse it -- the record has to be ABOUT the
+    transition it excuses, or a decoy record with its own valid current hash
+    launders an unrelated victim's stale citation."""
     root, base = _repo(tmp_path)
     old, new = _scrub(root)
     (root / "OTHER.md").write_text("other\n", encoding="utf-8")
     other = hashlib.sha256((root / "OTHER.md").read_bytes()).hexdigest()
-    _record(root, '{\n  "NOTES.md": {\n    "superseded_sha256": "' + old +
-            '",\n    "current_sha256": "' + new + '"\n  },\n'
-            '  "OTHER.md": {\n    "superseded_sha256": "' + old +
+    _record(root, '{\n  "OTHER.md": {\n    "superseded_sha256": "' + old +
             '",\n    "current_sha256": "' + other + '"\n  }\n}\n')
-    assert closure.check(base, root) == []
+    findings = closure.check(base, root)
+    assert any("SUPERSEDED.json" in f for f in findings), findings
 
 
 def test_nested_valid_records_do_not_excuse_an_unrelated_sibling(tmp_path: Path) -> None:
@@ -264,7 +266,7 @@ def test_nested_valid_records_do_not_excuse_an_unrelated_sibling(tmp_path: Path)
             '  },\n'
             '  "unrelated_citation": "' + old + '"\n}\n')
     findings = closure.check(base, root)
-    assert any("unrelated_citation" in f for f in findings), findings
+    assert any("SUPERSEDED.json" in f and "unrelated_citation" in f for f in findings), findings
 
 
 def test_a_finding_names_the_offending_occurrence_not_the_first_match(tmp_path: Path) -> None:
@@ -300,3 +302,45 @@ def test_the_workflow_binds_the_denominator_to_the_immutable_event_base(tmp_path
         "advances after the merge ref is synthesized, the check measures a "
         "different base than the tree it is checking"
     )
+
+
+def test_a_hash_embedded_inside_a_longer_string_is_found(tmp_path: Path) -> None:
+    """HOLD 1a. Parsed-only scanning accepts full SCALAR values, so a hash inside
+    a longer string is invisible to it while being physically present in the
+    published file. The literal sweep finds every occurrence; only the EXEMPTION
+    needs structure."""
+    root, base = _repo(tmp_path)
+    old, new = _scrub(root)
+    (root / "SUPERSEDED.json").write_text(
+        '{\n  "note": "previously published as ' + old + ' before the scrub"\n}\n',
+        encoding="utf-8")
+    findings = closure.check(base, root)
+    assert any("SUPERSEDED.json" in f for f in findings), findings
+
+
+def test_a_duplicate_key_cannot_hide_an_occurrence(tmp_path: Path) -> None:
+    """HOLD 1b. json.loads() silently keeps the LAST duplicate key, so a parsed
+    walk never sees the first one -- but the bytes are in the published file."""
+    root, base = _repo(tmp_path)
+    old, new = _scrub(root)
+    (root / "SUPERSEDED.json").write_text(
+        '{\n  "NOTES.md": {\n    "superseded_sha256": "' + old + '"\n  },\n'
+        '  "NOTES.md": {\n    "current_sha256": "' + new + '"\n  }\n}\n',
+        encoding="utf-8")
+    findings = closure.check(base, root)
+    assert any("SUPERSEDED.json" in f for f in findings), findings
+
+
+def test_a_key_named_like_a_path_cannot_collide_with_one(tmp_path: Path) -> None:
+    """HOLD 2. Dotted path STRINGS are not unique: a root key literally named
+    "NOTES.md.superseded_sha256" produced the same path as the nested field, so
+    both were excused by one valid record. Offsets cannot collide."""
+    root, base = _repo(tmp_path)
+    old, new = _scrub(root)
+    (root / "SUPERSEDED.json").write_text(
+        '{\n  "NOTES.md": {\n    "superseded_sha256": "' + old +
+        '",\n    "current_sha256": "' + new + '"\n  },\n'
+        '  "NOTES.md.superseded_sha256": "' + old + '"\n}\n',
+        encoding="utf-8")
+    findings = closure.check(base, root)
+    assert any("NOTES.md.superseded_sha256" in f for f in findings), findings
