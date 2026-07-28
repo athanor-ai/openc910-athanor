@@ -148,13 +148,16 @@ class GateError(RuntimeError):
 #
 # Internal fleet-agent handles must not appear in published customer artifacts on
 # a public fork. The handle list is GENERATED from the roster SSOT (ATH-1343
-# roles.json UNION slack_post's _NON_AGENT_ROLES person-names) by
+# roles.json (roles + humans + _renames) person-names) by
 # athanor/gen_fleet_handle_denylist.py -- never hardcoded here, so this gate's
 # source holds no verbatim handle and cannot self-flag on its own scan (the same
 # fragment discipline the BLOCK lists use). The denylist DATA file necessarily
 # DOES hold the handles verbatim, so it is the one path excluded from the handle
 # scan (below).
 DENYLIST_REL = "athanor/fleet_handle_denylist.json"
+
+# Truncation tripwire for the generated denylist (see _load_agent_handles).
+MIN_HANDLES = 8
 
 # The handle scan targets PUBLISHED CUSTOMER-ARTIFACT PROSE (ATH-3397): receipt /
 # certificate / README text a customer reads. Two deliberate boundaries:
@@ -173,7 +176,7 @@ HANDLE_SCAN_EXEMPT_PATHS: dict[str, str] = {
 }
 
 
-def _load_agent_handles(root: Path) -> list[str]:
+def _load_agent_handles(ref: str, root: Path) -> list[str]:
     """Load the fork-local fleet-handle denylist and verify its integrity stamp.
 
     Fail-closed: a missing file, malformed json, absent stamp, or a stamp that
@@ -184,15 +187,72 @@ def _load_agent_handles(root: Path) -> list[str]:
     roster is a fleet-level re-generation obligation, because a hash proves the
     bytes are unchanged, never that they are current.
     """
-    path = root / DENYLIST_REL
-    if not path.is_file():
-        raise GateError(f"fleet-handle denylist missing at {DENYLIST_REL} (fail-closed)")
+    # ATH-3397 (dexter, #59 re-read): the scan reads COMMITTED bytes at ``ref``, so
+    # the denylist must come from that SAME ref. Reading it from the working tree
+    # let the instrument's configuration and its subject come from different trees:
+    # emptying the working-tree denylist made committed leaks stop being reported,
+    # with nothing committed to show for it. Same class as reading a manifest from
+    # the host while probing an image — config and subject must be one object.
     try:
-        payload = json.loads(path.read_text())
-        handles = list(payload["handles"])
+        raw = _committed_bytes(ref, DENYLIST_REL, root)
+    except Exception as exc:
+        raise GateError(
+            f"fleet-handle denylist unreadable at {ref}:{DENYLIST_REL} "
+            f"(fail-closed): {exc}"
+        )
+    if not raw:
+        raise GateError(
+            f"fleet-handle denylist missing from the committed tree at "
+            f"{ref}:{DENYLIST_REL} (fail-closed)"
+        )
+    try:
+        payload = json.loads(raw.decode("utf-8"))
+        raw_handles = payload["handles"]
+        # dexter (#59, narrowed): the container must be a LIST. A JSON *string*
+        # "abcdefgh" has len 8 and iterates into eight one-character "handles",
+        # each of which is a non-empty string — so it cleared both the floor and
+        # the entry check while compiling eight useless patterns.
+        if not isinstance(raw_handles, list):
+            raise GateError(
+                "fleet-handle denylist 'handles' must be a LIST (fail-closed): got "
+                f"{type(raw_handles).__name__}, which would iterate into characters"
+            )
+        handles = list(raw_handles)
         stamp = str(payload["stamp"])
+        # a null/empty/non-string entry is a malformed denylist, not a handle: an
+        # empty string would compile to a pattern that matches nothing useful while
+        # still counting toward the floor.
+        if not all(isinstance(h, str) and h.strip() for h in handles):
+            raise GateError(
+                "fleet-handle denylist contains a non-string or empty handle "
+                "(fail-closed): every entry must be a non-empty string"
+            )
     except (ValueError, KeyError, TypeError) as exc:
         raise GateError(f"fleet-handle denylist unreadable/malformed: {exc}")
+    # ATH-3397 (dexter, #59 review): a CORRECTLY STAMPED but EMPTY list passes the
+    # integrity check and compiles ZERO patterns — the gate then scans for nothing
+    # and reports clean. The stamp proves the file was not hand-edited; it says
+    # nothing about whether the file still has content. Truncation to empty (a bad
+    # regeneration, a merge that dropped the array, a partial write) is exactly the
+    # failure the stamp cannot see, so it is checked separately and fails CLOSED.
+    #
+    # MIN_HANDLES is a truncation tripwire, not a freshness check. It is set well
+    # below the derived set (19 at the time of writing) so an ordinary roster change
+    # never trips it, and high enough that a file gutted to one or two entries does.
+    # Freshness against the live roster remains a fleet-level regeneration
+    # obligation — a stamped but STALE list still passes here by construction.
+    # dexter (#59, narrowed): count UNIQUE case-folded handles, not iterable
+    # entries — ["alpha"] * 8 cleared a length-8 floor while producing exactly one
+    # effective pattern. The floor is about how many distinct names the gate can
+    # actually catch.
+    unique = {h.strip().casefold() for h in handles}
+    if len(unique) < MIN_HANDLES:
+        raise GateError(
+            f"fleet-handle denylist yields {len(unique)} unique handle(s) from "
+            f"{len(handles)} entr(ies), below the truncation floor of {MIN_HANDLES} "
+            "(fail-closed): a correctly stamped but emptied, gutted or duplicated "
+            "denylist would leave this gate scanning for almost nothing"
+        )
     expected = hashlib.sha256("\n".join(sorted(handles)).encode()).hexdigest()
     if stamp != expected:
         raise GateError(
@@ -260,7 +320,7 @@ def _scan_committed(ref: str, root: Path) -> tuple[list[str], list[str], list[st
     # files that legitimately contain such a token are not our leak.
     agent_res = [
         ("internal fleet-agent handle", re.compile(rb"(?i)\b" + re.escape(h).encode() + rb"\b"))
-        for h in _load_agent_handles(root)
+        for h in _load_agent_handles(ref, root)
     ]
     block: list[str] = []
     warn: list[str] = []

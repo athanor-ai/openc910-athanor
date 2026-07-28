@@ -47,7 +47,7 @@ def _scan(tmp_path, files):
     exact path CI runs, isolated from the receipt verifier.
     """
     files = dict(files)
-    files.setdefault(esg.DENYLIST_REL, _denylist_json([_H_A, _H_B]))
+    files.setdefault(esg.DENYLIST_REL, _denylist_json(_padded([_H_A, _H_B])))
     _git(["init", "-q"], tmp_path)
     _git(["config", "user.email", "t@example.invalid"], tmp_path)
     _git(["config", "user.name", "t"], tmp_path)
@@ -58,6 +58,27 @@ def _scan(tmp_path, files):
         _git(["add", rel], tmp_path)
     _git(["commit", "-q", "-m", "fixture"], tmp_path)
     return esg._scan_committed("HEAD", tmp_path)
+
+
+def _padded(handles):
+    """Fixture denylists must clear MIN_HANDLES (the truncation tripwire), so pad
+    with filler names that appear in no fixture content."""
+    filler = [f"fillerperson{i}" for i in range(esg.MIN_HANDLES)]
+    return sorted(set(list(handles) + filler))
+
+
+def _repo_with_denylist(tmp_path, payload_text):
+    """Commit ``payload_text`` as the denylist and return (ref, root)."""
+    tmp_path.mkdir(parents=True, exist_ok=True)
+    _git(["init", "-q"], tmp_path)
+    _git(["config", "user.email", "t@example.invalid"], tmp_path)
+    _git(["config", "user.name", "t"], tmp_path)
+    p = tmp_path / esg.DENYLIST_REL
+    p.parent.mkdir(parents=True, exist_ok=True)
+    p.write_text(payload_text)
+    _git(["add", esg.DENYLIST_REL], tmp_path)
+    _git(["commit", "-q", "-m", "denylist"], tmp_path)
+    return "HEAD", tmp_path
 
 
 def _has(entries, needle):
@@ -323,14 +344,106 @@ def test_tooling_py_source_is_out_of_handle_scope(tmp_path):
 
 
 def test_denylist_stamp_mismatch_fails_closed(tmp_path):
-    import json as _j
-    (tmp_path / esg.DENYLIST_REL).parent.mkdir(parents=True, exist_ok=True)
-    bad = _j.dumps({"handles": [_H_A, _H_B], "stamp": "0" * 64})
-    (tmp_path / esg.DENYLIST_REL).write_text(bad)
+    bad = json.dumps({"handles": _padded([_H_A, _H_B]), "stamp": "0" * 64})
+    ref, root = _repo_with_denylist(tmp_path, bad)
     with pytest.raises(esg.GateError):
-        esg._load_agent_handles(tmp_path)
+        esg._load_agent_handles(ref, root)
 
 
 def test_missing_denylist_fails_closed(tmp_path):
+    _git(["init", "-q"], tmp_path)
+    _git(["config", "user.email", "t@example.invalid"], tmp_path)
+    _git(["config", "user.name", "t"], tmp_path)
+    (tmp_path / "x.txt").write_text("x")
+    _git(["add", "x.txt"], tmp_path)
+    _git(["commit", "-q", "-m", "no denylist"], tmp_path)
     with pytest.raises(esg.GateError):
-        esg._load_agent_handles(tmp_path)
+        esg._load_agent_handles("HEAD", tmp_path)
+
+def test_correctly_stamped_but_emptied_denylist_fails_closed(tmp_path):
+    # dexter's #59 finding: the stamp proves the file was not hand-edited, NOT that
+    # it still has content. Empty/gutted lists with VALID stamps compile zero
+    # patterns and make the gate scan for nothing — they must fail closed.
+    import hashlib as _hl
+    for i, handles in enumerate(([], [_H_A], [_H_A, _H_B])):
+        hs = sorted(handles)
+        body = json.dumps({"handles": hs,
+                           "stamp": _hl.sha256("\n".join(hs).encode()).hexdigest()})
+        ref, root = _repo_with_denylist(tmp_path / f"r{i}", body)
+        with pytest.raises(esg.GateError):
+            esg._load_agent_handles(ref, root)
+
+def test_a_full_denylist_still_loads(tmp_path):
+    # control: the truncation floor must not reject a normal derived set.
+    import hashlib as _hl
+    handles = sorted(f"person{i}" for i in range(esg.MIN_HANDLES + 3))
+    body = json.dumps({"handles": handles,
+                       "stamp": _hl.sha256("\n".join(handles).encode()).hexdigest()})
+    ref, root = _repo_with_denylist(tmp_path, body)
+    assert esg._load_agent_handles(ref, root) == handles
+
+def test_worktree_denylist_tamper_cannot_hide_committed_leaks(tmp_path):
+    # dexter's #59 re-read: the scan reads COMMITTED bytes at --ref, so the denylist
+    # must load from the SAME ref. Reading it from the working tree let anyone
+    # silence the gate by emptying an UNCOMMITTED file — config and subject from
+    # different trees.
+    import hashlib as _hl
+    good = _padded([_H_A, _H_B])
+    body = json.dumps({"handles": good,
+                       "stamp": _hl.sha256("\n".join(good).encode()).hexdigest()})
+    ref, root = _repo_with_denylist(tmp_path, body)
+    # now gut the WORKING TREE copy without committing it
+    empty = json.dumps({"handles": [], "stamp": _hl.sha256(b"").hexdigest()})
+    (root / esg.DENYLIST_REL).write_text(empty)
+    assert esg._load_agent_handles(ref, root) == good  # committed content wins
+
+
+def test_denylist_container_must_be_a_list_not_a_string(tmp_path):
+    # dexter (#59): a JSON STRING "abcdefgh" has len 8 and iterates into eight
+    # one-character handles, each a non-empty string — clearing a naive floor
+    # while compiling nothing useful. Python duck typing hides it: every length
+    # and iteration behaves plausibly while measuring CHARACTERS.
+    import hashlib as _hl
+    body = json.dumps({"handles": "abcdefgh",
+                       "stamp": _hl.sha256("\n".join(sorted("abcdefgh")).encode()).hexdigest()})
+    ref, root = _repo_with_denylist(tmp_path, body)
+    with pytest.raises(esg.GateError):
+        esg._load_agent_handles(ref, root)
+
+
+def test_duplicate_handles_do_not_clear_the_floor(tmp_path):
+    # dexter (#59): ["alpha"] * 8 is eight entries and ONE effective pattern.
+    # The floor exists to prove distinct coverage, so it must count UNIQUE handles.
+    import hashlib as _hl
+    handles = ["alpha"] * esg.MIN_HANDLES
+    body = json.dumps({"handles": handles,
+                       "stamp": _hl.sha256("\n".join(sorted(handles)).encode()).hexdigest()})
+    ref, root = _repo_with_denylist(tmp_path, body)
+    with pytest.raises(esg.GateError):
+        esg._load_agent_handles(ref, root)
+
+
+def test_case_variants_are_not_distinct_handles(tmp_path):
+    # the same name in different cases is one pattern (the scan is case-insensitive).
+    import hashlib as _hl
+    handles = sorted({f"Alpha{i % 2}" for i in range(2)} | {"ALPHA0", "alpha1"})
+    body = json.dumps({"handles": handles,
+                       "stamp": _hl.sha256("\n".join(handles).encode()).hexdigest()})
+    ref, root = _repo_with_denylist(tmp_path, body)
+    with pytest.raises(esg.GateError):
+        esg._load_agent_handles(ref, root)
+
+
+def test_floor_boundary_min_minus_one_fails_and_min_passes(tmp_path):
+    # both sides of the boundary, so the floor cannot drift silently.
+    import hashlib as _hl
+    for n, should_pass in ((esg.MIN_HANDLES - 1, False), (esg.MIN_HANDLES, True)):
+        handles = sorted(f"person{i}" for i in range(n))
+        body = json.dumps({"handles": handles,
+                           "stamp": _hl.sha256("\n".join(handles).encode()).hexdigest()})
+        ref, root = _repo_with_denylist(tmp_path / f"n{n}", body)
+        if should_pass:
+            assert esg._load_agent_handles(ref, root) == handles
+        else:
+            with pytest.raises(esg.GateError):
+                esg._load_agent_handles(ref, root)
