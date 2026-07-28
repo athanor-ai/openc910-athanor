@@ -59,38 +59,94 @@ def _git(*args: str, root: Path) -> subprocess.CompletedProcess:
         raise ToolError(f"git could not be run: {exc}") from exc
 
 
-def changed_files(base: str, root: Path) -> list[str]:
-    """Files this change edits, relative to the repo root."""
+def _base_blobs(base: str, root: Path) -> dict[str, str]:
+    """path -> sha256 of its CONTENT at the base, for every file in the base tree."""
+    listing = _git("ls-tree", "-r", "-z", base, root=root)
+    if listing.returncode != 0:
+        raise ToolError(
+            f"could not read the tree at {base!r} -- refusing to report a scrub "
+            f"clean against a base that could not be enumerated"
+        )
+    entries: list[tuple[str, str]] = []
+    for record in listing.stdout.decode("utf-8", "surrogateescape").split("\0"):
+        if not record.strip():
+            continue
+        # "<mode> <type> <oid>\t<path>"
+        meta, _, path = record.partition("\t")
+        fields = meta.split()
+        if len(fields) < 3 or fields[1] != "blob":
+            continue
+        entries.append((fields[2], path))
+    if not entries:
+        return {}
+    proc = subprocess.run(
+        ["git", "cat-file", "--batch"],
+        cwd=root,
+        input=("\n".join(oid for oid, _ in entries) + "\n").encode(),
+        capture_output=True,
+        check=False,
+    )
+    if proc.returncode != 0:
+        raise ToolError(f"could not read blobs at {base!r}")
+    out = proc.stdout
+    result: dict[str, str] = {}
+    offset = 0
+    for _, path in entries:
+        newline = out.index(b"\n", offset)
+        header = out[offset:newline].split()
+        size = int(header[2])
+        body = out[newline + 1:newline + 1 + size]
+        result[path] = hashlib.sha256(body).hexdigest()
+        offset = newline + 1 + size + 1
+    return result
+
+
+def _live_content_hashes(root: Path) -> set[str]:
+    """sha256 of every file the tree currently CONTAINS."""
+    live: set[str] = set()
+    for path in root.rglob("*"):
+        if not path.is_file() or path.is_symlink():
+            continue
+        if any(part in SKIP_DIRS for part in path.parts):
+            continue
+        try:
+            live.add(hashlib.sha256(path.read_bytes()).hexdigest())
+        except OSError:
+            continue
+    return live
+
+
+def superseded_content(base: str, root: Path) -> dict[str, str]:
+    """path -> the base content hash that the tree NO LONGER CONTAINS anywhere.
+
+    THE POPULATION IS A CONTENT PROPERTY, NOT A GIT STATUS. Filtering by
+    --diff-filter=MD was a hand-maintained status list, and it failed in both
+    directions:
+
+      MISSED   a regular file replaced by a SYMLINK is status T, excluded by MD,
+               so the old hash stayed cited and the gate went quiet -- the same
+               deletion-blind defect one status over
+      INVENTED chmod-only is status M with IDENTICAL bytes, so a correct current
+               citation was called stale; and a content-preserving RENAME made
+               the receipt's updated new-path citation red
+
+    A base hash is superseded exactly when that CONTENT is no longer anywhere in
+    the tree. That covers modify, delete and typechange without naming them, and
+    excludes mode-only changes and content-preserving renames without special
+    cases -- the content is still there to be cited.
+    """
     probe = _git("rev-parse", "--verify", f"{base}^{{commit}}", root=root)
     if probe.returncode != 0:
         raise ToolError(
             f"base ref {base!r} does not resolve -- refusing to report a scrub "
             f"clean against a base that could not be read"
         )
-    # MODIFIED **and DELETED**. --diff-filter=M alone meant DELETING a file
-    # produced an empty changed set, so the check returned clean while the
-    # deleted file's old hash was still cited -- deletion is the strongest
-    # possible scrub and it disabled the gate entirely. --no-renames decomposes a
-    # rename into delete+add so the old path is always visible.
-    result = _git(
-        "diff", "--no-renames", "--name-only", "--diff-filter=MD", base, root=root
-    )
-    if result.returncode != 0:
-        raise ToolError(f"git diff against {base} failed: {result.stderr.decode()[:200]}")
-    return [line for line in result.stdout.decode().splitlines() if line.strip()]
-
-
-def old_hashes(base: str, paths: list[str], root: Path) -> dict[str, str]:
-    """sha256 each changed file had AT THE BASE -- the value a citation would hold."""
-    out: dict[str, str] = {}
-    for rel in paths:
-        blob = _git("show", f"{base}:{rel}", root=root)
-        if blob.returncode != 0:
-            # Modified-but-unreadable at base is a defect in the check's input,
-            # not a clean result.
-            raise ToolError(f"could not read {rel} at {base}")
-        out[rel] = hashlib.sha256(blob.stdout).hexdigest()
-    return out
+    live = _live_content_hashes(root)
+    return {
+        path: sha
+        for path, sha in _base_blobs(base, root).items()
+        if sha not in live
+    }
 
 
 _HEX64_ANY = re.compile(r"(?i)(?<![0-9a-z])[0-9a-f]{64}(?![0-9a-z])")
@@ -251,10 +307,10 @@ def surviving_occurrences(hashes: dict[str, str], root: Path) -> list[str]:
 
 
 def check(base: str, root: Path = REPO_ROOT) -> list[str]:
-    paths = changed_files(base, root)
-    if not paths:
+    gone = superseded_content(base, root)
+    if not gone:
         return []
-    return surviving_occurrences(old_hashes(base, paths, root), root)
+    return surviving_occurrences(gone, root)
 
 
 def main(argv: list[str] | None = None) -> int:

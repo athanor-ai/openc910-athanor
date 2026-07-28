@@ -78,13 +78,12 @@ def test_uppercase_occurrences_are_found(tmp_path: Path) -> None:
     root, base = _repo(tmp_path)
     (root / "NOTES.md").write_text("scrubbed content\n", encoding="utf-8")
     new = _rehash(root, "NOTES.md")
-    old = closure.old_hashes(base, ["NOTES.md"], root)["NOTES.md"]
     (root / "SHA256SUMS").write_text(f"{new}  NOTES.md\n", encoding="utf-8")
     (root / "receipt.json").write_text(
         '{\n  "files": {\n    "NOTES.md": "' + new + '"\n  }\n}\n', encoding="utf-8"
     )
     findings = closure.check(base, root)
-    assert any("README.md" in f for f in findings), (old, findings)
+    assert any("README.md" in f for f in findings), findings
 
 
 def test_a_fully_updated_scrub_is_clean(tmp_path: Path) -> None:
@@ -104,7 +103,6 @@ def test_a_hash_in_a_file_type_no_classifier_inspects_is_found(tmp_path: Path) -
     """COVERAGE is the whole point: this never asks what kind of reference it is,
     so a replay script, a log or a brand-new file format is covered for free."""
     root, base = _repo(tmp_path)
-    old = closure.old_hashes(base, [], root)
     sha = hashlib.sha256((root / "NOTES.md").read_bytes()).hexdigest()
     (root / "replay.sh").write_text(f"check_hash {sha} NOTES.md\n", encoding="utf-8")
     subprocess.run(["git", "add", "-A"], cwd=root, capture_output=True, check=False)
@@ -116,7 +114,7 @@ def test_a_hash_in_a_file_type_no_classifier_inspects_is_found(tmp_path: Path) -
                            capture_output=True, text=True, check=True).stdout.strip()
     (root / "NOTES.md").write_text("scrubbed\n", encoding="utf-8")
     findings = closure.check(base2, root)
-    assert any("replay.sh" in f for f in findings), (old, findings)
+    assert any("replay.sh" in f for f in findings), findings
 
 
 def test_an_unresolvable_base_is_a_tool_error_not_a_pass(tmp_path: Path) -> None:
@@ -421,10 +419,24 @@ def test_W3_deleting_the_file_does_not_disable_the_gate(tmp_path: Path) -> None:
         "a deleted file's old hash is still cited and the gate went quiet", findings)
 
 
-def test_W3_a_rename_carrying_an_old_hash_still_reds(tmp_path: Path) -> None:
+def test_W3_a_content_preserving_rename_is_not_a_supersession(tmp_path: Path) -> None:
+    """CORRECTED. This test previously asserted that a rename REDS, which encoded
+    a false positive: if the content is unchanged, a citation of its hash still
+    resolves to real content that the tree contains, just at another path. The
+    hash was never superseded. Filtering by git STATUS could not see that;
+    deriving the population from CONTENT gets it right with no special case."""
     root, base = _repo(tmp_path)
     (root / "NOTES.md").rename(root / "RENAMED.md")
     _commit_all(root, "rename")
+    assert closure.check(base, root) == []
+
+
+def test_W3_a_rename_that_also_changes_content_still_reds(tmp_path: Path) -> None:
+    """The discriminating pair: renaming is irrelevant, CHANGING is what matters."""
+    root, base = _repo(tmp_path)
+    (root / "NOTES.md").rename(root / "RENAMED.md")
+    (root / "RENAMED.md").write_text("renamed and edited\n", encoding="utf-8")
+    _commit_all(root, "rename+edit")
     findings = closure.check(base, root)
     assert any("receipt.json" in f for f in findings), findings
 
@@ -438,3 +450,57 @@ def test_W3_an_unrelated_deletion_does_not_invent_findings(tmp_path: Path) -> No
                            capture_output=True, text=True, check=True).stdout.strip()
     (root / "SPARE.md").unlink()
     assert closure.check(base2, root) == []
+
+
+# --- W3a-d: the population is a CONTENT property, not a git status ------------
+#
+# A status list failed in BOTH directions at once, which is what proves it is a
+# proxy for a question it does not answer rather than an incomplete list:
+# typechange was excluded (false clean), chmod-only was included (false red).
+# M -> MD -> MDT each closes the instance in front of you and leaves the class.
+
+
+def test_W3a_a_typechange_to_symlink_still_reds(tmp_path: Path) -> None:
+    """Status T, excluded by MD. The old content is gone from the tree, so a
+    citation of it is stale -- and the predicate says so without naming T."""
+    root, base = _repo(tmp_path)
+    (root / "NOTES.md").unlink()
+    (root / "NOTES.md").symlink_to("README.md")
+    _commit_all(root, "typechange")
+    findings = closure.check(base, root)
+    assert any("receipt.json" in f for f in findings), (
+        "a regular file replaced by a symlink left its old hash cited", findings)
+
+
+def test_W3b_a_mode_only_change_does_not_invent_a_finding(tmp_path: Path) -> None:
+    """Status M, INCLUDED by MD, with identical bytes -- so the correct current
+    citation was reported stale. A gate that invents findings spends the reader's
+    trust on the true ones."""
+    root, base = _repo(tmp_path)
+    (root / "NOTES.md").chmod(0o755)
+    _commit_all(root, "chmod only")
+    assert closure.check(base, root) == []
+
+
+def test_W3d_no_git_status_letter_is_in_the_decision_path(tmp_path: Path) -> None:
+    """The population must be DERIVED. This fails if a --diff-filter reappears,
+    so the next unhandled status letter cannot be added as a sixth list entry.
+    """
+    import ast
+
+    tree = ast.parse(Path(closure.__file__).read_text(encoding="utf-8"))
+    for node in ast.walk(tree):
+        if not isinstance(node, ast.Call):
+            continue
+        args = [a.value for a in node.args if isinstance(a, ast.Constant)]
+        assert not any(
+            isinstance(a, str) and a.startswith("--diff-filter") for a in args
+        ), (
+            "the population is being filtered by git STATUS again; derive it from "
+            "content -- base content != current content -- so there is no list to "
+            "keep current and no next letter to miss"
+        )
+        assert "diff" not in args[:1], (
+            "the population is coming from `git diff` again; it must be derived "
+            "by comparing base content to current content"
+        )
