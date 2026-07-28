@@ -13,6 +13,7 @@ throwaway temp git repos, which is where we WANT them.
 import hashlib
 import importlib.util
 import json
+import re
 import subprocess
 from pathlib import Path
 
@@ -705,12 +706,24 @@ def test_the_handle_scan_has_no_extension_allow_list():
     but they must be NAMED with a reason, so an unknown or new file type is loud
     rather than silently out of scope.
     """
-    source = Path(esg.__file__).read_text(encoding="utf-8")
-    assert "HANDLE_SCAN_ARTIFACT_EXTS" not in source, (
-        "the handle scan is gated on an extension allow-list again; scope must be "
-        "derived (scan every committed text file under our prefixes) with skips "
-        "named in HANDLE_SCAN_EXEMPT_PATHS"
-    )
+    import ast
+
+    # BEHAVIOUR, NOT SPELLING. Asserting the retired symbol's absence passes on a
+    # pure RENAME -- which is exactly what happened: the handle scan's allow-list
+    # was removed and BINARY_ASSET_EXT carried the same class forward under a
+    # different name. This rejects ANY frozenset/tuple/set of dotted extension
+    # literals in the module, whatever it is called.
+    tree = ast.parse(Path(esg.__file__).read_text(encoding="utf-8"))
+    for node in ast.walk(tree):
+        if not isinstance(node, (ast.Set, ast.Tuple, ast.List)):
+            continue
+        literals = [e.value for e in node.elts if isinstance(e, ast.Constant)]
+        dotted = [x for x in literals if isinstance(x, str) and re.fullmatch(r"\.[a-z0-9]{1,6}", x)]
+        assert len(dotted) < 3, (
+            f"an extension allow-list is back in the gate ({dotted[:5]}); scope "
+            f"must be derived -- scan every committed TEXT file (decided by "
+            f"content), with skips named in HANDLE_SCAN_EXEMPT_PATHS"
+        )
 
 
 def test_every_scan_exemption_carries_a_reason():
@@ -796,4 +809,100 @@ def test_a_file_that_cannot_be_byte_scanned_is_named_not_silently_skipped(
     assert "opaque.bin" in combined, (
         "an unscannable file was dropped silently; it must be named so the "
         "un-inspected population is visible: " + combined[-400:]
+    )
+
+
+def test_binary_is_decided_by_content_not_by_extension(tmp_path, monkeypatch, capsys):
+    """#83's OWN SUBJECT, surviving inside #83's fix. The handle scan's extension
+    allow-list was replaced, and BINARY_ASSET_EXT -- another extension allow-list
+    -- carried the class forward: an ASCII file named .bin was skipped on its
+    NAME while its contents were perfectly scannable. readable.bin is decidable
+    by opening it."""
+    root = _repo_with_a_live_handle_instance(tmp_path)
+    readable = root / "athanor_artifacts" / "pkg" / "readable.bin"
+    readable.parent.mkdir(parents=True, exist_ok=True)
+    readable.write_text(f"synthesis ran as {_H_A}\n", encoding="utf-8")
+    subprocess.run(["git", "add", "-A"], cwd=root, capture_output=True, check=False)
+    subprocess.run(
+        ["git", "-c", "user.email=t@t", "-c", "user.name=t", "commit", "-qm", "bin"],
+        cwd=root, capture_output=True, check=False,
+    )
+    monkeypatch.setattr(esg, "_run_receipt_verifier", lambda root: [])
+    monkeypatch.chdir(root)
+    esg.main(["--ref", "HEAD"])
+    out = capsys.readouterr()
+    combined = out.out + out.err
+    rows = [
+        r for r in combined.splitlines()
+        if "readable.bin" in r and "fleet-agent handle" in r
+    ]
+    assert rows, (
+        "an ASCII file named .bin was skipped on its EXTENSION -- its handle was "
+        "never reported as a finding: " + combined[-400:]
+    )
+
+
+def test_a_real_binary_is_still_skipped(tmp_path, monkeypatch, capsys):
+    """NEGATIVE CONTROL, so the fix is a narrowing and not just a widening."""
+    root = _repo_with_a_live_handle_instance(tmp_path)
+    blob = root / "athanor_artifacts" / "pkg" / "real.bin"
+    blob.parent.mkdir(parents=True, exist_ok=True)
+    blob.write_bytes(b"\x00\x01\x02 not text \x00")
+    subprocess.run(["git", "add", "-A"], cwd=root, capture_output=True, check=False)
+    subprocess.run(
+        ["git", "-c", "user.email=t@t", "-c", "user.name=t", "commit", "-qm", "bin2"],
+        cwd=root, capture_output=True, check=False,
+    )
+    monkeypatch.setattr(esg, "_run_receipt_verifier", lambda root: [])
+    monkeypatch.chdir(root)
+    esg.main(["--ref", "HEAD"])
+    combined = capsys.readouterr()
+    assert "real.bin (binary: contains a NUL byte)" in combined.out + combined.err
+
+
+def test_two_distinct_handles_on_one_line_produce_two_rows(tmp_path, monkeypatch, capsys):
+    """One alternation plus one search() was NOT the same semantics as 19
+    separate regexes: it collapsed a line carrying two handles to a single row.
+    Four live receipt lines do exactly that, which is the 395-vs-399 delta."""
+    root = _repo_with_a_live_handle_instance(tmp_path)
+    both = root / "athanor_artifacts" / "pkg" / "pair.md"
+    both.parent.mkdir(parents=True, exist_ok=True)
+    both.write_text(f"reviewed by {_H_A} and {_H_B}\n", encoding="utf-8")
+    subprocess.run(["git", "add", "-A"], cwd=root, capture_output=True, check=False)
+    subprocess.run(
+        ["git", "-c", "user.email=t@t", "-c", "user.name=t", "commit", "-qm", "pair"],
+        cwd=root, capture_output=True, check=False,
+    )
+    monkeypatch.setattr(esg, "_run_receipt_verifier", lambda root: [])
+    monkeypatch.chdir(root)
+    esg.main(["--ref", "HEAD"])
+    combined = capsys.readouterr()
+    rows = [
+        r for r in (combined.out + combined.err).splitlines()
+        if "pair.md" in r and r.strip().startswith("warn:")
+    ]
+    assert len(rows) == 2, f"expected 2 rows for 2 distinct handles, got {len(rows)}: {rows}"
+
+
+def test_the_keep_set_reasons_reach_the_output(tmp_path, monkeypatch, capsys):
+    """A reason that exists only in a dict is not a published reason. If the
+    keep-set is invisible the denominator is silently short again -- which is
+    how this gate came to report 32 over 15% of the tree."""
+    root = _repo_with_a_live_handle_instance(tmp_path)
+    exempt_name = "athanor/export_safety_gate.py"
+    target = root / exempt_name
+    target.parent.mkdir(parents=True, exist_ok=True)
+    target.write_text(f"# detector source mentioning {_H_A}\n", encoding="utf-8")
+    subprocess.run(["git", "add", "-A"], cwd=root, capture_output=True, check=False)
+    subprocess.run(
+        ["git", "-c", "user.email=t@t", "-c", "user.name=t", "commit", "-qm", "exempt"],
+        cwd=root, capture_output=True, check=False,
+    )
+    monkeypatch.setattr(esg, "_run_receipt_verifier", lambda root: [])
+    monkeypatch.chdir(root)
+    esg.main(["--ref", "HEAD"])
+    combined = capsys.readouterr()
+    text = combined.out + combined.err
+    assert "exempt:" in text and "detector necessarily contains" in text, (
+        "the keep-set reason never reached the reader: " + text[-400:]
     )

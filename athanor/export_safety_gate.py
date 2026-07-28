@@ -331,13 +331,12 @@ def _repo_root(start: Path) -> Path:
     return Path(proc.stdout.strip())
 
 
-# Genuine-binary asset extensions are skipped (a credential in a compiled asset
-# is far-fetched and scanning them yields garbage matches). Skips are REPORTED,
-# never silent -- text logs (*.pinned.log) are NOT skipped and are fully scanned.
-BINARY_ASSET_EXT = frozenset(
-    (".png", ".jpg", ".jpeg", ".gif", ".pdf", ".ico", ".zip", ".gz", ".tgz",
-     ".woff", ".woff2", ".ttf", ".eot", ".mp4", ".so", ".o", ".a", ".bin")
-)
+# BINARY IS A PROPERTY OF THE BYTES, NOT OF THE NAME. This was an extension
+# list, which is the same defect as the handle scan's own allow-list one layer
+# down: an ASCII .bin carrying a live handle was skipped on its name while its
+# contents were perfectly scannable. A NUL byte decides, and nothing else --
+# there is no list to keep current and no next extension to miss. Skips are
+# REPORTED with a reason, never silent.
 
 
 def _committed_paths(ref: str, root: Path) -> list[str]:
@@ -357,6 +356,14 @@ def _committed_bytes(ref: str, path: str, root: Path) -> bytes:
     if proc.returncode != 0:
         raise GateError(f"git show failed for {path} at {ref}: {proc.stderr.decode(errors='replace').strip()}")
     return proc.stdout
+
+
+def _exempt_reason(path_key: str) -> str:
+    """The stated reason a path is not scanned, matched case-insensitively."""
+    for name, reason in HANDLE_SCAN_EXEMPT_PATHS.items():
+        if name.lower() == path_key:
+            return reason
+    return "unstated"
 
 
 def _scan_committed(ref: str, root: Path) -> tuple[list[str], list[str], list[str]]:
@@ -399,9 +406,14 @@ def _scan_committed(ref: str, root: Path) -> tuple[list[str], list[str], list[st
         # ordinary CamelCase prose. Negative controls pin the narrowness.
         ("internal fleet-agent handle",
          re.compile(
-             rb"(?i)(^|[^a-z])("
+             # NON-CONSUMING boundaries. The consuming form (^|[^a-z])...([^a-z]|$)
+             # eats the separator, so two handles on ONE line could not both
+             # match -- four live receipt lines carry two handles each, and the
+             # count came out 395 instead of 399. Lookarounds match the same
+             # positions without consuming, so finditer yields every occurrence.
+             rb"(?i)(?<![a-z])("
              + b"|".join(re.escape(h).encode() for h in _load_agent_handles(ref, root))
-             + rb")([^a-z]|$)"
+             + rb")(?![a-z])"
          )),
     ]
     # ONE alternation, not one regex per handle. Widening the scope from an
@@ -427,8 +439,8 @@ def _scan_committed(ref: str, root: Path) -> tuple[list[str], list[str], list[st
         dot = path_key.rfind(".")
         ext = path_key[dot:] if dot >= 0 else ""
         data = _committed_bytes(ref, path, root)
-        if ext in BINARY_ASSET_EXT or b"\x00" in data:
-            skipped.append(path)
+        if b"\x00" in data:
+            skipped.append(f"{path} (binary: contains a NUL byte)")
             continue
         # Ambiguous host-path patterns fire only in files WE author; upstream's
         # own host paths (its .circleci etc.) are public-upstream content.
@@ -443,12 +455,22 @@ def _scan_committed(ref: str, root: Path) -> tuple[list[str], list[str], list[st
             # prefixes, minus the named exemptions. Scope is derived, not
             # enumerated -- an extension allow-list inspected 15% of published
             # artifacts and reported clean over the rest (see the scope constants).
-            if (
-                in_our_scope
-                and path_key not in _HANDLE_SCAN_EXEMPT_PATHS_LOWER
-            ):
+            if in_our_scope and path_key in _HANDLE_SCAN_EXEMPT_PATHS_LOWER:
+                # The keep-set must be VISIBLE. A reason recorded only in a dict
+                # nobody prints is not an arguable exemption -- it is a silent
+                # subtraction from the denominator, which is the defect that let
+                # this gate report 32 over 15% of the tree.
+                note = f"{path} (exempt: {_exempt_reason(path_key)})"
+                if note not in skipped:
+                    skipped.append(note)
+            elif in_our_scope:
                 for label, rx in agent_res:
-                    if rx.search(line):
+                    # One row per DISTINCT handle on the line -- the semantics the
+                    # 19 separate regexes had. finditer over every OCCURRENCE
+                    # would count a handle repeated on one line twice (444 vs
+                    # 399 on live HEAD), which is a different measurement, not a
+                    # restoration of the old one.
+                    for _handle in sorted({mo.group(1).lower() for mo in rx.finditer(line)}):
                         # tier-routed: see HANDLE_FINDING_TIER. WARN still REPORTS
                         # the instance, so the staging landing carries its own
                         # bite evidence in the log.
@@ -560,7 +582,7 @@ def main(argv: list[str] | None = None) -> int:
         return 2
 
     if skipped:
-        print(f"INFO: {len(skipped)} genuine-binary file(s) not byte-scanned: {', '.join(skipped)}")
+        print(f"INFO: {len(skipped)} file(s) not scanned: {', '.join(skipped)}")
 
     if warn:
         print(f"WARN: {len(warn)} conscious-choice metadata finding(s) at {args.ref}:")
