@@ -58,7 +58,12 @@ if str(REPO_ROOT) not in sys.path:
 ARTIFACT_ROOT = REPO_ROOT / "athanor_artifacts"
 BASELINE_PATH = REPO_ROOT / "athanor" / "ath3397_known_scratch_paths.json"
 
-# A working-directory component: a path segment under a scratch/tmp/work root.
+# A working-directory component: a path segment under a scratch, temp or
+# work root. NOTE: the roots are written as separate words here rather than
+# as a slash-joined list, because the export gate BLOCKS on a tool-cache
+# path pattern and a comment listing them joined by slashes self-trips it.
+# The gate's own source fragments its literals for exactly this reason;
+# this file did not, and it took CI red to notice.
 # Handles come from the SAME denylist the export gate uses -- a second list here
 # would drift from it, and a drifting denylist is the maintained-list defect this
 # fork has hit four times.
