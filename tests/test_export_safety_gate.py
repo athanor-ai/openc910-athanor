@@ -744,3 +744,56 @@ def test_a_handle_in_a_log_file_is_now_scanned(tmp_path, monkeypatch, capsys):
     assert "run.log" in combined.out + combined.err, (
         "a handle inside a .log was not scanned: " + (combined.out + combined.err)[-400:]
     )
+
+
+def test_an_exemption_matches_an_exact_path_not_a_substring(tmp_path, monkeypatch, capsys):
+    """quan's construction. A substring or prefix exemption OVER-EXEMPTS -- the
+    same substring-where-a-value-was-meant shape as the closure gate's
+    replacement check. The operator is set membership on the exact rel-path;
+    this pins it so it cannot decay into `startswith` or `in`."""
+    root = _repo_with_a_live_handle_instance(tmp_path)
+    exempt = next(iter(esg.HANDLE_SCAN_EXEMPT_PATHS))
+    # A DIFFERENT path that merely CONTAINS an exempt path as a substring.
+    decoy = root / (exempt + ".backup.md")
+    decoy.parent.mkdir(parents=True, exist_ok=True)
+    decoy.write_text(f"reviewed by {_H_A}\n", encoding="utf-8")
+    subprocess.run(["git", "add", "-A"], cwd=root, capture_output=True, check=False)
+    subprocess.run(
+        ["git", "-c", "user.email=t@t", "-c", "user.name=t", "commit", "-qm", "decoy"],
+        cwd=root, capture_output=True, check=False,
+    )
+    monkeypatch.setattr(esg, "_run_receipt_verifier", lambda root: [])
+    monkeypatch.chdir(root)
+    esg.main(["--ref", "HEAD"])
+    out = capsys.readouterr()
+    assert ".backup.md" in out.out + out.err, (
+        "a path containing an exempt path as a SUBSTRING was exempted"
+    )
+
+
+def test_a_file_that_cannot_be_byte_scanned_is_named_not_silently_skipped(
+    tmp_path, monkeypatch, capsys
+):
+    """quan's second construction, and asabi's rule one gate over: "could not
+    classify" must not render as "fine". A binary file cannot be scanned for
+    handles -- that is a real limitation -- but it must be NAMED in the output so
+    the reader can size what the gate did not inspect, rather than the file
+    vanishing from the denominator in silence."""
+    root = _repo_with_a_live_handle_instance(tmp_path)
+    blob = root / "athanor_artifacts" / "pkg" / "opaque.bin"
+    blob.parent.mkdir(parents=True, exist_ok=True)
+    blob.write_bytes(b"\x00\x01binary payload\x00")
+    subprocess.run(["git", "add", "-A"], cwd=root, capture_output=True, check=False)
+    subprocess.run(
+        ["git", "-c", "user.email=t@t", "-c", "user.name=t", "commit", "-qm", "bin"],
+        cwd=root, capture_output=True, check=False,
+    )
+    monkeypatch.setattr(esg, "_run_receipt_verifier", lambda root: [])
+    monkeypatch.chdir(root)
+    esg.main(["--ref", "HEAD"])
+    out = capsys.readouterr()
+    combined = out.out + out.err
+    assert "opaque.bin" in combined, (
+        "an unscannable file was dropped silently; it must be named so the "
+        "un-inspected population is visible: " + combined[-400:]
+    )
