@@ -519,16 +519,18 @@ def _stale_package(tmp_path: Path) -> Path:
     return package
 
 
-def test_supersession_with_matching_current_is_accepted(tmp_path: Path) -> None:
-    """Without this the 13 stay red forever and the gate is unsatisfiable."""
+def test_supersession_without_a_chain_is_rejected(tmp_path: Path) -> None:
+    """A verification that only runs when its INPUT is present, where the subject
+    supplies the input, is a SKIP PREDICATE THE SUBJECT CONTROLS: omit `hops`,
+    skip the git check, report clean. 12 of 13 live records did exactly that."""
     package = _stale_package(tmp_path)
-    assert _citation_problems(tmp_path) != []
     _supersede(package, "NOTES.md", {
         "current": _sha(package / "NOTES.md"),
         "superseded_by": "#54 / 0743b51",
         "reason": "one-command replay added after this receipt was written",
     })
-    assert _citation_problems(tmp_path) == []
+    problems = _citation_problems(tmp_path)
+    assert any("records no hops" in p for p in problems), problems
 
 
 def test_supersession_claiming_the_wrong_current_still_reds(tmp_path: Path) -> None:
@@ -607,17 +609,19 @@ def test_every_citation_finding_says_citation(tmp_path: Path) -> None:
             assert "citation" in problem, f"finding is invisible to callers: {problem}"
 
 
-def test_supersession_provenance_accepts_a_ticket_or_pr_reference(tmp_path: Path) -> None:
+def test_supersession_provenance_accepts_a_ticket_or_pr_reference(tmp_path: Path) -> None:  # noqa: E501
     """A SELF-REFERENTIAL supersession cannot name its own commit SHA -- the SHA does
     not exist until after the record is written. Ticket/PR form must therefore be
     valid provenance, or the remedy is unrecognisable to the gate that demands it.
     The rule: name the most specific identifier that EXISTS at write time.
     """
-    package = _stale_package(tmp_path)
+    package, cited, hops = _git_repo_with_history(tmp_path)
+    _cite(package, {"files": {"NOTES.md": cited}})
     _supersede(package, "NOTES.md", {
-        "current": _sha(package / "NOTES.md"),
-        "superseded_by": "ATH-3397 handle scrub (#82)",
+        "current": hops[-1][1],
+        "superseded_by": f"ATH-3397 handle scrub (#82); first transition {hops[0][0]}",
         "reason": "internal handle scrubbed from this artifact",
+        "hops": [{"commit": c, "resulting_sha256": h} for c, h in hops],
     })
     assert _citation_problems(tmp_path) == []
 
@@ -904,14 +908,16 @@ def test_the_role_to_path_citation_shape_is_inspected(tmp_path: Path) -> None:
     assert any("STALE citation at files.gold" in p for p in problems), problems
 
 
-def test_an_unclassified_hash_map_is_loud_not_silent(tmp_path: Path) -> None:
-    """POLARITY: a role ALLOW-LIST is a hand-maintained list, and it fails toward
-    checking LESS -- an unknown role on another fork would read as clean. Every
-    hash map must be classified; anything else is a finding."""
+def test_an_unknown_container_is_classified_by_resolution(tmp_path: Path) -> None:
+    """There is no role allow-list and no unclassified category left. An entry in
+    a container nobody has ever heard of is a citation if its key RESOLVES."""
     package = _write_package(tmp_path)
-    _cite(package, {"mystery_hashes": {"a.v": "a" * 64, "b.v": "b" * 64}})
+    (package / "mystery.v").write_text("original\n", encoding="utf-8")
+    stale = _sha(package / "mystery.v")
+    (package / "mystery.v").write_text("changed\n", encoding="utf-8")
+    _cite(package, {"never_seen_before": {"mystery.v": stale}})
     problems = _citation_problems(tmp_path)
-    assert any("unclassified hash map at mystery_hashes" in p for p in problems), problems
+    assert any("STALE citation at never_seen_before.mystery.v" in p for p in problems), problems
 
 
 def test_a_documented_non_citation_map_stays_exempt(tmp_path: Path) -> None:
@@ -976,3 +982,63 @@ def test_a_bare_hash_semantic_field_is_not_a_citation(tmp_path: Path) -> None:
     package = _write_package(tmp_path)
     _cite(package, {"proof_step": {"status": "passed", "log_sha256": "a" * 64}})
     assert _citation_problems(tmp_path) == []
+
+
+# --- dexter's third round + asabi's exhaustive-invariant ruling ---------------
+
+
+def test_an_exemption_cannot_hide_behind_a_container_name(tmp_path: Path) -> None:
+    """HOLD 4, and the container-vs-entry defect for the THIRD time: exemptions
+    were keyed by bare container name, so a nested candidate_binding.NOTES.md was
+    silently exempt even though it resolved to a real in-package file."""
+    package = _write_package(tmp_path)
+    (package / "NOTES.md").write_text("original\n", encoding="utf-8")
+    stale = _sha(package / "NOTES.md")
+    (package / "NOTES.md").write_text("changed\n", encoding="utf-8")
+    _cite(package, {"candidate_binding": {"NOTES.md": stale, "gold_sha256": "a" * 64}})
+    problems = _citation_problems(tmp_path)
+    assert any("candidate_binding.NOTES.md" in p for p in problems), problems
+
+
+def test_a_known_role_with_a_malformed_container_is_loud(tmp_path: Path) -> None:
+    """HOLD 3b: {"files": []} is the wrong SHAPE for a citation role. It must red
+    rather than vanish through an isinstance check."""
+    package = _write_package(tmp_path)
+    _cite(package, {"files": []})
+    problems = _citation_problems(tmp_path)
+    assert any("not a map of citations" in p for p in problems), problems
+
+
+def test_a_fictitious_predecessor_on_a_real_add_commit_fails_closed(tmp_path: Path) -> None:
+    """HOLD 2: a NOTE is not a verdict. If a predecessor is CLAIMED and the file
+    was ADDED at that commit, there is no prior content and the claim is unproved."""
+    package, cited, hops = _git_repo_with_history(tmp_path)
+    subprocess.run(["git", "log", "--format=%h", "--", "packet/NOTES.md"],
+                   cwd=tmp_path, capture_output=True, text=True, check=False)
+    add_commit = subprocess.run(
+        ["git", "log", "--diff-filter=A", "--format=%h", "--", "packet/NOTES.md"],
+        cwd=tmp_path, capture_output=True, text=True, check=False).stdout.strip().split("\n")[0]
+    _cite(package, {"files": {"NOTES.md": "d" * 64}})
+    _supersede(package, "NOTES.md", {
+        "current": hops[-1][1],
+        "superseded_by": f"{add_commit} (add)",
+        "reason": "claims a predecessor the file never had",
+        "hops": [{"commit": add_commit, "resulting_sha256": cited}] +
+                [{"commit": c, "resulting_sha256": h} for c, h in hops],
+    })
+    problems = _citation_problems(tmp_path)
+    assert any("predecessor" in p and "unproved" in p for p in problems), problems
+
+
+def test_no_rule_in_this_checker_keys_on_a_bare_container_name(tmp_path: Path) -> None:
+    """asabi's exhaustive invariant, enforced against the source rather than
+    remembered. The container-vs-entry defect appeared three times in three
+    different rules -- pairing, classification, exemptions. This fails if the
+    machinery that caused it is reintroduced, so a fourth instance cannot be
+    written rather than being found in round six."""
+    source = Path(verify_public_receipts.__file__).read_text(encoding="utf-8")
+    for banned in ("_NON_CITATION_HASH_MAPS", "_owners_by_container", "_is_citation_map"):
+        assert banned not in source, (
+            f"{banned} keys a rule on a bare container name -- bind to the exact "
+            f"parsed entry instead"
+        )

@@ -594,45 +594,27 @@ _SUPERSESSION_REQUIRED = ("current", "superseded_by", "reason")
 # every hash-valued map -- ``candidate_binding`` keys are roles (gold_sha256),
 # not filenames.
 _CITATION_ROLES = frozenset({"files", "artifact_hashes", "dependencies", "negative_controls"})
-# POLARITY: the question is not "is this a known citation role?" but "is this key
-# CLASSIFIED?". A role set alone is a hand-maintained list -- the same failure
-# mode as every other enumerate-what-to-check list, and it fails toward checking
-# LESS: an unknown role on another fork or in a future packet would read as
-# clean. So every hash map must be classified, and anything unclassified is
-# emitted as a finding. These are the maps that are deliberately NOT file
-# citations, with the reason each is exempt:
-_NON_CITATION_HASH_MAPS = {
-    "candidate_binding": "keys are roles (gold_sha256), values are bare hashes of "
-                         "candidate content; 0 of 20 resolve to an in-package file",
-    "mapped_netlist_sha256": "keys are roles (gold/gate), values are netlist hashes "
-                             "not shipped in the package; 0 of 4 resolve",
-}
+# INVARIANT: nothing in this instrument is keyed by a CONTAINER or a BARE NAME.
+# Every rule -- pairing, classification, exemption, shape -- binds to the exact
+# parsed entry. That defect appeared three times in three different rules
+# (supersession pairing, then classification, then exemptions), so it is stated
+# here as a property of the whole checker rather than fixed a fourth time.
+#
+# There is consequently NO exemption list. A container-name exemption was itself
+# an instance of the defect: a nested candidate_binding.NOTES.md was silently
+# exempt even though it resolved to a real in-package file. Resolution decides.
+_CITATION_ROLES_DOC = (
+    "Roles do not decide WHAT is a citation -- resolution does. A role only makes "
+    "the rule STRICTER inside it: every entry must BE a citation, so a deleted "
+    "target or a malformed value reds instead of going silent."
+)
 
 
-def _is_citation_map(value: object) -> bool:
-    """A map whose EVERY value is a hash or a {path, sha256} object.
-
-    Deliberately strict. A loose test ("contains a hash somewhere") matches every
-    ordinary object carrying a log_sha256 field -- 70 containers rather than 6 --
-    and a classifier that floods is one that gets switched off.
-    """
-    if not isinstance(value, dict) or not value:
-        return False
-    for held in value.values():
-        if isinstance(held, str) and _HEX64.match(held):
-            continue
-        if (
-            isinstance(held, dict)
-            and isinstance(held.get("path"), str)
-            and isinstance(held.get("sha256"), str)
-            and _HEX64.match(held["sha256"])
-        ):
-            continue
-        return False
-    return True
-# Abbreviated citations live in prose. Context is read from the CLAUSE holding
-# the token -- a structural unit with explicit semantics -- never from a
-# character distance, which is a boundary derived only from current examples.
+# Abbreviated citations appear in receipt prose ("candidate f3296156 and mapped
+# netlist b85271d2"), so a 64-hex-only rule is blind to them. Context is read
+# from the CLAUSE holding the token -- a structural unit with explicit semantics
+# -- never from a character distance, which is a boundary derived only from
+# whichever examples happened to be in front of me.
 _ABBREV = re.compile(r"(?<![0-9A-Za-z])([0-9a-f]{8,16})(?![0-9A-Za-z])")
 _ABBREV_CONTEXT = re.compile(r"(?i)\b(sha-?256|digest|mapped netlist|candidate)\b")
 _ABBREV_COMMITISH = re.compile(r"(?i)\b(commit|cache[_ ]key|revision|ref)\b")
@@ -657,85 +639,77 @@ def _resolve_citation_target(name: str, package: Path) -> Path | None:
     return None
 
 
-def _find_citations(node: object, owner: object = None, trail: str = "") -> list[dict]:
-    """Collect citations, carrying the OWNING OBJECT with each one.
+def _find_citations(
+    node: object, package: Path, owner: object = None, trail: str = ""
+) -> list[dict]:
+    """Classify PER ENTRY, and let RESOLUTION decide what is a citation.
 
-    The owner travels WITH the citation. Recovering it later through a map keyed
-    by container name reintroduces the collision it was meant to fix, one key
-    higher: two objects that both have a "files" key overwrite each other.
+    To determine whether X refers to a file, do not pattern-match X -- try to
+    RESOLVE it. The filesystem is ground truth; key-shape rules and role
+    allow-lists are guesses that need maintaining, and every one of them has
+    failed toward checking less.
+
+    Two entry shapes are citations:
+      {"path": ..., "sha256": ...}  an unambiguous file reference, ANYWHERE
+      "<64-hex>" whose KEY resolves  the key is the filename
+
+    A bare hash whose key resolves to nothing names no file and is therefore not
+    a citation -- 527 such entries exist (log_sha256, candidate_sha256 and 43
+    other semantic fields) and 0 of their keys resolve. That measurement is the
+    discrimination proof: a classifier admitting everything could not return 0.
+
+    Inside a CITATION ROLE the rule is stricter: every entry must BE a citation,
+    so a deleted target or a malformed value is a finding rather than silence.
     """
     found: list[dict] = []
     if isinstance(node, dict):
         for key, value in node.items():
+            if key.endswith("_supersession"):
+                continue
             where = f"{trail}.{key}" if trail else key
-            # PER ENTRY, not per map. A container-level predicate is all-or-
-            # nothing: one odd value made a 21-entry map fail the "is this a
-            # citation map" test entirely, so it was neither checked NOR
-            # reported -- it disappeared. Classify each ENTRY instead, exactly as
-            # supersession pairing had to bind to the entry rather than the
-            # container.
-            #
-            # A {path, sha256} object is an UNAMBIGUOUS file reference: it cannot
-            # be a semantic scalar field. It is a citation wherever it appears,
-            # with no container predicate involved at all. 8 such references live
-            # outside every classified role today.
+            if key in _CITATION_ROLES:
+                if not isinstance(value, dict):
+                    found.append({
+                        "malformed_container": True,
+                        "path": where, "name": key, "sha": None,
+                        "role": key, "owner": node,
+                    })
+                    continue
+                for entry, held in value.items():
+                    if isinstance(held, dict) and ("path" in held or "sha256" in held):
+                        name, sha = held.get("path"), held.get("sha256")
+                    else:
+                        name, sha = entry, held
+                    found.append({
+                        "name": name, "sha": sha, "path": f"{where}.{entry}",
+                        "role": key, "owner": node, "keyed_by": entry, "strict": True,
+                    })
+                continue
             if (
-                key not in _CITATION_ROLES
-                and isinstance(value, dict)
+                isinstance(value, dict)
                 and isinstance(value.get("path"), str)
                 and isinstance(value.get("sha256"), str)
                 and _HEX64.match(value["sha256"])
             ):
                 found.append({
-                    "name": value["path"],
-                    "sha": value["sha256"],
-                    "path": where,
-                    "role": key,
-                    "owner": node,
-                    "keyed_by": key,
+                    "name": value["path"], "sha": value["sha256"], "path": where,
+                    "role": key, "owner": node, "keyed_by": key,
                 })
                 continue
-            if _is_citation_map(value) and key not in _CITATION_ROLES:
-                if key not in _NON_CITATION_HASH_MAPS:
+            if isinstance(value, str) and _HEX64.match(value):
+                # Resolution, not the container's name, decides. This is what
+                # closes the exemption collision: a nested entry that resolves
+                # in-package is a citation no matter which map it sits in.
+                if _resolve_citation_target(key, package) is not None:
                     found.append({
-                        "unclassified": True,
-                        "path": where,
-                        "name": key,
-                        "sha": None,
-                        "role": key,
-                        "owner": node,
+                        "name": key, "sha": value, "path": where,
+                        "role": key, "owner": node, "keyed_by": key,
                     })
                 continue
-            if key in _CITATION_ROLES and isinstance(value, dict):
-                # A citation role carries TWO shapes in this corpus:
-                #   {"README.md": "<sha>"}                     name -> hash
-                #   {"gold": {"path": "x.v", "sha256": "..."}} role -> {path, hash}
-                # The second was never inspected by any earlier version, because
-                # its key is a role name and its value is not a string.
-                for entry, held in value.items():
-                    if isinstance(held, dict) and ("path" in held or "sha256" in held):
-                        found.append({
-                            "name": held.get("path"),
-                            "sha": held.get("sha256"),
-                            "path": f"{where}.{entry}",
-                            "role": key,
-                            "owner": node,
-                            "keyed_by": entry,
-                        })
-                    else:
-                        found.append({
-                            "name": entry,
-                            "sha": held,
-                            "path": f"{where}.{entry}",
-                            "role": key,
-                            "owner": node,
-                            "keyed_by": entry,
-                        })
-            else:
-                found.extend(_find_citations(value, node, where))
+            found.extend(_find_citations(value, package, node, where))
     elif isinstance(node, list):
         for index, item in enumerate(node):
-            found.extend(_find_citations(item, owner, f"{trail}[{index}]"))
+            found.extend(_find_citations(item, package, owner, f"{trail}[{index}]"))
     return found
 
 
@@ -804,7 +778,11 @@ def _verify_hops(record: dict, cited: str, current: str, rel_to_repo: str, root:
     problems: list[str] = []
     hops = record.get("hops")
     if hops is None:
-        return problems
+        # Historical truth was OPTIONAL: with no hops, an arbitrary superseded_by
+        # plus a matching `current` returned zero findings, so 12 of 13 live
+        # records were never checked against git at all. A supersession asserts
+        # something about history; it must carry the lineage that proves it.
+        return ["records no hops, so its provenance claim is unverifiable"]
     # "Cannot resolve" has more than one cause: a commit that does not exist is a
     # FALSE claim, while no git checkout at all is an unverifiable one. Both fail
     # closed, but they must not be reported as the same thing.
@@ -848,12 +826,15 @@ def _verify_hops(record: dict, cited: str, current: str, rel_to_repo: str, root:
                 # compression the chain exists to prevent.
                 before = _blob_sha256(f"{commit.strip()}^", rel_to_repo, root)
                 if before is None:
-                    # "No prior state" and "I did not look" produce the same
-                    # silence. State it, so it is an accounted-for absence rather
-                    # than a gap the next reader has to re-derive.
-                    print(
-                        f"NOTE: {rel_to_repo}: hop {index} has no prior blob "
-                        f"(file added at {commit.strip()}); contiguity not applicable"
+                    # A missing parent blob means the file was ADDED at this
+                    # commit -- so it had no earlier content, and a citation
+                    # claiming an earlier hash cannot be true. Stating the
+                    # absence was not enough: an unproved predecessor must FAIL,
+                    # not narrate.
+                    problems.append(
+                        f"hop {index} claims a predecessor {previous_state[:12]}, but "
+                        f"{commit} has no parent content for this file (added there), "
+                        f"so the predecessor is unproved"
                     )
                 elif before != previous_state.lower():
                     problems.append(
@@ -886,13 +867,12 @@ def _verify_hash_citations(package: Path) -> list[str]:
         except json.JSONDecodeError as exc:
             problems.append(f"{rel}: could not parse for citation check ({exc})")
             continue
-        for citation in _find_citations(doc):
+        for citation in _find_citations(doc, path.parent):
             name, sha, where = citation["name"], citation["sha"], citation["path"]
-            if citation.get("unclassified"):
+            if citation.get("malformed_container"):
                 problems.append(
-                    f"{rel}: unclassified hash map at {where} -- every citation map "
-                    f"must be classified as a citation role or exempted with a reason, "
-                    f"so a new one is LOUD rather than silently unchecked"
+                    f"{rel}: citation role at {where} is not a map of citations -- a "
+                    f"known role with a malformed shape must be LOUD, not skipped"
                 )
                 continue
             unsafe = _unsafe_citation_name(name)

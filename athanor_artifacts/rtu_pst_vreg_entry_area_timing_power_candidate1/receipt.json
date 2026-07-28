@@ -51,7 +51,14 @@
     "README.md": {
       "current": "3225d8946caf2f2b2628cc22ad7c4e5c66592ae694ab169addca97ac87453d39",
       "superseded_by": "0932dfd (ATH-3180: reword legacy customer_ready=true rows to current-bar vocabulary (accumulating) (#74))",
-      "reason": "the cited hash was correct when this receipt was written; the file was changed afterwards by the commit named above. The original hash is retained above as the claim this receipt actually made."
+      "reason": "the cited hash was correct when this receipt was written; the file was changed afterwards by the commit named above. The original hash is retained above as the claim this receipt actually made.",
+      "hops": [
+        {
+          "commit": "0932dfd",
+          "subject": "ATH-3180: reword legacy customer_ready=true rows to current-bar vocabulary (accumulating) (#74)",
+          "resulting_sha256": "3225d8946caf2f2b2628cc22ad7c4e5c66592ae694ab169addca97ac87453d39"
+        }
+      ]
     }
   },
   "metrics": {

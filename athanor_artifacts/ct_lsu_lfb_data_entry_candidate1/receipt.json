@@ -49,12 +49,26 @@
     "README.md": {
       "current": "221e39183f53c8b86f13375e3669523a3225efd345f44b484905f0df1c734323",
       "superseded_by": "0932dfd (ATH-3180: reword legacy customer_ready=true rows to current-bar vocabulary (accumulating) (#74))",
-      "reason": "the cited hash was correct when this receipt was written; the file was changed afterwards by the commit named above. The original hash is retained above as the claim this receipt actually made."
+      "reason": "the cited hash was correct when this receipt was written; the file was changed afterwards by the commit named above. The original hash is retained above as the claim this receipt actually made.",
+      "hops": [
+        {
+          "commit": "0932dfd",
+          "subject": "ATH-3180: reword legacy customer_ready=true rows to current-bar vocabulary (accumulating) (#74)",
+          "resulting_sha256": "221e39183f53c8b86f13375e3669523a3225efd345f44b484905f0df1c734323"
+        }
+      ]
     },
     "same_candidate_binding_receipt.json": {
       "current": "b55939c229eeaf9eeb059edbeddfc22eafcbf7f49a0e13171530b1df460db64f",
       "superseded_by": "0932dfd (ATH-3180: reword legacy customer_ready=true rows to current-bar vocabulary (accumulating) (#74))",
-      "reason": "the cited hash was correct when this receipt was written; the file was changed afterwards by the commit named above. The original hash is retained above as the claim this receipt actually made."
+      "reason": "the cited hash was correct when this receipt was written; the file was changed afterwards by the commit named above. The original hash is retained above as the claim this receipt actually made.",
+      "hops": [
+        {
+          "commit": "0932dfd",
+          "subject": "ATH-3180: reword legacy customer_ready=true rows to current-bar vocabulary (accumulating) (#74)",
+          "resulting_sha256": "b55939c229eeaf9eeb059edbeddfc22eafcbf7f49a0e13171530b1df460db64f"
+        }
+      ]
     }
   },
   "metrics": {

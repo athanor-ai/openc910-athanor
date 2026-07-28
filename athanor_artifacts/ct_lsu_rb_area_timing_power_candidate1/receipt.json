@@ -71,7 +71,14 @@
     "same_candidate_binding_receipt.json": {
       "current": "a285b6e9bcde8d9e41d554cf4498b5de076247c3b13165a81b076c98cc0e3044",
       "superseded_by": "d81ce5f (docs: record RB mixed replay receipt (#45))",
-      "reason": "the cited hash was correct when this receipt was written; the file was changed afterwards by the commit named above. The original hash is retained above as the claim this receipt actually made."
+      "reason": "the cited hash was correct when this receipt was written; the file was changed afterwards by the commit named above. The original hash is retained above as the claim this receipt actually made.",
+      "hops": [
+        {
+          "commit": "d81ce5f",
+          "subject": "docs: record RB mixed replay receipt (#45)",
+          "resulting_sha256": "a285b6e9bcde8d9e41d554cf4498b5de076247c3b13165a81b076c98cc0e3044"
+        }
+      ]
     }
   },
   "metrics": {

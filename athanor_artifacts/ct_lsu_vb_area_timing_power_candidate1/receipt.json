@@ -51,7 +51,14 @@
     "README.md": {
       "current": "f91fa314a72abc5eac611189db4f24aa340063e2bd24ba715cd0483beecb9b72",
       "superseded_by": "0743b51 (docs(ATH-3010): one-command replay is the first README path in every package (AC3) (#54))",
-      "reason": "the cited hash was correct when this receipt was written; the file was changed afterwards by the commit named above. The original hash is retained above as the claim this receipt actually made."
+      "reason": "the cited hash was correct when this receipt was written; the file was changed afterwards by the commit named above. The original hash is retained above as the claim this receipt actually made.",
+      "hops": [
+        {
+          "commit": "0743b51",
+          "subject": "docs(ATH-3010): one-command replay is the first README path in every package (AC3) (#54)",
+          "resulting_sha256": "f91fa314a72abc5eac611189db4f24aa340063e2bd24ba715cd0483beecb9b72"
+        }
+      ]
     }
   },
   "metrics": {
