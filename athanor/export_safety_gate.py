@@ -436,8 +436,10 @@ def _scan_committed(ref: str, root: Path) -> tuple[list[str], list[str], list[st
         # The raw `path` survives only to be DISPLAYED in a finding, never to decide
         # one. No raw twin beside a normalised value.
         path_key = path.lower()
-        dot = path_key.rfind(".")
-        ext = path_key[dot:] if dot >= 0 else ""
+        # NOTE: no extension is derived here any more. Scope is decided by
+        # content (a NUL byte) and by the named keep-set, never by the filename
+        # -- leaving `ext` computed-but-unused would be the fifth instance of the
+        # compute-then-ignore family this file has already produced.
         data = _committed_bytes(ref, path, root)
         if b"\x00" in data:
             skipped.append(f"{path} (binary: contains a NUL byte)")
