@@ -524,6 +524,35 @@ def _repo_with_a_live_handle_instance(tmp_path):
 _AFFIRMATIVE_CLEAN = "gate clean at"
 
 
+def _repo_with_many_generic_warnings(tmp_path, count):
+    """Commit ``count`` distinct GENERIC (non-handle) WARN findings.
+
+    Generic on purpose: the staged handle section is uncapped, so only generic
+    findings exercise --warn-limit, which is the path whose coverage claim is
+    under test.
+    """
+    import hashlib as _hl
+    handles = _padded([_H_A, _H_B])
+    files = {
+        esg.DENYLIST_REL: json.dumps(
+            {"handles": handles,
+             "stamp": _hl.sha256("\n".join(sorted(handles)).encode()).hexdigest()}),
+    }
+    for i in range(count):
+        files[f"athanor/notes_{i}.md"] = f"see {POINTER} internal repo, note {i}\n"
+    tmp_path.mkdir(parents=True, exist_ok=True)
+    _git(["init", "-q"], tmp_path)
+    _git(["config", "user.email", "t@example.invalid"], tmp_path)
+    _git(["config", "user.name", "t"], tmp_path)
+    for rel, content in files.items():
+        p = tmp_path / rel
+        p.parent.mkdir(parents=True, exist_ok=True)
+        p.write_text(content)
+        _git(["add", rel], tmp_path)
+    _git(["commit", "-q", "-m", "many warns"], tmp_path)
+    return tmp_path
+
+
 def _repo_with_no_findings(tmp_path):
     """Same shape as above but the artifact cites NO handle -- nothing to report.
 
@@ -634,6 +663,47 @@ def test_the_verdict_line_does_not_say_clean_while_reporting_findings(
     assert "WARN finding" in line, (
         "the verdict must carry the COUNT it is reporting, not just a denial: "
         + line
+    )
+
+
+def test_the_verdict_does_not_claim_coverage_the_display_cap_withheld(
+    tmp_path, monkeypatch, capsys
+):
+    """THE SAME OVERCLAIM ONE FIELD OVER, in the fix for the overclaim.
+
+    The first draft of the corrected verdict said "every finding is named
+    above" -- false whenever --warn-limit bites, which is the DEFAULT. I had
+    replaced a verdict that lied about CLEANLINESS with one that lied about
+    COVERAGE, while writing the change whose entire subject is verdicts that
+    claim more than they measured.
+
+    So this pins the second claim the way the test above pins the first: when
+    rows are withheld, the verdict must say how many, and it must not assert
+    completeness.
+    """
+    root = _repo_with_many_generic_warnings(tmp_path, count=5)
+    monkeypatch.setattr(esg, "_run_receipt_verifier", lambda root: [])
+    monkeypatch.chdir(root)
+    rc = esg.main(["--ref", "HEAD", "--warn-limit", "2"])
+    combined = "".join(capsys.readouterr())
+
+    assert rc == 0, combined[-300:]
+    verdict = [ln for ln in combined.splitlines() if ln.startswith("OK")][-1]
+    assert "not shown" in verdict, (
+        "the cap withheld findings and the verdict did not say so: " + verdict
+    )
+    assert "all named above" not in verdict, (
+        "the verdict claimed completeness the display did not deliver: " + verdict
+    )
+
+    # The withheld count must RECONCILE with the rows actually printed -- a
+    # number that does not add up is the miscount this change exists to fix.
+    shown = len([r for r in combined.splitlines() if r.strip().startswith("warn:")])
+    withheld = int(re.search(r"(\d+) not shown", verdict).group(1))
+    total = int(re.search(r"raised (\d+) WARN", verdict).group(1))
+    assert shown + withheld == total, (
+        f"shown {shown} + withheld {withheld} != reported total {total}; the "
+        "row display and the verdict are counting different populations"
     )
 
 
@@ -978,11 +1048,44 @@ def test_two_distinct_handles_on_one_line_produce_two_rows(tmp_path, monkeypatch
     monkeypatch.chdir(root)
     esg.main(["--ref", "HEAD"])
     combined = capsys.readouterr()
+    # The SUBJECT is one row per distinct handle -- not which section renders it.
+    # This used to select on the `warn:` prefix, which passed only because handle
+    # findings were printed TWICE: once in the capped generic list and again in
+    # the uncapped STAGED section. That duplication is what made the suppression
+    # notice overstate what was hidden, so it is now de-duplicated and handle
+    # findings render only as `staged-handle:` while the tier is warn.
+    #
+    # Selecting on either finding prefix pins the property the test is named for
+    # and stops it re-breaking the next time the rendering moves.
     rows = [
         r for r in (combined.out + combined.err).splitlines()
-        if "pair.md" in r and r.strip().startswith("warn:")
+        if "pair.md" in r and r.strip().startswith(("warn:", "staged-handle:"))
     ]
     assert len(rows) == 2, f"expected 2 rows for 2 distinct handles, got {len(rows)}: {rows}"
+
+
+def test_a_handle_finding_is_rendered_exactly_once(tmp_path, monkeypatch, capsys):
+    """NO DOUBLE-COUNTING. A finding printed in two sections under two labels is
+    counted as hidden by the suppression notice while being visible to the
+    reader -- on main that made the notice say 451 more when 367 of those were
+    on screen. The row display, the suppression count and the verdict must all
+    derive from ONE partition of the finding list."""
+    root = _repo_with_a_live_handle_instance(tmp_path)
+    monkeypatch.setattr(esg, "HANDLE_FINDING_TIER", "warn")
+    monkeypatch.setattr(esg, "_run_receipt_verifier", lambda root: [])
+    monkeypatch.chdir(root)
+    esg.main(["--ref", "HEAD"])
+    combined = "".join(capsys.readouterr())
+
+    handle_rows = [
+        r for r in combined.splitlines()
+        if r.strip().startswith(("warn:", "staged-handle:"))
+        and "internal fleet-agent handle" in r
+    ]
+    assert len(handle_rows) == 1, (
+        "the handle finding was rendered more than once, so any count derived "
+        f"from the row list disagrees with the finding list: {handle_rows}"
+    )
 
 
 def test_the_keep_set_reasons_reach_the_output(tmp_path, monkeypatch, capsys):
