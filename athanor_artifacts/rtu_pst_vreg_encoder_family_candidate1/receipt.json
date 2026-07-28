@@ -80,7 +80,7 @@
   },
   "files": {
     ".gitattributes": "f22845bb8754b3f46e48c758faccb210d6026e0bd75f663c8beb0c3480e33924",
-    "README.md": "a4ffc052f17542349c2de0025082d2f46a312fc7b22795807c133feeacf01f99",
+    "README.md": "afb9faf90c8d4f9e8e115f4d5877e12fd9018a045ffcaf8a29e0403dfd0d77cb",
     "ct_rtu_encode_64_gate_candidate.v": "c33c823977cb7915625f5534d80722a02b78e87504bcaf9ca4af0182f835c576",
     "ct_rtu_encode_64_gold.v": "b6c552220af70c8448a14e571ac98086661e2f03606bc1a66ff47d6f2b3a094f",
     "ct_rtu_encode_64_proof_mutant.v": "521ea1f9631119ec44210c81a47c2c9e214294cb16d901dbd3f92b464950ffee",
@@ -105,6 +105,21 @@
     "same_candidate_binding_receipt.json": "10a426cef9998a028fe2aabe5ca16a778f61dcb3bb34f5ca6ebaf177d2da01f1",
     "parent_same_state_equiv.pinned.log": "b0c539a06989922a3bf305090b3d889cc04640620b69f04c9145407aaa435c77",
     "parent_proof_mutant_negative.pinned.log": "ea4c3c2f86f04ab3e36036d7c5390a6309ed7c97f4afaadf08d5d64c72bebe06"
+  },
+  "files_supersession": {
+    "README.md": {
+      "current": "afb9faf90c8d4f9e8e115f4d5877e12fd9018a045ffcaf8a29e0403dfd0d77cb",
+      "superseded_by": "0743b515b19ef41f8015d9cbea383d1854b38e74 (\"docs(ATH-3010): one-command replay is the first README path in every package (AC3) (#54)\")",
+      "reason": "The cited hash was correct when this receipt was published. The file was later changed by the commit(s) recorded in `hops`, and no check existed at the time requiring an edit to a manifest-bound artifact to chase the citations to it (ATH-3444; that check is now the inline citation validator). The prior hash is retained here so evidence a customer verified earlier remains traceable to the current content.",
+      "prior_sha256": "a4ffc052f17542349c2de0025082d2f46a312fc7b22795807c133feeacf01f99",
+      "hops": [
+        {
+          "commit": "0743b515b19ef41f8015d9cbea383d1854b38e74",
+          "resulting_sha256": "afb9faf90c8d4f9e8e115f4d5877e12fd9018a045ffcaf8a29e0403dfd0d77cb",
+          "subject": "docs(ATH-3010): one-command replay is the first README path in every package (AC3) (#54)"
+        }
+      ]
+    }
   },
   "metrics": {
     "area": {

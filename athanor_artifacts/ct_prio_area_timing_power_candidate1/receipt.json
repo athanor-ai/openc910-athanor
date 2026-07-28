@@ -24,7 +24,7 @@
   },
   "files": {
     ".gitattributes": "dd189159ababdd3a2f5c2a0a7106f4a0bffd179e55e9db36e1476121f0bb8e7c",
-    "README.md": "292af645bf597589ab721e2b785947c3b8e40afd9bf51011b63433376ff17590",
+    "README.md": "420ab045437efd8f14642723c1810858b8427d6c4c373ebf9461216e26207722",
     "ct_prio_gate_candidate.mapped.v": "cd38c2a5134b06248e151bbf8a40c1c210e8ddfb97e26585aadb7e87e18be250",
     "ct_prio_gate_candidate.v": "d87e69e67ca406bc7f0ba9cecca80a466c1b8f95ca0de36e04da37f817240ff1",
     "ct_prio_gate_proof_mutant.v": "f58bc816059e5e04c8c08ddd52094def1cb0cbb37927f4edb56f949d3a5f8bcf",
@@ -43,6 +43,21 @@
     "replay.sh": "3a7218c806b3293be4767d86e80c19af02841e41d84424f93814a6c0fb718d16",
     "same_candidate_binding_receipt.json": "e559892a249f5ba1bf4c1d582e299210c66bd72186975b55f622ecf059ac1c8f",
     "lean_bridge_obligation.json": "506431ad08193efb2ada849737c753592b602c03c56c77cac917490a09f41a30"
+  },
+  "files_supersession": {
+    "README.md": {
+      "current": "420ab045437efd8f14642723c1810858b8427d6c4c373ebf9461216e26207722",
+      "superseded_by": "0932dfd50c6d260db9c359b2a439bff7b319ae49 (\"ATH-3180: reword legacy customer_ready=true rows to current-bar vocabulary (accumulating) (#74)\")",
+      "reason": "The cited hash was correct when this receipt was published. The file was later changed by the commit(s) recorded in `hops`, and no check existed at the time requiring an edit to a manifest-bound artifact to chase the citations to it (ATH-3444; that check is now the inline citation validator). The prior hash is retained here so evidence a customer verified earlier remains traceable to the current content.",
+      "prior_sha256": "292af645bf597589ab721e2b785947c3b8e40afd9bf51011b63433376ff17590",
+      "hops": [
+        {
+          "commit": "0932dfd50c6d260db9c359b2a439bff7b319ae49",
+          "resulting_sha256": "420ab045437efd8f14642723c1810858b8427d6c4c373ebf9461216e26207722",
+          "subject": "ATH-3180: reword legacy customer_ready=true rows to current-bar vocabulary (accumulating) (#74)"
+        }
+      ]
+    }
   },
   "metrics": {
     "area": {

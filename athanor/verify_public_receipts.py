@@ -1179,10 +1179,58 @@ def _verify_hash_citations(package: Path) -> list[str]:
             got = _sha256(target)
             record = _paired_supersession(citation)
             if got == sha:
-                if record is not None:
+                if record is None:
+                    continue
+                # A RECORD BESIDE A MATCHING CITATION IS THE SETTLED STATE, NOT
+                # A CONTRADICTION (found by ATH-3444 PR B against this file).
+                #
+                # This branch used to red on the mere PRESENCE of a record here,
+                # on the assumption that a matching citation can have nothing to
+                # supersede. That assumption forbids the exact shape a correction
+                # PRODUCES: once a stale citation is corrected AND its lineage
+                # recorded, the citation matches the file and the record sits
+                # beside it -- permanently, because the record is the thing that
+                # keeps the customer's previously-verified hash traceable.
+                #
+                # The validator would have reded on every receipt its own remedy
+                # repaired. What is actually wrong in this position is an
+                # INCONSISTENT record, so check it instead of banning it: it must
+                # name this content as current, and its chain must start at the
+                # value it says it replaced and arrive here.
+                if not isinstance(record, dict):
                     problems.append(
-                        f"{rel}: citation at {where} matches the file, but a "
-                        f"supersession record claims it was superseded"
+                        f"{rel}: citation at {where} matches the file, but its "
+                        f"supersession entry is not a record"
+                    )
+                    continue
+                prior = record.get("prior_sha256")
+                if not isinstance(prior, str) or not _HEX64.match(prior):
+                    problems.append(
+                        f"{rel}: supersession beside the matching citation at "
+                        f"{where} does not record a valid prior_sha256 -- a "
+                        f"settled record must say WHICH value it replaced, or it "
+                        f"documents nothing"
+                    )
+                    continue
+                if prior.lower() == got:
+                    problems.append(
+                        f"{rel}: supersession beside the citation at {where} "
+                        f"records a prior_sha256 equal to the current content, "
+                        f"so it supersedes nothing"
+                    )
+                    continue
+                if str(record.get("current", "")).lower() != got:
+                    problems.append(
+                        f"{rel}: supersession beside the matching citation at "
+                        f"{where} claims current {record.get('current')}, file "
+                        f"is {got}"
+                    )
+                    continue
+                for defect in _verify_hops(
+                    record, prior, got, str(target.relative_to(REPO_ROOT)), REPO_ROOT
+                ):
+                    problems.append(
+                        f"{rel}: supersession chain for the citation at {where} {defect}"
                     )
                 continue
             if not isinstance(record, dict):
@@ -1312,7 +1360,7 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument(
         "--baseline",
         type=Path,
-        default=BASELINE_PATH,
+        default=None,
         help="ATH-3444 known-stale citation receipt",
     )
     parser.add_argument(
@@ -1324,10 +1372,32 @@ def main(argv: list[str] | None = None) -> int:
 
     problems = verify(args.artifact_root)
 
+    # ABSENCE HAS MORE THAN ONE CAUSE, AND HERE THEY ARE OPPOSITE VERDICTS.
+    #
+    # The baseline is deleted when its last entry is corrected -- that is the
+    # documented terminal state, reached by ATH-3444 PR B. Treating the DEFAULT
+    # path's absence as a tool error would have made finishing the job red CI
+    # with "NO VERDICT", so the fix for the defect could never land green.
+    #
+    #   default path absent      -> no known-stale citations. Every finding
+    #                               reds. A well-defined state, not an unknown.
+    #   --baseline X, X absent   -> the operator named a file that is not there.
+    #                               rc 2, no verdict.
+    #   present but unparseable  -> rc 2, no verdict.
+    #
+    # This is LOUDER, not quieter: if the baseline is deleted while stale
+    # citations remain, every one of them reds as unbaselined (rc 1) instead of
+    # being swallowed by a tool error. It fails closed in the safe direction.
+    explicit = args.baseline is not None
+    baseline_path = args.baseline if explicit else BASELINE_PATH
+
     if args.no_baseline:
         known, load_errors = set(), []
     else:
-        known, load_errors = _baseline_keys(args.baseline)
+        if not explicit and not baseline_path.is_file():
+            known, load_errors = set(), []
+        else:
+            known, load_errors = _baseline_keys(baseline_path)
         if load_errors:
             for err in load_errors:
                 print(f"TOOL-ERROR: {err}", file=sys.stderr)
