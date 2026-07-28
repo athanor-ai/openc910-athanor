@@ -47,6 +47,13 @@
     "same_candidate_binding_receipt.json": "706c658c815ab427adf0ace1496f772fbec0ff40352060a432c13387c172bb55",
     "replay.sh": "ec179658b043aeac16ac8907d3b458973aa6822b4d848e9c9c9fb714d0b8a4ae"
   },
+  "files_supersession": {
+    "README.md": {
+      "current": "f91fa314a72abc5eac611189db4f24aa340063e2bd24ba715cd0483beecb9b72",
+      "superseded_by": "0743b51 (docs(ATH-3010): one-command replay is the first README path in every package (AC3) (#54))",
+      "reason": "the cited hash was correct when this receipt was written; the file was changed afterwards by the commit named above. The original hash is retained above as the claim this receipt actually made."
+    }
+  },
   "metrics": {
     "area": {
       "candidate_sha256": "dd1bb28581560d692370e55f206d0a6308ee4e16f41a91488239a367acd4c62c",

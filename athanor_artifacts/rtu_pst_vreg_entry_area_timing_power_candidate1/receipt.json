@@ -47,6 +47,13 @@
     "same_candidate_binding_receipt.json": "53fd0cdde423ec6f7dc0fe0b0f3fd1914191826ec0621ab6c7180e7db2b019c9",
     "lean_bridge_obligation.json": "3756b918b9cf38a1c8b72e451ef3db558c93864089e2f15c101eeabf5e3b172c"
   },
+  "files_supersession": {
+    "README.md": {
+      "current": "3225d8946caf2f2b2628cc22ad7c4e5c66592ae694ab169addca97ac87453d39",
+      "superseded_by": "0932dfd (ATH-3180: reword legacy customer_ready=true rows to current-bar vocabulary (accumulating) (#74))",
+      "reason": "the cited hash was correct when this receipt was written; the file was changed afterwards by the commit named above. The original hash is retained above as the claim this receipt actually made."
+    }
+  },
   "metrics": {
     "area": {
       "candidate_sha256": "f32961563a22241e9a0d1decdbde8264897504b07079dc74f647e907dca47197",

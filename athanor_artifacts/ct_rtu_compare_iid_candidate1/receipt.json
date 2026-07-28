@@ -67,6 +67,13 @@
     "spec_fail_predict_metric_negative_map.pinned.log": "51ed04f019523e301b409750a73215e0e5f80eddac2ed69e167a76e1c9e130d5",
     "spec_fail_predict_metric_negative_opensta_area_timing_power.pinned.log": "e6cd398ff16fcf99d67505ace7a86998434e29f0e1fce991dc8702e2e28262a2"
   },
+  "files_supersession": {
+    "README.md": {
+      "current": "64402cb3f76ed5b6081e19d8323b007b536d7619cd48d12c1f530e5cbfb360ed",
+      "superseded_by": "0743b51 (docs(ATH-3010): one-command replay is the first README path in every package (AC3) (#54))",
+      "reason": "the cited hash was correct when this receipt was written; the file was changed afterwards by the commit named above. The original hash is retained above as the claim this receipt actually made."
+    }
+  },
   "metrics": {
     "helper_area": {
       "instrument": "yosys_stat_liberty",
