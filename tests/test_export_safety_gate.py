@@ -17,6 +17,7 @@ import subprocess
 from pathlib import Path
 
 import pytest
+import importlib.util as _ilu
 
 _GATE = Path(__file__).resolve().parent.parent / "athanor" / "export_safety_gate.py"
 _spec = importlib.util.spec_from_file_location("export_safety_gate", _GATE)
@@ -220,8 +221,6 @@ def test_scanner_blocks_namespace_independent_of_valid_receipt_manifest(tmp_path
 
 # --- ATH-3397 denylist-infra: roster-derivation tests (generator only; the
 # gate that CONSUMES the denylist rides the separate red-by-design PR #76).
-import importlib.util as _ilu
-
 _H_A = "qu" + "an"
 _H_B = "ai" + "dan"
 _H_C = "an" + "ton"
@@ -230,7 +229,8 @@ _RK = "buil" + "der"
 
 def _denylist_json(handles):
     """A denylist DATA file body with a correct integrity stamp for ``handles``."""
-    import hashlib as _hl, json as _j
+    import hashlib as _hl
+    import json as _j
     hs = sorted(handles)
     stamp = _hl.sha256("\n".join(hs).encode()).hexdigest()
     return _j.dumps({"handles": hs, "stamp": stamp})
