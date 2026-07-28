@@ -13,8 +13,10 @@ import argparse
 import hashlib
 import json
 import re
+import subprocess
 import sys
 from pathlib import Path
+from pathlib import PurePosixPath
 
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
@@ -565,6 +567,385 @@ def _verify_customer_ready_receipt(package: Path) -> list[str]:
     problems.extend(_verify_proof_packet_no_smuggled_ppa(package, receipt))
     return problems
 
+# --- inline hash-citation validation (ATH-3397 / ATH-3444) ---------------------
+#
+# ``_verify_sums`` proves SHA256SUMS matches file CONTENT. It says nothing about
+# the hashes receipts quote INLINE, so a rehash that updates SHA256SUMS and
+# misses a citing receipt passes it -- and did, 13 times on this fork.
+#
+# This walks PARSED JSON, not text lines. An earlier line-regex version was
+# bypassable four ways (dexter, #81): a citation split across two valid JSON
+# lines was invisible, uppercase hex was invisible, an extension allow-list
+# silently skipped 18 live mappings to .py/.h/.gitattributes, and a
+# supersession record keyed by bare filename blessed citations anywhere in the
+# document. Parsing removes the whole class rather than patching each instance.
+#
+# NARROWNESS still governs: this is an RTL tree where 64-char Verilog literals
+# are routine, so nothing is enforced by hash VALUE. The rule is NAME-BOUND -- a
+# JSON entry whose KEY names a file and whose VALUE is a 64-hex string must
+# equal that file's current content.
+_HEX64 = re.compile(r"[0-9a-fA-F]{64}\Z")
+_SUPERSESSION_REQUIRED = ("current", "superseded_by", "reason")
+# Citation semantics bind to the PARSED CONTAINER ROLE, not to punctuation in a
+# key. An earlier "key contains a dot" heuristic both invented citations
+# (``schema.v2`` is a versioned semantic key, not a file) and ignored real
+# malformed ones. These are the roles that actually map filenames to hashes in
+# this corpus: files=264, artifact_hashes=20, dependencies=3. Deliberately NOT
+# every hash-valued map -- ``candidate_binding`` keys are roles (gold_sha256),
+# not filenames.
+_CITATION_ROLES = frozenset({"files", "artifact_hashes", "dependencies", "negative_controls"})
+# INVARIANT: nothing in this instrument is keyed by a CONTAINER or a BARE NAME.
+# Every rule -- pairing, classification, exemption, shape -- binds to the exact
+# parsed entry. That defect appeared three times in three different rules
+# (supersession pairing, then classification, then exemptions), so it is stated
+# here as a property of the whole checker rather than fixed a fourth time.
+#
+# There is consequently NO exemption list. A container-name exemption was itself
+# an instance of the defect: a nested candidate_binding.NOTES.md was silently
+# exempt even though it resolved to a real in-package file. Resolution decides.
+_CITATION_ROLES_DOC = (
+    "Roles do not decide WHAT is a citation -- resolution does. A role only makes "
+    "the rule STRICTER inside it: every entry must BE a citation, so a deleted "
+    "target or a malformed value reds instead of going silent."
+)
+
+
+# Abbreviated citations appear in receipt prose ("candidate f3296156 and mapped
+# netlist b85271d2"), so a 64-hex-only rule is blind to them. Context is read
+# from the CLAUSE holding the token -- a structural unit with explicit semantics
+# -- never from a character distance, which is a boundary derived only from
+# whichever examples happened to be in front of me.
+_ABBREV = re.compile(r"(?<![0-9A-Za-z])([0-9a-f]{8,16})(?![0-9A-Za-z])")
+_ABBREV_CONTEXT = re.compile(r"(?i)\b(sha-?256|digest|mapped netlist|candidate)\b")
+_ABBREV_COMMITISH = re.compile(r"(?i)\b(commit|cache[_ ]key|revision|ref)\b")
+_CLAUSE = re.compile(r"(?<=[.;:])\s+|\n+")
+
+
+def _resolve_citation_target(name: str, package: Path) -> Path | None:
+    """Resolve a citation name, package-relative first then repo-relative.
+
+    Both conventions are live: entries under ``files`` name a sibling, while the
+    ``{path, sha256}`` references outside those roles carry a repo-root path
+    (``athanor_artifacts/<pkg>/<file>``). Resolving only one way reports the
+    other as missing, which is a false finding rather than a missed one.
+    """
+    for candidate in (package / name, REPO_ROOT / name):
+        try:
+            resolved = candidate.resolve()
+        except OSError:
+            continue
+        if resolved.is_file():
+            return resolved
+    return None
+
+
+def _find_citations(
+    node: object, package: Path, owner: object = None, trail: str = ""
+) -> list[dict]:
+    """Classify PER ENTRY, and let RESOLUTION decide what is a citation.
+
+    To determine whether X refers to a file, do not pattern-match X -- try to
+    RESOLVE it. The filesystem is ground truth; key-shape rules and role
+    allow-lists are guesses that need maintaining, and every one of them has
+    failed toward checking less.
+
+    Two entry shapes are citations:
+      {"path": ..., "sha256": ...}  an unambiguous file reference, ANYWHERE
+      "<64-hex>" whose KEY resolves  the key is the filename
+
+    A bare hash whose key resolves to nothing names no file and is therefore not
+    a citation -- 527 such entries exist (log_sha256, candidate_sha256 and 43
+    other semantic fields) and 0 of their keys resolve. That measurement is the
+    discrimination proof: a classifier admitting everything could not return 0.
+
+    Inside a CITATION ROLE the rule is stricter: every entry must BE a citation,
+    so a deleted target or a malformed value is a finding rather than silence.
+    """
+    found: list[dict] = []
+    if isinstance(node, dict):
+        for key, value in node.items():
+            if key.endswith("_supersession"):
+                continue
+            where = f"{trail}.{key}" if trail else key
+            if key in _CITATION_ROLES:
+                if not isinstance(value, dict):
+                    found.append({
+                        "malformed_container": True,
+                        "path": where, "name": key, "sha": None,
+                        "role": key, "owner": node,
+                    })
+                    continue
+                for entry, held in value.items():
+                    if isinstance(held, dict) and ("path" in held or "sha256" in held):
+                        name, sha = held.get("path"), held.get("sha256")
+                    else:
+                        name, sha = entry, held
+                    found.append({
+                        "name": name, "sha": sha, "path": f"{where}.{entry}",
+                        "role": key, "owner": node, "keyed_by": entry, "strict": True,
+                    })
+                continue
+            if (
+                isinstance(value, dict)
+                and isinstance(value.get("path"), str)
+                and isinstance(value.get("sha256"), str)
+                and _HEX64.match(value["sha256"])
+            ):
+                found.append({
+                    "name": value["path"], "sha": value["sha256"], "path": where,
+                    "role": key, "owner": node, "keyed_by": key,
+                })
+                continue
+            if isinstance(value, str) and _HEX64.match(value):
+                # Resolution, not the container's name, decides. This is what
+                # closes the exemption collision: a nested entry that resolves
+                # in-package is a citation no matter which map it sits in.
+                if _resolve_citation_target(key, package) is not None:
+                    found.append({
+                        "name": key, "sha": value, "path": where,
+                        "role": key, "owner": node, "keyed_by": key,
+                    })
+                continue
+            found.extend(_find_citations(value, package, node, where))
+    elif isinstance(node, list):
+        for index, item in enumerate(node):
+            found.extend(_find_citations(item, package, owner, f"{trail}[{index}]"))
+    return found
+
+
+def _paired_supersession(citation: dict) -> object:
+    """A record excuses a citation only if it sits beside it in the SAME object."""
+    owner = citation["owner"]
+    if not isinstance(owner, dict):
+        return None
+    record = owner.get(f"{citation['role']}_supersession")
+    if not isinstance(record, dict):
+        return None
+    return record.get(citation.get("keyed_by") or citation["name"])
+
+
+def _unsafe_citation_name(name: str) -> str:
+    """Reject a citation name that cannot denote a file inside the package."""
+    if not isinstance(name, str) or not name.strip():
+        return "is empty"
+    pure = PurePosixPath(name)
+    if pure.is_absolute() or name.startswith("/") or ":" in name:
+        return "is an absolute path"
+    if ".." in pure.parts:
+        return "escapes the package"
+    return ""
+
+
+def _find_abbreviated(node: object, key: str = "", trail: str = "") -> list[tuple[str, str]]:
+    found: list[tuple[str, str]] = []
+    if isinstance(node, dict):
+        for child_key, value in node.items():
+            where = f"{trail}.{child_key}" if trail else child_key
+            found.extend(_find_abbreviated(value, child_key, where))
+    elif isinstance(node, list):
+        for index, item in enumerate(node):
+            found.extend(_find_abbreviated(item, key, f"{trail}[{index}]"))
+    elif isinstance(node, str) and not _HEX64.match(node):
+        for clause in _CLAUSE.split(node):
+            if _ABBREV_COMMITISH.search(clause) or not _ABBREV_CONTEXT.search(clause):
+                continue
+            for token in _ABBREV.findall(clause):
+                found.append((trail, token))
+    return found
+
+
+def _blob_sha256(commit: str, rel: str, root: Path) -> str | None:
+    """sha256 of a path's content at a commit, or None if unresolvable."""
+    try:
+        blob = subprocess.run(
+            ["git", "show", f"{commit}:{rel}"],
+            cwd=root, capture_output=True, check=False,
+        )
+    except OSError:
+        return None
+    if blob.returncode != 0:
+        return None
+    return hashlib.sha256(blob.stdout).hexdigest()
+
+
+def _verify_hops(record: dict, cited: str, current: str, rel_to_repo: str, root: Path) -> list[str]:
+    """Validate a recorded lineage, not just its endpoint.
+
+    Ending at the current content is NECESSARY, NOT SUFFICIENT: a fictional
+    one-hop record whose resulting hash equals current satisfied that alone, and
+    so passed the very rule written to stop a chain being compressed.
+    """
+    problems: list[str] = []
+    hops = record.get("hops")
+    if hops is None:
+        # Historical truth was OPTIONAL: with no hops, an arbitrary superseded_by
+        # plus a matching `current` returned zero findings, so 12 of 13 live
+        # records were never checked against git at all. A supersession asserts
+        # something about history; it must carry the lineage that proves it.
+        return ["records no hops, so its provenance claim is unverifiable"]
+    # "Cannot resolve" has more than one cause: a commit that does not exist is a
+    # FALSE claim, while no git checkout at all is an unverifiable one. Both fail
+    # closed, but they must not be reported as the same thing.
+    probe = subprocess.run(
+        ["git", "rev-parse", "--git-dir"], cwd=root, capture_output=True, check=False
+    )
+    if probe.returncode != 0:
+        return ["cannot be verified: no git history available to check it against"]
+    if not isinstance(hops, list) or not hops:
+        return ["has a malformed hops chain"]
+    previous = cited
+    for index, hop in enumerate(hops, 1):
+        if not isinstance(hop, dict):
+            problems.append(f"hop {index} is not a record")
+            continue
+        commit = hop.get("commit")
+        got = hop.get("resulting_sha256")
+        if not isinstance(commit, str) or not commit.strip():
+            problems.append(f"hop {index} does not name a commit")
+        if not isinstance(got, str) or not _HEX64.match(got or ""):
+            problems.append(f"hop {index} has no valid resulting_sha256")
+            continue
+        if got.lower() == previous.lower():
+            problems.append(f"hop {index} records no change")
+        previous_state = previous
+        previous = got
+        if isinstance(commit, str) and commit.strip():
+            actual = _blob_sha256(commit.strip(), rel_to_repo, root)
+            if actual is None:
+                problems.append(f"hop {index} names {commit}, which cannot be resolved")
+            elif actual != got.lower():
+                problems.append(
+                    f"hop {index} claims {commit} produced {got[:12]}, but it produced "
+                    f"{actual[:12]}"
+                )
+            else:
+                # CONTIGUITY: a hop must begin where the previous one ended.
+                # Without this, a chain compressed to its LAST real transition
+                # still passes -- every hop is genuine, the endpoint matches, and
+                # the skipped transition is simply absent. That is the exact
+                # compression the chain exists to prevent.
+                before = _blob_sha256(f"{commit.strip()}^", rel_to_repo, root)
+                if before is None:
+                    # A missing parent blob means the file was ADDED at this
+                    # commit -- so it had no earlier content, and a citation
+                    # claiming an earlier hash cannot be true. Stating the
+                    # absence was not enough: an unproved predecessor must FAIL,
+                    # not narrate.
+                    problems.append(
+                        f"hop {index} claims a predecessor {previous_state[:12]}, but "
+                        f"{commit} has no parent content for this file (added there), "
+                        f"so the predecessor is unproved"
+                    )
+                elif before != previous_state.lower():
+                    problems.append(
+                        f"hop {index} does not continue from {previous_state[:12]} -- "
+                        f"{commit} began at {before[:12]}, so a transition is missing"
+                    )
+    if previous.lower() != current.lower():
+        problems.append("does not end at the file's current content")
+    first = hops[0] if isinstance(hops[0], dict) else {}
+    first_commit = first.get("commit")
+    superseded_by = record.get("superseded_by", "")
+    if isinstance(first_commit, str) and first_commit.strip() and isinstance(superseded_by, str):
+        if first_commit.strip() not in superseded_by:
+            problems.append(
+                f"superseded_by does not name the FIRST transition {first_commit}"
+            )
+    return problems
+
+
+def _verify_hash_citations(package: Path) -> list[str]:
+    """Findings all contain the word "citation" -- callers select on it."""
+    problems: list[str] = []
+    for path in sorted(package.rglob("*.json")):
+        rel = path.relative_to(REPO_ROOT)
+        try:
+            doc = json.loads(path.read_text(encoding="utf-8"))
+        except (OSError, UnicodeDecodeError) as exc:
+            problems.append(f"{rel}: could not read for citation check ({exc})")
+            continue
+        except json.JSONDecodeError as exc:
+            problems.append(f"{rel}: could not parse for citation check ({exc})")
+            continue
+        for citation in _find_citations(doc, path.parent):
+            name, sha, where = citation["name"], citation["sha"], citation["path"]
+            if citation.get("malformed_container"):
+                problems.append(
+                    f"{rel}: citation role at {where} is not a map of citations -- a "
+                    f"known role with a malformed shape must be LOUD, not skipped"
+                )
+                continue
+            unsafe = _unsafe_citation_name(name)
+            if unsafe:
+                problems.append(f"{rel}: citation at {where} names a path that {unsafe}")
+                continue
+            # Every entry in a citation role must BE a citation. Silently
+            # ignoring a malformed one fails open on exactly the entries most
+            # likely to be wrong.
+            if not isinstance(sha, str) or not _HEX64.match(sha):
+                problems.append(
+                    f"{rel}: citation at {where} does not carry a sha256 value"
+                )
+                continue
+            sha = sha.lower()
+            target = _resolve_citation_target(name, path.parent)
+            if target is None:
+                problems.append(
+                    f"{rel}: citation at {where} names {name}, which is not in the package"
+                )
+                continue
+            try:
+                target.relative_to(REPO_ROOT.resolve())
+            except ValueError:
+                problems.append(f"{rel}: citation at {where} escapes the repository")
+                continue
+            got = _sha256(target)
+            record = _paired_supersession(citation)
+            if got == sha:
+                if record is not None:
+                    problems.append(
+                        f"{rel}: citation at {where} matches the file, but a "
+                        f"supersession record claims it was superseded"
+                    )
+                continue
+            if not isinstance(record, dict):
+                problems.append(
+                    f"{rel}: STALE citation at {where}: receipt says {sha}, file is {got}"
+                )
+                continue
+            missing = [
+                field
+                for field in _SUPERSESSION_REQUIRED
+                if not isinstance(record.get(field), str) or not record[field].strip()
+            ]
+            if missing:
+                problems.append(
+                    f"{rel}: supersession record for the citation at {where} is missing "
+                    f"{', '.join(missing)} -- a supersession must say what changed it and why"
+                )
+                continue
+            if record["current"].lower() != got:
+                problems.append(
+                    f"{rel}: supersession for the citation at {where} claims current "
+                    f"{record['current']}, file is {got}"
+                )
+                continue
+            for defect in _verify_hops(
+                record, sha, got, str(target.relative_to(REPO_ROOT)), REPO_ROOT
+            ):
+                problems.append(f"{rel}: supersession chain for the citation at {where} {defect}")
+        known = set(_sums_entries(package).values())
+        for item in sorted(package.rglob("*")):
+            if item.is_file():
+                known.add(_sha256(item))
+        for where, token in _find_abbreviated(doc):
+            if not any(h.startswith(token) for h in known):
+                problems.append(
+                    f"{rel}: abbreviated citation {token} at {where} matches no "
+                    f"pinned hash or file in this package"
+                )
+    return problems
+
 
 def verify(root: Path = ARTIFACT_ROOT) -> list[str]:
     # A capture-track fork (e.g. riscv-boom-athanor) legitimately has no proof
@@ -594,7 +975,53 @@ def verify(root: Path = ARTIFACT_ROOT) -> list[str]:
         problems.extend(_verify_receipt_bound_to_logs(package))
         problems.extend(_verify_customer_ready_receipt(package))
         problems.extend(_verify_public_export_clean(package))
+        problems.extend(_verify_hash_citations(package))
     return problems
+
+
+BASELINE_PATH = REPO_ROOT / "athanor" / "ath3444_known_stale_citations.json"
+
+
+def _baseline_keys(path: Path) -> tuple[set[str], list[str]]:
+    """The ATH-3444 known-stale set, as EXACT finding strings.
+
+    THE BASELINE IS A POSITIVE-BITE RECEIPT, NOT AN EXEMPTION LIST. It
+    enumerates the 13 stale citations this validator found on the untouched
+    tree, so the gate can land without reddening main while still having
+    demonstrated -- in the diff, reviewable -- that it catches something. A
+    validator that lands already-green has never been shown to bite.
+
+    Three properties, each load-bearing:
+
+    * ENTRIES BIND TO THE WHOLE FINDING, not to the receipt path. A baseline
+      keyed on the file would let a SECOND, NEW stale citation in the same
+      receipt ride in silently -- the file-wide-exemption defect (ATH-3397
+      #82). The key here includes the cited AND actual hash, so correcting a
+      citation, or a new one appearing, both fall outside it.
+    * AN ENTRY THAT NO LONGER MATCHES IS ITSELF A FINDING. Otherwise the
+      baseline outlives its subject: a citation gets corrected, the entry
+      stays, and the file quietly becomes a list of things that used to be
+      wrong. Empty-set must red, or the receipt rots into decoration.
+    * Tool-level failure (missing/unparseable baseline) is rc 2, never a
+      verdict -- "could not establish" must not render as "satisfied".
+    """
+    if not path.is_file():
+        # NOT path.relative_to(REPO_ROOT): that RAISES for a path outside the
+        # repo, and an uncaught traceback exits rc=1 -- the VERDICT code. The
+        # tool-error branch would have collapsed into exactly the "could not
+        # establish rendered as a finding" failure it exists to prevent.
+        return set(), [f"baseline file missing: {path}"]
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except (json.JSONDecodeError, OSError) as exc:
+        return set(), [f"baseline unreadable: {exc}"]
+    keys = set()
+    for e in data.get("entries", []):
+        keys.add(
+            f"{e['receipt']}: STALE citation at {e['key']}: "
+            f"receipt says {e['cited_sha256']}, file is {e['actual_sha256']}"
+        )
+    return keys, []
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -605,14 +1032,73 @@ def main(argv: list[str] | None = None) -> int:
         default=ARTIFACT_ROOT,
         help="artifact package root, default: athanor_artifacts",
     )
+    parser.add_argument(
+        "--baseline",
+        type=Path,
+        default=BASELINE_PATH,
+        help="ATH-3444 known-stale citation receipt",
+    )
+    parser.add_argument(
+        "--no-baseline",
+        action="store_true",
+        help="ignore the baseline entirely (every finding reds)",
+    )
     args = parser.parse_args(argv)
 
     problems = verify(args.artifact_root)
-    if problems:
-        for problem in problems:
-            print(f"FAIL: {problem}", file=sys.stderr)
+
+    if args.no_baseline:
+        known, load_errors = set(), []
+    else:
+        known, load_errors = _baseline_keys(args.baseline)
+        if load_errors:
+            for err in load_errors:
+                print(f"TOOL-ERROR: {err}", file=sys.stderr)
+            print("TOOL-ERROR: could not establish the baseline; NO VERDICT.",
+                  file=sys.stderr)
+            return 2
+
+    unexpected = [p for p in problems if p not in known]
+    matched = {p for p in problems if p in known}
+    # A baseline entry with no matching finding has outlived its subject.
+    orphaned = sorted(known - matched)
+
+    if matched:
+        print(
+            f"KNOWN-STALE (ATH-3444): {len(matched)} of {len(known)} baselined "
+            f"citation(s) still present. These are DEFECTS AWAITING CORRECTION, "
+            f"not accepted state:"
+        )
+        for p in sorted(matched):
+            print(f"  known-stale: {p}")
+
+    if orphaned:
+        print(
+            f"\nFAIL: {len(orphaned)} baseline entr(ies) no longer match any "
+            f"finding. The citation was corrected but the baseline still lists "
+            f"it -- remove the entry, or the receipt becomes a list of things "
+            f"that used to be wrong:",
+            file=sys.stderr,
+        )
+        for p in orphaned:
+            print(f"  orphaned-baseline: {p}", file=sys.stderr)
+
+    if unexpected:
+        print(f"\nFAIL: {len(unexpected)} citation problem(s) NOT in the "
+              f"ATH-3444 baseline:", file=sys.stderr)
+        for problem in unexpected:
+            print(f"  {problem}", file=sys.stderr)
+
+    if unexpected or orphaned:
         return 1
-    print(f"OK: verified public receipts under {args.artifact_root.relative_to(REPO_ROOT)}")
+
+    rel = args.artifact_root.relative_to(REPO_ROOT)
+    if matched:
+        print(f"\nOK (0 unbaselined): receipts under {rel} carry no citation "
+              f"problem outside the {len(matched)} known-stale entries. NOT "
+              f"clean -- those 13 are live on a public repo.")
+    else:
+        print(f"OK: verified public receipts under {rel}")
     return 0
 
 
