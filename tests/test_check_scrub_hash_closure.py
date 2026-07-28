@@ -44,6 +44,14 @@ def _repo(tmp_path: Path) -> tuple[Path, str]:
     return tmp_path, run("git", "rev-parse", "HEAD")
 
 
+def _commit_all(root: Path, message: str) -> None:
+    subprocess.run(["git", "add", "-A"], cwd=root, capture_output=True, check=False)
+    subprocess.run(
+        ["git", "-c", "user.email=t@t", "-c", "user.name=t", "commit", "-qm", message],
+        cwd=root, capture_output=True, check=False,
+    )
+
+
 def _rehash(root: Path, name: str) -> str:
     return hashlib.sha256((root / name).read_bytes()).hexdigest()
 
@@ -57,6 +65,7 @@ def test_a_scrub_that_updates_nothing_reds_everywhere(tmp_path: Path) -> None:
     """NECESSITY: editing a file leaves its old hash in every citing place."""
     root, base = _repo(tmp_path)
     (root / "NOTES.md").write_text("scrubbed content\n", encoding="utf-8")
+    _commit_all(root, "edit")
     findings = closure.check(base, root)
     cited = {f.split(":")[0] for f in findings}
     assert cited == {"SHA256SUMS", "receipt.json", "README.md"}, findings
@@ -69,6 +78,7 @@ def test_updating_sha256sums_but_missing_the_receipt_still_reds(tmp_path: Path) 
     new = _rehash(root, "NOTES.md")
     (root / "SHA256SUMS").write_text(f"{new}  NOTES.md\n", encoding="utf-8")
     (root / "README.md").write_text(f"pinned at `{new.upper()}`\n", encoding="utf-8")
+    _commit_all(root, "partial")
     findings = closure.check(base, root)
     assert findings and all("receipt.json" in f for f in findings), findings
 
@@ -82,6 +92,7 @@ def test_uppercase_occurrences_are_found(tmp_path: Path) -> None:
     (root / "receipt.json").write_text(
         '{\n  "files": {\n    "NOTES.md": "' + new + '"\n  }\n}\n', encoding="utf-8"
     )
+    _commit_all(root, "partial scrub, README left uppercase")
     findings = closure.check(base, root)
     assert any("README.md" in f for f in findings), findings
 
@@ -96,6 +107,7 @@ def test_a_fully_updated_scrub_is_clean(tmp_path: Path) -> None:
         '{\n  "files": {\n    "NOTES.md": "' + new + '"\n  }\n}\n', encoding="utf-8"
     )
     (root / "README.md").write_text(f"pinned at `{new.upper()}`\n", encoding="utf-8")
+    _commit_all(root, "full")
     assert closure.check(base, root) == []
 
 
@@ -113,6 +125,7 @@ def test_a_hash_in_a_file_type_no_classifier_inspects_is_found(tmp_path: Path) -
     base2 = subprocess.run(["git", "rev-parse", "HEAD"], cwd=root,
                            capture_output=True, text=True, check=True).stdout.strip()
     (root / "NOTES.md").write_text("scrubbed\n", encoding="utf-8")
+    _commit_all(root, "scrub")
     findings = closure.check(base2, root)
     assert any("replay.sh" in f for f in findings), findings
 
@@ -127,6 +140,7 @@ def test_exit_codes_follow_the_repo_contract(tmp_path: Path) -> None:
     root, base = _repo(tmp_path)
     assert closure.main(["--base", base, "--root", str(root)]) == 0
     (root / "NOTES.md").write_text("scrubbed\n", encoding="utf-8")
+    _commit_all(root, "edit")
     assert closure.main(["--base", base, "--root", str(root)]) == 1
 
 
@@ -148,11 +162,13 @@ def _scrub(root: Path) -> tuple[str, str]:
         '{\n  "files": {\n    "NOTES.md": "' + new + '"\n  }\n}\n', encoding="utf-8"
     )
     (root / "README.md").write_text(f"pinned at `{new.upper()}`\n", encoding="utf-8")
+    _commit_all(root, "scrub")
     return old, new
 
 
 def _record(root: Path, body: str) -> None:
     (root / "SUPERSEDED.json").write_text(body, encoding="utf-8")
+    _commit_all(root, "record")
 
 
 def test_a_supersession_record_lets_the_old_hash_survive(tmp_path: Path) -> None:
@@ -309,9 +325,7 @@ def test_a_hash_embedded_inside_a_longer_string_is_found(tmp_path: Path) -> None
     needs structure."""
     root, base = _repo(tmp_path)
     old, new = _scrub(root)
-    (root / "SUPERSEDED.json").write_text(
-        '{\n  "note": "previously published as ' + old + ' before the scrub"\n}\n',
-        encoding="utf-8")
+    _record(root, '{\n  "note": "previously published as ' + old + ' before the scrub"\n}\n')
     findings = closure.check(base, root)
     assert any("SUPERSEDED.json" in f for f in findings), findings
 
@@ -321,10 +335,8 @@ def test_a_duplicate_key_cannot_hide_an_occurrence(tmp_path: Path) -> None:
     walk never sees the first one -- but the bytes are in the published file."""
     root, base = _repo(tmp_path)
     old, new = _scrub(root)
-    (root / "SUPERSEDED.json").write_text(
-        '{\n  "NOTES.md": {\n    "superseded_sha256": "' + old + '"\n  },\n'
-        '  "NOTES.md": {\n    "current_sha256": "' + new + '"\n  }\n}\n',
-        encoding="utf-8")
+    _record(root, '{\n  "NOTES.md": {\n    "superseded_sha256": "' + old + '"\n  },\n'
+        '  "NOTES.md": {\n    "current_sha256": "' + new + '"\n  }\n}\n')
     findings = closure.check(base, root)
     assert any("SUPERSEDED.json" in f for f in findings), findings
 
@@ -335,11 +347,9 @@ def test_a_key_named_like_a_path_cannot_collide_with_one(tmp_path: Path) -> None
     both were excused by one valid record. Offsets cannot collide."""
     root, base = _repo(tmp_path)
     old, new = _scrub(root)
-    (root / "SUPERSEDED.json").write_text(
-        '{\n  "NOTES.md": {\n    "superseded_sha256": "' + old +
+    _record(root, '{\n  "NOTES.md": {\n    "superseded_sha256": "' + old +
         '",\n    "current_sha256": "' + new + '"\n  },\n'
-        '  "NOTES.md.superseded_sha256": "' + old + '"\n}\n',
-        encoding="utf-8")
+        '  "NOTES.md.superseded_sha256": "' + old + '"\n}\n')
     findings = closure.check(base, root)
     assert any("NOTES.md.superseded_sha256" in f for f in findings), findings
 
@@ -378,6 +388,7 @@ def test_W1_the_literal_sweep_still_fires_on_non_json(tmp_path: Path) -> None:
     root, base = _repo(tmp_path)
     old, _ = _scrub(root)
     (root / "notes.txt").write_text(f"previously {old}\n", encoding="utf-8")
+    _commit_all(root, "txt")
     findings = closure.check(base, root)
     assert any("notes.txt" in f for f in findings), findings
 
@@ -401,19 +412,12 @@ def test_W2_an_exact_token_replacement_still_passes(tmp_path: Path) -> None:
     assert closure.check(base, root) == []
 
 
-def _commit_all(root: Path, message: str) -> None:
-    subprocess.run(["git", "add", "-A"], cwd=root, capture_output=True, check=False)
-    subprocess.run(
-        ["git", "-c", "user.email=t@t", "-c", "user.name=t", "commit", "-qm", message],
-        cwd=root, capture_output=True, check=False,
-    )
-
-
 def test_W3_deleting_the_file_does_not_disable_the_gate(tmp_path: Path) -> None:
     """DELETION IS THE STRONGEST SCRUB. With --diff-filter=M the changed set was
     EMPTY, so the gate passed while the deleted file's old hash stayed cited."""
     root, base = _repo(tmp_path)
     (root / "NOTES.md").unlink()
+    _commit_all(root, "delete")
     findings = closure.check(base, root)
     assert any("receipt.json" in f for f in findings), (
         "a deleted file's old hash is still cited and the gate went quiet", findings)
@@ -428,7 +432,10 @@ def test_W3_a_content_preserving_rename_is_not_a_supersession(tmp_path: Path) ->
     root, base = _repo(tmp_path)
     (root / "NOTES.md").rename(root / "RENAMED.md")
     _commit_all(root, "rename")
-    assert closure.check(base, root) == []
+    findings = closure.check(base, root)
+    assert any("rename is not supported" in f for f in findings), (
+        "a content-preserving rename must be a NAMED refusal, not silence: "
+        "the hash cannot distinguish a corrected citation from a stale one", findings)
 
 
 def test_W3_a_rename_that_also_changes_content_still_reds(tmp_path: Path) -> None:
@@ -449,6 +456,7 @@ def test_W3_an_unrelated_deletion_does_not_invent_findings(tmp_path: Path) -> No
     base2 = subprocess.run(["git", "rev-parse", "HEAD"], cwd=root,
                            capture_output=True, text=True, check=True).stdout.strip()
     (root / "SPARE.md").unlink()
+    _commit_all(root, "rm spare")
     assert closure.check(base2, root) == []
 
 
@@ -504,3 +512,32 @@ def test_W3d_no_git_status_letter_is_in_the_decision_path(tmp_path: Path) -> Non
             "the population is coming from `git diff` again; it must be derived "
             "by comparing base content to current content"
         )
+
+
+def test_an_identical_copy_elsewhere_does_not_launder_a_changed_file(tmp_path: Path) -> None:
+    """A global CONTENT set discarded PATH IDENTITY: any file anywhere holding the
+    old bytes made the changed file's old hash look still-live, so a stale
+    citation went clean. Third time in this checker that a set lost identity --
+    after the file-wide exemption set and the accounted-for count."""
+    root, base = _repo(tmp_path)
+    old = hashlib.sha256((root / "NOTES.md").read_bytes()).hexdigest()
+    (root / "COPY.md").write_text("original content\n", encoding="utf-8")  # same bytes
+    (root / "NOTES.md").write_text("scrubbed content\n", encoding="utf-8")
+    _commit_all(root, "copy + edit, receipt citation left stale")
+    findings = closure.check(base, root)
+    assert any("receipt.json" in f for f in findings), (
+        f"an identical copy laundered the old hash {old[:12]}", findings)
+
+
+def test_an_untracked_file_cannot_control_the_denominator(tmp_path: Path) -> None:
+    """The population walked the HOST WORKTREE, so an UNTRACKED file -- something
+    outside the change under review entirely -- could make a stale citation
+    clean. The subject of this check is the COMMITTED tree."""
+    root, base = _repo(tmp_path)
+    (root / "NOTES.md").write_text("scrubbed content\n", encoding="utf-8")
+    _commit_all(root, "edit, citation left stale")
+    # Never added to git: it must not participate in the verdict.
+    (root / "untracked_copy.md").write_text("original content\n", encoding="utf-8")
+    findings = closure.check(base, root)
+    assert any("receipt.json" in f for f in findings), (
+        "an untracked file was allowed to satisfy the content predicate", findings)

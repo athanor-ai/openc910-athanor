@@ -101,39 +101,23 @@ def _base_blobs(base: str, root: Path) -> dict[str, str]:
     return result
 
 
-def _live_content_hashes(root: Path) -> set[str]:
-    """sha256 of every file the tree currently CONTAINS."""
-    live: set[str] = set()
-    for path in root.rglob("*"):
-        if not path.is_file() or path.is_symlink():
-            continue
-        if any(part in SKIP_DIRS for part in path.parts):
-            continue
-        try:
-            live.add(hashlib.sha256(path.read_bytes()).hexdigest())
-        except OSError:
-            continue
-    return live
-
-
 def superseded_content(base: str, root: Path) -> dict[str, str]:
-    """path -> the base content hash that the tree NO LONGER CONTAINS anywhere.
+    """path -> the base content hash that PATH no longer has.
 
-    THE POPULATION IS A CONTENT PROPERTY, NOT A GIT STATUS. Filtering by
-    --diff-filter=MD was a hand-maintained status list, and it failed in both
-    directions:
+    PER PATH, and COMMITTED bytes on both sides. Two earlier shapes each lost
+    something the rule needs:
 
-      MISSED   a regular file replaced by a SYMLINK is status T, excluded by MD,
-               so the old hash stayed cited and the gate went quiet -- the same
-               deletion-blind defect one status over
-      INVENTED chmod-only is status M with IDENTICAL bytes, so a correct current
-               citation was called stale; and a content-preserving RENAME made
-               the receipt's updated new-path citation red
+      a git STATUS list     enumerated how the tree CHANGED instead of asking
+                            whether content was superseded, and failed in both
+                            directions -- typechange missed, chmod-only invented
+      a global CONTENT set  discarded PATH IDENTITY. One identical copy ANYWHERE
+                            laundered a changed file's old hash, and because the
+                            set walked the host worktree, an UNTRACKED file
+                            outside the subject controlled the denominator
 
-    A base hash is superseded exactly when that CONTENT is no longer anywhere in
-    the tree. That covers modify, delete and typechange without naming them, and
-    excludes mode-only changes and content-preserving renames without special
-    cases -- the content is still there to be cited.
+    Comparing base[path] to head[path] keeps the content predicate and restores
+    identity. Mode-only change is excluded for free (same blob); typechange and
+    deletion are included for free (different blob, or absent).
     """
     probe = _git("rev-parse", "--verify", f"{base}^{{commit}}", root=root)
     if probe.returncode != 0:
@@ -141,15 +125,35 @@ def superseded_content(base: str, root: Path) -> dict[str, str]:
             f"base ref {base!r} does not resolve -- refusing to report a scrub "
             f"clean against a base that could not be read"
         )
-    live = _live_content_hashes(root)
+    at_base = _base_blobs(base, root)
+    at_head = _base_blobs("HEAD", root)
     return {
-        path: sha
-        for path, sha in _base_blobs(base, root).items()
-        if sha not in live
+        path: sha for path, sha in at_base.items() if at_head.get(path) != sha
     }
 
 
-_HEX64_ANY = re.compile(r"(?i)(?<![0-9a-z])[0-9a-f]{64}(?![0-9a-z])")
+def moved_content(base: str, root: Path) -> dict[str, str]:
+    """path -> another COMMITTED path now holding exactly its base content.
+
+    A content-preserving rename cannot be RESOLVED by this checker: a citation
+    of the moved hash may be CORRECT (the receipt was updated to the new path)
+    or STALE (it still names the old one), and the hash alone cannot tell them
+    apart. Silently reddening a correct citation and silently passing a stale
+    one are both wrong, so this is reported as an explicit, named refusal.
+    """
+    at_base = _base_blobs(base, root)
+    at_head = _base_blobs("HEAD", root)
+    first_at: dict[str, str] = {}
+    for path, sha in at_head.items():
+        first_at.setdefault(sha, path)
+    moved: dict[str, str] = {}
+    for path, sha in at_base.items():
+        if at_head.get(path) == sha:
+            continue
+        landed = first_at.get(sha)
+        if landed is not None and landed != path:
+            moved[path] = landed
+    return moved
 
 
 def _object_spans(text: str) -> list[tuple[int, int]]:
@@ -277,10 +281,18 @@ def surviving_occurrences(hashes: dict[str, str], root: Path) -> list[str]:
     wanted = {sha.lower(): rel for rel, sha in hashes.items()}
     old_of = {rel: sha.lower() for rel, sha in hashes.items()}
     findings: list[str] = []
-    for path in sorted(root.rglob("*")):
+    # COMMITTED paths only. Sweeping the host worktree let an UNTRACKED file --
+    # something outside the change under review entirely -- take part in the
+    # verdict. The subject of this check is the committed tree.
+    listing = _git("ls-tree", "-r", "-z", "--name-only", "HEAD", root=root)
+    if listing.returncode != 0:
+        raise ToolError("could not enumerate the committed tree at HEAD")
+    committed = [
+        p for p in listing.stdout.decode("utf-8", "surrogateescape").split("\0") if p
+    ]
+    for rel in sorted(committed):
+        path = root / rel
         if not path.is_file():
-            continue
-        if any(part in SKIP_DIRS for part in path.parts):
             continue
         try:
             text = path.read_text(encoding="utf-8", errors="replace")
@@ -308,9 +320,18 @@ def surviving_occurrences(hashes: dict[str, str], root: Path) -> list[str]:
 
 def check(base: str, root: Path = REPO_ROOT) -> list[str]:
     gone = superseded_content(base, root)
-    if not gone:
-        return []
-    return surviving_occurrences(gone, root)
+    findings: list[str] = []
+    for path, landed in sorted(moved_content(base, root).items()):
+        # A NAMED REFUSAL, not a silent verdict either way.
+        findings.append(
+            f"{path}: content moved to {landed} unchanged. A citation of its hash "
+            f"may be correct (receipt updated to the new path) or stale (still "
+            f"naming the old one), and the hash cannot distinguish them -- "
+            f"rename is not supported by this check; confirm the citation by hand"
+        )
+    if gone:
+        findings.extend(surviving_occurrences(gone, root))
+    return findings
 
 
 def main(argv: list[str] | None = None) -> int:
