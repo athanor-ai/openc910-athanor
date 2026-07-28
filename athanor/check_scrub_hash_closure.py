@@ -30,6 +30,8 @@ from __future__ import annotations
 
 import argparse
 import hashlib
+import json
+import re
 import subprocess
 import sys
 from pathlib import Path
@@ -84,6 +86,76 @@ def old_hashes(base: str, paths: list[str], root: Path) -> dict[str, str]:
     return out
 
 
+_HEX64_ANY = re.compile(r"(?i)(?<![0-9a-z])[0-9a-f]{64}(?![0-9a-z])")
+
+
+def _hashes_within(node: object) -> set[str]:
+    """Every 64-hex string inside ONE record object."""
+    found: set[str] = set()
+    if isinstance(node, dict):
+        for value in node.values():
+            found |= _hashes_within(value)
+    elif isinstance(node, list):
+        for item in node:
+            found |= _hashes_within(item)
+    elif isinstance(node, str) and _HEX64_ANY.fullmatch(node):
+        found.add(node.lower())
+    return found
+
+
+def superseded_hashes(path: Path, root: Path) -> set[str]:
+    """Old hashes this file is ALLOWED to still contain.
+
+    An old hash may survive ONLY ALONGSIDE ITS REPLACEMENT -- inside a record
+    object that can prove what replaced it. Three conditions, two of which are
+    attacks:
+
+    (a) STRUCTURAL CONTAINMENT, not proximity: the old hash must be INSIDE the
+        same record object as its replacement, not merely nearby in the file.
+        Proximity is the clause-scope defect that has already been found twice.
+    (b) The replacement must be the NAMED FILE'S CURRENT CONTENT HASH, so it is
+        verifiable. Otherwise a stale citation masquerades as a supersession by
+        parking an arbitrary second value beside itself.
+    (c) A CHAIN may co-occur (old1, old2, current) provided the record still
+        contains the current hash.
+
+    Condition (b) is what removes the need for a key-name list: a supersession is
+    not a thing with a name, it is an old hash that can prove what replaced it.
+    """
+    if path.suffix.lower() != ".json":
+        return set()
+    try:
+        doc = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return set()
+    allowed: set[str] = set()
+
+    def walk(node: object) -> None:
+        if isinstance(node, dict):
+            for key, value in node.items():
+                if isinstance(value, dict):
+                    target = None
+                    for base in (path.parent, root):
+                        candidate = base / key
+                        if candidate.is_file():
+                            target = candidate
+                            break
+                    if target is not None:
+                        held = _hashes_within(value)
+                        current = hashlib.sha256(target.read_bytes()).hexdigest()
+                        if current in held:
+                            # Everything else in this record is a prior state it
+                            # can account for.
+                            allowed.update(held - {current})
+                walk(value)
+        elif isinstance(node, list):
+            for item in node:
+                walk(item)
+
+    walk(doc)
+    return allowed
+
+
 def surviving_occurrences(hashes: dict[str, str], root: Path) -> list[str]:
     """Every place an old hash still appears in the committed tree."""
     wanted = {sha.lower(): rel for rel, sha in hashes.items()}
@@ -98,7 +170,10 @@ def surviving_occurrences(hashes: dict[str, str], root: Path) -> list[str]:
         except OSError as exc:
             raise ToolError(f"could not read {path} while sweeping: {exc}") from exc
         lowered = text.lower()
+        allowed = superseded_hashes(path, root)
         for sha, owner in wanted.items():
+            if sha in allowed:
+                continue
             if sha in lowered:
                 where = path.relative_to(root)
                 for lineno, line in enumerate(text.splitlines(), 1):

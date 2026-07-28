@@ -130,3 +130,87 @@ def test_exit_codes_follow_the_repo_contract(tmp_path: Path) -> None:
     assert closure.main(["--base", base, "--root", str(root)]) == 0
     (root / "NOTES.md").write_text("scrubbed\n", encoding="utf-8")
     assert closure.main(["--base", base, "--root", str(root)]) == 1
+
+
+# --- supersession: an old hash may survive ONLY alongside its replacement -----
+#
+# Constraint 2 (never erase that the old hash existed) and constraint 4 (no
+# pre-scrub hash survives) collide head-on: the remedy for one is what the check
+# for the other rejects. The rule that resolves it needs no key-name list,
+# because a supersession is not a thing with a NAME -- it is an old hash that can
+# prove what replaced it.
+
+
+def _scrub(root: Path) -> tuple[str, str]:
+    old = hashlib.sha256((root / "NOTES.md").read_bytes()).hexdigest()
+    (root / "NOTES.md").write_text("scrubbed content\n", encoding="utf-8")
+    new = _rehash(root, "NOTES.md")
+    (root / "SHA256SUMS").write_text(f"{new}  NOTES.md\n", encoding="utf-8")
+    (root / "receipt.json").write_text(
+        '{\n  "files": {\n    "NOTES.md": "' + new + '"\n  }\n}\n', encoding="utf-8"
+    )
+    (root / "README.md").write_text(f"pinned at `{new.upper()}`\n", encoding="utf-8")
+    return old, new
+
+
+def _record(root: Path, body: str) -> None:
+    (root / "SUPERSEDED.json").write_text(body, encoding="utf-8")
+
+
+def test_a_supersession_record_lets_the_old_hash_survive(tmp_path: Path) -> None:
+    root, base = _repo(tmp_path)
+    old, new = _scrub(root)
+    _record(root, '{\n  "NOTES.md": {\n    "superseded_sha256": "' + old +
+            '",\n    "current_sha256": "' + new + '"\n  }\n}\n')
+    assert closure.check(base, root) == []
+
+
+def test_a_record_that_cannot_prove_its_replacement_does_not_exempt(tmp_path: Path) -> None:
+    """CONDITION (b): otherwise any stale citation becomes a supersession by
+    calling itself one."""
+    root, base = _repo(tmp_path)
+    old, _ = _scrub(root)
+    _record(root, '{\n  "NOTES.md": {\n    "superseded_sha256": "' + old + '"\n  }\n}\n')
+    findings = closure.check(base, root)
+    assert any("SUPERSEDED.json" in f for f in findings), findings
+
+
+def test_an_arbitrary_second_hash_is_not_a_replacement(tmp_path: Path) -> None:
+    """CONDITION (b): parking any other value beside the old hash must not work."""
+    root, base = _repo(tmp_path)
+    old, _ = _scrub(root)
+    _record(root, '{\n  "NOTES.md": {\n    "superseded_sha256": "' + old +
+            '",\n    "current_sha256": "' + "f" * 64 + '"\n  }\n}\n')
+    findings = closure.check(base, root)
+    assert any("SUPERSEDED.json" in f for f in findings), findings
+
+
+def test_proximity_is_not_containment(tmp_path: Path) -> None:
+    """CONDITION (a): the old hash must be INSIDE the same record object as its
+    replacement, not merely nearby in the file. Proximity is the clause-scope
+    defect that has already been found twice in the sibling instrument."""
+    root, base = _repo(tmp_path)
+    old, new = _scrub(root)
+    _record(root, '{\n  "NOTES.md": {\n    "current_sha256": "' + new +
+            '"\n  },\n  "unrelated": {\n    "leftover": "' + old + '"\n  }\n}\n')
+    findings = closure.check(base, root)
+    assert any("SUPERSEDED.json" in f for f in findings), findings
+
+
+def test_a_chain_of_prior_states_is_permitted(tmp_path: Path) -> None:
+    """CONDITION (c): old1, old2 and current may co-occur in one record."""
+    root, base = _repo(tmp_path)
+    old, new = _scrub(root)
+    _record(root, '{\n  "NOTES.md": {\n    "history": ["' + "a" * 64 + '", "' + old +
+            '"],\n    "current_sha256": "' + new + '"\n  }\n}\n')
+    assert closure.check(base, root) == []
+
+
+def test_a_record_naming_a_file_that_does_not_exist_exempts_nothing(tmp_path: Path) -> None:
+    """The record must name a REAL file, or there is nothing to verify against."""
+    root, base = _repo(tmp_path)
+    old, new = _scrub(root)
+    _record(root, '{\n  "GONE.md": {\n    "superseded_sha256": "' + old +
+            '",\n    "current_sha256": "' + new + '"\n  }\n}\n')
+    findings = closure.check(base, root)
+    assert any("SUPERSEDED.json" in f for f in findings), findings

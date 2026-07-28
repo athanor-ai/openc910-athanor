@@ -1,0 +1,10 @@
+{
+  "schema": "superseded_artifact_hashes_v1",
+  "note": "Each entry names a file, the hash it published before this change, and its current hash.",
+  "receipt.json": {
+    "superseded_sha256": "d411745d17fa1826292b9495e784982cee0f8fff5d741b26a2b36ff105d79acc",
+    "current_sha256": "c671a950e9bfaeb1e5b798a93aed6691f4a479441b60eb82642c1c5d49d16337",
+    "superseded_by": "ATH-3397 internal fleet-agent handle scrub (#82)",
+    "reason": "internal agent handles removed from published evidence. The content is otherwise unchanged; this record exists so a party holding the pre-scrub hash can confirm what it was and why it moved."
+  }
+}
