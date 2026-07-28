@@ -627,7 +627,26 @@ def main(argv: list[str] | None = None) -> int:
         )
         return 1
 
-    print(f"\nOK: export-safety gate clean at {args.ref} (0 BLOCK; {len(warn)} WARN).")
+    # "CLEAN" IS A CLAIM ABOUT THE TREE; "0 BLOCK" IS A FACT ABOUT THE TIER.
+    # These are not the same sentence, and the old line said the first while
+    # measuring the second -- it printed "gate clean" on a tree carrying 412
+    # live fleet-agent-handle instances across 7 published artifacts, because
+    # the handle scan is staged at WARN. Accurate about what it measured, false
+    # about what it claimed: the exact defect this gate exists to catch, in the
+    # gate's own summary line, and the line a reader is most likely to quote.
+    #
+    # A verdict may only use the word CLEAN when there is nothing to report.
+    if warn:
+        staged = sum(1 for w in warn if w.startswith("[internal fleet-agent handle]"))
+        detail = f"; {staged} of them staged fleet-agent handles" if staged else ""
+        print(
+            f"\nOK (0 BLOCK): export-safety gate raised {len(warn)} WARN "
+            f"finding(s) at {args.ref}{detail}. NOT clean -- every finding is "
+            f"named above. Exit 0 reflects the TIER, not the tree."
+        )
+        return 0
+
+    print(f"\nOK: export-safety gate clean at {args.ref} (0 BLOCK; 0 WARN).")
     return 0
 
 

@@ -519,6 +519,39 @@ def _repo_with_a_live_handle_instance(tmp_path):
     return tmp_path
 
 
+# The AFFIRMATIVE cleanliness claim, as the gate emits it. Pinned once so the
+# two verdict tests below cannot drift to different notions of "says clean".
+_AFFIRMATIVE_CLEAN = "gate clean at"
+
+
+def _repo_with_no_findings(tmp_path):
+    """Same shape as above but the artifact cites NO handle -- nothing to report.
+
+    Deliberately identical in every other respect (same denylist, same paths, one
+    committed artifact) so the only variable between this and the live-instance
+    fixture is whether a finding exists.
+    """
+    import hashlib as _hl
+    handles = _padded([_H_A, _H_B])
+    files = {
+        esg.DENYLIST_REL: json.dumps(
+            {"handles": handles,
+             "stamp": _hl.sha256("\n".join(sorted(handles)).encode()).hexdigest()}),
+        "athanor_artifacts/pkt/receipt.json": '{"reviewer": "a-name-not-on-the-list"}\n',
+    }
+    tmp_path.mkdir(parents=True, exist_ok=True)
+    _git(["init", "-q"], tmp_path)
+    _git(["config", "user.email", "t@example.invalid"], tmp_path)
+    _git(["config", "user.name", "t"], tmp_path)
+    for rel, content in files.items():
+        p = tmp_path / rel
+        p.parent.mkdir(parents=True, exist_ok=True)
+        p.write_text(content)
+        _git(["add", rel], tmp_path)
+    _git(["commit", "-q", "-m", "no findings"], tmp_path)
+    return tmp_path
+
+
 def test_block_tier_exits_nonzero_on_a_constructed_instance(tmp_path, monkeypatch, capsys):
     # THE PROMOTION BITE. Proves the BLOCK tier actually blocks, on a population we
     # construct — the real population is zero by promotion time, which is why
@@ -557,6 +590,74 @@ def test_warn_tier_reports_the_instance_but_does_not_fail(tmp_path, monkeypatch,
     assert "fleet-agent handle" in combined, "WARN tier must still REPORT the instance"
     assert "block: [internal fleet-agent handle]" not in combined, (
         "WARN tier must not emit the finding as a BLOCK row")
+
+
+def test_the_verdict_line_does_not_say_clean_while_reporting_findings(
+    tmp_path, monkeypatch, capsys
+):
+    """CLEAN is a claim about the TREE. 0 BLOCK is a fact about the TIER.
+
+    The summary line used to say ``gate clean`` whenever nothing reached BLOCK
+    tier -- so on the real c910 main it printed CLEAN while naming 412 live
+    fleet-agent-handle instances across 7 published artifacts on a PUBLIC fork.
+    Accurate about what it measured, false about what it claimed, in the gate
+    whose whole job is catching that, on the one line a reader quotes.
+
+    Exit code is NOT the subject here: rc==0 is correct at WARN tier and the
+    staging test above already pins it. This pins the WORD -- a verdict may use
+    CLEAN only when there is nothing to report.
+    """
+    root = _repo_with_a_live_handle_instance(tmp_path)
+    monkeypatch.setattr(esg, "HANDLE_FINDING_TIER", "warn")
+    monkeypatch.setattr(esg, "_run_receipt_verifier", lambda root: [])
+    monkeypatch.chdir(root)
+    rc = esg.main(["--ref", "HEAD"])
+    combined = "".join(capsys.readouterr())
+
+    assert rc == 0, "tier behaviour must be unchanged: " + combined[-300:]
+    verdict = [ln for ln in combined.splitlines() if ln.startswith("OK")]
+    assert verdict, "no verdict line emitted: " + combined[-300:]
+    line = verdict[-1]
+
+    # The AFFIRMATIVE phrase, not the bare word. `"clean" in line` is true of
+    # "NOT clean" -- substring-where-a-value-was-meant, which this repo has now
+    # hit five times, once in the first draft of THIS test.
+    assert _AFFIRMATIVE_CLEAN not in line, (
+        "the verdict called the tree CLEAN while findings were reported above "
+        "it. That is the defect this gate exists to catch, in its own summary: "
+        + line
+    )
+    assert "NOT clean" in line, (
+        "the verdict must SAY it is not clean, not merely omit the claim -- an "
+        "omission reads as an oversight, a denial reads as a measurement: " + line
+    )
+    assert "WARN finding" in line, (
+        "the verdict must carry the COUNT it is reporting, not just a denial: "
+        + line
+    )
+
+
+def test_the_verdict_line_still_says_clean_when_there_is_nothing_to_report(
+    tmp_path, monkeypatch, capsys
+):
+    """NARROWNESS CONTROL for the test above.
+
+    A check that forbids the word CLEAN unconditionally would pass the previous
+    test while destroying the verdict's only useful positive statement. So the
+    clean tree must still be ABLE to say clean -- otherwise the fix is just a
+    different false claim pointing the other way.
+    """
+    root = _repo_with_no_findings(tmp_path)
+    monkeypatch.setattr(esg, "_run_receipt_verifier", lambda root: [])
+    monkeypatch.chdir(root)
+    rc = esg.main(["--ref", "HEAD"])
+    combined = "".join(capsys.readouterr())
+
+    assert rc == 0, combined[-300:]
+    assert _AFFIRMATIVE_CLEAN in combined, (
+        "a tree with nothing to report must still be reportable as clean: "
+        + combined[-300:]
+    )
 
 
 def test_warn_staging_reports_the_same_population_block_would(tmp_path, monkeypatch, capsys):
