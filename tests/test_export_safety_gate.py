@@ -1110,3 +1110,29 @@ def test_the_keep_set_reasons_reach_the_output(tmp_path, monkeypatch, capsys):
     assert "exempt:" in text and "detector necessarily contains" in text, (
         "the keep-set reason never reached the reader: " + text[-400:]
     )
+
+
+def test_ci_runs_the_test_directory_not_a_hand_listed_set() -> None:
+    """WIRING CONTRACT. This file pins a customer surface and CI did not invoke
+    it -- the workflow enumerated 4 of 7 test files by name, so a correct
+    assertion here would still have been unread. A corrected assertion in a file
+    nothing runs is the unwired-gate defect wearing a different hat.
+
+    Asserting the directory is run is what makes every OTHER test in this repo
+    load-bearing, so it lives here rather than anywhere else.
+    """
+    workflow = (
+        Path(__file__).resolve().parents[1] / ".github" / "workflows" / "export-safety.yml"
+    ).read_text(encoding="utf-8")
+    # EXACT invocation, not a substring. "pytest -q tests/" also matches
+    # "pytest -q tests/test_export_safety_gate.py", so a substring check passes
+    # on precisely the enumeration it exists to forbid -- substring where a value
+    # was meant, which is the same defect this repo has now hit four times.
+    invocations = [
+        line.strip() for line in workflow.splitlines() if "python3 -m pytest" in line
+    ]
+    assert any(line.endswith("pytest -q tests/") for line in invocations), (
+        "export-safety no longer runs the test DIRECTORY; a hand-listed set of "
+        f"test files goes stale silently and always toward running fewer. "
+        f"Found only: {invocations}"
+    )
