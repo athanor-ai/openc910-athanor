@@ -565,157 +565,224 @@ def _verify_customer_ready_receipt(package: Path) -> list[str]:
     problems.extend(_verify_proof_packet_no_smuggled_ppa(package, receipt))
     return problems
 
-# --- inline hash-citation validation (ATH-3397 / cross-reference closure) ---
+# --- inline hash-citation validation (ATH-3397 / ATH-3444) ---------------------
 #
 # ``_verify_sums`` proves SHA256SUMS matches file CONTENT. It says nothing about
-# the hashes receipts quote INLINE. A rehash that updates SHA256SUMS and misses a
-# citing receipt.json therefore passes that check -- and did: this validator
-# landed red against 13 such live citations on this fork.
+# the hashes receipts quote INLINE, so a rehash that updates SHA256SUMS and
+# misses a citing receipt passes it -- and did, 13 times on this fork.
 #
-# Narrowness matters more than reach here. This tree is RTL, so a rule like
-# "every 64-hex token must be a pinned hash" reds every .v file (246 Verilog
-# literals are 64 hex chars wide, 13850 more are 40). The enforced rule is
-# NAME-BOUND: a JSON entry mapping a FILENAME to a hash must equal that file's
-# current content. Nothing else is enforced by hash value.
-_CITATION_NAME_BOUND = re.compile(
-    r'"(?P<name>[A-Za-z0-9_][A-Za-z0-9_.-]*\.(?:md|json|v|sv|sh|log|txt))"\s*:\s*"(?P<sha>[0-9a-f]{64})"'
-)
-# Abbreviated citations appear in receipt PROSE ("sha256 `2cd7d0e3...`",
-# "candidate f3296156 and mapped netlist b85271d2"). A full-64-only validator is
-# blind to them, so they are checked as PREFIXES -- but only on lines that are
-# actually talking about content hashes.
-_CITATION_CONTEXT = re.compile(r"(?i)\b(sha-?256|digest|mapped netlist|candidate)\b")
-_CITATION_ABBREV = re.compile(r"(?<![0-9A-Za-z])([0-9a-f]{8,16})(?![0-9A-Za-z])")
-# The keep-set: hash-shaped values that legitimately resolve to nothing in-tree.
-# Enumerated EXPLICITLY rather than letting "unresolvable" quietly read as fine.
-#   liberty/yosys/opensta/toolchain -- external tools and PDK libraries we do not ship
-#   source_manifest/screen_config/obligation/overlay/gate_overlay -- inputs kept out of the package
-#   *commit* -- git commit identifiers, not content hashes (e.g. source_commit 93ce85eeb)
-_CITATION_EXTERNAL_KEYS = (
-    "liberty_sha256", "yosys_sha256", "opensta_sha256", "toolchain_sha256",
+# This walks PARSED JSON, not text lines. An earlier line-regex version was
+# bypassable four ways (dexter, #81): a citation split across two valid JSON
+# lines was invisible, uppercase hex was invisible, an extension allow-list
+# silently skipped 18 live mappings to .py/.h/.gitattributes, and a
+# supersession record keyed by bare filename blessed citations anywhere in the
+# document. Parsing removes the whole class rather than patching each instance.
+#
+# NARROWNESS still governs: this is an RTL tree where 64-char Verilog literals
+# are routine, so nothing is enforced by hash VALUE. The rule is NAME-BOUND -- a
+# JSON entry whose KEY names a file and whose VALUE is a 64-hex string must
+# equal that file's current content.
+_HEX64 = re.compile(r"[0-9a-fA-F]{64}\Z")
+_SUPERSESSION_REQUIRED = ("current", "superseded_by", "reason")
+# Keys whose values are hash-shaped but are NOT file citations. Bound to the
+# parsed KEY, never to text proximity: a prose line merely MENTIONING a commit
+# must not suppress findings elsewhere on that line.
+_NON_CITATION_KEYS = frozenset({
+    "sha256", "liberty_sha256", "yosys_sha256", "opensta_sha256", "toolchain_sha256",
     "source_manifest_sha256", "screen_config_sha256", "overlay_sha256",
     "gate_overlay_sha256", "obligation_content_sha256", "obligation_core_sha256",
-    "mapped_netlist_sha256", "sha256",
-)
-_CITATION_COMMIT_MARKERS = ("commit", "source_commit", "cache_key", "gold_cache_key", "gate_cache_key")
+    "mapped_netlist_sha256", "candidate_sha256", "stamp",
+    "source_commit", "commit", "cache_key", "gold_cache_key", "gate_cache_key",
+})
 
 
-def _supersession_records(doc: object) -> dict[str, dict]:
-    """Collect ``<key>_supersession`` maps of ``name -> record`` anywhere in a receipt.
+def _looks_like_filename(key: str) -> bool:
+    """A citation key names a file. Deliberately NOT an extension allow-list --
+    that is what silently skipped .py/.h/.gitattributes mappings."""
+    return (
+        "." in key
+        and not key.startswith("..")
+        and not any(c.isspace() for c in key)
+        and key not in _NON_CITATION_KEYS
+    )
 
-    Supersession is how a receipt stays TRUE when a file it cited is later changed
-    on purpose: the ORIGINAL hash remains the primary value -- it is what the
-    receipt actually claimed -- and the current hash is recorded additively with
-    the reason. Rewriting the primary value instead would make the receipt assert
-    something about a file version that did not exist when it was written.
+
+def _find_citations(node: object, container_key: str = "", trail: str = "") -> list[dict]:
+    """Collect filename->hash entries with the PATH that located them.
+
+    The path is what lets a supersession record be paired to the exact citation
+    it excuses, rather than to any entry sharing a basename.
     """
-    found: dict[str, dict] = {}
-    def walk(node: object) -> None:
-        if isinstance(node, dict):
-            for key, value in node.items():
-                if key.endswith("_supersession") and isinstance(value, dict):
-                    for name, record in value.items():
-                        if isinstance(record, dict):
-                            found[name] = record
-                walk(value)
-        elif isinstance(node, list):
-            for item in node:
-                walk(item)
-    walk(doc)
+    found: list[dict] = []
+    if isinstance(node, dict):
+        for key, value in node.items():
+            where = f"{trail}.{key}" if trail else key
+            if isinstance(value, str) and _HEX64.match(value) and _looks_like_filename(key):
+                found.append({
+                    "name": key,
+                    "sha": value.lower(),
+                    "path": where,
+                    "container": container_key,
+                    "siblings": node,
+                })
+            else:
+                found.extend(_find_citations(value, key, where))
+    elif isinstance(node, list):
+        for index, item in enumerate(node):
+            found.extend(_find_citations(item, container_key, f"{trail}[{index}]"))
     return found
 
 
-_SUPERSESSION_REQUIRED = ("current", "superseded_by", "reason")
+# Citations also appear ABBREVIATED in receipt prose ("candidate f3296156 and
+# mapped netlist b85271d2"), so a 64-hex-only rule is blind to them. These are
+# checked as PREFIXES, and the exemption binds to the parsed KEY -- a prose line
+# merely mentioning a commit must not suppress findings elsewhere in it.
+_ABBREV = re.compile(r"(?<![0-9A-Za-z])([0-9a-f]{8,16})(?![0-9A-Za-z])")
+_ABBREV_CONTEXT = re.compile(r"(?i)\b(sha-?256|digest|mapped netlist|candidate)\b")
+_ABBREV_COMMITISH = re.compile(r"(?i)\b(commit|cache[_ ]key|revision|ref)\b")
+
+
+def _find_abbreviated(node: object, key: str = "", trail: str = "") -> list[tuple[str, str]]:
+    """Collect (path, token) for abbreviated hashes in prose values."""
+    found: list[tuple[str, str]] = []
+    if isinstance(node, dict):
+        for child_key, value in node.items():
+            where = f"{trail}.{child_key}" if trail else child_key
+            found.extend(_find_abbreviated(value, child_key, where))
+    elif isinstance(node, list):
+        for index, item in enumerate(node):
+            found.extend(_find_abbreviated(item, key, f"{trail}[{index}]"))
+    elif isinstance(node, str) and key not in _NON_CITATION_KEYS:
+        if _HEX64.match(node):
+            return found
+        for match in _ABBREV.finditer(node):
+            # SPAN-LOCAL, not value-wide: both the trigger and the exemption are
+            # read from the ~40 chars immediately before the token. A value-wide
+            # test lets one commit mention anywhere suppress every finding in a
+            # long prose blob, and lets one "sha256" anywhere summon findings on
+            # unrelated identifiers in the same blob.
+            window = node[max(0, match.start() - 40):match.start()]
+            if _ABBREV_COMMITISH.search(window):
+                continue
+            if not _ABBREV_CONTEXT.search(window):
+                continue
+            found.append((trail, match.group(1)))
+    return found
+
+
+def _paired_supersession(citation: dict, parents: dict) -> object:
+    """The record excusing a citation must live beside it: for a citation in
+    ``<key>``, the record is ``<key>_supersession[name]`` in the SAME object."""
+    owner = parents.get(citation["container"])
+    if not isinstance(owner, dict):
+        return None
+    record = owner.get(f"{citation['container']}_supersession")
+    if not isinstance(record, dict):
+        return None
+    return record.get(citation["name"])
+
+
+def _owners_by_container(node: object, out: dict) -> None:
+    """Map container key -> the object that OWNS it, so a supersession map can
+    only be found as that container's sibling."""
+    if isinstance(node, dict):
+        for key, value in node.items():
+            if isinstance(value, dict):
+                out[key] = node
+            _owners_by_container(value, out)
+    elif isinstance(node, list):
+        for item in node:
+            _owners_by_container(item, out)
 
 
 def _verify_hash_citations(package: Path) -> list[str]:
+    """Findings all contain the word "citation" -- callers select on it, so a
+    finding phrased without it would be invisible to its own consumer."""
     problems: list[str] = []
-    local: set[str] = set()
-    for path in sorted(package.rglob("*")):
-        if path.is_file():
-            try:
-                local.add(_sha256(path))
-            except OSError:
-                continue
-    pinned = set(_sums_entries(package).values()) | local
     for path in sorted(package.rglob("*.json")):
         rel = path.relative_to(REPO_ROOT)
         try:
-            text = path.read_text(encoding="utf-8")
+            doc = json.loads(path.read_text(encoding="utf-8"))
         except (OSError, UnicodeDecodeError) as exc:
             # Fail closed: an unreadable receipt is NOT a clean receipt.
             problems.append(f"{rel}: could not read for citation check ({exc})")
             continue
-        try:
-            supersessions = _supersession_records(json.loads(text))
-        except json.JSONDecodeError:
-            # Malformed JSON is reported by _verify_receipt_json; here it means we
-            # cannot honour supersession records, so no citation may rely on one.
-            supersessions = {}
-        for lineno, line in enumerate(text.splitlines(), 1):
-            for match in _CITATION_NAME_BOUND.finditer(line):
-                name, sha = match.group("name"), match.group("sha")
-                target = (path.parent / name).resolve()
-                try:
-                    target.relative_to(package.resolve())
-                except ValueError:
-                    problems.append(f"{rel}:{lineno}: citation {name} escapes the package")
-                    continue
-                if not target.is_file():
-                    problems.append(f"{rel}:{lineno}: citation names {name}, which is not in the package")
-                    continue
-                got = _sha256(target)
-                record = supersessions.get(name)
-                if got == sha:
-                    # A supersession record for a citation that still matches is
-                    # stale bookkeeping -- it would rot silently into cover for a
-                    # later real drift.
-                    if record is not None:
+        except json.JSONDecodeError as exc:
+            problems.append(f"{rel}: could not parse for citation check ({exc})")
+            continue
+        owners: dict = {}
+        _owners_by_container(doc, owners)
+        for citation in _find_citations(doc):
+            name, sha, where = citation["name"], citation["sha"], citation["path"]
+            target = (path.parent / name).resolve()
+            try:
+                target.relative_to(package.resolve())
+            except ValueError:
+                problems.append(f"{rel}: citation at {where} escapes the package")
+                continue
+            if not target.is_file():
+                problems.append(f"{rel}: citation at {where} names {name}, which is not in the package")
+                continue
+            got = _sha256(target)
+            record = _paired_supersession(citation, owners)
+            if got == sha:
+                if record is not None:
+                    problems.append(
+                        f"{rel}: citation at {where} matches the file, but a "
+                        f"supersession record claims it was superseded"
+                    )
+                continue
+            if not isinstance(record, dict):
+                problems.append(
+                    f"{rel}: STALE citation at {where}: receipt says {sha}, file is {got}"
+                )
+                continue
+            # Whitespace-only is not provenance: "   " is truthy.
+            missing = [
+                field
+                for field in _SUPERSESSION_REQUIRED
+                if not isinstance(record.get(field), str) or not record[field].strip()
+            ]
+            if missing:
+                problems.append(
+                    f"{rel}: supersession record for the citation at {where} is missing "
+                    f"{', '.join(missing)} -- a supersession must say what changed it and why"
+                )
+            elif record["current"].lower() != got:
+                # The remedy must not become the loophole.
+                problems.append(
+                    f"{rel}: supersession for the citation at {where} claims current "
+                    f"{record['current']}, file is {got}"
+                )
+            else:
+                # A citation can be superseded MORE THAN ONCE. Compressing a chain
+                # into its latest transition attributes the change to the wrong
+                # commit, so when hops are recorded they must actually END at the
+                # file's current content.
+                hops = record.get("hops")
+                if hops is not None:
+                    if not isinstance(hops, list) or not hops:
                         problems.append(
-                            f"{rel}:{lineno}: citation of {name} matches the file, but a "
-                            f"supersession record claims it was superseded"
+                            f"{rel}: supersession for the citation at {where} has a "
+                            f"malformed hops chain"
                         )
-                    continue
-                if record is None:
-                    problems.append(
-                        f"{rel}:{lineno}: STALE citation of {name}: "
-                        f"receipt says {sha}, file is {got}"
-                    )
-                    continue
-                # Whitespace-only is not provenance: "   " is truthy, so a bare
-                # falsy check would accept it. Non-strings are rejected outright.
-                missing = [
-                    f
-                    for f in _SUPERSESSION_REQUIRED
-                    if not isinstance(record.get(f), str) or not record[f].strip()
-                ]
-                if missing:
-                    problems.append(
-                        f"{rel}:{lineno}: supersession record for the {name} citation is missing "
-                        f"{', '.join(missing)} -- a supersession must say what "
-                        f"changed it and why"
-                    )
-                elif record["current"] != got:
-                    # The remedy must not become the loophole: a supersession that
-                    # does not match the file is not a record, it is a claim.
-                    problems.append(
-                        f"{rel}:{lineno}: supersession for the {name} citation claims current "
-                        f"{record['current']}, file is {got}"
-                    )
-            if not _CITATION_CONTEXT.search(line):
-                continue
-            key = re.match(r'\s*"([A-Za-z0-9_]+)"\s*:', line)
-            keyname = key.group(1) if key else ""
-            if keyname in _CITATION_EXTERNAL_KEYS or any(
-                m in line.lower() for m in _CITATION_COMMIT_MARKERS
-            ):
-                continue
-            for abbrev in _CITATION_ABBREV.findall(line):
-                if not any(h.startswith(abbrev) for h in pinned):
-                    problems.append(
-                        f"{rel}:{lineno}: abbreviated citation {abbrev} matches no "
-                        f"pinned hash or file in this package"
-                    )
+                    elif not isinstance(hops[-1], dict) or str(
+                        hops[-1].get("resulting_sha256", "")
+                    ).lower() != got:
+                        problems.append(
+                            f"{rel}: supersession hops for the citation at {where} do not "
+                            f"end at the file's current content {got}"
+                        )
+        known = set(_sums_entries(package).values())
+        for item in sorted(package.rglob("*")):
+            if item.is_file():
+                known.add(_sha256(item))
+        for where, token in _find_abbreviated(doc):
+            if not any(h.startswith(token) for h in known):
+                problems.append(
+                    f"{rel}: abbreviated citation {token} at {where} matches no "
+                    f"pinned hash or file in this package"
+                )
     return problems
 
 

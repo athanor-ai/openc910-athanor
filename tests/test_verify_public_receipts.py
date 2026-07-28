@@ -442,7 +442,7 @@ def test_stale_inline_citation_is_caught(tmp_path: Path) -> None:
     (package / "NOTES.md").write_text("edited later by another PR\n", encoding="utf-8")
     _repin(package)
     problems = _citation_problems(tmp_path)
-    assert any("STALE citation of NOTES.md" in p for p in problems), problems
+    assert any("STALE citation at NOTES.md" in p for p in problems), problems
 
 
 def test_correct_inline_citation_passes(tmp_path: Path) -> None:
@@ -631,3 +631,116 @@ def test_supersession_provenance_must_not_be_empty_or_blank(tmp_path: Path) -> N
         })
         problems = _citation_problems(tmp_path)
         assert any("missing superseded_by" in p for p in problems), (bad, problems)
+
+
+# --- regressions for the four bypasses dexter constructed on #81 --------------
+#
+# The root defect was scanning TEXT LINES and calling it JSON. The fix is parsed
+# traversal; these pin each construction that got through the line version.
+
+
+def test_a_citation_split_across_lines_is_still_caught(tmp_path: Path) -> None:
+    """BYPASS 1: valid JSON may put the key and value on separate lines."""
+    package = _write_package(tmp_path)
+    (package / "NOTES.md").write_text("original\n", encoding="utf-8")
+    stale = _sha(package / "NOTES.md")
+    (package / "NOTES.md").write_text("changed\n", encoding="utf-8")
+    receipt = json.loads((package / "receipt.json").read_text(encoding="utf-8"))
+    receipt["files"] = {"NOTES.md": stale}
+    text = json.dumps(receipt, indent=2).replace(
+        f'"NOTES.md": "{stale}"', f'"NOTES.md":\n        "{stale}"'
+    )
+    (package / "receipt.json").write_text(text + "\n", encoding="utf-8")
+    _repin(package)
+    problems = _citation_problems(tmp_path)
+    assert any("STALE citation at files.NOTES.md" in p for p in problems), problems
+
+
+def test_uppercase_hex_is_still_a_citation(tmp_path: Path) -> None:
+    """BYPASS 1b: a lowercase-only regex let uppercase hex through."""
+    package = _write_package(tmp_path)
+    (package / "NOTES.md").write_text("original\n", encoding="utf-8")
+    stale = _sha(package / "NOTES.md").upper()
+    (package / "NOTES.md").write_text("changed\n", encoding="utf-8")
+    _cite(package, {"files": {"NOTES.md": stale}})
+    problems = _citation_problems(tmp_path)
+    assert any("STALE citation at files.NOTES.md" in p for p in problems), problems
+
+
+def test_extensions_outside_the_old_allow_list_are_inspected(tmp_path: Path) -> None:
+    """BYPASS 1c: the live corpus maps .py/.h/.gitattributes -- 18 entries the
+    extension allow-list never looked at, reported as clean."""
+    package = _write_package(tmp_path)
+    for name in ("helper.py", "cpu_cfig.h", ".gitattributes"):
+        (package / name).write_text("original\n", encoding="utf-8")
+    stale = {n: _sha(package / n) for n in ("helper.py", "cpu_cfig.h", ".gitattributes")}
+    for name in stale:
+        (package / name).write_text("changed later\n", encoding="utf-8")
+    _cite(package, {"files": stale})
+    problems = _citation_problems(tmp_path)
+    for name in stale:
+        assert any(f"STALE citation at files.{name}" in p for p in problems), (name, problems)
+
+
+def test_a_supersession_in_an_unrelated_container_does_not_bless(tmp_path: Path) -> None:
+    """BYPASS 2: records were indexed by bare filename, so one living anywhere in
+    the document excused a citation it had nothing to do with."""
+    package = _stale_package(tmp_path)
+    receipt = json.loads((package / "receipt.json").read_text(encoding="utf-8"))
+    receipt["unrelated_supersession"] = {"NOTES.md": {
+        "current": _sha(package / "NOTES.md"),
+        "superseded_by": "bogus",
+        "reason": "bogus",
+    }}
+    (package / "receipt.json").write_text(json.dumps(receipt, indent=2) + "\n", encoding="utf-8")
+    _repin(package)
+    problems = _citation_problems(tmp_path)
+    assert any("STALE citation at files.NOTES.md" in p for p in problems), problems
+
+
+def test_a_commit_word_elsewhere_does_not_suppress_an_abbreviated_finding(tmp_path: Path) -> None:
+    """BYPASS 3: the exemption read the whole line, so adding "source_commit"
+    beside an unrelated token silenced it. Trigger and exemption are span-local."""
+    package = _write_package(tmp_path)
+    _cite(package, {"summary": "source_commit abc1234def; screened candidate deadbeef01"})
+    problems = _citation_problems(tmp_path)
+    assert any("abbreviated citation deadbeef01" in p for p in problems), problems
+
+
+def test_a_genuine_commit_reference_is_still_exempt(tmp_path: Path) -> None:
+    """NARROWNESS companion: span-local must not make commit SHAs red."""
+    package = _write_package(tmp_path)
+    _cite(package, {"note": "sha256 evidence; production receipt source_commit 93ce85eeb"})
+    assert _citation_problems(tmp_path) == []
+
+
+def test_a_hops_chain_must_end_at_the_files_current_content(tmp_path: Path) -> None:
+    """BYPASS 4: a citation can be superseded MORE THAN ONCE. Compressing the
+    chain into its latest transition attributes the change to the wrong commit --
+    one live record did exactly that (ct_lsu_rb README, e3c364ad -> 1aa7e730 at
+    d81ce5f -> aa842aa9 at 0743b51, recorded as a single hop)."""
+    package = _stale_package(tmp_path)
+    current = _sha(package / "NOTES.md")
+    _supersede(package, "NOTES.md", {
+        "current": current,
+        "superseded_by": "d81ce5f (first transition)",
+        "reason": "superseded more than once",
+        "hops": [{"commit": "d81ce5f", "resulting_sha256": "a" * 64}],
+    })
+    problems = _citation_problems(tmp_path)
+    assert any("do not end at the file's current content" in p for p in problems), problems
+
+
+def test_a_complete_hops_chain_is_accepted(tmp_path: Path) -> None:
+    package = _stale_package(tmp_path)
+    current = _sha(package / "NOTES.md")
+    _supersede(package, "NOTES.md", {
+        "current": current,
+        "superseded_by": "d81ce5f (first transition)",
+        "reason": "superseded more than once; every transition recorded",
+        "hops": [
+            {"commit": "d81ce5f", "resulting_sha256": "a" * 64},
+            {"commit": "0743b51", "resulting_sha256": current},
+        ],
+    })
+    assert _citation_problems(tmp_path) == []

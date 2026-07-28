@@ -53,8 +53,20 @@
   "files_supersession": {
     "README.md": {
       "current": "aa842aa9c2c7e8340531a3b064aaa165b4da6b854f1eba696dd3f8c6e7273b28",
-      "superseded_by": "0743b51 (docs(ATH-3010): one-command replay is the first README path in every package (AC3) (#54))",
-      "reason": "the cited hash was correct when this receipt was written; the file was changed afterwards by the commit named above. The original hash is retained above as the claim this receipt actually made."
+      "superseded_by": "d81ce5f (docs: record RB mixed replay receipt (#45))",
+      "reason": "the cited hash was correct when this receipt was written; the file was changed afterwards. This citation was superseded MORE THAN ONCE, so every transition is recorded below rather than compressed into the latest one.",
+      "hops": [
+        {
+          "commit": "d81ce5f",
+          "subject": "docs: record RB mixed replay receipt (#45)",
+          "resulting_sha256": "1aa7e730f228a84e3ca55208ef5fd9e565b4409c9bb789bb4f7711ac70380a26"
+        },
+        {
+          "commit": "0743b51",
+          "subject": "docs(ATH-3010): one-command replay is the first README path in every package (AC3) (#54)",
+          "resulting_sha256": "aa842aa9c2c7e8340531a3b064aaa165b4da6b854f1eba696dd3f8c6e7273b28"
+        }
+      ]
     },
     "same_candidate_binding_receipt.json": {
       "current": "a285b6e9bcde8d9e41d554cf4498b5de076247c3b13165a81b076c98cc0e3044",
