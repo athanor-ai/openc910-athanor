@@ -50,6 +50,32 @@
     "same_state_equiv_seq8.pinned.log": "f7cbd28af6da38782fc421d98bed9636e10c524bad00dc9439f89ab7e8fc73ce",
     "same_candidate_binding_receipt.json": "53724ca5200a7f8f2d482615daf126573dde0c4a8f439be254580f3270f74f20"
   },
+  "files_supersession": {
+    "README.md": {
+      "current": "dccd480445a6e7fb6d8e33caba498689e1472537e21a2a15ed29123619ce07a5",
+      "superseded_by": "0932dfd (ATH-3180: reword legacy customer_ready=true rows to current-bar vocabulary (accumulating) (#74))",
+      "reason": "the cited hash was correct when this receipt was written; the file was changed afterwards by the commit named above. The original hash is retained above as the claim this receipt actually made.",
+      "hops": [
+        {
+          "commit": "0932dfd",
+          "subject": "ATH-3180: reword legacy customer_ready=true rows to current-bar vocabulary (accumulating) (#74)",
+          "resulting_sha256": "dccd480445a6e7fb6d8e33caba498689e1472537e21a2a15ed29123619ce07a5"
+        }
+      ]
+    },
+    "same_candidate_binding_receipt.json": {
+      "current": "62a59b5248e3f6018a36ac6d9e5f1c2f47ca224ba83a2930fcc5b9a2429cba91",
+      "superseded_by": "0932dfd (ATH-3180: reword legacy customer_ready=true rows to current-bar vocabulary (accumulating) (#74))",
+      "reason": "the cited hash was correct when this receipt was written; the file was changed afterwards by the commit named above. The original hash is retained above as the claim this receipt actually made.",
+      "hops": [
+        {
+          "commit": "0932dfd",
+          "subject": "ATH-3180: reword legacy customer_ready=true rows to current-bar vocabulary (accumulating) (#74)",
+          "resulting_sha256": "62a59b5248e3f6018a36ac6d9e5f1c2f47ca224ba83a2930fcc5b9a2429cba91"
+        }
+      ]
+    }
+  },
   "metrics": {
     "area": {
       "candidate_sha256": "2ea9f277f6853d07d0a9da208834cf3bbb1f28266d816485da1b4daf7676579a",

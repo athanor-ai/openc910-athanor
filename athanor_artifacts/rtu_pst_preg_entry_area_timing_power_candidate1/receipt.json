@@ -48,6 +48,20 @@
     "same_candidate_binding_receipt.json": "a94e2ec31aa40924c87afa9ef2f1d03865dfb2cc4af06984c99d9fd86c57508f",
     "lean_bridge_obligation.json": "372e8b3d99ff12ae209f62e41b6c011126fc565871744d35334001bd61916f9b"
   },
+  "files_supersession": {
+    "README.md": {
+      "current": "793cc4938362133f029f4586580e32e9a508d2b1b45f00d351b4c41010b37059",
+      "superseded_by": "0932dfd (ATH-3180: reword legacy customer_ready=true rows to current-bar vocabulary (accumulating) (#74))",
+      "reason": "the cited hash was correct when this receipt was written; the file was changed afterwards by the commit named above. The original hash is retained above as the claim this receipt actually made.",
+      "hops": [
+        {
+          "commit": "0932dfd",
+          "subject": "ATH-3180: reword legacy customer_ready=true rows to current-bar vocabulary (accumulating) (#74)",
+          "resulting_sha256": "793cc4938362133f029f4586580e32e9a508d2b1b45f00d351b4c41010b37059"
+        }
+      ]
+    }
+  },
   "metrics": {
     "area": {
       "candidate_sha256": "e6cbb7c5e95ed80fc01516f642b49091fdf6024966c7b71d1fce4834d99fc81d",

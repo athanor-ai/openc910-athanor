@@ -58,6 +58,20 @@
     "parent_same_state_equiv.pinned.log": "1aeac21e5d2d592d0d42b52734f7e6b104680bd86c54cfa0f4d19e6362c955f3",
     "parent_proof_mutant_negative.pinned.log": "cf2e8b41ae8c6efd1bc1cd9ac2a5ca0f9df112c7d1021792eb26beda5812ca8d"
   },
+  "files_supersession": {
+    "README.md": {
+      "current": "ffc948d761c37910a3cea86a2b49f0c3b37b3fc7f035c0870ee97b718d1d962d",
+      "superseded_by": "0743b51 (docs(ATH-3010): one-command replay is the first README path in every package (AC3) (#54))",
+      "reason": "the cited hash was correct when this receipt was written; the file was changed afterwards by the commit named above. The original hash is retained above as the claim this receipt actually made.",
+      "hops": [
+        {
+          "commit": "0743b51",
+          "subject": "docs(ATH-3010): one-command replay is the first README path in every package (AC3) (#54)",
+          "resulting_sha256": "ffc948d761c37910a3cea86a2b49f0c3b37b3fc7f035c0870ee97b718d1d962d"
+        }
+      ]
+    }
+  },
   "metrics": {
     "area": {
       "candidate_sha256": "762ddd8e9ca46dbf3f4f4c69633dfa3d0b7d1c82bac0a24b7201aeab8bbc5999",
