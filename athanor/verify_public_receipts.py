@@ -15,6 +15,7 @@ import json
 import re
 import subprocess
 import sys
+from functools import lru_cache
 from pathlib import Path
 from pathlib import PurePosixPath
 
@@ -586,6 +587,14 @@ def _verify_customer_ready_receipt(package: Path) -> list[str]:
 # equal that file's current content.
 _HEX64 = re.compile(r"[0-9a-fA-F]{64}\Z")
 _SUPERSESSION_REQUIRED = ("current", "superseded_by", "reason")
+# Fields INSIDE a supersession record that legitimately hold a hash which is NOT
+# a citation: `current` is the replacement hash for the superseded value, and
+# the hop chain carries commit-bound values validated by _verify_hops. Excluded
+# BY EXACT NAME rather than by skipping the record -- a suffix skip let the
+# subject hide a real citation under an arbitrary sibling key (dexter, hold 1).
+_SUPERSESSION_NON_CITATION = frozenset(
+    {"current", "superseded_by", "reason", "hops", "commit", "subject", "git"}
+)
 # Citation semantics bind to the PARSED CONTAINER ROLE, not to punctuation in a
 # key. An earlier "key contains a dot" heuristic both invented citations
 # (``schema.v2`` is a versioned semantic key, not a file) and ignored real
@@ -617,26 +626,120 @@ _CITATION_ROLES_DOC = (
 # whichever examples happened to be in front of me.
 _ABBREV = re.compile(r"(?<![0-9A-Za-z])([0-9a-f]{8,16})(?![0-9A-Za-z])")
 _ABBREV_CONTEXT = re.compile(r"(?i)\b(sha-?256|digest|mapped netlist|candidate)\b")
-_ABBREV_COMMITISH = re.compile(r"(?i)\b(commit|cache[_ ]key|revision|ref)\b")
+_ABBREV_COMMITISH = re.compile(r"(?i)\A(commit|cache[_ ]key|revision|ref)\Z")
+# Labels and tokens as SEPARATE alternatives, so they can be walked in document
+# order and each token bound to its NEAREST PRECEDING label.
+#
+# The first version of this fix required the label to sit within three
+# characters of its token -- which re-introduced the exact defect an earlier
+# hold had already closed: a MAGIC CHARACTER DISTANCE. `candidate <45 chars>
+# deadbeef01` went clean again. A distance is not a structure, however small the
+# number; shrinking the window from 40 to 3 narrows the hole without changing
+# its kind. NEAREST-PRECEDING-LABEL is the structural relation: it is defined by
+# ordering alone, so no distance appears anywhere in the rule.
 _CLAUSE = re.compile(r"(?<=[.;:])\s+|\n+")
+_ABBREV_LABEL_OR_TOKEN = re.compile(
+    r"(?i)\b(?P<label>sha-?256|digest|mapped netlist|candidate|commit|cache[_ ]key"
+    r"|revision|ref)\b"
+    r"|(?<![0-9A-Za-z])(?P<token>[0-9a-f]{8,16})(?![0-9A-Za-z])"
+)
 
 
-def _resolve_citation_target(name: str, package: Path) -> Path | None:
-    """Resolve a citation name, package-relative first then repo-relative.
+_RESOLUTION_BASES: dict[str, tuple[str, ...]] = {
+    # A strict role names a SIBLING of the receipt; a {path, sha256} object
+    # outside those roles carries a repo-root path. Each entry declares which.
+    "package": ("package",),
+    "repo": ("repo",),
+    "any": ("package", "repo"),
+}
 
-    Both conventions are live: entries under ``files`` name a sibling, while the
-    ``{path, sha256}`` references outside those roles carry a repo-root path
-    (``athanor_artifacts/<pkg>/<file>``). Resolving only one way reports the
-    other as missing, which is a false finding rather than a missed one.
+
+def _resolve_citation_target(
+    name: str, package: Path, base: str = "any"
+) -> tuple[Path | None, str | None]:
+    """Resolve against the base the ENTRY declares, and report which one hit.
+
+    TRY-ORDER IS A HEURISTIC, NOT A RESOLUTION RULE (dexter, ATH-3444 hold 4).
+    Trying package-relative first and repo-relative second silently picks a
+    winner when BOTH exist with different bytes: an outside-role ``{path,
+    sha256}`` object whose stated convention is repo-root-relative resolved
+    against a package sibling of the same name, and the gate emitted a false
+    STALE against a file the receipt was never talking about. A false STALE on
+    published evidence is worse than a miss -- it invites a "correction" that
+    rewrites a correct record.
+
+    So the base travels WITH the entry. ``any`` remains only for discovering
+    whether a bare key denotes a file at all, and even then the winning base is
+    returned so the later hash comparison uses the same file the classifier did.
     """
-    for candidate in (package / name, REPO_ROOT / name):
+    if not isinstance(name, str) or not name:
+        return None, None
+    roots = {"package": package, "repo": REPO_ROOT}
+    hits: list[tuple[Path, str]] = []
+    for which in _RESOLUTION_BASES.get(base, _RESOLUTION_BASES["any"]):
         try:
-            resolved = candidate.resolve()
+            resolved = (roots[which] / name).resolve()
         except OSError:
             continue
-        if resolved.is_file():
-            return resolved
-    return None
+        if resolved.is_file() and all(resolved != h for h, _ in hits):
+            hits.append((resolved, which))
+    if not hits:
+        return None, None
+    if len(hits) == 1:
+        return hits[0]
+    # BOTH BASES RESOLVE, TO DIFFERENT FILES. Picking one is the try-order
+    # heuristic wearing a different hat, and picking wrong produces a FALSE
+    # STALE against published evidence -- which invites a "correction" that
+    # rewrites a record that was right. The honest answer is that the entry does
+    # not say which file it means, so say exactly that and fail closed.
+    return None, "ambiguous"
+
+
+@lru_cache(maxsize=4)
+def _historical_paths(root: str) -> frozenset[str]:
+    """Every repo-relative path that has EVER existed, for deleted subjects.
+
+    Resolution against the CURRENT tree silently loses a deleted evidence
+    subject (dexter, ATH-3444 hold 3): a receipt citing ``deleted.v`` stopped
+    being classified as a citation at all once the file was removed, so the
+    strongest possible evidence defect -- the subject is gone -- read as clean.
+    "Does not resolve" has two causes and they are opposite verdicts:
+
+        never resolved      -> the key is a semantic field, not a citation
+        resolved, now gone  -> a BROKEN EVIDENCE LINK, and a finding
+
+    One `git log` builds the whole set; the alternative is a subprocess per
+    unresolved key, and there are 527 of those.
+    """
+    try:
+        out = subprocess.run(
+            ["git", "log", "--all", "--pretty=format:", "--name-only",
+             "--diff-filter=ADMR"],
+            cwd=root, capture_output=True, check=False, text=True,
+        )
+    except OSError:
+        return frozenset()
+    if out.returncode != 0:
+        return frozenset()
+    return frozenset(line.strip() for line in out.stdout.splitlines() if line.strip())
+
+
+def _ever_existed(name: str, package: Path, base: str = "any") -> bool:
+    """Did ``name`` resolve to a tracked file at any point in history?"""
+    if not isinstance(name, str) or not name:
+        return False
+    known = _historical_paths(str(REPO_ROOT))
+    if not known:
+        return False
+    roots = {"package": package, "repo": REPO_ROOT}
+    for which in _RESOLUTION_BASES.get(base, _RESOLUTION_BASES["any"]):
+        try:
+            rel = (roots[which] / name).resolve().relative_to(REPO_ROOT.resolve())
+        except (OSError, ValueError):
+            continue
+        if str(rel) in known:
+            return True
+    return False
 
 
 def _find_citations(
@@ -665,6 +768,37 @@ def _find_citations(
     if isinstance(node, dict):
         for key, value in node.items():
             if key.endswith("_supersession"):
+                # DO NOT SKIP THE SUBTREE. (dexter, ATH-3444 hold 1.)
+                #
+                # `continue` here skipped everything under the record, so a
+                # stale {"path":..., "sha256":...} planted at
+                # `evidence_supersession.payload` returned []. The SUBJECT
+                # could switch the checker off by choosing a key suffix --
+                # the fourth bare-name/container skip in this file, and it
+                # contradicted the invariant the docstring above states.
+                #
+                # A supersession record legitimately holds hashes that are NOT
+                # citations: `current` is the replacement hash, and the hop
+                # chain carries commit-bound values. Those exact FIELDS are
+                # excluded by name. Everything else in the record is traversed
+                # like any other subtree, so a citation hidden beside them is
+                # still found.
+                if isinstance(value, dict):
+                    # Recurse on the record with its own schema fields REMOVED,
+                    # so what remains is classified exactly like any other
+                    # subtree. Passing each sub-value individually would hand
+                    # the classifier a citation dict as the NODE, and it would
+                    # iterate that dict's own "path"/"sha256" keys instead of
+                    # recognising it -- a citation is identified by being the
+                    # VALUE under a key, not by being the node.
+                    residue = {
+                        k: v for k, v in value.items()
+                        if k not in _SUPERSESSION_NON_CITATION
+                    }
+                    if residue:
+                        found.extend(_find_citations(
+                            residue, package, node,
+                            f"{trail}.{key}" if trail else key))
                 continue
             where = f"{trail}.{key}" if trail else key
             if key in _CITATION_ROLES:
@@ -683,27 +817,63 @@ def _find_citations(
                     found.append({
                         "name": name, "sha": sha, "path": f"{where}.{entry}",
                         "role": key, "owner": node, "keyed_by": entry, "strict": True,
+                        # A strict role names a SIBLING of the receipt.
+                        "base": "package",
                     })
                 continue
-            if (
-                isinstance(value, dict)
-                and isinstance(value.get("path"), str)
-                and isinstance(value.get("sha256"), str)
-                and _HEX64.match(value["sha256"])
-            ):
+            if isinstance(value, dict) and "path" in value and "sha256" in value:
+                # PRESENCE OF THE SCHEMA'S KEYS SELECTS IT; the VALUES are then
+                # validated (dexter, ATH-3444 hold 2).
+                #
+                # NOTE FOR THE REVIEW: the hold said presence of EITHER field
+                # should select. Implemented literally that reds 8 live records,
+                # measured -- entries that pair a `path` with a DIFFERENTLY-NAMED
+                # hash (`candidate_sha256`, `mapped_netlist_sha256`,
+                # `screen_config_sha256`) or a `sha256` with a `role` and no path
+                # at all. Those are not malformed citations; they are other
+                # schemas that happen to share one key name. So selection is on
+                # BOTH keys -- the actual schema -- and the values are validated
+                # once selected, which is the half the defect was in.
+                #
+                # Requiring `path` and `sha256` to be valid strings with a
+                # matching _HEX64 *before* classifying made validation OPT-IN
+                # FOR THE SUBJECT: {"path": "gold.v", "sha256": "not-a-hash"}
+                # failed the selector, fell through to generic traversal, and
+                # returned clean. A receipt could disable the check on any entry
+                # by malforming the entry -- which is precisely the entry most
+                # likely to be wrong. Evidence the subject can invalidate its way
+                # out of is a skip predicate the subject controls.
                 found.append({
-                    "name": value["path"], "sha": value["sha256"], "path": where,
-                    "role": key, "owner": node, "keyed_by": key,
+                    "name": value.get("path"), "sha": value.get("sha256"),
+                    "path": where, "role": key, "owner": node, "keyed_by": key,
+                    # BOTH conventions are live for outside-role objects (a
+                    # repo-root path, and a package sibling), so the base is
+                    # not fixed by the role -- it is resolved, and an entry
+                    # that matches BOTH is reported as ambiguous rather than
+                    # guessed. See _resolve_citation_target.
+                    "base": "any",
                 })
                 continue
             if isinstance(value, str) and _HEX64.match(value):
                 # Resolution, not the container's name, decides. This is what
                 # closes the exemption collision: a nested entry that resolves
                 # in-package is a citation no matter which map it sits in.
-                if _resolve_citation_target(key, package) is not None:
+                target, base = _resolve_citation_target(key, package)
+                if target is not None:
+                    found.append({
+                        "name": key, "sha": value, "path": where,
+                        "role": key, "owner": node, "keyed_by": key, "base": base,
+                    })
+                elif _ever_existed(key, package):
+                    # DELETED SUBJECT (dexter, ATH-3444 hold 3). Classifying by
+                    # current-tree resolution alone meant that deleting the
+                    # evidence subject deleted the FINDING with it: the strongest
+                    # possible defect in a receipt -- the file it attests to is
+                    # gone -- read as "not a citation" and the package was clean.
                     found.append({
                         "name": key, "sha": value, "path": where,
                         "role": key, "owner": node, "keyed_by": key,
+                        "base": "any", "deleted_subject": True,
                     })
                 continue
             found.extend(_find_citations(value, package, node, where))
@@ -746,12 +916,54 @@ def _find_abbreviated(node: object, key: str = "", trail: str = "") -> list[tupl
         for index, item in enumerate(node):
             found.extend(_find_abbreviated(item, key, f"{trail}[{index}]"))
     elif isinstance(node, str) and not _HEX64.match(node):
+        # EACH TOKEN CARRIES ITS OWN CONTEXT (dexter, ATH-3444 hold 6b).
+        #
+        # Scoping the exemption to a clause meant one commit-ish word anywhere
+        # in that clause suppressed EVERY abbreviated token in it:
+        #
+        #   "source commit 93ce85e and candidate deadbeef01 was screened"
+        #
+        # returned clean, because `commit` exempted the candidate digest sitting
+        # beside it. That is the same span-vs-block bypass as the earlier
+        # whole-line version, moved one delimiter in -- and any clause rule has
+        # the defect, because the clause is an ARBITRARILY LARGE neighbourhood
+        # and the token's own label is what actually types it.
+        #
+        # So bind the label directly to the token it precedes. A token with no
+        # label of its own is not a citation claim and is not checked; a labelled
+        # one is checked or exempted by ITS OWN label, no matter what else shares
+        # the sentence.
+        # Clause boundaries still stop a label leaking into the next sentence;
+        # WITHIN a clause, each token takes the label most recently seen.
         for clause in _CLAUSE.split(node):
-            if _ABBREV_COMMITISH.search(clause) or not _ABBREV_CONTEXT.search(clause):
-                continue
-            for token in _ABBREV.findall(clause):
-                found.append((trail, token))
+            label: str | None = None
+            for match in _ABBREV_LABEL_OR_TOKEN.finditer(clause):
+                if match.group("label") is not None:
+                    label = match.group("label")
+                    continue
+                if label is None:
+                    continue  # an unlabelled token claims nothing
+                if _ABBREV_COMMITISH.fullmatch(label):
+                    continue  # exempted by ITS OWN label, not by a neighbour's
+                found.append((trail, match.group("token")))
     return found
+
+
+_IMMUTABLE_COMMIT = re.compile(r"\A[0-9a-fA-F]{7,40}\Z")
+
+
+def _commit_subject(commit: str, root: Path) -> str | None:
+    """The recorded subject line of ``commit``, or None if unresolvable."""
+    try:
+        out = subprocess.run(
+            ["git", "log", "-1", "--format=%s", commit],
+            cwd=root, capture_output=True, check=False, text=True,
+        )
+    except OSError:
+        return None
+    if out.returncode != 0:
+        return None
+    return out.stdout.strip()
 
 
 def _blob_sha256(commit: str, rel: str, root: Path) -> str | None:
@@ -802,6 +1014,32 @@ def _verify_hops(record: dict, cited: str, current: str, rel_to_repo: str, root:
         got = hop.get("resulting_sha256")
         if not isinstance(commit, str) or not commit.strip():
             problems.append(f"hop {index} does not name a commit")
+        elif not _IMMUTABLE_COMMIT.match(commit.strip()):
+            # MUTABLE REFS ROT (dexter, ATH-3444 hold 5). A chain recorded as
+            # `HEAD~1` / `HEAD` verified today and means something different
+            # tomorrow -- published evidence whose truth value changes when
+            # somebody commits. A provenance record must name what it meant at
+            # the time it was written, so require an immutable object id.
+            problems.append(
+                f"hop {index} names {commit.strip()!r}, which is a MUTABLE ref -- "
+                f"a published chain must cite an immutable commit id, or the "
+                f"record silently changes meaning as the branch moves"
+            )
+        elif isinstance(hop.get("subject"), str):
+            # A displayed subject that is never checked is decoration that reads
+            # as evidence: the record can name a real commit and describe it as
+            # something else entirely.
+            actual_subject = _commit_subject(commit.strip(), root)
+            if actual_subject is None:
+                problems.append(
+                    f"hop {index} records a subject for {commit.strip()}, which "
+                    f"cannot be resolved to check it"
+                )
+            elif actual_subject != hop["subject"].strip():
+                problems.append(
+                    f"hop {index} says {commit.strip()} is {hop['subject'].strip()!r}, "
+                    f"but that commit is {actual_subject!r}"
+                )
         if not isinstance(got, str) or not _HEX64.match(got or ""):
             problems.append(f"hop {index} has no valid resulting_sha256")
             continue
@@ -854,10 +1092,25 @@ def _verify_hops(record: dict, cited: str, current: str, rel_to_repo: str, root:
     return problems
 
 
+def _json_documents(package: Path) -> list[Path]:
+    """Every JSON document, matched CASE-INSENSITIVELY on the suffix.
+
+    ``rglob("*.json")`` is case-sensitive on Linux (dexter, ATH-3444 hold 6a):
+    a manifest-bound ``EVIDENCE.JSON`` carrying a stale citation was never
+    opened, so the whole document was clean by virtue of its filename. The
+    manifest binds the file either way, so discovery must not be the narrower
+    of the two.
+    """
+    return [
+        item for item in package.rglob("*")
+        if item.is_file() and item.suffix.lower() == ".json"
+    ]
+
+
 def _verify_hash_citations(package: Path) -> list[str]:
     """Findings all contain the word "citation" -- callers select on it."""
     problems: list[str] = []
-    for path in sorted(package.rglob("*.json")):
+    for path in sorted(_json_documents(package)):
         rel = path.relative_to(REPO_ROOT)
         try:
             doc = json.loads(path.read_text(encoding="utf-8"))
@@ -888,8 +1141,32 @@ def _verify_hash_citations(package: Path) -> list[str]:
                 )
                 continue
             sha = sha.lower()
-            target = _resolve_citation_target(name, path.parent)
+            if citation.get("deleted_subject"):
+                problems.append(
+                    f"{rel}: BROKEN EVIDENCE LINK -- citation at {where} names "
+                    f"{name} with {sha[:12]}, but that file no longer exists in the "
+                    f"tree: the receipt attests to something that has been deleted"
+                )
+                continue
+            # Resolve against the base THIS ENTRY declares, never by try-order.
+            target, base = _resolve_citation_target(
+                name, path.parent, citation.get("base", "any")
+            )
+            if base == "ambiguous":
+                problems.append(
+                    f"{rel}: citation at {where} names {name}, which resolves BOTH "
+                    f"package-relative and repo-relative to different files -- the "
+                    f"entry does not say which it means, and guessing produces a "
+                    f"false STALE against whichever one it is not"
+                )
+                continue
             if target is None:
+                if _ever_existed(name, path.parent, citation.get("base", "any")):
+                    problems.append(
+                        f"{rel}: BROKEN EVIDENCE LINK -- citation at {where} names "
+                        f"{name}, which existed in history but is not in the tree now"
+                    )
+                    continue
                 problems.append(
                     f"{rel}: citation at {where} names {name}, which is not in the package"
                 )

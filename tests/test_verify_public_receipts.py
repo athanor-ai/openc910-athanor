@@ -720,6 +720,15 @@ def test_a_genuine_commit_reference_is_still_exempt(tmp_path: Path) -> None:
     assert _citation_problems(tmp_path) == []
 
 
+def _run_git(root: Path, *args: str) -> str:
+    """Run git in ``root`` with a deterministic identity (same env as
+    _git_repo_with_history, so tests that extend that history stay consistent)."""
+    env = {"GIT_AUTHOR_NAME": "t", "GIT_AUTHOR_EMAIL": "t@t", "GIT_COMMITTER_NAME": "t",
+           "GIT_COMMITTER_EMAIL": "t@t", "PATH": os.environ.get("PATH", "")}
+    return subprocess.run(("git", *args), cwd=root, capture_output=True, text=True,
+                          env=env, check=True).stdout.strip()
+
+
 def _git_repo_with_history(tmp_path: Path) -> tuple[Path, str, list[tuple[str, str]]]:
     """A REAL git repo whose NOTES.md has a two-transition history.
 
@@ -1042,3 +1051,155 @@ def test_no_rule_in_this_checker_keys_on_a_bare_container_name(tmp_path: Path) -
             f"{banned} keys a rule on a bare container name -- bind to the exact "
             f"parsed entry instead"
         )
+
+
+# ---------------------------------------------------------------------------
+# dexter's ATH-3444 round-4 holds. Each test is the exact construction from the
+# review, and each one FAILED before the fix beside it.
+# ---------------------------------------------------------------------------
+
+
+def test_a_malformed_path_object_cannot_opt_out_of_classification(tmp_path: Path) -> None:
+    """HOLD 2. Requiring `path` and `sha256` to be ALREADY VALID before treating
+    the object as a citation made validation opt-in for the subject: malform the
+    entry and it fell through to generic traversal, silently. Evidence the
+    subject can invalidate its way out of is a skip predicate it controls.
+
+    PRESENCE of either field selects the schema; the values are then checked.
+    """
+    package = _write_package(tmp_path)
+    (package / "gold.v").write_text("module gold; endmodule\n", encoding="utf-8")
+    _cite(package, {"synth": {"gold": {"path": "gold.v", "sha256": "not-a-hash"}}})
+    problems = _citation_problems(tmp_path)
+    assert any("does not carry a sha256 value" in p for p in problems), problems
+
+
+def test_a_deleted_evidence_subject_is_a_broken_link_not_silence(tmp_path: Path) -> None:
+    """HOLD 3. Classifying by CURRENT-TREE resolution meant deleting the subject
+    deleted the FINDING with it -- the strongest defect a receipt can have (the
+    file it attests to is gone) read as "not a citation".
+
+    "Does not resolve" has two causes and they are opposite verdicts: never
+    resolved is a semantic field; resolved-then-removed is a broken link.
+    """
+    package, _cited, _hops = _git_repo_with_history(tmp_path)
+    gone = package / "deleted.v"
+    gone.write_text("evidence\n", encoding="utf-8")
+    _run_git(tmp_path, "add", "-A")
+    _run_git(tmp_path, "commit", "-qm", "add the subject")
+    stale = _sha(gone)
+    gone.unlink()
+    _run_git(tmp_path, "add", "-A")
+    _run_git(tmp_path, "commit", "-qm", "delete the subject")
+    _cite(package, {"historical_outputs": {"deleted.v": stale}})
+    problems = _citation_problems(tmp_path)
+    assert any("BROKEN EVIDENCE LINK" in p for p in problems), problems
+
+
+def test_a_name_resolving_under_both_bases_is_ambiguous_not_guessed(tmp_path: Path) -> None:
+    """HOLD 4. Package-first-then-repo is a TRY-ORDER heuristic: when both bases
+    hold a file of that name with different bytes it silently picks one, and
+    picking wrong emits a FALSE STALE against published evidence -- which invites
+    a "correction" that rewrites a record that was right.
+
+    Fail closed and say the entry is ambiguous. Crucially: NO STALE finding.
+    """
+    package = _write_package(tmp_path)
+    (tmp_path / "shared.v").write_text("repo-root version\n", encoding="utf-8")
+    (package / "shared.v").write_text("package sibling, different\n", encoding="utf-8")
+    _cite(package, {"synth": {"g": {"path": "shared.v",
+                                    "sha256": _sha(tmp_path / "shared.v")}}})
+    problems = _citation_problems(tmp_path)
+    assert any("does not say which it means" in p for p in problems), problems
+    # The point of the hold: the wrong verdict must not be emitted at all.
+    assert not [p for p in problems if ": STALE citation at" in p], problems
+
+
+def test_a_hop_naming_a_mutable_ref_is_rejected(tmp_path: Path) -> None:
+    """HOLD 5a. A chain recorded as HEAD~1/HEAD verifies today and means
+    something else tomorrow: published evidence whose truth value changes when
+    somebody commits."""
+    package, cited, hops = _git_repo_with_history(tmp_path)
+    _cite(package, {"files": {"NOTES.md": cited}})
+    _supersede(package, "NOTES.md", {
+        "current": hops[-1][1], "superseded_by": "HEAD~1", "reason": "r",
+        "hops": [{"commit": "HEAD~1", "resulting_sha256": hops[0][1]},
+                 {"commit": "HEAD", "resulting_sha256": hops[-1][1]}],
+    })
+    problems = _citation_problems(tmp_path)
+    assert any("MUTABLE ref" in p for p in problems), problems
+
+
+def test_a_hop_subject_that_the_commit_does_not_carry_is_rejected(tmp_path: Path) -> None:
+    """HOLD 5b, the OTHER axis of the same hold. A displayed subject that is
+    never checked is decoration that reads as evidence: the record can name a
+    real commit and describe it as something else entirely."""
+    package, cited, hops = _git_repo_with_history(tmp_path)
+    _cite(package, {"files": {"NOTES.md": cited}})
+    _supersede(package, "NOTES.md", {
+        "current": hops[-1][1], "superseded_by": f"{hops[0][0]} (second)", "reason": "r",
+        "hops": [{"commit": hops[0][0], "resulting_sha256": hops[0][1],
+                  "subject": "A SUBJECT THIS COMMIT DOES NOT HAVE"},
+                 {"commit": hops[-1][0], "resulting_sha256": hops[-1][1]}],
+    })
+    problems = _citation_problems(tmp_path)
+    assert any("but that commit is" in p for p in problems), problems
+
+
+def test_a_true_hop_subject_is_accepted(tmp_path: Path) -> None:
+    """NARROWNESS companion to 5b: checking subjects must not red a true one."""
+    package, cited, hops = _git_repo_with_history(tmp_path)
+    _cite(package, {"files": {"NOTES.md": cited}})
+    _supersede(package, "NOTES.md", {
+        "current": hops[-1][1], "superseded_by": f"{hops[0][0]} (second)", "reason": "r",
+        "hops": [{"commit": hops[0][0], "resulting_sha256": hops[0][1], "subject": "second"},
+                 {"commit": hops[-1][0], "resulting_sha256": hops[-1][1], "subject": "third"}],
+    })
+    assert _citation_problems(tmp_path) == []
+
+
+def test_json_discovery_is_case_insensitive(tmp_path: Path) -> None:
+    """HOLD 6a. `rglob("*.json")` is case-sensitive on Linux, so a manifest-bound
+    EVIDENCE.JSON was never opened -- the document was clean by virtue of its
+    filename. The manifest binds it either way."""
+    package = _write_package(tmp_path)
+    (package / "NOTES.md").write_text("hello\n", encoding="utf-8")
+    (package / "EVIDENCE.JSON").write_text(
+        json.dumps({"files": {"NOTES.md": "a" * 64}}), encoding="utf-8")
+    problems = _citation_problems(tmp_path)
+    assert any("EVIDENCE.JSON" in p for p in problems), problems
+
+
+def test_a_commit_label_does_not_exempt_a_candidate_beside_it(tmp_path: Path) -> None:
+    """HOLD 6b. Scoping the exemption to a CLAUSE let one commit-ish word
+    suppress every abbreviated token sharing the sentence. Each token is typed by
+    its own nearest preceding label, not by a neighbour's."""
+    package = _write_package(tmp_path)
+    _receipt(package, {"summary":
+                       "source commit 93ce85e1 and candidate deadbeef01 was screened"})
+    problems = _citation_problems(tmp_path)
+    assert any("abbreviated citation deadbeef01" in p for p in problems), problems
+    assert not any("93ce85e1" in p for p in problems), problems
+
+
+def test_the_label_binding_is_ordering_not_distance(tmp_path: Path) -> None:
+    """THE REGRESSION I INTRODUCED FIXING 6b, caught by the existing suite.
+
+    My first per-token rule required the label within three characters of its
+    token -- which re-created the MAGIC CHARACTER DISTANCE an earlier hold had
+    already closed, just with a smaller number. Shrinking a window narrows a hole
+    without changing its kind. Nearest-preceding-label is defined by ORDERING
+    alone, so no distance appears in the rule at all.
+    """
+    package = _write_package(tmp_path)
+    _receipt(package, {"summary": "candidate " + "x" * 45 + " deadbeef01"})
+    problems = _citation_problems(tmp_path)
+    assert any("abbreviated citation deadbeef01" in p for p in problems), problems
+
+
+def test_an_unlabelled_abbreviated_token_claims_nothing(tmp_path: Path) -> None:
+    """NARROWNESS companion: a hex-looking token with no label preceding it is
+    not a citation claim, so binding to labels must not start flagging prose."""
+    package = _write_package(tmp_path)
+    _receipt(package, {"summary": "the value deadbeef01 appears in the log"})
+    assert _citation_problems(tmp_path) == []
