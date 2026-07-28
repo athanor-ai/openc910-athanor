@@ -29,7 +29,7 @@ def _git(root: Path, *args: str) -> None:
                    capture_output=True, env=_ENV)
 
 
-def _repo(tmp_path: Path, log_body: str, handles=("dexter",)) -> Path:
+def _repo(tmp_path: Path, log_body: str, handles=("someagent",)) -> Path:
     """A committed artifact tree whose denylist names ``handles``."""
     from athanor import export_safety_gate as esg
     hs = sorted(set(list(handles) + [f"fillerperson{i}" for i in range(esg.MIN_HANDLES)]))
@@ -56,10 +56,10 @@ def _findings(root: Path, monkeypatch) -> list[str]:
 
 
 def test_a_working_directory_named_after_an_agent_reds(tmp_path, monkeypatch) -> None:
-    root = _repo(tmp_path, "wrote .scratch/dexter_plic_scout/gate.v ok\n")
+    root = _repo(tmp_path, "wrote .scratch/someagent_plic_scout/gate.v ok\n")
     found = _findings(root, monkeypatch)
     assert len(found) == 1, found
-    assert "dexter_plic_scout" in found[0]
+    assert "someagent_plic_scout" in found[0]
 
 
 def test_the_yosys_cell_name_shape_is_reachable(tmp_path, monkeypatch) -> None:
@@ -69,17 +69,17 @@ def test_the_yosys_cell_name_shape_is_reachable(tmp_path, monkeypatch) -> None:
     a slash. The shape carrying ~95% of this fork's real population is a Yosys
     cell name where it follows ``$``:
 
-        $flatten\\x_sel.$logic_not$.scratch/dexter_plic_granu_scout/f.v:30$13699_gate
+        $flatten\\x_sel.$logic_not$.scratch/someagent_plic_granu_scout/f.v:30$13699_gate
 
     That prefix class found 21 of 412. Anchoring on the characters I had already
     seen constrained nothing except my own reach, so there is no prefix class at
     all now -- the scratch root is recognisable on its own.
     """
     body = ("Changing input A of cell $flatten\\x_sel.$logic_not$"
-            ".scratch/dexter_plic_granu_scout/gate.v:30$13699_gate ($logic_not)\n")
+            ".scratch/someagent_plic_granu_scout/gate.v:30$13699_gate ($logic_not)\n")
     found = _findings(_repo(tmp_path, body), monkeypatch)
     assert len(found) == 1, found
-    assert "dexter_plic_granu_scout" in found[0]
+    assert "someagent_plic_granu_scout" in found[0]
 
 
 def test_a_working_directory_not_named_after_anyone_passes(tmp_path, monkeypatch) -> None:
@@ -90,10 +90,10 @@ def test_a_working_directory_not_named_after_anyone_passes(tmp_path, monkeypatch
 
 
 def test_a_handle_that_is_only_a_substring_does_not_red(tmp_path, monkeypatch) -> None:
-    """NARROWNESS, the boundary case. `dexterity` contains `dexter` and names
+    """NARROWNESS, the boundary case. `someagentity` contains `someagent` and names
     nobody. Substring matching here would red on ordinary English and the
     finding would stop being believed."""
-    root = _repo(tmp_path, "wrote .scratch/dexterity_bench/gate.v ok\n")
+    root = _repo(tmp_path, "wrote .scratch/someagentity_bench/gate.v ok\n")
     assert _findings(root, monkeypatch) == []
 
 
@@ -103,14 +103,14 @@ def test_only_published_artifacts_are_in_scope(tmp_path, monkeypatch) -> None:
     root = _repo(tmp_path, "clean\n")
     internal = root / "athanor" / "notes.md"
     internal.parent.mkdir(parents=True, exist_ok=True)
-    internal.write_text("built in .scratch/dexter_local/x.v\n", encoding="utf-8")
+    internal.write_text("built in .scratch/someagent_local/x.v\n", encoding="utf-8")
     _git(root, "add", "-A")
     _git(root, "commit", "-qm", "internal note")
     assert _findings(root, monkeypatch) == []
 
 
 def test_an_unbaselined_finding_reds_and_a_baselined_one_does_not(tmp_path, monkeypatch) -> None:
-    root = _repo(tmp_path, "wrote .scratch/dexter_a/gate.v ok\n")
+    root = _repo(tmp_path, "wrote .scratch/someagent_a/gate.v ok\n")
     monkeypatch.setattr(chk, "REPO_ROOT", root)
     missing = root / "no_baseline.json"
     monkeypatch.setattr(chk, "BASELINE_PATH", missing)
@@ -118,7 +118,8 @@ def test_an_unbaselined_finding_reds_and_a_baselined_one_does_not(tmp_path, monk
 
     found, _ = chk.findings("HEAD", root)
     baseline = root / "b.json"
-    baseline.write_text(json.dumps({"entries": found}), encoding="utf-8")
+    baseline.write_text(json.dumps(
+        {"entries": [chk.finding_key(f) for f in found]}), encoding="utf-8")
     monkeypatch.setattr(chk, "BASELINE_PATH", baseline)
     assert chk.main(["--ref", "HEAD", "--root", str(root)]) == 0
 
@@ -131,16 +132,17 @@ def test_a_new_instance_in_an_ALREADY_BASELINED_FILE_still_reds(tmp_path, monkey
     exemption defect. This is the property that makes the baseline a receipt
     rather than a mute button.
     """
-    root = _repo(tmp_path, "wrote .scratch/dexter_a/gate.v ok\n")
+    root = _repo(tmp_path, "wrote .scratch/someagent_a/gate.v ok\n")
     monkeypatch.setattr(chk, "REPO_ROOT", root)
     found, _ = chk.findings("HEAD", root)
     baseline = root / "b.json"
-    baseline.write_text(json.dumps({"entries": found}), encoding="utf-8")
+    baseline.write_text(json.dumps(
+        {"entries": [chk.finding_key(f) for f in found]}), encoding="utf-8")
     monkeypatch.setattr(chk, "BASELINE_PATH", baseline)
     assert chk.main(["--ref", "HEAD", "--root", str(root)]) == 0
 
     log = root / "athanor_artifacts" / "pkt" / "run.log"
-    log.write_text(log.read_text() + "and .scratch/dexter_b/other.v too\n",
+    log.write_text(log.read_text() + "and .scratch/someagent_b/other.v too\n",
                    encoding="utf-8")
     _git(root, "add", "-A")
     _git(root, "commit", "-qm", "a second instance in the same file")
@@ -154,8 +156,9 @@ def test_an_orphaned_baseline_entry_reds(tmp_path, monkeypatch) -> None:
     monkeypatch.setattr(chk, "REPO_ROOT", root)
     baseline = root / "b.json"
     baseline.write_text(json.dumps(
-        {"entries": ["athanor_artifacts/pkt/run.log:1: working-directory segment "
-                     "'dexter_gone' is named after a fleet-agent handle"]}),
+        {"entries": [chk.finding_key(
+            "athanor_artifacts/pkt/run.log:1: working-directory segment "
+            "'someagent_gone' is named after a fleet-agent handle")]}),
         encoding="utf-8")
     monkeypatch.setattr(chk, "BASELINE_PATH", baseline)
     assert chk.main(["--ref", "HEAD", "--root", str(root)]) == 1
@@ -184,7 +187,7 @@ def test_absence_of_a_baseline_has_two_causes(tmp_path, monkeypatch, explicit, e
 def test_an_absent_default_baseline_makes_a_finding_LOUDER_not_quieter(tmp_path, monkeypatch) -> None:
     """The safety argument for the branch above, executed rather than asserted:
     deleting the baseline while an instance remains must red, not go silent."""
-    root = _repo(tmp_path, "wrote .scratch/dexter_a/gate.v ok\n")
+    root = _repo(tmp_path, "wrote .scratch/someagent_a/gate.v ok\n")
     monkeypatch.setattr(chk, "REPO_ROOT", root)
     monkeypatch.setattr(chk, "BASELINE_PATH", root / "no_such_baseline.json")
     assert chk.main(["--ref", "HEAD", "--root", str(root)]) == 1
@@ -195,7 +198,7 @@ def test_an_unparseable_denylist_is_rc2_not_a_clean_verdict(tmp_path, monkeypatc
     check knows no handles, so every tree looks compliant -- the most dangerous
     possible false green for a check about published exposure."""
     from athanor import export_safety_gate as esg
-    root = _repo(tmp_path, "wrote .scratch/dexter_a/gate.v ok\n")
+    root = _repo(tmp_path, "wrote .scratch/someagent_a/gate.v ok\n")
     monkeypatch.setattr(chk, "REPO_ROOT", root)
     (root / esg.DENYLIST_REL).write_text("{not json", encoding="utf-8")
     assert chk.main(["--ref", "HEAD", "--root", str(root)]) == 2
@@ -213,11 +216,11 @@ def test_the_shipped_baseline_matches_the_live_tree(tmp_path) -> None:
     assert errors == [], errors
     if not chk.BASELINE_PATH.is_file():
         assert found == [], (
-            "the baseline is gone but the checker still finds instances: "
-            f"{found[:3]}"
-        )
+            f"the baseline is gone but the checker still finds "
+            f"{len(found)} instance(s)")
         return
     entries = set(json.loads(chk.BASELINE_PATH.read_text())["entries"])
+    found = {chk.finding_key(f) for f in found}   # the baseline binds by DIGEST
     assert entries == set(found), (
         f"baseline drift: {len(entries - set(found))} orphaned, "
         f"{len(set(found) - entries)} unbaselined"
@@ -237,7 +240,7 @@ def test_the_verdict_reports_what_the_scope_excluded(tmp_path, monkeypatch, caps
     root = _repo(tmp_path, "clean, nothing here\n")
     internal = root / "athanor" / "notes.md"
     internal.parent.mkdir(parents=True, exist_ok=True)
-    internal.write_text("built in .scratch/dexter_local/x.v\n", encoding="utf-8")
+    internal.write_text("built in .scratch/someagent_local/x.v\n", encoding="utf-8")
     _git(root, "add", "-A")
     _git(root, "commit", "-qm", "an out-of-scope file")
 
@@ -257,7 +260,7 @@ def test_the_reported_scope_matches_the_population_actually_scanned(tmp_path, mo
     """The printed number must be DERIVED from the same predicate the scan uses,
     not a second count that can drift from it. Two derivations of one population
     is the defect this fork has hit repeatedly."""
-    root = _repo(tmp_path, "wrote .scratch/dexter_a/gate.v ok\n")
+    root = _repo(tmp_path, "wrote .scratch/someagent_a/gate.v ok\n")
     monkeypatch.setattr(chk, "REPO_ROOT", root)
     files, errs = chk._committed_files("HEAD", root)
     assert errs == [], errs

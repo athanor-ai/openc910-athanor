@@ -43,6 +43,7 @@ Exit codes: 0 clean-or-baselined, 1 finding, 2 could-not-establish.
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import re
 import subprocess
@@ -70,7 +71,7 @@ BASELINE_PATH = REPO_ROOT / "athanor" / "ath3397_known_scratch_paths.json"
 # NO PREFIX CLASS. The first version required the scratch root to follow
 # start-of-line, whitespace, a quote or a slash -- and the shape carrying ~95% of
 # this fork's population is a Yosys cell name, `$flatten\\x.$logic_not$.scratch/
-# dexter_.../f.v:30$13699_gate`, where it follows `$`. Anchoring on the
+# someagent_.../f.v:30$13699_gate`, where it follows `$`. Anchoring on the
 # characters I had seen found 21 of 412. The root is recognisable on its own;
 # constraining what may precede it constrains nothing but my own reach.
 _SCRATCH_ROOT = re.compile(
@@ -157,7 +158,7 @@ def findings(ref: str = "HEAD", root: Path = REPO_ROOT) -> tuple[list[str], list
             for match in _SCRATCH_ROOT.finditer(line):
                 segment = match.group("segment")
                 # A segment is named after a person if a denylisted handle appears
-                # as a WORD inside it -- `dexter_plic_granu_scout` does, `dexterity`
+                # as a WORD inside it -- `someagent_plic_granu_scout` does, `someagentity`
                 # would not, and neither would an unrelated `plic_granu_scout`.
                 for part in re.split(r"[._-]+", segment):
                     if part.lower() in handles:
@@ -170,6 +171,24 @@ def findings(ref: str = "HEAD", root: Path = REPO_ROOT) -> tuple[list[str], list
                             )
                         break
     return sorted(found), []
+
+
+def finding_key(finding: str) -> str:
+    """The baseline's stable, NEUTRALISED identity for one finding.
+
+    THE BASELINE MUST NOT STORE THE THING IT RECORDS (quan, #91). A known-leaks
+    file that quotes the sensitive string in cleartext is a CONCENTRATED COPY of
+    the leak -- 367 verbatim reproductions of a fleet-agent handle, in the diff,
+    on a PUBLIC fork -- and the handle scan correctly reds on the baseline
+    itself. Allowlisting the baseline in the gate would have shipped the gate
+    and the hole together.
+
+    So the entry is the sha256 of the whole finding. That keeps the property the
+    baseline exists for -- it binds to the WHOLE finding, so a NEW instance in
+    an already-listed file has a different digest and still reds -- while
+    carrying none of the text. Same shape as the ATH-3444 hash-derived baseline.
+    """
+    return hashlib.sha256(finding.encode("utf-8")).hexdigest()
 
 
 def _baseline(path: Path, explicit: bool) -> tuple[set[str], list[str]]:
@@ -221,7 +240,8 @@ def main(argv: list[str] | None = None) -> int:
                    "NORMALISATION, not accepted state. Entries leave as they are "
                    "corrected; delete the file when empty.",
             "corrected_by": "ATH-3397 scratch-path normalisation",
-            "entries": found,
+            "entries": sorted(finding_key(f) for f in found),
+            "entry_count": len(found),
         }, indent=1))
         return 0
 
@@ -235,8 +255,9 @@ def main(argv: list[str] | None = None) -> int:
                 print(f"TOOL-ERROR: {e}; NO VERDICT.", file=sys.stderr)
             return 2
 
-    unbaselined = [f for f in found if f not in known]
-    orphaned = sorted(known - set(found))
+    by_key = {finding_key(f): f for f in found}
+    unbaselined = [by_key[k] for k in sorted(by_key) if k not in known]
+    orphaned = sorted(known - set(by_key))
 
     if orphaned:
         print(
