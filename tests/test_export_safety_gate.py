@@ -666,3 +666,28 @@ def test_artifact_extension_match_is_case_insensitive(tmp_path, monkeypatch):
         block, _, _ = _scan(tmp_path / f"e{i}",
                             {f"athanor_artifacts/pkt/{name}": '{"r": "' + _H_A + '"}\n'})
         assert _has(block, "fleet-agent handle"), f"{name} was not scanned"
+
+
+def test_path_scope_decisions_are_case_insensitive(tmp_path, monkeypatch):
+    # THE FIFTH INSTANCE of the compute-then-ignore family (asabi: at four, the file
+    # needs a structural pass). Scope was decided on the RAW path, so
+    # Athanor_Artifacts/pkt/receipt.json escaped OUR_ADDED_PREFIXES and was never
+    # scanned at all. Every decision now consumes the normalised path_key; the raw
+    # path survives only for DISPLAY.
+    monkeypatch.setattr(esg, "HANDLE_FINDING_TIER", "block")
+    for i, rel in enumerate((
+        "athanor_artifacts/pkt/receipt.json",
+        "Athanor_Artifacts/pkt/receipt.json",
+        "ATHANOR_ARTIFACTS/pkt/RECEIPT.JSON",
+    )):
+        block, _, _ = _scan(tmp_path / f"p{i}", {rel: '{"r": "' + _H_A + '"}\n'})
+        assert _has(block, "fleet-agent handle"), f"scope missed: {rel}"
+
+
+def test_findings_display_the_original_path_casing(tmp_path, monkeypatch):
+    # the raw path must still be what a reader sees, or the finding points at a file
+    # that does not exist. Normalise for DECISIONS, display the original.
+    monkeypatch.setattr(esg, "HANDLE_FINDING_TIER", "block")
+    block, _, _ = _scan(tmp_path, {"Athanor_Artifacts/pkt/RECEIPT.JSON":
+                                   '{"r": "' + _H_A + '"}\n'})
+    assert any("Athanor_Artifacts/pkt/RECEIPT.JSON" in b for b in block), block

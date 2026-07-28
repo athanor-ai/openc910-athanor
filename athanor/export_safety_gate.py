@@ -187,6 +187,12 @@ HANDLE_SCAN_EXEMPT_PATHS: dict[str, str] = {
     DENYLIST_REL: "the denylist DATA file; holds every handle verbatim by design",
 }
 
+# Lowered companions of the path constants, DERIVED once so the scan compares like
+# with like. Derived rather than hand-maintained — a second literal list would be
+# the duplicated-knowledge defect one layer over.
+_OUR_ADDED_PREFIXES_LOWER = tuple(x.lower() for x in OUR_ADDED_PREFIXES)
+_HANDLE_SCAN_EXEMPT_PATHS_LOWER = {x.lower() for x in HANDLE_SCAN_EXEMPT_PATHS}
+
 
 def _load_agent_handles(ref: str, root: Path) -> list[str]:
     """Load the fork-local fleet-handle denylist and verify its integrity stamp.
@@ -382,15 +388,26 @@ def _scan_committed(ref: str, root: Path) -> tuple[list[str], list[str], list[st
     warn: list[str] = []
     skipped: list[str] = []
     for path in _committed_paths(ref, root):
-        dot = path.rfind(".")
-        ext = path[dot:].lower() if dot >= 0 else ""
+        # STRUCTURAL PASS (asabi ruling, #76): this file has produced FOUR bypasses
+        # of one family — a value computed correctly and then not read
+        # (stamp-vs-content, entries-vs-distinct, validated-set-vs-used-set,
+        # normalised-ext-vs-raw-suffix). A fifth was live: path decisions were made
+        # on the RAW path, so Athanor_Artifacts/pkt/receipt.json escaped
+        # OUR_ADDED_PREFIXES entirely and was never scanned.
+        #
+        # INVARIANT: every DECISION below consumes `path_key`, the normalised form.
+        # The raw `path` survives only to be DISPLAYED in a finding, never to decide
+        # one. No raw twin beside a normalised value.
+        path_key = path.lower()
+        dot = path_key.rfind(".")
+        ext = path_key[dot:] if dot >= 0 else ""
         data = _committed_bytes(ref, path, root)
         if ext in BINARY_ASSET_EXT or b"\x00" in data:
             skipped.append(path)
             continue
         # Ambiguous host-path patterns fire only in files WE author; upstream's
         # own host paths (its .circleci etc.) are public-upstream content.
-        in_our_scope = path.startswith(OUR_ADDED_PREFIXES)
+        in_our_scope = path_key.startswith(_OUR_ADDED_PREFIXES_LOWER)
         block_res = always_res + scoped_res if in_our_scope else always_res
         for lineno, line in enumerate(data.split(b"\n"), 1):
             shown = line.decode("utf-8", "replace").strip()[:200]
@@ -404,7 +421,7 @@ def _scan_committed(ref: str, root: Path) -> tuple[list[str], list[str], list[st
                 # dexter (#76): `ext` is already normalised to lower case above;
                 # path.endswith() ignored it, so RECEIPT.JSON was never scanned.
                 and ext in HANDLE_SCAN_ARTIFACT_EXTS
-                and path not in HANDLE_SCAN_EXEMPT_PATHS
+                and path_key not in _HANDLE_SCAN_EXEMPT_PATHS_LOWER
             ):
                 for label, rx in agent_res:
                     if rx.search(line):
