@@ -78,9 +78,19 @@ def assert_surface_is_coherent(root: Path) -> None:
     `pytest.raises`, so deleting the real assertion left them green -- they
     tested a copy of the invariant while the invariant itself went unguarded.
 
-    Routing every caller through one helper makes the controls load-bearing:
-    neuter this function and the live test AND all three controls go red
-    together.
+    Routing every caller through one helper makes the CONTROLS load-bearing.
+    Measured, because the honest result is narrower than "everything reds":
+
+        neuter this function's body   7 of 10 red -- contradiction, silence,
+                                      and all 5 malformed params. The LIVE
+                                      test PASSES VACUOUSLY.
+        restore the bool() cast       5 of 10 red -- exactly the 5 malformed
+                                      params, nothing else perturbed.
+
+    A positive test cannot kill a mutation that deletes the assertion it
+    depends on -- removing an assertion is exactly what makes it pass. Only
+    the controls can catch that, which is the whole reason they must not
+    re-implement what they guard.
     """
     claimed = _claimed_ready(root)
     readme_flat = " ".join((root / "README.md").read_text(encoding="utf-8").split())
