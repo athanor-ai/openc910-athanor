@@ -41,12 +41,31 @@ def _workflow_text() -> str:
 
 
 def test_the_pin_is_defined_exactly_once_and_is_exact():
-    """ONE definition, and `==` rather than `<` or `>=`."""
+    """ONE definition, and `==` rather than `<` or `>=`.
+
+    BOTH SPELLINGS COUNT. The first version matched only the YAML `KEY: value`
+    form, so a SHELL assignment inside a `run:` block was invisible to it:
+
+        PYTEST_PIN="pytest==8.0.0"
+        python3 -m pip install --quiet "$PYTEST_PIN"
+
+    That shadows the workflow env for that step, installs an entirely
+    different version, and satisfies the anti-drift test below because the
+    line does reference the variable. Four tests green, pytest 8.0.0
+    installed. (bob, openc910 #87, executed.)
+
+    A definition counter that knows one of the two ways to define the thing is
+    a presence check wearing a stronger name.
+    """
     text = _workflow_text()
-    definitions = re.findall(rf"^\s*{_PIN_VAR}\s*:\s*(.+)$", text, re.M)
+    yaml_defs = re.findall(rf"^\s*{_PIN_VAR}\s*:\s*(.+)$", text, re.M)
+    shell_defs = re.findall(rf"^\s*(?:export\s+)?{_PIN_VAR}=(.+)$", text, re.M)
+    definitions = yaml_defs + shell_defs
     assert len(definitions) == 1, (
-        f"expected exactly one {_PIN_VAR} definition, found {len(definitions)}: "
-        f"{definitions}. Two definitions is two versions waiting to diverge."
+        f"expected exactly one {_PIN_VAR} definition, found {len(definitions)} "
+        f"({len(yaml_defs)} YAML, {len(shell_defs)} shell): {definitions}. "
+        f"Two definitions is two versions waiting to diverge -- and a shell "
+        f"assignment in a run block silently shadows the workflow env."
     )
     value = definitions[0].strip().strip('"').strip("'")
     assert re.fullmatch(r"pytest==\d+(\.\d+)*", value), (
