@@ -116,7 +116,7 @@
     "No whole C910, BOOM, ISA, memory-consistency, speculation, or whole-chip authority is claimed.",
     "Same-candidate metric screen is measured and rejects full area/timing/OpenSTA-estimated-power promotion because OpenSTA max data-arrival regresses."
   ],
-  "review_ruling": "Ronald accepted the bridge-plus-relation proof shape for module-local visible-output equivalence wording on 2026-07-13. The supported wording is limited to the visible outputs under the reset-first contract and the non-claims above.",
+  "review_ruling": "The independent reviewer accepted the bridge-plus-relation proof shape for module-local visible-output equivalence wording on 2026-07-13. The supported wording is limited to the visible outputs under the reset-first contract and the non-claims above.",
   "lean_fallback": {
     "reason": "no discharged Lean theorem binds THIS candidate netlist; the Pythia discharged theorems are FifoWidget toy pilots, none bind a real C910 candidate. Graduation to lean_authority = ATH-2976 debt: discharge a Lean refinement SHA-bound to this candidate.",
     "strongest_evidence": "Yosys state_exposed_relation_tempinduct_seq8 (temporal induction closes over state-exposed copies asserting visible outputs + create/pop pointer + valid vector + stored data) + debug_wrapper_passivity (script-checked) + state_exposed_relation_mutant_negative (biting control); visible-output bounded via exact_output_bmc seq6/seq12",

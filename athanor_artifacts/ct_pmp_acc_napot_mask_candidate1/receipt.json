@@ -123,7 +123,7 @@
   },
   "independent_replay": {
     "status": "passed",
-    "reviewer": "platypus",
+    "reviewer": "independent-non-author",
     "summary": "non-author replay reproduced all four mapped netlists byte-exact against the packet sha256s, both proofs proved, the NAPOT mutant failed with exactly 2 unproven cells, and the STA readings matched to the digit including the helper 2.24 -> 2.57 ns regression and parent 3.58 -> 3.51 ns improvement"
   },
   "next_independent_check": {

@@ -146,7 +146,7 @@
   ],
   "independent_replay": {
     "status": "passed",
-    "reviewer": "platypus",
+    "reviewer": "independent-non-author",
     "summary": "non-author replay reproduced the packet bit-for-bit under the pinned Yosys/OpenSTA/Sky130 suite: mapped netlists matched package sha256s, equivalence proved, proof mutant left exactly 2 unproven cells, area/timing/power matched to the recorded values, and the metric-negative candidate redded all three axes"
   },
   "lean_fallback": {

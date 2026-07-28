@@ -56,6 +56,38 @@ jobs:
         if: github.event_name == 'pull_request' || github.event_name == 'push'
         run: python3 athanor/verify_public_receipts.py
 
+      # ATH-3397 scrub safety. Narrow BY DESIGN: for every file this PR edits, has
+      # every occurrence of that file's OLD hash been updated? It does not classify
+      # citations -- the population is a list of old hashes the diff already gives
+      # us, and a literal string cannot be misjudged. That covers SHA256SUMS lines,
+      # inline receipt maps, prose, replay scripts and file types no classifier
+      # inspects, which is what a scrub actually needs.
+      - name: Scrub hash closure (no pre-scrub hash survives)
+        if: github.event_name == 'pull_request'
+        run: |
+          # Bind the denominator to the IMMUTABLE PR event base SHA, not to a
+          # moving branch ref. origin/<base_ref> is fetched fresh at job time, so
+          # if the base branch advances after the merge ref was synthesized the
+          # check measures a different base than the tree it is checking -- and
+          # can return clean on a tree the correct base reds.
+          BASE="${{ github.event.pull_request.base.sha }}"
+          git rev-parse --verify "$BASE^{commit}" >/dev/null 2>&1 \
+            || git fetch --quiet origin "$BASE"
+          python3 athanor/check_scrub_hash_closure.py --base "$BASE"
+
+      - name: Verify scrub hash closure bites (regression protection)
+        # A checker's SELF-TESTS validate the INSTRUMENT; the gate's verdict is about
+        # the SUBJECT. GitHub's default step condition implies success(), so a failing
+        # gate skipped its own regression tests -- they could only run when the gate
+        # had nothing to report, and a gate that quietly broke could never be shown
+        # broken. !cancelled() rather than always(): same reach over a FAILED gate,
+        # without also running on a cancelled run. The ${{ }} is required -- a bare
+        # leading '!' is a YAML tag indicator and the workflow then fails to PARSE.
+        if: ${{ !cancelled() && (github.event_name == 'pull_request' || github.event_name == 'push') }}
+        run: |
+          python3 -m pip install --quiet pytest
+          PYTHONPATH=. python3 -m pytest -q tests/test_check_scrub_hash_closure.py
+
       - name: Public README contract
         if: github.event_name == 'pull_request' || github.event_name == 'push'
         run: python3 athanor/check_public_readme.py
@@ -80,7 +112,14 @@ jobs:
       # _verify_customer_ready_authority leaves the live verifier at exit 0 but
       # reds these bites. Reads the committed tree -> same PR/push gate.
       - name: Verify receipt-verifier bites (regression protection for the verifier)
-        if: github.event_name == 'pull_request' || github.event_name == 'push'
+        # A checker's SELF-TESTS validate the INSTRUMENT; the gate's verdict is about
+        # the SUBJECT. GitHub's default step condition implies success(), so a failing
+        # gate skipped its own regression tests -- they could only run when the gate
+        # had nothing to report, and a gate that quietly broke could never be shown
+        # broken. !cancelled() rather than always(): same reach over a FAILED gate,
+        # without also running on a cancelled run. The ${{ }} is required -- a bare
+        # leading '!' is a YAML tag indicator and the workflow then fails to PARSE.
+        if: ${{ !cancelled() && (github.event_name == 'pull_request' || github.event_name == 'push') }}
         run: |
           python3 -m pip install --quiet pytest
           PYTHONPATH=. python3 -m pytest -q tests/test_verify_public_receipts.py
@@ -93,7 +132,14 @@ jobs:
       # and the seeded-secret sole-discriminator bite, so a mutation to the gate
       # patterns REDS in CI instead of passing silently.
       - name: Verify export-safety gate bites (regression protection for the leak scanner)
-        if: github.event_name == 'pull_request' || github.event_name == 'push'
+        # A checker's SELF-TESTS validate the INSTRUMENT; the gate's verdict is about
+        # the SUBJECT. GitHub's default step condition implies success(), so a failing
+        # gate skipped its own regression tests -- they could only run when the gate
+        # had nothing to report, and a gate that quietly broke could never be shown
+        # broken. !cancelled() rather than always(): same reach over a FAILED gate,
+        # without also running on a cancelled run. The ${{ }} is required -- a bare
+        # leading '!' is a YAML tag indicator and the workflow then fails to PARSE.
+        if: ${{ !cancelled() && (github.event_name == 'pull_request' || github.event_name == 'push') }}
         run: |
           python3 -m pip install --quiet pytest
           PYTHONPATH=. python3 -m pytest -q tests/test_export_safety_gate.py
@@ -106,7 +152,14 @@ jobs:
       # mismatched tool (reproducing nothing, or the wrong bytes) REDS in CI. Same
       # "un-gated unless named" hazard as the verifier/gate bites above.
       - name: Verify one-command replay wrapper bites (ATH-3010)
-        if: github.event_name == 'pull_request' || github.event_name == 'push'
+        # A checker's SELF-TESTS validate the INSTRUMENT; the gate's verdict is about
+        # the SUBJECT. GitHub's default step condition implies success(), so a failing
+        # gate skipped its own regression tests -- they could only run when the gate
+        # had nothing to report, and a gate that quietly broke could never be shown
+        # broken. !cancelled() rather than always(): same reach over a FAILED gate,
+        # without also running on a cancelled run. The ${{ }} is required -- a bare
+        # leading '!' is a YAML tag indicator and the workflow then fails to PARSE.
+        if: ${{ !cancelled() && (github.event_name == 'pull_request' || github.event_name == 'push') }}
         run: |
           python3 -m pip install --quiet pytest
           PYTHONPATH=. python3 -m pytest -q tests/test_replay_public_receipt.py

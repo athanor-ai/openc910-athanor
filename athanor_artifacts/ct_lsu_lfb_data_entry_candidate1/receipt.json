@@ -178,7 +178,7 @@
   },
   "independent_reviews": [
     {
-      "reviewer": "quan",
+      "reviewer": "independent-qa",
       "date": "2026-07-15",
       "status": "confirmed_non_author_replay",
       "summary": "fresh scratch replay under pinned Yosys 0.66+181 and OpenSTA 2.2.0 reproduced SHA256SUMS, 560/560 same-state proof, shifted-address mutant red with 8 unproven cells, byte-exact mapped netlists, area, timing, estimated power, and metric-negative controls"

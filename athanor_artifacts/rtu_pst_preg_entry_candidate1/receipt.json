@@ -110,9 +110,9 @@
     "Legacy proof packet: selected Sky130 local and top-with-deps area improve here; full-PPA claims require the separate same-candidate metric packet.",
     "No whole RTU, whole C910, BOOM, ISA, memory-consistency, speculation, composed-optimization, or whole-chip authority is claimed."
   ],
-  "review_ruling": "Ronald cold replay and Quan adversarial QA support promotion to accepted module-local visible-output relation packet with the stated boundaries.",
+  "review_ruling": "Independent cold replay and adversarial QA support promotion to accepted module-local visible-output relation packet with the stated boundaries.",
   "independent_reviews": {
-    "ronald_cold_replay": {
+    "independent_cold_replay": {
       "status": "passed",
       "source": "Slack receipt 2026-07-13 15:22 PT on openc910-athanor main 7154a19",
       "checks": [
@@ -124,7 +124,7 @@
         "relation induction and packet mutant logs match receipt"
       ]
     },
-    "quan_adversarial_qa": {
+    "adversarial_qa": {
       "status": "passed",
       "source": "Slack receipt 2026-07-13 15:30 PT after PST adversarial QA",
       "checks": [
