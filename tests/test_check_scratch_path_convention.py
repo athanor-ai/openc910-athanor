@@ -222,3 +222,45 @@ def test_the_shipped_baseline_matches_the_live_tree(tmp_path) -> None:
         f"baseline drift: {len(entries - set(found))} orphaned, "
         f"{len(set(found) - entries)} unbaselined"
     )
+
+
+def test_the_verdict_reports_what_the_scope_excluded(tmp_path, monkeypatch, capsys) -> None:
+    """A SCOPE THAT EXCLUDES MEMBERS MUST REPORT WHAT IT EXCLUDED.
+
+    asabi's standing rule (2026-07-28 10:51 AM PT), adopted from my own #956
+    finding — and this checker was violating it an hour after I filed it. It
+    examines published artifacts only and silently dropped 643 of 1241
+    committed files on the live tree. The scope is CORRECT; a reader of a clean
+    verdict simply could not distinguish a scanned tree from a mostly skipped
+    one. Both numbers now print on every verdict path.
+    """
+    root = _repo(tmp_path, "clean, nothing here\n")
+    internal = root / "athanor" / "notes.md"
+    internal.parent.mkdir(parents=True, exist_ok=True)
+    internal.write_text("built in .scratch/dexter_local/x.v\n", encoding="utf-8")
+    _git(root, "add", "-A")
+    _git(root, "commit", "-qm", "an out-of-scope file")
+
+    monkeypatch.setattr(chk, "REPO_ROOT", root)
+    monkeypatch.setattr(chk, "BASELINE_PATH", root / "no_baseline.json")
+    assert chk.main(["--ref", "HEAD", "--root", str(root)]) == 0
+    out = capsys.readouterr().out
+
+    examined, excluded, errors = chk.scope("HEAD", root)
+    assert errors == [], errors
+    assert excluded > 0, "fixture must actually exclude something or this proves nothing"
+    assert f"{examined} published artifact(s) examined" in out, out
+    assert f"{excluded} file(s) outside athanor_artifacts/ NOT examined" in out, out
+
+
+def test_the_reported_scope_matches_the_population_actually_scanned(tmp_path, monkeypatch) -> None:
+    """The printed number must be DERIVED from the same predicate the scan uses,
+    not a second count that can drift from it. Two derivations of one population
+    is the defect this fork has hit repeatedly."""
+    root = _repo(tmp_path, "wrote .scratch/dexter_a/gate.v ok\n")
+    monkeypatch.setattr(chk, "REPO_ROOT", root)
+    files, errs = chk._committed_files("HEAD", root)
+    assert errs == [], errs
+    examined, excluded, _ = chk.scope("HEAD", root)
+    assert examined + excluded == len(files)
+    assert examined == sum(1 for f in files if f.startswith("athanor_artifacts/"))

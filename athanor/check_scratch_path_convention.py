@@ -107,6 +107,27 @@ def _committed_files(ref: str, root: Path) -> tuple[list[str], list[str]]:
     return [l for l in out.stdout.splitlines() if l.strip()], []
 
 
+def scope(ref: str = "HEAD", root: Path = REPO_ROOT) -> tuple[int, int, list[str]]:
+    """(examined, excluded, tool_errors) over the committed tree.
+
+    A SCOPE THAT EXCLUDES MEMBERS MUST REPORT WHAT IT EXCLUDED (asabi, fleet
+    standing rule 2026-07-28 10:51 AM PT -- adopted from my own #956 finding,
+    and this checker was violating it an hour after I filed it).
+
+    This one examines published artifacts only and drops 643 of 1241 committed
+    files. That is the right scope -- internal tooling may name its scratch
+    dirs however it likes, the claim is about what we PUBLISH -- but a reader
+    of a clean verdict could not previously tell a scanned tree from a mostly
+    skipped one. The numbers go in the verdict so the scope is auditable
+    rather than assumed.
+    """
+    files, errs = _committed_files(ref, root)
+    if errs:
+        return 0, 0, errs
+    examined = sum(1 for f in files if f.startswith("athanor_artifacts/"))
+    return examined, len(files) - examined, []
+
+
 def findings(ref: str = "HEAD", root: Path = REPO_ROOT) -> tuple[list[str], list[str]]:
     """(findings, tool_errors). A tool error is never a verdict."""
     handles, errs = _handles()
@@ -176,6 +197,11 @@ def main(argv: list[str] | None = None) -> int:
     args = parser.parse_args(argv)
 
     found, errs = findings(args.ref, args.root)
+    examined, excluded, scope_errs = scope(args.ref, args.root)
+    _scope_line = (
+        f"\n  scope: {examined} published artifact(s) examined; {excluded} file(s) "
+        f"outside athanor_artifacts/ NOT examined."
+    ) if not scope_errs else ""
     if errs:
         for e in errs:
             print(f"TOOL-ERROR: {e}; NO VERDICT.", file=sys.stderr)
@@ -229,11 +255,12 @@ def main(argv: list[str] | None = None) -> int:
 
     if known:
         print(f"KNOWN (ATH-3397): {len(known)} baselined scratch-path instance(s) "
-              f"still present -- defects awaiting normalisation, not accepted state.")
+              f"still present -- defects awaiting normalisation, not accepted state."
+              f"{_scope_line}")
         return 0
 
     print(f"OK: no published artifact carries a working-directory path named after a "
-          f"fleet agent ({args.ref}).")
+          f"fleet agent ({args.ref}).{_scope_line}")
     return 0
 
 
