@@ -495,3 +495,111 @@ def test_unreadable_receipt_fails_closed(tmp_path: Path) -> None:
     _repin(package)
     problems = verify_public_receipts.verify(tmp_path)
     assert any("could not read for citation check" in p for p in problems), problems
+
+
+# --- supersession: the remedy, and the guard against it becoming a loophole ----
+
+
+def _supersede(package: Path, name: str, record: dict[str, Any]) -> None:
+    receipt = json.loads((package / "receipt.json").read_text(encoding="utf-8"))
+    receipt.setdefault("files_supersession", {})[name] = record
+    (package / "receipt.json").write_text(json.dumps(receipt, indent=2) + "\n", encoding="utf-8")
+    _repin(package)
+
+
+def _stale_package(tmp_path: Path) -> Path:
+    """A package whose receipt cites NOTES.md at a hash the file no longer has."""
+    package = _write_package(tmp_path)
+    (package / "NOTES.md").write_text("original\n", encoding="utf-8")
+    _cite(package, {"files": {"NOTES.md": _sha(package / "NOTES.md")}})
+    (package / "NOTES.md").write_text("edited later by another PR\n", encoding="utf-8")
+    _repin(package)
+    return package
+
+
+def test_supersession_with_matching_current_is_accepted(tmp_path: Path) -> None:
+    """Without this the 13 stay red forever and the gate is unsatisfiable."""
+    package = _stale_package(tmp_path)
+    assert _citation_problems(tmp_path) != []
+    _supersede(package, "NOTES.md", {
+        "current": _sha(package / "NOTES.md"),
+        "superseded_by": "#54 / 0743b51",
+        "reason": "one-command replay added after this receipt was written",
+    })
+    assert _citation_problems(tmp_path) == []
+
+
+def test_supersession_claiming_the_wrong_current_still_reds(tmp_path: Path) -> None:
+    """NARROWNESS: the remedy must not become the loophole."""
+    package = _stale_package(tmp_path)
+    _supersede(package, "NOTES.md", {
+        "current": "f" * 64,
+        "superseded_by": "#54 / 0743b51",
+        "reason": "whatever",
+    })
+    problems = _citation_problems(tmp_path)
+    assert any("claims current" in p for p in problems), problems
+
+
+def test_supersession_missing_provenance_fields_reds(tmp_path: Path) -> None:
+    """A supersession that does not say what changed it is not a record."""
+    package = _stale_package(tmp_path)
+    _supersede(package, "NOTES.md", {"current": _sha(package / "NOTES.md")})
+    problems = _citation_problems(tmp_path)
+    assert any("missing superseded_by, reason" in p for p in problems), problems
+
+
+def test_supersession_record_for_an_unchanged_citation_reds(tmp_path: Path) -> None:
+    """Stale bookkeeping would rot into cover for a later real drift."""
+    package = _write_package(tmp_path)
+    (package / "NOTES.md").write_text("stable\n", encoding="utf-8")
+    _cite(package, {"files": {"NOTES.md": _sha(package / "NOTES.md")}})
+    _supersede(package, "NOTES.md", {
+        "current": _sha(package / "NOTES.md"),
+        "superseded_by": "#54",
+        "reason": "none",
+    })
+    problems = _citation_problems(tmp_path)
+    assert any("supersession record claims it was superseded" in p for p in problems), problems
+
+
+def test_the_original_hash_remains_the_primary_value(tmp_path: Path) -> None:
+    """The receipt must keep asserting what it actually claimed at the time."""
+    package = _stale_package(tmp_path)
+    original = json.loads((package / "receipt.json").read_text(encoding="utf-8"))["files"]["NOTES.md"]
+    _supersede(package, "NOTES.md", {
+        "current": _sha(package / "NOTES.md"),
+        "superseded_by": "#54 / 0743b51",
+        "reason": "one-command replay added after this receipt was written",
+    })
+    receipt = json.loads((package / "receipt.json").read_text(encoding="utf-8"))
+    assert receipt["files"]["NOTES.md"] == original
+    assert receipt["files_supersession"]["NOTES.md"]["current"] != original
+
+
+def test_every_citation_finding_says_citation(tmp_path: Path) -> None:
+    """Force the convention instead of trusting it.
+
+    Callers (and these tests) select citation findings by the word "citation".
+    A finding phrased without it is silently invisible -- which already happened
+    twice while building this check. This asserts the property rather than
+    re-checking each message by eye.
+    """
+    package = _stale_package(tmp_path)
+    cases = [
+        {},                                                        # no record -> STALE
+        {"current": "f" * 64, "superseded_by": "#54", "reason": "x"},  # wrong current
+        {"current": _sha(package / "NOTES.md")},                    # missing provenance
+    ]
+    for record in cases:
+        receipt = json.loads((package / "receipt.json").read_text(encoding="utf-8"))
+        if record:
+            receipt["files_supersession"] = {"NOTES.md": record}
+        else:
+            receipt.pop("files_supersession", None)
+        (package / "receipt.json").write_text(json.dumps(receipt, indent=2) + "\n", encoding="utf-8")
+        _repin(package)
+        problems = [p for p in verify_public_receipts.verify(tmp_path) if "NOTES.md" in p]
+        assert problems, f"no finding at all for record={record}"
+        for problem in problems:
+            assert "citation" in problem, f"finding is invisible to callers: {problem}"

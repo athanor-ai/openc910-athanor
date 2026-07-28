@@ -600,6 +600,34 @@ _CITATION_EXTERNAL_KEYS = (
 _CITATION_COMMIT_MARKERS = ("commit", "source_commit", "cache_key", "gold_cache_key", "gate_cache_key")
 
 
+def _supersession_records(doc: object) -> dict[str, dict]:
+    """Collect ``<key>_supersession`` maps of ``name -> record`` anywhere in a receipt.
+
+    Supersession is how a receipt stays TRUE when a file it cited is later changed
+    on purpose: the ORIGINAL hash remains the primary value -- it is what the
+    receipt actually claimed -- and the current hash is recorded additively with
+    the reason. Rewriting the primary value instead would make the receipt assert
+    something about a file version that did not exist when it was written.
+    """
+    found: dict[str, dict] = {}
+    def walk(node: object) -> None:
+        if isinstance(node, dict):
+            for key, value in node.items():
+                if key.endswith("_supersession") and isinstance(value, dict):
+                    for name, record in value.items():
+                        if isinstance(record, dict):
+                            found[name] = record
+                walk(value)
+        elif isinstance(node, list):
+            for item in node:
+                walk(item)
+    walk(doc)
+    return found
+
+
+_SUPERSESSION_REQUIRED = ("current", "superseded_by", "reason")
+
+
 def _verify_hash_citations(package: Path) -> list[str]:
     problems: list[str] = []
     local: set[str] = set()
@@ -618,6 +646,12 @@ def _verify_hash_citations(package: Path) -> list[str]:
             # Fail closed: an unreadable receipt is NOT a clean receipt.
             problems.append(f"{rel}: could not read for citation check ({exc})")
             continue
+        try:
+            supersessions = _supersession_records(json.loads(text))
+        except json.JSONDecodeError:
+            # Malformed JSON is reported by _verify_receipt_json; here it means we
+            # cannot honour supersession records, so no citation may rely on one.
+            supersessions = {}
         for lineno, line in enumerate(text.splitlines(), 1):
             for match in _CITATION_NAME_BOUND.finditer(line):
                 name, sha = match.group("name"), match.group("sha")
@@ -631,10 +665,36 @@ def _verify_hash_citations(package: Path) -> list[str]:
                     problems.append(f"{rel}:{lineno}: citation names {name}, which is not in the package")
                     continue
                 got = _sha256(target)
-                if got != sha:
+                record = supersessions.get(name)
+                if got == sha:
+                    # A supersession record for a citation that still matches is
+                    # stale bookkeeping -- it would rot silently into cover for a
+                    # later real drift.
+                    if record is not None:
+                        problems.append(
+                            f"{rel}:{lineno}: citation of {name} matches the file, but a "
+                            f"supersession record claims it was superseded"
+                        )
+                    continue
+                if record is None:
                     problems.append(
                         f"{rel}:{lineno}: STALE citation of {name}: "
                         f"receipt says {sha}, file is {got}"
+                    )
+                    continue
+                missing = [f for f in _SUPERSESSION_REQUIRED if not record.get(f)]
+                if missing:
+                    problems.append(
+                        f"{rel}:{lineno}: supersession record for the {name} citation is missing "
+                        f"{', '.join(missing)} -- a supersession must say what "
+                        f"changed it and why"
+                    )
+                elif record["current"] != got:
+                    # The remedy must not become the loophole: a supersession that
+                    # does not match the file is not a record, it is a claim.
+                    problems.append(
+                        f"{rel}:{lineno}: supersession for the {name} citation claims current "
+                        f"{record['current']}, file is {got}"
                     )
             if not _CITATION_CONTEXT.search(line):
                 continue
