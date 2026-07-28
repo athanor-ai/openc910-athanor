@@ -682,7 +682,13 @@ def _verify_hash_citations(package: Path) -> list[str]:
                         f"receipt says {sha}, file is {got}"
                     )
                     continue
-                missing = [f for f in _SUPERSESSION_REQUIRED if not record.get(f)]
+                # Whitespace-only is not provenance: "   " is truthy, so a bare
+                # falsy check would accept it. Non-strings are rejected outright.
+                missing = [
+                    f
+                    for f in _SUPERSESSION_REQUIRED
+                    if not isinstance(record.get(f), str) or not record[f].strip()
+                ]
                 if missing:
                     problems.append(
                         f"{rel}:{lineno}: supersession record for the {name} citation is missing "

@@ -603,3 +603,31 @@ def test_every_citation_finding_says_citation(tmp_path: Path) -> None:
         assert problems, f"no finding at all for record={record}"
         for problem in problems:
             assert "citation" in problem, f"finding is invisible to callers: {problem}"
+
+
+def test_supersession_provenance_accepts_a_ticket_or_pr_reference(tmp_path: Path) -> None:
+    """A SELF-REFERENTIAL supersession cannot name its own commit SHA -- the SHA does
+    not exist until after the record is written. Ticket/PR form must therefore be
+    valid provenance, or the remedy is unrecognisable to the gate that demands it.
+    The rule: name the most specific identifier that EXISTS at write time.
+    """
+    package = _stale_package(tmp_path)
+    _supersede(package, "NOTES.md", {
+        "current": _sha(package / "NOTES.md"),
+        "superseded_by": "ATH-3397 handle scrub (#82)",
+        "reason": "internal handle scrubbed from this artifact",
+    })
+    assert _citation_problems(tmp_path) == []
+
+
+def test_supersession_provenance_must_not_be_empty_or_blank(tmp_path: Path) -> None:
+    """Accepting ticket form must not degrade into accepting anything."""
+    package = _stale_package(tmp_path)
+    for bad in ("", "   ", None):
+        _supersede(package, "NOTES.md", {
+            "current": _sha(package / "NOTES.md"),
+            "superseded_by": bad,
+            "reason": "internal handle scrubbed from this artifact",
+        })
+        problems = _citation_problems(tmp_path)
+        assert any("missing superseded_by" in p for p in problems), (bad, problems)
