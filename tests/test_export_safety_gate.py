@@ -46,6 +46,9 @@ def _scan(tmp_path, files):
     Returns (block, warn, skipped) from the SHIPPED ``_scan_committed`` -- the
     exact path CI runs, isolated from the receipt verifier.
     """
+    files = dict(files)
+    files.setdefault(esg.DENYLIST_REL, _denylist_json(_padded([_H_A, _H_B])))
+    tmp_path.mkdir(parents=True, exist_ok=True)
     _git(["init", "-q"], tmp_path)
     _git(["config", "user.email", "t@example.invalid"], tmp_path)
     _git(["config", "user.name", "t"], tmp_path)
@@ -56,6 +59,27 @@ def _scan(tmp_path, files):
         _git(["add", rel], tmp_path)
     _git(["commit", "-q", "-m", "fixture"], tmp_path)
     return esg._scan_committed("HEAD", tmp_path)
+
+
+def _padded(handles):
+    """Fixture denylists must clear MIN_HANDLES (the truncation tripwire), so pad
+    with filler names that appear in no fixture content."""
+    filler = [f"fillerperson{i}" for i in range(esg.MIN_HANDLES)]
+    return sorted(set(list(handles) + filler))
+
+
+def _repo_with_denylist(tmp_path, payload_text):
+    """Commit ``payload_text`` as the denylist and return (ref, root)."""
+    tmp_path.mkdir(parents=True, exist_ok=True)
+    _git(["init", "-q"], tmp_path)
+    _git(["config", "user.email", "t@example.invalid"], tmp_path)
+    _git(["config", "user.name", "t"], tmp_path)
+    p = tmp_path / esg.DENYLIST_REL
+    p.parent.mkdir(parents=True, exist_ok=True)
+    p.write_text(payload_text)
+    _git(["add", esg.DENYLIST_REL], tmp_path)
+    _git(["commit", "-q", "-m", "denylist"], tmp_path)
+    return "HEAD", tmp_path
 
 
 def _has(entries, needle):
@@ -204,6 +228,14 @@ _H_C = "an" + "ton"
 _RK = "buil" + "der"
 
 
+def _denylist_json(handles):
+    """A denylist DATA file body with a correct integrity stamp for ``handles``."""
+    import hashlib as _hl, json as _j
+    hs = sorted(handles)
+    stamp = _hl.sha256("\n".join(hs).encode()).hexdigest()
+    return _j.dumps({"handles": hs, "stamp": stamp})
+
+
 def _load_gen():
     gen_path = Path(__file__).resolve().parent.parent / "athanor" / "gen_fleet_handle_denylist.py"
     spec = _ilu.spec_from_file_location("gen_fhd_infra", gen_path)
@@ -283,3 +315,379 @@ def test_generation_reads_declared_builder_commit_not_worktree(tmp_path):
     }
     assert _H_A in payload["handles"] and _H_B in payload["handles"]
     assert "dirtyperson" not in payload["handles"] and _H_C not in payload["handles"]
+
+
+# --- ATH-3397: fleet-agent handle GATE tests (the gate that consumes the
+# denylist; derivation tests live above from the infra split). --------------
+
+def test_agent_handle_in_customer_artifact_prose_is_block(tmp_path, monkeypatch):
+    # select the tier explicitly: this test is about DETECTION capability,
+    # not about which tier happens to be the default (asabi: a test coupled
+    # to the default measures configuration, not capability).
+    monkeypatch.setattr(esg, "HANDLE_FINDING_TIER", "block")
+    leak = '{"note":"cross-VM replay required (' + _H_A.capitalize() + ')"}\n'
+    block, _, _ = _scan(tmp_path, {"athanor_artifacts/pkt/receipt.json": leak})
+    assert _has(block, "fleet-agent handle")
+    assert _has(block, "receipt.json")
+
+
+def test_generic_role_key_is_not_a_handle_hit(tmp_path):
+    text = "the " + _RK + " pattern is common in this rtl\n"
+    block, _, _ = _scan(tmp_path, {"athanor_artifacts/pkt/notes.md": text})
+    assert not _has(block, "fleet-agent handle")
+
+
+def test_denylist_data_file_is_exempt_not_self_flagged(tmp_path):
+    block, _, _ = _scan(tmp_path, {})
+    assert not any("fleet-agent handle" in b and esg.DENYLIST_REL in b for b in block)
+
+
+def test_tooling_py_source_is_out_of_handle_scope(tmp_path):
+    src = "# hardening pass reviewed by " + _H_A.capitalize() + "\n"
+    block, _, _ = _scan(tmp_path, {"athanor/helper.py": src})
+    assert not _has(block, "fleet-agent handle")
+
+
+def test_denylist_stamp_mismatch_fails_closed(tmp_path):
+    bad = json.dumps({"handles": _padded([_H_A, _H_B]), "stamp": "0" * 64})
+    ref, root = _repo_with_denylist(tmp_path, bad)
+    with pytest.raises(esg.GateError):
+        esg._load_agent_handles(ref, root)
+
+
+def test_missing_denylist_fails_closed(tmp_path):
+    _git(["init", "-q"], tmp_path)
+    _git(["config", "user.email", "t@example.invalid"], tmp_path)
+    _git(["config", "user.name", "t"], tmp_path)
+    (tmp_path / "x.txt").write_text("x")
+    _git(["add", "x.txt"], tmp_path)
+    _git(["commit", "-q", "-m", "no denylist"], tmp_path)
+    with pytest.raises(esg.GateError):
+        esg._load_agent_handles("HEAD", tmp_path)
+
+def test_correctly_stamped_but_emptied_denylist_fails_closed(tmp_path):
+    # dexter's #59 finding: the stamp proves the file was not hand-edited, NOT that
+    # it still has content. Empty/gutted lists with VALID stamps compile zero
+    # patterns and make the gate scan for nothing — they must fail closed.
+    import hashlib as _hl
+    for i, handles in enumerate(([], [_H_A], [_H_A, _H_B])):
+        hs = sorted(handles)
+        body = json.dumps({"handles": hs,
+                           "stamp": _hl.sha256("\n".join(hs).encode()).hexdigest()})
+        ref, root = _repo_with_denylist(tmp_path / f"r{i}", body)
+        with pytest.raises(esg.GateError):
+            esg._load_agent_handles(ref, root)
+
+def test_a_full_denylist_still_loads(tmp_path):
+    # control: the truncation floor must not reject a normal derived set.
+    import hashlib as _hl
+    handles = sorted(f"person{i}" for i in range(esg.MIN_HANDLES + 3))
+    body = json.dumps({"handles": handles,
+                       "stamp": _hl.sha256("\n".join(handles).encode()).hexdigest()})
+    ref, root = _repo_with_denylist(tmp_path, body)
+    assert esg._load_agent_handles(ref, root) == handles
+
+def test_worktree_denylist_tamper_cannot_hide_committed_leaks(tmp_path):
+    # dexter's #59 re-read: the scan reads COMMITTED bytes at --ref, so the denylist
+    # must load from the SAME ref. Reading it from the working tree let anyone
+    # silence the gate by emptying an UNCOMMITTED file — config and subject from
+    # different trees.
+    import hashlib as _hl
+    good = _padded([_H_A, _H_B])
+    body = json.dumps({"handles": good,
+                       "stamp": _hl.sha256("\n".join(good).encode()).hexdigest()})
+    ref, root = _repo_with_denylist(tmp_path, body)
+    # now gut the WORKING TREE copy without committing it
+    empty = json.dumps({"handles": [], "stamp": _hl.sha256(b"").hexdigest()})
+    (root / esg.DENYLIST_REL).write_text(empty)
+    assert esg._load_agent_handles(ref, root) == good  # committed content wins
+
+
+def test_denylist_container_must_be_a_list_not_a_string(tmp_path):
+    # dexter (#59): a JSON STRING "abcdefgh" has len 8 and iterates into eight
+    # one-character handles, each a non-empty string — clearing a naive floor
+    # while compiling nothing useful. Python duck typing hides it: every length
+    # and iteration behaves plausibly while measuring CHARACTERS.
+    import hashlib as _hl
+    body = json.dumps({"handles": "abcdefgh",
+                       "stamp": _hl.sha256("\n".join(sorted("abcdefgh")).encode()).hexdigest()})
+    ref, root = _repo_with_denylist(tmp_path, body)
+    with pytest.raises(esg.GateError):
+        esg._load_agent_handles(ref, root)
+
+
+def test_duplicate_handles_do_not_clear_the_floor(tmp_path):
+    # dexter (#59): ["alpha"] * 8 is eight entries and ONE effective pattern.
+    # The floor exists to prove distinct coverage, so it must count UNIQUE handles.
+    import hashlib as _hl
+    handles = ["alpha"] * esg.MIN_HANDLES
+    body = json.dumps({"handles": handles,
+                       "stamp": _hl.sha256("\n".join(sorted(handles)).encode()).hexdigest()})
+    ref, root = _repo_with_denylist(tmp_path, body)
+    with pytest.raises(esg.GateError):
+        esg._load_agent_handles(ref, root)
+
+
+def test_case_variants_are_not_distinct_handles(tmp_path):
+    # the same name in different cases is one pattern (the scan is case-insensitive).
+    import hashlib as _hl
+    handles = sorted({f"Alpha{i % 2}" for i in range(2)} | {"ALPHA0", "alpha1"})
+    body = json.dumps({"handles": handles,
+                       "stamp": _hl.sha256("\n".join(handles).encode()).hexdigest()})
+    ref, root = _repo_with_denylist(tmp_path, body)
+    with pytest.raises(esg.GateError):
+        esg._load_agent_handles(ref, root)
+
+
+def test_floor_boundary_min_minus_one_fails_and_min_passes(tmp_path):
+    # both sides of the boundary, so the floor cannot drift silently.
+    import hashlib as _hl
+    for n, should_pass in ((esg.MIN_HANDLES - 1, False), (esg.MIN_HANDLES, True)):
+        handles = sorted(f"person{i}" for i in range(n))
+        body = json.dumps({"handles": handles,
+                           "stamp": _hl.sha256("\n".join(handles).encode()).hexdigest()})
+        ref, root = _repo_with_denylist(tmp_path / f"n{n}", body)
+        if should_pass:
+            assert esg._load_agent_handles(ref, root) == handles
+        else:
+            with pytest.raises(esg.GateError):
+                esg._load_agent_handles(ref, root)
+
+
+def test_whitespace_wrapped_handles_fail_closed(tmp_path):
+    # dexter (#59/#76, third pass): the floor counted h.strip().casefold() while the
+    # loader returned — and the scanner compiled — the untrimmed h. Eight distinct
+    # whitespace-wrapped names cleared the floor while matching nothing, because the
+    # floor measured a DIFFERENT pattern set than the scan compiles.
+    import hashlib as _hl
+    wrapped = [f" name{i} " for i in range(esg.MIN_HANDLES)]
+    body = json.dumps({"handles": wrapped,
+                       "stamp": _hl.sha256("\n".join(sorted(wrapped)).encode()).hexdigest()})
+    ref, root = _repo_with_denylist(tmp_path, body)
+    with pytest.raises(esg.GateError):
+        esg._load_agent_handles(ref, root)
+
+
+def test_canonical_denylist_catches_the_bare_name_end_to_end(tmp_path, monkeypatch):
+    # select the tier explicitly: this test is about DETECTION capability,
+    # not about which tier happens to be the default (asabi: a test coupled
+    # to the default measures configuration, not capability).
+    monkeypatch.setattr(esg, "HANDLE_FINDING_TIER", "block")
+    # the other direction: a canonical MIN-sized list loads AND the compiled
+    # patterns actually catch the bare name in a customer artifact.
+    import hashlib as _hl
+    handles = sorted(f"name{i}" for i in range(esg.MIN_HANDLES))
+    files = {
+        esg.DENYLIST_REL: json.dumps(
+            {"handles": handles,
+             "stamp": _hl.sha256("\n".join(handles).encode()).hexdigest()}),
+        "athanor_artifacts/pkt/receipt.json": '{"reviewer": "name3"}\n',
+    }
+    block, _, _ = _scan(tmp_path, files)
+    assert _has(block, "fleet-agent handle")
+    assert _has(block, "receipt.json")
+
+
+# --- ATH-3397 tier staging: the handle scan lands at WARN on forks where
+# export-safety is a REQUIRED context, then is PROMOTED to BLOCK after the scrub.
+# asabi's condition 2: the promotion must be proven by EXERCISE on a constructed
+# instance, because a tier promoted against an empty population has never once
+# blocked anything — a required gate that emits green because it cannot fail is
+# the dead-gate shape arriving through the back door of a correct plan.
+
+def _repo_with_a_live_handle_instance(tmp_path):
+    """Commit a denylist plus a customer artifact containing one of its handles."""
+    import hashlib as _hl
+    handles = _padded([_H_A, _H_B])
+    files = {
+        esg.DENYLIST_REL: json.dumps(
+            {"handles": handles,
+             "stamp": _hl.sha256("\n".join(sorted(handles)).encode()).hexdigest()}),
+        "athanor_artifacts/pkt/receipt.json": '{"reviewer": "' + _H_A + '"}\n',
+    }
+    tmp_path.mkdir(parents=True, exist_ok=True)
+    _git(["init", "-q"], tmp_path)
+    _git(["config", "user.email", "t@example.invalid"], tmp_path)
+    _git(["config", "user.name", "t"], tmp_path)
+    for rel, content in files.items():
+        p = tmp_path / rel
+        p.parent.mkdir(parents=True, exist_ok=True)
+        p.write_text(content)
+        _git(["add", rel], tmp_path)
+    _git(["commit", "-q", "-m", "live instance"], tmp_path)
+    return tmp_path
+
+
+def test_block_tier_exits_nonzero_on_a_constructed_instance(tmp_path, monkeypatch, capsys):
+    # THE PROMOTION BITE. Proves the BLOCK tier actually blocks, on a population we
+    # construct — the real population is zero by promotion time, which is why
+    # inheriting confidence from WARN would prove nothing.
+    #
+    # The verifier is neutralised deliberately: a synthetic tree has no receipts,
+    # so it fail-closes and would make rc != 0 EVEN IF the tier were broken. An
+    # earlier draft of this test asserted only rc != 0 and passed for exactly that
+    # wrong reason. The assertion is on the CAUSE, not just the exit code.
+    root = _repo_with_a_live_handle_instance(tmp_path)
+    monkeypatch.setattr(esg, "HANDLE_FINDING_TIER", "block")
+    monkeypatch.setattr(esg, "_run_receipt_verifier", lambda root: [])
+    monkeypatch.chdir(root)
+    rc = esg.main(["--ref", "HEAD"])
+    out = capsys.readouterr()
+    combined = out.out + out.err
+    assert rc != 0, "BLOCK tier did not fail on a live handle instance"
+    assert "block: [internal fleet-agent handle]" in combined, (
+        "nonzero exit was not caused by the handle finding: " + combined[-300:])
+
+
+
+def test_warn_tier_reports_the_instance_but_does_not_fail(tmp_path, monkeypatch, capsys):
+    # THE STAGING PROPERTY. The gate lands, NAMES its live population in the log,
+    # and leaves the required context green so the PR introducing it can merge.
+    # Verifier neutralised for the same reason as the BLOCK test: a synthetic tree
+    # has no receipts, so its fail-closed finding would mask the tier behaviour.
+    root = _repo_with_a_live_handle_instance(tmp_path)
+    monkeypatch.setattr(esg, "HANDLE_FINDING_TIER", "warn")
+    monkeypatch.setattr(esg, "_run_receipt_verifier", lambda root: [])
+    monkeypatch.chdir(root)
+    rc = esg.main(["--ref", "HEAD"])
+    out = capsys.readouterr()
+    combined = out.out + out.err
+    assert rc == 0, "WARN tier must not fail the required context: " + combined[-300:]
+    assert "fleet-agent handle" in combined, "WARN tier must still REPORT the instance"
+    assert "block: [internal fleet-agent handle]" not in combined, (
+        "WARN tier must not emit the finding as a BLOCK row")
+
+
+def test_warn_staging_reports_the_same_population_block_would(tmp_path, monkeypatch, capsys):
+    # DEXTER'S PAIRED ASSERTION, and the one that catches the real defect: it is not
+    # enough that BLOCK bites and WARN exits 0 — WARN must REPORT THE SAME live
+    # population, or the staging silently shrinks the set the scrub is measured
+    # against. On the real tree the generic --warn-limit truncated every handle
+    # finding away, so the landing would have named ZERO while claiming to name its
+    # population. The fixture below is padded past the cap to reproduce that.
+    import hashlib as _hl
+    handles = _padded([_H_A, _H_B])
+    files = {
+        esg.DENYLIST_REL: json.dumps(
+            {"handles": handles,
+             "stamp": _hl.sha256("\n".join(sorted(handles)).encode()).hexdigest()}),
+        "athanor_artifacts/pkt/receipt.json": '{"reviewer": "' + _H_A + '"}\n',
+    }
+    # bury it under many generic WARN-tier findings (ticket ids), past any cap
+    for i in range(60):
+        files[f"athanor_artifacts/noise/n{i}.md"] = f"tracking ATH-{2000 + i}\n"
+    tmp_path.mkdir(parents=True, exist_ok=True)
+    _git(["init", "-q"], tmp_path)
+    _git(["config", "user.email", "t@example.invalid"], tmp_path)
+    _git(["config", "user.name", "t"], tmp_path)
+    for rel, content in files.items():
+        p = tmp_path / rel
+        p.parent.mkdir(parents=True, exist_ok=True)
+        p.write_text(content)
+        _git(["add", rel], tmp_path)
+    _git(["commit", "-q", "-m", "buried instance"], tmp_path)
+
+    monkeypatch.setattr(esg, "_run_receipt_verifier", lambda root: [])
+    monkeypatch.chdir(tmp_path)
+
+    monkeypatch.setattr(esg, "HANDLE_FINDING_TIER", "block")
+    esg.main(["--ref", "HEAD"])
+    block_out = capsys.readouterr()
+    block_n = (block_out.out + block_out.err).count("[internal fleet-agent handle]")
+
+    monkeypatch.setattr(esg, "HANDLE_FINDING_TIER", "warn")
+    rc = esg.main(["--ref", "HEAD"])
+    warn_out = capsys.readouterr()
+    warn_n = (warn_out.out + warn_out.err).count("[internal fleet-agent handle]")
+
+    assert rc == 0, "WARN must not fail the required context"
+    assert block_n > 0, "control: BLOCK must have reported instances"
+    assert warn_n == block_n, (
+        f"WARN staging reported {warn_n} instances but BLOCK reported {block_n} — "
+        "the staging is hiding part of the population it claims to name")
+
+
+def test_handle_pattern_catches_identifier_forms(tmp_path, monkeypatch):
+    # ATH-3439 pattern ruling applied here: `_` is a word character, so a \b-bounded
+    # handle MISSES quan_review / reviewer_quan / created_by_quan — which is exactly
+    # how a handle lands in a receipt field. These must all be caught.
+    monkeypatch.setattr(esg, "HANDLE_FINDING_TIER", "block")
+    for body in ('{"n": "' + _H_A + '_review"}',
+                 '{"n": "reviewer_' + _H_A + '"}',
+                 '{"d": "' + _H_A + '-ath2686-run"}',
+                 '{"reviewer": "' + _H_A + '"}'):
+        block, _, _ = _scan(tmp_path / f"r{abs(hash(body))%9999}",
+                            {"athanor_artifacts/pkt/receipt.json": body + "\n"})
+        assert _has(block, "fleet-agent handle"), f"identifier form missed: {body}"
+
+
+def test_handle_pattern_does_not_flag_ordinary_vocabulary(tmp_path, monkeypatch):
+    # THE NEGATIVE HALF (asabi: a suite that only proves necessity cannot detect
+    # over-matching). A substring pattern would flag our own domain vocabulary —
+    # "memory banking" is RTL optimisation language on a hardware product. These
+    # must NOT be flagged, or the gate deletes the product's own words.
+    monkeypatch.setattr(esg, "HANDLE_FINDING_TIER", "block")
+    clean = [
+        '{"note": "memory banking splits large memories"}',
+        '{"note": "adversarial thinking is required"}',
+        '{"note": "quantum quantity quantile"}',
+        '{"note": "the platform and plate and plating"}',
+    ]
+    for i, body in enumerate(clean):
+        block, _, _ = _scan(tmp_path / f"c{i}",
+                            {"athanor_artifacts/pkt/notes.json": body + "\n"})
+        assert not _has(block, "fleet-agent handle"), f"false positive on: {body}"
+
+
+def test_invalid_tier_fails_closed(tmp_path, monkeypatch):
+    # dexter (#76): HANDLE_FINDING_TIER="blok" routed 32 live findings into the warn
+    # bucket while the uncapped STAGED section (which runs only for exactly "warn")
+    # stayed silent — exit 0, "gate clean", 32 instances invisible. A typo on the
+    # one constant the promotion PR edits silently disabled the gate.
+    monkeypatch.setattr(esg, "HANDLE_FINDING_TIER", "blok")
+    with pytest.raises(esg.GateError):
+        _scan(tmp_path, {"athanor_artifacts/pkt/receipt.json": '{"r": "' + _H_A + '"}\n'})
+
+
+def test_both_valid_tiers_are_accepted(tmp_path, monkeypatch):
+    # control: the guard must not reject the two legitimate values, or it would
+    # simply break the gate rather than harden it.
+    for tier in ("warn", "block"):
+        monkeypatch.setattr(esg, "HANDLE_FINDING_TIER", tier)
+        _scan(tmp_path / tier, {"athanor_artifacts/pkt/receipt.json": '{"r": "x"}\n'})
+
+
+def test_artifact_extension_match_is_case_insensitive(tmp_path, monkeypatch):
+    # dexter (#76): the scan normalised `ext` to lower case and then ignored it,
+    # using path.endswith((".json",".md")) — so RECEIPT.JSON, a perfectly ordinary
+    # way to name a published artifact, was never scanned at all.
+    monkeypatch.setattr(esg, "HANDLE_FINDING_TIER", "block")
+    for i, name in enumerate(("RECEIPT.JSON", "receipt.Json", "NOTES.MD", "notes.Md")):
+        block, _, _ = _scan(tmp_path / f"e{i}",
+                            {f"athanor_artifacts/pkt/{name}": '{"r": "' + _H_A + '"}\n'})
+        assert _has(block, "fleet-agent handle"), f"{name} was not scanned"
+
+
+def test_path_scope_decisions_are_case_insensitive(tmp_path, monkeypatch):
+    # THE FIFTH INSTANCE of the compute-then-ignore family (asabi: at four, the file
+    # needs a structural pass). Scope was decided on the RAW path, so
+    # Athanor_Artifacts/pkt/receipt.json escaped OUR_ADDED_PREFIXES and was never
+    # scanned at all. Every decision now consumes the normalised path_key; the raw
+    # path survives only for DISPLAY.
+    monkeypatch.setattr(esg, "HANDLE_FINDING_TIER", "block")
+    for i, rel in enumerate((
+        "athanor_artifacts/pkt/receipt.json",
+        "Athanor_Artifacts/pkt/receipt.json",
+        "ATHANOR_ARTIFACTS/pkt/RECEIPT.JSON",
+    )):
+        block, _, _ = _scan(tmp_path / f"p{i}", {rel: '{"r": "' + _H_A + '"}\n'})
+        assert _has(block, "fleet-agent handle"), f"scope missed: {rel}"
+
+
+def test_findings_display_the_original_path_casing(tmp_path, monkeypatch):
+    # the raw path must still be what a reader sees, or the finding points at a file
+    # that does not exist. Normalise for DECISIONS, display the original.
+    monkeypatch.setattr(esg, "HANDLE_FINDING_TIER", "block")
+    block, _, _ = _scan(tmp_path, {"Athanor_Artifacts/pkt/RECEIPT.JSON":
+                                   '{"r": "' + _H_A + '"}\n'})
+    assert any("Athanor_Artifacts/pkt/RECEIPT.JSON" in b for b in block), block
