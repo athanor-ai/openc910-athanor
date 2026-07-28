@@ -182,9 +182,26 @@ MIN_HANDLES = 8
 # test_block_tier_exits_nonzero_on_a_constructed_instance.
 HANDLE_FINDING_TIER = "warn"  # "warn" (staging) | "block" (enforcing)
 
-HANDLE_SCAN_ARTIFACT_EXTS: tuple[str, ...] = (".json", ".md")
+# SCOPE IS DERIVED, NOT ENUMERATED. This was an extension ALLOW-LIST of
+# (".json", ".md"), which inspected 89 of 598 published artifact files -- 15% --
+# and reported clean over the other 85%. Seven published, hash-bound .log files
+# carried an internal workspace path in a yosys command line the whole time, and
+# the gate said zero. That is the fifth hand-maintained "what to check" list to
+# fail the same way, and every one of them failed toward checking LESS.
+#
+# The polarity is inverted: every committed text file under our authored
+# prefixes is scanned, and anything skipped must be named here WITH ITS REASON.
+# An unknown or new file type is now LOUD rather than silently out of scope.
+#
+# Binary files are skipped structurally (a NUL byte in the first block), not by
+# extension -- that is a property of the file, not a list to maintain.
 HANDLE_SCAN_EXEMPT_PATHS: dict[str, str] = {
     DENYLIST_REL: "the denylist DATA file; holds every handle verbatim by design",
+    "athanor/export_safety_gate.py":
+        "this gate; a detector necessarily contains the thing it detects, and "
+        "scrubbing it would disable the protection",
+    "athanor/gen_fleet_handle_denylist.py":
+        "the denylist GENERATOR; same reason -- it names the roster it derives from",
 }
 
 # Lowered companions of the path constants, DERIVED once so the scan compares like
@@ -381,9 +398,17 @@ def _scan_committed(ref: str, root: Path) -> tuple[list[str], list[str], list[st
         # NOT matched, which is deliberate — the alternative false-positives on
         # ordinary CamelCase prose. Negative controls pin the narrowness.
         ("internal fleet-agent handle",
-         re.compile(rb"(?i)(^|[^a-z])" + re.escape(h).encode() + rb"([^a-z]|$)"))
-        for h in _load_agent_handles(ref, root)
+         re.compile(
+             rb"(?i)(^|[^a-z])("
+             + b"|".join(re.escape(h).encode() for h in _load_agent_handles(ref, root))
+             + rb")([^a-z]|$)"
+         )),
     ]
+    # ONE alternation, not one regex per handle. Widening the scope from an
+    # extension allow-list to every committed text file took the scan from ~90
+    # files to ~600, and 19 separate patterns per line made it exceed two
+    # minutes -- a gate slow enough to be resented is a gate that gets disabled.
+    # Same semantics, since every handle carries the same finding label.
     block: list[str] = []
     warn: list[str] = []
     skipped: list[str] = []
@@ -414,13 +439,12 @@ def _scan_committed(ref: str, root: Path) -> tuple[list[str], list[str], list[st
             for label, rx in block_res:
                 if rx.search(line):
                     block.append(f"[{label}] {path}:{lineno}: {shown}")
-            # Agent-handle scan: customer-artifact prose only (see the scope
-            # constants above). Positive extension scope + enumerated exemptions.
+            # Agent-handle scan: EVERY committed text file under our authored
+            # prefixes, minus the named exemptions. Scope is derived, not
+            # enumerated -- an extension allow-list inspected 15% of published
+            # artifacts and reported clean over the rest (see the scope constants).
             if (
                 in_our_scope
-                # dexter (#76): `ext` is already normalised to lower case above;
-                # path.endswith() ignored it, so RECEIPT.JSON was never scanned.
-                and ext in HANDLE_SCAN_ARTIFACT_EXTS
                 and path_key not in _HANDLE_SCAN_EXEMPT_PATHS_LOWER
             ):
                 for label, rx in agent_res:

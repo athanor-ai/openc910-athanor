@@ -691,3 +691,56 @@ def test_findings_display_the_original_path_casing(tmp_path, monkeypatch):
     block, _, _ = _scan(tmp_path, {"Athanor_Artifacts/pkt/RECEIPT.JSON":
                                    '{"r": "' + _H_A + '"}\n'})
     assert any("Athanor_Artifacts/pkt/RECEIPT.JSON" in b for b in block), block
+
+
+def test_the_handle_scan_has_no_extension_allow_list():
+    """SCOPE IS DERIVED, NOT ENUMERATED.
+
+    The scan used a positive extension list of (".json", ".md"), which inspected
+    89 of 598 published artifact files -- 15% -- and reported CLEAN over the other
+    85%. Seven published, hash-bound .log files carried an internal workspace path
+    the entire time and the gate said zero.
+
+    This fails if an inclusion list is reintroduced. Exemptions are still allowed,
+    but they must be NAMED with a reason, so an unknown or new file type is loud
+    rather than silently out of scope.
+    """
+    source = Path(esg.__file__).read_text(encoding="utf-8")
+    assert "HANDLE_SCAN_ARTIFACT_EXTS" not in source, (
+        "the handle scan is gated on an extension allow-list again; scope must be "
+        "derived (scan every committed text file under our prefixes) with skips "
+        "named in HANDLE_SCAN_EXEMPT_PATHS"
+    )
+
+
+def test_every_scan_exemption_carries_a_reason():
+    """A keep-set is only arguable if it says WHY. Each exemption maps to prose a
+    reviewer can disagree with, not a bare path."""
+    for path, reason in esg.HANDLE_SCAN_EXEMPT_PATHS.items():
+        assert isinstance(reason, str) and len(reason.strip()) > 20, (
+            f"exemption for {path} has no stated reason"
+        )
+
+
+def test_a_handle_in_a_log_file_is_now_scanned(tmp_path, monkeypatch, capsys):
+    """The exact live instance the allow-list missed: a handle inside a .log,
+    which no earlier version of this gate would have inspected."""
+    root = _repo_with_a_live_handle_instance(tmp_path)
+    handle = _H_A
+    log = root / "athanor_artifacts" / "pkg" / "run.log"
+    log.parent.mkdir(parents=True, exist_ok=True)
+    log.write_text(
+        f"read_verilog -sv .scratch/{handle}_scout/design.v\n", encoding="utf-8"
+    )
+    subprocess.run(["git", "add", "-A"], cwd=root, capture_output=True, check=False)
+    subprocess.run(
+        ["git", "-c", "user.email=t@t", "-c", "user.name=t", "commit", "-qm", "log"],
+        cwd=root, capture_output=True, check=False,
+    )
+    monkeypatch.setattr(esg, "_run_receipt_verifier", lambda root: [])
+    monkeypatch.chdir(root)
+    esg.main(["--ref", "HEAD"])
+    combined = capsys.readouterr()
+    assert "run.log" in combined.out + combined.err, (
+        "a handle inside a .log was not scanned: " + (combined.out + combined.err)[-400:]
+    )
