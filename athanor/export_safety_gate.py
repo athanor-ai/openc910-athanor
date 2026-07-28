@@ -586,13 +586,32 @@ def main(argv: list[str] | None = None) -> int:
     if skipped:
         print(f"INFO: {len(skipped)} file(s) not scanned: {', '.join(skipped)}")
 
-    if warn:
-        print(f"WARN: {len(warn)} conscious-choice metadata finding(s) at {args.ref}:")
-        shown = warn if args.warn_limit == 0 else warn[: args.warn_limit]
+    # PARTITION ONCE. The staged handle findings live in `warn` AND get their own
+    # uncapped section below, so the generic list must exclude them or they are
+    # printed twice and counted as hidden while being shown. The old code sliced
+    # the WHOLE warn list: on main that printed 40 rows (some of them staged),
+    # reprinted 367 staged rows, and announced "... 451 more" — a suppression
+    # count that included 367 findings the reader could see.
+    #
+    # Every number below — rows printed, rows suppressed, and the verdict — is
+    # derived from THIS partition. Two independent counts of one population is
+    # how the drift starts.
+    _HANDLE_PREFIX = "[internal fleet-agent handle]"
+    staged_handles = (
+        [w for w in warn if w.startswith(_HANDLE_PREFIX)]
+        if HANDLE_FINDING_TIER == "warn"
+        else []
+    )
+    generic = [w for w in warn if w not in staged_handles]
+    shown = generic if args.warn_limit == 0 else generic[: args.warn_limit]
+    suppressed = len(generic) - len(shown)
+
+    if generic:
+        print(f"WARN: {len(generic)} conscious-choice metadata finding(s) at {args.ref}:")
         for line in shown:
             print(f"  warn: {line}")
-        if len(shown) < len(warn):
-            print(f"  ... {len(warn) - len(shown)} more (raise --warn-limit to see all)")
+        if suppressed:
+            print(f"  ... {suppressed} more (raise --warn-limit to see all)")
 
     # ATH-3397 staging: when the handle scan runs at WARN, its findings share the
     # generic warn list and are subject to --warn-limit — on the real tree that
@@ -602,7 +621,9 @@ def main(argv: list[str] | None = None) -> int:
     # their own UNCAPPED section. (Caught by measuring on the real tree; the
     # fixture had one warn and stayed under the cap.)
     if HANDLE_FINDING_TIER == "warn":
-        staged_handles = [w for w in warn if w.startswith("[internal fleet-agent handle]")]
+        # `staged_handles` is the SAME list computed in the partition above --
+        # deliberately not recomputed here. A second derivation of one population
+        # is what let the row display and the suppression count disagree.
         if staged_handles:
             print(
                 f"\nSTAGED (ATH-3397): {len(staged_handles)} fleet-agent handle "
@@ -627,7 +648,41 @@ def main(argv: list[str] | None = None) -> int:
         )
         return 1
 
-    print(f"\nOK: export-safety gate clean at {args.ref} (0 BLOCK; {len(warn)} WARN).")
+    # "CLEAN" IS A CLAIM ABOUT THE TREE; "0 BLOCK" IS A FACT ABOUT THE TIER.
+    # These are not the same sentence, and the old line said the first while
+    # measuring the second -- it printed "gate clean" on a tree carrying 412
+    # live fleet-agent-handle instances across 7 published artifacts, because
+    # the handle scan is staged at WARN. Accurate about what it measured, false
+    # about what it claimed: the exact defect this gate exists to catch, in the
+    # gate's own summary line, and the line a reader is most likely to quote.
+    #
+    # A verdict may only use the word CLEAN when there is nothing to report.
+    if warn:
+        # DO NOT CLAIM COMPLETENESS THE DISPLAY DOES NOT DELIVER. The first
+        # draft of this line said "every finding is named above" -- false
+        # whenever --warn-limit bites, which is the DEFAULT. That is the same
+        # overclaim one field over: I replaced a verdict that lied about
+        # cleanliness with one that lied about coverage. The count of what was
+        # SUPPRESSED belongs in the verdict, because the verdict is the line a
+        # reader quotes and it must not read better than the run was.
+        detail = (
+            f"; {len(staged_handles)} of them staged fleet-agent handles"
+            if staged_handles
+            else ""
+        )
+        coverage = (
+            f"{suppressed} not shown (raise --warn-limit)"
+            if suppressed
+            else "all named above"
+        )
+        print(
+            f"\nOK (0 BLOCK): export-safety gate raised {len(warn)} WARN "
+            f"finding(s) at {args.ref}{detail}. NOT clean -- {coverage}. "
+            f"Exit 0 reflects the TIER, not the tree."
+        )
+        return 0
+
+    print(f"\nOK: export-safety gate clean at {args.ref} (0 BLOCK; 0 WARN).")
     return 0
 
 
