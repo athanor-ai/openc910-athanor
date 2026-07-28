@@ -353,6 +353,18 @@ def _scan_committed(ref: str, root: Path) -> tuple[list[str], list[str], list[st
     # denylist. Word-boundary + case-insensitive so a handle does not fire
     # mid-word. Scoped to OUR_ADDED_PREFIXES (our authored artifacts); upstream
     # files that legitimately contain such a token are not our leak.
+    # dexter (#76): an INVALID tier silently became a hidden WARN — the sink is
+    # `block if == "block" else warn`, and the uncapped STAGED section runs only
+    # for exactly "warn", so HANDLE_FINDING_TIER="blok" routed 32 live findings
+    # into an invisible bucket and exited 0 with "gate clean". That is the exact
+    # typo surface the promotion PR edits. Fail closed on anything but the two
+    # valid values rather than defaulting to the quieter one.
+    if HANDLE_FINDING_TIER not in ("warn", "block"):
+        raise GateError(
+            f"HANDLE_FINDING_TIER is {HANDLE_FINDING_TIER!r} (fail-closed): must be "
+            "exactly 'warn' or 'block'. An unrecognised tier would route handle "
+            "findings into a bucket that is never reported."
+        )
     agent_res = [
         # ATH-3439 pattern ruling applied to handles (asabi, 2026-07-27): \b is the
         # WRONG boundary here because `_` is a word character, so \bquan\b misses
@@ -389,7 +401,9 @@ def _scan_committed(ref: str, root: Path) -> tuple[list[str], list[str], list[st
             # constants above). Positive extension scope + enumerated exemptions.
             if (
                 in_our_scope
-                and path.endswith(HANDLE_SCAN_ARTIFACT_EXTS)
+                # dexter (#76): `ext` is already normalised to lower case above;
+                # path.endswith() ignored it, so RECEIPT.JSON was never scanned.
+                and ext in HANDLE_SCAN_ARTIFACT_EXTS
                 and path not in HANDLE_SCAN_EXEMPT_PATHS
             ):
                 for label, rx in agent_res:

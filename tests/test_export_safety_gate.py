@@ -637,3 +637,32 @@ def test_handle_pattern_does_not_flag_ordinary_vocabulary(tmp_path, monkeypatch)
         block, _, _ = _scan(tmp_path / f"c{i}",
                             {"athanor_artifacts/pkt/notes.json": body + "\n"})
         assert not _has(block, "fleet-agent handle"), f"false positive on: {body}"
+
+
+def test_invalid_tier_fails_closed(tmp_path, monkeypatch):
+    # dexter (#76): HANDLE_FINDING_TIER="blok" routed 32 live findings into the warn
+    # bucket while the uncapped STAGED section (which runs only for exactly "warn")
+    # stayed silent — exit 0, "gate clean", 32 instances invisible. A typo on the
+    # one constant the promotion PR edits silently disabled the gate.
+    monkeypatch.setattr(esg, "HANDLE_FINDING_TIER", "blok")
+    with pytest.raises(esg.GateError):
+        _scan(tmp_path, {"athanor_artifacts/pkt/receipt.json": '{"r": "' + _H_A + '"}\n'})
+
+
+def test_both_valid_tiers_are_accepted(tmp_path, monkeypatch):
+    # control: the guard must not reject the two legitimate values, or it would
+    # simply break the gate rather than harden it.
+    for tier in ("warn", "block"):
+        monkeypatch.setattr(esg, "HANDLE_FINDING_TIER", tier)
+        _scan(tmp_path / tier, {"athanor_artifacts/pkt/receipt.json": '{"r": "x"}\n'})
+
+
+def test_artifact_extension_match_is_case_insensitive(tmp_path, monkeypatch):
+    # dexter (#76): the scan normalised `ext` to lower case and then ignored it,
+    # using path.endswith((".json",".md")) — so RECEIPT.JSON, a perfectly ordinary
+    # way to name a published artifact, was never scanned at all.
+    monkeypatch.setattr(esg, "HANDLE_FINDING_TIER", "block")
+    for i, name in enumerate(("RECEIPT.JSON", "receipt.Json", "NOTES.MD", "notes.Md")):
+        block, _, _ = _scan(tmp_path / f"e{i}",
+                            {f"athanor_artifacts/pkt/{name}": '{"r": "' + _H_A + '"}\n'})
+        assert _has(block, "fleet-agent handle"), f"{name} was not scanned"
