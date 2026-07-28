@@ -89,55 +89,56 @@ def old_hashes(base: str, paths: list[str], root: Path) -> dict[str, str]:
 _HEX64_ANY = re.compile(r"(?i)(?<![0-9a-z])[0-9a-f]{64}(?![0-9a-z])")
 
 
-def _hashes_within(node: object) -> set[str]:
-    """Every 64-hex string inside ONE record object."""
-    found: set[str] = set()
+def _hash_occurrences(node: object, trail: str = "") -> list[tuple[str, str]]:
+    """(json_path, hash) for every 64-hex string, each with a UNIQUE path."""
+    found: list[tuple[str, str]] = []
     if isinstance(node, dict):
-        for value in node.values():
-            found |= _hashes_within(value)
+        for key, value in node.items():
+            found.extend(_hash_occurrences(value, f"{trail}.{key}" if trail else key))
     elif isinstance(node, list):
-        for item in node:
-            found |= _hashes_within(item)
+        for index, item in enumerate(node):
+            found.extend(_hash_occurrences(item, f"{trail}[{index}]"))
     elif isinstance(node, str) and _HEX64_ANY.fullmatch(node):
-        found.add(node.lower())
+        found.append((trail, node.lower()))
     return found
 
 
-def superseded_occurrences(path: Path, root: Path) -> dict[str, int]:
-    """How many times each old hash is ACCOUNTED FOR by a supersession record.
+def excused_paths(path: Path, root: Path) -> set[str]:
+    """The exact JSON PATHS an old hash is allowed to occupy.
 
-    Returns a COUNT per hash, not a set. Collapsing a file's records into a set of
-    allowed hashes destroys the containment condition: one valid record would make
-    that hash allowed FILE-WIDE, so an unrelated sibling citation of the same
-    stale hash elsewhere in the same JSON would be silently exempt. Counting
-    occurrences keeps the exemption bound to the records that actually earn it --
-    anything beyond the accounted-for count is still a finding.
+    Identity, not arithmetic. An earlier repair counted how many occurrences the
+    valid records accounted for, and counting cannot survive NESTING: a valid
+    record containing another valid record has the inner occurrence counted by
+    the outer record AND again by the recursive walk, so the total exceeds the
+    physical occurrences and an unrelated sibling citation is excused by the
+    surplus. Paths are unique, so the same occurrence marked twice is still one
+    path -- and reporting by path also fixes the attribution, which counting
+    could only ever approximate.
 
-    An old hash may survive ONLY ALONGSIDE ITS REPLACEMENT, inside a record object
-    that can prove what replaced it:
+    An old hash may survive ONLY ALONGSIDE ITS REPLACEMENT, inside a record that
+    can prove what replaced it:
 
-    (a) STRUCTURAL CONTAINMENT, not proximity -- the old hash must be INSIDE the
-        same record object as its replacement, and only that record's own
+    (a) STRUCTURAL CONTAINMENT, not proximity -- only that record's own
         occurrences are excused.
     (b) The replacement must be the NAMED FILE'S CURRENT CONTENT HASH, so it is
-        verifiable. Otherwise a stale citation becomes a supersession by parking
-        an arbitrary second value beside itself.
+        verifiable rather than merely present.
     (c) A CHAIN may co-occur (old1, old2, current) inside one record.
 
-    Condition (b) is why no key-name list is needed: a supersession is not a thing
-    with a NAME, it is an old hash that can prove what replaced it.
+    Condition (b) is why no key-name list is needed: a supersession is not a
+    thing with a NAME, it is an old hash that can prove what replaced it.
     """
     if path.suffix.lower() != ".json":
-        return {}
+        return set()
     try:
         doc = json.loads(path.read_text(encoding="utf-8"))
     except (OSError, ValueError):
-        return {}
-    accounted: dict[str, int] = {}
+        return set()
+    excused: set[str] = set()
 
-    def walk(node: object) -> None:
+    def walk(node: object, trail: str = "") -> None:
         if isinstance(node, dict):
             for key, value in node.items():
+                where = f"{trail}.{key}" if trail else key
                 if isinstance(value, dict):
                     target = None
                     for base in (path.parent, root):
@@ -146,19 +147,19 @@ def superseded_occurrences(path: Path, root: Path) -> dict[str, int]:
                             target = candidate
                             break
                     if target is not None:
-                        held = _hashes_within(value)
+                        occurrences = _hash_occurrences(value, where)
                         current = hashlib.sha256(target.read_bytes()).hexdigest()
-                        if current in held:
-                            blob = json.dumps(value).lower()
-                            for prior in held - {current}:
-                                accounted[prior] = accounted.get(prior, 0) + blob.count(prior)
-                walk(value)
+                        if current in {h for _, h in occurrences}:
+                            excused.update(
+                                p for p, h in occurrences if h != current
+                            )
+                walk(value, where)
         elif isinstance(node, list):
-            for item in node:
-                walk(item)
+            for index, item in enumerate(node):
+                walk(item, f"{trail}[{index}]")
 
     walk(doc)
-    return accounted
+    return excused
 
 
 def surviving_occurrences(hashes: dict[str, str], root: Path) -> list[str]:
@@ -175,29 +176,35 @@ def surviving_occurrences(hashes: dict[str, str], root: Path) -> list[str]:
         except OSError as exc:
             raise ToolError(f"could not read {path} while sweeping: {exc}") from exc
         lowered = text.lower()
-        accounted = superseded_occurrences(path, root)
-        for sha, owner in wanted.items():
-            total = lowered.count(sha)
-            if not total:
+        if path.suffix.lower() == ".json":
+            # Exact occurrence identity: report the JSON PATHS that no
+            # supersession record accounts for, so the finding names the
+            # offending occurrence rather than the first matching line.
+            try:
+                doc = json.loads(text)
+            except ValueError:
+                doc = None
+            if doc is not None:
+                excused = excused_paths(path, root)
+                for where_path, sha in _hash_occurrences(doc):
+                    owner = wanted.get(sha)
+                    if owner is None or where_path in excused:
+                        continue
+                    findings.append(
+                        f"{path.relative_to(root)}:{where_path}: still cites the OLD "
+                        f"hash of {owner} ({sha[:12]}...) -- update it in the same commit"
+                    )
                 continue
-            excused = accounted.get(sha, 0)
-            if total <= excused:
+        for sha, owner in wanted.items():
+            if sha not in lowered:
                 continue
             where = path.relative_to(root)
-            # Report only the occurrences a record does NOT account for.
-            remaining = total - excused
             for lineno, line in enumerate(text.splitlines(), 1):
-                hits = line.lower().count(sha)
-                if not hits:
-                    continue
-                take = min(hits, remaining)
-                if take <= 0:
-                    break
-                findings.append(
-                    f"{where}:{lineno}: still cites the OLD hash of {owner} "
-                    f"({sha[:12]}...) -- update it in the same commit"
-                )
-                remaining -= take
+                if sha in line.lower():
+                    findings.append(
+                        f"{where}:{lineno}: still cites the OLD hash of {owner} "
+                        f"({sha[:12]}...) -- update it in the same commit"
+                    )
     return findings
 
 

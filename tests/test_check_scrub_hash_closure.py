@@ -241,3 +241,62 @@ def test_two_records_account_for_two_occurrences(tmp_path: Path) -> None:
             '  "OTHER.md": {\n    "superseded_sha256": "' + old +
             '",\n    "current_sha256": "' + other + '"\n  }\n}\n')
     assert closure.check(base, root) == []
+
+
+def test_nested_valid_records_do_not_excuse_an_unrelated_sibling(tmp_path: Path) -> None:
+    """COUNTING CANNOT SURVIVE NESTING. A valid record containing another valid
+    record has the inner occurrence counted by the outer record AND again by the
+    recursive walk, so the accounted total exceeds the physical occurrences and
+    the surplus excuses an unrelated sibling citation. Paths are unique, so the
+    same occurrence marked twice is still one path."""
+    root, base = _repo(tmp_path)
+    old, new = _scrub(root)
+    (root / "OTHER.md").write_text("other\n", encoding="utf-8")
+    other = hashlib.sha256((root / "OTHER.md").read_bytes()).hexdigest()
+    _record(root, '{\n'
+            '  "NOTES.md": {\n'
+            '    "superseded_sha256": "' + old + '",\n'
+            '    "current_sha256": "' + new + '",\n'
+            '    "OTHER.md": {\n'
+            '      "superseded_sha256": "' + old + '",\n'
+            '      "current_sha256": "' + other + '"\n'
+            '    }\n'
+            '  },\n'
+            '  "unrelated_citation": "' + old + '"\n}\n')
+    findings = closure.check(base, root)
+    assert any("unrelated_citation" in f for f in findings), findings
+
+
+def test_a_finding_names_the_offending_occurrence_not_the_first_match(tmp_path: Path) -> None:
+    """Attribution: counting could only say HOW MANY were unaccounted for, so it
+    reported the first matching line, which may be a legitimate one."""
+    root, base = _repo(tmp_path)
+    old, new = _scrub(root)
+    _record(root, '{\n  "NOTES.md": {\n    "superseded_sha256": "' + old +
+            '",\n    "current_sha256": "' + new + '"\n  },\n'
+            '  "leftover": "' + old + '"\n}\n')
+    findings = [f for f in closure.check(base, root) if "SUPERSEDED.json" in f]
+    assert findings, "the unaccounted occurrence was not reported"
+    assert all("leftover" in f for f in findings), (
+        "the finding pointed somewhere other than the offending occurrence: " + str(findings)
+    )
+
+
+def test_the_workflow_binds_the_denominator_to_the_immutable_event_base(tmp_path: Path) -> None:
+    """WIRING CONTRACT. The base-SHA repair lives in the workflow, so every unit
+    test stays green if someone reverts it to the moving ref -- the fix would be
+    correct and unpinned, which is how enforcement gets silently switched off.
+    """
+    workflow = (Path(__file__).resolve().parents[1]
+                / ".github" / "workflows" / "export-safety.yml").read_text(encoding="utf-8")
+    step = workflow.split("Scrub hash closure", 1)
+    assert len(step) == 2, "the scrub hash closure step is not wired into export-safety"
+    body = step[1].split("- name:", 1)[0]
+    assert "github.event.pull_request.base.sha" in body, (
+        "the scrub check must diff against the IMMUTABLE PR event base SHA"
+    )
+    assert "origin/${{ github.base_ref }}" not in body, (
+        "the scrub check is diffing against a MOVING branch ref: if the base "
+        "advances after the merge ref is synthesized, the check measures a "
+        "different base than the tree it is checking"
+    )
