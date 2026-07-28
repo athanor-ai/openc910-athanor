@@ -639,6 +639,24 @@ _ABBREV_COMMITISH = re.compile(r"(?i)\b(commit|cache[_ ]key|revision|ref)\b")
 _CLAUSE = re.compile(r"(?<=[.;:])\s+|\n+")
 
 
+def _resolve_citation_target(name: str, package: Path) -> Path | None:
+    """Resolve a citation name, package-relative first then repo-relative.
+
+    Both conventions are live: entries under ``files`` name a sibling, while the
+    ``{path, sha256}`` references outside those roles carry a repo-root path
+    (``athanor_artifacts/<pkg>/<file>``). Resolving only one way reports the
+    other as missing, which is a false finding rather than a missed one.
+    """
+    for candidate in (package / name, REPO_ROOT / name):
+        try:
+            resolved = candidate.resolve()
+        except OSError:
+            continue
+        if resolved.is_file():
+            return resolved
+    return None
+
+
 def _find_citations(node: object, owner: object = None, trail: str = "") -> list[dict]:
     """Collect citations, carrying the OWNING OBJECT with each one.
 
@@ -650,6 +668,33 @@ def _find_citations(node: object, owner: object = None, trail: str = "") -> list
     if isinstance(node, dict):
         for key, value in node.items():
             where = f"{trail}.{key}" if trail else key
+            # PER ENTRY, not per map. A container-level predicate is all-or-
+            # nothing: one odd value made a 21-entry map fail the "is this a
+            # citation map" test entirely, so it was neither checked NOR
+            # reported -- it disappeared. Classify each ENTRY instead, exactly as
+            # supersession pairing had to bind to the entry rather than the
+            # container.
+            #
+            # A {path, sha256} object is an UNAMBIGUOUS file reference: it cannot
+            # be a semantic scalar field. It is a citation wherever it appears,
+            # with no container predicate involved at all. 8 such references live
+            # outside every classified role today.
+            if (
+                key not in _CITATION_ROLES
+                and isinstance(value, dict)
+                and isinstance(value.get("path"), str)
+                and isinstance(value.get("sha256"), str)
+                and _HEX64.match(value["sha256"])
+            ):
+                found.append({
+                    "name": value["path"],
+                    "sha": value["sha256"],
+                    "path": where,
+                    "role": key,
+                    "owner": node,
+                    "keyed_by": key,
+                })
+                continue
             if _is_citation_map(value) and key not in _CITATION_ROLES:
                 if key not in _NON_CITATION_HASH_MAPS:
                     found.append({
@@ -863,16 +908,16 @@ def _verify_hash_citations(package: Path) -> list[str]:
                 )
                 continue
             sha = sha.lower()
-            target = (path.parent / name).resolve()
-            try:
-                target.relative_to(package.resolve())
-            except ValueError:
-                problems.append(f"{rel}: citation at {where} escapes the package")
-                continue
-            if not target.is_file():
+            target = _resolve_citation_target(name, path.parent)
+            if target is None:
                 problems.append(
                     f"{rel}: citation at {where} names {name}, which is not in the package"
                 )
+                continue
+            try:
+                target.relative_to(REPO_ROOT.resolve())
+            except ValueError:
+                problems.append(f"{rel}: citation at {where} escapes the repository")
                 continue
             got = _sha256(target)
             record = _paired_supersession(citation)

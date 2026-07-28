@@ -939,3 +939,40 @@ def test_the_negative_controls_citation_shape_is_inspected(tmp_path: Path) -> No
     _cite(package, {"negative_controls": {"proof_mutant": {"path": "mutant.v", "sha256": stale}}})
     problems = _citation_problems(tmp_path)
     assert any("STALE citation at negative_controls.proof_mutant" in p for p in problems), problems
+
+
+def test_a_path_sha256_reference_outside_any_role_is_still_a_citation(tmp_path: Path) -> None:
+    """PER ENTRY, not per map. A {path, sha256} object cannot be a semantic
+    scalar field, so it is a citation wherever it appears -- no container
+    predicate involved. 8 such references live outside every classified role, and
+    a container-level test made them disappear rather than flagging them."""
+    package = _write_package(tmp_path)
+    (package / "gold.v").write_text("module gold; endmodule\n", encoding="utf-8")
+    stale = _sha(package / "gold.v")
+    (package / "gold.v").write_text("module gold_changed; endmodule\n", encoding="utf-8")
+    _cite(package, {"synth_step": {"status": "ok",
+                                   "gold": {"path": "gold.v", "sha256": stale}}})
+    problems = _citation_problems(tmp_path)
+    assert any("STALE citation at synth_step.gold" in p for p in problems), problems
+
+
+def test_a_map_with_one_odd_value_no_longer_disappears(tmp_path: Path) -> None:
+    """asabi's case: 20 hashes and 1 non-hash failed the container predicate
+    ENTIRELY, so 21 entries went neither checked nor reported."""
+    package = _write_package(tmp_path)
+    (package / "a.v").write_text("original\n", encoding="utf-8")
+    stale = _sha(package / "a.v")
+    (package / "a.v").write_text("changed\n", encoding="utf-8")
+    _cite(package, {"mixed": {"note": "not a hash",
+                              "a": {"path": "a.v", "sha256": stale}}})
+    problems = _citation_problems(tmp_path)
+    assert any("STALE citation at mixed.a" in p for p in problems), problems
+
+
+def test_a_bare_hash_semantic_field_is_not_a_citation(tmp_path: Path) -> None:
+    """NARROWNESS: 527 bare-hash entries outside citation roles are semantic
+    fields (log_sha256, candidate_sha256). None of their keys resolves to a file,
+    which is what makes RESOLUTION the classifier rather than a name list."""
+    package = _write_package(tmp_path)
+    _cite(package, {"proof_step": {"status": "passed", "log_sha256": "a" * 64}})
+    assert _citation_problems(tmp_path) == []
