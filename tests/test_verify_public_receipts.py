@@ -902,3 +902,40 @@ def test_the_role_to_path_citation_shape_is_inspected(tmp_path: Path) -> None:
     _cite(package, {"files": {"gold": {"path": "gold.v", "sha256": stale}}})
     problems = _citation_problems(tmp_path)
     assert any("STALE citation at files.gold" in p for p in problems), problems
+
+
+def test_an_unclassified_hash_map_is_loud_not_silent(tmp_path: Path) -> None:
+    """POLARITY: a role ALLOW-LIST is a hand-maintained list, and it fails toward
+    checking LESS -- an unknown role on another fork would read as clean. Every
+    hash map must be classified; anything else is a finding."""
+    package = _write_package(tmp_path)
+    _cite(package, {"mystery_hashes": {"a.v": "a" * 64, "b.v": "b" * 64}})
+    problems = _citation_problems(tmp_path)
+    assert any("unclassified hash map at mystery_hashes" in p for p in problems), problems
+
+
+def test_a_documented_non_citation_map_stays_exempt(tmp_path: Path) -> None:
+    """NARROWNESS companion: the exemption is by name WITH a recorded reason."""
+    package = _write_package(tmp_path)
+    _cite(package, {"candidate_binding": {"gold_sha256": "a" * 64, "gate_sha256": "b" * 64}})
+    assert _citation_problems(tmp_path) == []
+
+
+def test_an_ordinary_object_carrying_a_hash_is_not_a_citation_map(tmp_path: Path) -> None:
+    """A loose test matches every object with a log_sha256 field -- 70 containers
+    instead of 6 -- and a classifier that floods gets switched off."""
+    package = _write_package(tmp_path)
+    _cite(package, {"proof_step": {"status": "passed", "log_sha256": "a" * 64}})
+    assert _citation_problems(tmp_path) == []
+
+
+def test_the_negative_controls_citation_shape_is_inspected(tmp_path: Path) -> None:
+    """20 live citations under negative_controls resolve to in-package files and
+    were inspected by no earlier version."""
+    package = _write_package(tmp_path)
+    (package / "mutant.v") .write_text("module m; endmodule\n", encoding="utf-8")
+    stale = _sha(package / "mutant.v")
+    (package / "mutant.v").write_text("module m_changed; endmodule\n", encoding="utf-8")
+    _cite(package, {"negative_controls": {"proof_mutant": {"path": "mutant.v", "sha256": stale}}})
+    problems = _citation_problems(tmp_path)
+    assert any("STALE citation at negative_controls.proof_mutant" in p for p in problems), problems

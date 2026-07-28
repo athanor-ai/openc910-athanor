@@ -593,7 +593,43 @@ _SUPERSESSION_REQUIRED = ("current", "superseded_by", "reason")
 # this corpus: files=264, artifact_hashes=20, dependencies=3. Deliberately NOT
 # every hash-valued map -- ``candidate_binding`` keys are roles (gold_sha256),
 # not filenames.
-_CITATION_ROLES = frozenset({"files", "artifact_hashes", "dependencies"})
+_CITATION_ROLES = frozenset({"files", "artifact_hashes", "dependencies", "negative_controls"})
+# POLARITY: the question is not "is this a known citation role?" but "is this key
+# CLASSIFIED?". A role set alone is a hand-maintained list -- the same failure
+# mode as every other enumerate-what-to-check list, and it fails toward checking
+# LESS: an unknown role on another fork or in a future packet would read as
+# clean. So every hash map must be classified, and anything unclassified is
+# emitted as a finding. These are the maps that are deliberately NOT file
+# citations, with the reason each is exempt:
+_NON_CITATION_HASH_MAPS = {
+    "candidate_binding": "keys are roles (gold_sha256), values are bare hashes of "
+                         "candidate content; 0 of 20 resolve to an in-package file",
+    "mapped_netlist_sha256": "keys are roles (gold/gate), values are netlist hashes "
+                             "not shipped in the package; 0 of 4 resolve",
+}
+
+
+def _is_citation_map(value: object) -> bool:
+    """A map whose EVERY value is a hash or a {path, sha256} object.
+
+    Deliberately strict. A loose test ("contains a hash somewhere") matches every
+    ordinary object carrying a log_sha256 field -- 70 containers rather than 6 --
+    and a classifier that floods is one that gets switched off.
+    """
+    if not isinstance(value, dict) or not value:
+        return False
+    for held in value.values():
+        if isinstance(held, str) and _HEX64.match(held):
+            continue
+        if (
+            isinstance(held, dict)
+            and isinstance(held.get("path"), str)
+            and isinstance(held.get("sha256"), str)
+            and _HEX64.match(held["sha256"])
+        ):
+            continue
+        return False
+    return True
 # Abbreviated citations live in prose. Context is read from the CLAUSE holding
 # the token -- a structural unit with explicit semantics -- never from a
 # character distance, which is a boundary derived only from current examples.
@@ -614,6 +650,17 @@ def _find_citations(node: object, owner: object = None, trail: str = "") -> list
     if isinstance(node, dict):
         for key, value in node.items():
             where = f"{trail}.{key}" if trail else key
+            if _is_citation_map(value) and key not in _CITATION_ROLES:
+                if key not in _NON_CITATION_HASH_MAPS:
+                    found.append({
+                        "unclassified": True,
+                        "path": where,
+                        "name": key,
+                        "sha": None,
+                        "role": key,
+                        "owner": node,
+                    })
+                continue
             if key in _CITATION_ROLES and isinstance(value, dict):
                 # A citation role carries TWO shapes in this corpus:
                 #   {"README.md": "<sha>"}                     name -> hash
@@ -755,7 +802,15 @@ def _verify_hops(record: dict, cited: str, current: str, rel_to_repo: str, root:
                 # the skipped transition is simply absent. That is the exact
                 # compression the chain exists to prevent.
                 before = _blob_sha256(f"{commit.strip()}^", rel_to_repo, root)
-                if before is not None and before != previous_state.lower():
+                if before is None:
+                    # "No prior state" and "I did not look" produce the same
+                    # silence. State it, so it is an accounted-for absence rather
+                    # than a gap the next reader has to re-derive.
+                    print(
+                        f"NOTE: {rel_to_repo}: hop {index} has no prior blob "
+                        f"(file added at {commit.strip()}); contiguity not applicable"
+                    )
+                elif before != previous_state.lower():
                     problems.append(
                         f"hop {index} does not continue from {previous_state[:12]} -- "
                         f"{commit} began at {before[:12]}, so a transition is missing"
@@ -788,6 +843,13 @@ def _verify_hash_citations(package: Path) -> list[str]:
             continue
         for citation in _find_citations(doc):
             name, sha, where = citation["name"], citation["sha"], citation["path"]
+            if citation.get("unclassified"):
+                problems.append(
+                    f"{rel}: unclassified hash map at {where} -- every citation map "
+                    f"must be classified as a citation role or exempted with a reason, "
+                    f"so a new one is LOUD rather than silently unchecked"
+                )
+                continue
             unsafe = _unsafe_citation_name(name)
             if unsafe:
                 problems.append(f"{rel}: citation at {where} names a path that {unsafe}")
