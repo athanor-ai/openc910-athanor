@@ -319,7 +319,11 @@ def test_generation_reads_declared_builder_commit_not_worktree(tmp_path):
 # --- ATH-3397: fleet-agent handle GATE tests (the gate that consumes the
 # denylist; derivation tests live above from the infra split). --------------
 
-def test_agent_handle_in_customer_artifact_prose_is_block(tmp_path):
+def test_agent_handle_in_customer_artifact_prose_is_block(tmp_path, monkeypatch):
+    # select the tier explicitly: this test is about DETECTION capability,
+    # not about which tier happens to be the default (asabi: a test coupled
+    # to the default measures configuration, not capability).
+    monkeypatch.setattr(esg, "HANDLE_FINDING_TIER", "block")
     leak = '{"note":"cross-VM replay required (' + _H_A.capitalize() + ')"}\n'
     block, _, _ = _scan(tmp_path, {"athanor_artifacts/pkt/receipt.json": leak})
     assert _has(block, "fleet-agent handle")
@@ -463,7 +467,11 @@ def test_whitespace_wrapped_handles_fail_closed(tmp_path):
         esg._load_agent_handles(ref, root)
 
 
-def test_canonical_denylist_catches_the_bare_name_end_to_end(tmp_path):
+def test_canonical_denylist_catches_the_bare_name_end_to_end(tmp_path, monkeypatch):
+    # select the tier explicitly: this test is about DETECTION capability,
+    # not about which tier happens to be the default (asabi: a test coupled
+    # to the default measures configuration, not capability).
+    monkeypatch.setattr(esg, "HANDLE_FINDING_TIER", "block")
     # the other direction: a canonical MIN-sized list loads AND the compiled
     # patterns actually catch the bare name in a customer artifact.
     import hashlib as _hl
@@ -477,3 +485,122 @@ def test_canonical_denylist_catches_the_bare_name_end_to_end(tmp_path):
     block, _, _ = _scan(tmp_path, files)
     assert _has(block, "fleet-agent handle")
     assert _has(block, "receipt.json")
+
+
+# --- ATH-3397 tier staging: the handle scan lands at WARN on forks where
+# export-safety is a REQUIRED context, then is PROMOTED to BLOCK after the scrub.
+# asabi's condition 2: the promotion must be proven by EXERCISE on a constructed
+# instance, because a tier promoted against an empty population has never once
+# blocked anything — a required gate that emits green because it cannot fail is
+# the dead-gate shape arriving through the back door of a correct plan.
+
+def _repo_with_a_live_handle_instance(tmp_path):
+    """Commit a denylist plus a customer artifact containing one of its handles."""
+    import hashlib as _hl
+    handles = _padded([_H_A, _H_B])
+    files = {
+        esg.DENYLIST_REL: json.dumps(
+            {"handles": handles,
+             "stamp": _hl.sha256("\n".join(sorted(handles)).encode()).hexdigest()}),
+        "athanor_artifacts/pkt/receipt.json": '{"reviewer": "' + _H_A + '"}\n',
+    }
+    tmp_path.mkdir(parents=True, exist_ok=True)
+    _git(["init", "-q"], tmp_path)
+    _git(["config", "user.email", "t@example.invalid"], tmp_path)
+    _git(["config", "user.name", "t"], tmp_path)
+    for rel, content in files.items():
+        p = tmp_path / rel
+        p.parent.mkdir(parents=True, exist_ok=True)
+        p.write_text(content)
+        _git(["add", rel], tmp_path)
+    _git(["commit", "-q", "-m", "live instance"], tmp_path)
+    return tmp_path
+
+
+def test_block_tier_exits_nonzero_on_a_constructed_instance(tmp_path, monkeypatch, capsys):
+    # THE PROMOTION BITE. Proves the BLOCK tier actually blocks, on a population we
+    # construct — the real population is zero by promotion time, which is why
+    # inheriting confidence from WARN would prove nothing.
+    #
+    # The verifier is neutralised deliberately: a synthetic tree has no receipts,
+    # so it fail-closes and would make rc != 0 EVEN IF the tier were broken. An
+    # earlier draft of this test asserted only rc != 0 and passed for exactly that
+    # wrong reason. The assertion is on the CAUSE, not just the exit code.
+    root = _repo_with_a_live_handle_instance(tmp_path)
+    monkeypatch.setattr(esg, "HANDLE_FINDING_TIER", "block")
+    monkeypatch.setattr(esg, "_run_receipt_verifier", lambda root: [])
+    monkeypatch.chdir(root)
+    rc = esg.main(["--ref", "HEAD"])
+    out = capsys.readouterr()
+    combined = out.out + out.err
+    assert rc != 0, "BLOCK tier did not fail on a live handle instance"
+    assert "block: [internal fleet-agent handle]" in combined, (
+        "nonzero exit was not caused by the handle finding: " + combined[-300:])
+
+
+
+def test_warn_tier_reports_the_instance_but_does_not_fail(tmp_path, monkeypatch, capsys):
+    # THE STAGING PROPERTY. The gate lands, NAMES its live population in the log,
+    # and leaves the required context green so the PR introducing it can merge.
+    # Verifier neutralised for the same reason as the BLOCK test: a synthetic tree
+    # has no receipts, so its fail-closed finding would mask the tier behaviour.
+    root = _repo_with_a_live_handle_instance(tmp_path)
+    monkeypatch.setattr(esg, "HANDLE_FINDING_TIER", "warn")
+    monkeypatch.setattr(esg, "_run_receipt_verifier", lambda root: [])
+    monkeypatch.chdir(root)
+    rc = esg.main(["--ref", "HEAD"])
+    out = capsys.readouterr()
+    combined = out.out + out.err
+    assert rc == 0, "WARN tier must not fail the required context: " + combined[-300:]
+    assert "fleet-agent handle" in combined, "WARN tier must still REPORT the instance"
+    assert "block: [internal fleet-agent handle]" not in combined, (
+        "WARN tier must not emit the finding as a BLOCK row")
+
+
+def test_warn_staging_reports_the_same_population_block_would(tmp_path, monkeypatch, capsys):
+    # DEXTER'S PAIRED ASSERTION, and the one that catches the real defect: it is not
+    # enough that BLOCK bites and WARN exits 0 — WARN must REPORT THE SAME live
+    # population, or the staging silently shrinks the set the scrub is measured
+    # against. On the real tree the generic --warn-limit truncated every handle
+    # finding away, so the landing would have named ZERO while claiming to name its
+    # population. The fixture below is padded past the cap to reproduce that.
+    import hashlib as _hl
+    handles = _padded([_H_A, _H_B])
+    files = {
+        esg.DENYLIST_REL: json.dumps(
+            {"handles": handles,
+             "stamp": _hl.sha256("\n".join(sorted(handles)).encode()).hexdigest()}),
+        "athanor_artifacts/pkt/receipt.json": '{"reviewer": "' + _H_A + '"}\n',
+    }
+    # bury it under many generic WARN-tier findings (ticket ids), past any cap
+    for i in range(60):
+        files[f"athanor_artifacts/noise/n{i}.md"] = f"tracking ATH-{2000 + i}\n"
+    tmp_path.mkdir(parents=True, exist_ok=True)
+    _git(["init", "-q"], tmp_path)
+    _git(["config", "user.email", "t@example.invalid"], tmp_path)
+    _git(["config", "user.name", "t"], tmp_path)
+    for rel, content in files.items():
+        p = tmp_path / rel
+        p.parent.mkdir(parents=True, exist_ok=True)
+        p.write_text(content)
+        _git(["add", rel], tmp_path)
+    _git(["commit", "-q", "-m", "buried instance"], tmp_path)
+
+    monkeypatch.setattr(esg, "_run_receipt_verifier", lambda root: [])
+    monkeypatch.chdir(tmp_path)
+
+    monkeypatch.setattr(esg, "HANDLE_FINDING_TIER", "block")
+    esg.main(["--ref", "HEAD"])
+    block_out = capsys.readouterr()
+    block_n = (block_out.out + block_out.err).count("[internal fleet-agent handle]")
+
+    monkeypatch.setattr(esg, "HANDLE_FINDING_TIER", "warn")
+    rc = esg.main(["--ref", "HEAD"])
+    warn_out = capsys.readouterr()
+    warn_n = (warn_out.out + warn_out.err).count("[internal fleet-agent handle]")
+
+    assert rc == 0, "WARN must not fail the required context"
+    assert block_n > 0, "control: BLOCK must have reported instances"
+    assert warn_n == block_n, (
+        f"WARN staging reported {warn_n} instances but BLOCK reported {block_n} — "
+        "the staging is hiding part of the population it claims to name")

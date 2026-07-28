@@ -170,6 +170,18 @@ MIN_HANDLES = 8
 #  * Enumerated path exemptions (NOT an extension rule): specific files that are
 #    themselves .json/.md but are infra, not a customer surface. Each carries its
 #    reason so adding one is a visible decision, never a side effect.
+# ATH-3397 TIER STAGING (asabi ruling, openc910 fork-asymmetry): on a fork where
+# `export-safety` is a REQUIRED status context, a gate that reds by design can
+# never merge the PR that introduces it. So the handle scan lands at WARN — the
+# gate runs, NAMES every live instance in the log, and leaves the required
+# context green — then is PROMOTED to BLOCK after the scrub lands.
+#
+# The promotion is proven by EXERCISE, never inherited from WARN: by promotion
+# time the real population is zero, so a BLOCK tier that has never blocked
+# anything would look identical to one that cannot. See
+# test_block_tier_exits_nonzero_on_a_constructed_instance.
+HANDLE_FINDING_TIER = "warn"  # "warn" (staging) | "block" (enforcing)
+
 HANDLE_SCAN_ARTIFACT_EXTS: tuple[str, ...] = (".json", ".md")
 HANDLE_SCAN_EXEMPT_PATHS: dict[str, str] = {
     DENYLIST_REL: "the denylist DATA file; holds every handle verbatim by design",
@@ -373,7 +385,11 @@ def _scan_committed(ref: str, root: Path) -> tuple[list[str], list[str], list[st
             ):
                 for label, rx in agent_res:
                     if rx.search(line):
-                        block.append(f"[{label}] {path}:{lineno}: {shown}")
+                        # tier-routed: see HANDLE_FINDING_TIER. WARN still REPORTS
+                        # the instance, so the staging landing carries its own
+                        # bite evidence in the log.
+                        sink = block if HANDLE_FINDING_TIER == "block" else warn
+                        sink.append(f"[{label}] {path}:{lineno}: {shown}")
             for label, rx, ex in warn_res:
                 if rx.search(line) and not (ex and ex.search(line)):
                     warn.append(f"[{label}] {path}:{lineno}: {shown}")
@@ -489,6 +505,24 @@ def main(argv: list[str] | None = None) -> int:
             print(f"  warn: {line}")
         if len(shown) < len(warn):
             print(f"  ... {len(warn) - len(shown)} more (raise --warn-limit to see all)")
+
+    # ATH-3397 staging: when the handle scan runs at WARN, its findings share the
+    # generic warn list and are subject to --warn-limit — on the real tree that
+    # truncated ALL of them away, so the landing would have reported ZERO live
+    # instances while claiming to name its population. The whole point of the
+    # staging is that the log carries the bite evidence, so handle findings get
+    # their own UNCAPPED section. (Caught by measuring on the real tree; the
+    # fixture had one warn and stayed under the cap.)
+    if HANDLE_FINDING_TIER == "warn":
+        staged_handles = [w for w in warn if w.startswith("[internal fleet-agent handle]")]
+        if staged_handles:
+            print(
+                f"\nSTAGED (ATH-3397): {len(staged_handles)} fleet-agent handle "
+                f"instance(s) at {args.ref} — REPORTED, not blocking. This tier is "
+                "promoted to BLOCK once the scrub lands:"
+            )
+            for line in staged_handles:
+                print(f"  staged-handle: {line}")
 
     if block:
         print(
