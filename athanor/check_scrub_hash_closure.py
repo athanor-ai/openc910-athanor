@@ -30,6 +30,7 @@ from __future__ import annotations
 
 import argparse
 import hashlib
+import json
 import re
 import subprocess
 import sys
@@ -66,7 +67,14 @@ def changed_files(base: str, root: Path) -> list[str]:
             f"base ref {base!r} does not resolve -- refusing to report a scrub "
             f"clean against a base that could not be read"
         )
-    result = _git("diff", "--name-only", "--diff-filter=M", base, root=root)
+    # MODIFIED **and DELETED**. --diff-filter=M alone meant DELETING a file
+    # produced an empty changed set, so the check returned clean while the
+    # deleted file's old hash was still cited -- deletion is the strongest
+    # possible scrub and it disabled the gate entirely. --no-renames decomposes a
+    # rename into delete+add so the old path is always visible.
+    result = _git(
+        "diff", "--no-renames", "--name-only", "--diff-filter=MD", base, root=root
+    )
     if result.returncode != 0:
         raise ToolError(f"git diff against {base} failed: {result.stderr.decode()[:200]}")
     return [line for line in result.stdout.decode().splitlines() if line.strip()]
@@ -127,31 +135,57 @@ def _key_naming(text: str, start: int) -> str | None:
     return match.group(1) if match else None
 
 
+def _string_values(node: object) -> set[str]:
+    """Every STRING VALUE in a parsed object, exactly as parsed."""
+    found: set[str] = set()
+    if isinstance(node, dict):
+        for value in node.values():
+            found |= _string_values(value)
+    elif isinstance(node, list):
+        for item in node:
+            found |= _string_values(item)
+    elif isinstance(node, str):
+        found.add(node)
+    return found
+
+
 def excused_spans(path: Path, root: Path, old_of: dict[str, str]) -> set[int]:
     """Offsets of hash occurrences a supersession record legitimately accounts for.
 
-    Identity is the literal OCCURRENCE OFFSET -- unique by construction, unlike a
-    dotted path string, which collides when a key is literally named like a
-    nested path.
+    Identity is the literal OCCURRENCE OFFSET -- unique by construction. But an
+    offset alone cannot say whether a RECORD exists, so the exemption is granted
+    only from PARSED structure:
 
-    An occurrence is excused only when ALL of these hold:
-      (a) CONTAINMENT   it lies inside a record object, and only that object's
-                        own occurrences are excused;
-      (b) REPLACEMENT   that object contains the NAMED FILE'S CURRENT content
-                        hash, so the record proves what replaced it;
-      (c) SUBJECT       the occurrence is the old hash OF THAT SAME FILE. Without
-                        this a valid record for one file excuses an unrelated
-                        file's stale hash parked inside it -- the record must be
-                        ABOUT the transition it is excusing.
+      SYNTAX      the file must parse, and so must the record object. A raw brace
+                  scan happily finds spans in malformed JSON, so trailing commas
+                  earned an exemption from a file that is not a record at all.
+      REPLACEMENT some VALUE must EQUAL the file's current hash. Substring
+                  containment let "not-a-replacement-<CURRENT>-tail" pose as the
+                  replacement while no value was the hash.
+      SUBJECT     the occurrence must be that same file's own prior hash.
+      CONTAINMENT only the record's own occurrences are excused.
+
+    Keys are read DECODED: a JSON key may be escaped (NOTES\\u002emd) and still
+    name NOTES.md, so comparing raw key text produces false findings.
     """
     try:
         text = path.read_text(encoding="utf-8")
     except OSError:
         return set()
+    try:
+        json.loads(text)
+    except ValueError:
+        # A file that does not parse cannot establish that any record exists.
+        # Fail closed: it earns no exemptions at all.
+        return set()
     excused: set[int] = set()
     for start, end in _object_spans(text):
-        key = _key_naming(text, start)
-        if not key:
+        raw_key = _key_naming(text, start)
+        if raw_key is None:
+            continue
+        try:
+            key = json.loads(f'"{raw_key}"')
+        except ValueError:
             continue
         target = None
         for base in (path.parent, root):
@@ -169,10 +203,14 @@ def excused_spans(path: Path, root: Path, old_of: dict[str, str]) -> set[int]:
         if prior is None:
             continue
         body = text[start:end + 1]
-        current = hashlib.sha256(target.read_bytes()).hexdigest()
-        if current.lower() not in body.lower():
+        try:
+            record = json.loads(body)
+        except ValueError:
             continue
-        # Only THIS file's prior hash, and only inside THIS object.
+        current = hashlib.sha256(target.read_bytes()).hexdigest()
+        values = {v.lower() for v in _string_values(record)}
+        if current.lower() not in values:
+            continue
         for match in re.finditer(re.escape(prior), body, re.IGNORECASE):
             excused.add(start + match.start())
     return excused

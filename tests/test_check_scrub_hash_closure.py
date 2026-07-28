@@ -344,3 +344,97 @@ def test_a_key_named_like_a_path_cannot_collide_with_one(tmp_path: Path) -> None
         encoding="utf-8")
     findings = closure.check(base, root)
     assert any("NOTES.md.superseded_sha256" in f for f in findings), findings
+
+
+# --- W1/W2/W3: "could not establish X" must never render as "X is satisfied" ---
+#
+# Three false-cleans that are one defect in three costumes: an unparseable
+# record, a non-exact match, and an unobservable file each converted an
+# inability to establish something into a discharge. That is rc 2 rendering as
+# rc 0. Each witness has a positive control so the fix is not just a refusal.
+
+
+def test_W1_a_malformed_record_earns_no_exemption(tmp_path: Path) -> None:
+    root, base = _repo(tmp_path)
+    old, new = _scrub(root)
+    _record(root, '{\n  "NOTES.md": {\n    "superseded_sha256": "' + old +
+            '",\n    "current_sha256": "' + new + '",\n  },\n}\n')   # trailing commas
+    findings = closure.check(base, root)
+    assert any("SUPERSEDED.json" in f for f in findings), (
+        "a record that does not PARSE cannot establish that a record exists", findings)
+
+
+def test_W1_an_escaped_key_decodes_to_the_file_it_names(tmp_path: Path) -> None:
+    """The pair of W1: fixing syntax validation must not start rejecting VALID
+    records whose key happens to be escaped."""
+    root, base = _repo(tmp_path)
+    old, new = _scrub(root)
+    _record(root, '{\n  "NOTES\\u002emd": {\n    "superseded_sha256": "' + old +
+            '",\n    "current_sha256": "' + new + '"\n  }\n}\n')
+    assert closure.check(base, root) == []
+
+
+def test_W1_the_literal_sweep_still_fires_on_non_json(tmp_path: Path) -> None:
+    """Do not trade one blind spot for the other: structure governs the
+    EXEMPTION, the literal sweep still finds every occurrence everywhere."""
+    root, base = _repo(tmp_path)
+    old, _ = _scrub(root)
+    (root / "notes.txt").write_text(f"previously {old}\n", encoding="utf-8")
+    findings = closure.check(base, root)
+    assert any("notes.txt" in f for f in findings), findings
+
+
+def test_W2_substring_containment_is_not_a_replacement(tmp_path: Path) -> None:
+    root, base = _repo(tmp_path)
+    old, new = _scrub(root)
+    _record(root, '{\n  "NOTES.md": {\n    "superseded_sha256": "' + old +
+            '",\n    "noise": "not-a-replacement-' + new + '-tail"\n  }\n}\n')
+    findings = closure.check(base, root)
+    assert any("SUPERSEDED.json" in f for f in findings), (
+        "substring containment posed as the replacement", findings)
+
+
+def test_W2_an_exact_token_replacement_still_passes(tmp_path: Path) -> None:
+    """POSITIVE CONTROL for W2."""
+    root, base = _repo(tmp_path)
+    old, new = _scrub(root)
+    _record(root, '{\n  "NOTES.md": {\n    "superseded_sha256": "' + old +
+            '",\n    "current_sha256": "' + new + '"\n  }\n}\n')
+    assert closure.check(base, root) == []
+
+
+def _commit_all(root: Path, message: str) -> None:
+    subprocess.run(["git", "add", "-A"], cwd=root, capture_output=True, check=False)
+    subprocess.run(
+        ["git", "-c", "user.email=t@t", "-c", "user.name=t", "commit", "-qm", message],
+        cwd=root, capture_output=True, check=False,
+    )
+
+
+def test_W3_deleting_the_file_does_not_disable_the_gate(tmp_path: Path) -> None:
+    """DELETION IS THE STRONGEST SCRUB. With --diff-filter=M the changed set was
+    EMPTY, so the gate passed while the deleted file's old hash stayed cited."""
+    root, base = _repo(tmp_path)
+    (root / "NOTES.md").unlink()
+    findings = closure.check(base, root)
+    assert any("receipt.json" in f for f in findings), (
+        "a deleted file's old hash is still cited and the gate went quiet", findings)
+
+
+def test_W3_a_rename_carrying_an_old_hash_still_reds(tmp_path: Path) -> None:
+    root, base = _repo(tmp_path)
+    (root / "NOTES.md").rename(root / "RENAMED.md")
+    _commit_all(root, "rename")
+    findings = closure.check(base, root)
+    assert any("receipt.json" in f for f in findings), findings
+
+
+def test_W3_an_unrelated_deletion_does_not_invent_findings(tmp_path: Path) -> None:
+    """POSITIVE CONTROL for W3: deleting a file nothing cites stays clean."""
+    root, base = _repo(tmp_path)
+    (root / "SPARE.md").write_text("spare\n", encoding="utf-8")
+    _commit_all(root, "add spare")
+    base2 = subprocess.run(["git", "rev-parse", "HEAD"], cwd=root,
+                           capture_output=True, text=True, check=True).stdout.strip()
+    (root / "SPARE.md").unlink()
+    assert closure.check(base2, root) == []
