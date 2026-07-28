@@ -398,3 +398,100 @@ def test_replay_out_generated_files_do_not_self_trip_manifest_gate(tmp_path: Pat
     (replay_out / "generated.mapped.v").write_text("module generated; endmodule\n", encoding="utf-8")
 
     assert verify_public_receipts.verify(tmp_path) == []
+
+
+# --- inline hash-citation validation (ATH-3397 cross-reference closure) -------
+#
+# _verify_sums proves SHA256SUMS matches CONTENT; it is blind to the hashes a
+# receipt quotes INLINE. These tests come in the three classes that matter:
+# NECESSITY (does it catch a stale citation), NARROWNESS (does it stay silent on
+# the many hash-shaped things in an RTL tree that are not content citations), and
+# FAIL-CLOSED (does an unreadable receipt read as clean).
+
+
+def _repin(package: Path) -> None:
+    """Rewrite SHA256SUMS after editing package contents."""
+    listed = []
+    for path in sorted(package.iterdir()):
+        if path.name == "SHA256SUMS" or not path.is_file():
+            continue
+        listed.append(f"{_sha(path)}  {path.name}\n")
+    (package / "SHA256SUMS").write_text("".join(listed), encoding="utf-8")
+
+
+def _cite(package: Path, entries: dict[str, Any]) -> None:
+    receipt = json.loads((package / "receipt.json").read_text(encoding="utf-8"))
+    receipt.update(entries)
+    (package / "receipt.json").write_text(json.dumps(receipt, indent=2) + "\n", encoding="utf-8")
+    _repin(package)
+
+
+def _citation_problems(root: Path) -> list[str]:
+    """Every citation finding carries the word "citation" -- a filter that silently
+    drops one would hide exactly the findings these tests exist to prove."""
+    return [p for p in verify_public_receipts.verify(root) if "citation" in p]
+
+
+def test_stale_inline_citation_is_caught(tmp_path: Path) -> None:
+    """NECESSITY: the exact miss that shipped -- SHA256SUMS right, receipt stale."""
+    package = _write_package(tmp_path)
+    (package / "NOTES.md").write_text("original\n", encoding="utf-8")
+    _cite(package, {"NOTES.md": _sha(package / "NOTES.md")})
+    assert _citation_problems(tmp_path) == []
+    # Edit the cited file and re-pin SHA256SUMS *without* touching the citation.
+    (package / "NOTES.md").write_text("edited later by another PR\n", encoding="utf-8")
+    _repin(package)
+    problems = _citation_problems(tmp_path)
+    assert any("STALE citation of NOTES.md" in p for p in problems), problems
+
+
+def test_correct_inline_citation_passes(tmp_path: Path) -> None:
+    package = _write_package(tmp_path)
+    (package / "NOTES.md").write_text("stable\n", encoding="utf-8")
+    _cite(package, {"NOTES.md": _sha(package / "NOTES.md")})
+    assert _citation_problems(tmp_path) == []
+
+
+def test_verilog_literals_are_not_treated_as_citations(tmp_path: Path) -> None:
+    """NARROWNESS: 246 tokens in this tree are 64-char Verilog literals."""
+    package = _write_package(tmp_path)
+    _cite(package, {"waveform_note": "b" + "0" * 64 + " sha256 sample"})
+    assert _citation_problems(tmp_path) == []
+
+
+def test_commit_identifiers_are_not_treated_as_content_hashes(tmp_path: Path) -> None:
+    """NARROWNESS: source_commit is a git SHA -- it resolves to no file by design."""
+    package = _write_package(tmp_path)
+    _cite(package, {"note": "sha256 evidence; production receipt source_commit 93ce85eeb"})
+    assert _citation_problems(tmp_path) == []
+
+
+def test_external_input_keys_are_not_required_to_resolve(tmp_path: Path) -> None:
+    """NARROWNESS: the PDK Liberty library is not shipped; its hash cannot resolve."""
+    package = _write_package(tmp_path)
+    _cite(package, {"liberty_sha256": "e" * 64})
+    assert _citation_problems(tmp_path) == []
+
+
+def test_citation_naming_a_file_outside_the_package_is_caught(tmp_path: Path) -> None:
+    package = _write_package(tmp_path)
+    _cite(package, {"absent_file.md": "a" * 64})
+    problems = _citation_problems(tmp_path)
+    assert any("not in the package" in p for p in problems), problems
+
+
+def test_abbreviated_prose_citation_is_checked(tmp_path: Path) -> None:
+    """NECESSITY: citations also appear abbreviated; a full-64 rule is blind."""
+    package = _write_package(tmp_path)
+    _cite(package, {"summary": "gold candidate deadbeef01 was screened"})
+    problems = _citation_problems(tmp_path)
+    assert any("abbreviated citation deadbeef01" in p for p in problems), problems
+
+
+def test_unreadable_receipt_fails_closed(tmp_path: Path) -> None:
+    """FAIL-CLOSED: an unreadable receipt is not a clean receipt."""
+    package = _write_package(tmp_path)
+    (package / "broken.json").write_bytes(b'{"a": "\xff\xfe not utf-8"}')
+    _repin(package)
+    problems = verify_public_receipts.verify(tmp_path)
+    assert any("could not read for citation check" in p for p in problems), problems

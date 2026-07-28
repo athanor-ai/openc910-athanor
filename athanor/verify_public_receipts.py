@@ -565,6 +565,93 @@ def _verify_customer_ready_receipt(package: Path) -> list[str]:
     problems.extend(_verify_proof_packet_no_smuggled_ppa(package, receipt))
     return problems
 
+# --- inline hash-citation validation (ATH-3397 / cross-reference closure) ---
+#
+# ``_verify_sums`` proves SHA256SUMS matches file CONTENT. It says nothing about
+# the hashes receipts quote INLINE. A rehash that updates SHA256SUMS and misses a
+# citing receipt.json therefore passes that check -- and did: this validator
+# landed red against 13 such live citations on this fork.
+#
+# Narrowness matters more than reach here. This tree is RTL, so a rule like
+# "every 64-hex token must be a pinned hash" reds every .v file (246 Verilog
+# literals are 64 hex chars wide, 13850 more are 40). The enforced rule is
+# NAME-BOUND: a JSON entry mapping a FILENAME to a hash must equal that file's
+# current content. Nothing else is enforced by hash value.
+_CITATION_NAME_BOUND = re.compile(
+    r'"(?P<name>[A-Za-z0-9_][A-Za-z0-9_.-]*\.(?:md|json|v|sv|sh|log|txt))"\s*:\s*"(?P<sha>[0-9a-f]{64})"'
+)
+# Abbreviated citations appear in receipt PROSE ("sha256 `2cd7d0e3...`",
+# "candidate f3296156 and mapped netlist b85271d2"). A full-64-only validator is
+# blind to them, so they are checked as PREFIXES -- but only on lines that are
+# actually talking about content hashes.
+_CITATION_CONTEXT = re.compile(r"(?i)\b(sha-?256|digest|mapped netlist|candidate)\b")
+_CITATION_ABBREV = re.compile(r"(?<![0-9A-Za-z])([0-9a-f]{8,16})(?![0-9A-Za-z])")
+# The keep-set: hash-shaped values that legitimately resolve to nothing in-tree.
+# Enumerated EXPLICITLY rather than letting "unresolvable" quietly read as fine.
+#   liberty/yosys/opensta/toolchain -- external tools and PDK libraries we do not ship
+#   source_manifest/screen_config/obligation/overlay/gate_overlay -- inputs kept out of the package
+#   *commit* -- git commit identifiers, not content hashes (e.g. source_commit 93ce85eeb)
+_CITATION_EXTERNAL_KEYS = (
+    "liberty_sha256", "yosys_sha256", "opensta_sha256", "toolchain_sha256",
+    "source_manifest_sha256", "screen_config_sha256", "overlay_sha256",
+    "gate_overlay_sha256", "obligation_content_sha256", "obligation_core_sha256",
+    "mapped_netlist_sha256", "sha256",
+)
+_CITATION_COMMIT_MARKERS = ("commit", "source_commit", "cache_key", "gold_cache_key", "gate_cache_key")
+
+
+def _verify_hash_citations(package: Path) -> list[str]:
+    problems: list[str] = []
+    local: set[str] = set()
+    for path in sorted(package.rglob("*")):
+        if path.is_file():
+            try:
+                local.add(_sha256(path))
+            except OSError:
+                continue
+    pinned = set(_sums_entries(package).values()) | local
+    for path in sorted(package.rglob("*.json")):
+        rel = path.relative_to(REPO_ROOT)
+        try:
+            text = path.read_text(encoding="utf-8")
+        except (OSError, UnicodeDecodeError) as exc:
+            # Fail closed: an unreadable receipt is NOT a clean receipt.
+            problems.append(f"{rel}: could not read for citation check ({exc})")
+            continue
+        for lineno, line in enumerate(text.splitlines(), 1):
+            for match in _CITATION_NAME_BOUND.finditer(line):
+                name, sha = match.group("name"), match.group("sha")
+                target = (path.parent / name).resolve()
+                try:
+                    target.relative_to(package.resolve())
+                except ValueError:
+                    problems.append(f"{rel}:{lineno}: citation {name} escapes the package")
+                    continue
+                if not target.is_file():
+                    problems.append(f"{rel}:{lineno}: citation names {name}, which is not in the package")
+                    continue
+                got = _sha256(target)
+                if got != sha:
+                    problems.append(
+                        f"{rel}:{lineno}: STALE citation of {name}: "
+                        f"receipt says {sha}, file is {got}"
+                    )
+            if not _CITATION_CONTEXT.search(line):
+                continue
+            key = re.match(r'\s*"([A-Za-z0-9_]+)"\s*:', line)
+            keyname = key.group(1) if key else ""
+            if keyname in _CITATION_EXTERNAL_KEYS or any(
+                m in line.lower() for m in _CITATION_COMMIT_MARKERS
+            ):
+                continue
+            for abbrev in _CITATION_ABBREV.findall(line):
+                if not any(h.startswith(abbrev) for h in pinned):
+                    problems.append(
+                        f"{rel}:{lineno}: abbreviated citation {abbrev} matches no "
+                        f"pinned hash or file in this package"
+                    )
+    return problems
+
 
 def verify(root: Path = ARTIFACT_ROOT) -> list[str]:
     # A capture-track fork (e.g. riscv-boom-athanor) legitimately has no proof
@@ -594,6 +681,7 @@ def verify(root: Path = ARTIFACT_ROOT) -> list[str]:
         problems.extend(_verify_receipt_bound_to_logs(package))
         problems.extend(_verify_customer_ready_receipt(package))
         problems.extend(_verify_public_export_clean(package))
+        problems.extend(_verify_hash_citations(package))
     return problems
 
 
