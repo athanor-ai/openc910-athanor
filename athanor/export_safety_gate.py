@@ -354,7 +354,16 @@ def _scan_committed(ref: str, root: Path) -> tuple[list[str], list[str], list[st
     # mid-word. Scoped to OUR_ADDED_PREFIXES (our authored artifacts); upstream
     # files that legitimately contain such a token are not our leak.
     agent_res = [
-        ("internal fleet-agent handle", re.compile(rb"(?i)\b" + re.escape(h).encode() + rb"\b"))
+        # ATH-3439 pattern ruling applied to handles (asabi, 2026-07-27): \b is the
+        # WRONG boundary here because `_` is a word character, so \bquan\b misses
+        # quan_review, reviewer_quan and created_by_quan — identifier forms are
+        # exactly how a handle lands in a receipt field. Use the bounded form:
+        # `_` and `-` are not [a-z], so those all match, while "quantum" and
+        # "banking" do not. Stated scope: a camel-embedded handle (quanReview) is
+        # NOT matched, which is deliberate — the alternative false-positives on
+        # ordinary CamelCase prose. Negative controls pin the narrowness.
+        ("internal fleet-agent handle",
+         re.compile(rb"(?i)(^|[^a-z])" + re.escape(h).encode() + rb"([^a-z]|$)"))
         for h in _load_agent_handles(ref, root)
     ]
     block: list[str] = []

@@ -48,6 +48,7 @@ def _scan(tmp_path, files):
     """
     files = dict(files)
     files.setdefault(esg.DENYLIST_REL, _denylist_json(_padded([_H_A, _H_B])))
+    tmp_path.mkdir(parents=True, exist_ok=True)
     _git(["init", "-q"], tmp_path)
     _git(["config", "user.email", "t@example.invalid"], tmp_path)
     _git(["config", "user.name", "t"], tmp_path)
@@ -604,3 +605,35 @@ def test_warn_staging_reports_the_same_population_block_would(tmp_path, monkeypa
     assert warn_n == block_n, (
         f"WARN staging reported {warn_n} instances but BLOCK reported {block_n} — "
         "the staging is hiding part of the population it claims to name")
+
+
+def test_handle_pattern_catches_identifier_forms(tmp_path, monkeypatch):
+    # ATH-3439 pattern ruling applied here: `_` is a word character, so a \b-bounded
+    # handle MISSES quan_review / reviewer_quan / created_by_quan — which is exactly
+    # how a handle lands in a receipt field. These must all be caught.
+    monkeypatch.setattr(esg, "HANDLE_FINDING_TIER", "block")
+    for body in ('{"n": "' + _H_A + '_review"}',
+                 '{"n": "reviewer_' + _H_A + '"}',
+                 '{"d": "' + _H_A + '-ath2686-run"}',
+                 '{"reviewer": "' + _H_A + '"}'):
+        block, _, _ = _scan(tmp_path / f"r{abs(hash(body))%9999}",
+                            {"athanor_artifacts/pkt/receipt.json": body + "\n"})
+        assert _has(block, "fleet-agent handle"), f"identifier form missed: {body}"
+
+
+def test_handle_pattern_does_not_flag_ordinary_vocabulary(tmp_path, monkeypatch):
+    # THE NEGATIVE HALF (asabi: a suite that only proves necessity cannot detect
+    # over-matching). A substring pattern would flag our own domain vocabulary —
+    # "memory banking" is RTL optimisation language on a hardware product. These
+    # must NOT be flagged, or the gate deletes the product's own words.
+    monkeypatch.setattr(esg, "HANDLE_FINDING_TIER", "block")
+    clean = [
+        '{"note": "memory banking splits large memories"}',
+        '{"note": "adversarial thinking is required"}',
+        '{"note": "quantum quantity quantile"}',
+        '{"note": "the platform and plate and plating"}',
+    ]
+    for i, body in enumerate(clean):
+        block, _, _ = _scan(tmp_path / f"c{i}",
+                            {"athanor_artifacts/pkt/notes.json": body + "\n"})
+        assert not _has(block, "fleet-agent handle"), f"false positive on: {body}"
