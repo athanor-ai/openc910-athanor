@@ -59,6 +59,47 @@ def _git(*args: str, root: Path) -> subprocess.CompletedProcess:
         raise ToolError(f"git could not be run: {exc}") from exc
 
 
+def _committed_files(ref: str, root: Path):
+    """Yield (path, bytes) for every blob at ``ref``, streamed from one git call.
+
+    The sweep and the exemption validator must read COMMITTED BYTES, not the
+    host working tree. Enumerating committed path NAMES and then opening the
+    file from disk is a mixed-tree read: repairing a dirty worktree without
+    committing made a committed finding disappear.
+    """
+    listing = _git("ls-tree", "-r", "-z", ref, root=root)
+    if listing.returncode != 0:
+        raise ToolError(f"could not enumerate the tree at {ref!r}")
+    entries: list[tuple[str, str]] = []
+    for record in listing.stdout.decode("utf-8", "surrogateescape").split("\0"):
+        if not record.strip():
+            continue
+        meta, _, path = record.partition("\t")
+        fields = meta.split()
+        if len(fields) < 3 or fields[1] != "blob":
+            continue
+        entries.append((fields[2], path))
+    if not entries:
+        return
+    proc = subprocess.run(
+        ["git", "cat-file", "--batch"],
+        cwd=root,
+        input=("\n".join(oid for oid, _ in entries) + "\n").encode(),
+        capture_output=True,
+        check=False,
+    )
+    if proc.returncode != 0:
+        raise ToolError(f"could not read blobs at {ref!r}")
+    out = proc.stdout
+    offset = 0
+    for _, path in entries:
+        newline = out.index(b"\n", offset)
+        size = int(out[offset:newline].split()[2])
+        body = out[newline + 1:newline + 1 + size]
+        offset = newline + 1 + size + 1
+        yield path, body
+
+
 def _base_blobs(base: str, root: Path) -> dict[str, str]:
     """path -> sha256 of its CONTENT at the base, for every file in the base tree."""
     listing = _git("ls-tree", "-r", "-z", base, root=root)
@@ -150,6 +191,13 @@ def moved_content(base: str, root: Path) -> dict[str, str]:
     for path, sha in at_base.items():
         if at_head.get(path) == sha:
             continue
+        # ONLY when the NAME is gone. If the path still exists with different
+        # content, a name-bound citation of its old hash is definitively stale --
+        # the fact that a COPY of the old bytes sits elsewhere does not make the
+        # citation true, it just means those bytes survive somewhere. Ambiguity
+        # requires the name to have disappeared, which is what a rename does.
+        if path in at_head:
+            continue
         landed = first_at.get(sha)
         if landed is not None and landed != path:
             moved[path] = landed
@@ -209,7 +257,7 @@ def _string_values(node: object) -> set[str]:
     return found
 
 
-def excused_spans(path: Path, root: Path, old_of: dict[str, str]) -> set[int]:
+def excused_spans(rel: str, text: str, at_head: dict[str, str], old_of: dict[str, str]) -> set[int]:
     """Offsets of hash occurrences a supersession record legitimately accounts for.
 
     Identity is the literal OCCURRENCE OFFSET -- unique by construction. But an
@@ -229,10 +277,6 @@ def excused_spans(path: Path, root: Path, old_of: dict[str, str]) -> set[int]:
     name NOTES.md, so comparing raw key text produces false findings.
     """
     try:
-        text = path.read_text(encoding="utf-8")
-    except OSError:
-        return set()
-    try:
         json.loads(text)
     except ValueError:
         # A file that does not parse cannot establish that any record exists.
@@ -247,19 +291,17 @@ def excused_spans(path: Path, root: Path, old_of: dict[str, str]) -> set[int]:
             key = json.loads(f'"{raw_key}"')
         except ValueError:
             continue
-        target = None
-        for base in (path.parent, root):
-            candidate = base / key
-            if candidate.is_file():
-                target = candidate
+        # Resolve the named file against the COMMITTED tree, package-relative
+        # first then repo-root, and take its CURRENT hash from the committed map.
+        parent = rel.rsplit("/", 1)[0] if "/" in rel else ""
+        named = None
+        for cand in (f"{parent}/{key}" if parent else key, key):
+            if cand in at_head:
+                named = cand
                 break
-        if target is None:
+        if named is None:
             continue
-        try:
-            rel = str(target.resolve().relative_to(root.resolve()))
-        except ValueError:
-            continue
-        prior = old_of.get(rel)
+        prior = old_of.get(named)
         if prior is None:
             continue
         body = text[start:end + 1]
@@ -267,7 +309,7 @@ def excused_spans(path: Path, root: Path, old_of: dict[str, str]) -> set[int]:
             record = json.loads(body)
         except ValueError:
             continue
-        current = hashlib.sha256(target.read_bytes()).hexdigest()
+        current = at_head[named]
         values = {v.lower() for v in _string_values(record)}
         if current.lower() not in values:
             continue
@@ -281,27 +323,21 @@ def surviving_occurrences(hashes: dict[str, str], root: Path) -> list[str]:
     wanted = {sha.lower(): rel for rel, sha in hashes.items()}
     old_of = {rel: sha.lower() for rel, sha in hashes.items()}
     findings: list[str] = []
-    # COMMITTED paths only. Sweeping the host worktree let an UNTRACKED file --
-    # something outside the change under review entirely -- take part in the
-    # verdict. The subject of this check is the committed tree.
-    listing = _git("ls-tree", "-r", "-z", "--name-only", "HEAD", root=root)
-    if listing.returncode != 0:
-        raise ToolError("could not enumerate the committed tree at HEAD")
-    committed = [
-        p for p in listing.stdout.decode("utf-8", "surrogateescape").split("\0") if p
-    ]
-    for rel in sorted(committed):
-        path = root / rel
-        if not path.is_file():
-            continue
-        try:
-            text = path.read_text(encoding="utf-8", errors="replace")
-        except OSError as exc:
-            raise ToolError(f"could not read {path} while sweeping: {exc}") from exc
+    # COMMITTED BYTES, not just committed NAMES. Enumerating committed paths and
+    # then opening them from disk is a MIXED-TREE read: repairing a dirty
+    # worktree without committing made a committed finding vanish. Both the sweep
+    # and the exemption validator now consume HEAD blobs.
+    at_head = _base_blobs("HEAD", root)
+    for rel, blob in _committed_files("HEAD", root):
+        text = blob.decode("utf-8", "replace")
         lowered = text.lower()
         # Literal occurrences, located in the TEXT. Every reference is found the
         # same way regardless of file type; only the EXEMPTION knows about JSON.
-        excused = excused_spans(path, root, old_of) if path.suffix.lower() == ".json" else set()
+        excused = (
+            excused_spans(rel, text, at_head, old_of)
+            if rel.lower().endswith(".json")
+            else set()
+        )
         for sha, owner in wanted.items():
             for match in re.finditer(re.escape(sha), lowered):
                 if match.start() in excused:
@@ -311,27 +347,37 @@ def surviving_occurrences(hashes: dict[str, str], root: Path) -> list[str]:
                 line_end = text.find("\n", match.start())
                 context = text[line_start:line_end if line_end != -1 else None].strip()
                 findings.append(
-                    f"{path.relative_to(root)}:{lineno}: still cites the OLD hash of "
+                    f"{rel}:{lineno}: still cites the OLD hash of "
                     f"{owner} ({sha[:12]}...) -- update it in the same commit"
                     f" [{context[:80]}]"
                 )
     return findings
 
 
-def check(base: str, root: Path = REPO_ROOT) -> list[str]:
-    gone = superseded_content(base, root)
-    findings: list[str] = []
-    for path, landed in sorted(moved_content(base, root).items()):
-        # A NAMED REFUSAL, not a silent verdict either way.
-        findings.append(
-            f"{path}: content moved to {landed} unchanged. A citation of its hash "
-            f"may be correct (receipt updated to the new path) or stale (still "
-            f"naming the old one), and the hash cannot distinguish them -- "
-            f"rename is not supported by this check; confirm the citation by hand"
-        )
-    if gone:
-        findings.extend(surviving_occurrences(gone, root))
-    return findings
+def check(base: str, root: Path = REPO_ROOT) -> tuple[list[str], list[str]]:
+    """Return (findings, inconclusive).
+
+    They carry DIFFERENT exit codes because they are different claims. A finding
+    establishes that a pre-scrub hash survives. An inconclusive establishes only
+    that this check cannot tell -- and reporting that as a finding would say a
+    stale reference exists when none was demonstrated, which is the same
+    could-not-establish-rendered-as-established defect in the other direction.
+    """
+    moved = moved_content(base, root)
+    # A path whose content merely MOVED is not demonstrably superseded: the bytes
+    # a citation names still exist, just elsewhere. Reporting it as BOTH a
+    # surviving reference and an inconclusive would assert staleness that was
+    # never established. It belongs only in the inconclusive column.
+    gone = {p: h for p, h in superseded_content(base, root).items() if p not in moved}
+    inconclusive = [
+        f"{path}: content moved to {landed} unchanged. A citation of its hash may "
+        f"be correct (receipt updated to the new path) or stale (still naming the "
+        f"old one), and the hash cannot distinguish them -- rename is not "
+        f"supported by this check; confirm the citation by hand"
+        for path, landed in sorted(moved.items())
+    ]
+    findings = surviving_occurrences(gone, root) if gone else []
+    return findings, inconclusive
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -344,10 +390,12 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--root", type=Path, default=REPO_ROOT)
     args = parser.parse_args(argv)
     try:
-        findings = check(args.base, args.root)
+        findings, inconclusive = check(args.base, args.root)
     except ToolError as exc:
         print(f"TOOL ERROR: {exc}", file=sys.stderr)
         return EXIT_TOOL_ERROR
+    for note in inconclusive:
+        print(f"INCONCLUSIVE: {note}", file=sys.stderr)
     if findings:
         for finding in findings:
             print(f"FAIL: {finding}", file=sys.stderr)
@@ -357,6 +405,15 @@ def main(argv: list[str] | None = None) -> int:
             file=sys.stderr,
         )
         return EXIT_FOUND
+    if inconclusive:
+        # NOT clean and NOT a finding: the check could not establish a verdict for
+        # these paths, which is the rc 2 contract.
+        print(
+            f"\n{len(inconclusive)} path(s) could not be decided. No stale reference "
+            f"was demonstrated and none was ruled out.",
+            file=sys.stderr,
+        )
+        return EXIT_TOOL_ERROR
     print(f"OK: no pre-scrub hash survives anywhere in the tree (base {args.base})")
     return EXIT_CLEAN
 
