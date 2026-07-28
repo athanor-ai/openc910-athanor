@@ -214,3 +214,30 @@ def test_a_record_naming_a_file_that_does_not_exist_exempts_nothing(tmp_path: Pa
             '",\n    "current_sha256": "' + new + '"\n  }\n}\n')
     findings = closure.check(base, root)
     assert any("SUPERSEDED.json" in f for f in findings), findings
+
+
+def test_a_valid_record_does_not_exempt_an_unrelated_sibling_citation(tmp_path: Path) -> None:
+    """CONDITION (a), the way it actually breaks: collapsing a file's records into
+    a SET of allowed hashes makes one valid record excuse that hash FILE-WIDE, so
+    an unrelated sibling citation of the same stale hash goes silent. The
+    exemption must stay bound to the records that earn it."""
+    root, base = _repo(tmp_path)
+    old, new = _scrub(root)
+    _record(root, '{\n  "NOTES.md": {\n    "superseded_sha256": "' + old +
+            '",\n    "current_sha256": "' + new + '"\n  },\n'
+            '  "unrelated_citation": "' + old + '"\n}\n')
+    findings = closure.check(base, root)
+    assert any("SUPERSEDED.json" in f for f in findings), findings
+
+
+def test_two_records_account_for_two_occurrences(tmp_path: Path) -> None:
+    """NARROWNESS companion: counting must not under-excuse legitimate records."""
+    root, base = _repo(tmp_path)
+    old, new = _scrub(root)
+    (root / "OTHER.md").write_text("other\n", encoding="utf-8")
+    other = hashlib.sha256((root / "OTHER.md").read_bytes()).hexdigest()
+    _record(root, '{\n  "NOTES.md": {\n    "superseded_sha256": "' + old +
+            '",\n    "current_sha256": "' + new + '"\n  },\n'
+            '  "OTHER.md": {\n    "superseded_sha256": "' + old +
+            '",\n    "current_sha256": "' + other + '"\n  }\n}\n')
+    assert closure.check(base, root) == []

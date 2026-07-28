@@ -103,32 +103,37 @@ def _hashes_within(node: object) -> set[str]:
     return found
 
 
-def superseded_hashes(path: Path, root: Path) -> set[str]:
-    """Old hashes this file is ALLOWED to still contain.
+def superseded_occurrences(path: Path, root: Path) -> dict[str, int]:
+    """How many times each old hash is ACCOUNTED FOR by a supersession record.
 
-    An old hash may survive ONLY ALONGSIDE ITS REPLACEMENT -- inside a record
-    object that can prove what replaced it. Three conditions, two of which are
-    attacks:
+    Returns a COUNT per hash, not a set. Collapsing a file's records into a set of
+    allowed hashes destroys the containment condition: one valid record would make
+    that hash allowed FILE-WIDE, so an unrelated sibling citation of the same
+    stale hash elsewhere in the same JSON would be silently exempt. Counting
+    occurrences keeps the exemption bound to the records that actually earn it --
+    anything beyond the accounted-for count is still a finding.
 
-    (a) STRUCTURAL CONTAINMENT, not proximity: the old hash must be INSIDE the
-        same record object as its replacement, not merely nearby in the file.
-        Proximity is the clause-scope defect that has already been found twice.
+    An old hash may survive ONLY ALONGSIDE ITS REPLACEMENT, inside a record object
+    that can prove what replaced it:
+
+    (a) STRUCTURAL CONTAINMENT, not proximity -- the old hash must be INSIDE the
+        same record object as its replacement, and only that record's own
+        occurrences are excused.
     (b) The replacement must be the NAMED FILE'S CURRENT CONTENT HASH, so it is
-        verifiable. Otherwise a stale citation masquerades as a supersession by
-        parking an arbitrary second value beside itself.
-    (c) A CHAIN may co-occur (old1, old2, current) provided the record still
-        contains the current hash.
+        verifiable. Otherwise a stale citation becomes a supersession by parking
+        an arbitrary second value beside itself.
+    (c) A CHAIN may co-occur (old1, old2, current) inside one record.
 
-    Condition (b) is what removes the need for a key-name list: a supersession is
-    not a thing with a name, it is an old hash that can prove what replaced it.
+    Condition (b) is why no key-name list is needed: a supersession is not a thing
+    with a NAME, it is an old hash that can prove what replaced it.
     """
     if path.suffix.lower() != ".json":
-        return set()
+        return {}
     try:
         doc = json.loads(path.read_text(encoding="utf-8"))
     except (OSError, ValueError):
-        return set()
-    allowed: set[str] = set()
+        return {}
+    accounted: dict[str, int] = {}
 
     def walk(node: object) -> None:
         if isinstance(node, dict):
@@ -144,16 +149,16 @@ def superseded_hashes(path: Path, root: Path) -> set[str]:
                         held = _hashes_within(value)
                         current = hashlib.sha256(target.read_bytes()).hexdigest()
                         if current in held:
-                            # Everything else in this record is a prior state it
-                            # can account for.
-                            allowed.update(held - {current})
+                            blob = json.dumps(value).lower()
+                            for prior in held - {current}:
+                                accounted[prior] = accounted.get(prior, 0) + blob.count(prior)
                 walk(value)
         elif isinstance(node, list):
             for item in node:
                 walk(item)
 
     walk(doc)
-    return allowed
+    return accounted
 
 
 def surviving_occurrences(hashes: dict[str, str], root: Path) -> list[str]:
@@ -170,18 +175,29 @@ def surviving_occurrences(hashes: dict[str, str], root: Path) -> list[str]:
         except OSError as exc:
             raise ToolError(f"could not read {path} while sweeping: {exc}") from exc
         lowered = text.lower()
-        allowed = superseded_hashes(path, root)
+        accounted = superseded_occurrences(path, root)
         for sha, owner in wanted.items():
-            if sha in allowed:
+            total = lowered.count(sha)
+            if not total:
                 continue
-            if sha in lowered:
-                where = path.relative_to(root)
-                for lineno, line in enumerate(text.splitlines(), 1):
-                    if sha in line.lower():
-                        findings.append(
-                            f"{where}:{lineno}: still cites the OLD hash of {owner} "
-                            f"({sha[:12]}...) -- update it in the same commit"
-                        )
+            excused = accounted.get(sha, 0)
+            if total <= excused:
+                continue
+            where = path.relative_to(root)
+            # Report only the occurrences a record does NOT account for.
+            remaining = total - excused
+            for lineno, line in enumerate(text.splitlines(), 1):
+                hits = line.lower().count(sha)
+                if not hits:
+                    continue
+                take = min(hits, remaining)
+                if take <= 0:
+                    break
+                findings.append(
+                    f"{where}:{lineno}: still cites the OLD hash of {owner} "
+                    f"({sha[:12]}...) -- update it in the same commit"
+                )
+                remaining -= take
     return findings
 
 

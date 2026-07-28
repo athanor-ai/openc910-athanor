@@ -65,8 +65,15 @@ jobs:
       - name: Scrub hash closure (no pre-scrub hash survives)
         if: github.event_name == 'pull_request'
         run: |
-          git fetch --quiet origin ${{ github.base_ref }}
-          python3 athanor/check_scrub_hash_closure.py --base origin/${{ github.base_ref }}
+          # Bind the denominator to the IMMUTABLE PR event base SHA, not to a
+          # moving branch ref. origin/<base_ref> is fetched fresh at job time, so
+          # if the base branch advances after the merge ref was synthesized the
+          # check measures a different base than the tree it is checking -- and
+          # can return clean on a tree the correct base reds.
+          BASE="${{ github.event.pull_request.base.sha }}"
+          git rev-parse --verify "$BASE^{commit}" >/dev/null 2>&1 \
+            || git fetch --quiet origin "$BASE"
+          python3 athanor/check_scrub_hash_closure.py --base "$BASE"
 
       - name: Verify scrub hash closure bites (regression protection)
         # A checker's SELF-TESTS validate the INSTRUMENT; the gate's verdict is about
