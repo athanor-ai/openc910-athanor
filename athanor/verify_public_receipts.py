@@ -13,8 +13,10 @@ import argparse
 import hashlib
 import json
 import re
+import subprocess
 import sys
 from pathlib import Path
+from pathlib import PurePosixPath
 
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
@@ -584,66 +586,91 @@ def _verify_customer_ready_receipt(package: Path) -> list[str]:
 # equal that file's current content.
 _HEX64 = re.compile(r"[0-9a-fA-F]{64}\Z")
 _SUPERSESSION_REQUIRED = ("current", "superseded_by", "reason")
-# Keys whose values are hash-shaped but are NOT file citations. Bound to the
-# parsed KEY, never to text proximity: a prose line merely MENTIONING a commit
-# must not suppress findings elsewhere on that line.
-_NON_CITATION_KEYS = frozenset({
-    "sha256", "liberty_sha256", "yosys_sha256", "opensta_sha256", "toolchain_sha256",
-    "source_manifest_sha256", "screen_config_sha256", "overlay_sha256",
-    "gate_overlay_sha256", "obligation_content_sha256", "obligation_core_sha256",
-    "mapped_netlist_sha256", "candidate_sha256", "stamp",
-    "source_commit", "commit", "cache_key", "gold_cache_key", "gate_cache_key",
-})
+# Citation semantics bind to the PARSED CONTAINER ROLE, not to punctuation in a
+# key. An earlier "key contains a dot" heuristic both invented citations
+# (``schema.v2`` is a versioned semantic key, not a file) and ignored real
+# malformed ones. These are the roles that actually map filenames to hashes in
+# this corpus: files=264, artifact_hashes=20, dependencies=3. Deliberately NOT
+# every hash-valued map -- ``candidate_binding`` keys are roles (gold_sha256),
+# not filenames.
+_CITATION_ROLES = frozenset({"files", "artifact_hashes", "dependencies"})
+# Abbreviated citations live in prose. Context is read from the CLAUSE holding
+# the token -- a structural unit with explicit semantics -- never from a
+# character distance, which is a boundary derived only from current examples.
+_ABBREV = re.compile(r"(?<![0-9A-Za-z])([0-9a-f]{8,16})(?![0-9A-Za-z])")
+_ABBREV_CONTEXT = re.compile(r"(?i)\b(sha-?256|digest|mapped netlist|candidate)\b")
+_ABBREV_COMMITISH = re.compile(r"(?i)\b(commit|cache[_ ]key|revision|ref)\b")
+_CLAUSE = re.compile(r"(?<=[.;:])\s+|\n+")
 
 
-def _looks_like_filename(key: str) -> bool:
-    """A citation key names a file. Deliberately NOT an extension allow-list --
-    that is what silently skipped .py/.h/.gitattributes mappings."""
-    return (
-        "." in key
-        and not key.startswith("..")
-        and not any(c.isspace() for c in key)
-        and key not in _NON_CITATION_KEYS
-    )
+def _find_citations(node: object, owner: object = None, trail: str = "") -> list[dict]:
+    """Collect citations, carrying the OWNING OBJECT with each one.
 
-
-def _find_citations(node: object, container_key: str = "", trail: str = "") -> list[dict]:
-    """Collect filename->hash entries with the PATH that located them.
-
-    The path is what lets a supersession record be paired to the exact citation
-    it excuses, rather than to any entry sharing a basename.
+    The owner travels WITH the citation. Recovering it later through a map keyed
+    by container name reintroduces the collision it was meant to fix, one key
+    higher: two objects that both have a "files" key overwrite each other.
     """
     found: list[dict] = []
     if isinstance(node, dict):
         for key, value in node.items():
             where = f"{trail}.{key}" if trail else key
-            if isinstance(value, str) and _HEX64.match(value) and _looks_like_filename(key):
-                found.append({
-                    "name": key,
-                    "sha": value.lower(),
-                    "path": where,
-                    "container": container_key,
-                    "siblings": node,
-                })
+            if key in _CITATION_ROLES and isinstance(value, dict):
+                # A citation role carries TWO shapes in this corpus:
+                #   {"README.md": "<sha>"}                     name -> hash
+                #   {"gold": {"path": "x.v", "sha256": "..."}} role -> {path, hash}
+                # The second was never inspected by any earlier version, because
+                # its key is a role name and its value is not a string.
+                for entry, held in value.items():
+                    if isinstance(held, dict) and ("path" in held or "sha256" in held):
+                        found.append({
+                            "name": held.get("path"),
+                            "sha": held.get("sha256"),
+                            "path": f"{where}.{entry}",
+                            "role": key,
+                            "owner": node,
+                            "keyed_by": entry,
+                        })
+                    else:
+                        found.append({
+                            "name": entry,
+                            "sha": held,
+                            "path": f"{where}.{entry}",
+                            "role": key,
+                            "owner": node,
+                            "keyed_by": entry,
+                        })
             else:
-                found.extend(_find_citations(value, key, where))
+                found.extend(_find_citations(value, node, where))
     elif isinstance(node, list):
         for index, item in enumerate(node):
-            found.extend(_find_citations(item, container_key, f"{trail}[{index}]"))
+            found.extend(_find_citations(item, owner, f"{trail}[{index}]"))
     return found
 
 
-# Citations also appear ABBREVIATED in receipt prose ("candidate f3296156 and
-# mapped netlist b85271d2"), so a 64-hex-only rule is blind to them. These are
-# checked as PREFIXES, and the exemption binds to the parsed KEY -- a prose line
-# merely mentioning a commit must not suppress findings elsewhere in it.
-_ABBREV = re.compile(r"(?<![0-9A-Za-z])([0-9a-f]{8,16})(?![0-9A-Za-z])")
-_ABBREV_CONTEXT = re.compile(r"(?i)\b(sha-?256|digest|mapped netlist|candidate)\b")
-_ABBREV_COMMITISH = re.compile(r"(?i)\b(commit|cache[_ ]key|revision|ref)\b")
+def _paired_supersession(citation: dict) -> object:
+    """A record excuses a citation only if it sits beside it in the SAME object."""
+    owner = citation["owner"]
+    if not isinstance(owner, dict):
+        return None
+    record = owner.get(f"{citation['role']}_supersession")
+    if not isinstance(record, dict):
+        return None
+    return record.get(citation.get("keyed_by") or citation["name"])
+
+
+def _unsafe_citation_name(name: str) -> str:
+    """Reject a citation name that cannot denote a file inside the package."""
+    if not isinstance(name, str) or not name.strip():
+        return "is empty"
+    pure = PurePosixPath(name)
+    if pure.is_absolute() or name.startswith("/") or ":" in name:
+        return "is an absolute path"
+    if ".." in pure.parts:
+        return "escapes the package"
+    return ""
 
 
 def _find_abbreviated(node: object, key: str = "", trail: str = "") -> list[tuple[str, str]]:
-    """Collect (path, token) for abbreviated hashes in prose values."""
     found: list[tuple[str, str]] = []
     if isinstance(node, dict):
         for child_key, value in node.items():
@@ -652,68 +679,128 @@ def _find_abbreviated(node: object, key: str = "", trail: str = "") -> list[tupl
     elif isinstance(node, list):
         for index, item in enumerate(node):
             found.extend(_find_abbreviated(item, key, f"{trail}[{index}]"))
-    elif isinstance(node, str) and key not in _NON_CITATION_KEYS:
-        if _HEX64.match(node):
-            return found
-        for match in _ABBREV.finditer(node):
-            # SPAN-LOCAL, not value-wide: both the trigger and the exemption are
-            # read from the ~40 chars immediately before the token. A value-wide
-            # test lets one commit mention anywhere suppress every finding in a
-            # long prose blob, and lets one "sha256" anywhere summon findings on
-            # unrelated identifiers in the same blob.
-            window = node[max(0, match.start() - 40):match.start()]
-            if _ABBREV_COMMITISH.search(window):
+    elif isinstance(node, str) and not _HEX64.match(node):
+        for clause in _CLAUSE.split(node):
+            if _ABBREV_COMMITISH.search(clause) or not _ABBREV_CONTEXT.search(clause):
                 continue
-            if not _ABBREV_CONTEXT.search(window):
-                continue
-            found.append((trail, match.group(1)))
+            for token in _ABBREV.findall(clause):
+                found.append((trail, token))
     return found
 
 
-def _paired_supersession(citation: dict, parents: dict) -> object:
-    """The record excusing a citation must live beside it: for a citation in
-    ``<key>``, the record is ``<key>_supersession[name]`` in the SAME object."""
-    owner = parents.get(citation["container"])
-    if not isinstance(owner, dict):
+def _blob_sha256(commit: str, rel: str, root: Path) -> str | None:
+    """sha256 of a path's content at a commit, or None if unresolvable."""
+    try:
+        blob = subprocess.run(
+            ["git", "show", f"{commit}:{rel}"],
+            cwd=root, capture_output=True, check=False,
+        )
+    except OSError:
         return None
-    record = owner.get(f"{citation['container']}_supersession")
-    if not isinstance(record, dict):
+    if blob.returncode != 0:
         return None
-    return record.get(citation["name"])
+    return hashlib.sha256(blob.stdout).hexdigest()
 
 
-def _owners_by_container(node: object, out: dict) -> None:
-    """Map container key -> the object that OWNS it, so a supersession map can
-    only be found as that container's sibling."""
-    if isinstance(node, dict):
-        for key, value in node.items():
-            if isinstance(value, dict):
-                out[key] = node
-            _owners_by_container(value, out)
-    elif isinstance(node, list):
-        for item in node:
-            _owners_by_container(item, out)
+def _verify_hops(record: dict, cited: str, current: str, rel_to_repo: str, root: Path) -> list[str]:
+    """Validate a recorded lineage, not just its endpoint.
+
+    Ending at the current content is NECESSARY, NOT SUFFICIENT: a fictional
+    one-hop record whose resulting hash equals current satisfied that alone, and
+    so passed the very rule written to stop a chain being compressed.
+    """
+    problems: list[str] = []
+    hops = record.get("hops")
+    if hops is None:
+        return problems
+    # "Cannot resolve" has more than one cause: a commit that does not exist is a
+    # FALSE claim, while no git checkout at all is an unverifiable one. Both fail
+    # closed, but they must not be reported as the same thing.
+    probe = subprocess.run(
+        ["git", "rev-parse", "--git-dir"], cwd=root, capture_output=True, check=False
+    )
+    if probe.returncode != 0:
+        return ["cannot be verified: no git history available to check it against"]
+    if not isinstance(hops, list) or not hops:
+        return ["has a malformed hops chain"]
+    previous = cited
+    for index, hop in enumerate(hops, 1):
+        if not isinstance(hop, dict):
+            problems.append(f"hop {index} is not a record")
+            continue
+        commit = hop.get("commit")
+        got = hop.get("resulting_sha256")
+        if not isinstance(commit, str) or not commit.strip():
+            problems.append(f"hop {index} does not name a commit")
+        if not isinstance(got, str) or not _HEX64.match(got or ""):
+            problems.append(f"hop {index} has no valid resulting_sha256")
+            continue
+        if got.lower() == previous.lower():
+            problems.append(f"hop {index} records no change")
+        previous_state = previous
+        previous = got
+        if isinstance(commit, str) and commit.strip():
+            actual = _blob_sha256(commit.strip(), rel_to_repo, root)
+            if actual is None:
+                problems.append(f"hop {index} names {commit}, which cannot be resolved")
+            elif actual != got.lower():
+                problems.append(
+                    f"hop {index} claims {commit} produced {got[:12]}, but it produced "
+                    f"{actual[:12]}"
+                )
+            else:
+                # CONTIGUITY: a hop must begin where the previous one ended.
+                # Without this, a chain compressed to its LAST real transition
+                # still passes -- every hop is genuine, the endpoint matches, and
+                # the skipped transition is simply absent. That is the exact
+                # compression the chain exists to prevent.
+                before = _blob_sha256(f"{commit.strip()}^", rel_to_repo, root)
+                if before is not None and before != previous_state.lower():
+                    problems.append(
+                        f"hop {index} does not continue from {previous_state[:12]} -- "
+                        f"{commit} began at {before[:12]}, so a transition is missing"
+                    )
+    if previous.lower() != current.lower():
+        problems.append("does not end at the file's current content")
+    first = hops[0] if isinstance(hops[0], dict) else {}
+    first_commit = first.get("commit")
+    superseded_by = record.get("superseded_by", "")
+    if isinstance(first_commit, str) and first_commit.strip() and isinstance(superseded_by, str):
+        if first_commit.strip() not in superseded_by:
+            problems.append(
+                f"superseded_by does not name the FIRST transition {first_commit}"
+            )
+    return problems
 
 
 def _verify_hash_citations(package: Path) -> list[str]:
-    """Findings all contain the word "citation" -- callers select on it, so a
-    finding phrased without it would be invisible to its own consumer."""
+    """Findings all contain the word "citation" -- callers select on it."""
     problems: list[str] = []
     for path in sorted(package.rglob("*.json")):
         rel = path.relative_to(REPO_ROOT)
         try:
             doc = json.loads(path.read_text(encoding="utf-8"))
         except (OSError, UnicodeDecodeError) as exc:
-            # Fail closed: an unreadable receipt is NOT a clean receipt.
             problems.append(f"{rel}: could not read for citation check ({exc})")
             continue
         except json.JSONDecodeError as exc:
             problems.append(f"{rel}: could not parse for citation check ({exc})")
             continue
-        owners: dict = {}
-        _owners_by_container(doc, owners)
         for citation in _find_citations(doc):
             name, sha, where = citation["name"], citation["sha"], citation["path"]
+            unsafe = _unsafe_citation_name(name)
+            if unsafe:
+                problems.append(f"{rel}: citation at {where} names a path that {unsafe}")
+                continue
+            # Every entry in a citation role must BE a citation. Silently
+            # ignoring a malformed one fails open on exactly the entries most
+            # likely to be wrong.
+            if not isinstance(sha, str) or not _HEX64.match(sha):
+                problems.append(
+                    f"{rel}: citation at {where} does not carry a sha256 value"
+                )
+                continue
+            sha = sha.lower()
             target = (path.parent / name).resolve()
             try:
                 target.relative_to(package.resolve())
@@ -721,10 +808,12 @@ def _verify_hash_citations(package: Path) -> list[str]:
                 problems.append(f"{rel}: citation at {where} escapes the package")
                 continue
             if not target.is_file():
-                problems.append(f"{rel}: citation at {where} names {name}, which is not in the package")
+                problems.append(
+                    f"{rel}: citation at {where} names {name}, which is not in the package"
+                )
                 continue
             got = _sha256(target)
-            record = _paired_supersession(citation, owners)
+            record = _paired_supersession(citation)
             if got == sha:
                 if record is not None:
                     problems.append(
@@ -737,7 +826,6 @@ def _verify_hash_citations(package: Path) -> list[str]:
                     f"{rel}: STALE citation at {where}: receipt says {sha}, file is {got}"
                 )
                 continue
-            # Whitespace-only is not provenance: "   " is truthy.
             missing = [
                 field
                 for field in _SUPERSESSION_REQUIRED
@@ -748,31 +836,17 @@ def _verify_hash_citations(package: Path) -> list[str]:
                     f"{rel}: supersession record for the citation at {where} is missing "
                     f"{', '.join(missing)} -- a supersession must say what changed it and why"
                 )
-            elif record["current"].lower() != got:
-                # The remedy must not become the loophole.
+                continue
+            if record["current"].lower() != got:
                 problems.append(
                     f"{rel}: supersession for the citation at {where} claims current "
                     f"{record['current']}, file is {got}"
                 )
-            else:
-                # A citation can be superseded MORE THAN ONCE. Compressing a chain
-                # into its latest transition attributes the change to the wrong
-                # commit, so when hops are recorded they must actually END at the
-                # file's current content.
-                hops = record.get("hops")
-                if hops is not None:
-                    if not isinstance(hops, list) or not hops:
-                        problems.append(
-                            f"{rel}: supersession for the citation at {where} has a "
-                            f"malformed hops chain"
-                        )
-                    elif not isinstance(hops[-1], dict) or str(
-                        hops[-1].get("resulting_sha256", "")
-                    ).lower() != got:
-                        problems.append(
-                            f"{rel}: supersession hops for the citation at {where} do not "
-                            f"end at the file's current content {got}"
-                        )
+                continue
+            for defect in _verify_hops(
+                record, sha, got, str(target.relative_to(REPO_ROOT)), REPO_ROOT
+            ):
+                problems.append(f"{rel}: supersession chain for the citation at {where} {defect}")
         known = set(_sums_entries(package).values())
         for item in sorted(package.rglob("*")):
             if item.is_file():

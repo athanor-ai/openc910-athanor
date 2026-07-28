@@ -2,6 +2,8 @@ from __future__ import annotations
 
 import hashlib
 import importlib.util
+import os
+import subprocess
 import json
 import sys
 from pathlib import Path
@@ -436,19 +438,19 @@ def test_stale_inline_citation_is_caught(tmp_path: Path) -> None:
     """NECESSITY: the exact miss that shipped -- SHA256SUMS right, receipt stale."""
     package = _write_package(tmp_path)
     (package / "NOTES.md").write_text("original\n", encoding="utf-8")
-    _cite(package, {"NOTES.md": _sha(package / "NOTES.md")})
+    _cite(package, {"files": {"NOTES.md": _sha(package / "NOTES.md")}})
     assert _citation_problems(tmp_path) == []
     # Edit the cited file and re-pin SHA256SUMS *without* touching the citation.
     (package / "NOTES.md").write_text("edited later by another PR\n", encoding="utf-8")
     _repin(package)
     problems = _citation_problems(tmp_path)
-    assert any("STALE citation at NOTES.md" in p for p in problems), problems
+    assert any("STALE citation at files.NOTES.md" in p for p in problems), problems
 
 
 def test_correct_inline_citation_passes(tmp_path: Path) -> None:
     package = _write_package(tmp_path)
     (package / "NOTES.md").write_text("stable\n", encoding="utf-8")
-    _cite(package, {"NOTES.md": _sha(package / "NOTES.md")})
+    _cite(package, {"files": {"NOTES.md": _sha(package / "NOTES.md")}})
     assert _citation_problems(tmp_path) == []
 
 
@@ -475,7 +477,7 @@ def test_external_input_keys_are_not_required_to_resolve(tmp_path: Path) -> None
 
 def test_citation_naming_a_file_outside_the_package_is_caught(tmp_path: Path) -> None:
     package = _write_package(tmp_path)
-    _cite(package, {"absent_file.md": "a" * 64})
+    _cite(package, {"files": {"absent_file.md": "a" * 64}})
     problems = _citation_problems(tmp_path)
     assert any("not in the package" in p for p in problems), problems
 
@@ -714,33 +716,189 @@ def test_a_genuine_commit_reference_is_still_exempt(tmp_path: Path) -> None:
     assert _citation_problems(tmp_path) == []
 
 
-def test_a_hops_chain_must_end_at_the_files_current_content(tmp_path: Path) -> None:
-    """BYPASS 4: a citation can be superseded MORE THAN ONCE. Compressing the
-    chain into its latest transition attributes the change to the wrong commit --
-    one live record did exactly that (ct_lsu_rb README, e3c364ad -> 1aa7e730 at
-    d81ce5f -> aa842aa9 at 0743b51, recorded as a single hop)."""
-    package = _stale_package(tmp_path)
-    current = _sha(package / "NOTES.md")
-    _supersede(package, "NOTES.md", {
-        "current": current,
-        "superseded_by": "d81ce5f (first transition)",
-        "reason": "superseded more than once",
-        "hops": [{"commit": "d81ce5f", "resulting_sha256": "a" * 64}],
-    })
-    problems = _citation_problems(tmp_path)
-    assert any("do not end at the file's current content" in p for p in problems), problems
+def _git_repo_with_history(tmp_path: Path) -> tuple[Path, str, list[tuple[str, str]]]:
+    """A REAL git repo whose NOTES.md has a two-transition history.
+
+    The lineage check reads git, so exercising it against a stub would test the
+    stub. This builds the actual subject: cited hash, then two real commits.
+    """
+    package = _write_package(tmp_path)
+    env = {"GIT_AUTHOR_NAME": "t", "GIT_AUTHOR_EMAIL": "t@t", "GIT_COMMITTER_NAME": "t",
+           "GIT_COMMITTER_EMAIL": "t@t", "PATH": os.environ.get("PATH", "")}
+    def run(*args: str) -> str:
+        return subprocess.run(args, cwd=tmp_path, capture_output=True, text=True,
+                              env=env, check=True).stdout.strip()
+    run("git", "init", "-q")
+    notes = package / "NOTES.md"
+    notes.write_text("original\n", encoding="utf-8")
+    cited = _sha(notes)
+    run("git", "add", "-A")
+    run("git", "commit", "-qm", "original")
+    hops: list[tuple[str, str]] = []
+    for text in ("second\n", "third\n"):
+        notes.write_text(text, encoding="utf-8")
+        run("git", "add", "-A")
+        run("git", "commit", "-qm", text.strip())
+        hops.append((run("git", "rev-parse", "--short", "HEAD"), _sha(notes)))
+    return package, cited, hops
 
 
-def test_a_complete_hops_chain_is_accepted(tmp_path: Path) -> None:
-    package = _stale_package(tmp_path)
-    current = _sha(package / "NOTES.md")
+def test_a_real_two_hop_chain_is_accepted(tmp_path: Path) -> None:
+    """Every hop is checked against git, so a true lineage must pass."""
+    package, cited, hops = _git_repo_with_history(tmp_path)
+    _cite(package, {"files": {"NOTES.md": cited}})
     _supersede(package, "NOTES.md", {
-        "current": current,
-        "superseded_by": "d81ce5f (first transition)",
+        "current": hops[-1][1],
+        "superseded_by": f"{hops[0][0]} (second)",
         "reason": "superseded more than once; every transition recorded",
-        "hops": [
-            {"commit": "d81ce5f", "resulting_sha256": "a" * 64},
-            {"commit": "0743b51", "resulting_sha256": current},
-        ],
+        "hops": [{"commit": c, "resulting_sha256": h} for c, h in hops],
     })
     assert _citation_problems(tmp_path) == []
+
+
+def test_a_compressed_chain_that_skips_a_real_transition_is_rejected(tmp_path: Path) -> None:
+    """The defect the rule exists to stop: recording only the LAST transition.
+    Ending at current is necessary, not sufficient."""
+    package, cited, hops = _git_repo_with_history(tmp_path)
+    _cite(package, {"files": {"NOTES.md": cited}})
+    _supersede(package, "NOTES.md", {
+        "current": hops[-1][1],
+        "superseded_by": f"{hops[-1][0]} (third)",
+        "reason": "compressed to the latest transition",
+        "hops": [{"commit": hops[-1][0], "resulting_sha256": hops[-1][1]}],
+    })
+    problems = _citation_problems(tmp_path)
+    assert any("a transition is missing" in p for p in problems), problems
+
+
+def test_a_hop_claiming_a_commit_that_never_produced_it_is_rejected(tmp_path: Path) -> None:
+    package, cited, hops = _git_repo_with_history(tmp_path)
+    _cite(package, {"files": {"NOTES.md": cited}})
+    _supersede(package, "NOTES.md", {
+        "current": hops[-1][1],
+        "superseded_by": f"{hops[0][0]} (second)",
+        "reason": "wrong attribution",
+        "hops": [{"commit": hops[0][0], "resulting_sha256": "a" * 64},
+                 {"commit": hops[1][0], "resulting_sha256": hops[-1][1]}],
+    })
+    problems = _citation_problems(tmp_path)
+    assert any("produced" in p for p in problems), problems
+
+
+def test_superseded_by_must_name_the_first_transition_not_the_last(tmp_path: Path) -> None:
+    package, cited, hops = _git_repo_with_history(tmp_path)
+    _cite(package, {"files": {"NOTES.md": cited}})
+    _supersede(package, "NOTES.md", {
+        "current": hops[-1][1],
+        "superseded_by": f"{hops[-1][0]} (third)",
+        "reason": "names the last transition, not the first",
+        "hops": [{"commit": c, "resulting_sha256": h} for c, h in hops],
+    })
+    problems = _citation_problems(tmp_path)
+    assert any("does not name the FIRST transition" in p for p in problems), problems
+
+
+def test_a_chain_that_cannot_be_checked_against_history_fails_closed(tmp_path: Path) -> None:
+    """Absence has more than one cause: no git checkout is UNVERIFIABLE, which
+    must not read the same as verified."""
+    package = _stale_package(tmp_path)
+    _supersede(package, "NOTES.md", {
+        "current": _sha(package / "NOTES.md"),
+        "superseded_by": "abc1234 (subject)",
+        "reason": "x",
+        "hops": [{"commit": "abc1234", "resulting_sha256": _sha(package / "NOTES.md")}],
+    })
+    problems = _citation_problems(tmp_path)
+    assert any("no git history available" in p for p in problems), problems
+
+
+# --- dexter's second round of constructions on 702f90e ------------------------
+#
+# Written BEFORE the fix, so each is observed failing first. The prior round's
+# lesson repeated one layer up: pairing was still resolved through a global map,
+# just keyed by container name instead of basename.
+
+
+def _receipt(package: Path, doc: dict[str, Any]) -> None:
+    (package / "receipt.json").write_text(json.dumps(doc, indent=2) + "\n", encoding="utf-8")
+    _repin(package)
+
+
+def test_a_supersession_in_a_same_named_container_elsewhere_does_not_bless(tmp_path: Path) -> None:
+    """GAP 1: two objects both having a "files" key -- the last one seen won a
+    global lookup, so b.files_supersession blessed a.files' stale citation."""
+    package = _write_package(tmp_path)
+    (package / "NOTES.md").write_text("original\n", encoding="utf-8")
+    stale = _sha(package / "NOTES.md")
+    (package / "NOTES.md").write_text("changed\n", encoding="utf-8")
+    current = _sha(package / "NOTES.md")
+    _receipt(package, {
+        "a": {"files": {"NOTES.md": stale}},
+        "b": {"files": {}, "files_supersession": {"NOTES.md": {
+            "current": current, "superseded_by": "bogus", "reason": "bogus"}}},
+    })
+    problems = _citation_problems(tmp_path)
+    assert any("STALE citation at a.files.NOTES.md" in p for p in problems), problems
+
+
+def test_a_dotted_non_filename_key_is_not_invented_as_a_citation(tmp_path: Path) -> None:
+    """GAP 2a: "contains a dot" is not a filename schema -- schema.v2 is a
+    versioned semantic key, not a file, and was reported as a missing file."""
+    package = _write_package(tmp_path)
+    _receipt(package, {"schema.v2": "a" * 64})
+    assert _citation_problems(tmp_path) == []
+
+
+def test_a_malformed_hash_in_a_citation_role_fails_closed(tmp_path: Path) -> None:
+    """GAP 2b: an entry in files with a non-hash value was silently ignored."""
+    package = _write_package(tmp_path)
+    (package / "NOTES.md").write_text("x\n", encoding="utf-8")
+    _receipt(package, {"files": {"NOTES.md": "not-a-hash"}})
+    problems = _citation_problems(tmp_path)
+    assert any("NOTES.md" in p for p in problems), problems
+
+
+def test_a_path_escaping_citation_fails_closed(tmp_path: Path) -> None:
+    """GAP 2c: ../outside.md was rejected by the filename heuristic BEFORE the
+    escape check ran, so the escape was never reported."""
+    package = _write_package(tmp_path)
+    _receipt(package, {"files": {"../outside.md": "a" * 64}})
+    problems = _citation_problems(tmp_path)
+    assert any("outside.md" in p for p in problems), problems
+
+
+def test_abbreviated_context_is_not_a_character_distance(tmp_path: Path) -> None:
+    """GAP 3: a 40-character window is a magic boundary -- gap 20 red, gap 45
+    clean. Context must be a structural unit, not a distance."""
+    package = _write_package(tmp_path)
+    _receipt(package, {"summary": "candidate " + "x" * 45 + " deadbeef01"})
+    problems = _citation_problems(tmp_path)
+    assert any("abbreviated citation deadbeef01" in p for p in problems), problems
+
+
+def test_a_fictional_one_hop_chain_is_rejected(tmp_path: Path) -> None:
+    """GAP 4: ending at current is necessary, not sufficient -- a compressed or
+    invented lineage satisfied the very rule meant to prevent compression."""
+    package = _stale_package(tmp_path)
+    _supersede(package, "NOTES.md", {
+        "current": _sha(package / "NOTES.md"),
+        "superseded_by": "not-a-real-transition",
+        "reason": "compressed",
+        "hops": [{"resulting_sha256": _sha(package / "NOTES.md")}],
+    })
+    problems = _citation_problems(tmp_path)
+    assert problems, "a fictional one-hop chain was accepted"
+
+
+def test_the_role_to_path_citation_shape_is_inspected(tmp_path: Path) -> None:
+    """A citation role holds two shapes. {"gold": {"path": ..., "sha256": ...}}
+    was inspected by NO earlier version -- its key is a role name and its value
+    is not a string, so both the extension heuristic and the first role-bound
+    pass walked straight past it. 23 live citations use it."""
+    package = _write_package(tmp_path)
+    (package / "gold.v").write_text("module gold; endmodule\n", encoding="utf-8")
+    stale = _sha(package / "gold.v")
+    (package / "gold.v").write_text("module gold_changed; endmodule\n", encoding="utf-8")
+    _cite(package, {"files": {"gold": {"path": "gold.v", "sha256": stale}}})
+    problems = _citation_problems(tmp_path)
+    assert any("STALE citation at files.gold" in p for p in problems), problems
