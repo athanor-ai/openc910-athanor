@@ -23,7 +23,7 @@
   },
   "files": {
     ".gitattributes": "dd189159ababdd3a2f5c2a0a7106f4a0bffd179e55e9db36e1476121f0bb8e7c",
-    "README.md": "0a71d7880524f14f4e127e44ec217ef69b2a998aff81ea04755ef7f0b8313444",
+    "README.md": "f91fa314a72abc5eac611189db4f24aa340063e2bd24ba715cd0483beecb9b72",
     "cpu_cfig.h": "59a0804ea10d96c26569ee3f056b62e385cf39110efad7e5c57199e1f1637199",
     "gated_clk_cell.v": "6cfad397c18daabdff77e3a520ccbf964e4178197cc9a0f8dd825bbf928a91c8",
     "ct_rtu_expand_8.v": "4ce9e12bcb4658ab96e101a1357918caff0a652f4090e952625cee2029d1c8d0",
@@ -46,6 +46,21 @@
     "metric_negative_opensta_area_timing_power.pinned.log": "3b31970222b627980831c937886b99333b6feeca71cd8ed29858734e6d399ccf",
     "same_candidate_binding_receipt.json": "706c658c815ab427adf0ace1496f772fbec0ff40352060a432c13387c172bb55",
     "replay.sh": "ec179658b043aeac16ac8907d3b458973aa6822b4d848e9c9c9fb714d0b8a4ae"
+  },
+  "files_supersession": {
+    "README.md": {
+      "current": "f91fa314a72abc5eac611189db4f24aa340063e2bd24ba715cd0483beecb9b72",
+      "superseded_by": "0743b515b19ef41f8015d9cbea383d1854b38e74 (\"docs(ATH-3010): one-command replay is the first README path in every package (AC3) (#54)\")",
+      "reason": "The cited hash was correct when this receipt was published. The file was later changed by the commit(s) recorded in `hops`, and no check existed at the time requiring an edit to a manifest-bound artifact to chase the citations to it (ATH-3444; that check is now the inline citation validator). The prior hash is retained here so evidence a customer verified earlier remains traceable to the current content.",
+      "prior_sha256": "0a71d7880524f14f4e127e44ec217ef69b2a998aff81ea04755ef7f0b8313444",
+      "hops": [
+        {
+          "commit": "0743b515b19ef41f8015d9cbea383d1854b38e74",
+          "resulting_sha256": "f91fa314a72abc5eac611189db4f24aa340063e2bd24ba715cd0483beecb9b72",
+          "subject": "docs(ATH-3010): one-command replay is the first README path in every package (AC3) (#54)"
+        }
+      ]
+    }
   },
   "metrics": {
     "area": {

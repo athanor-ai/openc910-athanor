@@ -21,7 +21,7 @@
   },
   "files": {
     ".gitattributes": "dd189159ababdd3a2f5c2a0a7106f4a0bffd179e55e9db36e1476121f0bb8e7c",
-    "README.md": "a45f27bb66706f21494cf9d363070597b3505e471f82e43ac66af1006e9f9076",
+    "README.md": "793cc4938362133f029f4586580e32e9a508d2b1b45f00d351b4c41010b37059",
     "bridge_passivity_check.pinned.log": "1ba4463bb0cd00db354ee38b0638bd036720931a5f08923dae4c5696afa649df",
     "bridge_passivity_check.py": "18d86aafb51eb7706e0abf4dba5fbb47fe2a54a0a32668ae98d6ef2e4f4d7af5",
     "ct_rtu_expand_32.v": "4467b90f7b447790649fa18b44b6f9425a0f6eca990e2220e2482a7dd636c27e",
@@ -47,6 +47,21 @@
     "replay.sh": "8f65c426a6b78227729f723c651239a59bac0f71c85554dc2b6b590972d1e061",
     "same_candidate_binding_receipt.json": "6e7dfdb6d32f37fd15f6cefccdf3aff2678f283497a8b534feb5e6a0573675e9",
     "lean_bridge_obligation.json": "372e8b3d99ff12ae209f62e41b6c011126fc565871744d35334001bd61916f9b"
+  },
+  "files_supersession": {
+    "README.md": {
+      "current": "793cc4938362133f029f4586580e32e9a508d2b1b45f00d351b4c41010b37059",
+      "superseded_by": "0932dfd50c6d260db9c359b2a439bff7b319ae49 (\"ATH-3180: reword legacy customer_ready=true rows to current-bar vocabulary (accumulating) (#74)\")",
+      "reason": "The cited hash was correct when this receipt was published. The file was later changed by the commit(s) recorded in `hops`, and no check existed at the time requiring an edit to a manifest-bound artifact to chase the citations to it (ATH-3444; that check is now the inline citation validator). The prior hash is retained here so evidence a customer verified earlier remains traceable to the current content.",
+      "prior_sha256": "a45f27bb66706f21494cf9d363070597b3505e471f82e43ac66af1006e9f9076",
+      "hops": [
+        {
+          "commit": "0932dfd50c6d260db9c359b2a439bff7b319ae49",
+          "resulting_sha256": "793cc4938362133f029f4586580e32e9a508d2b1b45f00d351b4c41010b37059",
+          "subject": "ATH-3180: reword legacy customer_ready=true rows to current-bar vocabulary (accumulating) (#74)"
+        }
+      ]
+    }
   },
   "metrics": {
     "area": {

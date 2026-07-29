@@ -554,7 +554,15 @@ def test_supersession_missing_provenance_fields_reds(tmp_path: Path) -> None:
 
 
 def test_supersession_record_for_an_unchanged_citation_reds(tmp_path: Path) -> None:
-    """Stale bookkeeping would rot into cover for a later real drift."""
+    """Stale bookkeeping would rot into cover for a later real drift.
+
+    MESSAGE CHANGED, PROPERTY UNCHANGED (ATH-3444 PR B). This used to red on the
+    mere PRESENCE of a record beside a matching citation. That banned the shape a
+    correction produces -- a corrected citation matches the file and keeps its
+    lineage record forever -- so the validator reded on every receipt its own
+    remedy repaired. It now reds on an INCONSISTENT record instead, and this
+    fixture is still inconsistent: it records nothing it replaced.
+    """
     package = _write_package(tmp_path)
     (package / "NOTES.md").write_text("stable\n", encoding="utf-8")
     _cite(package, {"files": {"NOTES.md": _sha(package / "NOTES.md")}})
@@ -564,7 +572,64 @@ def test_supersession_record_for_an_unchanged_citation_reds(tmp_path: Path) -> N
         "reason": "none",
     })
     problems = _citation_problems(tmp_path)
-    assert any("supersession record claims it was superseded" in p for p in problems), problems
+    assert any("does not record a valid prior_sha256" in p for p in problems), problems
+
+
+def test_a_record_claiming_to_supersede_the_current_content_reds(tmp_path: Path) -> None:
+    """The other half of the same guard: a record whose prior_sha256 IS the
+    current content supersedes nothing, and would sit there looking like
+    provenance while documenting a transition that never happened."""
+    package = _write_package(tmp_path)
+    (package / "NOTES.md").write_text("stable\n", encoding="utf-8")
+    now = _sha(package / "NOTES.md")
+    _cite(package, {"files": {"NOTES.md": now}})
+    _supersede(package, "NOTES.md", {
+        "current": now, "superseded_by": "#54", "reason": "none",
+        "prior_sha256": now,
+    })
+    problems = _citation_problems(tmp_path)
+    assert any("supersedes nothing" in p for p in problems), problems
+
+
+def test_a_settled_correction_is_accepted(tmp_path: Path) -> None:
+    """THE SHAPE ATH-3444 PR B PRODUCES, and the one the old rule forbade.
+
+    After a stale citation is corrected, the citation matches the file AND a
+    record beside it documents which value it replaced and every commit that
+    changed it. That is the END STATE of an honest correction, not a defect --
+    it is what keeps a hash a customer verified last month traceable to the
+    content they would compute today. It must be ACCEPTED, and its chain must
+    still be verified against git rather than taken on trust.
+    """
+    package, cited, hops = _git_repo_with_history(tmp_path)
+    current = hops[-1][1]
+    _cite(package, {"files": {"NOTES.md": current}})       # corrected
+    _supersede(package, "NOTES.md", {
+        "current": current,
+        "superseded_by": f"{hops[0][0]} (second)",
+        "reason": "corrected under ATH-3444; prior value retained",
+        "prior_sha256": cited,
+        "hops": [{"commit": c, "resulting_sha256": h} for c, h in hops],
+    })
+    assert _citation_problems(tmp_path) == []
+
+
+def test_a_settled_correction_with_a_broken_chain_still_reds(tmp_path: Path) -> None:
+    """NARROWNESS companion: accepting the settled shape must not become a way
+    to launder a fictional lineage. Drop the first real transition and the
+    contiguity check must still bite."""
+    package, cited, hops = _git_repo_with_history(tmp_path)
+    current = hops[-1][1]
+    _cite(package, {"files": {"NOTES.md": current}})
+    _supersede(package, "NOTES.md", {
+        "current": current,
+        "superseded_by": f"{hops[-1][0]} (third)",
+        "reason": "compressed to the latest transition",
+        "prior_sha256": cited,
+        "hops": [{"commit": hops[-1][0], "resulting_sha256": hops[-1][1]}],
+    })
+    problems = _citation_problems(tmp_path)
+    assert any("a transition is missing" in p for p in problems), problems
 
 
 def test_the_original_hash_remains_the_primary_value(tmp_path: Path) -> None:
@@ -1203,3 +1268,38 @@ def test_an_unlabelled_abbreviated_token_claims_nothing(tmp_path: Path) -> None:
     package = _write_package(tmp_path)
     _receipt(package, {"summary": "the value deadbeef01 appears in the log"})
     assert _citation_problems(tmp_path) == []
+
+
+def test_an_absent_default_baseline_is_a_state_not_a_tool_error(tmp_path: Path) -> None:
+    """ABSENCE HAS TWO CAUSES HERE AND THEY ARE OPPOSITE VERDICTS (ATH-3444 PR B).
+
+    The baseline is deleted when its last entry is corrected — the documented
+    terminal state. Treating the DEFAULT path's absence as a tool error made
+    FINISHING THE JOB red CI with "NO VERDICT", so the fix could never land
+    green. An explicitly-named missing file is still rc 2: the operator asked
+    for something that is not there.
+    """
+    package = _write_package(tmp_path)
+    (package / "NOTES.md").write_text("stable\n", encoding="utf-8")
+    _cite(package, {"files": {"NOTES.md": _sha(package / "NOTES.md")}})
+    missing = tmp_path / "no_such_baseline.json"
+    verify_public_receipts.BASELINE_PATH = missing
+    assert verify_public_receipts.main(["--artifact-root", str(tmp_path)]) == 0
+    assert verify_public_receipts.main(
+        ["--artifact-root", str(tmp_path), "--baseline", str(missing)]) == 2
+
+
+def test_an_absent_baseline_makes_a_stale_citation_LOUDER_not_quieter(tmp_path: Path) -> None:
+    """The safety argument for the branch above, executed rather than asserted.
+
+    If the baseline is deleted while a stale citation remains, that citation
+    must red as unbaselined (rc 1) — not be swallowed by a tool error. Relaxing
+    the tool-error branch is only defensible because it fails closed in the
+    LOUD direction.
+    """
+    package = _write_package(tmp_path)
+    (package / "NOTES.md").write_text("changed\n", encoding="utf-8")
+    _cite(package, {"files": {"NOTES.md": "a" * 64}})
+    verify_public_receipts.BASELINE_PATH = tmp_path / "no_such_baseline.json"
+    assert verify_public_receipts.main(
+        ["--artifact-root", str(tmp_path)]) == 1

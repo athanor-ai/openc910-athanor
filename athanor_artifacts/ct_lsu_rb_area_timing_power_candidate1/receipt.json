@@ -23,7 +23,7 @@
   },
   "files": {
     ".gitattributes": "dd189159ababdd3a2f5c2a0a7106f4a0bffd179e55e9db36e1476121f0bb8e7c",
-    "README.md": "e3c364ad5b94cc738d7210eb8377fec992523f5f02cd82e1cad97e64f38686c3",
+    "README.md": "aa842aa9c2c7e8340531a3b064aaa165b4da6b854f1eba696dd3f8c6e7273b28",
     "cpu_cfig.h": "59a0804ea10d96c26569ee3f056b62e385cf39110efad7e5c57199e1f1637199",
     "gated_clk_cell.v": "1f65b2bff98249643b5ceeea651dc2aae43f92092554c69467e48dfa26d103da",
     "ct_rtu_encode_8.v": "af9b9aa4571cf5c784a351f135fc49de6031940a6003ede2920e20bf793202f2",
@@ -47,8 +47,41 @@
     "gold_opensta_area_timing_power.pinned.log": "b7b47541411c847915a864c9f108e93b8933147a644e5e99132630331d25eb07",
     "gate_opensta_area_timing_power.pinned.log": "54c3d654acee9303bef8a06e0554dd14c19981ba7b23a89693e51e3d48f55419",
     "metric_negative_opensta_area_timing_power.pinned.log": "58d9a7dcc83b1084982cfdb84c941fbdca99fd1f9175ba2085bd076500cea07c",
-    "same_candidate_binding_receipt.json": "19ec12a19383b09994da326aca1f427676ac0d953eeb98661b7af05818f0cca0",
+    "same_candidate_binding_receipt.json": "a285b6e9bcde8d9e41d554cf4498b5de076247c3b13165a81b076c98cc0e3044",
     "replay.sh": "c8c03ca6ea73e83ddd1e56047d4b9424c7de2671f781366702607314d9ef5596"
+  },
+  "files_supersession": {
+    "README.md": {
+      "current": "aa842aa9c2c7e8340531a3b064aaa165b4da6b854f1eba696dd3f8c6e7273b28",
+      "superseded_by": "d81ce5f0b507a5c24bfe9a6b9f9fb859b7b9bfe1 (\"docs: record RB mixed replay receipt (#45)\")",
+      "reason": "The cited hash was correct when this receipt was published. The file was later changed by the commit(s) recorded in `hops`, and no check existed at the time requiring an edit to a manifest-bound artifact to chase the citations to it (ATH-3444; that check is now the inline citation validator). The prior hash is retained here so evidence a customer verified earlier remains traceable to the current content.",
+      "prior_sha256": "e3c364ad5b94cc738d7210eb8377fec992523f5f02cd82e1cad97e64f38686c3",
+      "hops": [
+        {
+          "commit": "d81ce5f0b507a5c24bfe9a6b9f9fb859b7b9bfe1",
+          "resulting_sha256": "1aa7e730f228a84e3ca55208ef5fd9e565b4409c9bb789bb4f7711ac70380a26",
+          "subject": "docs: record RB mixed replay receipt (#45)"
+        },
+        {
+          "commit": "0743b515b19ef41f8015d9cbea383d1854b38e74",
+          "resulting_sha256": "aa842aa9c2c7e8340531a3b064aaa165b4da6b854f1eba696dd3f8c6e7273b28",
+          "subject": "docs(ATH-3010): one-command replay is the first README path in every package (AC3) (#54)"
+        }
+      ]
+    },
+    "same_candidate_binding_receipt.json": {
+      "current": "a285b6e9bcde8d9e41d554cf4498b5de076247c3b13165a81b076c98cc0e3044",
+      "superseded_by": "d81ce5f0b507a5c24bfe9a6b9f9fb859b7b9bfe1 (\"docs: record RB mixed replay receipt (#45)\")",
+      "reason": "The cited hash was correct when this receipt was published. The file was later changed by the commit(s) recorded in `hops`, and no check existed at the time requiring an edit to a manifest-bound artifact to chase the citations to it (ATH-3444; that check is now the inline citation validator). The prior hash is retained here so evidence a customer verified earlier remains traceable to the current content.",
+      "prior_sha256": "19ec12a19383b09994da326aca1f427676ac0d953eeb98661b7af05818f0cca0",
+      "hops": [
+        {
+          "commit": "d81ce5f0b507a5c24bfe9a6b9f9fb859b7b9bfe1",
+          "resulting_sha256": "a285b6e9bcde8d9e41d554cf4498b5de076247c3b13165a81b076c98cc0e3044",
+          "subject": "docs: record RB mixed replay receipt (#45)"
+        }
+      ]
+    }
   },
   "metrics": {
     "area": {

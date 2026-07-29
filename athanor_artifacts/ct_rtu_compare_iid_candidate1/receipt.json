@@ -27,7 +27,7 @@
   },
   "files": {
     ".gitattributes": "a79691a93b46e49ce460c26ef22afcc03d6eca1e63bf2edbc20e96159510f6c9",
-    "README.md": "6cedbe20b8ceef32e6f8d7d56b84e3a90d0847f67b007dea21b066e281626c95",
+    "README.md": "64402cb3f76ed5b6081e19d8323b007b536d7619cd48d12c1f530e5cbfb360ed",
     "ct_lsu_pfu_sdb_cmp.v": "84ae51193cc185e0a0cc556ea0ec16e526bdbeba470103beedc20608411d3aae",
     "ct_lsu_pfu_sdb_cmp_gate.mapped.v": "94f92c27e4812e3fb1b13c78c832c1e1843853fc1cd789240ca01b7ce9d6ebc1",
     "ct_lsu_pfu_sdb_cmp_gold.mapped.v": "7269eddd214e906623921026d340673dd3bd9db2d5fc54769cc7108a9d206538",
@@ -66,6 +66,21 @@
     "spec_fail_predict_gold_opensta_area_timing_power.pinned.log": "e7bff666e5d6eafcc4bc50c0ff38f7a01f45faf52767f29cfd8dc01013a7e2c5",
     "spec_fail_predict_metric_negative_map.pinned.log": "51ed04f019523e301b409750a73215e0e5f80eddac2ed69e167a76e1c9e130d5",
     "spec_fail_predict_metric_negative_opensta_area_timing_power.pinned.log": "e6cd398ff16fcf99d67505ace7a86998434e29f0e1fce991dc8702e2e28262a2"
+  },
+  "files_supersession": {
+    "README.md": {
+      "current": "64402cb3f76ed5b6081e19d8323b007b536d7619cd48d12c1f530e5cbfb360ed",
+      "superseded_by": "0743b515b19ef41f8015d9cbea383d1854b38e74 (\"docs(ATH-3010): one-command replay is the first README path in every package (AC3) (#54)\")",
+      "reason": "The cited hash was correct when this receipt was published. The file was later changed by the commit(s) recorded in `hops`, and no check existed at the time requiring an edit to a manifest-bound artifact to chase the citations to it (ATH-3444; that check is now the inline citation validator). The prior hash is retained here so evidence a customer verified earlier remains traceable to the current content.",
+      "prior_sha256": "6cedbe20b8ceef32e6f8d7d56b84e3a90d0847f67b007dea21b066e281626c95",
+      "hops": [
+        {
+          "commit": "0743b515b19ef41f8015d9cbea383d1854b38e74",
+          "resulting_sha256": "64402cb3f76ed5b6081e19d8323b007b536d7619cd48d12c1f530e5cbfb360ed",
+          "subject": "docs(ATH-3010): one-command replay is the first README path in every package (AC3) (#54)"
+        }
+      ]
+    }
   },
   "metrics": {
     "helper_area": {

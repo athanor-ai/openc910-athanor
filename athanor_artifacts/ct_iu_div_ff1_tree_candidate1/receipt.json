@@ -25,7 +25,7 @@
   },
   "files": {
     ".gitattributes": "adbd91eaf1b45906c67ae9734ee292eb4365b2a5b5d7183d401630ee45ea6f7a",
-    "README.md": "8943655f21568031a28b5b413205e0e38da6b5cae00b4f9995b99e8e32f3536e",
+    "README.md": "dccd480445a6e7fb6d8e33caba498689e1472537e21a2a15ed29123619ce07a5",
     "cpu_cfig.h": "f95edd68a9a93f0214ec0f2d1c09e03c4c6efbb2d43c5997a4c99ef14dcc097e",
     "ct_iu_div_entry.v": "cc70fc5f572f4b229dc19d7e43937f3cd85e4cdab9192ade725e58a13a4cf569",
     "ct_iu_div_gate_candidate.mapped.v": "18768bfcaf48275a9e124fa3c0959247fc9ad56d52b642a4691ac633faaff944",
@@ -48,7 +48,40 @@
     "proof_mutant_negative.pinned.log": "ea83e435daeb95cd81d6c8a0e5fcae7490a7d30377b34290abfb1de6028f6cf5",
     "replay.sh": "8229715bfdc04333b209384635f3a07bde6d31f950fc09ff4a4a14b2abfc142e",
     "same_state_equiv_seq8.pinned.log": "f7cbd28af6da38782fc421d98bed9636e10c524bad00dc9439f89ab7e8fc73ce",
-    "same_candidate_binding_receipt.json": "53724ca5200a7f8f2d482615daf126573dde0c4a8f439be254580f3270f74f20"
+    "same_candidate_binding_receipt.json": "f5ba243c89ecb0a3fb68dbf04fdc31bb78a06aeca4e25c421ff56318680acbea"
+  },
+  "files_supersession": {
+    "README.md": {
+      "current": "dccd480445a6e7fb6d8e33caba498689e1472537e21a2a15ed29123619ce07a5",
+      "superseded_by": "0932dfd50c6d260db9c359b2a439bff7b319ae49 (\"ATH-3180: reword legacy customer_ready=true rows to current-bar vocabulary (accumulating) (#74)\")",
+      "reason": "The cited hash was correct when this receipt was published. The file was later changed by the commit(s) recorded in `hops`, and no check existed at the time requiring an edit to a manifest-bound artifact to chase the citations to it (ATH-3444; that check is now the inline citation validator). The prior hash is retained here so evidence a customer verified earlier remains traceable to the current content.",
+      "prior_sha256": "8943655f21568031a28b5b413205e0e38da6b5cae00b4f9995b99e8e32f3536e",
+      "hops": [
+        {
+          "commit": "0932dfd50c6d260db9c359b2a439bff7b319ae49",
+          "resulting_sha256": "dccd480445a6e7fb6d8e33caba498689e1472537e21a2a15ed29123619ce07a5",
+          "subject": "ATH-3180: reword legacy customer_ready=true rows to current-bar vocabulary (accumulating) (#74)"
+        }
+      ]
+    },
+    "same_candidate_binding_receipt.json": {
+      "current": "f5ba243c89ecb0a3fb68dbf04fdc31bb78a06aeca4e25c421ff56318680acbea",
+      "superseded_by": "0932dfd50c6d260db9c359b2a439bff7b319ae49 (\"ATH-3180: reword legacy customer_ready=true rows to current-bar vocabulary (accumulating) (#74)\")",
+      "reason": "The cited hash was correct when this receipt was published. The file was later changed by the commit(s) recorded in `hops`, and no check existed at the time requiring an edit to a manifest-bound artifact to chase the citations to it (ATH-3444; that check is now the inline citation validator). The prior hash is retained here so evidence a customer verified earlier remains traceable to the current content.",
+      "prior_sha256": "53724ca5200a7f8f2d482615daf126573dde0c4a8f439be254580f3270f74f20",
+      "hops": [
+        {
+          "commit": "0932dfd50c6d260db9c359b2a439bff7b319ae49",
+          "resulting_sha256": "62a59b5248e3f6018a36ac6d9e5f1c2f47ca224ba83a2930fcc5b9a2429cba91",
+          "subject": "ATH-3180: reword legacy customer_ready=true rows to current-bar vocabulary (accumulating) (#74)"
+        },
+        {
+          "commit": "35bb0a7aaa2e256b5ee061fc0f4e40045957a8f3",
+          "resulting_sha256": "f5ba243c89ecb0a3fb68dbf04fdc31bb78a06aeca4e25c421ff56318680acbea",
+          "subject": "feat(ATH-3397): narrow scrub-safety check - no pre-scrub hash survives (#82)"
+        }
+      ]
+    }
   },
   "metrics": {
     "area": {
